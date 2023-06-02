@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/eclipse,java,windows,git
-# Edit at https://www.toptal.com/developers/gitignore?templates=eclipse,java,windows,git
+# Created by https://www.toptal.com/developers/gitignore/api/git,java,eclipse,windows,maven
+# Edit at https://www.toptal.com/developers/gitignore?templates=git,java,eclipse,windows,maven
 
 ### Eclipse ###
 .metadata
@@ -13,8 +13,6 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-.classpath
-.project
 build/
 
 # External tool builders
@@ -111,6 +109,25 @@ build/
 hs_err_pid*
 replay_pid*
 
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse m2e generated files
+# Eclipse Core
+.project
+# JDT-specific (Eclipse Java Development Tools)
+.classpath
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -137,4 +154,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/eclipse,java,windows,git
+# End of https://www.toptal.com/developers/gitignore/api/git,java,eclipse,windows,maven
