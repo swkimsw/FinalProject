@@ -9,6 +9,6 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
-	김승우 git test 중
+	조유진
 </body>
 </html>
