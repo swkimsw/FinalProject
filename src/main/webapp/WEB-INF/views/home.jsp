@@ -17,7 +17,7 @@
 		</c:import>
 	</header>
 	<main>
-		gaeun test
+
 	</main>
 </body>
 </html>
