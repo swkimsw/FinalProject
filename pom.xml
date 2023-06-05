@@ -168,12 +168,10 @@
 			<artifactId>spring-webflux</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/io.projectreactor.netty/reactor-netty -->
-		<!-- 현재 날짜에 따라 가장 최신의 안정화된 버전을 사용해주세요 -->
 		<dependency>
 			<groupId>io.projectreactor.netty</groupId>
 			<artifactId>reactor-netty</artifactId>
-			<version>1.1.7</version>
+			<version>1.1.7</version><!-- 현재 날짜에 따라 가장 최신의 안정화된 버전을 사용해주세요 -->
 		</dependency>
 
 	</dependencies>
