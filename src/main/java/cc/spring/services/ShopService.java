@@ -1,5 +1,15 @@
 package cc.spring.services;
 
-public class ShopService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import cc.spring.repositories.ShopDAO;
+
+@Service
+public class ShopService {
+	
+	@Autowired
+	private ShopDAO shopDAO;
+	
+	
 }
