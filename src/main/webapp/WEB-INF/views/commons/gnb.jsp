@@ -161,7 +161,7 @@
 								<li><a href="/meal/list"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 식단 리스트</a></li>
-								<li><a href="/meal/cart"
+								<li><a href="/meal/basket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 장바구니</a></li>
 							</ul>
