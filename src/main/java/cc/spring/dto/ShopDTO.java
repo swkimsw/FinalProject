@@ -20,6 +20,23 @@ public class ShopDTO {
 	private Timestamp delDate;
 	
 	public ShopDTO() {}
+	public ShopDTO(int code, int businessCode, int statusCode, Timestamp deadLine,int max, int min, String title, 
+			String detail, String productName, String productPrice, int boardKindCode, Timestamp regDate, Timestamp modDate, Timestamp delDate) {
+		this.code = code;
+		this.businessCode = businessCode;
+		this.statusCode = statusCode;
+		this.deadLine = deadLine;
+		this.max = max;
+		this.min = min;
+		this.title = title;
+		this.detail = detail;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.boardKindCode = boardKindCode;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
+	}
 
 	
 	public int getCode() {
