@@ -74,7 +74,7 @@ build/
 *.orig
 
 ### API KEY ###
-resources/key/CGPK.properties 
+*/CGPK.properties 
 
 # Created by git when using merge tools for conflicts
 *.BACKUP.*
