@@ -2,7 +2,7 @@ package cc.spring.dto;
 
 import java.sql.Timestamp;
 
-public class BusinessMember {
+public class BusinessMemberDTO {
 	private int code;
 	private String businessId;
 	private String pw;
@@ -20,10 +20,10 @@ public class BusinessMember {
 	private Timestamp delDate;
 	
 	
-	public BusinessMember() {
+	public BusinessMemberDTO() {
 
 	}
-	public BusinessMember(int code, String businessId, String pw, String name, String companyName, String birthDate,
+	public BusinessMemberDTO(int code, String businessId, String pw, String name, String companyName, String birthDate,
 			String phone, String eMail, String zipcode, String address1, String address2, int authGradeCode,
 			Timestamp regDate, Timestamp modDate, Timestamp delDate) {
 		this.code = code;
