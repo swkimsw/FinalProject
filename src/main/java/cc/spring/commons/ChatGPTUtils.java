@@ -1,11 +1,7 @@
 package cc.spring.commons;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Value;
-=======
 import java.time.LocalDate;
-
->>>>>>> f80722333c6e769e23977b2deb637ed244e2779f
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
