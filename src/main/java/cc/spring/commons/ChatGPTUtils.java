@@ -1,5 +1,6 @@
 package cc.spring.commons;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,10 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/chat/")
 public class ChatGPTUtils {
 	
+	@Value("${CHATGPT-KEY}")
+	private String chatGptApiKey;
+	
+	
 	@RequestMapping("toChat")
 	public String toChat() {
 		return "meal/chatTest";
@@ -21,7 +26,8 @@ public class ChatGPTUtils {
 	@ResponseBody
 	@RequestMapping("sendMsg")
 	public String sendMsg(String sendMsg){
-		String apiKey = "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"; // API 키로 변경해야 합니다. 
+
+		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다. 
         String prompt = "식단 삼일치의 날짜를 포함한 JSON 데이터를 만들어주세요."; // 적절한 프롬프트로 변경해야 합니다.
 
         WebClient webClient = WebClient.builder()
