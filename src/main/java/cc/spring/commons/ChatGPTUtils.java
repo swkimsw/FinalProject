@@ -1,21 +1,17 @@
 package cc.spring.commons;
 
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import cc.spring.dto.ChatDTO;
-
-
-@Component
+import reactor.core.publisher.Mono;
 @RequestMapping("/chat/")
 public class ChatGPTUtils {
 	
 	@RequestMapping("sendMsg")
-	public Mono<string> sendMsg(ChatDTO dto){
+	public Mono<String> sendMsg(ChatDTO dto){
 		String apiKey = "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"; // API 키로 변경해야 합니다.
         String prompt = "다이어트 식단 하루치를 json데이터로 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
 
