@@ -19,7 +19,7 @@ public class ChatGPTUtils {
 	
 	@RequestMapping("sendMsg")
 	public Mono<String> sendMsg(String sendMsg){
-		String apiKey = "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"; // API 키로 변경해야 합니다. 
+		String apiKey = "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"; // API 키로 변경해야 합니다. 
         String prompt = "다이어트 식단 하루치를 json데이터로 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
 
         WebClient webClient = WebClient.builder()
