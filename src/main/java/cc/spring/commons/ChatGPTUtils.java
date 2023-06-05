@@ -1,6 +1,11 @@
 package cc.spring.commons;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Value;
+=======
+import java.time.LocalDate;
+
+>>>>>>> f80722333c6e769e23977b2deb637ed244e2779f
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +46,7 @@ public class ChatGPTUtils {
                 .uri("/v1/chat/completions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(
-                        "{\"model\":\"gpt-3.5-turbo\", \"messages\":[" + messageJson + "], \"max_tokens\":500, \"temperature\":0.7}"
+                        "{\"model\":\"gpt-3.5-turbo\", \"messages\":[" + messageJson + "], \"max_tokens\":500, \"temperature\":0.2}"
                 ))
                 .retrieve()
                 .bodyToMono(String.class)
