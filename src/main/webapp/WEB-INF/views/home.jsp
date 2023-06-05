@@ -7,9 +7,17 @@
 <meta charset="UTF-8">
 <title>메인페이지</title>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<!-- gbn css -->
+<link href="resources/css/gnb.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	김승우 git test 중
-	조유진
+	<header>
+		<c:import url="commons/gnb.jsp">
+		</c:import>
+	</header>
+	<main>
+		gaeun test
+	</main>
 </body>
 </html>
