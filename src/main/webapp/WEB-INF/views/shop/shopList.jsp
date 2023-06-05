@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,13 +20,19 @@
 <!-- Font 기본 : {font-family: 'NanumSquareNeoBold'}-->
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 <!-- gbn css -->
-<link href="resources/css/gnb.css" rel="stylesheet" type="text/css">
+<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css"> 
 <style>
 *{font-family:NanumSquareNeoBold;}
 .container{margin-top:100px;}
 </style>
 </head>
 <body>
+	<!-- gnb -->
+	<c:import url="commons/gnb.jsp">
+	</c:import>
+
+
+
 
 </body>
 </html>
