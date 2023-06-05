@@ -3,6 +3,7 @@ package cc.spring.commons;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -17,10 +18,11 @@ public class ChatGPTUtils {
 		return "meal/chatTest";
 	}
 	
+	@ResponseBody
 	@RequestMapping("sendMsg")
-	public Mono<String> sendMsg(String sendMsg){
-		String apiKey = "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"; // API 키로 변경해야 합니다. 
-        String prompt = "다이어트 식단 하루치를 json데이터로 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
+	public String sendMsg(String sendMsg){
+		String apiKey = "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"; // API 키로 변경해야 합니다. 
+        String prompt = "식단 삼일치의 날짜를 포함한 JSON 데이터를 만들어주세요."; // 적절한 프롬프트로 변경해야 합니다.
 
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://api.openai.com")
@@ -29,16 +31,18 @@ public class ChatGPTUtils {
 
         String messageJson = String.format("{\"role\":\"user\", \"content\":\"%s\"}", prompt);
 
-        Mono<String> response = webClient.post()
+        String response = webClient.post()
                 .uri("/v1/chat/completions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(
-                        "{\"model\":\"gpt-3.5-turbo\", \"messages\":[" + messageJson + "], \"max_tokens\":500, \"temperature\":0.2}"
+                        "{\"model\":\"gpt-3.5-turbo\", \"messages\":[" + messageJson + "], \"max_tokens\":500, \"temperature\":0.7}"
                 ))
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(String.class)
+                .block();
 
-        response.subscribe(System.out::println);
+       // response.subscribe(System.out::println);
+        System.out.println(response);
 		return response;
 	}
 	
