@@ -155,12 +155,15 @@
 							aria-expanded="false">식단 카테고리</button>
 						<div class="collapse" id="meal-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li class="login"><a href="/chat/toChat"
-									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 등록
-										하러가기</a></li>
-								<li><a href="#"
+								<li class="login"><a href="#"
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 추천
+										받기</a></li>
+								<li><a href="/meal/list"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 식단 리스트</a></li>
+								<li><a href="/meal/cart"
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+										내 장바구니</a></li>
 							</ul>
 						</div></li>
 					<!-- 구분선 -->
