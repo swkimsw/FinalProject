@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +36,15 @@
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- gbn css -->
-<link href="resources/css/gnb.css" rel="stylesheet" type="text/css">
+<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+<style>
+	*{
+		font-family:NanumSquareNeoBold;
+	}
+	.container{
+		margin-top:100px;
+	}
+</style>
 </head>
 <body>
 	<!-- gnb -->
