@@ -151,9 +151,9 @@
 					<li class="mb-1 nav-menu"><i class="bi bi-people-fill"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-							data-bs-toggle="collapse" data-bs-target="#orders-collapse"
+							data-bs-toggle="collapse" data-bs-target="#meal-collapse"
 							aria-expanded="false">식단 카테고리</button>
-						<div class="collapse" id="orders-collapse">
+						<div class="collapse" id="meal-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 								<li class="login"><a href="/chat/toChat"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 등록
