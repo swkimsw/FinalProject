@@ -1,4 +1,4 @@
-package kh.spring.controllers;
+package cc.spring.controllers;
 
 import java.text.DateFormat;
 import java.util.Date;

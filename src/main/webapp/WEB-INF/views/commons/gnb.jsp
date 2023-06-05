@@ -155,7 +155,7 @@
 							aria-expanded="false">식단 카테고리</button>
 						<div class="collapse" id="orders-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li class="login"><a href="#"
+								<li class="login"><a href="/chat/toChat"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 등록
 										하러가기</a></li>
 								<li><a href="#"
