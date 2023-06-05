@@ -21,8 +21,13 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="kh.spring.controllers" />
+	<context:component-scan base-package="cc.spring" />
 	
-	
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="cc.spring.interceptors.ProcessSpeedChecker"></beans:bean>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>
