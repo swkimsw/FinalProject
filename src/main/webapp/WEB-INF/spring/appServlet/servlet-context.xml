@@ -38,6 +38,6 @@
 
 	<!-- API key -->
 	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <beans:property name="locations" value="classpath:/CGPK.properties" />
+    <beans:property name="locations" value="classpath:/key/CGPK.properties" />
 </beans:bean>
 </beans:beans>

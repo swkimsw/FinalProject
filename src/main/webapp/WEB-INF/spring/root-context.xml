@@ -25,9 +25,9 @@
 	
 	<context:component-scan base-package="cc.spring" />	
 	
-		<!-- API key -->
+	<!-- API key -->
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:/CGPK.properties" />
+		<property name="locations" value="classpath:/key/CGPK.properties" />
 	</bean>
 </beans>
