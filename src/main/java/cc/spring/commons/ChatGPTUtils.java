@@ -1,14 +1,21 @@
 package cc.spring.commons;
 
 import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import cc.spring.dto.ChatDTO;
 import reactor.core.publisher.Mono;
+@Controller
 @RequestMapping("/chat/")
 public class ChatGPTUtils {
+	
+	@RequestMapping("toChat")
+	public String toChat() {
+		return "meal/chatTest";
+	}
 	
 	@RequestMapping("sendMsg")
 	public Mono<String> sendMsg(ChatDTO dto){
