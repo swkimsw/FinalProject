@@ -57,7 +57,7 @@
 		<input type="text" name="sendMsg" id="sendMsg"
 			placeholder="아침, 점심, 저녁중 하나만 입력해주세요" style="width: 300px;">
 		<button id="sendBtn">보내기</button>
-		<div id="getMsg"></div>
+		<div id="getMsg">test입니다</div>
 	</div>
 
 </body>
