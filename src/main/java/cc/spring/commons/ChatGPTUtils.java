@@ -27,7 +27,7 @@ public class ChatGPTUtils {
 	@RequestMapping("sendMsg")
 	public String sendMsg(String sendMsg){
 		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다. 
-        String prompt = "식단 삼일치의 날짜를 포함한 JSON 데이터를 만들어주세요."; // 적절한 프롬프트로 변경해야 합니다.
+        String prompt = "2023년 06월 05일 부터 식단 하루치를 json데이터 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
 
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://api.openai.com")
