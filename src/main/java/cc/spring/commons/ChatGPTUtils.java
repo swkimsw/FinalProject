@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import cc.spring.dto.ChatDTO;
 import reactor.core.publisher.Mono;
+
+
 @Controller
 @RequestMapping("/chat/")
 public class ChatGPTUtils {
@@ -18,8 +18,8 @@ public class ChatGPTUtils {
 	}
 	
 	@RequestMapping("sendMsg")
-	public Mono<String> sendMsg(ChatDTO dto){
-		String apiKey = "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"; // API 키로 변경해야 합니다.
+	public Mono<String> sendMsg(String sendMsg){
+		String apiKey = "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"; // API 키로 변경해야 합니다. 
         String prompt = "다이어트 식단 하루치를 json데이터로 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
 
         WebClient webClient = WebClient.builder()
