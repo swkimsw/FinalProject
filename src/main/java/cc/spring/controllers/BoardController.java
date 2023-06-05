@@ -13,6 +13,6 @@ public class BoardController {
 
 	@RequestMapping("list")
 	public String home() {
-		return "/board/boardFree/";
+		return "/board/boardFree";
 	}
 }
