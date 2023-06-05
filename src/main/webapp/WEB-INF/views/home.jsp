@@ -69,7 +69,7 @@
 				sendMsg:$("#sendMsg").val()
 			}
 		}).done(function(resp){
-			colnsole.log(resp);
+			console.log(resp);
 			let arr = JSON.parse(resp.arr);
 			console.log(arr);
 		});
