@@ -63,6 +63,7 @@
 	$("#sendBtn").on("click", function(){
 		$.ajax({
 			url:"/chat/sendMsg",
+			type:"post",
 			data:{
 				sendMsg:$("#sendMsg").val()
 			}
