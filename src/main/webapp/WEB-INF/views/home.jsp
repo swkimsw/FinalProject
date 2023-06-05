@@ -47,6 +47,7 @@
 </style>
 </head>
 <body>
+
 	<!-- gnb -->
 	<c:import url="commons/gnb.jsp">
 	</c:import>
@@ -58,6 +59,7 @@
 		<button id="sendBtn">보내기</button>
 		<div id="getMsg"></div>
 	</div>
+
 </body>
 <script type="text/javascript">
 	$("#sendBtn").on("click", function(){
