@@ -84,7 +84,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a class="btn btn-outline-primary" role="button" href="#">로그인
+						<a class="btn btn-outline-primary" role="button" href="/clientMember/login_form">로그인
 							하러 가기</a>
 					</c:otherwise>
 				</c:choose>
