@@ -23,7 +23,7 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css"> 
 <style>
 *{font-family:NanumSquareNeoBold;}
-.container{margin-top:100px;}
+.container{margin-top:100px; border:1px solid black;}
 </style>
 </head>
 <body>
@@ -31,6 +31,12 @@
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 
+	<div class="container">
+		<div class="" >
+		
+		</div>
+		
+	</div>
 
 
 
