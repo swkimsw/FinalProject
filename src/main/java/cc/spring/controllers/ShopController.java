@@ -23,4 +23,11 @@ public class ShopController {
 		return "/shop/shopList";
 	}
 	
+	@RequestMapping("insertShop")
+	public String insertShop() {
+		
+		
+		return "/shop/shopList";
+	}
+	
 }
