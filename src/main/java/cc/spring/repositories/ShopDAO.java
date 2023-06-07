@@ -4,12 +4,17 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cc.spring.dto.ShopDTO;
+
 @Repository
 public class ShopDAO {
 	
 	@Autowired
 	private SqlSessionTemplate db;
 	
-	
+	public int insertShop(ShopDTO dto) {
+		return db.insert("insertShop", dto);
+	}
+
 
 }

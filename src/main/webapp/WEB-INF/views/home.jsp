@@ -71,8 +71,7 @@
 			}
 		}).done(function(resp){
 			console.log(resp);
-			let arr = JSON.parse(resp.arr);
-			console.log(arr);
+			$("#getMsg").text(resp);
 		});
 	});
 </script>
