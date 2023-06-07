@@ -268,7 +268,7 @@ html, body {
                      <button type="button" class="btn-close" id="btn_to_back"
                         aria-label="Close" onclick="location.href='/';"></button>
                   </div>
-                  <form action="/login.member" method="post" id="form_login">
+                  <form action="/clientMember/login" method="post" id="form_login">
                      <div class="form-group mb-4">
                         <label class="control-label font-weight-bold font-size-7pt">아이디</label>
                         <span>*</span>
@@ -296,7 +296,7 @@ html, body {
                   </form>
               
                   <div class="form-group join_form">
-                     아직 계정이 없으신가요? <a href="/member/join_form.jsp" class="btnJoin">가입하기</a>
+                     아직 계정이 없으신가요? <a href="/clientMember/sign_form" class="btnJoin">가입하기</a>
                   </div>
                </div>
                <!-- 로그인창 2 미디어 사이즈 xs이하면 사라짐 -->
@@ -708,7 +708,7 @@ html, body {
                });
             });
             // 아이디/비밀번호 확인
-            $($(".site_login")[0]).on("click", function (evt) {
+            /* $($(".site_login")[0]).on("click", function (evt) {
                evt.preventDefault();
                $.ajax({
                   url: "/login_chk.member",
@@ -726,7 +726,7 @@ html, body {
                      $("#form_login").submit();
                   }
                });
-            });
+            }); */
             // 아이디/비밀번호 찾기 버튼
             $("#btn_forget_pwd").on("click", function () {
                $("#login_view_fadeOut").hide();
