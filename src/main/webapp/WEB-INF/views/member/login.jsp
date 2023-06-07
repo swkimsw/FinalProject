@@ -708,7 +708,7 @@ html, body {
                });
             });
             // 아이디/비밀번호 확인
-            $($(".site_login")[0]).on("click", function (evt) {
+            /* $($(".site_login")[0]).on("click", function (evt) {
                evt.preventDefault();
                $.ajax({
                   url: "/login_chk.member",
@@ -726,7 +726,7 @@ html, body {
                      $("#form_login").submit();
                   }
                });
-            });
+            }); */
             // 아이디/비밀번호 찾기 버튼
             $("#btn_forget_pwd").on("click", function () {
                $("#login_view_fadeOut").hide();
