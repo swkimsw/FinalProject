@@ -37,6 +37,8 @@ public class ClientMemberController {
 		return "error";
 	}
 	
+
+	
 	@RequestMapping("sign") 
 	public String sign() throws Exception {
 		return "member/clientSignup";
