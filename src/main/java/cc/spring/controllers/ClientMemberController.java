@@ -38,7 +38,7 @@ public class ClientMemberController {
 		if(result) {
 			session.setAttribute("loginID",dto.getId());
 			System.out.println("로그인 실행!");
-			return "/";
+			return "home";
 		}
 		System.out.println("로그인 실패!!");
 		return "error";
@@ -53,8 +53,9 @@ public class ClientMemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-	public boolean checkId(String key, String value) {
-		boolean result = cms.isClientMember(value);
+	public boolean checkId(String id) {
+		System.out.println(id);
+		boolean result = cms.isClientMember(id);
 		return result;
 	}
 	
