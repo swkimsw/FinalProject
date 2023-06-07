@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.spring.dto.ClientMemberDTO;
-import cc.spring.repositories.ClientMemberDAO;
 import cc.spring.services.ClientMemberService;
 
 @Controller
@@ -17,8 +16,7 @@ import cc.spring.services.ClientMemberService;
 public class ClientMemberController {
 	@Autowired
 	private HttpSession session;
-	@Autowired
-	private ClientMemberDAO dao;
+	
 	@Autowired
 	private ClientMemberService cms;
 	
@@ -33,13 +31,14 @@ public class ClientMemberController {
 	}
 	//클라이언트 로그인
 	@RequestMapping("login")
-	public String login(String id,String pw) {
-		ClientMemberDTO result = cms.login(dto);
+	public String login(ClientMemberDTO dto) {
+		System.out.println(dto);
+		boolean result = cms.login(dto);
 		System.out.println(result);
-		if(result!=null) {
+		if(result) {
 			session.setAttribute("loginID",dto.getId());
 			System.out.println("로그인 실행!");
-			return "/";
+			return "home";
 		}
 		System.out.println("로그인 실패!!");
 		return "error";
