@@ -24,6 +24,10 @@ public class ClientMemberController {
 	public String login_form() {
 		return "member/login";
 	}
+	@RequestMapping("sign_form")
+	public String sign_form() {
+		return "member/sign";
+	}
 	//클라이언트 로그인
 	@RequestMapping("login")
 	public String login(ClientMemberDTO dto) {
@@ -31,7 +35,7 @@ public class ClientMemberController {
 		if(result!=null) {
 			session.setAttribute("loginID",dto.getId());
 			System.out.println("로그인 실행!");
-			return "redirect:/";
+			return "/";
 		}
 		System.out.println("로그인 실패!!");
 		return "error";
