@@ -53,8 +53,7 @@ public class ClientMemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-	public String checkId(String value) {
-		System.out.println(value);
+	public String checkId(String value) throws Exception {
 		boolean result = cms.isClientMember(value);
 		return String.valueOf(result);
 	}
