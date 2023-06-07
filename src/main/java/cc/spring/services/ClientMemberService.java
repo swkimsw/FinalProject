@@ -7,13 +7,17 @@ import cc.spring.dto.ClientMemberDTO;
 import cc.spring.repositories.ClientMemberDAO;
 
 @Service
-public class MemberService {
-	
+
+public class ClientMemberService {
 	@Autowired
 	private ClientMemberDAO CDAO;
 	
-public boolean login(ClientMemberDTO dto){
-	System.out.println("여기는 서비스 123123");
-	return CDAO.login(dto);
-}
+	public boolean login(ClientMemberDTO dto){
+		System.out.println("123123");
+		return CDAO.login(dto);
+	}
+	
+	public boolean isClientMember(String id) {
+		return CDAO.isClientMember(id);
+	}
 }
