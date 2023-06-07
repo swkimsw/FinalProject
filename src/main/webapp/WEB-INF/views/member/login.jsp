@@ -470,7 +470,7 @@ html, body {
                      <button type="button" class="btn-close" id="btn_to_back"
                         aria-label="Close" onclick="location.href='/';"></button>
                   </div>
-                  <form action="/login.member" method="post" id="form_login">
+                  <form action="/businessMember/login" method="post" id="form_login">
                      <div class="form-group mb-4">
                         <label class="control-label font-weight-bold font-size-7pt">사업자 등록 번호</label>
                         <span>*</span>
@@ -479,7 +479,7 @@ html, body {
                               id="save_id"> <label class="form-check-label"
                               for="save_id" style="font-size: x-small;">사업자 등록 번호 저장</label>
                         </div>
-                        <input type="text" class="form-control" id="id" name="business_id"
+                        <input type="text" class="form-control" id="id" name="businessId"
                           required />
                         
                      </div>
