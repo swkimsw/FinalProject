@@ -1,11 +1,7 @@
 package cc.spring.commons;
 
-import java.time.LocalDate;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,7 +9,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
+
+import cc.spring.dto.ChatDTO;
 
 
 @Controller
@@ -55,8 +52,13 @@ public class ChatGPTUtils {
         
        // response.subscribe(System.out::println);
         System.out.println(response);
-        Gson g = new Gson();
-        Map<String> map = g.fromJson(response, Map<String>);
+        Gson gson = new Gson();
+        
+        ChatDTO dto = gson.fromJson(response, ChatDTO.class);
+        
+        System.out.println("아침 = " + dto.getBreakfast());
+        System.out.println("점심 = " + dto.getLunch());
+        System.out.println("저녁 = " + dto.getDinner());
 		return response;
 	}
 	
