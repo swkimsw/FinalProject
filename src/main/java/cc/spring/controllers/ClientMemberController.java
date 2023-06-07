@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/clientMember/")
 public class ClientMemberController {
-//로그인창으로 이동
+//로그인창으로 이동 ㅇ
 	@RequestMapping("login_form")
 	public String login_form() {
 		return "member/login";
