@@ -268,7 +268,7 @@ html, body {
                      <button type="button" class="btn-close" id="btn_to_back"
                         aria-label="Close" onclick="location.href='/';"></button>
                   </div>
-                  <form action="/login.member" method="post" id="form_login">
+                  <form action="/member/login" method="post" id="form_login">
                      <div class="form-group mb-4">
                         <label class="control-label font-weight-bold font-size-7pt">아이디</label>
                         <span>*</span>
