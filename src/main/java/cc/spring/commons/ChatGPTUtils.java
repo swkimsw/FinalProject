@@ -49,7 +49,7 @@ public class ChatGPTUtils {
                 .bodyToMono(String.class)
                 .block();
         
-        test
+        
        // response.subscribe(System.out::println);
         System.out.println(response);
 		return response;
