@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.repositories.ClientMemberDAO;
+import cc.spring.services.ClientMemberService;
 import cc.spring.services.MemberService;
 
 @Controller
@@ -19,7 +21,7 @@ public class ClientMemberController {
 	@Autowired
 	private ClientMemberDAO dao;
 	@Autowired
-	private MemberService MemberService;
+	private ClientMemberService CMS;
 	
 //로그인창으로 이동
 	@RequestMapping("login_form")
@@ -34,7 +36,7 @@ public class ClientMemberController {
 	@RequestMapping("login")
 	public String login(String id,String pw) {
 		
-		ClientMemberDTO result = MemberService.login(dto);
+		ClientMemberDTO result = CMS.login(dto);
 		System.out.println(result);
 		if(result!=null) {
 			session.setAttribute("loginID",dto.getId());
@@ -50,6 +52,13 @@ public class ClientMemberController {
 	@RequestMapping("sign") 
 	public String sign() throws Exception {
 		return "member/clientSignup";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
+	public boolean checkId(String key, String value) {
+		boolean result = CMS.isClientMember(value);
+		return result;
 	}
 	
 	
