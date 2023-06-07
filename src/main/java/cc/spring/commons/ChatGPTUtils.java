@@ -48,9 +48,11 @@ public class ChatGPTUtils {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-
+        
+        
        // response.subscribe(System.out::println);
         System.out.println(response);
+        System.out.println(1111111111111);
 		return response;
 	}
 	
