@@ -34,7 +34,7 @@
 				<div class="mb-3">
 					<div class="col-12 col-md-12 col-xl-12">
 						<div class="input-group mb-3">
-  							<label for="formFile" class="form-label">사진 선택</label>
+  							<label for="formFile" class="form-label">사진 선택  </label>
   							<input class="form-control" type="file" id="formFile">
   						</div>
 					</div>
