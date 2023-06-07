@@ -54,10 +54,10 @@ public class ClientMemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-	public boolean checkId(String id) {
-		System.out.println(id);
-		boolean result = cms.isClientMember(id);
-		return result;
+	public String checkId(String value) {
+		System.out.println(value);
+		boolean result = cms.isClientMember(value);
+		return String.valueOf(result);
 	}
 	
 	

@@ -453,7 +453,7 @@ final_joinform
             type : "post",
             dataType : "json",
             data : {
-               id : value
+               value: value
             },
             error : function() {
                alert("서버 요청 실패");
