@@ -1,9 +1,11 @@
 package cc.spring.commons;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,6 +13,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 
 @Controller
@@ -27,10 +30,10 @@ public class ChatGPTUtils {
 	}
 	
 	@ResponseBody
-	@RequestMapping("sendMsg")
+	@RequestMapping(value="sendMsg", produces="text/plain;charset=utf-8")
 	public String sendMsg(String sendMsg){
 		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다. 
-        String prompt = "2023년 06월 05일 부터 식단 하루치를 json데이터 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
+        String prompt = "식단 하루치를 json데이터로 짜줘"; // 적절한 프롬프트로 변경해야 합니다.
 
         WebClient webClient = WebClient.builder()
                 .baseUrl("https://api.openai.com")
@@ -52,7 +55,8 @@ public class ChatGPTUtils {
         
        // response.subscribe(System.out::println);
         System.out.println(response);
-        System.out.println(1111111111111);
+        Gson g = new Gson();
+        Map<String> map = g.fromJson(response, Map<String>);
 		return response;
 	}
 	
