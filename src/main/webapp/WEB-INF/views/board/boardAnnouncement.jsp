@@ -38,6 +38,7 @@
 
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+
 <style>
    * {
       font-family: NanumSquareNeoBold;
@@ -65,37 +66,16 @@
 
   <div class="container">
     <br>
-
     <div class="header position-relative">
 
-      <div class="checkbox ">
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-          <label class="form-check-label" for="inlineCheckbox1">일상</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-          <label class="form-check-label" for="inlineCheckbox2">정보</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-          <label class="form-check-label" for="inlineCheckbox2">질문</label>
-        </div>
-
-      </div>
-
-
-      
         <div class="position-absolute top-0 end-0">
 
           <input type="text" placeholder="제목이나 작성자로 검색">
           <button class="btn btn-outline-primary" type="button"><i class="bi bi-search"></i></button>
          
         </div>
-
-    
-
+		<br>
+	
     </div>
 
     <div class="table-responsive mt-5">
@@ -121,12 +101,12 @@
             <td>100</td>
           </tr>
           <tr>
-            <td>265120</td>
-            <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
+            <td>1</td>
+            <td>본</td>
             <td>운영자</td>
             <td>2020.04.23</td>
-            <td>7000</td>
-            <td>150</td>
+            <td>w</td>
+            <td>w</td>
           </tr>
           <tr>
             <td>265121</td>
@@ -216,8 +196,8 @@
         
       </nav>
 
-	<div style="float:right;">
- 	 <a href="/board/free_write"><button class="btn btn-outline-primary" type="button">작성하기</button></a> 
+ 	<div style="float:right;">
+ 	 <a href="/board/announcement_write"><button class="btn btn-outline-primary" type="button">작성하기</button></a> 
  	 </div>
       
      
@@ -225,11 +205,10 @@
     </div>
 
   </div>
+
+	<script>
 	
-  <script>
-  $(".btn").on("click",function(){
-		 a href="/board/write";
-	})
-  </script>
+	</script>
+
 </body>
 </html>

@@ -11,8 +11,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/board/")
 public class BoardController {
 
-	@RequestMapping("list")
-	public String home() {
+	@RequestMapping("free")
+	public String list_free() {
 		return "/board/boardFree";
+	}
+	
+	
+	@RequestMapping("announcement")
+	public String list_Announcement() {
+		return "/board/boardAnnouncement";
+	}
+	
+	@RequestMapping("free_write")
+	public String free_write() {
+		return "/board/boardFreeWrite";
+	}
+	
+	@RequestMapping("announcement_write")
+	public String announcement_write() {
+		return "/board/boardAnnouncementWrite";
 	}
 }

@@ -123,10 +123,10 @@
 								<li><a href="#"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a>
 								</li>
-								<li><a href="/board/list"
+								<li><a href="/board/free"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">자유게시판</a>
 								</li>
-								<li><a href="#"
+								<li><a href="/board/announcement"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">후기게시판</a>
 								</li>
 							</ul>
