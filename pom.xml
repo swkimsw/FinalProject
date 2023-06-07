@@ -173,20 +173,21 @@
 			<artifactId>reactor-netty</artifactId>
 			<version>1.1.7</version><!-- 현재 날짜에 따라 가장 최신의 안정화된 버전을 사용해주세요 -->
 		</dependency>
-<!-- JAVA 이메일 -->
-<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
-<dependency>
-    <groupId>com.sun.mail</groupId>
-    <artifactId>javax.mail</artifactId>
-    <version>1.6.2</version>
-</dependency>
-<!-- 스프링 context-support -->
-<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-context-support</artifactId>
-    <version>6.0.9</version>
-</dependency>
+		
+		<!-- JAVA 이메일 -->
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/javax.mail -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.2</version>
+		</dependency>
+		<!-- 스프링 context-support -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>6.0.9</version>
+		</dependency>
 
 
 	</dependencies>
