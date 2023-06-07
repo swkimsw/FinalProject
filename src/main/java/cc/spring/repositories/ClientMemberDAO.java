@@ -11,8 +11,10 @@ public class ClientMemberDAO {
 	private SqlSessionTemplate mybatis;
 	
 	
-	public ClientMemberDTO login(ClientMemberDTO dto) {
+	public boolean login(ClientMemberDTO dto) {
 		System.out.println(dto.getId()+" : "+ dto.getPw());
-		return mybatis.selectOne("Client.login",dto);
+		boolean result = mybatis.selectOne("Client.login",dto);
+		System.out.println("DAO 리턴결과:"+result);
+		return result;
 	}
 }

@@ -17,8 +17,6 @@ public class ClientMemberController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private ClientMemberDAO dao;
-	@Autowired
 	private MemberService MemberService;
 	
 //로그인창으로 이동
@@ -32,11 +30,11 @@ public class ClientMemberController {
 	}
 	//클라이언트 로그인
 	@RequestMapping("login")
-	public String login(String id,String pw) {
-		
-		ClientMemberDTO result = MemberService.login(dto);
+	public String login(ClientMemberDTO dto) {
+		System.out.println(dto);
+		boolean result = MemberService.login(dto);
 		System.out.println(result);
-		if(result!=null) {
+		if(result) {
 			session.setAttribute("loginID",dto.getId());
 			System.out.println("로그인 실행!");
 			return "/";
