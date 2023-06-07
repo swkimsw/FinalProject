@@ -7,11 +7,12 @@ import cc.spring.dto.ClientMemberDTO;
 import cc.spring.repositories.ClientMemberDAO;
 
 @Service
+
 public class ClientMemberService {
 	@Autowired
 	private ClientMemberDAO CDAO;
 	
-	public ClientMemberDTO login(ClientMemberDTO dto){
+	public boolean login(ClientMemberDTO dto){
 		System.out.println("123123");
 		return CDAO.login(dto);
 	}
