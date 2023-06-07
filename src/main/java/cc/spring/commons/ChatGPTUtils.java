@@ -52,7 +52,8 @@ public class ChatGPTUtils {
         
        // response.subscribe(System.out::println);
         System.out.println(response);
-        System.out.println(1111111111111);
+        Gson g = new Gson();
+        System.out.println(g.fromJson(response, getClass()));
 		return response;
 	}
 	
