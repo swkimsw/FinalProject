@@ -449,12 +449,11 @@ final_joinform
          if (type != "A") return false;
          // 중복 체크
          $.ajax({
-            url : "/member/checkId",
+            url : "/clientMember/checkId",
             type : "post",
             dataType : "json",
             data : {
-               key: id.split("_")[1].toUpperCase(),
-               value: value
+               id : value
             },
             error : function() {
                alert("서버 요청 실패");
