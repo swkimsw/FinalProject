@@ -18,7 +18,7 @@ public class ClientMemberDAO {
 	}
 	
 	public boolean isClientMember(String id) {
-		return mybatis.selectOne("Client.isMember",id);
+		return mybatis.selectOne("Client.isMember", id);
 	}
 
 }

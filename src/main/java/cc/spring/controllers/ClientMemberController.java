@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.repositories.ClientMemberDAO;
 import cc.spring.services.ClientMemberService;
-import cc.spring.services.MemberService;
 
 @Controller
 @RequestMapping("/clientMember/")
@@ -21,7 +20,7 @@ public class ClientMemberController {
 	@Autowired
 	private ClientMemberDAO dao;
 	@Autowired
-	private ClientMemberService CMS;
+	private ClientMemberService cms;
 	
 //로그인창으로 이동
 	@RequestMapping("login_form")
@@ -35,8 +34,7 @@ public class ClientMemberController {
 	//클라이언트 로그인
 	@RequestMapping("login")
 	public String login(String id,String pw) {
-		
-		ClientMemberDTO result = CMS.login(dto);
+		ClientMemberDTO result = cms.login(dto);
 		System.out.println(result);
 		if(result!=null) {
 			session.setAttribute("loginID",dto.getId());
@@ -56,8 +54,9 @@ public class ClientMemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-	public boolean checkId(String key, String value) {
-		boolean result = CMS.isClientMember(value);
+	public boolean checkId(String id) {
+		System.out.println(id);
+		boolean result = cms.isClientMember(id);
 		return result;
 	}
 	
