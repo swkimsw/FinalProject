@@ -64,7 +64,7 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		Random rand = new Random(); 
 		String numStr = "";
-		for(int i=0; i<4; i++) {
+		for(int i=0; i<5; i++) {
 			String ran = Integer.toString(rand.nextInt(10));
 			numStr+=ran;
 		}
