@@ -10,8 +10,8 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class SmsService {
 	
 	public static void certifiedPhoneNumber(String phone, String numStr) {
-		String api_key = "coolsms 본인 API키 입력";
-	    String api_secret = "coolsms 본인 API_secret키 입력";
+		String api_key = "NCSPVN7IX5NELCXZ";
+	    String api_secret = "RBWSJNW3YKIW2KJBVWA2EDCQ75LU98KZ";
 	    Message coolsms = new Message(api_key, api_secret);
 
 	    // 4 params(to, from, type, text) are mandatory. must be filled
