@@ -408,7 +408,7 @@ label {
 								<button class="btn btn-secondary" id="join" style="background-color: #76b852;">가입하기</button>
 							</div>
 							<div class="col-auto d-flex justify-content-start">
-								<a href="/member/login_view.jsp">
+								<a href="/clientMember/login_form"">
 									<button class="btn btn-secondary" type="button" id="back" style="background-color: #76b852;">뒤로가기</button>
 								</a>
 							</div>
@@ -650,7 +650,7 @@ label {
 		$("#phone_auth").on("click", function (evt) {
 			// 전화번호 check 및 인증번호 발송
 			$.ajax({
-				url: "/phone_auth.member",
+				url: "/clientMember/sendSms",
 				type: "post",
 				dataType: "json",
 				data: { phone: $("#member_phone").val(), type: "JOIN" }
