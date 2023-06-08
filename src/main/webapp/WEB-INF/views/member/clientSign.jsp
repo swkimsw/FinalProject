@@ -656,13 +656,13 @@ label {
 				data: { phone: $("#member_phone").val(), type: "JOIN" }
 			}).done(function (resp) {
 				// 전화번호 check
-				if (resp == "error") {
+				if (resp) {
 					$("#member_phone").val("");
-					alert("전화번호를 확인해주세요.");
+					alert("등록된 연락처가 존재합니다.");
 					return false;
 				}
 				else {
-					alert("인증문자가 전송되었습니다.")
+					alert("인증문자가 전송되었습니다.");
 				}
 				
 				// 인증번호 받기 버튼 비활성화
@@ -686,7 +686,7 @@ label {
 			}
 			// 인증 체크
 			$.ajax({
-				url: "/phone_auth_ok.member",
+				url: "/clientMember/certification",
 				type: "post",
 				dataType: "json",
 				data: { code: $("#phone_auth_code").val() }
