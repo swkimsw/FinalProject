@@ -28,7 +28,8 @@ public class ShopController {
 	@RequestMapping("insertShop")
 	public String insertShop(ShopDTO dto) {
 		try {
-			int result = shopService.insertShop(dto);
+			int parentSeq = shopService.insertShop(dto);
+			System.out.println("부모 시퀀스 : " + parentSeq);
 			return "/shop/shopRegister";
 		}catch(Exception e) {
 			e.printStackTrace();

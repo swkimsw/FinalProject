@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.services.ClientMemberService;
+import cc.spring.services.SmsService;
 
 @Controller
 @RequestMapping("/clientMember/")
@@ -65,18 +66,18 @@ public class ClientMemberController {
 	}
 	
 	// 회원가입 시 인증번호
-//	@ResponseBody
-//	@RequestMapping(value="sendSms", produces="text/html;charset=utf8")
-//	public String sendSms(String phone) throws Exception {
-//		Random rand = new Random(); 
-//		String numStr = "";
-//		for(int i=0; i<4; i++) {
-//			String ran = Integer.toString(rand.nextInt(10));
-//			numStr+=ran;
-//		}
-//		
-//		SmsService.certifiedPhoneNumber(phone, numStr);
-//	}
+	@ResponseBody
+	@RequestMapping(value="sendSms", produces="text/html;charset=utf8")
+	public String sendSms(String phone) throws Exception {
+		Random rand = new Random(); 
+		String numStr = "";
+		for(int i=0; i<5; i++) {
+			String ran = Integer.toString(rand.nextInt(10));
+			numStr+=ran;
+		}
+		SmsService.certifiedPhoneNumber(phone, numStr);
+		return numStr;
+	}
 	
 	
 	
