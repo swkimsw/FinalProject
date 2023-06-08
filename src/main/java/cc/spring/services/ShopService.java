@@ -18,15 +18,15 @@ public class ShopService {
 	
 	public int insertShop(ShopDTO dto) throws Exception {
 		String deadLineTemp = dto.getDeadLineTemp();
-		
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date parsedDate = dateFormat.parse(deadLineTemp);
-		Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-		dto.setDeadLine(timestamp);
-		System.out.println(deadLineTemp);
-		System.out.println(dto.getDeadLine());
-		
-		return shopDAO.insertShop(dto);
+		if(deadLineTemp != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date parsedDate = dateFormat.parse(deadLineTemp);
+			Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+			dto.setDeadLine(timestamp);
+			
+			return shopDAO.insertShop(dto);
+		}
+		return 0;
 	}
 	
 }

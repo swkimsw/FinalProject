@@ -34,8 +34,8 @@
 				<div class="mb-3">
 					<div class="col-12 col-md-12 col-xl-12">
 						<div class="input-group mb-3">
-  							<label for="formFile" class="form-label">사진 선택  </label>
-  							<input class="form-control" type="file" id="formFile">
+  							<label for="formFile" class="form-label">사진 선택</label>
+  							<input class="form-control" type="file" id="formFile" name="images" multiple>
   						</div>
 					</div>
 				</div>
@@ -64,7 +64,7 @@
 				<div class="col-12 col-md-6 col-xl-6">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
-						<input type="date" class="form-control" id="deadLine" name="deadLine" required>
+						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" required>
 					</div>
 				</div>
 				<div class="col-12 col-md-6 col-xl-6">

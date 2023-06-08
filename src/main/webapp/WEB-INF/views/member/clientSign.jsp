@@ -656,10 +656,13 @@ label {
 				data: { phone: $("#member_phone").val(), type: "JOIN" }
 			}).done(function (resp) {
 				// 전화번호 check
-				if (resp == "") {
+				if (resp == "error") {
 					$("#member_phone").val("");
 					alert("전화번호를 확인해주세요.");
 					return false;
+				}
+				else {
+					alert("인증문자가 전송되었습니다.")
 				}
 				
 				// 인증번호 받기 버튼 비활성화
