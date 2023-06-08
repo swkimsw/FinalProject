@@ -25,7 +25,7 @@
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
 	</header>
-	<form action="insertShop" method="post">
+	<form action="/shop/insertShop" method="post" enctype="multipart/form-data">
 	<main>
 		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 			<h2 class="mb-5" style="text-align:center;">공구 등록</h2>
@@ -35,7 +35,7 @@
 					<div class="col-12 col-md-12 col-xl-12">
 						<div class="input-group mb-3">
   							<label for="formFile" class="form-label">사진 선택</label>
-  							<input class="form-control" type="file" id="formFile" name="images" multiple>
+  							<input class="form-control" type="file" id="files" name="files" multiple>
   						</div>
 					</div>
 				</div>
@@ -93,7 +93,7 @@
 			<div class="buttons">
 				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 					<button class="btn btn-primary">등록</button>
-					<a href=""><input type="button" value="취소" class="btn btn-primary"></a>
+					<input type="button" value="취소" class="btn btn-primary">
 				</div>
 			</div>
 			
