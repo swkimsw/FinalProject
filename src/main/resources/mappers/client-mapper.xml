@@ -10,4 +10,8 @@
 	<select id="isMember" resultType="boolean">
 		select count(*) from ClientMember where id = #{id}
 	</select>
+		
+	<select id="phoneCheck" resultType="boolean">
+		select count(*) from ClientMember where phone = #{phone}
+	</select>
 </mapper>
