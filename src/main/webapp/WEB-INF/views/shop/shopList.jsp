@@ -46,6 +46,14 @@
 	margin-top: 100px;
 	border: 1px solid black;
 }
+.searchBtn{
+	position:absolute;
+	top: 7px;
+   	right:150px;
+}
+.form-control{
+	height:50px;
+}
 </style>
 </head>
 <body>
@@ -55,71 +63,60 @@
 
 	<div class="container">
 		<div class="header">
-			<div class="row">
-				<div class="col-8">
-					<input type="text" class="form-control " name="searchByText">
-				</div>
-				<div class="col-2">
-					<button class="btn btn-primary ">검색</button>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<input type="date" name="searchByDate"> ~ <input
-						type="date" name="searchByDate2">
+		
+			<div class="row d-flex justify-content-center">
+				<div class="col-10">
+					<div class="mx-quto input-group mt-3">
+						<input name="searchByKeyword" type="text" maxlength="25" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="button-addon2">
+		                <button class="btn btn-primary" type="submit" id="button-addon2">검색</button>
+		            </div>
+		        </div>
+	        </div>
+		
+			<div class="row d-flex justify-content-center">
+				<div class="col-10 mt-2">
+					<input type="date" name="searchByDate"> ~ 
+					<input type="date" name="searchByDate2">
 				</div>
 			</div>
 		</div>
+		
 		<div class="body">
-			<div class="row">
-				<div class="col-4 col-md-3 col-sm-2">
-					<div class="card" style="width: 18rem;">
-						<img src="..." class="card-img-top" alt="...">
+			<div class="row d-flex position-relative">
+				<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
+					<div class="card" style="">
+						<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
+						<img src="..." class="card-img-top" style="width:100%; alt="...">
 						<div class="card-body">
-							<h5 class="card-title">싱싱한귤</h5>
-							<p class="card-text">감귤농가</p>
+							<p class="card-title" style="font-size: 20px;">싱싱하고 맛있는 제주도 출신 귤입니다다다다</p>
+							<p class="card-text fw-lighter" style="font-size: 12px;">감귤농가</p>
 						</div>
-						<div class="card-footer">
-							<small>날짜</small>
-						</div>
+						
 					</div>
 				</div>	
-				<div class="col-4 col-md-3 col-sm-2">
-					<div class="card" style="width: 18rem;">
-						<img src="..." class="card-img-top" alt="...">
+				<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
+					<div class="card" style="">
+						<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
+						<img src="..." class="card-img-top" style="width:100%;" alt="...">
 						<div class="card-body">
-							<h5 class="card-title">싱싱한귤</h5>
-							<p class="card-text">감귤농가</p>
+							<p class="card-title" style="font-size: 20px;">싱싱하고 맛있는 제주도 출신 귤입니다다다다</p>
+							<p class="card-text fw-lighter" style="font-size: 12px;">감귤농가</p>
 						</div>
-						<div class="card-footer">
-							<small>날짜</small>
-						</div>
+						
 					</div>
 				</div>	
-				<div class="col-4 col-md-3 col-sm-2">
-					<div class="card" style="width: 18rem;">
-						<img src="..." class="card-img-top" alt="...">
+				<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
+					<div class="card" style="">
+						<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
+						<img src="..." class="card-img-top" style="width:100%;" alt="...">
 						<div class="card-body">
-							<h5 class="card-title">싱싱한귤</h5>
-							<p class="card-text">감귤농가</p>
+							<p class="card-title" style="font-size: 20px;">싱싱하고 맛있는 제주도 출신 귤입니다다다다</p>
+							<p class="card-text fw-lighter" style="font-size: 12px;">감귤농가</p>
 						</div>
-						<div class="card-footer">
-							<small>날짜</small>
-						</div>
+						
 					</div>
 				</div>	
-				<div class="col-4 col-md-3 col-sm-2">
-					<div class="card" style="width: 18rem;">
-						<img src="..." class="card-img-top" alt="...">
-						<div class="card-body">
-							<h5 class="card-title">싱싱한귤</h5>
-							<p class="card-text">감귤농가</p>
-						</div>
-						<div class="card-footer">
-							<small>날짜</small>
-						</div>
-					</div>
-				</div>	
+				
 			</div>
 		</div>
 	</div>
