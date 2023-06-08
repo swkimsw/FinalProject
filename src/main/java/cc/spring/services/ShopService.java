@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
@@ -24,6 +25,7 @@ public class ShopService {
 	@Autowired
 	private FileDAO fileDAO;
 	
+	@Transactional
 	public int insertShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
 		int parentSeq = 0;
 		
