@@ -1,6 +1,8 @@
 package cc.spring.controllers;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
@@ -43,7 +45,14 @@ public class ClientMemberController {
 		System.out.println("로그인 실패!!");
 		return "error";
 	}
-	
+//	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
+	@RequestMapping("get_id_by_phone")
+	public String get_id_by_phone(String phone) {
+		String result = cms.get_id_by_phone(phone);
+		return null;
+//		return 값 아직 안적어놓음
+	}
+//	종료
 	// 클라이언트 회원가입 창으로 이동
 	@RequestMapping("sign_form")
 	public String sign_form() throws Exception {
@@ -64,7 +73,8 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
-				
+		
+		// 같은 연락처가 DB에 없으면 실행
 		if(!result) {
 			Random rand = new Random(); 
 			String numStr = "";
@@ -73,18 +83,38 @@ public class ClientMemberController {
 				numStr+=ran;
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
-			session.setAttribute("numStr", numStr);
+			session.setAttribute("numStr", numStr);	
+			
+			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
+//			Timer timer = new Timer();
+//	        int delay = 180000; // 3분
+//	        
+//	        timer.schedule(new TimerTask() {
+//	            @Override
+//	            public void run() {
+//	                session.removeAttribute("numStr");
+//	            }
+//	        }, delay);
+			
 		}
 
 		return String.valueOf(result);
 	}
 	
 	// 인증번호 입력 후 인증 버튼 클릭 시
-//	@ResponseBody
-//	@RequestMapping(value="certification", produces="text/html;charset=utf8")
-//	public String certification(String code) {
-//		String numStr = (String) session.getAttribute("numStr");
-//	}
+	@ResponseBody
+	@RequestMapping(value="certification", produces="text/html;charset=utf8")
+	public String certification(String code) {
+		String numStr = (String) session.getAttribute("numStr");
+				
+		if(numStr.equals(code)) {
+			return String.valueOf(true);
+		}
+		else {
+			return String.valueOf(false);
+		}
+		
+	}
 	
 	
 	@ExceptionHandler(Exception.class)
