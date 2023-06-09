@@ -1,12 +1,13 @@
 package cc.spring.controllers;
 
+import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class ClientMemberController {
 	
 	@Autowired
 	private ClientMemberService cms;
+	
 	
 	// 클라이언트 로그인 창으로 이동
 	@RequestMapping("login_form")
@@ -84,20 +86,8 @@ public class ClientMemberController {
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
 			session.setAttribute("numStr", numStr);	
-			
-			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
-//			Timer timer = new Timer();
-//	        int delay = 180000; // 3분
-//	        
-//	        timer.schedule(new TimerTask() {
-//	            @Override
-//	            public void run() {
-//	                session.removeAttribute("numStr");
-//	            }
-//	        }, delay);
-			
+		
 		}
-
 		return String.valueOf(result);
 	}
 	
@@ -106,15 +96,31 @@ public class ClientMemberController {
 	@RequestMapping(value="certification", produces="text/html;charset=utf8")
 	public String certification(String code) {
 		String numStr = (String) session.getAttribute("numStr");
+		System.out.println(numStr);
 				
 		if(numStr.equals(code)) {
 			return String.valueOf(true);
 		}
 		else {
 			return String.valueOf(false);
-		}
-		
+		}	
 	}
+	
+	// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
+	@ResponseBody
+	@RequestMapping(value="removeSession")
+	public void removeSession() {
+		session.removeAttribute("numStr");
+		System.out.println(session.getAttribute("numStr"));
+	}
+	
+	// 회원가입 폼에서 입력한 값들 넘어옴
+//	@RequestMapping("signup")
+//	public String signup() {
+//		
+//	}
+	
+	
 	
 	
 	@ExceptionHandler(Exception.class)
