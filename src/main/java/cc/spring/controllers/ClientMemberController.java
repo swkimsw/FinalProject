@@ -25,13 +25,13 @@ public class ClientMemberController {
 	
 	// 클라이언트 로그인 창으로 이동
 	@RequestMapping("login_form")
-	public String login_form() {
+	public String login_form() throws Exception {
 		return "member/clientLogin";
 	}
 
 	// 클라이언트 로그인
 	@RequestMapping("login")
-	public String login(ClientMemberDTO dto) {
+	public String login(ClientMemberDTO dto) throws Exception {
 		System.out.println(dto);
 		boolean result = cms.login(dto);
 		System.out.println(result);
@@ -46,7 +46,7 @@ public class ClientMemberController {
 	
 	// 클라이언트 회원가입 창으로 이동
 	@RequestMapping("sign_form")
-	public String sign_form() {
+	public String sign_form() throws Exception {
 		return "member/clientSign";
 	}
 	
@@ -58,20 +58,33 @@ public class ClientMemberController {
 		return String.valueOf(result);
 	}
 	
-	// 회원가입 시 인증번호
+	// 회원가입 시 인증번호 랜덤 발송
 	@ResponseBody
 	@RequestMapping(value="sendSms", produces="text/html;charset=utf8")
 	public String sendSms(String phone) throws Exception {
-		Random rand = new Random(); 
-		String numStr = "";
-		for(int i=0; i<5; i++) {
-			String ran = Integer.toString(rand.nextInt(10));
-			numStr+=ran;
+		// 이미 가입한 연락처가 있는지 확인
+		boolean result = cms.phoneCheck(phone);
+				
+		if(!result) {
+			Random rand = new Random(); 
+			String numStr = "";
+			for(int i=0; i<5; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr+=ran;
+			}
+			SmsService.certifiedPhoneNumber(phone, numStr);
+			session.setAttribute("numStr", numStr);
 		}
-		SmsService.certifiedPhoneNumber(phone, numStr);
-		return numStr;
+
+		return String.valueOf(result);
 	}
 	
+	// 인증번호 입력 후 인증 버튼 클릭 시
+//	@ResponseBody
+//	@RequestMapping(value="certification", produces="text/html;charset=utf8")
+//	public String certification(String code) {
+//		String numStr = (String) session.getAttribute("numStr");
+//	}
 	
 	
 	@ExceptionHandler(Exception.class)
