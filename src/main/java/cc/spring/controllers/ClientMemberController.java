@@ -43,7 +43,14 @@ public class ClientMemberController {
 		System.out.println("로그인 실패!!");
 		return "error";
 	}
-	
+//	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
+	@RequestMapping("get_id_by_phone")
+	public String get_id_by_phone(String phone) {
+		String result = cms.get_id_by_phone(phone);
+		return null;
+//		return 값 아직 안적어놓음
+	}
+//	종료
 	// 클라이언트 회원가입 창으로 이동
 	@RequestMapping("sign_form")
 	public String sign_form() throws Exception {
