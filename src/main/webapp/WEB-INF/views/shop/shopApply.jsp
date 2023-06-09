@@ -16,7 +16,7 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
-	*{font-family: 'NanumSquare';}
+	*{font-family: 'NanumSquareNeo';}
 	.container{width: 70%; margin-top:100px;}\
 </style>
 </head>
