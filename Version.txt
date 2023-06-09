@@ -15,7 +15,7 @@
 <link href="resources/css/gnb.css" rel="stylesheet" type="text/css">
 
 [style]
-*{font-family:NanumSquareNeoBold;}
+*{font-family:NanumSquareNeo;}
 .container{margin-top:100px;}
 
 [body]

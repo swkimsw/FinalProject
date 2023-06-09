@@ -51,10 +51,6 @@ public class ChatGPTUtils {
                 .bodyToMono(String.class)
                 .block();
         
-        
-       // response.subscribe(System.out::println);
-        System.out.println(response);
-        
 //        ChatDTO dto = gson.fromJson(response, ChatDTO.class);
         
 //        System.out.println("아침 = " + dto.getBreakfast());
