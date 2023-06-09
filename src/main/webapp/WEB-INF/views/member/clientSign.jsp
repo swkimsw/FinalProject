@@ -691,7 +691,7 @@ label {
 				dataType: "json",
 				data: { code: $("#phone_auth_code").val() }
 			}).done(function name(resp) {
-				if (resp.success) {
+				if (resp) {
 					AuthTimer.fnStop();
 					$("#timeLimit").text("인증 성공!🎉");
 					$("#pAuth button").attr("disabled", true);
