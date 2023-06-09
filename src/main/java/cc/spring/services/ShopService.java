@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,25 @@ public class ShopService {
 			}
 		}
 	}
+	
+	public ShopDTO selectShopInfo(int code) {
+		
+		ShopDTO dto = shopDAO.selectShopInfo(code);
+		
+		// Timestamp -> String
+		Timestamp deadLine = dto.getDeadLine();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dto.setDeadLineTemp(dateFormat.format(deadLine));
+		
+		return dto;
+	}
+	
+	public List<FileDTO> selectShopImg(int code) {
+		return fileDAO.selectShopImg(code);
+	}
+	
+//	public ? insertShopRequest() {
+//		
+//	}
 	
 }

@@ -1,8 +1,8 @@
 package cc.spring.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
@@ -46,9 +46,9 @@ public class ClientMemberController {
 		return "error";
 	}
 //	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
-	@RequestMapping("get_id_by_phone")
-	public String get_id_by_phone(String phone) {
-		String result = cms.get_id_by_phone(phone);
+	@RequestMapping("getIdByPhone")
+	public String getIdByPhone(String phone) {
+		String result = cms.getIdByPhone(phone);
 		return null;
 //		return 값 아직 안적어놓음
 	}
@@ -73,9 +73,45 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
+				System.out.println(phone + ":" + result);
 		
 		// 같은 연락처가 DB에 없으면 실행
 		if(!result) {
+			Random rand = new Random(); 
+			String numStr = "";
+			for(int i=0; i<5; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr+=ran;
+			}
+			SmsService.certifiedPhoneNumber(phone, numStr);
+			session.setAttribute("numStr", numStr);	
+			
+			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
+//			Timer timer = new Timer();
+//	        int delay = 180000; // 3분
+//	        
+//	        timer.schedule(new TimerTask() {
+//	            @Override
+//	            public void run() {
+//	                session.removeAttribute("numStr");
+//	            }
+//	        }, delay);
+			
+		}
+
+		return String.valueOf(result);
+	}
+	
+	// 계정찾기시 인증번호 랜덤 발송
+	@ResponseBody
+	@RequestMapping(value="sendSms2", produces="text/html;charset=utf8")
+	public String sendSms2(String phone) throws Exception {
+		// 이미 가입한 연락처가 있는지 확인
+		boolean result = cms.phoneCheck(phone);
+				System.out.println(phone + ":" + result);
+		
+		// 같은 연락처가 DB에 없으면 실행
+		if(result) {
 			Random rand = new Random(); 
 			String numStr = "";
 			for(int i=0; i<5; i++) {
@@ -108,12 +144,35 @@ public class ClientMemberController {
 		String numStr = (String) session.getAttribute("numStr");
 				
 		if(numStr.equals(code)) {
+			System.out.println("인중 성공");
 			return String.valueOf(true);
 		}
 		else {
+			System.out.println("인중 실패");
 			return String.valueOf(false);
 		}
 		
+	}
+	// 인증번호 입력 후 인증 버튼 클릭 시
+	@ResponseBody
+	@RequestMapping(value="certification2", produces="text/html;charset=utf8")
+	public Map<String, Boolean> certification_2(String code,String phone) {
+		String numStr = (String) session.getAttribute("numStr");
+		String searchId = cms.getIdByPhone(phone);
+		
+		System.out.println("dsaakc");
+		if(numStr.equals(code)) {
+			System.out.println("인중 성공");
+			Map<String, Boolean> result = new HashMap<String, Boolean>();
+			result.put(searchId, true);
+			return result;
+		}
+		else {
+			System.out.println("인중 실패");
+			Map<String, Boolean> result = new HashMap<String, Boolean>();
+			result.put(searchId, false);
+			return result;
+		}
 	}
 	
 	
