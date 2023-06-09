@@ -1,5 +1,7 @@
 package cc.spring.repositories;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,6 +16,10 @@ public class FileDAO {
 	
 	public int insertShopImage(FileDTO dto) {
 		return db.insert("insertShopImage", dto);
+	}
+	
+	public List<FileDTO> selectShopImg(int code) {
+		return db.selectList("selectShopImg", code);
 	}
 	
 }

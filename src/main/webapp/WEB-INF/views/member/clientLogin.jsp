@@ -332,6 +332,7 @@ html, body {
 				style="display: none">
 				<div class="row d-flex justify-content-center mx-auto p-0 loginForm">
 					<div class="col-md-6 login-form-1 align-center">
+					
 						<div class="KickKick_logo text-center d-md-block mb-4">
 							<h3 class="mb-5">계정 찾기</h3>
 							<p class="body_font mb-5">휴대폰 인증을 통해 아이디를 확인합니다.</p>
@@ -568,12 +569,12 @@ html, body {
 						<label for="phone" class="col-form-label">전화번호</label>
 					</div>
 					<div class="col-12 col-md-4">
-						<input type="text" id="phone" name="phone" class="form-control"
+						<input type="text" id="bPhone" name="bPhone" class="form-control"
 							placeholder="(-) 제외">
 					</div>
 					<div class="col-12 col-md-4">
 						<button type="submit" class="btn btn-outline-success"
-							id="phone_auth">인증번호 받기</button>
+							id="phone_auth2">인증번호 받기</button>
 					</div>
 					<div class="row g-3 m-0 p-0  justify-content-center">
 						<div class="col-12 col-md-4">
@@ -790,27 +791,28 @@ html, body {
             $("#phone_auth").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
                $.ajax({
-                  url: "/phone_auth.member",
+                  url: "/clientMember/sendSms2",
                   type: "post",
                   dataType: "json",
                   data: { phone: $("#phone").val() }
                }).done(function (resp) {
                   // 전화번호 check
-                  if (resp == "") {
+                  if (!resp) {
+                	  console.log(resp);
                      $("#phone").val("");
                      alert("전화번호를 확인해주세요.");
                      return false;
                   }
                   // 인증번호 받기 버튼 비활성화
                   $("#phone_auth").attr("disabled", true);
-
+                  /*
                   AuthTimer = new $ComTimer();
                   // 제한 시간
                   AuthTimer.comSecond = 180;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit");
+                  AuthTimer.domId = document.getElementById("timeLimit"); */
                });
             });
             // 인증 버튼 이벤트
@@ -822,19 +824,20 @@ html, body {
                }
                // 인증 체크
                $.ajax({
-                  url: "/phone_auth_ok.member",
+                  url: "/clientMember/certification2",
                   type: "post",
                   dataType: "json",
                   data: { code: $("#phone_auth_code").val() }
                }).done(function name(resp) {
-                  if (resp.success) {
-                     AuthTimer.fnStop();
+            	   console.log(resp)
+                  if (resp) {
+                   /*   AuthTimer.fnStop(); */
                      $("#login_view_fadeOut").hide();
                      $("#find_member_fadeIn").hide();
                      $("#to_phone_authentication_fadeIn").hide();
                      $("#to_change_pw_fadeIn").fadeIn();
-                     $("#search_id").text(resp.search_id + " 님!");
-                     $("#search_id2").text("아이디는 "+resp.search_id + " 입니다");
+                     $("#search_id").text(resp.searchId + " 님!");
+                     $("#search_id2").text("아이디는 "+resp.searchId + " 입니다");
                   } else {
                      alert("인증번호를 다시 입력해주세요");
                      $("#phone_auth_code").val("");

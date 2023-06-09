@@ -11,4 +11,8 @@
 		</selectKey> 
 	</insert>
 	
+	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
+		select * from groupbuying where code = #{code}
+	</select>
+	
 </mapper>

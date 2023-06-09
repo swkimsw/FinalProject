@@ -20,7 +20,8 @@ public class ClientMemberDAO {
 	}
 //	폰 번호 넘겨서 아이디 찾아오는거에요
 	public String getIdByPhone(String phone) {
-		return mybatis.selectOne("Client.get_id_by_phone",phone);
+		System.out.println("비번바꾸는 DAO");
+		return mybatis.selectOne("Client.getIdByPhone",phone);
 	}
 	
 	public boolean isClientMember(String id) {
