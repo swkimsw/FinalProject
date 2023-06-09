@@ -6,6 +6,8 @@
 	<select id="login" resultType="boolean">select count(*) from ClientMember where
 		id= #{id} and pw= #{pw}
 	</select>
+	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
+	<select id="getIdByPhone" resultType="String">select id from ClientMember where phone = #{phone}</select>
 	
 	<select id="isMember" resultType="boolean">
 		select count(*) from ClientMember where id = #{id}
