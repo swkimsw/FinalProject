@@ -332,6 +332,7 @@ html, body {
 				style="display: none">
 				<div class="row d-flex justify-content-center mx-auto p-0 loginForm">
 					<div class="col-md-6 login-form-1 align-center">
+					
 						<div class="KickKick_logo text-center d-md-block mb-4">
 							<h3 class="mb-5">계정 찾기</h3>
 							<p class="body_font mb-5">휴대폰 인증을 통해 아이디를 확인합니다.</p>
@@ -790,7 +791,7 @@ html, body {
             $("#phone_auth").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
                $.ajax({
-                  url: "/phone_auth.member",
+                  url: "/clientMember/sendSms",
                   type: "post",
                   dataType: "json",
                   data: { phone: $("#phone").val() }

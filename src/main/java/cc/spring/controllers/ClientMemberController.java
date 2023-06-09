@@ -44,9 +44,9 @@ public class ClientMemberController {
 		return "error";
 	}
 //	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
-	@RequestMapping("get_id_by_phone")
-	public String get_id_by_phone(String phone) {
-		String result = cms.get_id_by_phone(phone);
+	@RequestMapping("getIdByPhone")
+	public String getIdByPhone(String phone) {
+		String result = cms.getIdByPhone(phone);
 		return null;
 //		return 값 아직 안적어놓음
 	}
@@ -71,7 +71,7 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
-				
+				System.out.println(phone);
 		if(!result) {
 			Random rand = new Random(); 
 			String numStr = "";
@@ -86,12 +86,12 @@ public class ClientMemberController {
 		return String.valueOf(result);
 	}
 	
-	// 인증번호 입력 후 인증 버튼 클릭 시
-//	@ResponseBody
-//	@RequestMapping(value="certification", produces="text/html;charset=utf8")
-//	public String certification(String code) {
-//		String numStr = (String) session.getAttribute("numStr");
-//	}
+//	 인증번호 입력 후 인증 버튼 클릭 시
+	@ResponseBody
+	@RequestMapping(value="certification", produces="text/html;charset=utf8")
+	public String certification(String code) {
+		String numStr = (String) session.getAttribute("numStr");
+	}
 	
 	
 	@ExceptionHandler(Exception.class)
