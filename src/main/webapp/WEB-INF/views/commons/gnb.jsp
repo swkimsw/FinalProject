@@ -34,8 +34,7 @@
 				<a href="/" class="nav_a">
 					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
 						style="text-decoration: none;">🍽CookCook</h5>
-				</a> <img src="#" alt="MyIcon" class="center-block mb-4"
-					style="width: 80px; height: 80px;">
+				</a> 
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null}">
 						<!-- 유저이름 -->

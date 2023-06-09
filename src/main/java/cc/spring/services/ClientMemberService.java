@@ -7,7 +7,6 @@ import cc.spring.dto.ClientMemberDTO;
 import cc.spring.repositories.ClientMemberDAO;
 
 @Service
-
 public class ClientMemberService {
 	@Autowired
 	private ClientMemberDAO CDAO;
@@ -22,5 +21,9 @@ public class ClientMemberService {
 	}
 	public boolean isClientMember(String id) {
 		return CDAO.isClientMember(id);
+	}
+	
+	public boolean phoneCheck(String phone) {
+		return CDAO.phoneCheck(phone);
 	}
 }

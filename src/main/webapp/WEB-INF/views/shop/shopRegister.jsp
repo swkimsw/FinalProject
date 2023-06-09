@@ -17,7 +17,7 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
 	*{font-family: 'NanumSquareNeoBold';}
-	.container{width: 70%; margin-top:100px;}
+	.container{width: 70%; margin-top:100px;}\
 </style>
 </head>
 <body>
@@ -25,61 +25,58 @@
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
 	</header>
-	<form action="insertShop" method="post">
+	<form action="/shop/insertShop" method="post" enctype="multipart/form-data">
 	<main>
 		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 			<h2 class="mb-5" style="text-align:center;">공구 등록</h2>
 			
-			<div class="row input1">
-				<div class="mb-3">
-					<div class="col-12 col-md-12 col-xl-12">
-						<div class="input-group mb-3">
-  							<label for="formFile" class="form-label">사진 선택</label>
-  							<input class="form-control" type="file" id="formFile" name="images" multiple>
-  						</div>
-					</div>
-				</div>
-				<div class="mb-3">
-					<div class="col-12 col-md-12 col-xl-12">
+			<div class="input1">
+					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example">
 						</div>
 					</div>
-				</div>
-			</div>
-			
-			<div class="input2">
-				<div class="col-12 col-md-6 col-xl-6">
+				
+				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
 						<input type="text" class="form-control" id="productName" name="productName" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-6 col-xl-6">
-					<div class="input-group mb-3">
+				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-6 col-xl-6">
+				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
 						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-6 col-xl-6">
+				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
 						<input type="text" class="form-control" id="min" name="min" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-6 col-xl-6">
+				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
 						<input type="text" class="form-control" id="max" name="max" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-6 col-xl-6">
+			</div>
+			
+			<div class="input2">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+  					<label for="formFile" class="form-label">사진 선택</label>
+						<div class="input-group mb-3">
+  							<input class="form-control" type="file" id="files" name="files" multiple>
+  						</div>
+				</div>
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mb-3">
   						<label for="exampleFormControlTextarea1" class="form-label">추가 정보 입력</label>
  						 <textarea class="form-control" id="detail" name="detail" rows="3"></textarea>
@@ -88,12 +85,27 @@
 			</div>
 			
 			<div class="footer">
-				
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+					<table class="table table-bordered">
+						<tr>
+							<td>배송 업체</td>
+							<td> CJ대한통운 (나중에 값 받아오기) </td>
+						</tr>
+						<tr>
+							<td>업체 연락처</td>
+							<td> 010-1234-5678 (나중에 값 받아오기) </td>
+						</tr>
+						<tr>
+							<td>교환 및 반품 주소</td>
+							<td> 서울특별시 중구 남대문로 120 (나중에 값 받아오기) </td>
+						</tr>
+					</table>
+				</div>
 			</div>
 			<div class="buttons">
 				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 					<button class="btn btn-primary">등록</button>
-					<a href=""><input type="button" value="취소" class="btn btn-primary"></a>
+					<input type="button" value="취소" class="btn btn-primary">
 				</div>
 			</div>
 			
