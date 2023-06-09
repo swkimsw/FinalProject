@@ -1,6 +1,8 @@
 package cc.spring.controllers;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
@@ -71,7 +73,8 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
-				
+		
+		// 같은 연락처가 DB에 없으면 실행
 		if(!result) {
 			Random rand = new Random(); 
 			String numStr = "";
@@ -80,7 +83,19 @@ public class ClientMemberController {
 				numStr+=ran;
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
-			session.setAttribute("numStr", numStr);
+			session.setAttribute("numStr", numStr);	
+			
+			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
+//			Timer timer = new Timer();
+//	        int delay = 180000; // 3분
+//	        
+//	        timer.schedule(new TimerTask() {
+//	            @Override
+//	            public void run() {
+//	                session.removeAttribute("numStr");
+//	            }
+//	        }, delay);
+			
 		}
 
 		return String.valueOf(result);
@@ -93,9 +108,11 @@ public class ClientMemberController {
 		String numStr = (String) session.getAttribute("numStr");
 				
 		if(numStr.equals(code)) {
-			
+			return String.valueOf(true);
 		}
-		return String.valueOf(true);
+		else {
+			return String.valueOf(false);
+		}
 		
 	}
 	
