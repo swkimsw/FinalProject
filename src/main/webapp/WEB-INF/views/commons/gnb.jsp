@@ -34,8 +34,7 @@
 				<a href="/" class="nav_a">
 					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
 						style="text-decoration: none;">🍽CookCook</h5>
-				</a> <img src="#" alt="MyIcon" class="center-block mb-4"
-					style="width: 80px; height: 80px;">
+				</a> 
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null}">
 						<!-- 유저이름 -->
@@ -123,10 +122,10 @@
 								<li><a href="#"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a>
 								</li>
-								<li><a href="#"
+								<li><a href="/board/free"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">자유게시판</a>
 								</li>
-								<li><a href="#"
+								<li><a href="/board/announcement"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">후기게시판</a>
 								</li>
 							</ul>
