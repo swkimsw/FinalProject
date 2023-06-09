@@ -7,7 +7,7 @@
 		id= #{id} and pw= #{pw}
 	</select>
 	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
-	<select id="get_id_by_phone" resultType="ResultSet">select id from member where phone = #{phone}</select>
+	<select id="get_id_by_phone" resultType="ResultSet">select id from ClientMember where phone = #{phone}</select>
 	
 	<select id="isMember" resultType="boolean">
 		select count(*) from ClientMember where id = #{id}
