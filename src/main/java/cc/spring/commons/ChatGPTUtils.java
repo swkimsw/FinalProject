@@ -1,5 +1,7 @@
 package cc.spring.commons;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -37,30 +39,29 @@ public class ChatGPTUtils {
                 .defaultHeader("Authorization", "Bearer " + apiKey)
                 .build();
 
-        String messageJson = String.format("{\"role\":\"user\", \"content\":\"%s\"}", prompt);
+        String messageJson = String.format("{\"role\":\"user\", \"content\":\"%s\"}", sendMsg);
 
         String response = webClient.post()
                 .uri("/v1/chat/completions")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(
-                        "{\"model\":\"gpt-3.5-turbo\", \"messages\":[" + messageJson + "], \"max_tokens\":500, \"temperature\":0.2}"
+                        "{\"model\":\"gpt-3.5-turbo-0301\", \"messages\":[" + messageJson + "], \"max_tokens\":500, \"temperature\":0.2}"
                 ))
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
         
+//        ChatDTO dto = gson.fromJson(response, ChatDTO.class);
         
-       // response.subscribe(System.out::println);
-        System.out.println(response);
-
-        Gson gson = new Gson();
+//        System.out.println("아침 = " + dto.getBreakfast());
+//        System.out.println("점심 = " + dto.getLunch());
+//        System.out.println("저녁 = " + dto.getDinner());
+        Gson g = new Gson();
+		Map<String, Object> map = g.fromJson(response, Map.class);
+		
+		
+		System.out.println(map.get("choice"));
         
-        ChatDTO dto = gson.fromJson(response, ChatDTO.class);
-        
-        System.out.println("아침 = " + dto.getBreakfast());
-        System.out.println("점심 = " + dto.getLunch());
-        System.out.println("저녁 = " + dto.getDinner());
-
 		return response;
 	}
 	
