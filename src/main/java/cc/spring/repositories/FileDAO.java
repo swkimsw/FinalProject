@@ -13,8 +13,6 @@ public class FileDAO {
 	private SqlSessionTemplate db;
 	
 	public int insertShopImage(FileDTO dto) {
-		System.out.println(dto.getPath());
-		System.out.println(dto.getOriname());
 		return db.insert("insertShopImage", dto);
 	}
 	

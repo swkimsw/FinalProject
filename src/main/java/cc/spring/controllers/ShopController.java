@@ -15,10 +15,10 @@ import cc.spring.services.ShopService;
 @Controller
 @RequestMapping("/shop/")
 public class ShopController {
-	
+
 	@Autowired
 	private ShopService shopService;
-	
+
 	@Autowired
 	private HttpSession session;
 
@@ -26,32 +26,26 @@ public class ShopController {
 	public String toShopRegister() {
 		return "/shop/shopRegister";
 	}
-	
+
 	@RequestMapping("toShopList")
 	public String toShopList() {
 		return "/shop/shopList";
 	}
-	
+
 	@RequestMapping(value="insertShop")
-	public String insertShop(ShopDTO dto, MultipartFile[] files) {
-		try {
-			// realPath - 폴더가 없다면 만들기
-			String realPath = session.getServletContext().getRealPath("upload");
-			System.out.println(realPath);
-			System.out.println("왜 : " + files);
-			shopService.insertShop(dto, files, realPath);
-			
-			return "redirect:/shop/toShopRegister";
-		}catch(Exception e) {
-			e.printStackTrace();
-			return "redirect:/error";
-		}
+	public String insertShop(ShopDTO dto, MultipartFile[] files) throws Exception {
+
+		// realPath - 폴더가 없다면 만들기
+		String realPath = session.getServletContext().getRealPath("upload");
+		shopService.insertShop(dto, files, realPath);
+
+		return "redirect:/shop/toShopRegister";
 	}
-	
+
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
 		return "redirect:/error";
 	}
-	
+
 }
