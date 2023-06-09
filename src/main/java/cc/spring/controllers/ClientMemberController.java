@@ -80,11 +80,17 @@ public class ClientMemberController {
 	}
 	
 	// 인증번호 입력 후 인증 버튼 클릭 시
-//	@ResponseBody
-//	@RequestMapping(value="certification", produces="text/html;charset=utf8")
-//	public String certification(String code) {
-//		String numStr = (String) session.getAttribute("numStr");
-//	}
+	@ResponseBody
+	@RequestMapping(value="certification", produces="text/html;charset=utf8")
+	public String certification(String code) {
+		String numStr = (String) session.getAttribute("numStr");
+				
+		if(numStr.equals(code)) {
+			
+		}
+		return String.valueOf(true);
+		
+	}
 	
 	
 	@ExceptionHandler(Exception.class)
