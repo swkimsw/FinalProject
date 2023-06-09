@@ -52,6 +52,7 @@ public class ChatGPTUtils {
         
        // response.subscribe(System.out::println);
         System.out.println(response);
+
         Gson gson = new Gson();
         
         ChatDTO dto = gson.fromJson(response, ChatDTO.class);
@@ -59,6 +60,7 @@ public class ChatGPTUtils {
         System.out.println("아침 = " + dto.getBreakfast());
         System.out.println("점심 = " + dto.getLunch());
         System.out.println("저녁 = " + dto.getDinner());
+
 		return response;
 	}
 	

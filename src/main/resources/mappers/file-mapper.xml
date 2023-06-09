@@ -9,4 +9,8 @@
 		insert into groupbuyinimg values(groupbuying_img_seq.nextval, ${postcode}, #{path}, #{oriname}, #{sysname})
 	</insert>
 	
+	<select id="selectShopImg" resultType="cc.spring.dto.FileDTO">
+		select * from groupbuyinimg where postcode=${code}
+	</select>
+	
 </mapper>
