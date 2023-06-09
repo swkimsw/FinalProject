@@ -1,14 +1,10 @@
 package cc.spring.controllers;
 
-<<<<<<< HEAD
-import java.util.Date;
-import java.util.Random;
-import java.util.Timer;
-=======
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
->>>>>>> 9f79a948de5ac3e59c4d4c025a57a608397b242d
+
 
 import javax.servlet.http.HttpSession;
 
