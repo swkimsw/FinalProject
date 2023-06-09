@@ -1,6 +1,8 @@
 package cc.spring.controllers;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.http.HttpSession;
 
@@ -71,7 +73,12 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
+<<<<<<< HEAD
 				System.out.println(phone);
+=======
+		
+		// 같은 연락처가 DB에 없으면 실행
+>>>>>>> f43573cd88bfb89164291008d12302dbac50ed45
 		if(!result) {
 			Random rand = new Random(); 
 			String numStr = "";
@@ -80,17 +87,44 @@ public class ClientMemberController {
 				numStr+=ran;
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
-			session.setAttribute("numStr", numStr);
+			session.setAttribute("numStr", numStr);	
+			
+			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
+//			Timer timer = new Timer();
+//	        int delay = 180000; // 3분
+//	        
+//	        timer.schedule(new TimerTask() {
+//	            @Override
+//	            public void run() {
+//	                session.removeAttribute("numStr");
+//	            }
+//	        }, delay);
+			
 		}
 
 		return String.valueOf(result);
 	}
 	
+<<<<<<< HEAD
 //	 인증번호 입력 후 인증 버튼 클릭 시
+=======
+	// 인증번호 입력 후 인증 버튼 클릭 시
+>>>>>>> f43573cd88bfb89164291008d12302dbac50ed45
 	@ResponseBody
 	@RequestMapping(value="certification", produces="text/html;charset=utf8")
 	public String certification(String code) {
 		String numStr = (String) session.getAttribute("numStr");
+<<<<<<< HEAD
+=======
+				
+		if(numStr.equals(code)) {
+			return String.valueOf(true);
+		}
+		else {
+			return String.valueOf(false);
+		}
+		
+>>>>>>> f43573cd88bfb89164291008d12302dbac50ed45
 	}
 	
 	
