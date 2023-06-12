@@ -24,10 +24,16 @@ public class ShopDAO {
 		return db.selectOne("selectShopInfo", code);
 	}
 	
+
 	public List<ShopListDTO> ShopList() {
 		List<ShopListDTO> result = db.selectList("Shop.shopList");
  		System.out.println(result);
 		return result;
+	}
+
+	public int isClientMember(String loginId) {
+		return db.selectOne("isClientMember", loginId);
+
 	}
 
 }

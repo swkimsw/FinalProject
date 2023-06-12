@@ -20,10 +20,12 @@ public class ShopDTO {
 	private Timestamp modDate;
 	private Timestamp delDate;
 	
-	public ShopDTO() {}
+	private String businessId;
+	
+	public ShopDTO() {}	
 	public ShopDTO(int code, int businessCode, int statusCode, Timestamp deadLine, String deadLineTemp, int max,
 			int min, String title, String detail, String productName, String productPrice, int boardKindCode,
-			Timestamp regDate, Timestamp modDate, Timestamp delDate) {
+			Timestamp regDate, Timestamp modDate, Timestamp delDate, String businessId) {
 		super();
 		this.code = code;
 		this.businessCode = businessCode;
@@ -40,9 +42,16 @@ public class ShopDTO {
 		this.regDate = regDate;
 		this.modDate = modDate;
 		this.delDate = delDate;
+		this.businessId = businessId;
 	}
-
-
+	
+	public String getBusinessId() {
+		return businessId;
+	}
+	
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
+	}
 	
 	public String getDeadLineTemp() {
 		return deadLineTemp;

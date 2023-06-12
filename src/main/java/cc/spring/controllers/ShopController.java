@@ -36,8 +36,23 @@ public class ShopController {
 	// 공구샵 신청 폼으로 이동
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
+		// 세션에서 ID 받아오게 수정
+		String loginId = "11122541";
+	
+		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
+		
+		// 이용자인지 판매자인지 검색 (result가 0:글 등록한 판매자 / 1:이용자 / 2:글 등록하지 않은 판매자)
+		int result = shopService.isClientMember(loginId);
+		if(result == 0) {
+			if(loginId.equals(shopDTO.getBusinessId())) {
+				System.out.println("내가 쓴 글 !");
+				result = 2;
+			}
+		}
+		
 		model.addAttribute("shopDTO", shopDTO);
+		model.addAttribute("result", result);
 		return "/shop/shopApply";
 	}
 

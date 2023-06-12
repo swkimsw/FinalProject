@@ -202,7 +202,7 @@ label {
 								<!-- 비밀번호 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="password" class="password form-control rounded" aria-label="password" aria-describedby="password" id="member_pw" name="pw" maxlength="20" required/>
+										<input type="password" class="password form-control rounded" aria-label="password" aria-describedby="password" id="member_pw" name="pw" maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()-_=+[{]}\\|;:'\,./?`~])(?=.*[0-9]).{8,20}$" required/>
 										<div class="valid-feedback" style="font-size: x-small;">Good</div>
 										<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 									</div>
@@ -239,11 +239,13 @@ label {
 								<!-- 비밀번호 확인 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="password" class="password_check form-control rounded mt-1" aria-label="password" aria-describedby="password_check" id="password_check" maxlength="20" required/>
+										<input type="password" class="password_check form-control rounded mt-1" aria-label="password" aria-describedby="password_check" id="password_check" maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()-_=+[{]}\\|;:'\,./?`~])(?=.*[0-9]).{8,20}$" required placeholder="비밀번호 재입력"/>
 										<div class="valid-feedback" style="font-size: x-small;">Good</div>
 										<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 									</div>
 								</div>
+								
+								
 							</div>
 						</div>
 						<!-- 이름 -->
@@ -501,6 +503,7 @@ label {
 					}
 				}
 			});
+			
 		}
 		// PW 유효성 검사
 		addEventListener("DOMContentLoaded", (event) => {
@@ -512,7 +515,7 @@ label {
 			let bigLetter = document.querySelector(".big-letter");
 			let num = document.querySelector(".num");
 			let specialChar = document.querySelector(".special-char");
-			const specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+			const specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\,./?`~";
 			const numbers = "0123456789";
 			
 			requirements.forEach((element) => element.classList.add("wrong"));
@@ -641,6 +644,17 @@ label {
 					});
 					passwordAlert.classList.remove("alert-warning");
 					passwordAlert.classList.add("alert-success");
+				}else {
+					password.classList.add("is-invalid");
+					password.classList.remove("is-valid");
+					
+					requirements.forEach((element) => {
+						element.classList.add("wrong");
+						element.classList.remove("good");
+					});
+					passwordAlert.classList.add("alert-warning");
+					passwordAlert.classList.remove("alert-success");
+					console.log("틀렷음");
 				}
 			});
 			
@@ -833,8 +847,50 @@ label {
 							document.getElementById("sample6_detailAddress")
 									.focus();
 						}
-					}).open();
+					}).open(); 
+		
+			
 		}
+		document.addEventListener("DOMContentLoaded", function() {
+			  var password_check = document.getElementById("password_check");
+			  var member_name = document.getElementById("member_name");
+			  var member_nickname = document.getElementById("member_nickname");
+			  var member_phone = document.getElementById("member_phone");
+			  var phone_auth_code = document.getElementById("phone_auth_code");
+			  var sample6_postcode = document.getElementById("sample6_postcode");
+			  var sample6_address = document.getElementById("sample6_address");
+			  var sample6_detailAddress = document.getElementById("sample6_detailAddress");
+			  var member_email = document.getElementById("member_email");
+
+			  if (password_check.value === "") {
+			    password_check.focus();
+			  } else if (member_name.value === "") {
+			    member_name.focus();
+			  } else if (member_nickname.value === "") {
+			    member_nickname.focus();
+			  } else if (member_phone.value === "") {
+			    member_phone.focus();
+			  } else if (phone_auth_code.value === "") {
+			    phone_auth_code.focus();
+			  } else if (sample6_postcode.value === "") {
+			    sample6_postcode.focus();
+			  } else if (sample6_address.value === "") {
+			    sample6_address.focus();
+			  } else if (sample6_detailAddress.value === "") {
+			    sample6_detailAddress.focus();
+			  } else if (member_email.value === "") {
+			    member_email.focus();
+			  }
+			});
+$("#join").on("click",function(){
+	var pw1 = document.getElementById("member_pw").val();
+	var pw2 = document.getElementById("password_check").val();
+	if(pw1 != p2){
+console.log("실패")		
+	}
+	
+})		
+		
 	</script>
 	<!-- 가입 완료시 가입 환영 메세지 -->
 	<c:if test="${param.status=='complete'}">
