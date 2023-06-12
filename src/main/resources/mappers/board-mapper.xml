@@ -2,6 +2,17 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="Board">
+
+	<!-- 후기게시판의 고유번호 -->
+	<select id="selectReviewSeq" resultType="int">
+		select board_free_seq.nextval from dual;
+	</select>
+
+<!-- 후기게시판 작성 -->
+	<insert id="insertReview">
+		insert into BoardReview values (#{seq}, 1003 , 1003 , #{writer} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+	</insert>
 
 </mapper>

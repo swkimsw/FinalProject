@@ -147,9 +147,9 @@ public class ClientMemberController {
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
 	@RequestMapping(value="certification2", produces="text/html;charset=utf8")
-	public Map<String, Boolean> certification_2(String code,String phone) {
+	public Map<String, Boolean> certification_2(String code,String phone_auth_code) {
 		String numStr = (String) session.getAttribute("numStr");
-		String searchId = cms.getIdByPhone(phone);
+		String searchId = cms.getIdByPhone(phone_auth_code);
 		
 		System.out.println("dsaakc");
 		if(numStr.equals(code)) {
@@ -179,7 +179,9 @@ public class ClientMemberController {
 	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) {
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
 		dto.setBirthDate(birthDate);
-		System.out.println(dto.getAgree());
+		System.out.println("가입약관확인 : " + dto.getAgree());
+		
+		
 		cms.insertClient(dto);
 		return "redirect:login_form";
 	}
