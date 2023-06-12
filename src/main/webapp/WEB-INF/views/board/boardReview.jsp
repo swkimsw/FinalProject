@@ -197,7 +197,7 @@
       </nav>
 
  	<div style="float:right;">
- 	 <a href="/board/announcementWrite"><button class="btn btn-outline-primary" type="button">작성하기</button></a> 
+ 	 <a href="/board/reviewWrite"><button class="btn btn-outline-primary" type="button">작성하기</button></a> 
  	 </div>
       
      

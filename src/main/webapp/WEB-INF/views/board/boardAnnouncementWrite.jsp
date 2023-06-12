@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- 부트스트랩모드가 아닌 lite모드로-->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/lang/summernote-ko-KR.min.js"></script> <!--한글지원-->
 
 
     <!-- Bootstrap - CSS only -->
@@ -26,12 +28,14 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- gnb css -->
     <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+ 
     
     <style>
         * {
-            font-family: NanumSquareNeoBold;
+            font-family: NanumSquareNeo-;
             box-sizing: border-box;
         }
 
@@ -39,118 +43,110 @@
             margin-top: 100px;
         }
 
-        select {
-            margin-top: 5px;
-        }
-
-        input {
-            margin-bottom: 5px;
-            width: 75%
-        }
-
         h2 {
             text-align: center;
         }
 
-        #title {
+        label{
             word-break: break-all;
-
+            margin-bottom: 5px;
+            width: 75%;
         }
-
+        
         div>table {
             width: 100%;
-
+            table-layout: fixed;
+        }
+        .btn {
+            margin-top: -10px;
+            margin-right: 14px;
+            font-size: medium;
         }
 
-        #content {
-            white-space: pre-wrap;
-            word-wrap: break-word;
-
-        }
 
         .button-container {
             text-align: center;
-        }
-
-        .button-container button {
-            margin-right: 10px;
-        }
-
-        button {
-            margin-bottom: 10px;
-
         }
     </style>
 
 </head>
 <body>
 
-  <c:import url="../commons/gnb.jsp">
+	<c:import url="../commons/gnb.jsp">
 		</c:import>
 
+<form action="/board/announcement_input" method="get">
 
     <div class="container">
 
-        
-            <div class="col-xs-12 col-md-12  col-lg-12 ">
-                <h2>후기 작성하기</h2>
-                <br>
+        <div class="header">
+        </div>
 
-                <div class="col-xs-12 col-md-12  col-lg-12 ">
-                        제목 : <input id="title" type="text" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)">
-                </div>
 
-             </div>
-             
+        <div class="body">
+
+            <h2>공지게시판 작성하기</h2>
+            <br>
+
+            <div>
+                제목 : <label><input id="title" name="title" class="form-control" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
+            </div>
+        </div>
+
+
+
+        <div>
             <table>
                 <tr>
-                    <td colspan="2"><textarea id="content" type="text"></textarea></td>
+                    <td colspan="2">
+                        <textarea id="content" name="content"></textarea>
+                    </td>
                 </tr>
-              
                 <tr>
                     <td colspan="2" class="button-container">
                         <br>
-
                         <button class="btn btn-outline-primary" type="submit">작성</button>
                         <button class="btn btn-outline-primary" type="button">취소</button>
                     </td>
                 </tr>
-
             </table>
+        </div>
 
 
+    </div>
 
-     </div>
+    <div class="footer">
+    </div>
+
+    </div>
+</form>
 
     <script>
 
 
         $(document).ready(function () {
+
             $('#content').summernote({
                 placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
-                tabsize: 2,
-                height: 500,
+                height: 600,
                 focus: true,
-                maxHeight: 600,
+                maxHeight: 800,
                 minHeight: 200,
+                lang: 'ko-KR', // default: 'en-US'
                 toolbar: [
-                    ['fontname', ['fontname']],
-                    ['fontsize', ['fontsize']],
                     ['style', ['style']],
                     ['font', ['bold', 'underline', 'clear']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['link', 'picture']],
+                    ['insert', ['video']],
                     ['view', ['codeview', 'help']]
-
-                ],
-                fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체'],
-                fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72']
+                ]
             });
 
         });
 
     </script>
+    
 </body>
 </html>
