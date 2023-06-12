@@ -16,5 +16,9 @@ public class ShopDAO {
 		db.insert("insertShop", dto);
 		return dto.getCode();
 	}
+	
+	public ShopDTO selectShopInfo(int code) {
+		return db.selectOne("selectShopInfo", code);
+	}
 
 }

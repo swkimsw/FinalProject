@@ -17,7 +17,7 @@ public class BusinessMemberController {
 	
 	@Autowired
 	private BusinessMemberService bms;
-	//사업자 로그인
+	//사업자 로그인git
 		@RequestMapping("login")
 		public String login(BusinessMemberDTO dto) {
 			System.out.println(dto);
