@@ -661,7 +661,7 @@ html, body {
 				<div class="row d-flex justify-content-center">
 					<div class="col-12 col-md-6 d-flex justify-content-center">
 						<button type="button" class="btn btn-outline-success"
-							id="btn_change_pw">비밀번호 변경하기</button>
+							id="btn_change_pw2">비밀번호 변경하기</button>
 					</div>
 				</div>
 			</div>
@@ -803,8 +803,10 @@ html, body {
                      alert("전화번호를 확인해주세요.");
                      return false;
                   }
+                  else {
                   // 인증번호 받기 버튼 비활성화
                   $("#phone_auth").attr("disabled", true);
+                  alert("인증번호가 발송되었습니다.");
                   /*
                   AuthTimer = new $ComTimer();
                   // 제한 시간
@@ -813,6 +815,8 @@ html, body {
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
                   AuthTimer.domId = document.getElementById("timeLimit"); */
+                  }
+
                });
             });
             // 인증 버튼 이벤트
@@ -830,7 +834,7 @@ html, body {
                   data: { code: $("#phone_auth_code").val() }
                }).done(function name(resp) {
             	   console.log(resp)
-                  if (resp) {
+                  if (resp.success) {
                    /*   AuthTimer.fnStop(); */
                      $("#login_view_fadeOut").hide();
                      $("#find_member_fadeIn").hide();
@@ -996,10 +1000,11 @@ html, body {
                let password_check = $("#password_check").val();
                if (password == password_check && password != "") {
                   $.ajax({
-                     url: "/change_pw.member",
+                     url: "/clientMember/changePw",
                      type: "post",
-                     data: { id: $("#search_id").text().split(" ")[0], password: $("#password").val() }
+                     data: { id: $("#search_id").text().split(" ")[0], pw: $("#password").val() }
                   }).done(function () {
+                	  alert("비밀번호가 변경되었습니다.")
                      location.reload();
                   });
                } else {

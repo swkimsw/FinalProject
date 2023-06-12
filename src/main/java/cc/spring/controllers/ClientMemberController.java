@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.services.ClientMemberService;
 import cc.spring.services.SmsService;
@@ -98,7 +99,6 @@ public class ClientMemberController {
 	public String sendSms2(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
-				System.out.println(phone + ":" + result);
 		
 		// 같은 연락처가 DB에 없으면 실행
 		if(result) {
@@ -110,6 +110,7 @@ public class ClientMemberController {
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
 			session.setAttribute("numStr", numStr);	
+			session.setAttribute("phone", phone);
 			
 			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
 //			Timer timer = new Timer();
@@ -146,24 +147,35 @@ public class ClientMemberController {
 	}
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
-	@RequestMapping(value="certification2", produces="text/html;charset=utf8")
-	public Map<String, Boolean> certification_2(String code,String phone) {
+	@RequestMapping("certification2")
+	public Map<String, Object> certification_2(String code) {
 		String numStr = (String) session.getAttribute("numStr");
-		String searchId = cms.getIdByPhone(phone);
-		
-		System.out.println("dsaakc");
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("success", false);
+
 		if(numStr.equals(code)) {
-			System.out.println("인중 성공");
-			Map<String, Boolean> result = new HashMap<String, Boolean>();
-			result.put(searchId, true);
+			String phone = (String) session.getAttribute("phone");
+			String searchId = cms.getIdByPhone(phone);
+			System.out.println(searchId);
+			result.put("searchId", searchId);
+			result.put("success", true);
+			session.removeAttribute("numStr");
+			session.removeAttribute("phone");
 			return result;
 		}
 		else {
-			System.out.println("인중 실패");
-			Map<String, Boolean> result = new HashMap<String, Boolean>();
-			result.put(searchId, false);
 			return result;
 		}
+
+	}
+	
+	// 비밀번호 재설정 
+	@ResponseBody
+	@RequestMapping("changePw")
+	public void changePw(ClientMemberDTO dto) throws Exception {
+		String updatePw = EncryptionUtils.sha512(dto.getPw());
+		dto.setPw(updatePw);
+		cms.updatePw(dto);
 	}
 	
 	// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
