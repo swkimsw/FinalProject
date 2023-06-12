@@ -13,4 +13,9 @@
 		select * from groupbuyinimg where postcode=${code}
 	</select>
 	
+	
+	<insert id="insertReviewImage">
+		insert into ReviewImage values( Board_Review_Seq.nextval , #{dto.postcode} ,#{dto.path} ,#{dto.oriname} ,#{dto.sysname})
+	</insert>
+	
 </mapper>

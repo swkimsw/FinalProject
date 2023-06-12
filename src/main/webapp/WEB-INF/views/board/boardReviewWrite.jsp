@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- 부트스트랩모드가 아닌 lite모드로-->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
@@ -31,26 +31,16 @@
 
     <!-- gnb css -->
     <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+ 
+    
     <style>
-       * {
+        * {
             font-family: NanumSquareNeo-;
             box-sizing: border-box;
         }
 
         .container {
             margin-top: 100px;
-        }
-
-        .cate {
-            margin-bottom: 10px;
-        }
-
-        select {
-            margin-top: 5px;
-            padding-top: 2px;
-            padding-bottom: 2px;
-
         }
 
         h2 {
@@ -85,8 +75,8 @@
 	<c:import url="../commons/gnb.jsp">
 		</c:import>
 
+<form action="/board/reviewInput" method="get">
 
-<form action="/board/free_input" method="get">
     <div class="container">
 
         <div class="header">
@@ -95,19 +85,11 @@
 
         <div class="body">
 
-            <h2>자유게시판 작성하기</h2>
+            <h2>후기게시판 작성하기</h2>
             <br>
 
-            <div class="category">
-                카테고리 : <select id="headline" name="headline">
-                    <option value="2001">일상</option>
-                    <option value="2002">정보</option>
-                    <option value="2003">질문</option>
-                </select>
-            </div>
             <div>
                 제목 : <label><input id="title" name="title" class="form-control" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
-                
             </div>
         </div>
 
@@ -137,8 +119,7 @@
     </div>
 
     </div>
-    </form>
-
+</form>
 
     <script>
 
@@ -158,7 +139,7 @@
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['table', ['table']],
-                    ['insert', ['video']],
+                    ['insert', ['picture','video']],
                     ['view', ['codeview', 'help']]
                 ]
             });
@@ -167,6 +148,5 @@
 
     </script>
     
-  
 </body>
 </html>

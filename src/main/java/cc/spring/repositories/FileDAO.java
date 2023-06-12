@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.ReviewImgDTO;
 
 @Repository
 public class FileDAO {
@@ -20,6 +21,11 @@ public class FileDAO {
 	
 	public List<FileDTO> selectShopImg(int code) {
 		return db.selectList("selectShopImg", code);
+	}
+
+	public int insertReviewImage(ReviewImgDTO dto) {
+		
+		return db.insert("File.insertReviewImage" ,dto);
 	}
 	
 }

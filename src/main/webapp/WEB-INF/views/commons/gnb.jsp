@@ -119,13 +119,13 @@
 							aria-expanded="false">전체 게시판</button>
 						<div class="collapse" id="dashboard-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="#"
+								<li><a href="/board/announcement"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a>
 								</li>
 								<li><a href="/board/free"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">자유게시판</a>
 								</li>
-								<li><a href="/board/announcement"
+								<li><a href="/board/review"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">후기게시판</a>
 								</li>
 							</ul>
