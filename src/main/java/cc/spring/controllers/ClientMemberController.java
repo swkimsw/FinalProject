@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -140,6 +138,7 @@ public class ClientMemberController {
 			System.out.println("인중 성공");
 			return String.valueOf(true);
 		}
+
 		else {
 			System.out.println("인중 실패");
 			return String.valueOf(false);
@@ -176,10 +175,14 @@ public class ClientMemberController {
 	}
 	
 	// 회원가입 폼에서 입력한 값들 넘어옴
-//	@RequestMapping("signup")
-//	public String signup() {
-//		
-//	}
+	@RequestMapping("signup")
+	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) {
+		String birthDate = member_birth_year + member_birth_month + member_birth_day;
+		dto.setBirthDate(birthDate);
+		System.out.println(dto.getAgree());
+		cms.insertClient(dto);
+		return "redirect:login_form";
+	}
 	
 	
 	
