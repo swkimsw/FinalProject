@@ -50,18 +50,7 @@ public class ChatGPTUtils {
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-        
-//        ChatDTO dto = gson.fromJson(response, ChatDTO.class);
-        
-//        System.out.println("아침 = " + dto.getBreakfast());
-//        System.out.println("점심 = " + dto.getLunch());
-//        System.out.println("저녁 = " + dto.getDinner());
-        Gson g = new Gson();
-		Map<String, Object> map = g.fromJson(response, Map.class);
-		
-		
-		System.out.println(map.get("choice"));
-        
+
 		return response;
 	}
 	

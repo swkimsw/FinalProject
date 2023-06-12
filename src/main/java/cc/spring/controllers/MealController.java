@@ -17,5 +17,10 @@ public class MealController {
 		return "meal/basket";
 	}
 	
+	@RequestMapping("aiMeal")
+	public String aiMeal() {
+		return "";
+	}
+	
 
 }
