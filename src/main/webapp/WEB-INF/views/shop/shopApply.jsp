@@ -128,13 +128,28 @@
 					</table>
 				</div>
 			</div>
-			<div class="buttons">
-				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-					<button class="btn btn-primary">신청</button>
-					<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
-				</div>
-			</div>
-			
+			<c:choose>
+				<c:when test="${result == 2}">
+					<!-- 본인이 등록한 판매자일 때 -->
+					<div class="buttons">
+						<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+							<button class="btn btn-primary">수정</button>
+							<a href="/"><input type="button" value="삭제" class="btn btn-primary"></a>
+							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<!-- 이용자 / 본인이 등록하지 않은 판매자 -->
+					<div class="buttons">
+						<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+							<a href="/"><input type="button" value="신청" class="btn btn-primary"></a>
+							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			<hr>
 		</div>
 	</main>
 	</form>

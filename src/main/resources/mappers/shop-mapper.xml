@@ -12,7 +12,14 @@
 	</insert>
 	
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
-		select * from groupbuying where code = #{code}
+		select g.code,g.businesscode,g.statuscode,g.deadLine,g.max,g.min,
+			g.title,g.detail,g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,b.businessid
+		from groupbuying g
+		join businessmember b on g.businesscode = b.code where g.code = #{code}
+	</select>
+	
+	<select id="isClientMember" resultType="int">
+		select count(*) from clientmember where id=#{loginId}
 	</select>
 	
 </mapper>
