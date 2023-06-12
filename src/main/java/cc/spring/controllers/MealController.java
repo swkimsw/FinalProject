@@ -23,7 +23,8 @@ public class MealController {
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
 	public String aiMeal(String sendMsg) {
-		ChatGPTUtils
+//		ChatGPTUtils chatGPT = new ChatGPTUtils();
+//		chatGPT.makeMeal(sendMsg);
 		return "";
 	}
 	
