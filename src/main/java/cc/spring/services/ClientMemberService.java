@@ -30,4 +30,8 @@ public class ClientMemberService {
 	public int insertClient(ClientMemberDTO dto) {
 		return CDAO.insertClient(dto);
 	}
+	
+	public int updatePw(ClientMemberDTO dto) {
+		return CDAO.updatePw(dto);
+	}
 }

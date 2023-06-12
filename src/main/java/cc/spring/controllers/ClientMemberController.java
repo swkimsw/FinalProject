@@ -180,6 +180,8 @@ public class ClientMemberController {
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
 		dto.setBirthDate(birthDate);
 		System.out.println("가입약관확인 : " + dto.getAgree());
+		
+		
 		cms.insertClient(dto);
 		return "redirect:login_form";
 	}

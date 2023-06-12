@@ -21,4 +21,7 @@
 	<insert id="insert">
 	insert into ClientMember values(CLIENT_SEQ.nextval,#{id},#{pw},#{name},#{nickName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
 	</insert>
+	<update id="updatePw">
+		update ClientMember set pw = #{pw} where id = #{id}
+	</update>
 </mapper>
