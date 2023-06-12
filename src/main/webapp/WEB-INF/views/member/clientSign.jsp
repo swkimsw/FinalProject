@@ -143,7 +143,7 @@ label {
 			<div class="header text-center">
 				<h3>⚽CookCook</h3>
 			</div>
-			<form action="/insert_new_member.member" method="post">
+			<form action="/clientMember/signup" method="post">
 				<div class="row justify-content-center">
 					<div class="col-12 col-md-8">
 						<!-- *&nbsp;타이틀 -->
@@ -170,7 +170,7 @@ label {
 								<!-- 아이디 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_id" name="member_id" onkeyup="checksum(this, 'A');" pattern="^[a-z](?=.*[0-9])[0-9a-z]{4,19}$" title="영소문자와 숫자 포함 5자 이상 20자 이하" maxlength="20" required>
+										<input type="text" class="form-control" id="member_id" name="id" onkeyup="checksum(this, 'A');" pattern="^[a-z](?=.*[0-9])[0-9a-z]{4,19}$" title="영소문자와 숫자 포함 5자 이상 20자 이하" maxlength="20" required>
 									</div>
 								</div>
 								<!-- 아이디 중복 & 정규식 확인 메세지 -->
@@ -202,7 +202,7 @@ label {
 								<!-- 비밀번호 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="password" class="password form-control rounded" aria-label="password" aria-describedby="password" id="member_pw" name="member_pw" maxlength="20" />
+										<input type="password" class="password form-control rounded" aria-label="password" aria-describedby="password" id="member_pw" name="pw" maxlength="20" required/>
 										<div class="valid-feedback" style="font-size: x-small;">Good</div>
 										<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 									</div>
@@ -239,7 +239,7 @@ label {
 								<!-- 비밀번호 확인 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="password" class="password_check form-control rounded mt-1" aria-label="password" aria-describedby="password_check" id="password_check" maxlength="20" />
+										<input type="password" class="password_check form-control rounded mt-1" aria-label="password" aria-describedby="password_check" id="password_check" maxlength="20" required/>
 										<div class="valid-feedback" style="font-size: x-small;">Good</div>
 										<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 									</div>
@@ -259,7 +259,7 @@ label {
 								<!-- 이름 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_name" name="member_name" onkeyup="checksum(this, 'R');" pattern="^[가-힣]{2,5}$" title="2자 이상 5자 이내의 한글" minlength="2" maxlength="5" required>
+										<input type="text" class="form-control" id="member_name" name="name" onkeyup="checksum(this, 'R');" pattern="^[가-힣]{2,5}$" title="2자 이상 5자 이내의 한글" minlength="2" maxlength="5" required>
 									</div>
 								</div>
 								<!-- 이름 정규식 확인 메세지 -->
@@ -283,7 +283,7 @@ label {
 								<!-- 닉네임 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_nickname" name="member_nickname" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{2,10}$" title="2자 이상 10자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="2" maxlength="10">
+										<input type="text" class="form-control" id="member_nickname" name="nickName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{2,10}$" title="2자 이상 10자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="2" maxlength="10" required>
 									</div>
 								</div>
 								<!-- 닉네임 중복 & 정규식 확인 메세지 -->
@@ -307,7 +307,7 @@ label {
 								<!-- 전화번호 입력창 & 인증번호 받기 버튼 -->
 								<div class="row input">
 									<div class="col-8">
-										<input type="text" class="form-control" id="member_phone" name="member_phone" onkeyup="checksum(this, 'A');" pattern="^010[0-9]{8}$" title="010으로 시작하는 11자리 번화번호" maxlength="11" placeholder="(-) 제외" required>
+										<input type="text" class="form-control" id="member_phone" name="phone" onkeyup="checksum(this, 'A');" pattern="^010[0-9]{8}$" title="010으로 시작하는 11자리 번화번호" maxlength="11" placeholder="(-) 제외" required>
 									</div>
 									<div class="col-4 mt-1 d-flex justify-content-center">
 										<button type="button" class="btn btn-outline-success text-wrap" id="phone_auth" disabled="disabled">인증번호 받기</button>
@@ -323,7 +323,7 @@ label {
 								<!-- 인증번호 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" id="phone_auth_code" class="form-control" readonly="readonly">
+										<input type="text" id="phone_auth_code" class="form-control" readonly="readonly" required>
 									</div>
 								</div>
 								<!-- 인증 시간 & 인증 버튼 -->
@@ -343,7 +343,7 @@ label {
 							<div class="col-25">우편번호</div>
 							<div>
 								<input type="text" id="sample6_postcode" placeholder="우편번호"
-									class="col-35 form-control" name="zipcode">
+									class="col-35 form-control" name="zipcode" required>
 							</div>
 							<input type="button" onclick="sample6_execDaumPostcode()"
 								value="우편번호 찾기" class="col-25" style="margin-left: 3px;"><br>
@@ -352,14 +352,14 @@ label {
 							<div class="col-25">주소1</div>
 							<div>
 								<input type="text" id="sample6_address" placeholder="주소"
-									class="col-75 form-control" name="address1"><br>
+									class="col-75 form-control" name="address1" required><br>
 							</div>
 						</div>
 						<div class="col-100">
 							<div class="col-25">주소2</div>
 							<div>
 								<input type="text" id="sample6_detailAddress" placeholder="상세주소"
-									class="col-75 form-control" name="address2">
+									class="col-75 form-control" name="address2" required>
 							</div>
 						</div>
 						
@@ -405,7 +405,7 @@ label {
 								<!-- 이메일 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="email" class="form-control" id="member_email" name="member_email" onkeyup="checksum(this, 'A');" pattern="^([a-z]{1}[a-z0-9_+.-]+@)([a-zA-Z0-9]+\.)([a-z0-9]{2,4})$" title="abc@abc.com 형식으로 입력">
+										<input type="email" class="form-control" id="member_email" name="eMail" onkeyup="checksum(this, 'A');" pattern="^([a-z]{1}[a-z0-9_+.-]+@)([a-zA-Z0-9]+\.)([a-z0-9]{2,4})$" title="abc@abc.com 형식으로 입력" required>
 									</div>
 								</div>
 								<!-- 이메일 중복 & 정규식 확인 메세지 -->
@@ -424,7 +424,7 @@ label {
 								<div class="row input member_agree justify-content-center">
 									<div class="col-auto">
 										<span> 가입에 동의하시겠습니까? </span>
-										<input class="form-check-input" type="checkbox" id="member_agree" name="member_agree" value="Y" required>
+										<input class="form-check-input" type="checkbox" id="member_agree" name="agree" value="Y" required>
 									</div>
 								</div>
 							</div>
@@ -702,7 +702,7 @@ label {
 				
 				AuthTimer = new $ComTimer();
 				// 제한 시간
-				AuthTimer.comSecond = 10; 
+				AuthTimer.comSecond = 30; 
 				// 제한 시간 만료 메세지
 				AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
 				AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);

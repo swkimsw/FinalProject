@@ -14,6 +14,7 @@ public class ClientMemberDTO {
 	private String zipcode;
 	private String address1;
 	private String address2;
+	private String agree;
 	private int authGradeCode;
 	private Timestamp regDate;
 	private Timestamp modDate;
@@ -24,9 +25,8 @@ public class ClientMemberDTO {
 
 	}
 	public ClientMemberDTO(int code, String id, String pw, String name, String nickName, String birthDate, String phone,
-			String eMail, String zipcode, String address1, String address2, int authGradeCode, Timestamp regDate,
-			Timestamp modDate, Timestamp delDate) {
-
+			String eMail, String zipcode, String address1, String address2, String agree, int authGradeCode,
+			Timestamp regDate, Timestamp modDate, Timestamp delDate) {
 		this.code = code;
 		this.id = id;
 		this.pw = pw;
@@ -38,6 +38,7 @@ public class ClientMemberDTO {
 		this.zipcode = zipcode;
 		this.address1 = address1;
 		this.address2 = address2;
+		this.agree = agree;
 		this.authGradeCode = authGradeCode;
 		this.regDate = regDate;
 		this.modDate = modDate;
@@ -109,6 +110,12 @@ public class ClientMemberDTO {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+	public String getAgree() {
+		return agree;
+	}
+	public void setAgree(String agree) {
+		this.agree = agree;
+	}
 	public int getAuthGradeCode() {
 		return authGradeCode;
 	}
@@ -133,6 +140,8 @@ public class ClientMemberDTO {
 	public void setDelDate(Timestamp delDate) {
 		this.delDate = delDate;
 	}
+	
+	
 	
 	
 }

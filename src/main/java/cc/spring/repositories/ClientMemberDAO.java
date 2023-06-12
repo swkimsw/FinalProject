@@ -31,5 +31,10 @@ public class ClientMemberDAO {
 	public boolean phoneCheck(String phone) {
 		return mybatis.selectOne("Client.phoneCheck",phone);
 	}
+	
+	public int insertClient(ClientMemberDTO dto) {
+		System.out.println("김승우");
+		return mybatis.insert("Client.insert",dto);
+	}
 
 }

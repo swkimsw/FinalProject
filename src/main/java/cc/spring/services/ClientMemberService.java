@@ -26,4 +26,8 @@ public class ClientMemberService {
 	public boolean phoneCheck(String phone) {
 		return CDAO.phoneCheck(phone);
 	}
+	
+	public int insertClient(ClientMemberDTO dto) {
+		return CDAO.insertClient(dto);
+	}
 }
