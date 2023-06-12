@@ -15,4 +15,7 @@
 		select * from groupbuying where code = #{code}
 	</select>
 	
+	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
+		select g.code, g.deadline, g.title, g.productprice , b.companyname from groupbuying g join businessmember b on g.businesscode = b.code where statuscode = 1001
+	</select>
 </mapper>

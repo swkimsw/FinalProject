@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
 import cc.spring.dto.ShopDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.repositories.FileDAO;
 import cc.spring.repositories.ShopDAO;
 
@@ -69,6 +70,10 @@ public class ShopService {
 	
 	public List<FileDTO> selectShopImg(int code) {
 		return fileDAO.selectShopImg(code);
+	}
+	
+	public List<ShopListDTO> ShopList(){
+		return shopDAO.ShopList();
 	}
 	
 //	public ? insertShopRequest() {
