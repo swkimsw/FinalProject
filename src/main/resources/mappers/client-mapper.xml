@@ -16,4 +16,8 @@
 	<select id="phoneCheck" resultType="boolean">
 		select count(*) from ClientMember where phone = #{phone}
 	</select>
+	
+	<update id="updatePw">
+		update ClientMember set pw = #{pw} where id = #{id}
+	</update>
 </mapper>
