@@ -110,7 +110,7 @@
 		console.log(specialArr.join(','));
 		console.log(day);
 		
-		let sendMsg = day+"일치" + specialArr.join(',') + "식단 " + timeArr.join(',') + "만 JSON데이터로 짜줘";
+		let sendMsg = day+"일치 " + specialArr.join(',') + " 식단 " + timeArr.join(',') + "만 JSON데이터로 짜줘";
 		console.log(sendMsg);
 	});
 </script>
