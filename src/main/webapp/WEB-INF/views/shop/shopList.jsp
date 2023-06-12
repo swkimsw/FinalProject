@@ -39,7 +39,7 @@
 	type="text/css">
 <style>
 * {
-	font-family: NanumSquareNeoBold;
+	font-family:NanumSquareNeo;
 }
 
 .container {
