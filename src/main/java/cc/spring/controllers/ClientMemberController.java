@@ -72,7 +72,7 @@ public class ClientMemberController {
 	
 	// 회원가입 시 인증번호 랜덤 발송
 	@ResponseBody
-	@RequestMapping(value="sendSms", produces="text/html;charset=utf8")
+	@RequestMapping(value="sendSmsSign", produces="text/html;charset=utf8")
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
@@ -95,7 +95,7 @@ public class ClientMemberController {
 	
 	// 계정찾기시 인증번호 랜덤 발송
 	@ResponseBody
-	@RequestMapping(value="sendSms2", produces="text/html;charset=utf8")
+	@RequestMapping(value="sendSmsLogin", produces="text/html;charset=utf8")
 	public String sendSms2(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
@@ -131,7 +131,7 @@ public class ClientMemberController {
 	
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
-	@RequestMapping(value="certification", produces="text/html;charset=utf8")
+	@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
 	public String certification(String code) {
 		String numStr = (String) session.getAttribute("numStr");
 		System.out.println(numStr);
@@ -148,7 +148,7 @@ public class ClientMemberController {
 	}
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
-	@RequestMapping("certification2")
+	@RequestMapping("certificationLogin")
 	public Map<String, Object> certification_2(String code) {
 		String numStr = (String) session.getAttribute("numStr");
 		Map<String, Object> result = new HashMap<String, Object>();
