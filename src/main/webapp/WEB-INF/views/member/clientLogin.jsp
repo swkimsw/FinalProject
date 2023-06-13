@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -40,6 +40,9 @@
             Kakao.init('ec820c4eea48288ba6533946b92c5965'); //발급받은 키 중 javascript키를 사용해준다.
             console.log(Kakao.isInitialized()); // sdk초기화여부판단
          </script>
+<!-- gnb css -->
+<link href="${path}/resources/css/gnb.css" rel="stylesheet"
+	type="text/css">
 <style>
 * {
 	font-family: 'NanumSquareNeoBold';
@@ -242,7 +245,7 @@ html, body {
 
 <body>
 
-
+	
 
 	<div class="container login_container align-self-center">
 
@@ -1008,8 +1011,8 @@ html, body {
                      location.reload();
                   });
                } else {
-                  password.val("");
-                  password_check.val("");
+            	   $("#password").val("");
+            	   $("#password_check").val("");
                   alert("다시 입력해주세요");
                }
             });
