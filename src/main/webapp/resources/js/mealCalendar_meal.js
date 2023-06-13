@@ -62,7 +62,7 @@
 
                         for (let i = 0; i < meals.length; i++) {
                             if (meals.get(i).value) {
-                                let tmp = $("<p>").html(meals.get(i).value);
+                                let tmp = $("<p>").html(meals.get(i).value).addClass("meal");
                                 selectBox.append(tmp);
                             }
                         }
