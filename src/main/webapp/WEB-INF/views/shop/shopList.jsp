@@ -87,9 +87,9 @@
 				<c:forEach var="i" items="${list}">
 					<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
 					
-						<div class="card" style="">
+						<div class="card">
 							<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-							<img src="..." class="card-img-top" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
+							<img src="C:\FinalProject_CookCook\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Shop\upload\img1.jpg" class="card-img-top" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
 							<div class="card-body">
 								<p class="card-title" style="font-size: 20px;">${i.title}</p>
 								<p class="card-text fw-lighter" style="font-size: 12px;">${i.companyName}</p>

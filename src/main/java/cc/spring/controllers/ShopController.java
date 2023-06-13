@@ -74,6 +74,7 @@ public class ShopController {
  	 	@RequestMapping("toShopList")
  		public String toShopList(Model model) {
  	 		List<ShopListDTO> list = shopService.shopList();
+ 	 		System.out.println(list);
  	 		model.addAttribute("list",list);
  			return "/shop/shopList";
  		}
