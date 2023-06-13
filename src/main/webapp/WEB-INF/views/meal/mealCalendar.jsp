@@ -42,14 +42,7 @@
 <link href="${path}/resources/css/mealCalendar.css" rel="stylesheet" type="text/css">
 <!-- mealCalendar calendar js -->
 <script src="${path}/resources/js/mealCalendar_calendar.js"></script>
-<style>
-	*{
-		font-family:NanumSquareNeoBold;
-	}
-	.container{
-		margin-top:100px;
-	}
-</style>
+
 </head>
 <body>
 <header>
@@ -109,10 +102,10 @@
                         <th class="time-header breakfast">아침</th>
                         <td class="day1 breakfast">
                             <div class="meal-box">
-                                <p class="meal">Meal 1 testsesetsetsetstsetstsetse</p>
-                                <p class="meal">Meal 2</p>
-                                <p class="meal">Meal 3</p>
-                                <p class="meal">Meal 4</p>
+                                Meal 1 testsesetsetsetstsetstsetse<br>
+                                Meal 2<br>
+                                Meal 3<br>
+                                Meal 4<br>
                             </div>
                         </td>
                         <td class="day2 breakfast">
@@ -204,10 +197,10 @@
                         <th class="day-header">Day 1</th>
                         <td class="day1 breakfast test">
                             <div class="meal-box" data-bs-toggle="modal" data-bs-target="#mealModalToggle">
-                                <p class="meal">Meal 1 testestesteststsetsetestsetstset</p>
-                                <p class="meal">Meal 2</p>
-                                <p class="meal">Meal 3</p>
-                                <p class="meal">Meal 4</p>
+                                Meal 1 testestesteststsetsetestsetstset<br>
+                                Meal 2<br>
+                                Meal 3<br>
+                                Meal 4<br>
                             </div>
                         </td>
                         <td class="day1 lunch test">
