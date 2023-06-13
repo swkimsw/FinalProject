@@ -55,65 +55,84 @@
 	</c:import>
 	<!-- main -->
 	<div class="container" style="margin-top: 100px;">
-
-		<!-- 아침, 점심, 저녁 -->
-		<div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-			<input type="checkbox" class="btn-check" id="btncheck1" value="아침" autocomplete="off">
-				<label class="btn btn-outline-primary" for="btncheck1">아침</label> 
-			
-			<input type="checkbox" class="btn-check" id="btncheck2" value="점심" autocomplete="off"> 
-				<label class="btn btn-outline-primary" for="btncheck2">점심</label> 
-			
-			<input type="checkbox" class="btn-check" id="btncheck3" value="저녁" autocomplete="off">
-				<label class="btn btn-outline-primary" for="btncheck3">저녁</label>
+		<div class="spinner-border text-dark" style="display:none;" role="status">
+ 		  <span class="visually-hidden">Loading...</span>
 		</div>
-		
-		<!-- 비건, 다이어트 -->		
-		<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-  			<input type="radio" class="btn-check" name="btnradio" id="btnradio1" value="비건" autocomplete="off" >
-  				<label class="btn btn-outline-primary" for="btnradio1">비건</label>
-
-  			<input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="다이어트" autocomplete="off">
-  				<label class="btn btn-outline-primary" for="btnradio2">다이어트</label>
-  		</div>
-  		
-  		<!-- 당일 ~ 7일 -->
-  		<!-- Default dropend button -->
-		<div>
-			<div class="btn-group dropend">
-				<button type="button" class="btn btn-secondary dropdown-toggle"
-					data-bs-toggle="dropdown" aria-expanded="false">Dropend</button>
-				<ul class="dropdown-menu">
-					<li>당일</li>
-					<li>1일</li>
-					<li>2일</li>
-					<li>3일</li>
-					<li>4일</li>
-					<li>5일</li>
-					<li>6일</li>
-					<li>7일</li>
-				</ul>
+		<div clss="main">
+			<!-- 아침, 점심, 저녁 -->
+			<div class="btn-group" role="group">
+				<input type="checkbox" class="btn-check" id="breakfast" name="time"
+					value="아침" autocomplete="off"> <label
+					class="btn btn-outline-primary" for="breakfast">아침</label> <input
+					type="checkbox" class="btn-check" id="lunch" name="time" value="점심"
+					autocomplete="off"> <label class="btn btn-outline-primary"
+					for="lunch">점심</label> <input type="checkbox" class="btn-check"
+					id="dinner" name="time" value="저녁" autocomplete="off"> <label
+					class="btn btn-outline-primary" for="dinner">저녁</label>
 			</div>
-		</div>
 
-		<button id="sendBtn">보내기</button>
-		
-		<div id="getMsg">보낸 메세지 칸</div>
+			<!-- 비건, 다이어트 -->
+			<div class="btn-group" role="group">
+				<input type="checkbox" class="btn-check" name="special" id="vigan"
+					value="비건" autocomplete="off"> <label
+					class="btn btn-outline-primary" for="vigan">비건</label> <input
+					type="checkbox" class="btn-check" name="special" id="diet"
+					value="다이어트" autocomplete="off"> <label
+					class="btn btn-outline-primary" for="diet">다이어트</label>
+			</div>
+
+			<!-- 당일 ~ 7일 -->
+			<select class="form-select" name="day">
+				<option value="1" selected>당일</option>
+				<option value="2">1일</option>
+				<option value="3">2일</option>
+				<option value="4">3일</option>
+				<option value="5">4일</option>
+				<option value="6">5일</option>
+				<option value="7">6일</option>
+				<option value="8">7일</option>
+			</select>
+
+			<button id="sendBtn">보내기</button>
+
+			<div id="getMsg">응답 메세지</div>
+		</div>
 	</div>
 
 </body>
 <script type="text/javascript">
-	$("#sendBtn").on("click", function() {
-		$.ajax({
-			url : "/chat/sendMsg",
-			type : "post",
-			data : {
-				sendMsg : $("#sendMsg").val()
-			}
-		}).done(function(resp) {
-			console.log(resp);
-			$("#getMsg").text(resp);
-		});
-	});
+	var timeArr = [];
+	var specialArr = []
+	var day;
+	var sendMsg = "";
+	$("#sendBtn").on("click",function() {
+				timeArr = [];
+				$("input[type=checkbox][name=time]:checked").each(function(i) {
+					timeArr.push($(this).val());
+				});
+				specialArr = [];
+				$("input[type=checkbox][name=special]:checked").each(
+						function(i) {
+							specialArr.push($(this).val());
+						});
+				day = $("select[name=day]").val();
+				console.log(timeArr.join(','));
+				console.log(specialArr.join(','));
+				console.log(day);
+
+				sendMsg = day + "일치 " + specialArr.join(',') + " 식단 "
+						+ timeArr.join(',') + "만 JSON데이터로 짜줘";
+				console.log(sendMsg);
+				
+				$.ajax({
+					url:"/meal/apMeal",
+					type:"post",
+					data:{sendMsg:sendMsg},
+					beforeSend: function(){ $(".spinner-border").css({"display":"block"}); $(".main").css({"display":"none"}); },
+					complete: function(){ $(".spinner-border").css({"display":"none"}); $(".main").css({"display":"block"}); }
+				}).done(function(){
+					alert("성공~!");
+				});
+			});
 </script>
 </html>
