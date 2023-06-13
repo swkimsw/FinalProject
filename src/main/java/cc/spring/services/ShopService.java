@@ -80,8 +80,8 @@ public class ShopService {
 		return fileDAO.selectShopImg(code);
 	}
 	
-
-	public List<ShopListDTO> ShopList(){
+	// 공구샵 상품 목록
+	public List<ShopListDTO> shopList(){
 		return shopDAO.ShopList();
 	}
 	

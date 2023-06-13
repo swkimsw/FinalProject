@@ -73,7 +73,7 @@ public class ShopController {
  	//공구 목록으로 이동
  	 	@RequestMapping("toShopList")
  		public String toShopList(Model model) {
- 	 		List<ShopListDTO> list = shopService.ShopList();
+ 	 		List<ShopListDTO> list = shopService.shopList();
  	 		model.addAttribute("list",list);
  			return "/shop/shopList";
  		}
