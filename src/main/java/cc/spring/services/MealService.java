@@ -15,7 +15,7 @@ import cc.spring.provider.ChatGPTProvider;
 public class MealService {
 	
 	@Autowired
-	private ChatGPTProvider provider;
+	private ChatGPTProvider GPTprovider;
 	
 	@Autowired
 	private Gson gson;
@@ -23,10 +23,11 @@ public class MealService {
 	// content 까지는 provider에서 가공해서 가져오고 그뒤는 service에서 각자 가공하기
 	// 식단 추출 기능
 	public Map<String, ChatDTO> makeMeal(String sendMsg) throws Exception {
-		JsonObject content = provider.makeMeal(sendMsg);
-		Map<String, ChatDTO> data = gson.fromJson(content, Map.class);
 		
+		JsonObject content = GPTprovider.makeMeal(sendMsg);
+		Map<String, ChatDTO> data = gson.fromJson(content, Map.class);
 		System.out.println(data.values());
 		return data;
 	}
+
 }

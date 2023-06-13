@@ -130,9 +130,6 @@
 					data:{sendMsg:sendMsg},
 					beforeSend: function(){ $(".spinner-border").css({"display":"block"}); $(".main").css({"display":"none"}); },
 					complete: function(){ $(".spinner-border").css({"display":"none"}); $(".main").css({"display":"block"}); }
-				}).done(function(resp){
-					$("getMsg").text(resp);
-					
 				});
 			});
 </script>
