@@ -75,7 +75,7 @@
 	<c:import url="../commons/gnb.jsp">
 		</c:import>
 
-<form action="/board/reviewInput" method="get">
+<form id="frm" action="/board/inputReview" method="get" enctype="multipart/form-data">
 
     <div class="container">
 
@@ -91,6 +91,10 @@
             <div>
                 제목 : <label><input id="title" name="title" class="form-control" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
             </div>
+            
+            <div>
+                파일 : <label><input type="file" name="file_list" class="form-control" value="파일 선택" multiple></label>
+            </div>
         </div>
 
 
@@ -105,7 +109,7 @@
                 <tr>
                     <td colspan="2" class="button-container">
                         <br>
-                        <button class="btn btn-outline-primary" type="submit">작성</button>
+                        <button id="write" class="btn btn-outline-primary" type="submit">작성</button>
                         <button class="btn btn-outline-primary" type="button">취소</button>
                     </td>
                 </tr>
@@ -141,11 +145,25 @@
                     ['table', ['table']],
                     ['insert', ['picture','video']],
                     ['view', ['codeview', 'help']]
-                ]
+                ],callbacks: {
+                    onImageUpload: function(files) {
+                        // upload image to server and create imgNode...
+                        $summernote.summernote('insertNode', imgNode);
+                      }
+                    }
+              
             });
-
         });
+        
+        
+        $('#content').on('summernote.image.upload', function(we, files) {
+      	  // upload image to server and create imgNode...
+      	  $summernote.summernote('insertNode', imgNode);
+      	});
+      
 
+      
+        
     </script>
     
 </body>

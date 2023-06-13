@@ -216,9 +216,23 @@
         
       </nav>
 
-	<div style="float:right;">
- 	 <a href="/board/freeWrite"><button class="btn btn-outline-primary" type="button">작성하기</button></a> 
- 	 </div>
+	<c:choose>
+			
+				<c:when test="${user != 1001}">
+
+					<div style="float: right;">
+						<a href="/board/freeWrite">
+							<button class="btn btn-outline-primary" type="button">작성하기</button>
+						</a>
+					</div>
+
+				</c:when>
+			
+				<c:otherwise> 
+			
+				</c:otherwise> 
+			
+			</c:choose>
       
      
       
@@ -227,9 +241,7 @@
   </div>
 	
   <script>
-  $(".btn").on("click",function(){
-		 a href="/board/write";
-	})
+
   </script>
 </body>
 </html>

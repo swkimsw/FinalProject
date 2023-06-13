@@ -86,7 +86,7 @@
 		</c:import>
 
 
-<form action="/board/free_input" method="get">
+<form id="frm"  action="/board/inputFree" method="get">
     <div class="container">
 
         <div class="header">
@@ -99,11 +99,12 @@
             <br>
 
             <div class="category">
-                카테고리 : <select id="headline" name="headline">
-                    <option value="2001">일상</option>
-                    <option value="2002">정보</option>
-                    <option value="2003">질문</option>
-                </select>
+                카테고리 : <select id="headline" name="headlinecode">
+						<option value="0">선택</option>
+						<option value="2001">일상</option>
+						<option value="2002">정보</option>
+						<option value="2003">질문</option>
+					</select>
             </div>
             <div>
                 제목 : <label><input id="title" name="title" class="form-control" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
@@ -151,6 +152,7 @@
                 focus: true,
                 maxHeight: 800,
                 minHeight: 200,
+                disableDragAndDrop: true,
                 lang: 'ko-KR', // default: 'en-US'
                 toolbar: [
                     ['style', ['style']],
@@ -160,10 +162,28 @@
                     ['table', ['table']],
                     ['insert', ['video']],
                     ['view', ['codeview', 'help']]
-                ]
+                ],callbacks: { //이미지 복 붙 안되게
+                    onImageUpload: function (data) {
+                        data.pop();
+                    }
+                }
             });
 
         });
+        
+        $("#frm").on("submit",function(){
+        	if( $("select[id=headline] option:selected").val() == 0){
+        		alert("카테고리를 선택해주세요.");
+        		return false;
+        	}else if($("#title").val() == "" || $("#title").val().trim() == "" ){
+        		alert("제목을 작성해주세요.");
+        		return false;
+        	}else if($('#content').val() == ""){
+        		alert("내용을 입력해주세요.");
+        		return false;
+        	}
+        })
+        
 
     </script>
     
