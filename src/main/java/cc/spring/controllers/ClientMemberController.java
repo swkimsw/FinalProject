@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.services.ClientMemberService;
 import cc.spring.services.SmsService;
@@ -176,8 +177,10 @@ public class ClientMemberController {
 	
 	// 회원가입 폼에서 입력한 값들 넘어옴
 	@RequestMapping("signup")
-	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) {
+	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception{
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
+		String shaPw = EncryptionUtils.sha512(dto.getPw());
+		dto.setPw(shaPw);
 		dto.setBirthDate(birthDate);
 		System.out.println("가입약관확인 : " + dto.getAgree());
 		
