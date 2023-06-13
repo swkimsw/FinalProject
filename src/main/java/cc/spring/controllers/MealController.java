@@ -1,10 +1,12 @@
 package cc.spring.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cc.spring.commons.ChatGPTUtils;
+import com.google.gson.JsonObject;
+
 
 @Controller
 @RequestMapping("/meal/")
@@ -22,12 +24,17 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public String aiMeal(String sendMsg) {
+	public String aiMeal(String sendMsg) throws Exception {
 //		ChatGPTUtils chatGPT = new ChatGPTUtils();
-//		chatGPT.makeMeal(sendMsg);
-		return "";
+		JsonObject result = chatGPT.makeMeal(sendMsg);
+		return "home?result" + result;
 	}
 	
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "redirect:?/error";
+	}
 
 
 }

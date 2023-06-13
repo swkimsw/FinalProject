@@ -1,24 +1,29 @@
-package cc.spring.commons;
+package cc.spring.provider;
 
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ChatGPTUtils {
-
+public class ChatGptProvider {
+	
 	@Value("${CHATGPT-KEY}")
 	private String chatGptApiKey;
 
 	@Autowired
 	private HttpClient httpClient;
 
-	public String makeMeal(String sendMsg) throws Exception{
+	public JsonObject makeMeal(String sendMsg) throws Exception{
 		String apiUrl = "https://api.openai.com/v1/chat/completions";
 		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다.
 		String model = "gpt-3.5-turbo-0301"; // 사용할 model
@@ -41,9 +46,25 @@ public class ChatGPTUtils {
 		HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 		int statusCode = response.statusCode();
 		String responseBody = response.body();
+		// 응답 출력
+		System.out.println("Status Code: " + statusCode);
 		System.out.println("Response Body: " + responseBody);
-		
-		return responseBody;
-	}
 
+		// Json 문자열 -> Map
+		Gson gson = new Gson();
+		Map<String, Object> map = gson.fromJson(responseBody, Map.class);
+		
+		JsonParser parser = new JsonParser();
+		JsonElement choices = parser.parse(map.get("choices").toString());
+		JsonObject choicesZero = choices.getAsJsonArray().get(0).getAsJsonObject();
+		JsonObject message = choicesZero.get("message").getAsJsonObject();
+		JsonObject content = message.get("content").getAsJsonObject();
+//		Map<String, ChatDTO> data = gson.fromJson(content, Map.class);
+		
+		System.out.println(content);
+//		System.out.println(data.values());
+		
+		return content;
+	}
+	
 }
