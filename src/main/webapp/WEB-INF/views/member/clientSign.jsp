@@ -396,6 +396,7 @@ label {
 								</div>
 							</div>
 						</div>
+						<br>
 						
 						<!-- 주소 -->
 						<div class="row insert">
@@ -428,7 +429,7 @@ label {
 								</div>
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" id="sample6_address" placeholder="주소" class="col-10 form-control" name="address1" required><br>
+										<input type="text" id="sample6_address" placeholder="주소" class="col-10 form-control" name="address1" required>
 									</div>
 								</div>
 							</div>
@@ -529,7 +530,6 @@ label {
 					valid.set(id, true);
 					if (id == "member_phone") {
 						$("#phone_auth").attr("disabled", false);
-						$("#phone_auth_code").attr("readonly", false);
 						$("#phone_auth_ok").attr("disabled", false);
 						valid.set("auth", false);
 					}
@@ -728,7 +728,7 @@ label {
 		$("#phone_auth").on("click", function (evt) {
 			// 전화번호 check 및 인증번호 발송
 			$.ajax({
-				url: "/clientMember/sendSms",
+				url: "/clientMember/sendSmsSign",
 				type: "post",
 				dataType: "json",
 				data: { phone: $("#member_phone").val(), type: "JOIN" }
@@ -736,11 +736,13 @@ label {
 				// 전화번호 check
 				if (resp) {
 					$("#member_phone").val("");
+					$("#phone_auth").attr("disabled", true);
 					alert("등록된 연락처가 존재합니다.");
 					return false;
 				}
 				else {
 					alert("인증문자가 전송되었습니다.");
+					$("#phone_auth_code").attr("readonly", false);
 				}
 				
 				// 인증번호 받기 버튼 비활성화
@@ -764,7 +766,7 @@ label {
 			}
 			// 인증 체크
 			$.ajax({
-				url: "/clientMember/certification",
+				url: "/clientMember/certificationSign",
 				type: "post",
 				dataType: "json",
 				data: { code: $("#phone_auth_code").val() }
@@ -772,6 +774,7 @@ label {
 				if (resp) {
 					AuthTimer.fnStop();
 					$("#timeLimit").text("인증 성공!🎉");
+					
 					$("#pAuth button").attr("disabled", true);
 					$("#pAuth input").attr("readonly", true);
 					
