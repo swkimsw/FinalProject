@@ -39,7 +39,7 @@
 	type="text/css">
 <style>
 * {
-	font-family: NanumSquareNeoBold;
+	font-family:NanumSquareNeo;
 }
 
 .container {
@@ -83,44 +83,29 @@
 		
 		<div class="body">
 			<div class="row d-flex position-relative">
-				<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
-					<div class="card" style="">
-						<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-						<img src="..." class="card-img-top" style="width:100%; alt="...">
-						<div class="card-body">
-							<p class="card-title" style="font-size: 20px;">싱싱하고 맛있는 제주도 출신 귤입니다다다다</p>
-							<p class="card-text fw-lighter" style="font-size: 12px;">감귤농가</p>
+			
+				<c:forEach var="i" items="${list}">
+					<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
+					
+						<div class="card" style="">
+							<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
+							<img src="..." class="card-img-top" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
+							<div class="card-body">
+								<p class="card-title" style="font-size: 20px;">${i.title}</p>
+								<p class="card-text fw-lighter" style="font-size: 12px;">${i.companyName}</p>
+							</div>
 						</div>
-						
-					</div>
-				</div>	
-				<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
-					<div class="card" style="">
-						<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-						<img src="..." class="card-img-top" style="width:100%;" alt="...">
-						<div class="card-body">
-							<p class="card-title" style="font-size: 20px;">싱싱하고 맛있는 제주도 출신 귤입니다다다다</p>
-							<p class="card-text fw-lighter" style="font-size: 12px;">감귤농가</p>
-						</div>
-						
-					</div>
-				</div>	
-				<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
-					<div class="card" style="">
-						<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-						<img src="..." class="card-img-top" style="width:100%;" alt="...">
-						<div class="card-body">
-							<p class="card-title" style="font-size: 20px;">싱싱하고 맛있는 제주도 출신 귤입니다다다다</p>
-							<p class="card-text fw-lighter" style="font-size: 12px;">감귤농가</p>
-						</div>
-						
-					</div>
-				</div>	
-				
+					
+					</div>	
+				</c:forEach>	
+					
 			</div>
 		</div>
 	</div>
 
+	<script>
+	
+	</script>
 
 
 </body>

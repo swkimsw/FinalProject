@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
 import cc.spring.dto.ShopDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.repositories.FileDAO;
 import cc.spring.repositories.ShopDAO;
 
@@ -26,6 +27,7 @@ public class ShopService {
 	@Autowired
 	private FileDAO fileDAO;
 	
+	// 공구샵 등록 insert
 	@Transactional
 	public void insertShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
 		int parentSeq = 0;
@@ -55,6 +57,12 @@ public class ShopService {
 		}
 	}
 	
+	// 클라이언트 멤버인지 확인
+	public int isClientMember(String loginId){
+		return shopDAO.isClientMember(loginId);
+	}
+	
+	// 공구샵 정보 select
 	public ShopDTO selectShopInfo(int code) {
 		
 		ShopDTO dto = shopDAO.selectShopInfo(code);
@@ -67,12 +75,23 @@ public class ShopService {
 		return dto;
 	}
 	
+	// 공구샵 사진 select
 	public List<FileDTO> selectShopImg(int code) {
 		return fileDAO.selectShopImg(code);
 	}
 	
+
+	public List<ShopListDTO> ShopList(){
+		return shopDAO.ShopList();
+	}
+	
+
+	// 공구 신청 insert
+
 //	public ? insertShopRequest() {
 //		
 //	}
+	
+	
 	
 }

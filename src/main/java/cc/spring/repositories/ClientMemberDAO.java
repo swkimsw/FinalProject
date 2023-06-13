@@ -33,8 +33,11 @@ public class ClientMemberDAO {
 	}
 	
 	public int insertClient(ClientMemberDTO dto) {
-		System.out.println("김승우");
 		return mybatis.insert("Client.insert",dto);
+	}
+	
+	public int updatePw(ClientMemberDTO dto) {
+		return mybatis.update("Client.updatePw", dto);
 	}
 
 }
