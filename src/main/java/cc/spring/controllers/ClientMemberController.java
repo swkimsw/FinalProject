@@ -111,17 +111,7 @@ public class ClientMemberController {
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
 			session.setAttribute("numStr", numStr);	
-			
-			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
-//			Timer timer = new Timer();
-//	        int delay = 180000; // 3분
-//	        
-//	        timer.schedule(new TimerTask() {
-//	            @Override
-//	            public void run() {
-//	                session.removeAttribute("numStr");
-//	            }
-//	        }, delay);
+			session.setAttribute("phone", phone);
 			
 		}
 
@@ -147,29 +137,33 @@ public class ClientMemberController {
 	}
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
-<<<<<<< HEAD
 	@RequestMapping("certificationLogin")
-	public Map<String, Object> certification_2(String code) {
-=======
-	@RequestMapping(value="certification2", produces="text/html;charset=utf8")
-	public Map<String, Boolean> certification_2(String code,String phone_auth_code) {
->>>>>>> 5361cea556d953004e6e740151d64fe820143fc4
+	public Map<String, Object> certification2(String code) {
 		String numStr = (String) session.getAttribute("numStr");
-		String searchId = cms.getIdByPhone(phone_auth_code);
 		
-		System.out.println("dsaakc");
-		if(numStr.equals(code)) {
-			System.out.println("인중 성공");
-			Map<String, Boolean> result = new HashMap<String, Boolean>();
-			result.put(searchId, true);
-			return result;
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("success", false);
+		
+		if(code.equals(numStr)) {
+			String phone = (String) session.getAttribute("phone");
+			String searchId = cms.getIdByPhone(phone);
+			System.out.println(searchId);
+			result.put("searchId", searchId);
+			result.put("success", true);
+			
+			session.removeAttribute("phone");
+			session.removeAttribute("numStr");
 		}
-		else {
-			System.out.println("인중 실패");
-			Map<String, Boolean> result = new HashMap<String, Boolean>();
-			result.put(searchId, false);
-			return result;
-		}
+		return result;
+	}
+	
+	// 비밀번호 재설정
+	@ResponseBody
+	@RequestMapping("changePw")
+	public void changePw(ClientMemberDTO dto) throws Exception {
+		String updatePw = EncryptionUtils.sha512(dto.getPw());
+		dto.setPw(updatePw);
+		cms.updatePw(dto);
 	}
 	
 	// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
@@ -177,7 +171,6 @@ public class ClientMemberController {
 	@RequestMapping(value="removeSession")
 	public void removeSession() {
 		session.removeAttribute("numStr");
-		System.out.println(session.getAttribute("numStr"));
 	}
 	
 	// 회원가입 폼에서 입력한 값들 넘어옴

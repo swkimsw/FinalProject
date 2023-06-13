@@ -794,7 +794,7 @@ html, body {
             $("#phone_auth").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
                $.ajax({
-                  url: "/clientMember/sendSms2",
+                  url: "/clientMember/sendSmsLogin",
                   type: "post",
                   dataType: "json",
                   data: { phone: $("#phone").val() }
@@ -831,7 +831,7 @@ html, body {
                }
                // 인증 체크
                $.ajax({
-                  url: "/clientMember/certification2",
+                  url: "/clientMember/certificationLogin",
                   type: "post",
                   dataType: "json",
                   data: { code: $("#phone_auth_code").val() }
@@ -843,7 +843,7 @@ html, body {
                      $("#find_member_fadeIn").hide();
                      $("#to_phone_authentication_fadeIn").hide();
                      $("#to_change_pw_fadeIn").fadeIn();
-                     $("#search_id").text(resp.id + " 님!");
+                     $("#search_id").text(resp.searchId + " 님!");
                      $("#search_id2").text("아이디는 "+resp.searchId + " 입니다");
                   } else {
                      alert("인증번호를 다시 입력해주세요");
