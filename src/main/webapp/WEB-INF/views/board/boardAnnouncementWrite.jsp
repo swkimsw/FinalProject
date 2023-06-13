@@ -75,7 +75,7 @@
 	<c:import url="../commons/gnb.jsp">
 		</c:import>
 
-<form action="/board/announcement_input" method="get">
+<form id="frm" action="/board/inputAnnouncement" method="get">
 
     <div class="container">
 
@@ -132,6 +132,7 @@
                 focus: true,
                 maxHeight: 800,
                 minHeight: 200,
+                disableDragAndDrop: true,
                 lang: 'ko-KR', // default: 'en-US'
                 toolbar: [
                     ['style', ['style']],
@@ -141,10 +142,28 @@
                     ['table', ['table']],
                     ['insert', ['video']],
                     ['view', ['codeview', 'help']]
-                ]
+                ],callbacks: { //이미지 복 붙 안되게
+                    onImageUpload: function (data) {
+                        data.pop();
+                    }
+                }
             });
 
         });
+        
+        
+        
+        $("#frm").on("submit",function(){
+        	if($("#title").val() == "" || $("#title").val().trim() == "" ){
+        		alert("제목을 작성해주세요.");
+        		return false;
+        	}else if($('#content').val() == ""){
+        		alert("내용을 입력해주세요.");
+        		return false;
+        	}
+        })
+        
+
 
     </script>
     

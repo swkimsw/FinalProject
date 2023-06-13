@@ -75,7 +75,7 @@
 	<c:import url="../commons/gnb.jsp">
 		</c:import>
 
-<form id="frm" action="/board/reviewInput" method="get" enctype="multipart/form-data">
+<form id="frm" action="/board/inputReview" method="get" enctype="multipart/form-data">
 
     <div class="container">
 
@@ -90,6 +90,10 @@
 
             <div>
                 제목 : <label><input id="title" name="title" class="form-control" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
+            </div>
+            
+            <div>
+                파일 : <label><input type="file" name="file_list" class="form-control" value="파일 선택" multiple></label>
             </div>
         </div>
 
@@ -141,39 +145,24 @@
                     ['table', ['table']],
                     ['insert', ['picture','video']],
                     ['view', ['codeview', 'help']]
-                ]
+                ],callbacks: {
+                    onImageUpload: function(files) {
+                        // upload image to server and create imgNode...
+                        $summernote.summernote('insertNode', imgNode);
+                      }
+                    }
               
             });
-
         });
         
+        
+        $('#content').on('summernote.image.upload', function(we, files) {
+      	  // upload image to server and create imgNode...
+      	  $summernote.summernote('insertNode', imgNode);
+      	});
       
-        $('#frm').on("submit",function(files, editor, welEditable){
-        	 for(var i = 0 ; i <= files.length -1 ;  i++ ) {
-                 sendFile(files[i], editor, welEditable);
-             }
-        })
-        
-      function sendFile(file, editor, welEditable) {
-        	
-        var form_data = new FormData();
-        form_data.append('file', file);
-        
-        $.ajax({
-            data: form_data,
-            type : "get",
-            url: 'summer_image',
-            cache : false,
-            contentType : false,
-            enctype : 'multipart/form-data',
-            processData : false,
-            success : function(img_name) {
-                console.log("이미지다옹 : " + img_name );
-                var image = $('<img>').attr('src', 'uploads/' + img_name);
-                $(editor).summernote('editor.insertNode', image[0]);
-            }
-        });
-    }
+
+      
         
     </script>
     
