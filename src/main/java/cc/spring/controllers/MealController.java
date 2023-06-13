@@ -1,16 +1,23 @@
 package cc.spring.controllers;
 
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.JsonObject;
+import cc.spring.dto.ChatDTO;
+import cc.spring.services.MealService;
 
 
 @Controller
 @RequestMapping("/meal/")
 public class MealController {
+	
+	@Autowired
+	private MealService mService;
 	
 	@RequestMapping("list")
 	public String list() {
@@ -24,10 +31,9 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public String aiMeal(String sendMsg) throws Exception {
-//		ChatGPTUtils chatGPT = new ChatGPTUtils();
-		JsonObject result = chatGPT.makeMeal(sendMsg);
-		return "home?result" + result;
+	public Map<String, ChatDTO>aiMeal(String sendMsg) throws Exception {
+		Map<String, ChatDTO> result = mService.makeMeal(sendMsg);
+		return result;
 	}
 	
 	@ExceptionHandler(Exception.class)
