@@ -15,7 +15,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class ChatGptProvider {
+public class ChatGPTProvider {
 	
 	@Value("${CHATGPT-KEY}")
 	private String chatGptApiKey;
@@ -59,10 +59,8 @@ public class ChatGptProvider {
 		JsonObject choicesZero = choices.getAsJsonArray().get(0).getAsJsonObject();
 		JsonObject message = choicesZero.get("message").getAsJsonObject();
 		JsonObject content = message.get("content").getAsJsonObject();
-//		Map<String, ChatDTO> data = gson.fromJson(content, Map.class);
 		
 		System.out.println(content);
-//		System.out.println(data.values());
 		
 		return content;
 	}
