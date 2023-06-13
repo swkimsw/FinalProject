@@ -19,12 +19,12 @@ public class MealController {
 	@Autowired
 	private MealService mService;
 	
-	@RequestMapping("list")
+	@RequestMapping("toMyMeal")
 	public String list() {
-		return "meal/list";
+		return "meal/mealCalendar";
 	}
 	
-	@RequestMapping("basket")
+	@RequestMapping("toMyBasket")
 	public String cart() {
 		return "meal/basket";
 	}
