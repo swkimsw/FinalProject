@@ -44,6 +44,7 @@ public class BusinessMemberController {
 		@RequestMapping("getIdByPhone")
 		public String getIdByPhone(String phone) {
 			String result = bms.getIdByPhone(phone);
+			System.out.println("dddd");
 			return null;
 //			return 값 아직 안적어놓음
 		}
@@ -149,7 +150,7 @@ public class BusinessMemberController {
 			if(numStr.equals(code)) {
 				String phone = (String) session.getAttribute("phone");
 				String id = bms.getIdByPhone(phone);
-				result.put("id", id);
+				result.put("businessid", id);
 				result.put("success", true);
 				session.removeAttribute("phone");
 				session.removeAttribute("numStr");

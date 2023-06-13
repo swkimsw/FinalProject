@@ -20,11 +20,12 @@ public class BusinessMemberService {
 		System.out.println("아이디값 받아오기 서비스!");
 		return bdao.getIdByPhone(phone);
 	}
-	public boolean isBusinessMember(String id) {
-		return bdao.isBusinessMember(id);
+	public boolean isBusinessMember(String businessid) {
+		return bdao.isBusinessMember(businessid);
 	}
 	
 	public boolean phoneCheck(String phone) {
+		System.out.println("비지니스 폰체크 서비스");
 		return bdao.phoneCheck(phone);
 	}
 	

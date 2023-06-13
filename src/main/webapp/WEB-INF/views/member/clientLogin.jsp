@@ -593,11 +593,11 @@ html, body {
 						<label class="col-form-label">인증번호</label>
 					</div>
 					<div class="col-12 col-md-4">
-						<input type="text" id="phone_auth_code" class="form-control">
+						<input type="text" id="phone_auth_code2" class="form-control">
 					</div>
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
-							id="phone_auth_ok">인증</button>
+							id="phone_auth_ok2">인증</button>
 					</div>
 				</div>
 			</div>
@@ -617,7 +617,7 @@ html, body {
 						<div class="input-group d-flex">
 							<input type="password" class="form-control rounded mt-1"
 								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password" id="password" class="password" />
+								aria-describedby="password" id="bPassword" class="password" />
 							<div class="valid-feedback" style="font-size: x-small;">Good</div>
 							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 						</div>
@@ -628,7 +628,7 @@ html, body {
 						<div class="input-group d-flex">
 							<input type="password" class="form-control rounded mt-1"
 								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password_check" id="password_check"
+								aria-describedby="password_check" id="bPassword_check"
 								class="password_check" />
 							<div class="valid-feedback" style="font-size: x-small;">Good</div>
 							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
@@ -664,7 +664,7 @@ html, body {
 				<div class="row d-flex justify-content-center">
 					<div class="col-12 col-md-6 d-flex justify-content-center">
 						<button type="button" class="btn btn-outline-success"
-							id="btn_change_pw2">비밀번호 변경하기</button>
+							id="bBtn_change_pw2">비밀번호 변경하기</button>
 					</div>
 				</div>
 			</div>
@@ -822,6 +822,38 @@ html, body {
 
                });
             });
+         // 사업자 인증번호 받기 버튼 이벤트
+            $("#phone_auth2").on("click", function (evt) {
+               // 전화번호 check 및 인증번호 발송
+               $.ajax({
+                  url: "/businessMember/sendSms2",
+                  type: "post",
+                  dataType: "json",
+                  data: { phone: $("#bPhone").val() }
+               }).done(function (resp) {
+                  // 전화번호 check
+                  if (!resp) {
+                	  console.log(resp);
+                     $("#bPhone").val("");
+                     alert("전화번호를 확인해주세요.");
+                     return false;
+                  }
+                  else {
+                  // 인증번호 받기 버튼 비활성화
+                  $("#phone_auth").attr("disabled", true);
+                  alert("인증번호가 발송되었습니다.");
+                  /*
+                  AuthTimer = new $ComTimer();
+                  // 제한 시간
+                  AuthTimer.comSecond = 180;
+                  // 제한 시간 만료 메세지
+                  AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
+                  AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
+                  AuthTimer.domId = document.getElementById("timeLimit"); */
+                  }
+
+               });
+            });
             // 인증 버튼 이벤트
             $("#phone_auth_ok").on("click", function () {
                //입력 안했을 경우
@@ -831,7 +863,7 @@ html, body {
                }
                // 인증 체크
                $.ajax({
-                  url: "/clientMember/certification2",
+                  url: "/clientMember/certification",
                   type: "post",
                   dataType: "json",
                   data: { code: $("#phone_auth_code").val() }
@@ -850,7 +882,37 @@ html, body {
                      $("#phone_auth_code").val("");
                   }
                });
-            });
+            }); 
+            
+            // 사업자 인증 버튼 이벤트
+            $("#phone_auth_ok2").on("click", function () {
+                //입력 안했을 경우
+                if (!$("#phone_auth_code2").val()) {
+                   alert("인증번호를 입력해주세요");
+                   return false;
+                }
+                // 인증 체크
+                $.ajax({
+                   url: "/businessMember/certification2",
+                   type: "post",
+                   dataType: "json",
+                   data: { code: $("#phone_auth_code2").val() }
+                }).done(function name(resp) {
+             	   console.log(resp)
+                   if (resp.success) {
+                    /*   AuthTimer.fnStop(); */
+                      $("#login_view_fadeOut").hide();
+                      $("#find_member_fadeIn").hide();
+                      $("#to_phone_authentication_fadeIn").hide();
+                      $("#to_change_pw_fadeIn").fadeIn();
+                      $("#search_id").text(resp.businessid + " 님!");
+                      $("#search_id2").text("아이디는 "+resp.businessid + " 입니다");
+                   } else {
+                      alert("인증번호를 다시 입력해주세요");
+                      $("#phone_auth_code2").val("");
+                   }
+                });
+             });
             //pw 유효성 검사
             addEventListener("DOMContentLoaded", (event) => {
                const password = document.getElementById("password");
@@ -1016,7 +1078,26 @@ html, body {
                   alert("다시 입력해주세요");
                }
             });
-
+            
+            //사업자 pw 변경
+            $("#bBtn_change_pw").on("click", function () {
+                let password = $("#bPassword").val();
+                let password_check = $("#bPassword_check").val();
+                if (password == password_check && password != "") {
+                   $.ajax({
+                      url: "/clientMember/changePw",
+                      type: "post",
+                      data: { id: $("#search_id").text().split(" ")[0], pw: $("#password").val() }
+                   }).done(function () {
+                 	  alert("비밀번호가 변경되었습니다.")
+                      location.reload();
+                   });
+                } else {
+             	   $("#password").val("");
+             	   $("#password_check").val("");
+                   alert("다시 입력해주세요");
+                }
+             });
             const image = document.querySelector("#to_main_ball_img");
             const tooltip = document.querySelector("#tooltip");
 
