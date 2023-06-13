@@ -75,7 +75,7 @@
 	<c:import url="../commons/gnb.jsp">
 		</c:import>
 
-<form action="/board/reviewInput" method="get">
+<form id="frm" action="/board/reviewInput" method="get" enctype="multipart/form-data">
 
     <div class="container">
 
@@ -105,7 +105,7 @@
                 <tr>
                     <td colspan="2" class="button-container">
                         <br>
-                        <button class="btn btn-outline-primary" type="submit">작성</button>
+                        <button id="write" class="btn btn-outline-primary" type="submit">작성</button>
                         <button class="btn btn-outline-primary" type="button">취소</button>
                     </td>
                 </tr>
@@ -142,10 +142,39 @@
                     ['insert', ['picture','video']],
                     ['view', ['codeview', 'help']]
                 ]
+              
             });
 
         });
-
+        
+      
+        $('#frm').on("submit",function(files, editor, welEditable){
+        	 for(var i = 0 ; i <= files.length -1 ;  i++ ) {
+                 sendFile(files[i], editor, welEditable);
+             }
+        })
+        
+      function sendFile(file, editor, welEditable) {
+        	
+        var form_data = new FormData();
+        form_data.append('file', file);
+        
+        $.ajax({
+            data: form_data,
+            type : "get",
+            url: 'summer_image',
+            cache : false,
+            contentType : false,
+            enctype : 'multipart/form-data',
+            processData : false,
+            success : function(img_name) {
+                console.log("이미지다옹 : " + img_name );
+                var image = $('<img>').attr('src', 'uploads/' + img_name);
+                $(editor).summernote('editor.insertNode', image[0]);
+            }
+        });
+    }
+        
     </script>
     
 </body>
