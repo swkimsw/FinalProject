@@ -125,13 +125,11 @@
 				console.log(sendMsg);
 				
 				$.ajax({
-					url:"/meal/apMeal",
+					url:"/meal/aiMeal",
 					type:"post",
 					data:{sendMsg:sendMsg},
 					beforeSend: function(){ $(".spinner-border").css({"display":"block"}); $(".main").css({"display":"none"}); },
 					complete: function(){ $(".spinner-border").css({"display":"none"}); $(".main").css({"display":"block"}); }
-				}).done(function(){
-					alert("성공~!");
 				});
 			});
 </script>

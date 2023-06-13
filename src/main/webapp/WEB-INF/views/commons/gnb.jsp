@@ -157,7 +157,7 @@
 								<li class="login"><a href="#"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 추천
 										받기</a></li>
-								<li><a href="/meal/list"
+								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 식단 리스트</a></li>
 								<li><a href="/meal/basket"
