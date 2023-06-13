@@ -843,7 +843,7 @@ html, body {
                      $("#find_member_fadeIn").hide();
                      $("#to_phone_authentication_fadeIn").hide();
                      $("#to_change_pw_fadeIn").fadeIn();
-                     $("#search_id").text(resp.searchId + " 님!");
+                     $("#search_id").text(resp.id + " 님!");
                      $("#search_id2").text("아이디는 "+resp.searchId + " 입니다");
                   } else {
                      alert("인증번호를 다시 입력해주세요");
