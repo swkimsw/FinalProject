@@ -27,7 +27,7 @@
 	</delete>
 	
 	<insert id="insertShopRequest">
-		insert into requestlist values(request_list_seq.nextval,?,#{quantity},?,1001,sysdate,null,null)
+		insert into requestlist values(request_list_seq.nextval,#{clientCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
 	
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
