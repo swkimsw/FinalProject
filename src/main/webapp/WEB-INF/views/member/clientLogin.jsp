@@ -794,7 +794,7 @@ html, body {
             $("#phone_auth").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
                $.ajax({
-                  url: "/clientMember/sendSms2",
+                  url: "/clientMember/sendSmsLogin",
                   type: "post",
                   dataType: "json",
                   data: { phone: $("#phone").val() }
@@ -863,7 +863,7 @@ html, body {
                }
                // 인증 체크
                $.ajax({
-                  url: "/clientMember/certification",
+                  url: "/clientMember/certificationLogin",
                   type: "post",
                   dataType: "json",
                   data: { code: $("#phone_auth_code").val() }
