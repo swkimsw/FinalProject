@@ -25,11 +25,11 @@
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
 	</header>
-	<form action="" method="post" enctype="multipart/form-data">
 	<main>
+	<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
 		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
-			
+
 			<div class="images">
 				<div id="carouselExampleIndicators" class="carousel slide">
   					<div class="carousel-indicators">
@@ -39,13 +39,13 @@
   					</div>
   					<div class="carousel-inner">
     					<div class="carousel-item active">
-      						<img src="..." class="d-block w-100" alt="...">
+      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
     					</div>
     					<div class="carousel-item">
-      						<img src="..." class="d-block w-100" alt="...">
+      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
     					</div>
     					<div class="carousel-item">
-      						<img src="..." class="d-block w-100" alt="...">
+      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
     					</div>
   					</div>
   					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -62,6 +62,8 @@
 			<div class="output">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
+							<input type="hidden" id="code" value="${shopDTO.code}">
+							<input type="hidden" id="">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" readonly>
 						</div>
 					</div>
@@ -129,21 +131,21 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${result == 2}">
+				<c:when test="${result == 0}">
 					<!-- 본인이 등록한 판매자일 때 -->
-					<div class="buttons">
-						<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-							<button class="btn btn-primary">수정</button>
-							<a href="/"><input type="button" value="삭제" class="btn btn-primary"></a>
-							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="updateBtn" value="수정" class="btn btn-primary">
+							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-primary"></a>
+							<a href="/"><input type="button" id="back" value="취소" class="btn btn-primary"></a>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<!-- 이용자 / 본인이 등록하지 않은 판매자 -->
-					<div class="buttons">
-						<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-							<a href="/"><input type="button" value="신청" class="btn btn-primary"></a>
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
 							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
 						</div>
 					</div>
@@ -151,7 +153,41 @@
 			</c:choose>
 			<hr>
 		</div>
-	</main>
 	</form>
+	</main>
+	<script>
+		// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
+		$("#updateBtn").on("click", function(){
+			$("#title").removeAttr("readonly");
+			$("#productName").removeAttr("readonly");
+			$("#productPrice").removeAttr("readonly");
+			$("#deadLineTemp").removeAttr("readonly");
+			$("#max").removeAttr("readonly");
+			$("#min").removeAttr("readonly");
+			$("#quantity").prop("readonly",true);
+			$("#updateBtn, #deleteBtn, #back").css("display", "none");
+
+			let updateComplete = $("<button class='btn btn-primary'>");
+			updateComplete.text("수정 완료");
+			
+			let cancel = $("<button type='button' class='btn btn-primary'>");
+			cancel.text("취소");
+			cancel.on("click", function(){
+				location.reload();
+			})
+			
+			$(".buttons").append(updateComplete);
+			$(".buttons").append("&nbsp;");
+			$(".buttons").append(cancel);
+		})
+		
+		// 신청 버튼 클릭시
+		$("#insertRequestBtn").on("click", function(){
+			let quantity = $("#quantity").val();
+			let code = $("#code").val();
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&code="+code;
+		})
+		
+	</script>
 </body>
 </html>
