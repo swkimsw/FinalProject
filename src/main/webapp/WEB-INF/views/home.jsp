@@ -80,7 +80,7 @@
 		<div class="main">
             <div class="row d-flex justify-content-center mb-3 align-items-center">
                 <div class="logoImg d-inline-flex col-12 col-md-4">
-                    <img src="foodWithPlate2" alt="logo" class="img">
+                    <img src="/resources/img/foodWithPlate2.png" alt="logo" class="img">
                 </div>
                 <div class="title col-12 col-md-4 text-center  ">
                     <h1>쉽고 직관적인 식단관리</h1>
@@ -136,7 +136,7 @@
 				</div>
 				<br>
 				<div class="d-flex justify-content-center">
-					<button type="button" class="btn btn-success btn-rounded">식단생성</button>
+					<button type="button" id="sendBtn" class="btn btn-success btn-rounded">식단생성</button>
 				</div>
 			</div>
 		</div>
@@ -173,6 +173,8 @@
 					data:{sendMsg:sendMsg},
 					beforeSend: function(){ $(".spinner-border").css({"display":"block"}); $(".main").css({"display":"none"}); },
 					complete: function(){ $(".spinner-border").css({"display":"none"}); $(".main").css({"display":"block"}); }
+				}).done(function(){
+					alert("생성 성공~!");
 				});
 			});
 </script>
