@@ -68,6 +68,7 @@ public class ClientMemberController {
 	@RequestMapping("logout")
 	public String logout() {
 		session.invalidate();
+		System.out.println("로그아웃");
 		return "redirect:/";
 	}
 	// 클라이언트 회원가입 창으로 이동
