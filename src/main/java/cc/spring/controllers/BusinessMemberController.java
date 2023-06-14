@@ -26,9 +26,11 @@ public class BusinessMemberController {
 	@Autowired
 	private BusinessMemberService bms;
 	//사업자 로그인
-		@RequestMapping("bLogin")
-		public String login(BusinessMemberDTO dto) {
+		@RequestMapping("login")
+		public String login(BusinessMemberDTO dto) throws Exception {
 			System.out.println(dto);
+			String loginPw = EncryptionUtils.sha512(dto.getPw());
+			dto.setPw(loginPw);
 			boolean result = bms.login(dto);
 			System.out.println(result);
 			if(result) {
@@ -40,7 +42,7 @@ public class BusinessMemberController {
 			return "error";
 		}
 //		비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
-		@RequestMapping("bGetIdByPhone")
+		@RequestMapping("getIdByPhone")
 		public String getIdByPhone(String phone) {
 			String result = bms.getIdByPhone(phone);
 			return null;
@@ -48,14 +50,14 @@ public class BusinessMemberController {
 		}
 //		종료
 		// 클라이언트 회원가입 창으로 이동
-		@RequestMapping("bSign_form")
+		@RequestMapping("sign_form")
 		public String sign_form() throws Exception {
 			return "member/clientSign";
 		}
 		
 		// 회원가입 시 아이디 중복체크
 		@ResponseBody
-		@RequestMapping(value="bCheckId", produces="text/html;charset=utf8")
+		@RequestMapping(value="checkId", produces="text/html;charset=utf8")
 		public String checkId(String value) throws Exception {
 			boolean result = bms.isBusinessMember(value);
 			return String.valueOf(result);
@@ -63,7 +65,7 @@ public class BusinessMemberController {
 		
 		// 회원가입 시 인증번호 랜덤 발송
 		@ResponseBody
-		@RequestMapping(value="bSendSmsSign", produces="text/html;charset=utf8")
+		@RequestMapping(value="sendSmsSign", produces="text/html;charset=utf8")
 		public String sendSms(String phone) throws Exception {
 			// 이미 가입한 연락처가 있는지 확인
 			boolean result = bms.phoneCheck(phone);
@@ -86,7 +88,7 @@ public class BusinessMemberController {
 		
 		// 계정찾기시 인증번호 랜덤 발송
 		@ResponseBody
-		@RequestMapping(value="bSendSmsLogin", produces="text/html;charset=utf8")
+		@RequestMapping(value="sendSmsLogin", produces="text/html;charset=utf8")
 		public String sendSms2(String phone) throws Exception {
 			// 이미 가입한 연락처가 있는지 확인
 			boolean result = bms.phoneCheck(phone);
@@ -111,7 +113,7 @@ public class BusinessMemberController {
 		
 		// 인증번호 입력 후 인증 버튼 클릭 시
 		@ResponseBody
-		@RequestMapping(value="bCertificationSign", produces="text/html;charset=utf8")
+		@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
 		public String certification(String code) {
 			String numStr = (String) session.getAttribute("numStr");
 			System.out.println(numStr);
@@ -128,7 +130,7 @@ public class BusinessMemberController {
 		}
 		// 인증번호 입력 후 인증 버튼 클릭 시
 		@ResponseBody
-		@RequestMapping("bCertificationLogin")
+		@RequestMapping("certificationLogin")
 		public Map<String, Object> certification2(String code) {
 			String numStr = (String) session.getAttribute("numStr");
 			
@@ -150,7 +152,7 @@ public class BusinessMemberController {
 		
 		// 비밀번호 재설정
 		@ResponseBody
-		@RequestMapping("bChangePw")
+		@RequestMapping("changePw")
 		public void changePw(BusinessMemberDTO dto) throws Exception {
 			String updatePw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(updatePw);
@@ -165,7 +167,7 @@ public class BusinessMemberController {
 		}
 		
 		// 회원가입 폼에서 입력한 값들 넘어옴
-		@RequestMapping("bSignup")
+		@RequestMapping("signup")
 		public String signup(BusinessMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception{
 			String birthDate = member_birth_year + member_birth_month + member_birth_day;
 			String shaPw = EncryptionUtils.sha512(dto.getPw());
