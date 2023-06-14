@@ -580,7 +580,7 @@ html, body {
 						<button type="submit" class="btn btn-outline-success"
 							id="businessPhoneOk2">인증번호 받기</button>
 					</div>
-					<div class="row g-3 m-0 p-0  justify-content-center">
+					<div class="row g-3 m-0 p-0  justify	-content-center">
 						<div class="col-12 col-md-4">
 							<div class="timer">
 								<div id="timeLimit"></div>
