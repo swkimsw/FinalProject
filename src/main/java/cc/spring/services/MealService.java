@@ -26,6 +26,8 @@ public class MealService {
 		
 		JsonObject content = GPTprovider.makeMeal(sendMsg);
 		Map<String, ChatDTO> data = gson.fromJson(content, Map.class);
+		
+		System.out.println("SERVICE:");
 		System.out.println(data.values());
 		return data;
 	}
