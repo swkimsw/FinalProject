@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -41,11 +42,29 @@
 <style>
 * {
 	font-family: NanumSquareNeoBold;
+    box-sizing: border-box;
 }
 
 .container {
 	margin-top: 100px;
 }
+
+.logoImg {
+    animation: rotate_image 20s ease-in-out infinite;transform-origin: 50% 50%;
+	width: 256px;
+	height: 256px;
+}
+/* @keyframes rotate_image{
+    100% {
+        transform: rotate(360deg);
+    }
+} */
+.selectBox{
+	padding: 2rem;
+	background-color: #fdeeb39a;
+}
+
+
 </style>
 </head>
 <body>
@@ -58,43 +77,68 @@
 		<div class="spinner-border text-dark" style="display:none;" role="status">
  		  <span class="visually-hidden">Loading...</span>
 		</div>
-		<div clss="main">
+		<div class="main">
+            <div class="row d-flex justify-content-center mb-3 align-items-center">
+                <div class="logoImg d-inline-flex col-12 col-md-4">
+                    <img src="foodWithPlate2" alt="logo" class="img">
+                </div>
+                <div class="title col-12 col-md-4 text-center  ">
+                    <h1>쉽고 직관적인 식단관리</h1>
+                    <h3> AI 식단추천</h3>
+                    <h5>COOKCOOK</h5>
+                </div>
+            </div>
+            
+			<div class="selectBox">
+            <!-- 당일 ~ 7일 -->
+			<div class="row d-flex justify-content-center">
+				<div class="d-flex justify-content-center col-8">
+					<select class="form-select mb-3" name="day">
+						<option value="1" selected>당일</option>
+						<option value="2">2일</option>
+						<option value="3">3일</option>
+						<option value="4">4일</option>
+						<option value="5">5일</option>
+						<option value="6">6일</option>
+						<option value="7">7일</option>
+					</select>
+				</div>
+			</div>
+
+
 			<!-- 아침, 점심, 저녁 -->
-			<div class="btn-group" role="group">
-				<input type="checkbox" class="btn-check" id="breakfast" name="time"
-					value="아침" autocomplete="off"> <label
-					class="btn btn-outline-primary" for="breakfast">아침</label> <input
-					type="checkbox" class="btn-check" id="lunch" name="time" value="점심"
-					autocomplete="off"> <label class="btn btn-outline-primary"
-					for="lunch">점심</label> <input type="checkbox" class="btn-check"
-					id="dinner" name="time" value="저녁" autocomplete="off"> <label
-					class="btn btn-outline-primary" for="dinner">저녁</label>
+			<div class="d-flex justify-content-center">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="breakfast" value="아침">
+					<label class="form-check-label" for="breakfast">아침</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="lunch" value="점심">
+					<label class="form-check-label" for="lunch">점심</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="dinner" value="저녁">
+					<label class="form-check-label" for="dinner">저녁</label>
+				</div>
 			</div>
-
+            <br>
 			<!-- 비건, 다이어트 -->
-			<div class="btn-group" role="group">
-				<input type="checkbox" class="btn-check" name="special" id="vigan"
-					value="비건" autocomplete="off"> <label
-					class="btn btn-outline-primary" for="vigan">비건</label> <input
-					type="checkbox" class="btn-check" name="special" id="diet"
-					value="다이어트" autocomplete="off"> <label
-					class="btn btn-outline-primary" for="diet">다이어트</label>
+			<div class="d-flex justify-content-center">
+				<p class="mx-3">식단 유형 :</p>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="vigan" value="비건">
+					<label class="form-check-label" for="vigan">비건</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="diet" value="다이어트">
+					<label class="form-check-label" for="diet">다이어트</label>
+					</div>
+				</div>
+				<br>
+				<div class="d-flex justify-content-center">
+					<button type="button" class="btn btn-success btn-rounded">식단생성</button>
+				</div>
 			</div>
-
-			<!-- 당일 ~ 7일 -->
-			<select class="form-select" name="day">
-				<option value="1" selected>당일</option>
-				<option value="2">2일</option>
-				<option value="3">3일</option>
-				<option value="4">4일</option>
-				<option value="5">5일</option>
-				<option value="6">6일</option>
-				<option value="7">7일</option>
-			</select>
-
-			<button id="sendBtn">보내기</button>
-
-			<div id="getMsg">응답 메세지</div>
 		</div>
 	</div>
 
