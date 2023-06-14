@@ -37,7 +37,7 @@ public class ClientMemberController {
 	}
 
 	// 클라이언트 로그인
-	@RequestMapping("login")
+	@RequestMapping("login")				
 	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
@@ -49,7 +49,7 @@ public class ClientMemberController {
 			return "home";
 		}
 		System.out.println("로그인 실패!!");
-		redir.addFlashAttribute("status", "false");
+		redir.addFlashAttribute("status", "false"); // 일회용으로 쓰고 없어지는 데이터 보낼거라서 RedirectAttributes 사용함
 		return "redirect:/clientMember/login_form";
 	}
 //	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
