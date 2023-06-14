@@ -131,7 +131,7 @@
 							</ul>
 						</div></li>
 					<!-- 공구 카테고리 -->
-					<li class="mb-1 nav-menu"><i class="bi bi-people-fill"></i>
+					<li class="mb-1 nav-menu"><i class="fa-solid fa-store"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
 							data-bs-toggle="collapse" data-bs-target="#orders-collapse"
@@ -147,7 +147,7 @@
 							</ul>
 						</div></li>
 					<!-- 식단 카테고리 -->
-					<li class="mb-1 nav-menu"><i class="bi bi-people-fill"></i>
+					<li class="mb-1 nav-menu"><i class="fa-solid fa-utensils"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
 							data-bs-toggle="collapse" data-bs-target="#meal-collapse"
