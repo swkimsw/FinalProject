@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.ClientMemberDTO;
@@ -36,26 +38,39 @@ public class ClientMemberController {
 
 	// 클라이언트 로그인
 	@RequestMapping("login")
-	public String login(ClientMemberDTO dto) throws Exception {
-		System.out.println(dto);
+	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
+		// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+		ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+		
+		String pw = EncryptionUtils.sha512(dto.getPw());
+		dto.setPw(pw);
 		boolean result = cms.login(dto);
-		System.out.println(result);
 		if(result) {
-			session.setAttribute("loginID",dto.getId());
-			System.out.println("로그인 실행!");
-			return "home";
+			session.setAttribute("id",cmd.getId());
+			session.setAttribute("nickname", cmd.getNickName());
+			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
+			
+			
+			return "redirect:/";
 		}
 		System.out.println("로그인 실패!!");
-		return "error";
+		redir.addFlashAttribute("status", "false");
+		return "redirect:/clientMember/login_form";
 	}
 //	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
 	@RequestMapping("getIdByPhone")
 	public String getIdByPhone(String phone) {
 		String result = cms.getIdByPhone(phone);
 		return null;
-//		return 값 아직 안적어놓음
 	}
-//	종료
+	
+	// 로그아웃
+	@RequestMapping("logout")
+	public String logout() {
+		session.invalidate();
+		System.out.println("로그아웃");
+		return "redirect:/";
+	}
 	// 클라이언트 회원가입 창으로 이동
 	@RequestMapping("sign_form")
 	public String sign_form() throws Exception {
@@ -72,7 +87,7 @@ public class ClientMemberController {
 	
 	// 회원가입 시 인증번호 랜덤 발송
 	@ResponseBody
-	@RequestMapping(value="sendSms", produces="text/html;charset=utf8")
+	@RequestMapping(value="sendSmsSign", produces="text/html;charset=utf8")
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
@@ -95,7 +110,7 @@ public class ClientMemberController {
 	
 	// 계정찾기시 인증번호 랜덤 발송
 	@ResponseBody
-	@RequestMapping(value="sendSms2", produces="text/html;charset=utf8")
+	@RequestMapping(value="sendSmsLogin", produces="text/html;charset=utf8")
 	public String sendSms2(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
@@ -111,17 +126,7 @@ public class ClientMemberController {
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
 			session.setAttribute("numStr", numStr);	
-			
-			// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
-//			Timer timer = new Timer();
-//	        int delay = 180000; // 3분
-//	        
-//	        timer.schedule(new TimerTask() {
-//	            @Override
-//	            public void run() {
-//	                session.removeAttribute("numStr");
-//	            }
-//	        }, delay);
+			session.setAttribute("phone", phone);
 			
 		}
 
@@ -130,7 +135,7 @@ public class ClientMemberController {
 	
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
-	@RequestMapping(value="certification", produces="text/html;charset=utf8")
+	@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
 	public String certification(String code) {
 		String numStr = (String) session.getAttribute("numStr");
 		System.out.println(numStr);
@@ -147,24 +152,33 @@ public class ClientMemberController {
 	}
 	// 인증번호 입력 후 인증 버튼 클릭 시
 	@ResponseBody
-	@RequestMapping(value="certification2", produces="text/html;charset=utf8")
-	public Map<String, Boolean> certification_2(String code,String phone_auth_code) {
+	@RequestMapping("certificationLogin")
+	public Map<String, Object> certification2(String code) {
 		String numStr = (String) session.getAttribute("numStr");
-		String searchId = cms.getIdByPhone(phone_auth_code);
 		
-		System.out.println("dsaakc");
-		if(numStr.equals(code)) {
-			System.out.println("인중 성공");
-			Map<String, Boolean> result = new HashMap<String, Boolean>();
-			result.put(searchId, true);
-			return result;
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("success", false);
+		
+		if(code.equals(numStr)) {
+			String phone = (String) session.getAttribute("phone");
+			String searchId = cms.getIdByPhone(phone);
+			System.out.println(searchId);
+			result.put("searchId", searchId);
+			result.put("success", true);
+			
+			session.removeAttribute("phone");
+			session.removeAttribute("numStr");
 		}
-		else {
-			System.out.println("인중 실패");
-			Map<String, Boolean> result = new HashMap<String, Boolean>();
-			result.put(searchId, false);
-			return result;
-		}
+		return result;
+	}
+	
+	// 비밀번호 재설정
+	@ResponseBody
+	@RequestMapping("changePw")
+	public void changePw(ClientMemberDTO dto) throws Exception {
+		String updatePw = EncryptionUtils.sha512(dto.getPw());
+		dto.setPw(updatePw);
+		cms.updatePw(dto);
 	}
 	
 	// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
@@ -172,21 +186,30 @@ public class ClientMemberController {
 	@RequestMapping(value="removeSession")
 	public void removeSession() {
 		session.removeAttribute("numStr");
-		System.out.println(session.getAttribute("numStr"));
 	}
 	
 	// 회원가입 폼에서 입력한 값들 넘어옴
 	@RequestMapping("signup")
-	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception{
+	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
+		// 받은 생년월일 합치기
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
+		dto.setBirthDate(birthDate);
+		// 비밀번호 암호화
 		String shaPw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(shaPw);
-		dto.setBirthDate(birthDate);
-		System.out.println("가입약관확인 : " + dto.getAgree());
+		// 일반회원 가입 시 authgradecode 1003 삽입
+		dto.setAuthGradeCode(1003);
 		
 		
-		cms.insertClient(dto);
-		return "redirect:login_form";
+		int result = cms.insertClient(dto);
+		if(result == 1) {
+			m.addAttribute("clientName", dto.getName());
+			m.addAttribute("status", "complete");
+			return "member/clientSign";
+		}
+		else {
+			return "error";
+		}
 	}
 	
 	

@@ -36,31 +36,31 @@
 						</div>
 					</div>
 				
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
 						<input type="text" class="form-control" id="productName" name="productName" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
 						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
 						<input type="text" class="form-control" id="min" name="min" required>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
 						<input type="text" class="form-control" id="max" name="max" required>

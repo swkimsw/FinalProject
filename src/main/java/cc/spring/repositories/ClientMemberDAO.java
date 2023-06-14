@@ -13,7 +13,6 @@ public class ClientMemberDAO {
 	
 	
 	public boolean login(ClientMemberDTO dto) {
-		System.out.println(dto.getId()+" : "+ dto.getPw());
 		boolean result = mybatis.selectOne("Client.login",dto);
 		System.out.println("DAO 리턴결과:"+result);
 		return result;
@@ -38,6 +37,10 @@ public class ClientMemberDAO {
 	
 	public int updatePw(ClientMemberDTO dto) {
 		return mybatis.update("Client.updatePw", dto);
+	}
+	
+	public ClientMemberDTO selectClientMemberInfo(String id) {
+		return mybatis.selectOne("Client.selectClientMemberInfo",id);
 	}
 
 }

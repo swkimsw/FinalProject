@@ -29,6 +29,7 @@ public class BusinessMemberDAO {
 	}
 	
 	public boolean phoneCheck(String phone) {
+		System.out.println("비지니스 폰체크 DAO");
 		return mybatis.selectOne("Business.phoneCheck",phone);
 	}
 	

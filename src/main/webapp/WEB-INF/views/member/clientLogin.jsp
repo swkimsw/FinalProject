@@ -374,13 +374,7 @@ html, body {
 						<button type="submit" class="btn btn-outline-success"
 							id="phone_auth">인증번호 받기</button>
 					</div>
-					<div class="row g-3 m-0 p-0  justify-content-center">
-						<div class="col-12 col-md-4">
-							<div class="timer">
-								<div id="timeLimit"></div>
-							</div>
-						</div>
-					</div>
+
 				</div>
 				<br>
 				<div class="row g-3">
@@ -393,6 +387,13 @@ html, body {
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
 							id="phone_auth_ok">인증</button>
+					</div>
+					<div class="row g-3 m-0 p-0  justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="timer">
+								<div id="timeLimit"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -495,7 +496,8 @@ html, body {
 										for="save_id" style="font-size: x-small;">사업자 등록 번호 저장</label>
 								</div>
 								<input type="text" class="form-control" id="id"
-									name="businessId" required />
+									name="businessId" maxlength="10" placeholder="사업자등록번호 10자리(숫자)를 입력하세요." 
+									oninput="validateInput(event)" required />
 
 							</div>
 							<div class="form-group">
@@ -572,12 +574,12 @@ html, body {
 						<label for="phone" class="col-form-label">전화번호</label>
 					</div>
 					<div class="col-12 col-md-4">
-						<input type="text" id="bPhone" name="bPhone" class="form-control"
+						<input type="text" id="businessPhone" name="businessPhone" class="form-control"
 							placeholder="(-) 제외">
 					</div>
 					<div class="col-12 col-md-4">
 						<button type="submit" class="btn btn-outline-success"
-							id="phone_auth2">인증번호 받기</button>
+							id="businessPhoneOk2">인증번호 받기</button>
 					</div>
 					<div class="row g-3 m-0 p-0  justify-content-center">
 						<div class="col-12 col-md-4">
@@ -593,11 +595,18 @@ html, body {
 						<label class="col-form-label">인증번호</label>
 					</div>
 					<div class="col-12 col-md-4">
-						<input type="text" id="phone_auth_code" class="form-control">
+						<input type="text" id="businessPhoneCode" class="form-control">
 					</div>
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
-							id="phone_auth_ok">인증</button>
+							id="businessPhoneOk">인증</button>
+					</div>
+					<div class="row g-3 m-0 p-0  justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="timer">
+								<div id="timeLimit"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -606,18 +615,18 @@ html, body {
 				id="to_change_pw_fadeIn2" style="display: none">
 				<div class="KickKick_logo text-center d-md-block mb-5">
 					<h1 class="mb-4">🍽CookCook</h1>
-					<h3 id="search_id"></h3>
+					<h3 id="businessScId"></h3>
 					<h3>이제 진짜 진짜 얼마 안남았어요!</h3>
 				</div>
 				<div class="text-center">
-					<p id="search_id2"></p>
+					<p id="bSearch_id2"></p>
 				</div>
 				<div class="row d-flex justify-content-center">
 					<div class="col-12 col-md-6 mb-1">
 						<div class="input-group d-flex">
 							<input type="password" class="form-control rounded mt-1"
 								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password" id="password" class="password" />
+								aria-describedby="password" id="businessPw" class="password" />
 							<div class="valid-feedback" style="font-size: x-small;">Good</div>
 							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 						</div>
@@ -628,7 +637,7 @@ html, body {
 						<div class="input-group d-flex">
 							<input type="password" class="form-control rounded mt-1"
 								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password_check" id="password_check"
+								aria-describedby="password_check" id="businessPw_check"
 								class="password_check" />
 							<div class="valid-feedback" style="font-size: x-small;">Good</div>
 							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
@@ -638,7 +647,7 @@ html, body {
 					<div class="row d-flex justify-content-center">
 						<div class="col-6 mt-4 mt-xxl-0 w-auto h-auto">
 							<div class="alert px-4 py-3 mb-0 alert-warning d-none"
-								role="alert" data-mdb-color="warning" id="password-alert">
+								role="alert" data-mdb-color="warning" id="businessPw-alert">
 								<ul class="list-unstyled mb-0">
 									<li class="requirements leng"><i
 										class="bi bi-check text-success me-2"></i> <i
@@ -664,12 +673,19 @@ html, body {
 				<div class="row d-flex justify-content-center">
 					<div class="col-12 col-md-6 d-flex justify-content-center">
 						<button type="button" class="btn btn-outline-success"
-							id="btn_change_pw2">비밀번호 변경하기</button>
+							id="businessBtnChangePw">비밀번호 변경하기</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script>
+		// 사업자 아이디 입력칸 숫자만 입력되게 해주는 정규식이벤트입니다.
+		function validateInput(event) {
+            var input = event.target;
+            var regex = /[^0-9]/g;
+            input.value = input.value.replace(regex, '');
+        }
+
             // 쿠키 저장 함수
             function setCookie(cookieName, value, exdays) {
                let exdate = new Date();
@@ -794,7 +810,7 @@ html, body {
             $("#phone_auth").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
                $.ajax({
-                  url: "/clientMember/sendSms2",
+                  url: "/clientMember/sendSmsLogin",
                   type: "post",
                   dataType: "json",
                   data: { phone: $("#phone").val() }
@@ -810,14 +826,46 @@ html, body {
                   // 인증번호 받기 버튼 비활성화
                   $("#phone_auth").attr("disabled", true);
                   alert("인증번호가 발송되었습니다.");
-                  /*
+                  
                   AuthTimer = new $ComTimer();
                   // 제한 시간
                   AuthTimer.comSecond = 180;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit"); */
+                  AuthTimer.domId = document.getElementById("timeLimit");
+                  }
+
+               });
+            });
+         // 사업자 인증번호 받기 버튼 이벤트
+            $("#businessPhoneOk2").on("click", function (evt) {
+               // 전화번호 check 및 인증번호 발송
+               $.ajax({
+                  url: "/businessMember/sendSmsLogin",
+                  type: "post",
+                  dataType: "json",
+                  data: { phone: $("#businessPhone").val() }
+               }).done(function (resp) {
+                  // 전화번호 check
+                  if (!resp) {
+                	  console.log(resp);
+                     $("#businessPhone").val("");
+                     alert("전화번호를 확인해주세요.");
+                     return false;
+                  }
+                  else {
+                  // 인증번호 받기 버튼 비활성화
+                  $("#businessPhoneOk2").attr("disabled", true);
+                  alert("인증번호가 발송되었습니다.");
+                  
+                  AuthTimer = new $ComTimer();
+                  // 제한 시간
+                  AuthTimer.comSecond = 180;
+                  // 제한 시간 만료 메세지
+                  AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
+                  AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
+                  AuthTimer.domId = document.getElementById("timeLimit");
                   }
 
                });
@@ -831,14 +879,14 @@ html, body {
                }
                // 인증 체크
                $.ajax({
-                  url: "/clientMember/certification2",
+                  url: "/clientMember/certificationLogin",
                   type: "post",
                   dataType: "json",
                   data: { code: $("#phone_auth_code").val() }
                }).done(function name(resp) {
             	   console.log(resp)
                   if (resp.success) {
-                   /*   AuthTimer.fnStop(); */
+                   	AuthTimer.fnStop();  
                      $("#login_view_fadeOut").hide();
                      $("#find_member_fadeIn").hide();
                      $("#to_phone_authentication_fadeIn").hide();
@@ -850,7 +898,38 @@ html, body {
                      $("#phone_auth_code").val("");
                   }
                });
-            });
+            }); 
+            
+            // 사업자 인증 버튼 이벤트
+            $("#businessPhoneOk").on("click", function () {
+                //입력 안했을 경우
+                if (!$("#businessPhoneCode").val()) {
+                   alert("인증번호를 입력해주세요");
+                   return false;
+                }
+                // 인증 체크
+                $.ajax({
+                   url: "/businessMember/certificationLogin",
+                   type: "post",
+                   dataType: "json",
+                   data: { code: $("#businessPhoneCode").val() }
+                }).done(function name(resp) {
+             	   
+                   if (resp.success) {
+                    AuthTimer.fnStop(); 
+                    console.log(resp);
+                      $("#login_view_fadeOut2").hide();
+                      $("#find_member_fadeIn2").hide();
+                      $("#to_phone_authentication_fadeIn2").hide();
+                      $("#to_change_pw_fadeIn2").fadeIn();
+                      $("#businessScId").text(resp.businessId + " 님!");
+                      $("#businessScId2").text("아이디는 "+resp.businessId + " 입니다");
+                   } else {
+                      alert("인증번호를 다시 입력해주세요");
+                      $("#businessPhoneCode").val("");
+                   }
+                });
+             });
             //pw 유효성 검사
             addEventListener("DOMContentLoaded", (event) => {
                const password = document.getElementById("password");
@@ -997,6 +1076,158 @@ html, body {
                   }
                });
             });
+            
+            
+            //사업자
+          //pw 유효성 검사
+            addEventListener("DOMContentLoaded", (event) => {
+               const password = document.getElementById("businessPw");
+               const passwordAlert = document.getElementById("businessPw-alert");
+               const requirements = document.querySelectorAll(".requirements");
+               let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
+               let leng = document.querySelector(".leng");
+               let bigLetter = document.querySelector(".big-letter");
+               let num = document.querySelector(".num");
+               let specialChar = document.querySelector(".special-char");
+               const specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+               const numbers = "0123456789";
+
+               requirements.forEach((element) => element.classList.add("wrong"));
+
+               password.addEventListener("focus", () => {
+                  passwordAlert.classList.remove("d-none");
+                  if (!password.classList.contains("is-valid")) {
+                     password.classList.add("is-invalid");
+                  }
+               });
+
+               password.addEventListener("input", () => {
+                  let value = password.value;
+                  if (value.length < 8) {
+                     lengBoolean = false;
+                  } else if (value.length > 7) {
+                     lengBoolean = true;
+                  }
+
+                  if (value.toLowerCase() == value) {
+                     bigLetterBoolean = false;
+                  } else {
+                     bigLetterBoolean = true;
+                  }
+
+                  numBoolean = false;
+                  for (let i = 0; i < value.length; i++) {
+                     for (let j = 0; j < numbers.length; j++) {
+                        if (value[i] == numbers[j]) {
+                           numBoolean = true;
+                        }
+                     }
+                  }
+
+                  specialCharBoolean = false;
+                  for (let i = 0; i < value.length; i++) {
+                     for (let j = 0; j < specialChars.length; j++) {
+                        if (value[i] == specialChars[j]) {
+                           specialCharBoolean = true;
+                        }
+                     }
+                  }
+
+                  if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
+                     password.classList.remove("is-invalid");
+                     password.classList.add("is-valid");
+
+                     requirements.forEach((element) => {
+                        element.classList.remove("wrong");
+                        element.classList.add("good");
+                     });
+                     passwordAlert.classList.remove("alert-warning");
+                     passwordAlert.classList.add("alert-success");
+                  } else {
+                     password.classList.remove("is-valid");
+                     password.classList.add("is-invalid");
+
+                     passwordAlert.classList.add("alert-warning");
+                     passwordAlert.classList.remove("alert-success");
+
+                     if (lengBoolean == false) {
+                        leng.classList.add("wrong");
+                        leng.classList.remove("good");
+                     } else {
+                        leng.classList.add("good");
+                        leng.classList.remove("wrong");
+                     }
+
+                     if (bigLetterBoolean == false) {
+                        bigLetter.classList.add("wrong");
+                        bigLetter.classList.remove("good");
+                     } else {
+                        bigLetter.classList.add("good");
+                        bigLetter.classList.remove("wrong");
+                     }
+
+                     if (numBoolean == false) {
+                        num.classList.add("wrong");
+                        num.classList.remove("good");
+                     } else {
+                        num.classList.add("good");
+                        num.classList.remove("wrong");
+                     }
+
+                     if (specialCharBoolean == false) {
+                        specialChar.classList.add("wrong");
+                        specialChar.classList.remove("good");
+                     } else {
+                        specialChar.classList.add("good");
+                        specialChar.classList.remove("wrong");
+                     }
+                  }
+               });
+
+               password.addEventListener("blur", () => {
+                  passwordAlert.classList.add("d-none");
+                  if (password.value == "") {
+                     password.classList.remove("is-invalid");
+                  }
+               });
+            });
+            //pw 일치 검사
+            addEventListener("DOMContentLoaded", (event) => {
+               const password = document.getElementById("businessPw_check");
+               const passwordAlert = document.getElementById("businessPw-alert");
+               const requirements = document.querySelectorAll(".requirements");
+
+               password.addEventListener("focus", () => {
+                  if (!password.classList.contains("is-valid")) {
+                     password.classList.add("is-invalid");
+                  }
+               });
+               requirements.forEach((element) => element.classList.add("wrong"));
+
+               password.addEventListener("input", () => {
+                  let value = password.value;
+                  if (value == document.getElementById("businessPw").value) {
+                     password.classList.remove("is-invalid");
+                     password.classList.add("is-valid");
+
+                     requirements.forEach((element) => {
+                        element.classList.remove("wrong");
+                        element.classList.add("good");
+                     });
+                     passwordAlert.classList.remove("alert-warning");
+                     passwordAlert.classList.add("alert-success");
+                  }
+               });
+
+               password.addEventListener("blur", () => {
+                  if (password.value == "") {
+                     password.classList.remove("is-invalid");
+                  }
+               });
+            });
+            //사업자
+            
+            
             //pw 변경
             $("#btn_change_pw").on("click", function () {
                let password = $("#password").val();
@@ -1016,7 +1247,26 @@ html, body {
                   alert("다시 입력해주세요");
                }
             });
-
+            
+            //사업자 pw 변경
+            $("#businessBtnChangePw").on("click", function () {
+                let password = $("#businessPw").val();
+                let password_check = $("#businessPw_check").val();
+                if (password == password_check && password != "") {
+                   $.ajax({
+                      url: "/businessMember/changePw",
+                      type: "post",
+                      data: { businessId: $("#businessScId").text().split(" ")[0], pw: $("#businessPw").val() }
+                   }).done(function () {
+                 	  alert("비밀번호가 변경되었습니다.")
+                      location.reload();
+                   });
+                } else {
+             	   $("#businessPw").val("");
+             	   $("#businessPw_check").val("");
+                   alert("다시 입력해주세요");
+                }
+             });
             const image = document.querySelector("#to_main_ball_img");
             const tooltip = document.querySelector("#tooltip");
 
@@ -1090,6 +1340,11 @@ html, body {
                 z.style.left = "110px";
                 full1.style.display="none";
                 full2.style.display="block";
+            }
+            
+            // 로그인 실패 시 alert창 출력
+            if(${status=="false"}) {
+            	alert("아이디와 비밀번호를 확인해주세요.");
             }
          </script>
 </body>
