@@ -33,7 +33,7 @@ public class BusinessMemberService {
 		return bdao.insertBusiness(dto);
 	}
 	
-	public int updatePw(BusinessMemberDTO dto) {
+	public int updatePwBusiness(BusinessMemberDTO dto) {
 		return bdao.updatePw(dto);
 	}
 }
