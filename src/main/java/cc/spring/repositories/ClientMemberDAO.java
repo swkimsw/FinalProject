@@ -38,5 +38,9 @@ public class ClientMemberDAO {
 	public int updatePw(ClientMemberDTO dto) {
 		return mybatis.update("Client.updatePw", dto);
 	}
+	
+	public ClientMemberDTO selectClientMemberInfo(String id) {
+		return mybatis.selectOne("Client.selectClientMemberInfo",id);
+	}
 
 }

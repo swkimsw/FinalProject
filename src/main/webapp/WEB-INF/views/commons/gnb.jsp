@@ -16,10 +16,10 @@
 			</a>
 		</div>
 		<c:if test="${sessionScope.id == null}">
-			<a class="navbar-brand nav_a" href="/login">Login</a>
+			<a class="navbar-brand nav_a" href="/clientMember/login_form">Login</a>
 		</c:if>
 		<c:if test="${sessionScope.id != null}">
-			<a class="navbar-brand nav_a" href="#">Logout</a>
+			<a class="navbar-brand nav_a" href="/clientMember/logout">Logout</a>
 		</c:if>
 		<div class="offcanvas offcanvas-start flex-shrink-0 p-3"
 			style="width: 280px;" tabindex="-1" id="offcanvasNavbar"
