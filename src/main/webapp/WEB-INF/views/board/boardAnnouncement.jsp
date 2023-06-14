@@ -196,13 +196,27 @@
         
       </nav>
 
- 	<div style="float:right;">
- 	 <a href="/board/announcementWrite"><button class="btn btn-outline-primary" type="button">작성하기</button></a> 
- 	 </div>
-      
-     
-      
-    </div>
+			<c:choose>
+			
+				<c:when test="${user != 1001}">
+
+					<div style="float: right;">
+						<a href="/board/announcementWrite">
+							<button class="btn btn-outline-primary" type="button">작성하기</button>
+						</a>
+					</div>
+
+				</c:when>
+			
+				<c:otherwise> 
+			
+				</c:otherwise> 
+			
+			</c:choose>
+			
+
+
+		</div>
 
   </div>
 
