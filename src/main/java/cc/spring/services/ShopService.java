@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.repositories.FileDAO;
@@ -57,9 +58,9 @@ public class ShopService {
 		}
 	}
 
-	// 클라이언트 멤버인지 확인
-	public int isClientMember(String loginId){
-		return shopDAO.isClientMember(loginId);
+	// 일반 사용자인 경우 회원코드 가져오기
+	public int isClientMemberCode(String loginId){
+		return shopDAO.isClientMemberCode(loginId);
 	}
 
 	// 공구샵 정보 select
@@ -92,8 +93,8 @@ public class ShopService {
 	}
 
 	// 공구 신청 insert
-	public int insertShopRequest(int quantity) {
-		return shopDAO.insertShopRequest(quantity);
+	public int insertShopRequest(RequestListDTO dto) {
+		return shopDAO.insertShopRequest(dto);
 	}
 
 	public List<ShopListDTO> ShopList(){

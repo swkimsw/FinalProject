@@ -11,8 +11,8 @@
 		</selectKey> 
 	</insert>
 	
-	<select id="isClientMember" resultType="int">
-		select count(*) from clientmember where id=#{loginId}
+	<select id="isClientMemberCode" resultType="int">
+		select code from clientmember where id=#{loginId}
 	</select>
 	
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
@@ -27,7 +27,7 @@
 	</delete>
 	
 	<insert id="insertShopRequest">
-		insert into requestlist values(request_list_seq.nextval,?,#{quantity},?,1001,sysdate,null,null)
+		insert into requestlist values(request_list_seq.nextval,#{clientCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
 	
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">

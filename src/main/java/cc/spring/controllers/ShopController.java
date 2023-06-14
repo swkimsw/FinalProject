@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.services.ShopService;
@@ -37,25 +38,21 @@ public class ShopController {
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
 		// 세션에서 ID 받아오게 수정
-		String loginId = "11122541";
+		String loginId = "aaa";
+		int authgradeCode = 1003;
 
-		// 해당 ID의 회원코드 가져오기
-
+		// 일반 사용자인 경우 해당 ID의 회원코드 가져오기
+		if(authgradeCode == 1003) {
+			int clientCode = shopService.isClientMemberCode(loginId);
+			model.addAttribute("clientCode", clientCode);
+		}
 
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
-
-		// 이용자인지 판매자인지 검색 (result가 0:글 등록한 판매자 / 1:이용자 / 2:글 등록하지 않은 판매자)
-		int result = shopService.isClientMember(loginId);
-		if(result == 0) {
-			if(!loginId.equals(shopDTO.getBusinessId())) {
-				System.out.println("내가 쓴 글 !");
-				result = 2;
-			}
-		}
-
+		
+		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
-		model.addAttribute("result", result);
+		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}
 
@@ -93,15 +90,14 @@ public class ShopController {
 	@RequestMapping("deleteShop")
 	public String deleteShop(int code) {
 		shopService.deleteShop(code);
-		// 공구샵 리스트로 가도록 수정 !!!!!!!
-		return "redirect:/";
+		return "redirect:/shop/toShopList";
 	}
 
 	// 공구샵 신청시 DB에 insert
 	@RequestMapping("insertShopRequest")
-	public String insertShopRequest(int quantity,int code) {
-		shopService.insertShopRequest(quantity);
-		return "redirect:/";
+	public String insertShopRequest(int clientCode, int quantity, int parentCode) {
+		shopService.insertShopRequest(new RequestListDTO(clientCode,quantity,parentCode));
+		return "redirect:/shop/toShopList";
 	}
 
 
