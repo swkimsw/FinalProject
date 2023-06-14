@@ -11,6 +11,10 @@
 		</selectKey> 
 	</insert>
 	
+	<select id="isClientMember" resultType="int">
+		select count(*) from clientmember where id=#{loginId}
+	</select>
+	
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
 		select g.code,g.businesscode,g.statuscode,g.deadLine,g.max,g.min,
 			g.title,g.detail,g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,b.businessid
@@ -18,9 +22,13 @@
 		join businessmember b on g.businesscode = b.code where g.code = #{code}
 	</select>
 	
-	<select id="isClientMember" resultType="int">
-		select count(*) from clientmember where id=#{loginId}
-	</select>
+	<delete id="deleteShop">
+		delete from groupbuying where code=#{code} 
+	</delete>
+	
+	<insert id="insertShopRequest">
+		insert into requestlist values(request_list_seq.nextval,?,#{quantity},?,1001,sysdate,null,null)
+	</insert>
 	
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
 		select g.code, g.deadline, g.title, g.productprice, b.companyname, i.code as imgcode, i.path, i.sysname

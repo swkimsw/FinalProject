@@ -20,10 +20,22 @@ public class ShopDAO {
 		return dto.getCode();
 	}
 	
+	public int isClientMember(String loginId) {
+		return db.selectOne("isClientMember", loginId);
+
+	}
+	
 	public ShopDTO selectShopInfo(int code) {
 		return db.selectOne("selectShopInfo", code);
 	}
 	
+	public int deleteShop(int code) {
+		return db.delete("deleteShop", code);
+	}
+	
+	public int insertShopRequest(int quantity) {
+		return db.insert("insertShopRequest", quantity);
+	}
 
 	public List<ShopListDTO> ShopList() {
 		List<ShopListDTO> result = db.selectList("Shop.shopList");
@@ -31,9 +43,6 @@ public class ShopDAO {
 		return result;
 	}
 
-	public int isClientMember(String loginId) {
-		return db.selectOne("isClientMember", loginId);
-
-	}
+	
 
 }
