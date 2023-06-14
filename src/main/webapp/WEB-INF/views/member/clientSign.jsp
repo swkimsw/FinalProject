@@ -928,7 +928,7 @@ console.log("실패")
 		
 	</script>
 	<!-- 가입 완료시 가입 환영 메세지 -->
-	<c:if test="${param.status=='complete'}">
+	<c:if test="${status=='complete'}">
 		<script>
 			$(".container").css({
 				"height" : "300px"
@@ -940,7 +940,7 @@ console.log("실패")
 		<div class="wrapper welcome" id="welcome_fadein">
 			<div class="row">
 				<div class="col d-flex justify-content-center">
-					<div>${member_name}님</div>
+					<div>${clientName}님</div>
 				</div>
 			</div>
 			<div class="row">
@@ -950,7 +950,7 @@ console.log("실패")
 			</div>
 			<div class="row">
 				<div class="col d-flex justify-content-center">
-					<button type="button" class="btn btn-success" onclick="location.href = '/member/login_view.jsp';">로그인하러가기</button>
+					<button type="button" class="btn btn-success" onclick="location.href = '/member/clientLogin.jsp'">로그인하러가기</button>
 				</div>
 			</div>
 		</div>

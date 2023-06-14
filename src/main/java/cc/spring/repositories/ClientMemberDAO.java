@@ -13,7 +13,6 @@ public class ClientMemberDAO {
 	
 	
 	public boolean login(ClientMemberDTO dto) {
-		System.out.println(dto.getId()+" : "+ dto.getPw());
 		boolean result = mybatis.selectOne("Client.login",dto);
 		System.out.println("DAO 리턴결과:"+result);
 		return result;
