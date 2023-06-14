@@ -68,37 +68,37 @@
 						</div>
 					</div>
 				
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
 						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
 						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
 						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
 						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">개수</span>
 						<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" required>
@@ -193,8 +193,8 @@
 		$("#insertRequestBtn").on("click", function(){
 			let quantity = $("#quantity").val();
 			let code = $("#code").val();
-			let clientMemberCode = ${clientMemberCode};
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&code="+code+"&clientMemberCode="+clientMemberCode;
+			let clientCode = ${clientCode};
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&clientCode="+clientCode;
 		})
 		
 	</script>
