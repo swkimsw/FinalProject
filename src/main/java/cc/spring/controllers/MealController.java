@@ -31,9 +31,9 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public Map<String, ChatDTO>aiMeal(String sendMsg) throws Exception {
+	public String aiMeal(String sendMsg) throws Exception {
 		Map<String, ChatDTO> result = mService.makeMeal(sendMsg);
-		return result;
+		return "meal/mealCalender";
 	}
 	
 	@ExceptionHandler(Exception.class)

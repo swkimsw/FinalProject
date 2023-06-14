@@ -374,13 +374,7 @@ html, body {
 						<button type="submit" class="btn btn-outline-success"
 							id="phone_auth">인증번호 받기</button>
 					</div>
-					<div class="row g-3 m-0 p-0  justify-content-center">
-						<div class="col-12 col-md-4">
-							<div class="timer">
-								<div id="timeLimit"></div>
-							</div>
-						</div>
-					</div>
+
 				</div>
 				<br>
 				<div class="row g-3">
@@ -393,6 +387,13 @@ html, body {
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
 							id="phone_auth_ok">인증</button>
+					</div>
+					<div class="row g-3 m-0 p-0  justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="timer">
+								<div id="timeLimit"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -580,7 +581,7 @@ html, body {
 						<button type="submit" class="btn btn-outline-success"
 							id="businessPhoneOk2">인증번호 받기</button>
 					</div>
-					<div class="row g-3 m-0 p-0  justify	-content-center">
+					<div class="row g-3 m-0 p-0  justify-content-center">
 						<div class="col-12 col-md-4">
 							<div class="timer">
 								<div id="timeLimit"></div>
@@ -599,6 +600,13 @@ html, body {
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
 							id="businessPhoneOk">인증</button>
+					</div>
+					<div class="row g-3 m-0 p-0  justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="timer">
+								<div id="timeLimit"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -818,14 +826,14 @@ html, body {
                   // 인증번호 받기 버튼 비활성화
                   $("#phone_auth").attr("disabled", true);
                   alert("인증번호가 발송되었습니다.");
-                  /*
+                  
                   AuthTimer = new $ComTimer();
                   // 제한 시간
                   AuthTimer.comSecond = 180;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit"); */
+                  AuthTimer.domId = document.getElementById("timeLimit");
                   }
 
                });
@@ -850,14 +858,14 @@ html, body {
                   // 인증번호 받기 버튼 비활성화
                   $("#businessPhoneOk2").attr("disabled", true);
                   alert("인증번호가 발송되었습니다.");
-                  /*
+                  
                   AuthTimer = new $ComTimer();
                   // 제한 시간
                   AuthTimer.comSecond = 180;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit"); */
+                  AuthTimer.domId = document.getElementById("timeLimit");
                   }
 
                });
@@ -878,7 +886,7 @@ html, body {
                }).done(function name(resp) {
             	   console.log(resp)
                   if (resp.success) {
-                   /*   AuthTimer.fnStop(); */
+                   	AuthTimer.fnStop();  
                      $("#login_view_fadeOut").hide();
                      $("#find_member_fadeIn").hide();
                      $("#to_phone_authentication_fadeIn").hide();
@@ -908,7 +916,7 @@ html, body {
                 }).done(function name(resp) {
              	   
                    if (resp.success) {
-                    /*   AuthTimer.fnStop(); */
+                    AuthTimer.fnStop(); 
                     console.log(resp);
                       $("#login_view_fadeOut2").hide();
                       $("#find_member_fadeIn2").hide();
