@@ -68,37 +68,37 @@
 						</div>
 					</div>
 				
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
 						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
 						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
 						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
 						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">개수</span>
 						<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" required>
@@ -131,22 +131,30 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${result == 0}">
-					<!-- 본인이 등록한 판매자일 때 -->
+				<c:when test="${authgradeCode == 1002 and !loginId.equals(shopDTO.businessId)}">
+					<!-- 등록하지 않은 판매자일 때 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${authgradeCode == 1003}">
+					<!-- 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
+							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<!-- 등록한 판매자 & 관리자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
 							<input type="button" id="updateBtn" value="수정" class="btn btn-primary">
 							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-primary"></a>
 							<a href="/"><input type="button" id="back" value="취소" class="btn btn-primary"></a>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<!-- 이용자 / 본인이 등록하지 않은 판매자 -->
-					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-						<div class="buttons">
-							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
-							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
 						</div>
 					</div>
 				</c:otherwise>
@@ -185,7 +193,8 @@
 		$("#insertRequestBtn").on("click", function(){
 			let quantity = $("#quantity").val();
 			let code = $("#code").val();
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&code="+code;
+			let clientCode = ${clientCode};
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&clientCode="+clientCode;
 		})
 		
 	</script>

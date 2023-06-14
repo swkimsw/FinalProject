@@ -1333,6 +1333,11 @@ html, body {
                 full1.style.display="none";
                 full2.style.display="block";
             }
+            
+            // 로그인 실패 시 alert창 출력
+            if(${status=="false"}) {
+            	alert("아이디와 비밀번호를 확인해주세요.");
+            }
          </script>
 </body>
 

@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
 
@@ -20,9 +21,8 @@ public class ShopDAO {
 		return dto.getCode();
 	}
 	
-	public int isClientMember(String loginId) {
-		return db.selectOne("isClientMember", loginId);
-
+	public int isClientMemberCode(String loginId) {
+		return db.selectOne("isClientMemberCode", loginId);
 	}
 	
 	public ShopDTO selectShopInfo(int code) {
@@ -33,8 +33,8 @@ public class ShopDAO {
 		return db.delete("deleteShop", code);
 	}
 	
-	public int insertShopRequest(int quantity) {
-		return db.insert("insertShopRequest", quantity);
+	public int insertShopRequest(RequestListDTO dto) {
+		return db.insert("insertShopRequest", dto);
 	}
 
 	public List<ShopListDTO> ShopList() {
