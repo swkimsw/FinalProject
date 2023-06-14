@@ -12,7 +12,6 @@ public class ClientMemberService {
 	private ClientMemberDAO CDAO;
 	
 	public boolean login(ClientMemberDTO dto){
-		System.out.println("123123");
 		return CDAO.login(dto);
 	}
 	public String getIdByPhone(String phone) {
