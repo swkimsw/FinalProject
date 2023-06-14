@@ -57,9 +57,9 @@ public class ShopService {
 		}
 	}
 
-	// 클라이언트 멤버인지 확인
-	public int isClientMember(String loginId){
-		return shopDAO.isClientMember(loginId);
+	// 일반 사용자인 경우 회원코드 가져오기
+	public int isClientMemberCode(String loginId){
+		return shopDAO.isClientMemberCode(loginId);
 	}
 
 	// 공구샵 정보 select

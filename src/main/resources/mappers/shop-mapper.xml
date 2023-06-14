@@ -11,8 +11,8 @@
 		</selectKey> 
 	</insert>
 	
-	<select id="isClientMember" resultType="int">
-		select count(*) from clientmember where id=#{loginId}
+	<select id="isClientMemberCode" resultType="int">
+		select code from clientmember where id=#{loginId}
 	</select>
 	
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">

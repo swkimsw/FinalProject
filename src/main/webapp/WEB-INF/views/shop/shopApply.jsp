@@ -131,22 +131,30 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${result == 0}">
-					<!-- 본인이 등록한 판매자일 때 -->
+				<c:when test="${authgradeCode == 1002 and !loginId.equals(shopDTO.businessId)}">
+					<!-- 등록하지 않은 판매자일 때 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${authgradeCode == 1003}">
+					<!-- 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
+							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<!-- 등록한 판매자 & 관리자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
 							<input type="button" id="updateBtn" value="수정" class="btn btn-primary">
 							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-primary"></a>
 							<a href="/"><input type="button" id="back" value="취소" class="btn btn-primary"></a>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<!-- 이용자 / 본인이 등록하지 않은 판매자 -->
-					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-						<div class="buttons">
-							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
-							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
 						</div>
 					</div>
 				</c:otherwise>
@@ -185,7 +193,8 @@
 		$("#insertRequestBtn").on("click", function(){
 			let quantity = $("#quantity").val();
 			let code = $("#code").val();
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&code="+code;
+			let clientMemberCode = ${clientMemberCode};
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&code="+code+"&clientMemberCode="+clientMemberCode;
 		})
 		
 	</script>
