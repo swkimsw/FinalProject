@@ -84,13 +84,12 @@
 			<!-- 당일 ~ 7일 -->
 			<select class="form-select" name="day">
 				<option value="1" selected>당일</option>
-				<option value="2">1일</option>
-				<option value="3">2일</option>
-				<option value="4">3일</option>
-				<option value="5">4일</option>
-				<option value="6">5일</option>
-				<option value="7">6일</option>
-				<option value="8">7일</option>
+				<option value="2">2일</option>
+				<option value="3">3일</option>
+				<option value="4">4일</option>
+				<option value="5">5일</option>
+				<option value="6">6일</option>
+				<option value="7">7일</option>
 			</select>
 
 			<button id="sendBtn">보내기</button>
