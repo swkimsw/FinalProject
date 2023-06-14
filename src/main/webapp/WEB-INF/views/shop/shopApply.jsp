@@ -25,11 +25,11 @@
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
 	</header>
-	<form action="" method="post" enctype="multipart/form-data">
 	<main>
+	<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
 		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
-			
+
 			<div class="images">
 				<div id="carouselExampleIndicators" class="carousel slide">
   					<div class="carousel-indicators">
@@ -39,13 +39,13 @@
   					</div>
   					<div class="carousel-inner">
     					<div class="carousel-item active">
-      						<img src="..." class="d-block w-100" alt="...">
+      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
     					</div>
     					<div class="carousel-item">
-      						<img src="..." class="d-block w-100" alt="...">
+      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
     					</div>
     					<div class="carousel-item">
-      						<img src="..." class="d-block w-100" alt="...">
+      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
     					</div>
   					</div>
   					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -62,41 +62,43 @@
 			<div class="output">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
+							<input type="hidden" id="code" value="${shopDTO.code}">
+							<input type="hidden" id="">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" readonly>
 						</div>
 					</div>
 				
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
 						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
 						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
 						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
 						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" readonly>
 					</div>
 				</div>
-				<div class="col-12 col-md-8 col-xl-6" style="float:none; margin: 0 auto;">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">개수</span>
 						<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" required>
@@ -129,29 +131,72 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${result == 2}">
-					<!-- 본인이 등록한 판매자일 때 -->
-					<div class="buttons">
-						<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-							<button class="btn btn-primary">수정</button>
-							<a href="/"><input type="button" value="삭제" class="btn btn-primary"></a>
+				<c:when test="${authgradeCode == 1002 and !loginId.equals(shopDTO.businessId)}">
+					<!-- 등록하지 않은 판매자일 때 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-primary"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${authgradeCode == 1003}">
+					<!-- 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
 							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
 						</div>
 					</div>
 				</c:when>
 				<c:otherwise>
-					<!-- 이용자 / 본인이 등록하지 않은 판매자 -->
-					<div class="buttons">
-						<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-							<a href="/"><input type="button" value="신청" class="btn btn-primary"></a>
-							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+					<!-- 등록한 판매자 & 관리자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="updateBtn" value="수정" class="btn btn-primary">
+							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-primary"></a>
+							<a href="/"><input type="button" id="back" value="취소" class="btn btn-primary"></a>
 						</div>
 					</div>
 				</c:otherwise>
 			</c:choose>
 			<hr>
 		</div>
-	</main>
 	</form>
+	</main>
+	<script>
+		// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
+		$("#updateBtn").on("click", function(){
+			$("#title").removeAttr("readonly");
+			$("#productName").removeAttr("readonly");
+			$("#productPrice").removeAttr("readonly");
+			$("#deadLineTemp").removeAttr("readonly");
+			$("#max").removeAttr("readonly");
+			$("#min").removeAttr("readonly");
+			$("#quantity").prop("readonly",true);
+			$("#updateBtn, #deleteBtn, #back").css("display", "none");
+
+			let updateComplete = $("<button class='btn btn-primary'>");
+			updateComplete.text("수정 완료");
+			
+			let cancel = $("<button type='button' class='btn btn-primary'>");
+			cancel.text("취소");
+			cancel.on("click", function(){
+				location.reload();
+			})
+			
+			$(".buttons").append(updateComplete);
+			$(".buttons").append("&nbsp;");
+			$(".buttons").append(cancel);
+		})
+		
+		// 신청 버튼 클릭시
+		$("#insertRequestBtn").on("click", function(){
+			let quantity = $("#quantity").val();
+			let code = $("#code").val();
+			let clientCode = ${clientCode};
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&clientCode="+clientCode;
+		})
+		
+	</script>
 </body>
 </html>

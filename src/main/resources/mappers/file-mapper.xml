@@ -15,7 +15,7 @@
 	
 	
 	<insert id="insertReviewImage">
-		insert into ReviewImage values( Board_Review_Seq.nextval , #{dto.postcode} ,#{dto.path} ,#{dto.oriname} ,#{dto.sysname})
+		insert into ReviewImage values( review_img_seq.nextval , #{dto.postcode} ,#{dto.path} ,#{dto.oriname} ,#{dto.sysname})
 	</insert>
 	
 </mapper>

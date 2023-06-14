@@ -56,6 +56,12 @@
             border: 1px solid #CCCCCC;
             min-height: 120px;
             height: 100%;
+            padding:10px;
+
+            /*글이 너무 길면 말줄임표로 표시*/
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .meal-box:hover {
@@ -64,20 +70,6 @@
 
         .meal-box:active {
             background-color: #CCCCCC70;
-        }
-
-        .meal {
-            margin: 0;
-            padding: 0 5px;
-            line-height: 40px;
-
-            /*글이 너무 길면 말줄임표로 표시*/
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         #change_week>button {

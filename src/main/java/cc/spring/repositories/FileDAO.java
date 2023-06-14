@@ -24,8 +24,11 @@ public class FileDAO {
 	}
 
 	public int insertReviewImage(ReviewImgDTO dto) {
-		
-		return db.insert("File.insertReviewImage" ,dto);
+		return db.insert("File.insertReviewImage", dto);
 	}
+
+	
+
+	
 	
 }

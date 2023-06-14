@@ -1,7 +1,6 @@
-   //const myModal = document.getElementById('mealModalToggle');
+                //const myModal = document.getElementById('mealModalToggle');
 
                 //식단 박스 클릭 이벤트
-                //이미 등록된 식단이 있는 경우 input 태그 안에 넣기
                 let selectBox;
                 $(".meal-box").on("click", function () {
                     //우선 modal창에 입력된 input 전부 삭제
@@ -10,11 +9,12 @@
                     //입력 위치 지정
                     selectBox = $(this);
 
-                    if (selectBox.html()) {
-                        let meals = this.children;
+                    //이미 등록된 식단이 있는 경우 input 태그 안에 넣기
+                    if (selectBox.html()) {   
+                        let meals = this.innerText.split("\n");
                         let inputMeals = document.getElementsByClassName("meal-name");
                         for (let i = 0; i < meals.length; i++) {
-                            inputMeals[i].value = meals[i].innerHTML;
+                            inputMeals[i].value = meals[i];
                         }
                     }
 
@@ -26,13 +26,13 @@
                     //외식 버튼 클릭 이벤트
                     $("#eatingOut").on("click", function () {
                         console.log(selectBox);
-                        selectBox.html("<p class='meal'>외식</p>");
+                        selectBox.html("외식");
                         $("#closeModal").click();
                     });
 
                     //배달 버튼 클릭 이벤트
                     $("#delivery").on("click", function () {
-                        selectBox.html("<p class='meal'>배달</p>");
+                        selectBox.html("배달");
                         $("#closeModal").click();
                     });
 
@@ -62,8 +62,7 @@
 
                         for (let i = 0; i < meals.length; i++) {
                             if (meals.get(i).value) {
-                                let tmp = $("<p>").html(meals.get(i).value);
-                                selectBox.append(tmp);
+                                selectBox.append(meals.get(i).value+"<br>");
                             }
                         }
 

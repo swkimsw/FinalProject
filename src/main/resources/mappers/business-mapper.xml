@@ -8,7 +8,7 @@
 	</select>
 	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
 	<select id="getIdByPhone" resultType="String">
-	select id from BusinessMember where phone = #{phone}
+	select businessId from BusinessMember where phone = #{phone}
 	</select>
 	
 	<select id="isMember" resultType="boolean">

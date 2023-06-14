@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.BusinessMemberDTO;
-import cc.spring.dto.ClientMemberDTO;
 import cc.spring.services.BusinessMemberService;
 import cc.spring.services.SmsService;
 
@@ -27,7 +26,7 @@ public class BusinessMemberController {
 	@Autowired
 	private BusinessMemberService bms;
 	//사업자 로그인
-		@RequestMapping("login")
+		@RequestMapping("bLogin")
 		public String login(BusinessMemberDTO dto) {
 			System.out.println(dto);
 			boolean result = bms.login(dto);
@@ -41,7 +40,7 @@ public class BusinessMemberController {
 			return "error";
 		}
 //		비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
-		@RequestMapping("getIdByPhone")
+		@RequestMapping("bGetIdByPhone")
 		public String getIdByPhone(String phone) {
 			String result = bms.getIdByPhone(phone);
 			return null;
@@ -49,14 +48,14 @@ public class BusinessMemberController {
 		}
 //		종료
 		// 클라이언트 회원가입 창으로 이동
-		@RequestMapping("sign_form")
+		@RequestMapping("bSign_form")
 		public String sign_form() throws Exception {
 			return "member/clientSign";
 		}
 		
 		// 회원가입 시 아이디 중복체크
 		@ResponseBody
-		@RequestMapping(value="checkId", produces="text/html;charset=utf8")
+		@RequestMapping(value="bCheckId", produces="text/html;charset=utf8")
 		public String checkId(String value) throws Exception {
 			boolean result = bms.isBusinessMember(value);
 			return String.valueOf(result);
@@ -64,7 +63,7 @@ public class BusinessMemberController {
 		
 		// 회원가입 시 인증번호 랜덤 발송
 		@ResponseBody
-		@RequestMapping(value="sendSms", produces="text/html;charset=utf8")
+		@RequestMapping(value="bSendSmsSign", produces="text/html;charset=utf8")
 		public String sendSms(String phone) throws Exception {
 			// 이미 가입한 연락처가 있는지 확인
 			boolean result = bms.phoneCheck(phone);
@@ -87,7 +86,7 @@ public class BusinessMemberController {
 		
 		// 계정찾기시 인증번호 랜덤 발송
 		@ResponseBody
-		@RequestMapping(value="sendSms2", produces="text/html;charset=utf8")
+		@RequestMapping(value="bSendSmsLogin", produces="text/html;charset=utf8")
 		public String sendSms2(String phone) throws Exception {
 			// 이미 가입한 연락처가 있는지 확인
 			boolean result = bms.phoneCheck(phone);
@@ -105,17 +104,6 @@ public class BusinessMemberController {
 				session.setAttribute("numStr", numStr);	
 				session.setAttribute("phone", phone);
 				
-				// 인증번호 발송하고 3분 후 세션의 numStr을 삭제
-//				Timer timer = new Timer();
-//		        int delay = 180000; // 3분
-//		        
-//		        timer.schedule(new TimerTask() {
-//		            @Override
-//		            public void run() {
-//		                session.removeAttribute("numStr");
-//		            }
-//		        }, delay);
-				
 			}
 
 			return String.valueOf(result);
@@ -123,7 +111,7 @@ public class BusinessMemberController {
 		
 		// 인증번호 입력 후 인증 버튼 클릭 시
 		@ResponseBody
-		@RequestMapping(value="certification", produces="text/html;charset=utf8")
+		@RequestMapping(value="bCertificationSign", produces="text/html;charset=utf8")
 		public String certification(String code) {
 			String numStr = (String) session.getAttribute("numStr");
 			System.out.println(numStr);
@@ -140,28 +128,33 @@ public class BusinessMemberController {
 		}
 		// 인증번호 입력 후 인증 버튼 클릭 시
 		@ResponseBody
-		@RequestMapping("certification2")
-		public Map<String, Object> certification_2(String code) {
+		@RequestMapping("bCertificationLogin")
+		public Map<String, Object> certification2(String code) {
 			String numStr = (String) session.getAttribute("numStr");
+			
 			Map<String, Object> result = new HashMap<String, Object>();
 			result.put("success", false);
 			
-			if(numStr.equals(code)) {
+			if(code.equals(numStr)) {
 				String phone = (String) session.getAttribute("phone");
-				String id = bms.getIdByPhone(phone);
-				result.put("id", id);
+				String businessId = bms.getIdByPhone(phone);
+				System.out.println(businessId);
+				result.put("businessId", businessId);
 				result.put("success", true);
+				
 				session.removeAttribute("phone");
 				session.removeAttribute("numStr");
 			}
 			return result;
-			
 		}
 		
+		// 비밀번호 재설정
 		@ResponseBody
-		@RequestMapping("changePw")
-		public void changePw(BusinessMemberDTO dto) {
-			bms.updatePw(dto);
+		@RequestMapping("bChangePw")
+		public void changePw(BusinessMemberDTO dto) throws Exception {
+			String updatePw = EncryptionUtils.sha512(dto.getPw());
+			dto.setPw(updatePw);
+			bms.updatePwBusiness(dto);
 		}
 		
 		// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
@@ -169,11 +162,10 @@ public class BusinessMemberController {
 		@RequestMapping(value="removeSession")
 		public void removeSession() {
 			session.removeAttribute("numStr");
-			System.out.println(session.getAttribute("numStr"));
 		}
 		
 		// 회원가입 폼에서 입력한 값들 넘어옴
-		@RequestMapping("signup")
+		@RequestMapping("bSignup")
 		public String signup(BusinessMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception{
 			String birthDate = member_birth_year + member_birth_month + member_birth_day;
 			String shaPw = EncryptionUtils.sha512(dto.getPw());
@@ -196,4 +188,3 @@ public class BusinessMemberController {
 		}
 
 	}
-
