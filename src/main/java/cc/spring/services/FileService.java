@@ -46,6 +46,12 @@ public class FileService {
 		
 	}
 
+
+	public String uploadImage(MultipartFile file) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 }

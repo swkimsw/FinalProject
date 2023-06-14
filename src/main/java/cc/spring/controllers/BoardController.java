@@ -1,14 +1,25 @@
 package cc.spring.controllers;
 
-import java.io.File;
 
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.BoardAnnouncementDTO;
@@ -31,8 +42,21 @@ public class BoardController {
 	private HttpSession session;
 	
 	
+	
+		    private ServletContext servletContext;
+
+
+	    @Autowired
+	    public BoardController(ServletContext servletContext) {
+	        this.servletContext = servletContext;
+	    }
+	
 	@Autowired
 	private HttpServletRequest request;
+	
+	
+	
+
 
 	//자유게시판으로 가기
 	@RequestMapping("free")
@@ -98,6 +122,10 @@ public class BoardController {
 			return "redirect:/board/announcement"; //자유게시판으로 가기
 		}
 
+		
+		
+		
+		
 	//후기게시판 글 작성하기
 	@RequestMapping("inputReview")
 	public String inputReview(BoardReviewDTO dto ,MultipartFile[]  file_list) throws Exception {
@@ -108,15 +136,61 @@ public class BoardController {
 
 		boardservice.insertReview(dto,writer,parent_seq); //후기 게시판 작성
 
-		String realPath = session.getServletContext().getRealPath("content_img"); 
+		String realPath = session.getServletContext().getRealPath("contentFile"); //사진 집어넣기(파일)
 		System.out.println(realPath);
 		fileservice.insertReviewImage(realPath,file_list,parent_seq) ;
 
 		return "redirect: /board/review" ;
+	}
+	
+	@PostMapping("uploadImage")
+	@ResponseBody
+	public List<UploadImageResponse> uploadImage(@RequestParam("image") MultipartFile[] images) {
+	  List<UploadImageResponse> responses = new ArrayList<>();
 
+	  for (MultipartFile image : images) {
+	    if (image != null && !image.isEmpty()) {
+	      try {
+	        String originalFilename = image.getOriginalFilename();
+	        System.out.println(originalFilename); //
+	        
+	        String extension = StringUtils.getFilenameExtension(originalFilename);
+	        System.out.println(extension);
+	        
+	        String fileName = UUID.randomUUID().toString() + "." + extension;
+	        System.out.println(fileName);
+	        
+	        String uploadPath = servletContext.getRealPath("/contentImg");
+	        System.out.println(uploadPath);
 
+	        File uploadDir = new File(uploadPath);
+	        if (!uploadDir.exists()) {
+	          uploadDir.mkdirs();
+	        }
 
+	        String filePath = uploadPath + File.separator + fileName;
 
+	        image.transferTo(new File(filePath));
+
+	        String imageUrl = servletContext.getContextPath() + "/contentImg/" + fileName;
+	        responses.add(new UploadImageResponse(imageUrl));
+	        System.out.println(imageUrl);
+	        
+	      } catch (Exception e) {
+	        e.printStackTrace();
+	      }
+	    } else {
+	      responses.add(new UploadImageResponse(null));
+	    }
+	  }
+
+	  return responses;
 	}
 
+	
+	
+
+ 
 }
+    
+
