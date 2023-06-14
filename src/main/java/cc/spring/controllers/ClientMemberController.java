@@ -67,9 +67,7 @@ public class ClientMemberController {
 	// 로그아웃
 	@RequestMapping("logout")
 	public String logout() {
-		session.removeAttribute("id");
-		session.removeAttribute("nickname");
-		session.removeAttribute("authGradeCode");
+		session.invalidate();
 		return "redirect:/";
 	}
 	// 클라이언트 회원가입 창으로 이동
