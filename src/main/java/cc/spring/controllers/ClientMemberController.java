@@ -37,19 +37,24 @@ public class ClientMemberController {
 	}
 
 	// 클라이언트 로그인
-	@RequestMapping("login")				
+	@RequestMapping("login")
 	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
+		// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+		ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+		
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
 		boolean result = cms.login(dto);
 		if(result) {
-			session.setAttribute("id",dto.getId());
-			session.setAttribute("authGradeCode", dto.getAuthGradeCode());
+			session.setAttribute("id",cmd.getId());
+			session.setAttribute("nickname", cmd.getNickName());
+			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
 			
-			return "home";
+			
+			return "redirect:/";
 		}
 		System.out.println("로그인 실패!!");
-		redir.addFlashAttribute("status", "false"); // 일회용으로 쓰고 없어지는 데이터 보낼거라서 RedirectAttributes 사용함
+		redir.addFlashAttribute("status", "false");
 		return "redirect:/clientMember/login_form";
 	}
 //	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
@@ -57,9 +62,16 @@ public class ClientMemberController {
 	public String getIdByPhone(String phone) {
 		String result = cms.getIdByPhone(phone);
 		return null;
-//		return 값 아직 안적어놓음
 	}
-//	종료
+	
+	// 로그아웃
+	@RequestMapping("logout")
+	public String logout() {
+		session.removeAttribute("id");
+		session.removeAttribute("nickname");
+		session.removeAttribute("authGradeCode");
+		return "redirect:/";
+	}
 	// 클라이언트 회원가입 창으로 이동
 	@RequestMapping("sign_form")
 	public String sign_form() throws Exception {

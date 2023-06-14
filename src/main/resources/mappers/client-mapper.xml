@@ -18,10 +18,16 @@
 	<select id="phoneCheck" resultType="boolean">
 		select count(*) from ClientMember where phone = #{phone}
 	</select>
+	
 	<insert id="insert">
 	insert into ClientMember values(CLIENT_SEQ.nextval,#{id},#{pw},#{name},#{nickName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
 	</insert>
+	
 	<update id="updatePw">
 		update ClientMember set pw = #{pw} where id = #{id}
 	</update>
+	
+	<select id="selectClientMemberInfo" resultType="cc.spring.dto.ClientMemberDTO">
+		select * from ClientMember where id = #{id}
+	</select>
 </mapper>
