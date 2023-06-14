@@ -750,7 +750,7 @@ label {
 				
 				AuthTimer = new $ComTimer();
 				// 제한 시간
-				AuthTimer.comSecond = 30; 
+				AuthTimer.comSecond = 180; 
 				// 제한 시간 만료 메세지
 				AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
 				AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
@@ -950,7 +950,7 @@ console.log("실패")
 			</div>
 			<div class="row">
 				<div class="col d-flex justify-content-center">
-					<button type="button" class="btn btn-success" onclick="location.href = '/member/clientLogin.jsp'">로그인하러가기</button>
+					<button type="button" class="btn btn-success" onclick="location.href = '/clientMember/login_form'">로그인하러가기</button>
 				</div>
 			</div>
 		</div>

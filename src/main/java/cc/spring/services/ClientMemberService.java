@@ -15,7 +15,6 @@ public class ClientMemberService {
 		return CDAO.login(dto);
 	}
 	public String getIdByPhone(String phone) {
-		System.out.println("아이디값 받아오기 서비스!");
 		return CDAO.getIdByPhone(phone);
 	}
 	public boolean isClientMember(String id) {
@@ -32,5 +31,9 @@ public class ClientMemberService {
 	
 	public int updatePw(ClientMemberDTO dto) {
 		return CDAO.updatePw(dto);
+	}
+	
+	public ClientMemberDTO selectClientMemberInfo(String id) {
+		return CDAO.selectClientMemberInfo(id);
 	}
 }
