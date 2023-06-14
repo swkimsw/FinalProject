@@ -9,9 +9,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.ClientMemberDTO;
@@ -36,17 +38,19 @@ public class ClientMemberController {
 
 	// 클라이언트 로그인
 	@RequestMapping("login")
-	public String login(ClientMemberDTO dto) throws Exception {
-		System.out.println(dto);
+	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
+		String pw = EncryptionUtils.sha512(dto.getPw());
+		dto.setPw(pw);
 		boolean result = cms.login(dto);
-		System.out.println(result);
 		if(result) {
-			session.setAttribute("loginID",dto.getId());
-			System.out.println("로그인 실행!");
+			session.setAttribute("id",dto.getId());
+			session.setAttribute("authGradeCode", dto.getAuthGradeCode());
+			
 			return "home";
 		}
 		System.out.println("로그인 실패!!");
-		return "error";
+		redir.addFlashAttribute("status", "false");
+		return "redirect:/clientMember/login_form";
 	}
 //	비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
 	@RequestMapping("getIdByPhone")
@@ -175,16 +179,26 @@ public class ClientMemberController {
 	
 	// 회원가입 폼에서 입력한 값들 넘어옴
 	@RequestMapping("signup")
-	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception{
+	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
+		// 받은 생년월일 합치기
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
+		dto.setBirthDate(birthDate);
+		// 비밀번호 암호화
 		String shaPw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(shaPw);
-		dto.setBirthDate(birthDate);
-		System.out.println("가입약관확인 : " + dto.getAgree());
+		// 일반회원 가입 시 authgradecode 1003 삽입
+		dto.setAuthGradeCode(1003);
 		
 		
-		cms.insertClient(dto);
-		return "redirect:login_form";
+		int result = cms.insertClient(dto);
+		if(result == 1) {
+			m.addAttribute("clientName", dto.getName());
+			m.addAttribute("status", "complete");
+			return "member/clientSign";
+		}
+		else {
+			return "error";
+		}
 	}
 	
 	
