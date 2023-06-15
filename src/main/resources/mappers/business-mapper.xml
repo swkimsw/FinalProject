@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="isMember" resultType="boolean">
-		select count(*) from BusinessMember where businessId = #{businessId}
+		select count(*) from BusinessMember where ${key} = #{value}
 	</select>
 		
 	<select id="phoneCheck" resultType="boolean">

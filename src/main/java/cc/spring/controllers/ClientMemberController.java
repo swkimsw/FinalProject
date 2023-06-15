@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
+import cc.spring.commons.managerInfo;
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.services.ClientMemberService;
 import cc.spring.services.SmsService;
@@ -41,6 +42,12 @@ public class ClientMemberController {
 	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
 		// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 		ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+		
+		// 관리자 로그인 시 
+		if(dto.getPw().equals(managerInfo.managerPw) && dto.getId().equals(managerInfo.managerId)) {
+			session.setAttribute("id", dto.getId());
+			return "redirect:/";
+		}
 		
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
@@ -79,9 +86,9 @@ public class ClientMemberController {
 	
 	// 회원가입 시 아이디 중복체크
 	@ResponseBody
-	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-	public String checkId(String value) throws Exception {
-		boolean result = cms.isClientMember(value);
+	@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
+	public String checkId(String key, String value) throws Exception {
+		boolean result = cms.isClientMember(key, value);
 		return String.valueOf(result);
 	}
 	

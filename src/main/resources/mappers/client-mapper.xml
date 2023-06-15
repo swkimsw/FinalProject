@@ -3,8 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Client">
-	<select id="login" resultType="boolean">select count(*) from ClientMember where
-		id= #{id} and pw= #{pw}
+	<select id="login" resultType="boolean">select count(*) from ClientMember where id= #{id} and pw = #{pw}
 	</select>
 	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
 	<select id="getIdByPhone" resultType="String">
@@ -12,7 +11,7 @@
 	</select>
 	
 	<select id="isMember" resultType="boolean">
-		select count(*) from ClientMember where id = #{id}
+		select count(*) from ClientMember where ${key} = #{value}
 	</select>
 		
 	<select id="phoneCheck" resultType="boolean">
