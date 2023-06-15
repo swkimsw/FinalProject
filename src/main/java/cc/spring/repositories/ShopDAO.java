@@ -30,8 +30,6 @@ public class ShopDAO {
 	}
 	
 	public int updateShop(ShopDTO dto) {
-		System.out.println(dto.getDeadLine());
-		System.out.println(dto.getDeadLineTemp());
 		return db.update("updateShop", dto);
 	}
 	

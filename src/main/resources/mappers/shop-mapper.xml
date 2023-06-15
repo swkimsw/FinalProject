@@ -23,7 +23,7 @@
 	</select>
 	
 	<update id="updateShop">
-		update groupbuying set deadline=#{deadline},max=${max},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice} where code=${code}
+		update groupbuying set deadLine=#{deadLine},max=${max},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice} where code=${code}
 	</update>
 	
 	<delete id="deleteShop">
