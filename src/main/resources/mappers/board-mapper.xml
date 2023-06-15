@@ -4,10 +4,50 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="Board">
+	
+<!-- 	
+	일반회원의 authgrade
+	<select id="selectClientAuthgrade" resultType="int">
+	select authgradecode from CLIENTMEMBER where id = #{user} 
+	</select>
+	
+	사업자회원의 authgrade
+	<select id="selectBusinessAuthgrade" resultType="int">
+	select authgradecode from BUSINESSMEMBER where id = #{user} 
+	</select>
+	
+	관리자회원의 authgrade
+	<select id="selectAdminAuthgrade" resultType="int">
+	select authgradecode from ADMINMEMBER where id = #{user} 
+	</select>
+	
+	 -->
+	
+	<!-- 관리자회원인지 아닌지 관리자회원이면 1 반환 -->
+	<select id="selectAdminresult" resultType="int">
+	select count(authgradecode) from ADMINMEMBER where id =  #{user}
+	</select>
+	
+	<!-- 관리자회원인지 아닌지 관리자회원이면 1 반환 -->
+	<select id="selectClientresult" resultType="int">
+	select count(authgradecode) from CLIENTMEMBER where id =  #{user}
+	</select>
+	
+	<!-- 자유게시판에서 작성한 사람의 seq가져오기- 일반회원 -->
+	<select id="selectClientSeq" resultType="int">
+	select code from CLIENTMEMBER where id =  #{writer}
+	</select>
+	
+	<!-- 자유게시판에서 작성한 사람의 seq가져오기- 사업자회원 -->
+	<select id="selectBusinessSeq" resultType="int">
+	select code from BUSINESSMEBER where id =  #{writer}
+	</select>
+	
+	
 
 	<!-- 후기게시판의 고유번호 -->
 	<select id="selectReviewSeq" resultType="int">
-		select board_review_seq.nextval from dual;
+		select board_review_seq.nextval from dual
 	</select>
 
 	<!-- 후기게시판 작성 -->
@@ -17,12 +57,12 @@
 	
 	<!-- 자유게시판 작성 -->
 	<insert id="insertFree">
-		insert into BoardFree values (board_free_seq.netval, 1002 , #{dto.headlinecode} , #{writer} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardFree values (board_free_seq.nextval, 1002 , #{dto.headlinecode} , #{writer_seq} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
 	
 	<!-- 공지게시판 작성 -->
 	<insert id="insertAnnouncement">
-		insert into BoardAnnouncement values (board_announcement_seq.netval, 1001 ,1001, #{writer} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, #{writer} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
 
 	</mapper>

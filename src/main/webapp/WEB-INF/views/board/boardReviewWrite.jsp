@@ -96,11 +96,9 @@
                             제목 : <label><input id="title" name="title" class="form-control"
                                     placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
                         </div>
-                        
-                        
-                        
 
-                    </div>
+
+			</div>
 
 
 
@@ -109,8 +107,6 @@
                             <tr>
                                 <td colspan="2">
                                     <textarea id="content" name="content"></textarea>
-                                     <img src="C:\COOKCOOK\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\CookCook\contentImg
-/contentImg/52a83cb6-b34a-4696-b454-0d09f0ff33b0.png">
                                 </td>
                                 
                                
@@ -154,6 +150,7 @@
                         ],callbacks: {
                             onImageUpload: function(files) {
                             	uploadImages(files);
+                            	
                               }
                             }
                     })
@@ -163,31 +160,34 @@
                 	  var formData = new FormData();
 
                 	  for (var i = 0; i < files.length ; i++) {
+                		  console.log(files.length);
                 	    formData.append('image', files[i]);
                 	  }
 
                 	  $.ajax({
                 	    url: '/board/uploadImage',
                 	    type: 'POST',
-                	    data: formData,
+                	    data: formData, //FormData 객체로 만들면 일반적인 텍스트 필드뿐만 아니라 파일 업로드 필드와 같은 복잡한 데이터도 쉽게 처리가능
                 	    contentType: false,
                 	    processData: false,
                 	    success: function(resp) {
-                	          alert('이미지 업로드에 성공했습니다.');
-                	          var imageUrls = resp.imageUrls; // 서버에서 받은 이미지 URL 배열
+                            alert('이미지 업로드에 성공했습니다.');
+                            var imageUrls = resp.map(function(obj) {
+                                return obj.url;
+                            });
 
-                	          for (var i = 0; i < imageUrls.length; i++) {
-                	            var imageUrl = imageUrls[i];
-                	            var $preview = $('<img src="' + imageUrl + '">');
-                	           
-                	            $('#content').summernote('editor.insertNode', $preview);
-                	          }
-                	        },
-                	    error: function() {
-                	      alert('이미지 업로드에 실패했습니다.');
-                	    }
-                	  });
-                	}
+                            for (var i = 0; i < imageUrls.length; i++) {
+                                var imageUrl = imageUrls[i];
+                                var $preview = $('<img src="' + imageUrl + '">');
+
+                                $('#content').summernote('editor.insertNode', $preview[0]);
+                            }
+                        },
+                        error: function() {
+                            alert('이미지 업로드에 실패했습니다.');
+                        }
+                    });
+                }
             </script>
 
         </body>

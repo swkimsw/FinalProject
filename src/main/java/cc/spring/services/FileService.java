@@ -24,13 +24,13 @@ public class FileService {
 	}
 
 
-	public void insertReviewImage(String realPath, MultipartFile[] file_list, int parent_seq) throws Exception{
+	public void insertReviewImage(String realPath, MultipartFile[] files, int parent_seq) throws Exception{
 
 		File realPathFile = new File(realPath); //realPath의 경로를 기반으로 한 file 객체 생성
 		if(!realPathFile.exists()) { realPathFile.mkdir(); } //경로에 upload라는 파일이객체가 없으면 생성해라
 		
-		if(file_list != null) { //jsp에서 설정한 name이름이 files인데 그 안에 값이 없으면 null로 들어옴
-			for(MultipartFile file : file_list) {
+		if(files != null) { //jsp에서 설정한 name이름이 files인데 그 안에 값이 없으면 null로 들어옴
+			for(MultipartFile file : files) {
 				if(file.isEmpty()) {break;} // 파일이 비어있는지 검색하는 로직
 				String oriName = file.getOriginalFilename(); //파일의 원래 이름
 				String sysName = UUID.randomUUID() + "_" + oriName ; 

@@ -18,6 +18,46 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
+	
+
+//	public int selectClientAuthgrade(String user) {
+//		return mybatis.selectOne("Board.selectClientAuthgrade",user);
+//	}
+//
+//
+//	public int selectBusinessAuthgrade(String user) {
+//		return mybatis.selectOne("Board.selectBusinessAuthgrade",user);
+//	}
+//	
+//	public int selectAdminAuthgrade(String user) {
+//		return mybatis.selectOne("Board.selectAdminAuthgrade",user);
+//	}
+
+	
+	public int selectAdminresult(String user) {
+		return mybatis.selectOne("Board.selectAdminresult",user);
+	}
+
+	
+	
+	public int selectClientresult(String user) {
+		return mybatis.selectOne("Board.selectClientresult",user);
+	}
+
+	
+	
+
+	public int selectClientSeq(String writer) {
+		return mybatis.selectOne("Board.selectClientSeq",writer);
+	}
+
+	public int selectBusinessSeq(String writer) {
+		return mybatis.selectOne("Board.selectBusinessSeq",writer);
+	}
+
+
+	
+	
 	public int selectReviewSeq() {
 		return mybatis.selectOne("Board.selectReviewSeq");
 	}
@@ -31,10 +71,10 @@ public class BoardDAO {
 		return mybatis.insert("Board.insertReview",param);
 	}
 
-	public int insertFree(BoardFreeDTO dto, String writer) {
+	public int insertFree(BoardFreeDTO dto, int writer_seq) {
 		Map<String ,Object> param = new HashMap<>();
 		param.put("dto", dto);
-		param.put("writer", writer);
+		param.put("writer_seq", writer_seq);
 		return mybatis.insert("Board.insertFree",param);
 	}
 
@@ -44,6 +84,10 @@ public class BoardDAO {
 		param.put("writer", writer);
 		return  mybatis.insert("Board.insertAnnouncement",param);
 	}
+
+
+
+
 
 
 
