@@ -61,7 +61,7 @@ public class ShopController {
 	public String insertShop(ShopDTO dto, MultipartFile[] files) throws Exception {
 
 		// realPath - 폴더가 없다면 만들기
-		String realPath = session.getServletContext().getRealPath("upload");
+		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
 		shopService.insertShop(dto, files, realPath);
 
 		return "redirect:/";
