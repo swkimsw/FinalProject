@@ -41,14 +41,20 @@ public class BoardService {
 		return boarddao.selectClientresult(user);
 	}
 	
-	
+	//자유게시판 글 작성할때 작성자가 일반회원인 사람의 seq가져오기
 	public int selectClientSeq(String writer) {
 		return boarddao.selectClientSeq(writer);
 	}
-
+	//자유게시판 글 작성할때 작성자가 사업자회원인 사람의 seq가져오기
 	public int selectBusinessSeq(String writer) {
 		return boarddao.selectBusinessSeq(writer);
 	}
+	
+	//공지게시판 글 작성할때 작성자가 관리자회원인 사람의 seq가져오기
+	public int selectAdminSeq(String writer) {
+		return boarddao.selectAdminSeq(writer);
+	}
+	
 	
 	
 	//리뷰게시판 글 작성할때 seq가져오기
@@ -57,8 +63,8 @@ public class BoardService {
 	}
 
 	//리뷰 게시판 작성하기
-	public int insertReview(BoardReviewDTO dto,String writer,int parent_seq) {
-		return boarddao.insertReview(dto,writer,parent_seq);
+	public int insertReview(BoardReviewDTO dto,int writer_seq,int parent_seq) {
+		return boarddao.insertReview(dto,writer_seq,parent_seq);
 
 	}
 
@@ -71,10 +77,12 @@ public class BoardService {
 	
 
 	//공지게시판 작성하기
-	public int insertAnnouncement(BoardAnnouncementDTO dto, String writer) {
-		return boarddao.insertAnnouncement(dto,writer);
+	public int insertAnnouncement(BoardAnnouncementDTO dto) {
+		return boarddao.insertAnnouncement(dto);
 
 	}
+
+	
 
 	
 

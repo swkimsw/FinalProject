@@ -81,12 +81,16 @@ public class BoardController {
 	//공지게시판으로 가기  - 관리자회원
 	@RequestMapping("announcement")
 	public String list_Announcement() {
-		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		
-		if(user != null) {
-			int result = boardservice.selectAdminresult(user); //권한등급 확인-관리자회원이면 1을 반납
-			System.out.println(result);
-			request.setAttribute("user", result ); 
+		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
+		System.out.println(user);
+		
+		if(user.equals("admin123")) {
+			
+//			int result = boardservice.selectAdminresult(user); //권한등급 확인-관리자회원이면 1을 반납
+//			System.out.println(result);
+			
+			request.setAttribute("user", user ); 
 			return "/board/boardAnnouncement";
 		}else {
 			request.setAttribute("user", 0 ); 
@@ -172,8 +176,12 @@ public class BoardController {
 	@RequestMapping("inputAnnouncement")
 	public String inputAnnouncement(BoardAnnouncementDTO dto) {
 
-		String writer = (String)session.getAttribute("id"); //로그인한 사람의 세션 가져오기 (일반회원)
-		boardservice.insertAnnouncement(dto,writer);
+//		String writer =  (String)session.getAttribute("id"); 
+//		System.out.println(writer);
+//		int writer_seq = boardservice.selectAdminSeq(writer);//로그인한 사람의 ID SEQ 가져오기(일반회원)
+//		System.out.println(writer_seq);
+		
+		boardservice.insertAnnouncement(dto);
 		return "redirect:/board/announcement"; //자유게시판으로 가기
 	}
 
@@ -185,11 +193,14 @@ public class BoardController {
 	@RequestMapping("inputReview")
 	public String inputReview(BoardReviewDTO dto , MultipartFile[]  files ) throws Exception {
 
-		String writer =  (String)session.getAttribute("id"); //로그인한 사람의 세션 가져오기 (일반회원)
+		String writer =  (String)session.getAttribute("id"); 
+		System.out.println(writer);
+		int writer_seq = boardservice.selectClientSeq(writer);//로그인한 사람의 ID SEQ 가져오기 (일반회원)
+		System.out.println(writer_seq);
 
 		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기
 
-		boardservice.insertReview(dto,writer,parent_seq); //후기 게시판 작성
+		boardservice.insertReview(dto,writer_seq,parent_seq); //후기 게시판 작성
 
 		String realPath = session.getServletContext().getRealPath("dbImg"); //사진 집어넣기(파일)
 		System.out.println(realPath);

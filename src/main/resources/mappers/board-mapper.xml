@@ -43,6 +43,10 @@
 	select code from BUSINESSMEBER where id =  #{writer}
 	</select>
 	
+	<!-- 공지게시판에서 작성한 사람의 seq가져오기- 관리자회원 -->
+	<select id="selectAdminSeq" resultType="int">
+	select code from adminmember where id = #{writer}
+	</select>
 	
 
 	<!-- 후기게시판의 고유번호 -->
@@ -52,7 +56,7 @@
 
 	<!-- 후기게시판 작성 -->
 	<insert id="insertReview">
-		insert into BoardReview values ( #{seq}, 1003 , 1003 , #{writer} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardReview values ( #{seq}, 1003 , 1003 , #{writer_seq} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
 	
 	<!-- 자유게시판 작성 -->
@@ -62,7 +66,7 @@
 	
 	<!-- 공지게시판 작성 -->
 	<insert id="insertAnnouncement">
-		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, #{writer} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, 9999 , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
 
 	</mapper>

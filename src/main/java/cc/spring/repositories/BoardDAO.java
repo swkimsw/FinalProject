@@ -55,17 +55,19 @@ public class BoardDAO {
 		return mybatis.selectOne("Board.selectBusinessSeq",writer);
 	}
 
-
+	public int selectAdminSeq(String writer) {
+		return mybatis.selectOne("Board.selectAdminSeq",writer);
+	}
 	
 	
 	public int selectReviewSeq() {
 		return mybatis.selectOne("Board.selectReviewSeq");
 	}
 	
-	public int insertReview(BoardReviewDTO  dto,String writer,int parent_seq) {
+	public int insertReview(BoardReviewDTO  dto,int writer_seq,int parent_seq) {
 		Map<String ,Object> param = new HashMap<>();
 		param.put("dto", dto);
-		param.put("writer", writer);
+		param.put("writer_seq", writer_seq);
 		param.put("seq", parent_seq);
 		
 		return mybatis.insert("Board.insertReview",param);
@@ -78,12 +80,14 @@ public class BoardDAO {
 		return mybatis.insert("Board.insertFree",param);
 	}
 
-	public int insertAnnouncement(BoardAnnouncementDTO dto, String writer) {
-		Map<String ,Object> param = new HashMap<>();
-		param.put("dto", dto);
-		param.put("writer", writer);
-		return  mybatis.insert("Board.insertAnnouncement",param);
+	public int insertAnnouncement(BoardAnnouncementDTO dto) {
+		
+		return  mybatis.insert("Board.insertAnnouncement",dto);
 	}
+
+
+
+	
 
 
 
