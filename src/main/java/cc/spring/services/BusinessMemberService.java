@@ -20,8 +20,8 @@ public class BusinessMemberService {
 		System.out.println("아이디값 받아오기 서비스!");
 		return bdao.getIdByPhone(phone);
 	}
-	public boolean isBusinessMember(String businessid) {
-		return bdao.isBusinessMember(businessid);
+	public boolean isBusinessMember(String key, String value) {
+		return bdao.isBusinessMember(key, value);
 	}
 	
 	public boolean phoneCheck(String phone) {
