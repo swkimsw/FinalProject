@@ -36,7 +36,7 @@
 				<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img-fluid" style="width:10rem;">
 				</a> 
 				</div>
-					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
+					<h5 class="offcanvas-title p-1" id="offcanvasNavbarLabel"
 						style="text-decoration: none; color:#007936">🍽CookCook</h5>
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null}">
@@ -86,7 +86,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a class="btn btn-outline-success" role="button" href="/clientMember/login_form">로그인
+						<a class="btn btn-outline-success m-1" id="loginBtn" role="button" href="/clientMember/login_form">로그인
 							하러 가기</a>
 					</c:otherwise>
 				</c:choose>

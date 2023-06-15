@@ -35,14 +35,14 @@
 	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<!-- gbn css -->
-<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 
 <!-- mealCalendar css -->
 <link href="${path}/resources/css/mealCalendar.css" rel="stylesheet" type="text/css">
 <!-- mealCalendar calendar js -->
 <script src="${path}/resources/js/mealCalendar_calendar.js"></script>
 
+<!-- gbn css -->
+<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <header>
