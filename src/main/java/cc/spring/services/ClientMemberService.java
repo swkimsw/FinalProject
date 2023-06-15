@@ -12,15 +12,13 @@ public class ClientMemberService {
 	private ClientMemberDAO CDAO;
 	
 	public boolean login(ClientMemberDTO dto){
-		System.out.println("123123");
 		return CDAO.login(dto);
 	}
 	public String getIdByPhone(String phone) {
-		System.out.println("아이디값 받아오기 서비스!");
 		return CDAO.getIdByPhone(phone);
 	}
-	public boolean isClientMember(String id) {
-		return CDAO.isClientMember(id);
+	public boolean isClientMember(String key, String value) {
+		return CDAO.isClientMember(key, value);
 	}
 	
 	public boolean phoneCheck(String phone) {
@@ -33,5 +31,9 @@ public class ClientMemberService {
 	
 	public int updatePw(ClientMemberDTO dto) {
 		return CDAO.updatePw(dto);
+	}
+	
+	public ClientMemberDTO selectClientMemberInfo(String id) {
+		return CDAO.selectClientMemberInfo(id);
 	}
 }

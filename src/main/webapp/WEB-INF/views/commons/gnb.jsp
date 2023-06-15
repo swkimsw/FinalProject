@@ -12,14 +12,14 @@
 		<div class="offcanvas-header">
 			<a href="/" class="nav_a">
 				<h1 class="offcanvas-title" id="offcanvasNavbarLabel"
-					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy';">🍽CookCook</h1>
+					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color:#007936;">🍽CookCook</h1>
 			</a>
 		</div>
 		<c:if test="${sessionScope.id == null}">
-			<a class="navbar-brand nav_a" href="/login">Login</a>
+			<a class="navbar-brand nav_a" href="/clientMember/login_form">Login</a>
 		</c:if>
 		<c:if test="${sessionScope.id != null}">
-			<a class="navbar-brand nav_a" href="#">Logout</a>
+			<a class="navbar-brand nav_a" href="/clientMember/logout">Logout</a>
 		</c:if>
 		<div class="offcanvas offcanvas-start flex-shrink-0 p-3"
 			style="width: 280px;" tabindex="-1" id="offcanvasNavbar"
@@ -31,10 +31,13 @@
 			<!-- 프로필 -->
 			<!-- div 태그 아래에만 border 1 주기 색은 그레이-->
 			<div class="profile border-bottom text-center pb-2">
+				<div class="d-flex justify-content-center">
 				<a href="/" class="nav_a">
-					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
-						style="text-decoration: none;">🍽CookCook</h5>
+				<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img-fluid" style="width:10rem;">
 				</a> 
+				</div>
+					<h5 class="offcanvas-title p-1" id="offcanvasNavbarLabel"
+						style="text-decoration: none; color:#007936">🍽CookCook</h5>
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null}">
 						<!-- 유저이름 -->
@@ -83,7 +86,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a class="btn btn-outline-primary" role="button" href="/clientMember/login_form">로그인
+						<a class="btn btn-outline-success m-1" id="loginBtn" role="button" href="/clientMember/login_form">로그인
 							하러 가기</a>
 					</c:otherwise>
 				</c:choose>
@@ -131,7 +134,7 @@
 							</ul>
 						</div></li>
 					<!-- 공구 카테고리 -->
-					<li class="mb-1 nav-menu"><i class="bi bi-people-fill"></i>
+					<li class="mb-1 nav-menu"><i class="fa-solid fa-store"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
 							data-bs-toggle="collapse" data-bs-target="#orders-collapse"
@@ -147,7 +150,7 @@
 							</ul>
 						</div></li>
 					<!-- 식단 카테고리 -->
-					<li class="mb-1 nav-menu"><i class="bi bi-people-fill"></i>
+					<li class="mb-1 nav-menu"><i class="fa-solid fa-utensils"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
 							data-bs-toggle="collapse" data-bs-target="#meal-collapse"
@@ -160,7 +163,7 @@
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 식단 리스트</a></li>
-								<li><a href="/meal/basket"
+								<li><a href="/meal/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 장바구니</a></li>
 							</ul>

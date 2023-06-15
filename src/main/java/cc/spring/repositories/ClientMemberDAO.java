@@ -1,6 +1,9 @@
 package cc.spring.repositories;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,7 +16,6 @@ public class ClientMemberDAO {
 	
 	
 	public boolean login(ClientMemberDTO dto) {
-		System.out.println(dto.getId()+" : "+ dto.getPw());
 		boolean result = mybatis.selectOne("Client.login",dto);
 		System.out.println("DAO 리턴결과:"+result);
 		return result;
@@ -24,8 +26,11 @@ public class ClientMemberDAO {
 		return mybatis.selectOne("Client.getIdByPhone",phone);
 	}
 	
-	public boolean isClientMember(String id) {
-		return mybatis.selectOne("Client.isMember", id);
+	public boolean isClientMember(String key, String value) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("key", key);
+		param.put("value", value);
+		return mybatis.selectOne("Client.isMember", param);
 	}
 	
 	public boolean phoneCheck(String phone) {
@@ -38,6 +43,10 @@ public class ClientMemberDAO {
 	
 	public int updatePw(ClientMemberDTO dto) {
 		return mybatis.update("Client.updatePw", dto);
+	}
+	
+	public ClientMemberDTO selectClientMemberInfo(String id) {
+		return mybatis.selectOne("Client.selectClientMemberInfo",id);
 	}
 
 }
