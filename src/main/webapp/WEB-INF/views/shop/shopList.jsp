@@ -44,7 +44,6 @@
 
 .container {
 	margin-top: 100px;
-	border: 1px solid black;
 }
 .searchBtn{
 	position:absolute;
@@ -94,7 +93,7 @@
 					
 						<div class="card">
 							<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-							<img src="/resources/shopImg/48dd6c6e-b59f-48e7-a9d7-502d0a410fbf_3.png" class="card-img-top" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
+							<img src="${i.path}${i.sysName}" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
 							<div class="card-body">
 								<p class="card-title" style="font-size: 20px;">${i.title}</p>
 								<p class="card-text fw-lighter" style="font-size: 12px;">${i.companyName}</p>

@@ -97,9 +97,6 @@ public class ShopService {
 		return shopDAO.insertShopRequest(dto);
 	}
 
-	public List<ShopListDTO> ShopList(){
-		return shopDAO.ShopList();
-	}
 
 
 }

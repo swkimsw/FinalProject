@@ -38,9 +38,7 @@ public class ShopDAO {
 	}
 
 	public List<ShopListDTO> ShopList() {
-		List<ShopListDTO> result = db.selectList("Shop.shopList");
- 		System.out.println(result);
-		return result;
+		return db.selectList("Shop.shopList");
 	}
 
 	
