@@ -81,6 +81,28 @@ public class ShopService {
 		return fileDAO.selectShopImg(code);
 	}
 
+	// 공구샵 수정 update
+	@Transactional
+	public int updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
+
+		int parentSeq = dto.getCode();	
+		
+		// shop 정보 update
+		String deadLineTemp = dto.getDeadLineTemp();
+		if(deadLineTemp != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date parsedDate = dateFormat.parse(deadLineTemp);
+			Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+			dto.setDeadLine(timestamp);
+
+			shopDAO.updateShop(dto);
+		}
+		
+		// shop image update
+		
+		return 0;
+	}
+
 	// 공구샵 삭제 delete
 	public int deleteShop(int code) {
 		return shopDAO.deleteShop(code);
