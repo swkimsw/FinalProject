@@ -1,5 +1,8 @@
 package cc.spring.repositories;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -24,8 +27,11 @@ public class BusinessMemberDAO {
 		return mybatis.selectOne("Business.getIdByPhone",phone);
 	}
 	
-	public boolean isBusinessMember(String Businessid) {
-		return mybatis.selectOne("Business.isMember", Businessid);
+	public boolean isBusinessMember(String key, String value) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("key", key);
+		param.put("value", value);
+		return mybatis.selectOne("Business.isMember", param);
 	}
 	
 	public boolean phoneCheck(String phone) {

@@ -374,13 +374,7 @@ html, body {
 						<button type="submit" class="btn btn-outline-success"
 							id="phone_auth">인증번호 받기</button>
 					</div>
-					<div class="row g-3 m-0 p-0  justify-content-center">
-						<div class="col-12 col-md-4">
-							<div class="timer">
-								<div id="timeLimit"></div>
-							</div>
-						</div>
-					</div>
+
 				</div>
 				<br>
 				<div class="row g-3">
@@ -393,6 +387,13 @@ html, body {
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
 							id="phone_auth_ok">인증</button>
+					</div>
+					<div class="row g-3 m-0 p-0  justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="timer">
+								<div id="timeLimit"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -485,7 +486,7 @@ html, body {
 							<button type="button" class="btn-close" id="btn_to_back"
 								aria-label="Close" onclick="location.href='/';"></button>
 						</div>
-						<form action="/businessMember/bLogin" method="post" id="form_login">
+						<form action="/businessMember/login" method="post" id="form_login">
 							<div class="form-group mb-4">
 								<label class="control-label font-weight-bold font-size-7pt">사업자
 									등록 번호</label> <span>*</span>
@@ -515,7 +516,7 @@ html, body {
 						</form>
 
 						<div class="form-group join_form">
-							아직 계정이 없으신가요? <a href="/member/join_form.jsp" class="btnJoin">가입하기</a>
+							아직 계정이 없으신가요? <a href="/businessMember/sign_form" class="btnJoin">가입하기</a>
 						</div>
 					</div>
 					<!-- 로그인창 2 미디어 사이즈 xs이하면 사라짐 -->
@@ -573,12 +574,12 @@ html, body {
 						<label for="phone" class="col-form-label">전화번호</label>
 					</div>
 					<div class="col-12 col-md-4">
-						<input type="text" id="bPhone" name="bPhone" class="form-control"
+						<input type="text" id="businessPhone" name="businessPhone" class="form-control"
 							placeholder="(-) 제외">
 					</div>
 					<div class="col-12 col-md-4">
 						<button type="submit" class="btn btn-outline-success"
-							id="phone_auth2">인증번호 받기</button>
+							id="businessPhoneOk2">인증번호 받기</button>
 					</div>
 					<div class="row g-3 m-0 p-0  justify-content-center">
 						<div class="col-12 col-md-4">
@@ -594,11 +595,18 @@ html, body {
 						<label class="col-form-label">인증번호</label>
 					</div>
 					<div class="col-12 col-md-4">
-						<input type="text" id="phone_auth_code2" class="form-control">
+						<input type="text" id="businessPhoneCode" class="form-control">
 					</div>
 					<div class="col-12 col-md-4">
 						<button type="button" class="btn btn-outline-success"
-							id="phone_auth_ok2">인증</button>
+							id="businessPhoneOk">인증</button>
+					</div>
+					<div class="row g-3 m-0 p-0  justify-content-center">
+						<div class="col-12 col-md-4">
+							<div class="timer">
+								<div id="timeLimit"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -607,7 +615,7 @@ html, body {
 				id="to_change_pw_fadeIn2" style="display: none">
 				<div class="KickKick_logo text-center d-md-block mb-5">
 					<h1 class="mb-4">🍽CookCook</h1>
-					<h3 id="bSearch_id"></h3>
+					<h3 id="businessScId"></h3>
 					<h3>이제 진짜 진짜 얼마 안남았어요!</h3>
 				</div>
 				<div class="text-center">
@@ -618,7 +626,7 @@ html, body {
 						<div class="input-group d-flex">
 							<input type="password" class="form-control rounded mt-1"
 								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password" id="bPassword" class="password" />
+								aria-describedby="password" id="businessPw" class="password" />
 							<div class="valid-feedback" style="font-size: x-small;">Good</div>
 							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
 						</div>
@@ -629,7 +637,7 @@ html, body {
 						<div class="input-group d-flex">
 							<input type="password" class="form-control rounded mt-1"
 								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password_check" id="bPassword_check"
+								aria-describedby="password_check" id="businessPw_check"
 								class="password_check" />
 							<div class="valid-feedback" style="font-size: x-small;">Good</div>
 							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
@@ -639,7 +647,7 @@ html, body {
 					<div class="row d-flex justify-content-center">
 						<div class="col-6 mt-4 mt-xxl-0 w-auto h-auto">
 							<div class="alert px-4 py-3 mb-0 alert-warning d-none"
-								role="alert" data-mdb-color="warning" id="bPassword-alert">
+								role="alert" data-mdb-color="warning" id="businessPw-alert">
 								<ul class="list-unstyled mb-0">
 									<li class="requirements leng"><i
 										class="bi bi-check text-success me-2"></i> <i
@@ -665,7 +673,7 @@ html, body {
 				<div class="row d-flex justify-content-center">
 					<div class="col-12 col-md-6 d-flex justify-content-center">
 						<button type="button" class="btn btn-outline-success"
-							id="bBtn_change_pw2">비밀번호 변경하기</button>
+							id="businessBtnChangePw">비밀번호 변경하기</button>
 					</div>
 				</div>
 			</div>
@@ -818,46 +826,46 @@ html, body {
                   // 인증번호 받기 버튼 비활성화
                   $("#phone_auth").attr("disabled", true);
                   alert("인증번호가 발송되었습니다.");
-                  /*
+                  
                   AuthTimer = new $ComTimer();
                   // 제한 시간
                   AuthTimer.comSecond = 180;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit"); */
+                  AuthTimer.domId = document.getElementById("timeLimit");
                   }
 
                });
             });
          // 사업자 인증번호 받기 버튼 이벤트
-            $("#phone_auth2").on("click", function (evt) {
+            $("#businessPhoneOk2").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
                $.ajax({
-                  url: "/businessMember/bSendSmsLogin",
+                  url: "/businessMember/sendSmsLogin",
                   type: "post",
                   dataType: "json",
-                  data: { phone: $("#bPhone").val() }
+                  data: { phone: $("#businessPhone").val() }
                }).done(function (resp) {
                   // 전화번호 check
                   if (!resp) {
                 	  console.log(resp);
-                     $("#bPhone").val("");
+                     $("#businessPhone").val("");
                      alert("전화번호를 확인해주세요.");
                      return false;
                   }
                   else {
                   // 인증번호 받기 버튼 비활성화
-                  $("#phone_auth").attr("disabled", true);
+                  $("#businessPhoneOk2").attr("disabled", true);
                   alert("인증번호가 발송되었습니다.");
-                  /*
+                  
                   AuthTimer = new $ComTimer();
                   // 제한 시간
                   AuthTimer.comSecond = 180;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit"); */
+                  AuthTimer.domId = document.getElementById("timeLimit");
                   }
 
                });
@@ -878,7 +886,7 @@ html, body {
                }).done(function name(resp) {
             	   console.log(resp)
                   if (resp.success) {
-                   /*   AuthTimer.fnStop(); */
+                   	AuthTimer.fnStop();  
                      $("#login_view_fadeOut").hide();
                      $("#find_member_fadeIn").hide();
                      $("#to_phone_authentication_fadeIn").hide();
@@ -893,32 +901,32 @@ html, body {
             }); 
             
             // 사업자 인증 버튼 이벤트
-            $("#phone_auth_ok2").on("click", function () {
+            $("#businessPhoneOk").on("click", function () {
                 //입력 안했을 경우
-                if (!$("#phone_auth_code2").val()) {
+                if (!$("#businessPhoneCode").val()) {
                    alert("인증번호를 입력해주세요");
                    return false;
                 }
                 // 인증 체크
                 $.ajax({
-                   url: "/businessMember/bCertificationLogin",
+                   url: "/businessMember/certificationLogin",
                    type: "post",
                    dataType: "json",
-                   data: { code: $("#phone_auth_code2").val() }
+                   data: { code: $("#businessPhoneCode").val() }
                 }).done(function name(resp) {
              	   
                    if (resp.success) {
-                    /*   AuthTimer.fnStop(); */
+                    AuthTimer.fnStop(); 
                     console.log(resp);
                       $("#login_view_fadeOut2").hide();
                       $("#find_member_fadeIn2").hide();
                       $("#to_phone_authentication_fadeIn2").hide();
                       $("#to_change_pw_fadeIn2").fadeIn();
-                      $("#bSearch_id").text(resp.businessId + " 님!");
-                      $("#bSearch_id2").text("아이디는 "+resp.businessId + " 입니다");
+                      $("#businessScId").text(resp.businessId + " 님!");
+                      $("#businessScId2").text("아이디는 "+resp.businessId + " 입니다");
                    } else {
                       alert("인증번호를 다시 입력해주세요");
-                      $("#phone_auth_code2").val("");
+                      $("#businessPhoneCode").val("");
                    }
                 });
              });
@@ -1073,8 +1081,8 @@ html, body {
             //사업자
           //pw 유효성 검사
             addEventListener("DOMContentLoaded", (event) => {
-               const password = document.getElementById("bPassword");
-               const passwordAlert = document.getElementById("bPassword-alert");
+               const password = document.getElementById("businessPw");
+               const passwordAlert = document.getElementById("businessPw-alert");
                const requirements = document.querySelectorAll(".requirements");
                let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
                let leng = document.querySelector(".leng");
@@ -1185,8 +1193,8 @@ html, body {
             });
             //pw 일치 검사
             addEventListener("DOMContentLoaded", (event) => {
-               const password = document.getElementById("bPassword_check");
-               const passwordAlert = document.getElementById("bPassword-alert");
+               const password = document.getElementById("businessPw_check");
+               const passwordAlert = document.getElementById("businessPw-alert");
                const requirements = document.querySelectorAll(".requirements");
 
                password.addEventListener("focus", () => {
@@ -1198,7 +1206,7 @@ html, body {
 
                password.addEventListener("input", () => {
                   let value = password.value;
-                  if (value == document.getElementById("password").value) {
+                  if (value == document.getElementById("businessPw").value) {
                      password.classList.remove("is-invalid");
                      password.classList.add("is-valid");
 
@@ -1241,21 +1249,21 @@ html, body {
             });
             
             //사업자 pw 변경
-            $("#bBtn_change_pw2").on("click", function () {
-                let password = $("#bPassword").val();
-                let password_check = $("#bPassword_check").val();
+            $("#businessBtnChangePw").on("click", function () {
+                let password = $("#businessPw").val();
+                let password_check = $("#businessPw_check").val();
                 if (password == password_check && password != "") {
                    $.ajax({
-                      url: "/businessMember/bChangePw",
+                      url: "/businessMember/changePw",
                       type: "post",
-                      data: { businessId: $("#bSearch_id").text().split(" ")[0], pw: $("#bPassword").val() }
+                      data: { businessId: $("#businessScId").text().split(" ")[0], pw: $("#businessPw").val() }
                    }).done(function () {
                  	  alert("비밀번호가 변경되었습니다.")
                       location.reload();
                    });
                 } else {
-             	   $("#bPassword").val("");
-             	   $("#bPassword_check").val("");
+             	   $("#businessPw").val("");
+             	   $("#businessPw_check").val("");
                    alert("다시 입력해주세요");
                 }
              });

@@ -10,7 +10,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 
+import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -25,13 +27,15 @@ public class ChatGPTProvider {
 	@Autowired
 	private HttpClient httpClient;
 	
+	@Autowired
+	private Gson gson;
+	
 	public JsonObject makeMeal(String sendMsg) throws Exception{
 		
 		String apiUrl = "https://api.openai.com/v1/chat/completions";
 		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다.
 		String model = "gpt-3.5-turbo-0301"; // 사용할 model
 		String prompt = "3일치 비건 식단 아침, 저녁만 JSON데이터로 짜줘"; // ChatGPT에 전달할 프롬프트 메시지
-//		HttpClient httpClient = HttpClient.newHttpClient();
 		
 		String systemMessage1 = "{\"role\": \"system\", \"content\": \"지금부터 넌 한식 전문 영양사야.\"}";
 		String userMessage1 = "{\"role\": \"user\", \"content\": \"오늘 하루 식단을 JSON으로 작성해줄래?\"}";
@@ -55,15 +59,16 @@ public class ChatGPTProvider {
 		System.out.println("Response Body: " + responseBody);
 
 		// Json 문자열 -> Map
-		Gson gson = new Gson();
-		Map<String, Object> map = gson.fromJson(responseBody, Map.class);
-		
+		JsonReader reader = new JsonReader(new StringReader(responseBody));
+		reader.setLenient(true);
+		Map<String, Object> map = gson.fromJson(reader, Map.class);
 		JsonParser parser = new JsonParser();
 		JsonElement choices = parser.parse(map.get("choices").toString());
 		JsonObject choicesZero = choices.getAsJsonArray().get(0).getAsJsonObject();
 		JsonObject message = choicesZero.get("message").getAsJsonObject();
 		JsonObject content = message.get("content").getAsJsonObject();
 		
+		System.out.println("PROVIDER: ");
 		System.out.println(content);
 		
 		return content;
