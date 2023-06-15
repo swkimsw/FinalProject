@@ -20,7 +20,9 @@ public class MealController {
 	private MealService mService;
 	
 	@RequestMapping("toMyMeal")
-	public String list() {
+	public String list(Map<String, ChatDTO> getMsg) {
+		System.out.println("CONTROLLER-toMyMeal:");
+		System.out.println(getMsg.values());
 		return "meal/mealCalendar";
 	}
 	
@@ -33,7 +35,7 @@ public class MealController {
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
 	public String aiMeal(String sendMsg) throws Exception {
 		Map<String, ChatDTO> result = mService.makeMeal(sendMsg);
-		return "meal/mealCalender";
+		return "toMyMeal?result" + result;
 	}
 	
 	@ExceptionHandler(Exception.class)
