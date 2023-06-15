@@ -12,7 +12,7 @@
 		<div class="offcanvas-header">
 			<a href="/" class="nav_a">
 				<h1 class="offcanvas-title" id="offcanvasNavbarLabel"
-					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy';">🍽CookCook</h1>
+					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color:#007936;">🍽CookCook</h1>
 			</a>
 		</div>
 		<c:if test="${sessionScope.id == null}">
@@ -31,10 +31,13 @@
 			<!-- 프로필 -->
 			<!-- div 태그 아래에만 border 1 주기 색은 그레이-->
 			<div class="profile border-bottom text-center pb-2">
+				<div class="d-flex justify-content-center">
 				<a href="/" class="nav_a">
-					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
-						style="text-decoration: none;">🍽CookCook</h5>
+				<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img-fluid" style="width:10rem;">
 				</a> 
+				</div>
+					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
+						style="text-decoration: none; color:#007936">🍽CookCook</h5>
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null}">
 						<!-- 유저이름 -->
@@ -83,7 +86,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a class="btn btn-outline-primary" role="button" href="/clientMember/login_form">로그인
+						<a class="btn btn-outline-success" role="button" href="/clientMember/login_form">로그인
 							하러 가기</a>
 					</c:otherwise>
 				</c:choose>

@@ -67,11 +67,7 @@
 }
 
 .nav_a, .nav_a:hover {
-	padding-top: 10px;
-	padding-bottom: 10px;
-	padding-left: 30px;
-	padding-right: 3px;
-	text-decoration: none !important;
+	padding: 10px;
 }
 
 .center-block {
