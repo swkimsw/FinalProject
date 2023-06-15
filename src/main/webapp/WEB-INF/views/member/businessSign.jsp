@@ -144,7 +144,7 @@ label {
 			<div class="header text-center">
 				<h3>⚽CookCook</h3>
 			</div>
-			<form action="/clientMember/signup" method="post">
+			<form action="/businessMember/signup" method="post">
 				<div class="row justify-content-center">
 					<div class="col-12 col-md-8">
 						<!-- *&nbsp;타이틀 -->
@@ -165,7 +165,7 @@ label {
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="member_id">아이디</label>
+										<label for="member_id">사업자등록번호</label>
 									</div>
 								</div>
 								<!-- 아이디 입력창 -->
@@ -280,7 +280,7 @@ label {
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="member_nickname">닉네임</label>
+										<label for="member_nickname">사업자명</label>
 									</div>
 								</div>
 								<!-- 닉네임 입력창 -->
@@ -512,7 +512,7 @@ label {
 			if (type != "A") return false;
 			// 중복 체크
 			$.ajax({
-				url : "/clientMember/checkSum",
+				url : "/businessMember/checkSum",
 				type : "post",
 				dataType : "json",
 				data : {
@@ -729,7 +729,7 @@ label {
 		$("#phone_auth").on("click", function (evt) {
 			// 전화번호 check 및 인증번호 발송
 			$.ajax({
-				url: "/clientMember/sendSmsSign",
+				url: "/businessMember/sendSmsSign",
 				type: "post",
 				dataType: "json",
 				data: { phone: $("#member_phone").val(), type: "JOIN" }
@@ -767,7 +767,7 @@ label {
 			}
 			// 인증 체크
 			$.ajax({
-				url: "/clientMember/certificationSign",
+				url: "/businessMember/certificationSign",
 				type: "post",
 				dataType: "json",
 				data: { code: $("#phone_auth_code").val() }
