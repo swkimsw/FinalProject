@@ -72,7 +72,7 @@ public class ClientMemberController {
 			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
 			System.out.println("일반인로그인 성공");
 			
-			
+			System.out.println(cmd.getId());
 			return "redirect:/";
 		}
 		System.out.println("로그인 실패!!");
