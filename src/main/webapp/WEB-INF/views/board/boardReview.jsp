@@ -193,7 +193,7 @@
 
             <c:choose>
 			
-				<c:when test="${user != 1003}">
+				<c:when test="${user == 1}">
 
 					<div style="float: right;">
 						<a href="/board/reviewWrite">
@@ -208,7 +208,6 @@
 				</c:otherwise> 
 			
 			</c:choose>
-
 
                 </div>
 
