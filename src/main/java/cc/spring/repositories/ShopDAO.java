@@ -29,6 +29,12 @@ public class ShopDAO {
 		return db.selectOne("selectShopInfo", code);
 	}
 	
+	public int updateShop(ShopDTO dto) {
+		System.out.println(dto.getDeadLine());
+		System.out.println(dto.getDeadLineTemp());
+		return db.update("updateShop", dto);
+	}
+	
 	public int deleteShop(int code) {
 		return db.delete("deleteShop", code);
 	}

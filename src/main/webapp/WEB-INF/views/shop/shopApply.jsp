@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Shop Register</title>
+<title>Shop Apply</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -31,22 +31,19 @@
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
 
 			<div class="images">
-				<div id="carouselExampleIndicators" class="carousel slide">
+				<div id="carouselExampleIndicators" class="carousel slide mb-3">
   					<div class="carousel-indicators">
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
   					</div>
   					<div class="carousel-inner">
-    					<div class="carousel-item active">
-      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
-    					</div>
-    					<div class="carousel-item">
-      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
-    					</div>
-    					<div class="carousel-item">
-      						<!-- <img src="..." class="d-block w-100" alt="...">  -->
-    					</div>
+  						<c:forEach var="i" items="${fileDTO}">
+  							<div class="carousel-item active">
+      							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
+    						</div>
+  						</c:forEach>
+      					<!-- <img src="..." class="d-block w-100" alt="...">  -->
   					</div>
   					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -62,7 +59,7 @@
 			<div class="output">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
-							<input type="hidden" id="code" value="${shopDTO.code}">
+							<input type="hidden" id="code" name="code" value="${shopDTO.code}">
 							<input type="hidden" id="">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" readonly>
 						</div>
@@ -172,6 +169,7 @@
 			$("#deadLineTemp").removeAttr("readonly");
 			$("#max").removeAttr("readonly");
 			$("#min").removeAttr("readonly");
+			$("#detail").removeAttr("readonly");
 			$("#quantity").prop("readonly",true);
 			$("#updateBtn, #deleteBtn, #back").css("display", "none");
 
