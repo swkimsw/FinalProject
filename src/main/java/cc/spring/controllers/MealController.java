@@ -26,14 +26,12 @@ public class MealController {
 	private MealService mService;
 	
 	@RequestMapping("toMyMeal")
-	public String list(Map<String, ChatDTO> getMsg) {
-		System.out.println("CONTROLLER-toMyMeal:");
-		System.out.println(getMsg.values());
+	public String toMyMeal() {
 		return "meal/mealCalendar";
 	}
 	
 	@RequestMapping("toMyBasket")
-	public String cart() {
+	public String toMyBasket() {
 		return "meal/basket";
 	}
 	

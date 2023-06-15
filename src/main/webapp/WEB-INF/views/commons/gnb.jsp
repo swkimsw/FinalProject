@@ -36,7 +36,7 @@
 				<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img-fluid" style="width:10rem;">
 				</a> 
 				</div>
-					<h5 class="offcanvas-title" id="offcanvasNavbarLabel"
+					<h5 class="offcanvas-title p-1" id="offcanvasNavbarLabel"
 						style="text-decoration: none; color:#007936">🍽CookCook</h5>
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null}">
@@ -86,7 +86,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a class="btn btn-outline-success" role="button" href="/clientMember/login_form">로그인
+						<a class="btn btn-outline-success m-1" id="loginBtn" role="button" href="/clientMember/login_form">로그인
 							하러 가기</a>
 					</c:otherwise>
 				</c:choose>
@@ -102,7 +102,7 @@
 								aria-expanded="true">마이페이지</button>
 							<div class="collapse show" id="home-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li class="login"><a href="#"
+									<li class="login"><a href="/clientMyPage/login_form"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											활동 관리</a></li>
 									<li class="login"><a href="#"
@@ -141,10 +141,10 @@
 							aria-expanded="false">공구 카테고리</button>
 						<div class="collapse" id="orders-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li class="login"><a href="#"
+								<li class="login"><a href="/shop/toShopRegister"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">공구
 										하러가기</a></li>
-								<li><a href="#"
+								<li><a href="/shop/toShopList"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 공구 리스트</a></li>
 							</ul>
@@ -163,7 +163,7 @@
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 식단 리스트</a></li>
-								<li><a href="/meal/basket"
+								<li><a href="/meal/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 장바구니</a></li>
 							</ul>

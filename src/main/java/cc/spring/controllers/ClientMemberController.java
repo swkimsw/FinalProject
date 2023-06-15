@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
+import cc.spring.dto.AdminMemberDTO;
 import cc.spring.dto.ClientMemberDTO;
+import cc.spring.services.AdminMemberService;
 import cc.spring.services.ClientMemberService;
 import cc.spring.services.SmsService;
 
@@ -29,6 +31,9 @@ public class ClientMemberController {
 	@Autowired
 	private ClientMemberService cms;
 	
+	@Autowired
+	private AdminMemberService ams;
+	
 	
 	// 클라이언트 로그인 창으로 이동
 	@RequestMapping("login_form")
@@ -39,6 +44,22 @@ public class ClientMemberController {
 	// 클라이언트 로그인
 	@RequestMapping("login")
 	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
+		
+
+	
+		// 입력한 id와 비밀번호가 관리자인지 확인
+		boolean admin = ams.login(dto.getId(), dto.getPw());
+		if(admin) {
+			// 입력한 id와 비밀번호 일치하는 관리자 정보 가져오기
+			AdminMemberDTO amd = ams.selectAdminMemberInfo();
+			session.setAttribute("id", amd.getId());
+			session.setAttribute("nickname", amd.getName());
+			session.setAttribute("authGradeCode", amd.getAuthGradeCode());
+			System.out.println("관리자로그인 성공");
+			return "redirect:/";
+		}
+		
+		
 		// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 		ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
 		
@@ -49,8 +70,9 @@ public class ClientMemberController {
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());
 			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
+			System.out.println("일반인로그인 성공");
 			
-			
+			System.out.println(cmd.getId());
 			return "redirect:/";
 		}
 		System.out.println("로그인 실패!!");
@@ -79,9 +101,9 @@ public class ClientMemberController {
 	
 	// 회원가입 시 아이디 중복체크
 	@ResponseBody
-	@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-	public String checkId(String value) throws Exception {
-		boolean result = cms.isClientMember(value);
+	@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
+	public String checkId(String key, String value) throws Exception {
+		boolean result = cms.isClientMember(key, value);
 		return String.valueOf(result);
 	}
 	

@@ -1,5 +1,14 @@
 @charset "UTF-8";
 
+#offcanvasNavbarLabel{
+	font-family:NanumSquareNeoExtraBold;
+}
+.nick_name{
+	font-family:NanumSquareNeoBold;
+}
+#loginBtn{
+	font-family:NanumSquareNeoBold;
+}
 .bd-placeholder-img {
 	font-size: 1.125rem;
 	text-anchor: middle;
@@ -64,9 +73,11 @@
 
 .navbar {
 	--bs-navbar-padding-y: 0;
+	background-color:#ffffff;
 }
 
 .nav_a, .nav_a:hover {
+	font-family:NanumSquareNeoBold;
 	padding: 10px;
 	text-decoration: none !important;
 }
@@ -79,6 +90,7 @@
 
 .nav-menu {
 	font-size: 16px;
+	font-family:NanumSquareNeoBold;
 }
 
 .nav-menu:hover {

@@ -171,12 +171,12 @@ html, body {
 	border-radius: 4px;
 }
 
-/* #arrow, #arrow::before {
+#arrow, #arrow::before {
    position: absolute;
    width: 8px;
    height: 8px;
    background: inherit;
-} */
+}
 #arrow {
 	visibility: hidden;
 }
@@ -318,11 +318,11 @@ html, body {
 
 						<!-- 11111111 -->
 						<div class="form-group text-center mb-4">
-							<!-- <div id="tooltip" role="tooltip" class="mb-3">
+							<div id="tooltip" role="tooltip" class="mb-3">
                         메인으로!
-                        <div id="arrow" data-popper-arrow></div>
-                     </div> -->
-							<img src="foodWithPlate.png" class="mx-auto d-block"
+                        <div id="arrow" class="data-popper-arrow"></div>
+                     </div>
+							<img src="/resources/img/foodWithPlate.png" class="mx-auto d-block"
 								id="to_main_ball_img" alt="메인으로" onclick="location.href = '/'"
 								style="height: 50%; width: 50%;">
 						</div>
@@ -335,7 +335,6 @@ html, body {
 				style="display: none">
 				<div class="row d-flex justify-content-center mx-auto p-0 loginForm">
 					<div class="col-md-6 login-form-1 align-center">
-					
 						<div class="KickKick_logo text-center d-md-block mb-4">
 							<h3 class="mb-5">계정 찾기</h3>
 							<p class="body_font mb-5">휴대폰 인증을 통해 아이디를 확인합니다.</p>
@@ -516,7 +515,7 @@ html, body {
 						</form>
 
 						<div class="form-group join_form">
-							아직 계정이 없으신가요? <a href="/member/join_form.jsp" class="btnJoin">가입하기</a>
+							아직 계정이 없으신가요? <a href="/businessMember/sign_form" class="btnJoin">가입하기</a>
 						</div>
 					</div>
 					<!-- 로그인창 2 미디어 사이즈 xs이하면 사라짐 -->
@@ -526,11 +525,11 @@ html, body {
 
 						<!-- 11111111 -->
 						<div class="form-group text-center mb-4">
-							<!-- <div id="tooltip" role="tooltip" class="mb-3">
+							<div id="tooltip" role="tooltip" class="mb-3">
                         메인으로!
-                        <div id="arrow" data-popper-arrow></div>
-                     </div> -->
-							<img src="foodWithPlate.png" class="mx-auto d-block"
+                        <div id="arrow" class="data-popper-arrow"></div>
+                     </div>
+							<img src="/resources/img/foodWithPlate.png" class="mx-auto d-block"
 								id="to_main_ball_img" alt="메인으로" onclick="location.href = '/'"
 								style="height: 50%; width: 50%;">
 						</div>
@@ -678,6 +677,7 @@ html, body {
 				</div>
 			</div>
 		</div>
+		
 		<script>
 		// 사업자 아이디 입력칸 숫자만 입력되게 해주는 정규식이벤트입니다.
 		function validateInput(event) {
