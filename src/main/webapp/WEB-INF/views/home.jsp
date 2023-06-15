@@ -96,7 +96,7 @@
             <!-- 당일 ~ 7일 -->
 			<div class="row d-flex justify-content-center">
 				<div class="d-flex justify-content-center col-8">
-					<select class="form-select mb-3" name="day">
+					<select class="form-select mb-3" name="dayTime">
 						<option value="1" selected>당일</option>
 						<option value="2">2일</option>
 						<option value="3">3일</option>
@@ -112,15 +112,15 @@
 			<!-- 아침, 점심, 저녁 -->
 			<div class="d-flex justify-content-center">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="breakfast" value="아침">
+					<input class="form-check-input" type="checkbox" id="breakfast" name="time" value="아침">
 					<label class="form-check-label" for="breakfast">아침</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="lunch" value="점심">
+					<input class="form-check-input" type="checkbox" id="lunch" name="time" value="점심">
 					<label class="form-check-label" for="lunch">점심</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="dinner" value="저녁">
+					<input class="form-check-input" type="checkbox" id="dinner" name="time" value="저녁">
 					<label class="form-check-label" for="dinner">저녁</label>
 				</div>
 			</div>
@@ -129,11 +129,11 @@
 			<div class="d-flex justify-content-center">
 				<p class="mx-3">식단 유형 :</p>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="vigan" value="비건">
+					<input class="form-check-input" type="checkbox" id="vigan" name="special" value="비건">
 					<label class="form-check-label" for="vigan">비건</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="diet" value="다이어트">
+					<input class="form-check-input" type="checkbox" id="diet" name="special" value="다이어트">
 					<label class="form-check-label" for="diet">다이어트</label>
 					</div>
 				</div>
@@ -519,7 +519,7 @@
 						function(i) {
 							specialArr.push($(this).val());
 						});
-				dayTime = $("select[name=day]").val();
+				dayTime = $("select[name=dayTime]").val();
 
 				sendMsg = dayTime + "일치 " + specialArr.join(',') + " 식단 "
 						+ timeArr.join(',') + "만 JSON데이터로 짜줘";

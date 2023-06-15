@@ -34,7 +34,7 @@ public class MealController {
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
 	public String aiMeal(String sendMsg) throws Exception {
-		Map<String, ChatDTO> result = mService.makeMeal(sendMsg);
+		Map<String, Object> result = mService.makeMeal(sendMsg);
 		return "toMyMeal?result" + result;
 	}
 	
