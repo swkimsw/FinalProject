@@ -25,6 +25,10 @@ public class ShopDAO {
 		return db.selectOne("isClientMemberCode", loginId);
 	}
 	
+	public int isBusinessMemberCode(String loginId) {
+		return db.selectOne("isBusinessMemberCode", loginId);
+	}
+	
 	public ShopDTO selectShopInfo(int code) {
 		return db.selectOne("selectShopInfo", code);
 	}

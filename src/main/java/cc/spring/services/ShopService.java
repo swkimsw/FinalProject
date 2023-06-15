@@ -62,6 +62,11 @@ public class ShopService {
 	public int isClientMemberCode(String loginId){
 		return shopDAO.isClientMemberCode(loginId);
 	}
+	
+	// 판매자인 경우 회원코드 가져오기
+	public int isBusinessMemberCode(String loginId) {
+		return shopDAO.isBusinessMemberCode(loginId);
+	}
 
 	// 공구샵 정보 select
 	public ShopDTO selectShopInfo(int code) {
