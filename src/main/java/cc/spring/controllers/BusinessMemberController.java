@@ -46,44 +46,6 @@ public class BusinessMemberController {
 		public String getIdByPhone(String phone) {
 			String result = bms.getIdByPhone(phone);
 			return null;
-//			return 값 아직 안적어놓음
-		}
-//		종료
-		// 클라이언트 회원가입 창으로 이동
-		@RequestMapping("sign_form")
-		public String sign_form() throws Exception {
-			return "member/clientSign";
-		}
-		
-		// 회원가입 시 아이디 중복체크
-		@ResponseBody
-		@RequestMapping(value="checkId", produces="text/html;charset=utf8")
-		public String checkId(String value) throws Exception {
-			boolean result = bms.isBusinessMember(value);
-			return String.valueOf(result);
-		}
-		
-		// 회원가입 시 인증번호 랜덤 발송
-		@ResponseBody
-		@RequestMapping(value="sendSmsSign", produces="text/html;charset=utf8")
-		public String sendSms(String phone) throws Exception {
-			// 이미 가입한 연락처가 있는지 확인
-			boolean result = bms.phoneCheck(phone);
-					System.out.println(phone + ":" + result);
-			
-			// 같은 연락처가 DB에 없으면 실행
-			if(!result) {
-				Random rand = new Random(); 
-				String numStr = "";
-				for(int i=0; i<5; i++) {
-					String ran = Integer.toString(rand.nextInt(10));
-					numStr+=ran;
-				}
-				SmsService.certifiedPhoneNumber(phone, numStr);
-				session.setAttribute("numStr", numStr);	
-			
-			}
-			return String.valueOf(result);
 		}
 		
 		// 계정찾기시 인증번호 랜덤 발송
@@ -111,23 +73,6 @@ public class BusinessMemberController {
 			return String.valueOf(result);
 		}
 		
-		// 인증번호 입력 후 인증 버튼 클릭 시
-		@ResponseBody
-		@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
-		public String certification(String code) {
-			String numStr = (String) session.getAttribute("numStr");
-			System.out.println(numStr);
-					
-			if(numStr.equals(code)) {
-				System.out.println("인중 성공");
-				return String.valueOf(true);
-			}
-
-			else {
-				System.out.println("인중 실패");
-				return String.valueOf(false);
-			}	
-		}
 		// 인증번호 입력 후 인증 버튼 클릭 시
 		@ResponseBody
 		@RequestMapping("certificationLogin")
@@ -158,6 +103,67 @@ public class BusinessMemberController {
 			dto.setPw(updatePw);
 			bms.updatePwBusiness(dto);
 		}
+		
+		
+		
+
+		// 비즈니스 회원가입 창으로 이동
+		@RequestMapping("sign_form")
+		public String sign_form() throws Exception {
+			return "member/businessSign";
+		}
+		
+		// 회원가입 시 아이디 중복체크
+		@ResponseBody
+		@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
+		public String checkId(String key, String value) throws Exception {
+			boolean result = bms.isBusinessMember(key, value);
+			return String.valueOf(result);
+		}
+		
+		// 회원가입 시 인증번호 랜덤 발송
+		@ResponseBody
+		@RequestMapping(value="sendSmsSign", produces="text/html;charset=utf8")
+		public String sendSms(String phone) throws Exception {
+			// 이미 가입한 연락처가 있는지 확인
+			boolean result = bms.phoneCheck(phone);
+					System.out.println(phone + ":" + result);
+			
+			// 같은 연락처가 DB에 없으면 실행
+			if(!result) {
+				Random rand = new Random(); 
+				String numStr = "";
+				for(int i=0; i<5; i++) {
+					String ran = Integer.toString(rand.nextInt(10));
+					numStr+=ran;
+				}
+				SmsService.certifiedPhoneNumber(phone, numStr);
+				session.setAttribute("numStr", numStr);	
+			
+			}
+			return String.valueOf(result);
+		}
+		
+
+		
+		// 인증번호 입력 후 인증 버튼 클릭 시
+		@ResponseBody
+		@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
+		public String certification(String code) {
+			String numStr = (String) session.getAttribute("numStr");
+			System.out.println(numStr);
+					
+			if(numStr.equals(code)) {
+				System.out.println("인중 성공");
+				return String.valueOf(true);
+			}
+
+			else {
+				System.out.println("인중 실패");
+				return String.valueOf(false);
+			}	
+		}
+
 		
 		// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
 		@ResponseBody
