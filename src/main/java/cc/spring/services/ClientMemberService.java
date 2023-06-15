@@ -17,8 +17,8 @@ public class ClientMemberService {
 	public String getIdByPhone(String phone) {
 		return CDAO.getIdByPhone(phone);
 	}
-	public boolean isClientMember(String id) {
-		return CDAO.isClientMember(id);
+	public boolean isClientMember(String key, String value) {
+		return CDAO.isClientMember(key, value);
 	}
 	
 	public boolean phoneCheck(String phone) {

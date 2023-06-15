@@ -516,7 +516,7 @@ html, body {
 						</form>
 
 						<div class="form-group join_form">
-							아직 계정이 없으신가요? <a href="/member/join_form.jsp" class="btnJoin">가입하기</a>
+							아직 계정이 없으신가요? <a href="/businessMember/sign_form" class="btnJoin">가입하기</a>
 						</div>
 					</div>
 					<!-- 로그인창 2 미디어 사이즈 xs이하면 사라짐 -->
