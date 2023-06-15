@@ -520,16 +520,18 @@
 							specialArr.push($(this).val());
 						});
 				dayTime = $("select[name=dayTime]").val();
-
+				timeArrLength = timeArr.length;
 				sendMsg = dayTime + "일치 " + specialArr.join(',') + " 식단 "
 						+ timeArr.join(',') + "만 JSON데이터로 짜줘";
 				console.log(sendMsg);
-
+				console.log(timeArrLength);
 				$.ajax({
 					url : "/meal/aiMeal",
 					type : "post",
 					data : {
-						sendMsg : sendMsg
+						sendMsg : sendMsg,
+						dayTime : dayTime,
+						timeArrLength : timeArrLength
 					},
 					beforeSend : function() {
 						$(".spinner-border").css({
@@ -547,7 +549,8 @@
 							"display" : "block"
 						});
 					}
-				}).done(function() {
+				}).done(function(resp) {
+					console.log(resp);
 					alert("생성 성공~!");
 				});
 			});
