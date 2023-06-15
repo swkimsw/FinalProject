@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
@@ -89,10 +90,12 @@
 			<div class="row d-flex position-relative">
 			
 				<c:forEach var="i" items="${list}">
+					
+					
 					<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
 					
 						<div class="card">
-							<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
+							<span class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
 							<img src="${i.path}${i.sysName}" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
 							<div class="card-body">
 								<p class="card-title" style="font-size: 20px;">${i.title}</p>
@@ -127,6 +130,9 @@
 			
 			
 		});
+		
+		
+		
 		
 	</script>
 

@@ -1,6 +1,11 @@
 package cc.spring.controllers;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -81,6 +86,17 @@ public class ShopController {
  		public String toShopList(Model model) {
  	 		List<ShopListDTO> list = shopService.shopList();
  	 		System.out.println(list);
+ 	 		
+ 	 		Map<ShopListDTO, Timestamp> dDayMap = new HashMap<ShopListDTO, Timestamp>();
+ 	 		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
+ 	 		for(ShopListDTO d : list) {
+ 	 			
+ 	 			
+ 	 			
+ 	 			
+ 	 			
+ 	 		}
+ 	 		
  	 		model.addAttribute("list",list);
  			return "/shop/shopList";
  		}
