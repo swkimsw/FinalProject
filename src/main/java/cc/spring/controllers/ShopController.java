@@ -73,6 +73,19 @@ public class ShopController {
 		return "redirect:/";
 	}
 
+	
+//최은지 Part
+ 	
+ 	//공구 목록으로 이동
+ 	 	@RequestMapping("toShopList")
+ 		public String toShopList(Model model) {
+ 	 		List<ShopListDTO> list = shopService.shopList();
+ 	 		System.out.println(list);
+ 	 		model.addAttribute("list",list);
+ 			return "/shop/shopList";
+ 		}
+
+
 	// 공구샵 수정
 	@RequestMapping("updateShop")
 	public String updateShop(ShopDTO dto, MultipartFile[] files) throws Exception {
@@ -96,16 +109,6 @@ public class ShopController {
 		return "redirect:/shop/toShopList";
 	}
 
-
-	//최은지 Part
-
-	//공구 목록으로 이동
-	@RequestMapping("toShopList")
-	public String toShopList(Model model) {
-		List<ShopListDTO> list = shopService.ShopList();
-		model.addAttribute("list",list);
-		return "/shop/shopList";
-	}
 
 
 

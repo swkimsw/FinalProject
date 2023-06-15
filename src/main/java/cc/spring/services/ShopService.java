@@ -80,6 +80,12 @@ public class ShopService {
 	public List<FileDTO> selectShopImg(int code) {
 		return fileDAO.selectShopImg(code);
 	}
+	
+	// 공구샵 상품 목록
+	public List<ShopListDTO> shopList(){
+		return shopDAO.ShopList();
+	}
+
 
 	// 공구샵 수정 update
 	@Transactional
@@ -113,9 +119,6 @@ public class ShopService {
 		return shopDAO.insertShopRequest(dto);
 	}
 
-	public List<ShopListDTO> ShopList(){
-		return shopDAO.ShopList();
-	}
 
 
 }
