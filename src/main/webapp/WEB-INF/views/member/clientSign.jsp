@@ -378,7 +378,7 @@ label {
 								<!-- 이메일 타이틀 -->
 								<div class="row label">
 									<div class="col-12">
-										<span class="essential">&nbsp;&nbsp;</span>
+										<span class="essential">*&nbsp;</span>
 										<label for="member_email">E-mail</label>
 									</div>
 								</div>
