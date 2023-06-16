@@ -81,7 +81,6 @@ public class BoardDAO {
 	}
 
 	public int insertAnnouncement(BoardAnnouncementDTO dto) {
-		
 		return  mybatis.insert("Board.insertAnnouncement",dto);
 	}
 

@@ -66,7 +66,7 @@
 	
 	<!-- 공지게시판 작성 -->
 	<insert id="insertAnnouncement">
-		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, 9999 , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, 9999 , #{title} , #{content} , 0 , 0, sysdate, null,null)
 	</insert>
 
 	</mapper>
