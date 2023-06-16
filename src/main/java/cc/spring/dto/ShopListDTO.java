@@ -4,35 +4,32 @@ import java.sql.Timestamp;
 
 public class ShopListDTO {
 	private int code;
-	private int businessCode;
 	private Timestamp deadLine;
 	private String deadLineTemp;
 	private String title;
 	private String productPrice;
 	private String companyName;
+	private String imgCode;
+	private String path;
+	private String sysName;
 	
 	public ShopListDTO() {}
-	public ShopListDTO(int code,Timestamp deadLine,String title,String productPrice,String companyName) {
+	public ShopListDTO(int code,Timestamp deadLine,String title,String productPrice,String companyName,String imgCode,String path,String sysName ) {
 		super();
 		this.code=code;
 		this.deadLine = deadLine;
 		this.title = title;
 		this.productPrice = productPrice;
 		this.companyName = companyName;
+		this.imgCode = imgCode;
+		this.path = path;
+		this.sysName = sysName;
 	}
-	
-	
 	public int getCode() {
 		return code;
 	}
 	public void setCode(int code) {
 		this.code = code;
-	}
-	public int getBusinessCode() {
-		return businessCode;
-	}
-	public void setBusinessCode(int businessCode) {
-		this.businessCode = businessCode;
 	}
 	public Timestamp getDeadLine() {
 		return deadLine;
@@ -64,6 +61,33 @@ public class ShopListDTO {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
+	public String getImgCode() {
+		return imgCode;
+	}
+	public void setImgCode(String imgCode) {
+		this.imgCode = imgCode;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public String getSysName() {
+		return sysName;
+	}
+	public void setSysName(String sysName) {
+		this.sysName = sysName;
+	}
+	@Override
+	public String toString() {
+		return "ShopListDTO [code=" + code + ", deadLine=" + deadLine + ", deadLineTemp=" + deadLineTemp + ", title="
+				+ title + ", productPrice=" + productPrice + ", companyName=" + companyName + ", imgCode=" + imgCode
+				+ ", path=" + path + ", sysName=" + sysName + "]";
+	}
+
+	
+	
 	
 
 	
