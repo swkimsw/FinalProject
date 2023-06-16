@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class ShopListDTO {
 	private int code;
 	private Timestamp deadLine;
-	private String deadLineTemp;
+	private int dDay;
 	private String title;
 	private String productPrice;
 	private String companyName;
@@ -14,10 +14,10 @@ public class ShopListDTO {
 	private String sysName;
 	
 	public ShopListDTO() {}
-	public ShopListDTO(int code,Timestamp deadLine,String title,String productPrice,String companyName,String imgCode,String path,String sysName ) {
+	public ShopListDTO(int code,int dDay,String title,String productPrice,String companyName,String imgCode,String path,String sysName ) {
 		super();
 		this.code=code;
-		this.deadLine = deadLine;
+		this.dDay = dDay;
 		this.title = title;
 		this.productPrice = productPrice;
 		this.companyName = companyName;
@@ -37,11 +37,12 @@ public class ShopListDTO {
 	public void setDeadLine(Timestamp deadLine) {
 		this.deadLine = deadLine;
 	}
-	public String getDeadLineTemp() {
-		return deadLineTemp;
+	
+	public int getdDay() {
+		return dDay;
 	}
-	public void setDeadLineTemp(String deadLineTemp) {
-		this.deadLineTemp = deadLineTemp;
+	public void setdDay(int dDay) {
+		this.dDay = dDay;
 	}
 	public String getTitle() {
 		return title;
@@ -81,7 +82,7 @@ public class ShopListDTO {
 	}
 	@Override
 	public String toString() {
-		return "ShopListDTO [code=" + code + ", deadLine=" + deadLine + ", deadLineTemp=" + deadLineTemp + ", title="
+		return "ShopListDTO [code=" + code + ", deadLine=" + deadLine + ", dDay=" + dDay + ", title="
 				+ title + ", productPrice=" + productPrice + ", companyName=" + companyName + ", imgCode=" + imgCode
 				+ ", path=" + path + ", sysName=" + sysName + "]";
 	}

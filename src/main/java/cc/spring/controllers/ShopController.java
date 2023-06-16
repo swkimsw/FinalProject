@@ -1,6 +1,10 @@
 package cc.spring.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -91,9 +95,31 @@ public class ShopController {
  	
  	//공구 목록으로 이동
  	 	@RequestMapping("toShopList")
- 		public String toShopList(Model model) {
+ 		public String toShopList(Model model) throws Exception{
  	 		List<ShopListDTO> list = shopService.shopList();
  	 		System.out.println(list);
+ 	 		
+ 	 		Map< ShopListDTO, Integer> dDayMap = new HashMap<>();
+ 	 		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
+ 	 		for(ShopListDTO d : list) {
+ 	 			String deadLineFmt = dateFmt.format(d.getDeadLine());
+ 	 			String todayFmt = dateFmt.format(new Date(System.currentTimeMillis()));
+ 	 			System.out.println("여긴 데이트포맷"+ deadLineFmt + "/" + todayFmt);
+ 	 			
+ 	 			Date deadLine = new Date(dateFmt.parse(deadLineFmt).getTime());
+ 	 			Date today = new Date(dateFmt.parse(todayFmt).getTime());
+ 	 			System.out.println("여긴 데이트타임"+ deadLine + "/" + today);
+ 	 			
+ 	 			long calculate = deadLine.getTime() - today.getTime();
+ 	 			System.out.println(calculate);
+ 	 			
+ 	 			int dDay = (int)(calculate / (24*62*62*1000));
+ 	 			System.out.println("디데이는" + dDay);
+ 	 			
+ 	 			d.setdDay(dDay);
+ 	 			dDayMap.put(d, dDay);
+ 	 		}
+ 	 		
  	 		model.addAttribute("list",list);
  			return "/shop/shopList";
  		}
