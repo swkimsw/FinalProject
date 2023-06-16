@@ -35,7 +35,20 @@ public class ShopController {
 	//김은지 Part	
 	// 공구샵 등록 폼으로 이동
 	@RequestMapping("toShopRegister")
-	public String toShopRegister() {
+	public String toShopRegister(Model model) {
+		// 세션에서 ID 받아오게 수정
+		String loginId = "1112254";
+		int authgradeCode = 1002;
+		
+		// 판매자인지 체크
+		if(authgradeCode != 1002) {
+			return "redirect:/";
+		}
+		// 판매자인 경우 businessCode 구해오기
+		int businessCode = shopService.isBusinessMemberCode(loginId);
+		System.out.println(businessCode);
+		
+		model.addAttribute("businessCode", businessCode);
 		return "/shop/shopRegister";
 	}
 

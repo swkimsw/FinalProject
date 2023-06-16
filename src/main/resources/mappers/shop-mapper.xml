@@ -5,7 +5,7 @@
 <mapper namespace="Shop">
 	
 	<insert id="insertShop">
-		insert into groupbuying values(groupbuyin_seq.currval,1001,1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
+		insert into groupbuying values(groupbuyin_seq.currval,${businessCode},1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
 		<selectKey keyProperty="code" resultType="int" order="BEFORE">
 			select groupbuyin_seq.nextval from dual
 		</selectKey> 
@@ -15,15 +15,19 @@
 		select code from clientmember where id=#{loginId}
 	</select>
 	
+	<select id="isBusinessMemberCode" resultType="int">
+		select code from businessmember where businessid=#{loginId}
+	</select>
+	
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
 		select g.code,g.businesscode,g.statuscode,g.deadLine,g.max,g.min,
 			g.title,g.detail,g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,b.businessid
 		from groupbuying g
-		join businessmember b on g.businesscode = b.code where g.code = #{code}
+		join businessmember b on g.businesscode = b.code where g.code = ${code}
 	</select>
 	
 	<update id="updateShop">
-		update groupbuying set deadline=#{deadline},max=${max},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice} where code=${code}
+		update groupbuying set deadLine=#{deadLine},max=${max},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice} where code=${code}
 	</update>
 	
 	<delete id="deleteShop">
