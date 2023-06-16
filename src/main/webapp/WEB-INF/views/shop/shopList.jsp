@@ -77,13 +77,22 @@
 		            </div>
 		        </div>
 	        </div>
-			
-			
 			<div class="row d-flex justify-content-center">
 				<div class="col-10 mt-2">
-					<input type="date" name="searchByDate"> ~ 
+					<input type="date" id="searchByDate" name="searchByDate"> 
 				</div>
 			</div>
+			<script>
+				$("#category").on("change",function(){
+					if($("#deadLine").attr("selected")){
+						$("#keyword").css({"display": "none"});
+					}else{
+						$("#searchByDate").css({"display":"none"});
+						$("#keyword").css({"display": "block"});
+					}
+				})
+			</script>
+			
 		</div>
 		
 		<div class="body">
@@ -95,8 +104,20 @@
 					<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
 					
 						<div class="card">
-							<span class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-							<img src="${i.path}${i.sysName}" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
+							<c:choose>
+								<c:when test="${i.dDay > 0 }">
+									<span class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">${i.dDay+1}일 남음</span>
+								</c:when>
+								<c:when test="${i.dDay == 0 }">
+									<span class="badge deadLine rounded-pill text-bg-danger position-absolute top-0 end-0 m-2 p-2">오늘 마감</span>
+								</c:when>
+								<c:otherwise>
+									<span class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">마감</span>
+								</c:otherwise>
+							</c:choose>
+							<a  href="/shop/SelectShop?code=${i.code}">
+								<img src="${i.path}${i.sysName}" style="width:100%; alt="상세페이지로 이동">
+							</a>
 							<div class="card-body">
 								<p class="card-title" style="font-size: 20px;">${i.title}</p>
 								<p class="card-text fw-lighter" style="font-size: 12px;">${i.companyName}</p>
