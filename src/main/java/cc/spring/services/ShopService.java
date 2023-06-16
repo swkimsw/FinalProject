@@ -94,7 +94,7 @@ public class ShopService {
 
 	// 공구샵 수정 update
 	@Transactional
-	public int updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
+	public void updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
 
 		int parentSeq = dto.getCode();	
 		
@@ -110,8 +110,17 @@ public class ShopService {
 		}
 		
 		// shop image update
-		
-		return 0;
+		File realPathFile = new File(realPath);
+		if(!realPathFile.exists()) realPathFile.mkdir();
+		if(files != null) {
+			for(MultipartFile file : files) {
+				if(file.isEmpty()) {break;}
+				String oriName = file.getOriginalFilename();
+				String sysName = UUID.randomUUID() + "_" + oriName;
+				file.transferTo(new File(realPath+"/"+sysName));
+				fileDAO.updateShopImage(new FileDTO(0, parentSeq, realPath,oriName, sysName));
+			}
+		}
 	}
 
 	// 공구샵 삭제 delete
