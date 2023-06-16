@@ -44,7 +44,6 @@
 
 .container {
 	margin-top: 100px;
-	border: 1px solid black;
 }
 .searchBtn{
 	position:absolute;
@@ -67,16 +66,21 @@
 			<div class="row d-flex justify-content-center">
 				<div class="col-10">
 					<div class="mx-quto input-group mt-3">
-						<input name="searchByKeyword" type="text" maxlength="25" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="button-addon2">
-		                <button class="btn btn-primary" type="submit" id="button-addon2">검색</button>
+						<select id="category">
+							<option id="productName" value="productName" selected>상품명</option>
+							<option id="sellerName" value="companyNaMe">판매자명</option>
+							<option id="deadLine" value="deadLine">마감일</option>
+						</select>
+						<input name="searchByKeyword" type="text" id="keyword" maxlength="25" class="form-control" placeholder="검색어 입력" aria-label="search" aria-describedby="searchBtn">
+		                <button class="btn btn-primary" type="submit" id="searchBtn">검색</button>
 		            </div>
 		        </div>
 	        </div>
-		
+			
+			
 			<div class="row d-flex justify-content-center">
 				<div class="col-10 mt-2">
 					<input type="date" name="searchByDate"> ~ 
-					<input type="date" name="searchByDate2">
 				</div>
 			</div>
 		</div>
@@ -87,9 +91,9 @@
 				<c:forEach var="i" items="${list}">
 					<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2">
 					
-						<div class="card" style="">
+						<div class="card">
 							<span class="badge rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">N일 남음</span>
-							<img src="..." class="card-img-top" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
+							<img src="${i.path}${i.sysName}" href="/shop/SelectShop?code=${i.code}" style="width:100%; alt="...">
 							<div class="card-body">
 								<p class="card-title" style="font-size: 20px;">${i.title}</p>
 								<p class="card-text fw-lighter" style="font-size: 12px;">${i.companyName}</p>
@@ -104,7 +108,26 @@
 	</div>
 
 	<script>
-	
+		$("#searchBtn").on("click",function(){
+			const category = $("#category").val();
+			const keyword = $("#keyword").val();
+			console.log(category +":"+ keyword);
+			if(keyword.trim() != ""){
+				$.ajax({
+					url:"shop/searchByKeyword",
+					data: {
+						category:category,
+						keyword:keyword}
+				}).done(function(resp){
+					
+				});
+			}else{
+				alert("검색어를 입력해주세요.");
+			}
+			
+			
+		});
+		
 	</script>
 
 

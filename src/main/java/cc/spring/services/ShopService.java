@@ -62,6 +62,11 @@ public class ShopService {
 	public int isClientMemberCode(String loginId){
 		return shopDAO.isClientMemberCode(loginId);
 	}
+	
+	// 판매자인 경우 회원코드 가져오기
+	public int isBusinessMemberCode(String loginId) {
+		return shopDAO.isBusinessMemberCode(loginId);
+	}
 
 	// 공구샵 정보 select
 	public ShopDTO selectShopInfo(int code) {
@@ -80,6 +85,34 @@ public class ShopService {
 	public List<FileDTO> selectShopImg(int code) {
 		return fileDAO.selectShopImg(code);
 	}
+	
+	// 공구샵 상품 목록
+	public List<ShopListDTO> shopList(){
+		return shopDAO.ShopList();
+	}
+
+
+	// 공구샵 수정 update
+	@Transactional
+	public int updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
+
+		int parentSeq = dto.getCode();	
+		
+		// shop 정보 update
+		String deadLineTemp = dto.getDeadLineTemp();
+		if(deadLineTemp != null) {
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date parsedDate = dateFormat.parse(deadLineTemp);
+			Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+			dto.setDeadLine(timestamp);
+
+			shopDAO.updateShop(dto);
+		}
+		
+		// shop image update
+		
+		return 0;
+	}
 
 	// 공구샵 삭제 delete
 	public int deleteShop(int code) {
@@ -91,9 +124,6 @@ public class ShopService {
 		return shopDAO.insertShopRequest(dto);
 	}
 
-	public List<ShopListDTO> ShopList(){
-		return shopDAO.ShopList();
-	}
 
 
 }

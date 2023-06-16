@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import cc.spring.dto.FileDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
@@ -30,7 +31,20 @@ public class ShopController {
 	//김은지 Part	
 	// 공구샵 등록 폼으로 이동
 	@RequestMapping("toShopRegister")
-	public String toShopRegister() {
+	public String toShopRegister(Model model) {
+		// 세션에서 ID 받아오게 수정
+		String loginId = "1112254";
+		int authgradeCode = 1002;
+		
+		// 판매자인지 체크
+		if(authgradeCode != 1002) {
+			return "redirect:/";
+		}
+		// 판매자인 경우 businessCode 구해오기
+		int businessCode = shopService.isBusinessMemberCode(loginId);
+		System.out.println(businessCode);
+		
+		model.addAttribute("businessCode", businessCode);
 		return "/shop/shopRegister";
 	}
 
@@ -38,20 +52,25 @@ public class ShopController {
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
 		// 세션에서 ID 받아오게 수정
-		String loginId = "aaa";
-		int authgradeCode = 1003;
+		String loginId = "1112254";
+		int authgradeCode = 1002;
 
 		// 일반 사용자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1003) {
 			int clientCode = shopService.isClientMemberCode(loginId);
 			model.addAttribute("clientCode", clientCode);
 		}
-
+		model.addAttribute("clientCode", 0);
+		
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
 		
+		// 선택한 공구샵 이미지 가져오기
+		List<FileDTO> fileDTO = shopService.selectShopImg(code);
+		
 		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
+		model.addAttribute("fileDTO", fileDTO);
 		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}
@@ -61,17 +80,33 @@ public class ShopController {
 	public String insertShop(ShopDTO dto, MultipartFile[] files) throws Exception {
 
 		// realPath - 폴더가 없다면 만들기
-		String realPath = session.getServletContext().getRealPath("upload");
+		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
 		shopService.insertShop(dto, files, realPath);
 
 		return "redirect:/";
 	}
 
+	
+//최은지 Part
+ 	
+ 	//공구 목록으로 이동
+ 	 	@RequestMapping("toShopList")
+ 		public String toShopList(Model model) {
+ 	 		List<ShopListDTO> list = shopService.shopList();
+ 	 		System.out.println(list);
+ 	 		model.addAttribute("list",list);
+ 			return "/shop/shopList";
+ 		}
+
+
 	// 공구샵 수정
-	//		@RequestMapping("updateShop")
-	//		public String updateShop(ShopDTO dto) throws Exception {
-	//			
-	//		}
+	@RequestMapping("updateShop")
+	public String updateShop(ShopDTO dto, MultipartFile[] files) throws Exception {
+		// realPath - 폴더가 없다면 만들기
+		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
+		shopService.updateShop(dto, files, realPath);
+		return "redirect:/shop/toShopApply?code="+dto.getCode();
+	}
 
 	// 공구샵 삭제
 	@RequestMapping("deleteShop")
@@ -87,16 +122,6 @@ public class ShopController {
 		return "redirect:/shop/toShopList";
 	}
 
-
-	//최은지 Part
-
-	//공구 목록으로 이동
-	@RequestMapping("toShopList")
-	public String toShopList(Model model) {
-		List<ShopListDTO> list = shopService.ShopList();
-		model.addAttribute("list",list);
-		return "/shop/shopList";
-	}
 
 
 
