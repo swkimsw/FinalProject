@@ -37,9 +37,9 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public ResponseEntity<List<MealDTO>> aiMeal(String sendMsg, int dayTime, int timeArrLength) throws Exception {
+	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int timeArrLength) throws Exception {
 		
-		List<MealDTO> result = mService.makeMeal(sendMsg,dayTime, timeArrLength);
+		List<MealDTO> result = mService.makeMeal(dayTime, timeArrLength);
 		
 	    // ResponseEntity를 사용하여 결과 반환
 	    return ResponseEntity.status(HttpStatus.OK)

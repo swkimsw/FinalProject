@@ -30,8 +30,8 @@ public class MealService {
 	
 	// content 까지는 provider에서 가공해서 가져오고 그뒤는 service에서 각자 가공하기
 	// 식단 추출 기능
-	public List<MealDTO> makeMeal(String sendMsg, int dayTime, int timeArrLength) throws Exception {
-		
+	public List<MealDTO> makeMeal(String sendMsg, int dayTime, int timeArrLength, String special) throws Exception {
+		// msg 보내지 말고 값을 name 값으로 다 받아와서 여기서 문자열 출력
 		JsonObject content = GPTprovider.makeMeal(sendMsg);
 		
 		List<MealDTO> result = new ArrayList<>();
@@ -48,7 +48,7 @@ public class MealService {
 //			System.out.println("day"+(i+1));
 			
 			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
-			System.out.println(Arrays.toString(dto.getBreakfast()));
+//			System.out.println(Arrays.toString(dto.getBreakfast()));
 			
 			for(int x = 0; x < timeArrLength; x++) {
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
