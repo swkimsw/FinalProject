@@ -112,15 +112,15 @@
 			<!-- 아침, 점심, 저녁 -->
 			<div class="d-flex justify-content-center">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="breakfast" name="time" value="아침">
+					<input class="form-check-input" type="checkbox" id="breakfast" name="time" value="1001">
 					<label class="form-check-label" for="breakfast">아침</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="lunch" name="time" value="점심">
+					<input class="form-check-input" type="checkbox" id="lunch" name="time" value="1002">
 					<label class="form-check-label" for="lunch">점심</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="dinner" name="time" value="저녁">
+					<input class="form-check-input" type="checkbox" id="dinner" name="time" value="1003">
 					<label class="form-check-label" for="dinner">저녁</label>
 				</div>
 			</div>
@@ -129,12 +129,17 @@
 			<div class="d-flex justify-content-center">
 				<p class="mx-3">식단 유형 :</p>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="vigan" name="special" value="비건">
+					<input class="form-check-input" type="checkbox" id="vigan" name="special" value="1001">
 					<label class="form-check-label" for="vigan">비건</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="diet" name="special" value="다이어트">
+					<input class="form-check-input" type="checkbox" id="diet" name="special" value="1002">
 					<label class="form-check-label" for="diet">다이어트</label>
+					</div>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="checkbox" id="viganDiet" name="special" value="1003">
+					<label class="form-check-label" for="viganDiet">비건 다이어트</label>
 					</div>
 				</div>
 				<br>
@@ -504,9 +509,8 @@
 <script src="${path}/resources/js/mealCalendar_drag.js"></script>
 <script type="text/javascript">
 	var timeArr = [];
-	var specialArr = []
+	var special; 
 	var dayTime;
-	var sendMsg = "";
 	$("#sendBtn").on(
 			"click",
 			function() {
@@ -514,22 +518,24 @@
 				$("input[type=checkbox][name=time]:checked").each(function(i) {
 					timeArr.push($(this).val());
 				});
-				specialArr = [];
+				special;
 				$("input[type=checkbox][name=special]:checked").each(
 						function(i) {
 							specialArr.push($(this).val());
 						});
 				dayTime = $("select[name=dayTime]").val();
-
+				timeArrLength = timeArr.length;
 				sendMsg = dayTime + "일치 " + specialArr.join(',') + " 식단 "
 						+ timeArr.join(',') + "만 JSON데이터로 짜줘";
 				console.log(sendMsg);
-
+				console.log(timeArrLength);
 				$.ajax({
 					url : "/meal/aiMeal",
 					type : "post",
 					data : {
-						sendMsg : sendMsg
+						sendMsg : sendMsg,
+						dayTime : dayTime,
+						timeArrLength : timeArrLength
 					},
 					beforeSend : function() {
 						$(".spinner-border").css({
@@ -547,7 +553,8 @@
 							"display" : "block"
 						});
 					}
-				}).done(function() {
+				}).done(function(resp) {
+					console.log(resp);
 					alert("생성 성공~!");
 				});
 			});

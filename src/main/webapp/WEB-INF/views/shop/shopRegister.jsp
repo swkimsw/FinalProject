@@ -32,6 +32,7 @@
 			<div class="input1">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
+							<input type="hidden" id="businessCode" name="businessCode" value="${businessCode}">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example">
 						</div>
 					</div>

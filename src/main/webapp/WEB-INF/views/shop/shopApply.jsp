@@ -33,6 +33,11 @@
 			<div class="images">
 				<div id="carouselExampleIndicators" class="carousel slide mb-3">
   					<div class="carousel-indicators">
+  						<c:forEach var="i" items="${fileDTO}">
+  							<div class="carousel-item active">
+      							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
+    						</div>
+  						</c:forEach>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
@@ -100,6 +105,12 @@
 						<span class="input-group-text">개수</span>
 						<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" required>
 					</div>
+				</div>
+				<div id="imageSelect" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto; display:none;">
+  					<label for="formFile" class="form-label">사진 선택</label>
+						<div class="input-group mb-3">
+  							<input class="form-control" type="file" id="files" name="files" multiple>
+  						</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mb-3">
@@ -170,7 +181,12 @@
 			$("#max").removeAttr("readonly");
 			$("#min").removeAttr("readonly");
 			$("#detail").removeAttr("readonly");
+			//$("#imageSelect").style = "float:none; margin: 0 auto;";
+			
+			//$("#imageSelect").setAttribute("style='float:none; margin: 0 auto;'");
+			//$("#imageSelect").style.cssText = "style='float:none; margin: 0 auto;'";
 			$("#quantity").prop("readonly",true);
+			
 			$("#updateBtn, #deleteBtn, #back").css("display", "none");
 
 			let updateComplete = $("<button class='btn btn-primary'>");
