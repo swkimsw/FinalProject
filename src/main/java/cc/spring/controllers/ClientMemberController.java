@@ -35,7 +35,7 @@ public class ClientMemberController {
 	private AdminMemberService ams;
 	
 	
-	// 클라이언트 로그인 창으로 이동
+	//  로그인 창으로 이동
 	@RequestMapping("login_form")
 	public String login_form() throws Exception {
 		return "member/clientLogin";
@@ -99,7 +99,7 @@ public class ClientMemberController {
 		return "member/clientSign";
 	}
 	
-	// 회원가입 시 아이디 중복체크
+	// 회원가입 시 중복체크
 	@ResponseBody
 	@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 	public String checkId(String key, String value) throws Exception {

@@ -19,7 +19,7 @@
 		select count(*) from BusinessMember where phone = #{phone}
 	</select>
 	<insert id="insert">
-	insert into BusinessMember values(Business_SEQ.nextval,#{businessId},#{pw},#{companyName},#{nickName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
+	insert into BusinessMember values(Business_SEQ.nextval,#{businessId},#{pw},#{name},#{companyName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
 	</insert>
 	<update id="updatePw">
 		update BusinessMember set pw = #{pw} where businessId = #{businessId}

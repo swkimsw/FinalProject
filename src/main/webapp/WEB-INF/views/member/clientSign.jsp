@@ -262,7 +262,7 @@ label {
 								<!-- 이름 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_name" name="name" onkeyup="checksum(this, 'R');" pattern="^[가-힣]{2,5}$" title="2자 이상 5자 이내의 한글" minlength="2" maxlength="5" required>
+										<input type="text" class="form-control" id="member_name" name="name" onkeyup="checksum(this, 'R');" pattern="^[가-힣]{2,5}$" title="2자 이상 5자 이내의 한글" minlength="2" maxlength="4" required>
 									</div>
 								</div>
 								<!-- 이름 정규식 확인 메세지 -->
@@ -506,6 +506,7 @@ label {
 				valid.set(id, false);
 				return false;
 			} else {
+				$("#" + id + "_checking").html("사용가능").css("color", "#198754");
 				valid.set(id, true);
 			}
 			// 중복체크 여부 확인
@@ -946,7 +947,7 @@ console.log("실패")
 			</div>
 			<div class="row">
 				<div class="col d-flex justify-content-center mb-3">
-					<div>KickKick에 오신걸 환영합니다.</div>
+					<div>CookCook에 오신걸 환영합니다.</div>
 				</div>
 			</div>
 			<div class="row">
