@@ -2,6 +2,7 @@ package cc.spring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
@@ -31,7 +32,7 @@ public class FileService {
 
 
 
-
+	
 	public int insertReviewImage(int postcode,String path,String oriname,String sysname) {
 		 ReviewImgDTO dto = new ReviewImgDTO(0 , postcode, path, oriname, sysname);
 		  return  dao.insertReviewImage(dto);
