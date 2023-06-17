@@ -34,9 +34,7 @@
 				<div id="carouselExampleIndicators" class="carousel slide mb-3">
   					<div class="carousel-indicators">
   						<c:forEach var="i" items="${fileDTO}">
-  							<div class="carousel-item active">
-      							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
-    						</div>
+  							
   						</c:forEach>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -48,7 +46,6 @@
       							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
     						</div>
   						</c:forEach>
-      					<!-- <img src="..." class="d-block w-100" alt="...">  -->
   					</div>
   					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -181,10 +178,8 @@
 			$("#max").removeAttr("readonly");
 			$("#min").removeAttr("readonly");
 			$("#detail").removeAttr("readonly");
-			//$("#imageSelect").style = "float:none; margin: 0 auto;";
-			
-			//$("#imageSelect").setAttribute("style='float:none; margin: 0 auto;'");
-			//$("#imageSelect").style.cssText = "style='float:none; margin: 0 auto;'";
+			$("#imageSelect").removeAttr("style");
+			$("#imageSelect").attr("style", 'float:none; margin: 0 auto;');
 			$("#quantity").prop("readonly",true);
 			
 			$("#updateBtn, #deleteBtn, #back").css("display", "none");
