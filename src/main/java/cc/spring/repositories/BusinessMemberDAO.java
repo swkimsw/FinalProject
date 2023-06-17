@@ -46,4 +46,9 @@ public class BusinessMemberDAO {
 	public int updatePw(BusinessMemberDTO dto) {
 		return mybatis.update("Business.updatePw", dto);
 	}
+	
+	public BusinessMemberDTO selectBusinessMemberInfo(String id) {
+		System.out.println(id);
+		return mybatis.selectOne("Business.selectBusinessMemberInfo",id);
+	}
 }

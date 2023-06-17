@@ -60,13 +60,15 @@ public class ClientMemberController {
 		}
 		
 		
-		// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
-		ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+
 		
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
 		boolean result = cms.login(dto);
 		if(result) {
+			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+			ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+			
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());
 			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());

@@ -18,7 +18,7 @@
 		<c:if test="${sessionScope.id == null}">
 			<a class="navbar-brand nav_a" href="/clientMember/login_form">Login</a>
 		</c:if>
-		<c:if test="${sessionScope.id != null}">
+		<c:if test="${sessionScope.id != null || sessionScope.companyName != null}">
 			<a class="navbar-brand nav_a" href="/clientMember/logout">Logout</a>
 		</c:if>
 		<div class="offcanvas offcanvas-start flex-shrink-0 p-3"
@@ -39,9 +39,14 @@
 					<h5 class="offcanvas-title p-1" id="offcanvasNavbarLabel"
 						style="text-decoration: none; color:#007936">🍽CookCook</h5>
 				<c:choose>
-					<c:when test="${sessionScope.nickname != null}">
+					<c:when test="${sessionScope.nickname != null || sessionScope.companyName != null}">
 						<!-- 유저이름 -->
-						<h3 class="nick_name text-center mb-3">${sessionScope.nickname}</h3>
+						<c:if test="${sessionScope.id != null}">
+							<h3 class="nick_name text-center mb-3">${sessionScope.nickname}</h3>
+						</c:if>
+						<c:if test="${sessionScope.companyName != null}">
+							<h3 class="company_name text-center mb-3">${sessionScope.companyName}</h3>
+						</c:if>
 						<!-- 알림 -->
 						<div class="counter d-flex justify-content-center">
 							<div class="col d-flex justify-content-center">
@@ -94,7 +99,7 @@
 			<div class="p-3 nav-scroller">
 				<ul class="list-unstyled ps-0">
 					<!--마이페이지 카테고리-->
-					<c:if test="${sessionScope.nickname != null}">
+					<c:if test="${sessionScope.nickname != null || sessionScope.companyName != null}">
 						<li class="mb-1 nav-menu"><i class="bi bi-house"></i>
 							<button
 								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"

@@ -580,15 +580,10 @@ html, body {
 						<button type="submit" class="btn btn-outline-success"
 							id="businessPhoneOk2">인증번호 받기</button>
 					</div>
-					<div class="row g-3 m-0 p-0  justify-content-center">
-						<div class="col-12 col-md-4">
-							<div class="timer">
-								<div id="timeLimit"></div>
-							</div>
-						</div>
-					</div>
 				</div>
+				
 				<br>
+				
 				<div class="row g-3">
 					<div class="col-12 col-md-4 text-end">
 						<label class="col-form-label">인증번호</label>
@@ -800,12 +795,17 @@ html, body {
                      // 타이머 해제
                      clearInterval(this.timer);
                      alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
+	 				 $.ajax({
+					 url : "/clientMember/removeSession"
+					 })
                      $("#phone_auth").attr("disabled", false);
                      $("#timeLimit").text("");
                   }
                },
                fnStop: function () { clearInterval(this.timer); }
             }
+            
+            
             // 인증번호 받기 버튼 이벤트
             $("#phone_auth").on("click", function (evt) {
                // 전화번호 check 및 인증번호 발송
@@ -1342,9 +1342,13 @@ html, body {
                 full2.style.display="block";
             }
             
-            // 로그인 실패 시 alert창 출력
+            // 일반인 로그인 실패 시 alert창 출력
             if(${status=="false"}) {
             	alert("아이디와 비밀번호를 확인해주세요.");
+            }// 사업자 로그인 실패 시 alert창 출력
+            else if(${status=="false2"}){
+            	alert("아이디와 비밀번호를 확인해주세요.");
+            	register(); // 사업자 로그인 폼으로 바로 이동
             }
          </script>
 </body>

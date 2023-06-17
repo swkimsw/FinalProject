@@ -9,31 +9,31 @@ import cc.spring.repositories.ClientMemberDAO;
 @Service
 public class ClientMemberService {
 	@Autowired
-	private ClientMemberDAO CDAO;
+	private ClientMemberDAO cdao;
 	
 	public boolean login(ClientMemberDTO dto){
-		return CDAO.login(dto);
+		return cdao.login(dto);
 	}
 	public String getIdByPhone(String phone) {
-		return CDAO.getIdByPhone(phone);
+		return cdao.getIdByPhone(phone);
 	}
 	public boolean isClientMember(String key, String value) {
-		return CDAO.isClientMember(key, value);
+		return cdao.isClientMember(key, value);
 	}
 	
 	public boolean phoneCheck(String phone) {
-		return CDAO.phoneCheck(phone);
+		return cdao.phoneCheck(phone);
 	}
 	
 	public int insertClient(ClientMemberDTO dto) {
-		return CDAO.insertClient(dto);
+		return cdao.insertClient(dto);
 	}
 	
 	public int updatePw(ClientMemberDTO dto) {
-		return CDAO.updatePw(dto);
+		return cdao.updatePw(dto);
 	}
 	
 	public ClientMemberDTO selectClientMemberInfo(String id) {
-		return CDAO.selectClientMemberInfo(id);
+		return cdao.selectClientMemberInfo(id);
 	}
 }
