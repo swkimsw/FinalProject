@@ -170,8 +170,6 @@ public class BoardController {
 	}
 
 
-
-
 	//공지게시판 글 작성하기
 	@RequestMapping("inputAnnouncement")
 	public String inputAnnouncement(BoardAnnouncementDTO dto) {
@@ -212,7 +210,7 @@ public class BoardController {
 			System.out.println(realPath); //realpath
 			
 			
-			fileservice.insertReviewImage(parent_seq,realPath,oriName[i],sysName[i]);
+			fileservice.insertReviewImage(parent_seq,realPath,oriName[i],sysName[i]); //후기게시판 글에 들어가는 이미지 db넣기
 		
 		}
 
@@ -221,7 +219,7 @@ public class BoardController {
 
 
 
-	@ResponseBody
+	@ResponseBody //ajax로 이미지 주고받는거
 	@RequestMapping(value="/uploadImage", method=RequestMethod.POST)
 	public List<JsonObject> uploadSummernoteImageFile(@RequestParam("image") MultipartFile[] images) {
 		List<JsonObject> resp = new ArrayList<>();
@@ -254,20 +252,14 @@ public class BoardController {
 				}
 			}
 			
-	
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return resp;
-
 	}
-
 }
 
-
-
-//	//=====================================================================
+//===========================================================================================
 
 
 
