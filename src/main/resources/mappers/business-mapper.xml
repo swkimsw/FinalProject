@@ -24,4 +24,8 @@
 	<update id="updatePw">
 		update BusinessMember set pw = #{pw} where businessId = #{businessId}
 	</update>
+	
+	<select id="selectBusinessMemberInfo" resultType="cc.spring.dto.BusinessMemberDTO">
+		select * from businessmember where businessid = #{id}
+	</select>
 </mapper>

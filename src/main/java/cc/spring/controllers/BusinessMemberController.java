@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.BusinessMemberDTO;
@@ -35,19 +36,24 @@ public class BusinessMemberController {
 	
 	//사업자 로그인
 		@RequestMapping("login")
-		public String login(BusinessMemberDTO dto) throws Exception {
-			System.out.println(dto);
+		public String login(BusinessMemberDTO dto, RedirectAttributes redir) throws Exception {
+			
 			String loginPw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(loginPw);
 			boolean result = bms.login(dto);
-			System.out.println(result);
 			if(result) {
-				session.setAttribute("loginID",dto.getBusinessId());
+				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+				BusinessMemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
+				
+				session.setAttribute("id",bmd.getBusinessId());
+				session.setAttribute("companyName",bmd.getCompanyName());
+				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
 				System.out.println("로그인 실행!");
-				return "home";
+				return "redirect:/";
 			}
 			System.out.println("로그인 실패!!");
-			return "error";
+			redir.addFlashAttribute("status","false2");
+			return "redirect:/businessMember/login_form";
 		}
 //		비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
 		@RequestMapping("getIdByPhone")
