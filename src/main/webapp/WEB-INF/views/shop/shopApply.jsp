@@ -192,7 +192,7 @@
 						<div class="mb-3">
   							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.clientCode}</label>
 							<div class="inputReply">
- 								<textarea class="form-control" rows="3">${i.content}</textarea>
+ 								<textarea class="form-control" rows="3" readonly>${i.content}</textarea>
 							</div>
 						</div>
 					</div>

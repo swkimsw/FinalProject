@@ -20,7 +20,7 @@ import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.dto.ShopReplyAskDTO;
-import cc.spring.services.ReplyService;
+import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
 
 @Controller
@@ -31,7 +31,7 @@ public class ShopController {
 	private ShopService shopService;
 	
 	@Autowired
-	private ReplyService replyService;
+	private ShopReplyService replyService;
 
 	@Autowired
 	private HttpSession session;

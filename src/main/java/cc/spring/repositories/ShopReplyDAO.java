@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import cc.spring.dto.ShopReplyAskDTO;
 
 @Repository
-public class ReplyDAO {
+public class ShopReplyDAO {
 	
 	@Autowired
 	private SqlSessionTemplate db;
 	
 	public List<ShopReplyAskDTO> selectShopReply(int code) {
-		return db.selectList("Reply.selectShopReply", code);
+		return db.selectList("ShopReply.selectShopReply", code);
 	}
 	
 }

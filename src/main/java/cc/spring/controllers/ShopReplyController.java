@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cc.spring.services.ReplyService;
+import cc.spring.services.ShopReplyService;
 
 @Controller
-@RequestMapping("/reply/")
-public class ReplyController {
+@RequestMapping("/shopReply/")
+public class ShopReplyController {
 
 	@Autowired
-	private ReplyService replyService;
+	private ShopReplyService replyService;
 	
 	
 }

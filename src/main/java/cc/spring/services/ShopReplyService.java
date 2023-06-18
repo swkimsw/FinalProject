@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cc.spring.dto.ShopReplyAskDTO;
-import cc.spring.repositories.ReplyDAO;
+import cc.spring.repositories.ShopReplyDAO;
 
 @Service
-public class ReplyService {
+public class ShopReplyService {
 	
 	@Autowired
-	private ReplyDAO replyDAO;
+	private ShopReplyDAO replyDAO;
 	
 	public List<ShopReplyAskDTO> selectShopReply(int code) {
 		return replyDAO.selectShopReply(code);
