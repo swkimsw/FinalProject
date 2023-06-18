@@ -19,6 +19,8 @@ import cc.spring.dto.FileDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
+import cc.spring.dto.ShopReplyAskDTO;
+import cc.spring.services.ReplyService;
 import cc.spring.services.ShopService;
 
 @Controller
@@ -27,6 +29,9 @@ public class ShopController {
 
 	@Autowired
 	private ShopService shopService;
+	
+	@Autowired
+	private ReplyService replyService;
 
 	@Autowired
 	private HttpSession session;
@@ -72,9 +77,13 @@ public class ShopController {
 		// 선택한 공구샵 이미지 가져오기
 		List<FileDTO> fileDTO = shopService.selectShopImg(code);
 		
+		// 선택한 공구샵 댓글 목록 가져오기
+		List<ShopReplyAskDTO> shopReplyAskDTO = replyService.selectShopReply(code);
+		
 		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
+		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
 		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}

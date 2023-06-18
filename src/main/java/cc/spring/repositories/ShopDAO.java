@@ -17,32 +17,32 @@ public class ShopDAO {
 	private SqlSessionTemplate db;
 	
 	public int insertShop(ShopDTO dto) {
-		db.insert("insertShop", dto);
+		db.insert("Shop.insertShop", dto);
 		return dto.getCode();
 	}
 	
 	public int isClientMemberCode(String loginId) {
-		return db.selectOne("isClientMemberCode", loginId);
+		return db.selectOne("Shop.isClientMemberCode", loginId);
 	}
 	
 	public int isBusinessMemberCode(String loginId) {
-		return db.selectOne("isBusinessMemberCode", loginId);
+		return db.selectOne("Shop.isBusinessMemberCode", loginId);
 	}
 	
 	public ShopDTO selectShopInfo(int code) {
-		return db.selectOne("selectShopInfo", code);
+		return db.selectOne("Shop.selectShopInfo", code);
 	}
 	
 	public int updateShop(ShopDTO dto) {
-		return db.update("updateShop", dto);
+		return db.update("Shop.updateShop", dto);
 	}
 	
 	public int deleteShop(int code) {
-		return db.delete("deleteShop", code);
+		return db.delete("Shop.deleteShop", code);
 	}
 	
 	public int insertShopRequest(RequestListDTO dto) {
-		return db.insert("insertShopRequest", dto);
+		return db.insert("Shop.insertShopRequest", dto);
 	}
 
 	public List<ShopListDTO> ShopList() {

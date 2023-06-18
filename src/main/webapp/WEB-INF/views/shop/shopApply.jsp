@@ -17,7 +17,12 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
 	*{font-family: 'NanumSquareNeo';}
-	.container{width: 70%; margin-top:100px;}\
+	.container{width: 70%; margin-top:100px;}
+	.inputReply{display:flex;}
+	.solidHr{margin-left:auto;}
+	.dashedHr{width:80%; margin-left:10%; border-top:dashed;}
+	#insertReply{margin-right:5%;}
+	#insertReplyBtn{width:100px; height:50px;}
 </style>
 </head>
 <body>
@@ -26,8 +31,8 @@
 		</c:import>
 	</header>
 	<main>
-	<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
-		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+	<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+		<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
 
 			<div class="images">
@@ -164,9 +169,36 @@
 					</div>
 				</c:otherwise>
 			</c:choose>
-			<hr>
-		</div>
-	</form>
+		</form>
+		<hr class="solidHr">
+		<!-- 여기부터 댓글 -->
+		<!-- 댓글 등록 -->
+		<form action="/shop/insertShopReply" method="post">
+			<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+				<div class="mb-3">
+  					<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${loginId}</label>
+					<div class="inputReply">
+ 						 <textarea class="form-control" id="insertReply" name="insertReply" rows="3"></textarea>
+ 						 <button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<hr class="dashedHr">
+		<!-- 댓글 리스트 -->
+		<form action="" method="post">
+			<c:forEach var="i" items="${shopReplyAskDTO}">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+						<div class="mb-3">
+  							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.clientCode}</label>
+							<div class="inputReply">
+ 								<textarea class="form-control" rows="3">${i.content}</textarea>
+							</div>
+						</div>
+					</div>
+			</c:forEach>
+		</form>
+	</div>
 	</main>
 	<script>
 		// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
@@ -198,7 +230,7 @@
 			$(".buttons").append(cancel);
 		})
 		
-		// 신청 버튼 클릭시
+		// 공구 신청 버튼 클릭시
 		$("#insertRequestBtn").on("click", function(){
 			let quantity = $("#quantity").val();
 			let code = $("#code").val();
