@@ -98,9 +98,9 @@
                         </div>
 
                         <div id="info">
-                            <input  name="oriName">
-                            <input  name="sysName">
-                            <input  name="realPath">
+                            <input type="hidden"  name="oriName">
+                            <input type="hidden"  name="sysName">
+                            <input type="hidden"  name="realPath">
                         </div>
 
                     </div>
@@ -111,9 +111,7 @@
                         <table>
                             <tr>
                                 <td colspan="2">
-                                    <textarea id="content" name="content">
-                                    <p><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpvh3OIeLw_KFAXUwCPKMpEFt4Vy_UdRBhBQ&amp;usqp=CAU" style="width: 225px;">ㄴㅇㄹㄴ<img src="/resources/contentImg/3aa7465d-32a5-42c2-b829-2d66f6f2a1f7_이미지1.png"><img src="/resources/contentImg/5ae0e8e8-e9d5-4a2b-b297-62e0efc440e3_이미지2.png"></p>
-                                    </textarea>
+                                    <textarea id="content" name="content"></textarea>
                                 </td>
                             </tr>
                             <tr>

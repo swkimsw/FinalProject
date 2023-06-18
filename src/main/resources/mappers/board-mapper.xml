@@ -43,6 +43,26 @@
 	select code from BUSINESSMEBER where id =  #{writer}
 	</select>
 	
+	<!-- totalmember code 가져오기-->
+	<select id="selectTotalCode" resultType="int">
+		select total_member_seq.nextval from dual
+	</select>
+	
+	<!-- totalmember 작성한 사람들의 정보 넣기 - 일반회원 -->
+	<insert id="insertTotalMemberClient" >
+	insert into totalmember values (#{code} , #{clientmember} , null , #{authgradecode})
+	</insert>
+	
+	<!-- totalmember 작성한 사람들의 정보 넣기 - 사업자회원 -->
+	<insert id="insertTotalMemberBusiness" >
+	insert into totalmember values (#{code} , null , #{businessmember} , #{authgradecode})
+	</insert>
+	
+	<!-- totalmember 작성한 사람들의 seq빼오기  -->
+	<select id="selectCodeTotal" resultType="int">
+	select code from totalmember where authgradecode = #{authgradecode} and (businessmember = #{member} or clientmember = #{member}) and code = #{code}
+	</select>
+	
 	<!-- 공지게시판에서 작성한 사람의 seq가져오기- 관리자회원 -->
 	<select id="selectAdminSeq" resultType="int">
 	select code from adminmember where id = #{writer}
@@ -61,7 +81,7 @@
 	
 	<!-- 자유게시판 작성 -->
 	<insert id="insertFree">
-		insert into BoardFree values (board_free_seq.nextval, 1002 , #{dto.headlinecode} , #{writer_seq} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardFree values (board_free_seq.nextval, 1002 , #{dto.headlinecode} , #{membercode} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
 	
 	<!-- 공지게시판 작성 -->
@@ -69,4 +89,11 @@
 		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, 9999 , #{title} , #{content} , 0 , 0, sysdate, null,null)
 	</insert>
 
+
+	<!-- 자유게시판리스트 가져오기 -->
+	<select id="selectFreelist" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view
+	</select>
+	
+	
 	</mapper>
