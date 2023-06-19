@@ -511,35 +511,32 @@
 	var timeArr = [];
 	var special; 
 	var dayTime;
-	$("#sendBtn").on(
-			"click",
-			function() {
-				timeArr = [];
-				$("input[type=checkbox][name=time]:checked").each(function(i) {
-					timeArr.push($(this).val());
-				});
-				special;
-				$("input[type=checkbox][name=special]:checked").each(
-						function(i) {
-							specialArr.push($(this).val());
-						});
-				dayTime = $("select[name=dayTime]").val();
-				timeArrLength = timeArr.length;
-				sendMsg = dayTime + "일치 " + specialArr.join(',') + " 식단 "
-						+ timeArr.join(',') + "만 JSON데이터로 짜줘";
-				console.log(sendMsg);
-				console.log(timeArrLength);
-				$.ajax({
-					url : "/meal/aiMeal",
-					type : "post",
-					data : {
-						sendMsg : sendMsg,
-						dayTime : dayTime,
-						timeArrLength : timeArrLength
-					},
-					beforeSend : function() {
-						$(".spinner-border").css({
-							"display" : "block"
+<<<<<<< HEAD
+
+	$("#sendBtn").on("click", function() {
+		timeArr = [];
+		$("input[type=checkbox][name=time]:checked").each(function(i) {
+			timeArr.push($(this).val());
+		});
+		timeStr = timeArr.join(',');
+		timeArrLength = timeArr.length;
+		special = $("input[type=radio][name=special]:checked");
+		dayTime = $("select[name=dayTime]").val();
+		
+		$.ajax({
+			url : "/meal/aiMeal",
+			type : "post",
+			data : {
+				dayTime : dayTime
+				//special : special,
+				//timeStr : timeStr,
+				//timeArrLength : timeArrLength
+				// version not updated
+			
+			},
+			beforeSend : function() {
+				$(".spinner-border").css({
+					"display" : "block"
 						});
 						$(".main").css({
 							"display" : "none"
