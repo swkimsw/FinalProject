@@ -12,9 +12,11 @@ public class ShopReplyAskDTO {
 	private Timestamp modDate;
 	private Timestamp delDate;
 	
+	private String nickName;
+	
 	public ShopReplyAskDTO() {}
 	public ShopReplyAskDTO(int code, int postCode, int clientCode, String content, Timestamp regDate, Timestamp modDate,
-			Timestamp delDate) {
+			Timestamp delDate, String nickName) {
 		super();
 		this.code = code;
 		this.postCode = postCode;
@@ -23,8 +25,9 @@ public class ShopReplyAskDTO {
 		this.regDate = regDate;
 		this.modDate = modDate;
 		this.delDate = delDate;
+		this.nickName = nickName;
 	}
-
+	
 	public int getCode() {
 		return code;
 	}
@@ -79,6 +82,14 @@ public class ShopReplyAskDTO {
 
 	public void setDelDate(Timestamp delDate) {
 		this.delDate = delDate;
+	}
+	
+	public String getNickName() {
+		return nickName;
+	}
+	
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 	
 }
