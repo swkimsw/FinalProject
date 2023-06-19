@@ -197,12 +197,7 @@
                     <tr>
                         <th class="time-header breakfast">아침</th>
                         <td class="day1 breakfast">
-                            <div class="meal-box">
-                                Meal 1 testsesetsetsetstsetstsetse<br>
-                                Meal 2<br>
-                                Meal 3<br>
-                                Meal 4<br>
-                            </div>
+                            <div class="meal-box"></div>
                         </td>
                         <td class="day2 breakfast">
                             <div class="meal-box"></div>
@@ -291,18 +286,15 @@
                 <tbody>
                     <tr>
                         <th class="day-header">Day 1</th>
-                        <td class="day1 breakfast test">
+                        <td class="day1 breakfast">
                             <div class="meal-box" data-bs-toggle="modal" data-bs-target="#mealModalToggle">
-                                Meal 1 testestesteststsetsetestsetstset<br>
-                                Meal 2<br>
-                                Meal 3<br>
-                                Meal 4<br>
+            
                             </div>
                         </td>
-                        <td class="day1 lunch test">
+                        <td class="day1 lunch">
                             <div class="meal-box"></div>
                         </td>
-                        <td class="day1 dinner test">
+                        <td class="day1 dinner">
                             <div class="meal-box"></div>
                         </td>
                     </tr>
@@ -516,7 +508,20 @@
 	var timeArr = [];
 	var special; 
 	var dayTime;
+	var todate;
+	
+	function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
 
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+
+        return date.getFullYear() + '-' + month + '-' + day;
+	}	
+	
 	$("#sendBtn").on("click", function() {
 		timeArr = [];
 		$("input[type=checkbox][name=time]:checked").each(function(i) {
@@ -526,10 +531,7 @@
 		timeArrLength = timeArr.length;
 		special = $("input[name=special]:checked").val();
 		dayTime = $("select[name=dayTime]").val();
-		console.log("special --> "+ special);
-		console.log("dayTime --> "+dayTime);
-		console.log("timeStr--> "+ timeStr);
-		
+		console.log("dayTime--> "+ dayTime);
 		$.ajax({
 			url : "/meal/aiMeal",
 			type : "post",
@@ -557,6 +559,55 @@
 					}
 				}).done(function(resp) {
 					console.log(resp);
+					todate = dateFormat(today);
+					console.log("todate --> " + todate);
+					
+					$(resp).each(function(){
+						if(todate == this.mealDate){
+							console.log("day1");
+							
+							if(1001 == this.timeCode){ // 아침
+								$(".day1.breakfast").find(".meal-box").append(this.meal);
+								$(".day1.breakfast").find(".meal-box").append("<br>");
+							}else if(1002 == this.timeCode){ // 점심
+								$(".day1.lunch").find(".meal-box").append(this.meal);
+								$(".day1.lunch").find(".meal-box").append("<br>");
+							}else if(1003 == this.timeCode){ // 저녁
+								$(".day1.dinner").find(".meal-box").append(this.meal);
+								$(".day1.dinner").find(".meal-box").append("<br>");
+							}
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+						}else if(todate == this.mealDate){
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day2 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day3 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day4 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day5 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day6 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							console.log("day7 --> " + todate);
+						}
+					});
 					
 					alert("생성 성공~!");
 				});

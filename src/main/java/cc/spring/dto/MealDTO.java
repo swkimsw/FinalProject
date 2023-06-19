@@ -5,14 +5,13 @@ import java.sql.Timestamp;
 public class MealDTO {
 	private int code;
 	private int clientCode;
-	private Timestamp mealDate;
+	private String mealDate;
 	private int timeCode;
 	private String meal;
 	public MealDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public MealDTO(int code, int clientCode, Timestamp mealDate, int timeCode, String meal) {
+	public MealDTO(int code, int clientCode, String mealDate, int timeCode, String meal) {
 		super();
 		this.code = code;
 		this.clientCode = clientCode;
@@ -32,10 +31,10 @@ public class MealDTO {
 	public void setClientCode(int clientCode) {
 		this.clientCode = clientCode;
 	}
-	public Timestamp getMealDate() {
+	public String getMealDate() {
 		return mealDate;
 	}
-	public void setMealDate(Timestamp mealDate) {
+	public void setMealDate(String mealDate) {
 		this.mealDate = mealDate;
 	}
 	public int getTimeCode() {
@@ -50,6 +49,12 @@ public class MealDTO {
 	public void setMeal(String meal) {
 		this.meal = meal;
 	}
+	@Override
+	public String toString() {
+		return "MealDTO [code=" + code + ", clientCode=" + clientCode + ", mealDate=" + mealDate + ", timeCode="
+				+ timeCode + ", meal=" + meal + "]";
+	}
+	
 	
 	
 }

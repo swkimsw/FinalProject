@@ -41,6 +41,8 @@ public class MealController {
 		
 		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr, timeArrLength);
 		
+		System.out.println("Controller: ");
+		System.out.println(result.toString());
 	    // ResponseEntity를 사용하여 결과 반환
 	    return ResponseEntity.status(HttpStatus.OK)
 	            .contentType(MediaType.APPLICATION_JSON)

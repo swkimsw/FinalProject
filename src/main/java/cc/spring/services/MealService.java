@@ -1,6 +1,7 @@
 package cc.spring.services;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -40,12 +41,15 @@ public class MealService {
 		
 		List<MealDTO> result = new ArrayList<>();
 		
-		// 날짜 관련 로직
+		// Calendar 데이터를 년,월,일 만 추출
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(new Date());
-		// Calendar -> Timestamp
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String mealDate; 
+		
 
 		for(int i = 0; i < dayTime; i++) {
+			mealDate = format.format(cal.getTime());
 			System.out.println(dayTime);
 
 			JsonObject day = content.get("day"+(i+1)).getAsJsonObject();
@@ -58,15 +62,15 @@ public class MealService {
 			for(int x = 0; x < timeArrLength; x++) {
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
 					for(int j = 0; j < dto.getBreakfast().length; j++) {
-						result.add(new MealDTO(0, 0, new Timestamp(cal.getTimeInMillis()), 1001, dto.getBreakfast()[j]));
+						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));
 					}
 				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("lunch") && dto.getLunch() != null) {
 					for(int j = 0; j < dto.getLunch().length; j++) {
-						result.add(new MealDTO(0, 0, new Timestamp(cal.getTimeInMillis()), 1002, dto.getLunch()[j]));
+						result.add(new MealDTO(0, 0, mealDate, 1002, dto.getLunch()[j]));
 					}
 				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("dinner") && dto.getDinner() != null) {
 					for(int j = 0; j < dto.getDinner().length; j++) {
-						result.add(new MealDTO(0, 0, new Timestamp(cal.getTimeInMillis()), 1003, dto.getDinner()[j]));
+						result.add(new MealDTO(0, 0, mealDate, 1003, dto.getDinner()[j]));
 					}
 				}
 			}
