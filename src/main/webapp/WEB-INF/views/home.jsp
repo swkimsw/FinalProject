@@ -528,11 +528,9 @@
 			type : "post",
 			data : {
 				dayTime : dayTime
-				//special : special,
-				//timeStr : timeStr,
-				//timeArrLength : timeArrLength
-				// version not updated
-			
+				special : special,
+				timeStr : timeStr,
+				timeArrLength : timeArrLength
 			},
 			beforeSend : function() {
 				$(".spinner-border").css({

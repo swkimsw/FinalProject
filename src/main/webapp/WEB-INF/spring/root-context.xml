@@ -6,49 +6,66 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-   
-   <!-- Root Context: defines shared resources visible to all other web components -->
-   
-   <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
-      <property name="username" value="CC"/>
-      <property name="password" value="CC"/>
-      <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-      <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-   </bean>
-   
-   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-      <property name="dataSource" ref="dataSource"></property>
-   </bean>
-   
-   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-      <property name="dataSource" ref="dataSource"/>
-      <property name="mapperLocations" value="classpath:/mappers/*-mapper.xml"/>
-   </bean>
-   
-   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-   </bean>
-   
-   <!--히라키cp에 transaction을 주입 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="username" value="CC" />
+		<property name="password" value="CC" />
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" />
+	</bean>
+
+	<bean id="jdbcTemplate"
+		class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations"
+			value="classpath:/mappers/*-mapper.xml" />
+	</bean>
+
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" />
+	</bean>
+
+	<!--히라키cp에 transaction을 주입 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 
-<tx:annotation-driven/>
-   
-   <context:component-scan base-package="cc.spring.repositories" />   
-   <context:component-scan base-package="cc.spring.services" />   
-   <context:component-scan base-package="cc.spring.provider"/>
-   
-   	<!-- API key -->
+	<tx:annotation-driven />
+
+	<context:component-scan
+		base-package="cc.spring.repositories" />
+	<context:component-scan
+		base-package="cc.spring.services" />
+	<context:component-scan
+		base-package="cc.spring.provider" />
+
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:/key/CGPK.properties" />
-	</bean>	
-	
-	<bean class="java.net.http.HttpClient" factory-method="newHttpClient">
+		<property name="locations">
+			<list>
+				<!-- API key -->
+				<value>classpath:/key/CGPK.properties</value>
+				<!-- meal values -->
+				<value>classpath:/meal/meal.properties</value>
+			</list>
+		</property>
 	</bean>
-	
+	<bean class="java.net.http.HttpClient"
+		factory-method="newHttpClient">
+	</bean>
+
 	<bean class="com.google.gson.Gson"></bean>
 </beans>
