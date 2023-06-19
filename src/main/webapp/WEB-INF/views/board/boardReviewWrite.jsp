@@ -79,7 +79,7 @@
             <c:import url="../commons/gnb.jsp">
             </c:import>
 
-            <form id="frm" action="/board/inputReview" method="post" enctype="multipart/form-data">
+            <form id="frm" action="/board/inputReview" method="get" enctype="multipart/form-data">
 
                 <div class="container">
 
@@ -97,19 +97,22 @@
                                     placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
                         </div>
 
+                        <div id="info">
+                            <input type="hidden"  name="oriName">
+                            <input type="hidden"  name="sysName">
+                            <input type="hidden"  name="realPath">
+                        </div>
 
-			</div>
+                    </div>
 
 
 
-                    <div>
+                    <div class="footer">
                         <table>
                             <tr>
                                 <td colspan="2">
                                     <textarea id="content" name="content"></textarea>
                                 </td>
-                                
-                               
                             </tr>
                             <tr>
                                 <td colspan="2" class="button-container">
@@ -121,13 +124,8 @@
                         </table>
                     </div>
 
-
                 </div>
-
-                <div class="footer">
-                </div>
-
-                </div>
+             
             </form>
 
             <script>
@@ -147,47 +145,90 @@
                             ['table', ['table']],
                             ['insert', ['picture', 'video']],
                             ['view', ['codeview', 'help']]
-                        ],callbacks: {
-                            onImageUpload: function(files) {
-                            	uploadImages(files);
-                            	
-                              }
+                        ], callbacks: {
+                            onImageUpload: function (files) {
+                                uploadImages(files);
+
                             }
+                        }
                     })
                 });
 
                 function uploadImages(files) {
-                	  var formData = new FormData();
+                    var formData = new FormData();
+                    // FormData 객체를 사용하여 파일 데이터를 추가합니다.
+                    for (var i = 0; i < files.length; i++) {
+                        console.log(files.length);
+                        formData.append('image', files[i]);
+                        //  FormData 객체의 append 메서드를 사용하여 키-값 쌍으로 데이터를 추가합니다. 여기서 "image"라는 키 이름으로 파일 데이터를 추가하고 있습니다.
+                    }
 
-                	  for (var i = 0; i < files.length ; i++) {
-                		  console.log(files.length);
-                	    formData.append('image', files[i]);
-                	  }
 
-                	  $.ajax({
-                	    url: '/board/uploadImage',
-                	    type: 'POST',
-                	    data: formData, //FormData 객체로 만들면 일반적인 텍스트 필드뿐만 아니라 파일 업로드 필드와 같은 복잡한 데이터도 쉽게 처리가능
-                	    contentType: false,
-                	    processData: false,
-                	    success: function(resp) {
+                    $.ajax({
+                        url: "/board/uploadImage",
+                        type: 'POST',
+                        data: formData, //FormData 객체로 만들면 일반적인 텍스트 필드뿐만 아니라 파일 업로드 필드와 같은 복잡한 데이터도 쉽게 처리가능
+                        contentType: false,
+                        processData: false,
+                    }).done(function (resp) {
+
+                        if (resp != null) {
+
                             alert('이미지 업로드에 성공했습니다.');
-                            var imageUrls = resp.map(function(obj) {
-                                return obj.url;
-                            });
 
+                            $('#info input[name="realPath"]').val(resp[0].realPath);
+
+                            var imageUrls = [];
+                            var sysNames = [];
+                            var oriNames = [];
+
+
+                            // resp 배열에서 이미지 URL을 추출하여 imageUrls 배열에 저장합니다
+                            for (var i = 0; i < resp.length; i++) {
+                                console.log(resp[i]);
+                                imageUrls.push(resp[i].url);
+                                oriNames.push(resp[i].oriName);
+                                sysNames.push(resp[i].sysName);
+                            }
+
+                            // imageUrls 배열의 각 이미지 URL을 사용하여 미리보기 이미지를 생성하고 에디터에 삽입합니다.
                             for (var i = 0; i < imageUrls.length; i++) {
                                 var imageUrl = imageUrls[i];
                                 var $preview = $('<img src="' + imageUrl + '">');
-
                                 $('#content').summernote('editor.insertNode', $preview[0]);
                             }
-                        },
-                        error: function() {
+
+
+                            for (var i = 0; i < oriNames.length; i++) {
+                                var oriName = oriNames[i];
+                                var sysName = sysNames[i];
+
+                                console.log(oriName);
+                                console.log(sysName);
+
+                                // Set the oriName and sysName values as input tag values
+                                $('#info input[name="oriName"]').val(oriNames.join(','));
+                                $('#info input[name="sysName"]').val(sysNames.join(','));
+
+                            }
+
+                          
+                        } else {
                             alert('이미지 업로드에 실패했습니다.');
                         }
                     });
+
                 }
+
+                $("#frm").on("submit", function () {
+                    if ($("#title").val() == "" || $("#title").val().trim() == "") {
+                        alert("제목을 작성해주세요.");
+                        return false;
+                    } else if ($('#content').val() == "") {
+                        alert("내용을 입력해주세요.");
+                        return false;
+                    }
+                })
             </script>
 
         </body>

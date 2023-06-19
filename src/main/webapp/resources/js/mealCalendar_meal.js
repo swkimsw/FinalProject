@@ -1,15 +1,19 @@
-                //const myModal = document.getElementById('mealModalToggle');
+//const myModal = document.getElementById('mealModalToggle');
 
                 //식단 박스 클릭 이벤트
                 let selectBox;
+                let preMeals; //열때 리스트
+                let postMeals; //닫을때 리스트
                 $(".meal-box").on("click", function () {
                     //우선 modal창에 입력된 input 전부 삭제
                     $(".meal-name").val("");
 
                     //입력 위치 지정
-                    selectBox = $(this);
+                    //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
+                    let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
+                    selectBox = $(parentClass).children();
 
-                    //이미 등록된 식단이 있는 경우 input 태그 안에 넣기
+                    //이미 값이 존재할 경우 input 태그에 넣어주기
                     if (selectBox.html()) {   
                         let meals = this.innerText.split("\n");
                         let inputMeals = document.getElementsByClassName("meal-name");
@@ -25,14 +29,13 @@
 
                     //외식 버튼 클릭 이벤트
                     $("#eatingOut").on("click", function () {
-                        console.log(selectBox);
-                        selectBox.html("외식");
+                        selectBox.html("외식<br>");
                         $("#closeModal").click();
                     });
 
                     //배달 버튼 클릭 이벤트
                     $("#delivery").on("click", function () {
-                        selectBox.html("배달");
+                        selectBox.html("배달<br>");
                         $("#closeModal").click();
                     });
 
@@ -59,6 +62,18 @@
                         let meals = $(".meal-name");
                         //DB에 실제로 저장하기 기능 추가해야 함
                         //insert, update, delete 
+                        //modal 열때 초기 meal list 저장
+                        //저장하기 눌렀을 때 meal list 저장
+                        //두 list의 요소를 하나씩 비교해서
+                        //없던게 생겼으면 insert
+                        //있던게 바뀌었으면 update
+                        //있던게 사라졌으면 delete
+
+                        $.ajax({
+
+                        }).done(function(){
+
+                        });
 
                         for (let i = 0; i < meals.length; i++) {
                             if (meals.get(i).value) {

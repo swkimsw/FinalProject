@@ -1,6 +1,10 @@
 package cc.spring.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +19,8 @@ import cc.spring.dto.FileDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
+import cc.spring.dto.ShopReplyAskDTO;
+import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
 
 @Controller
@@ -23,6 +29,9 @@ public class ShopController {
 
 	@Autowired
 	private ShopService shopService;
+	
+	@Autowired
+	private ShopReplyService replyService;
 
 	@Autowired
 	private HttpSession session;
@@ -68,9 +77,13 @@ public class ShopController {
 		// 선택한 공구샵 이미지 가져오기
 		List<FileDTO> fileDTO = shopService.selectShopImg(code);
 		
+		// 선택한 공구샵 댓글 목록 가져오기
+		List<ShopReplyAskDTO> shopReplyAskDTO = replyService.selectShopReply(code);
+		
 		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
+		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
 		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}
@@ -91,9 +104,31 @@ public class ShopController {
  	
  	//공구 목록으로 이동
  	 	@RequestMapping("toShopList")
- 		public String toShopList(Model model) {
+ 		public String toShopList(Model model) throws Exception{
  	 		List<ShopListDTO> list = shopService.shopList();
  	 		System.out.println(list);
+ 	 		
+ 	 		Map< ShopListDTO, Integer> dDayMap = new HashMap<>();
+ 	 		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
+ 	 		for(ShopListDTO d : list) {
+ 	 			String deadLineFmt = dateFmt.format(d.getDeadLine());
+ 	 			String todayFmt = dateFmt.format(new Date(System.currentTimeMillis()));
+ 	 			System.out.println("여긴 데이트포맷"+ deadLineFmt + "/" + todayFmt);
+ 	 			
+ 	 			Date deadLine = new Date(dateFmt.parse(deadLineFmt).getTime());
+ 	 			Date today = new Date(dateFmt.parse(todayFmt).getTime());
+ 	 			System.out.println("여긴 데이트타임"+ deadLine + "/" + today);
+ 	 			
+ 	 			long calculate = deadLine.getTime() - today.getTime();
+ 	 			System.out.println(calculate);
+ 	 			
+ 	 			int dDay = (int)(calculate / (24*62*62*1000));
+ 	 			System.out.println("디데이는" + dDay);
+ 	 			
+ 	 			d.setdDay(dDay);
+ 	 			dDayMap.put(d, dDay);
+ 	 		}
+ 	 		
  	 		model.addAttribute("list",list);
  			return "/shop/shopList";
  		}
