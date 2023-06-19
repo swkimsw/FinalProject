@@ -124,29 +124,28 @@
 					<label class="form-check-label" for="dinner">저녁</label>
 				</div>
 			</div>
-            <br>
 			<!-- 비건, 다이어트 -->
 			<div class="d-flex justify-content-center">
 				<p class="mx-3">식단 유형 :</p>
 				<div class="form-check form-check-inline">
+<<<<<<< HEAD
 					<input class="form-check-input" type="radio" id="general" name="special" value="1000" checked>
 					<label class="form-check-label" for="general">없음</label>
 				</div>
 				<div class="form-check form-check-inline">
+=======
+>>>>>>> 55b6ef8ed3f45e1f5c201c77779859a04fc5d117
 					<input class="form-check-input" type="radio" id="vigan" name="special" value="1001">
 					<label class="form-check-label" for="vigan">비건</label>
 				</div>
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="radio" id="diet" name="special" value="1002">
 					<label class="form-check-label" for="diet">다이어트</label>
-					</div>
 				</div>
 				<div class="form-check form-check-inline">
 					<input class="form-check-input" type="radio" id="viganDiet" name="special" value="1003">
 					<label class="form-check-label" for="viganDiet">비건 다이어트</label>
-					</div>
 				</div>
-				<br>
 				<div class="d-flex justify-content-center">
 					<button type="button" id="sendBtn" class="btn btn-success btn-rounded">식단생성</button>
 				</div>
@@ -506,6 +505,7 @@
 <script type="text/javascript">
 
 	var timeArr = [];
+	var timeStr = "";
 	var special; 
 	var dayTime;
 	var todate;
@@ -521,7 +521,7 @@
 
         return date.getFullYear() + '-' + month + '-' + day;
 	}	
-	
+
 	$("#sendBtn").on("click", function() {
 		timeArr = [];
 		$("input[type=checkbox][name=time]:checked").each(function(i) {
@@ -529,9 +529,11 @@
 		});
 		timeStr = timeArr.join(',');
 		timeArrLength = timeArr.length;
+
 		special = $("input[name=special]:checked").val();
 		dayTime = $("select[name=dayTime]").val();
 		console.log("dayTime--> "+ dayTime);
+
 		$.ajax({
 			url : "/meal/aiMeal",
 			type : "post",
@@ -540,11 +542,12 @@
 				special : special,
 				timeStr : timeStr,
 				timeArrLength : timeArrLength
+
 			},
 			beforeSend : function() {
 				$(".spinner-border").css({
 					"display" : "block"
-						});
+					});
 						$(".main").css({
 							"display" : "none"
 						});
@@ -611,6 +614,5 @@
 					
 					alert("생성 성공~!");
 				});
-			});
 </script>
 </html>

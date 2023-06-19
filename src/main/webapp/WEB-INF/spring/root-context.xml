@@ -43,6 +43,7 @@
 	</bean>
 
 
+<<<<<<< HEAD
 	<tx:annotation-driven />
 
 	<context:component-scan
@@ -62,10 +63,13 @@
 				<value>classpath:/meal/meal.properties</value>
 			</list>
 		</property>
+
 	</bean>
 	<bean class="java.net.http.HttpClient"
 		factory-method="newHttpClient">
 	</bean>
 
 	<bean class="com.google.gson.Gson"></bean>
+	
+
 </beans>
