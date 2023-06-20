@@ -30,7 +30,7 @@ public class ClientMemberService {
 	@Transactional
 	public int insertClient(ClientMemberDTO dto) {
 	    int clientmemberSeq = cdao.insertClient(dto);
-	    int result = cdao.insertTotal(clientmemberSeq);
+	    int result = cdao.totalInsertClient(clientmemberSeq);
 	    return result;
 	}
 	
