@@ -34,7 +34,7 @@
 
 	<update id="updateShop">
 		update groupbuying set
-		deadLine=#{deadLine},max=${max},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice}
+		deadLine=#{deadLine},max=${max},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice}, moddate=sysdate
 		where code=${code}
 	</update>
 
