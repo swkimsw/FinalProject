@@ -118,7 +118,6 @@ public class ShopController {
  	//공구 목록으로 이동
  	 	@RequestMapping("toShopList")
  		public String toShopList(@RequestParam(name="status",required=false,defaultValue="") String status, Model model) throws Exception{
- 	 		System.out.println("status는 " + status);
  	 		List<ShopListDTO> list = new ArrayList<ShopListDTO>();
  	 			
  	 		if(status.equals("closed")){
@@ -148,8 +147,13 @@ public class ShopController {
  	 			d.setdDay(dDay);
  	 			dDayMap.put(d, dDay);
  	 		}
- 	 		//상품정보, 이미지정보, 디데이 
+ 	 		//상품정보, 이미지정보, 디데이 전송
  	 		model.addAttribute("list",list);
+ 	 		
+ 	 		//사업자회원 공구등록 버튼 유무
+ 	 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");;
+ 	 		model.addAttribute("authGradeCode",authGradeCode);
+ 	 		
  			return "/shop/shopList";
  		}
  	 

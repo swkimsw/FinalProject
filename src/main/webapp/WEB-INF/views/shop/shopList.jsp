@@ -102,9 +102,11 @@ body {
 				        			<li class="nav-item">
 				          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=closed">마감된 공구</a>
 						        	</li>
-						        	<li class="nav-item">
-				          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopRegister">공구 등록</a>
-						        	</li>
+						        	<c:if test="${authGradeCode == 1002}">
+							        	<li class="nav-item">
+					          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopRegister">공구 등록</a>
+							        	</li>
+						        	</c:if>
 						    	</ul>
 						    </div>	
 					    	<div class="input-group searchGroup">
