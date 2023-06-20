@@ -70,7 +70,7 @@ public class ChatGPTProvider {
 		
 		System.out.println("PROVIDER: ");
 		System.out.println(content);
-		
+		///sdfasdfasd
 		return content;
 	}
 	
