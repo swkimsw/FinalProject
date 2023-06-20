@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="MyPage">
+	
+	<select id="clientCode" resultType="int">
+	select code from CLIENTMEMBER where id=#{id};
+	</select>
+	
+	
+	<select id="freeBoard" resultType="cc.spring.dto.BoardFreeDTO">
+<!-- 	SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=#{code}); -->
+SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=${code})
+	</select>
+	
+	</mapper>
