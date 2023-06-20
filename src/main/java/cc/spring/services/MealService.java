@@ -1,12 +1,19 @@
 package cc.spring.services;
 
 import java.sql.Timestamp;
+<<<<<<< HEAD
+import java.text.SimpleDateFormat;
+=======
+>>>>>>> 55b6ef8ed3f45e1f5c201c77779859a04fc5d117
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+<<<<<<< HEAD
+=======
 import java.util.Map;
+>>>>>>> 55b6ef8ed3f45e1f5c201c77779859a04fc5d117
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,15 +42,58 @@ public class MealService {
 	@Value("${aa}")
 	private String chatGptApiKey;
 	
+	@Value("#{${SPECIAL-VALUES}}")
+	private Map<Integer, String> specialValues;
+	
 	// content 까지는 provider에서 가공해서 가져오고 그뒤는 service에서 각자 가공하기
 	// 식단 추출 기능
-	public void makeMeal(int dayTime) throws Exception {
-		// msg 보내지 말고 값을 name 값으로 다 받아와서 여기서 문자열 출력
-		System.out.println(chatGptApiKey);
-//		System.out.println(specialMap);
-//		String sendMsg = dayTime + "일치" + specialMap.get(special) + " 식단" + timeStr + "만 JSON데이터로 짜줘";
-//		JsonObject content = GPTprovider.makeMeal(sendMsg);
+<<<<<<< HEAD
+	public List<MealDTO> makeMeal(int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
 		
+		String sendMsg = dayTime + "일치" + specialValues.get(special) + " 식단" + timeStr + "만 JSON데이터로 짜줘";
+		JsonObject content = GPTprovider.makeMeal(sendMsg);
+		System.out.println(sendMsg);
+		
+		List<MealDTO> result = new ArrayList<>();
+		
+		// Calendar 데이터를 년,월,일 만 추출
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String mealDate; 
+		
+
+		for(int i = 0; i < dayTime; i++) {
+			mealDate = format.format(cal.getTime());
+			System.out.println(dayTime);
+
+			JsonObject day = content.get("day"+(i+1)).getAsJsonObject();
+//			System.out.println("day"+(i+1));
+			
+			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
+//			System.out.println(Arrays.toString(dto.getBreakfast()));
+			
+			System.out.println("timeArrLength--> "+timeArrLength);
+			for(int x = 0; x < timeArrLength; x++) {
+				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
+					for(int j = 0; j < dto.getBreakfast().length; j++) {
+						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));
+					}
+				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("lunch") && dto.getLunch() != null) {
+					for(int j = 0; j < dto.getLunch().length; j++) {
+						result.add(new MealDTO(0, 0, mealDate, 1002, dto.getLunch()[j]));
+					}
+				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("dinner") && dto.getDinner() != null) {
+					for(int j = 0; j < dto.getDinner().length; j++) {
+						result.add(new MealDTO(0, 0, mealDate, 1003, dto.getDinner()[j]));
+					}
+				}
+			}
+			cal.add(Calendar.DATE, 1);	
+		}
+		
+		
+		return result;
 
 	}
 
