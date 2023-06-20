@@ -43,7 +43,7 @@ public class ClientMemberDAO {
 		return dto.getCode();
 	}
 	
-	public int insertTotal(int clientmemberSeq) {
+	public int totalInsertClient(int clientmemberSeq) {
 		TotalMemberDTO dto = new TotalMemberDTO(0, clientmemberSeq, 0, 1003);
 		return mybatis.insert("Client.totalInsert",dto);
 	}
