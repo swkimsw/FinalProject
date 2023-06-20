@@ -50,23 +50,29 @@ body {
 .container {
 	margin-top: 100px;
 }
-
-.searchInput{
-	height:60px;
+.searchGroup{
+	position:relative;
+	width:100%;
+}
+.searchGroup{
+	height:70px;
+}
+.searchGroup > .inputGroup > .searchInput{
+	height:80px;
+	max-width:300px;
+	min-width: 50px;
 }
 
-.searchIcon{
+.searchGroup > .searchIcon{
 	position: absolute;
-	top:26px;
-	left:35px;
+	top:50px;
+	left:100px;
 	z-index:5;
 }
-.radio{
-	position:absolute;
-	z-index:5;
-	top: 2px;
-	left:50px;	
+.form-check{
+	
 }
+
 
 </style>
 </head>
@@ -85,27 +91,29 @@ body {
 	   					</button>
 	  					
 	    				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-			      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-			      				<li class="nav-item">
-			          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList">공구 모아보기</a>
-			        			</li>
-			       				<li class="nav-item">
-			          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=open">진행중인 공구</a>
-			        			</li>
-			        			<li class="nav-item">
-			          				<a class="nav-link active" onclick="activeChange()" href="/shop/toShopList?status=closed">마감된 공구</a>
-					        	</li>
-					        	<li class="nav-item">
-			          				<a class="nav-link active" onclick="activeChange()" href="/shop/toShopRegister">공구 등록</a>
-					        	</li>
-					    	</ul>
-					    	<div class="searchGroup" style="position:relative;width:50%;">
-						    	<div class="radio">
-			      					<input type="radio" value="productName" name="category" checked>  상품명  | 
-						 			<input type="radio" value="companyName" name="category"> 판매자명  
-			        				<i class='bi bi-search searchIcon'></i>
-			        				<input class="form-control ps-5 pt-4 searchInput" onkeypress="if(event.keyCode == 13 ){getSearchList()}" type="search" id="keyword" name="searchByKeyword" placeholder="검색어를 입력해주세요." maxlength="25">
-			        			</div>
+	    					<div class="linkGroup" style="position:relative;width:100%;">
+				      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				      				<li class="nav-item">
+				          				<a class="nav-link active fs-5" onclick="activeChange()" href="/shop/toShopList">공구 모아보기</a>
+				        			</li>
+				       				<li class="nav-item">
+				          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=open">진행중인 공구</a>
+				        			</li>
+				        			<li class="nav-item">
+				          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=closed">마감된 공구</a>
+						        	</li>
+						        	<li class="nav-item">
+				          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopRegister">공구 등록</a>
+						        	</li>
+						    	</ul>
+						    </div>	
+					    	<div class="input-group searchGroup">
+					    		<div class="input-group-text radioGroup" >
+			      					<input class="form-check-input mt-0" type="radio" value="productName" name="category" id="productNameRadio" checked>상품명<br>
+						 			<input class="form-check-input mt-0" type="radio" value="companyName" name="category" id="companyNameRadio"> 판매자명<br>
+						 		</div>
+						 		<i class='bi bi-search searchIcon'></i>
+			        			<input class="form-control searchInput" onkeypress="if(event.keyCode == 13 ){getSearchList()}" type="search" id="keyword" name="searchByKeyword" placeholder="검색어를 입력해주세요." maxlength="20">
 			        		</div>	
 	    				</div>
 	  				</div>
