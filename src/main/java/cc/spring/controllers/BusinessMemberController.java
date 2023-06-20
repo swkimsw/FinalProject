@@ -45,7 +45,8 @@ public class BusinessMemberController {
 				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 				BusinessMemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
 				
-				session.setAttribute("id",bmd.getBusinessId());
+				session.setAttribute("code", bmd.getCode());
+				session.setAttribute("businessId",bmd.getBusinessId());
 				session.setAttribute("companyName",bmd.getCompanyName());
 				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
 				System.out.println("로그인 실행!");
@@ -118,8 +119,15 @@ public class BusinessMemberController {
 			bms.updatePwBusiness(dto);
 		}
 		
+		// 로그아웃
+		@RequestMapping("logout")
+		public String logout() {
+			session.invalidate();
+			System.out.println("로그아웃");
+			return "redirect:/";
+		}
 		
-		
+			
 
 		// 비즈니스 회원가입 창으로 이동
 		@RequestMapping("sign_form")
