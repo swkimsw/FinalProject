@@ -60,10 +60,10 @@ public class ShopController {
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
 		// 세션에서 ID 받아오게 수정
-		//String loginId = "1112254";
-		//int authgradeCode = 1002;
-		String loginId = "aaa";
-		int authgradeCode = 1003;
+		String loginId = "1112254";
+		int authgradeCode = 1002;
+		//String loginId = "aaa";
+		//int authgradeCode = 1003;
 		
 		// 판매자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1002) {

@@ -16,4 +16,8 @@
 		update groupbuyingask set content=#{content} where code=${code}
 	</update>
 	
+	<delete id="deleteReplyAsk">
+		delete from groupbuyingask where code=${code}
+	</delete>
+	
 </mapper>

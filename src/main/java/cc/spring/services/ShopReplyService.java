@@ -29,4 +29,9 @@ public class ShopReplyService {
 		return shopReplyDAO.updateReplyAsk(dto);
 	}
 	
+	// 댓글 delete
+	public int deleteReplyAsk(ShopReplyAskDTO dto) {
+		return shopReplyDAO.deleteReplyAsk(dto);
+	}
+	
 }
