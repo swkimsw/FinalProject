@@ -178,34 +178,60 @@
 		<hr class="solidHr">
 		<!-- 여기부터 댓글 -->
 		<!-- 댓글 등록 -->
-		<form action="/shop/insertReplyAsk" method="post">
-			<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-				<div class="mb-3">
-  					<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${loginId}</label>
-					<div class="reply">
- 						 <textarea class="form-control" id="insertReply" name="insertReply" rows="3"></textarea>
- 						 <div>
- 						 	<button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
- 						 </div>
+		<c:choose>
+			<c:when test="${authgradeCode == 1003}">
+				<!-- 이용자인 경우 -->
+				<form action="/shopReply/insertReplyAsk" method="post">
+					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+						<div class="mb-3">
+							<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
+							<input type="hidden" id="clientCode" name="clientCode" value="${clientCode}">
+  							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${loginId}</label>
+							<div class="reply">
+ 						 		<textarea class="form-control" id="insertReply" name="content" rows="3"></textarea>
+ 								<div>
+ 						 			<button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
+ 						 		</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</c:when>
+			<c:otherwise>
+				<!-- 판매자인 경우 댓글 작성 못하도록 -->
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+					<div class="mb-3">
+  						<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${loginId}</label>
+						<div class="reply">
+ 						 	<textarea class="form-control" id="insertReply" name="content" rows="3" readonly></textarea>
+ 							<div>
+ 						 		<button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
+ 						 	</div>
+						</div>
 					</div>
 				</div>
-			</div>
-		</form>
+			</c:otherwise>
+		</c:choose>
+		
 		<hr class="dashedHr">
 		<!-- 댓글 리스트 -->
 		<c:forEach var="i" items="${shopReplyAskDTO}">
 			<c:choose>
 				<c:when test="${i.clientCode == clientCode}">
-					<form action="" method="post">
+					<form action="/shopReply/updateReplyAsk" method="post">
 						<!-- 본인이 작성한 댓글인 경우 -->
 						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
+								<input type="hidden" name="code" value="${i.code}">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
- 									<textarea class="selectReply form-control" rows="3"></textarea>
- 									<div class="replyBtns">
- 										<button id="" class="selectReplyBtn btn btn-primary btn-sm">수정</button>
- 										<button id="" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
+ 									<div id="replyBtns${i.code}" class="replyBtns">
+ 										<button type="button" id="updateReplyBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyClick(${i.code})">수정</button>
+ 										<a href="/shopReply/deleteReplyAsk?code=${i.code}&postCode=${shopDTO.code}">
+ 											<button type="button" id="deleteReplyBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 										</a>
  									</div>
 								</div>
 							</div>
@@ -213,27 +239,29 @@
 					</form>
 				</c:when>
 				<c:when test="${shopDTO.businessCode == businessCode}">
-					<!-- <form action="/shop/insertReplyAnswer" method="post"> -->
+					<form action="/shopReply/insertReplyAnswer" method="post">
 						<!-- 판매자인 경우 -->
 						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
+								<input type="hidden" name="askCode" value="${i.code}">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
- 									<textarea class="selectReply form-control" rows="3"></textarea>
+ 									<textarea class="selectReply form-control" rows="3" readonly>${i.content}</textarea>
  									<div>
  										<button type="button" id="" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
  									</div>
 								</div>
 							</div>
 						</div>
-					<!--  </form>-->
+					</form>
 				</c:when>
 				<c:otherwise>
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="mb-3">
   							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 							<div class="reply">
- 								<textarea class="form-control" rows="3"></textarea>
+ 								<textarea class="form-control" rows="3" readonly>${i.content}</textarea>
 							</div>
 						</div>
 					</div>
@@ -301,6 +329,28 @@
 			
 			$("#businessReplyAsk"+code).append(row);		
 		}
+		
+		// 자신이 쓴 댓글 수정 버튼 눌렀을 때
+		function updateReplyClick(code){
+			$("#replyAskContent"+code).removeAttr("readonly");
+			$("#updateReplyBtn"+code).css("display", "none");
+			$("#deleteReplyBtn"+code).css("display", "none");
+			
+			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-primary btn-sm'>");
+			updateReplyComplete.text("수정 완료");
+			
+			let cancel = $("<button type='button' class='selectReplyBtn btn btn-primary btn-sm'>");
+			cancel.text("취소");
+			cancel.on("click", function(){
+				location.reload();
+			})
+			
+			$("#replyBtns"+code).append(updateReplyComplete);
+			$("#replyBtns"+code).append(cancel);
+		}
+		
+		
+		
 		
 	</script>
 </body>

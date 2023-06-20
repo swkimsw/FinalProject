@@ -50,7 +50,7 @@ public class ShopController {
 			return "redirect:/";
 		}
 		// 판매자인 경우 businessCode 구해오기
-		int businessCode = shopService.isBusinessMemberCode(loginId);
+		int businessCode = 1; // 세션에서 받도록 수정
 		
 		model.addAttribute("businessCode", businessCode);
 		return "/shop/shopRegister";
@@ -62,6 +62,8 @@ public class ShopController {
 		// 세션에서 ID 받아오게 수정
 		String loginId = "1112254";
 		int authgradeCode = 1002;
+		//String loginId = "aaa";
+		//int authgradeCode = 1003;
 		
 		// 판매자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1002) {
@@ -73,7 +75,7 @@ public class ShopController {
 		
 		// 일반 사용자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1003) {
-			int clientCode = shopService.isClientMemberCode(loginId);
+			int clientCode = 1; // 세션에서 받도록 수정
 			model.addAttribute("clientCode", clientCode);
 		}else {
 			model.addAttribute("clientCode", 0);			
