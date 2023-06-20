@@ -220,9 +220,11 @@ public class ClientMemberController {
 		// 받은 생년월일 합치기
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
 		dto.setBirthDate(birthDate);
+		System.out.println("에러2");
 		// 비밀번호 암호화
 		String shaPw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(shaPw);
+		System.out.println("에러3");
 		// 일반회원 가입 시 authgradecode 1003 삽입
 		dto.setAuthGradeCode(1003);
 		
