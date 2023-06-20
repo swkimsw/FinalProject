@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.BusinessMemberDTO;
 import cc.spring.dto.ClientMemberDTO;
+import cc.spring.dto.TotalMemberDTO;
 
 @Repository
 public class BusinessMemberDAO {
@@ -40,7 +41,13 @@ public class BusinessMemberDAO {
 	}
 	
 	public int insertBusiness(BusinessMemberDTO dto) {
-		return mybatis.insert("Business.insert",dto);
+		mybatis.insert("Business.insert",dto);
+		return dto.getCode();
+	}
+	
+	public int totalInsertBusiness(int businessmemberSeq) {
+		TotalMemberDTO dto = new TotalMemberDTO(0, 0, businessmemberSeq, 1002);
+		return mybatis.insert("Business.totalInsert",dto);
 	}
 	
 	public int updatePw(BusinessMemberDTO dto) {
