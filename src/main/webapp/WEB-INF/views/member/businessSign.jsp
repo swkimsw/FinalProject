@@ -153,7 +153,7 @@ label {
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential" style="font-size: x-small;">*&nbsp;</span>
-										<label for="member_id" style="font-size: x-small;">은 필수로 입력해주세요.</label>
+										<label for="B_businessId" style="font-size: x-small;">은 필수로 입력해주세요.</label>
 									</div>
 								</div>
 							</div>
@@ -165,19 +165,19 @@ label {
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="member_id">사업자등록번호</label>
+										<label for="B_businessId">사업자등록번호</label>
 									</div>
 								</div>
 								<!-- 아이디 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_id" name="id" onkeyup="checksum(this, 'A');" pattern="^[a-z](?=.*[0-9])[0-9a-z]{4,19}$" title="영소문자와 숫자 포함 5자 이상 20자 이하" maxlength="20" required>
+										<input type="text" class="form-control" id="B_businessId" name="businessId" onkeyup="checksum(this, 'A');" pattern="^[0-9]{10}$" minlength="1" oninput="validateInput(event)" title="숫자 10자리" maxlength="10" required>
 									</div>
 								</div>
 								<!-- 아이디 중복 & 정규식 확인 메세지 -->
 								<div class="row checking">
 									<div class="col-12">
-										<h9 id="member_id_checking" style="font-size:x-small;"></h9>
+										<h9 id="B_businessId_checking" style="font-size:x-small;"></h9>
 									</div>
 								</div>
 							</div>
@@ -189,7 +189,7 @@ label {
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="member_id">비밀번호</label>
+										<label for="member_pw">비밀번호</label>
 									</div>
 								</div>
 								<!-- 비밀번호 보기 & 숨기기 버튼 -->
@@ -262,7 +262,7 @@ label {
 								<!-- 이름 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_name" name="name" onkeyup="checksum(this, 'R');" pattern="^[가-힣]{2,5}$" title="2자 이상 5자 이내의 한글" minlength="2" maxlength="5" required>
+										<input type="text" class="form-control" id="member_name" name="name" onkeyup="checksum(this, 'R');" pattern="^[가-힣]{2,5}$" title="2자 이상 5자 이내의 한글" minlength="2" maxlength="4" required>
 									</div>
 								</div>
 								<!-- 이름 정규식 확인 메세지 -->
@@ -273,26 +273,26 @@ label {
 								</div>
 							</div>
 						</div>
-						<!-- 닉네임 -->
+						<!-- 사업장명 -->
 						<div class="row insert">
 							<div class="col-10 ">
-								<!-- 닉네임 타이틀 -->
+								<!-- 사업장명 타이틀 -->
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="member_nickname">사업자명</label>
+										<label for="companyname">사업장명</label>
 									</div>
 								</div>
-								<!-- 닉네임 입력창 -->
+								<!-- 사업장명 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_nickname" name="nickName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{2,10}$" title="2자 이상 10자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="2" maxlength="10" required>
+										<input type="text" class="form-control" id="B_companyname" name="companyName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{1,30}$" title="1자 이상 30자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="1" maxlength="30" required>
 									</div>
 								</div>
 								<!-- 닉네임 중복 & 정규식 확인 메세지 -->
 								<div class="row checking">
 									<div class="col-12">
-										<h9 id="member_nickname_checking" style="font-size:x-small;"></h9>
+										<h9 id="B_companyname_checking" style="font-size:x-small;"></h9>
 									</div>
 								</div>
 							</div>
@@ -471,7 +471,7 @@ label {
 								<button class="btn btn-secondary" id="join" style="background-color: #76b852;">가입하기</button>
 							</div>
 							<div class="col-auto d-flex justify-content-start">
-								<a href="/clientMember/login_form"">
+								<a href="/businessMember/login_form"">
 									<button class="btn btn-secondary" type="button" id="back" style="background-color: #76b852;">뒤로가기</button>
 								</a>
 							</div>
@@ -482,6 +482,15 @@ label {
 		</div>
 	</div>
 	<script type="text/javascript">
+	
+	// 사업자 아이디 입력칸 숫자만 입력되게 해주는 정규식이벤트입니다.
+	function validateInput(event) {
+        var input = event.target;
+        var regex = /[^0-9]/g;
+        input.value = input.value.replace(regex, '');
+    }
+	
+	
 		$("#member_phone").on("keydown", function () {
 			$("#phone_auth").attr("disabled", true);
 			$("#phone_auth_code").attr("readonly", true);
@@ -506,6 +515,7 @@ label {
 				valid.set(id, false);
 				return false;
 			} else {
+				$("#" + id + "_checking").html("사용가능").css("color", "#198754");
 				valid.set(id, true);
 			}
 			// 중복체크 여부 확인
@@ -717,7 +727,7 @@ label {
 					clearInterval(this.timer);
 					alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
 					$.ajax({
-						url : "/clientMember/removeSession"
+						url : "/businessMember/removeSession"
 					})
 					$("#phone_auth").attr("disabled", false);
 					$("#timeLimit").text("");
@@ -890,7 +900,7 @@ label {
 		document.addEventListener("DOMContentLoaded", function() {
 			  var password_check = document.getElementById("password_check");
 			  var member_name = document.getElementById("member_name");
-			  var member_nickname = document.getElementById("member_nickname");
+			  var companyname = document.getElementById("companyname");
 			  var member_phone = document.getElementById("member_phone");
 			  var phone_auth_code = document.getElementById("phone_auth_code");
 			  var sample6_postcode = document.getElementById("sample6_postcode");
@@ -902,8 +912,8 @@ label {
 			    password_check.focus();
 			  } else if (member_name.value === "") {
 			    member_name.focus();
-			  } else if (member_nickname.value === "") {
-			    member_nickname.focus();
+			  } else if (companyname.value === "") {
+			    companyname.focus();
 			  } else if (member_phone.value === "") {
 			    member_phone.focus();
 			  } else if (phone_auth_code.value === "") {
@@ -941,17 +951,17 @@ console.log("실패")
 		<div class="wrapper welcome" id="welcome_fadein">
 			<div class="row">
 				<div class="col d-flex justify-content-center">
-					<div>${clientName}님</div>
+					<div>${businessName}님</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col d-flex justify-content-center mb-3">
-					<div>KickKick에 오신걸 환영합니다.</div>
+					<div>CookCook에 오신걸 환영합니다.</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col d-flex justify-content-center">
-					<button type="button" class="btn btn-success" onclick="location.href = '/clientMember/login_form'">로그인하러가기</button>
+					<button type="button" class="btn btn-success" onclick="location.href = '/businessMember/login_form'">로그인하러가기</button>
 				</div>
 			</div>
 		</div>

@@ -17,7 +17,17 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
 	*{font-family: 'NanumSquareNeo';}
-	.container{width: 70%; margin-top:100px;}\
+	.container{width: 70%; margin-top:100px;}
+	.solidHr{margin-left:auto;}
+	.dashedHr{width:80%; margin-left:10%; border-top:dashed;}
+	.reply{display:flex;}
+	#insertReply{margin-right:5%;}
+	#insertReplyBtn{width:100px; height:40px; margin-top:20px;}
+	.replyBtns{width:100px;}
+	.selectReply{margin-right:5%;}
+	.selectReplyAnswer{margin-left: 3%; margin-right:5%;}
+	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
+	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
 </style>
 </head>
 <body>
@@ -26,17 +36,15 @@
 		</c:import>
 	</header>
 	<main>
-	<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
-		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+	<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+		<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
 
 			<div class="images">
 				<div id="carouselExampleIndicators" class="carousel slide mb-3">
   					<div class="carousel-indicators">
   						<c:forEach var="i" items="${fileDTO}">
-  							<div class="carousel-item active">
-      							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
-    						</div>
+  							
   						</c:forEach>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -48,7 +56,6 @@
       							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
     						</div>
   						</c:forEach>
-      					<!-- <img src="..." class="d-block w-100" alt="...">  -->
   					</div>
   					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -167,9 +174,74 @@
 					</div>
 				</c:otherwise>
 			</c:choose>
-			<hr>
-		</div>
-	</form>
+		</form>
+		<hr class="solidHr">
+		<!-- 여기부터 댓글 -->
+		<!-- 댓글 등록 -->
+		<form action="/shop/insertReplyAsk" method="post">
+			<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+				<div class="mb-3">
+  					<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${loginId}</label>
+					<div class="reply">
+ 						 <textarea class="form-control" id="insertReply" name="insertReply" rows="3"></textarea>
+ 						 <div>
+ 						 	<button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
+ 						 </div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<hr class="dashedHr">
+		<!-- 댓글 리스트 -->
+		<c:forEach var="i" items="${shopReplyAskDTO}">
+			<c:choose>
+				<c:when test="${i.clientCode == clientCode}">
+					<form action="" method="post">
+						<!-- 본인이 작성한 댓글인 경우 -->
+						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+							<div class="mb-3">
+  								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
+								<div class="reply">
+ 									<textarea class="selectReply form-control" rows="3"></textarea>
+ 									<div class="replyBtns">
+ 										<button id="" class="selectReplyBtn btn btn-primary btn-sm">수정</button>
+ 										<button id="" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</c:when>
+				<c:when test="${shopDTO.businessCode == businessCode}">
+					<!-- <form action="/shop/insertReplyAnswer" method="post"> -->
+						<!-- 판매자인 경우 -->
+						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+							<div class="mb-3">
+  								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
+								<div class="reply">
+ 									<textarea class="selectReply form-control" rows="3"></textarea>
+ 									<div>
+ 										<button type="button" id="" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
+ 									</div>
+								</div>
+							</div>
+						</div>
+					<!--  </form>-->
+				</c:when>
+				<c:otherwise>
+					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+						<div class="mb-3">
+  							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
+							<div class="reply">
+ 								<textarea class="form-control" rows="3"></textarea>
+							</div>
+						</div>
+					</div>
+				</c:otherwise>
+			</c:choose>
+			<!-- 답글 -->
+		</c:forEach>
+	</div>
 	</main>
 	<script>
 		// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
@@ -181,10 +253,8 @@
 			$("#max").removeAttr("readonly");
 			$("#min").removeAttr("readonly");
 			$("#detail").removeAttr("readonly");
-			//$("#imageSelect").style = "float:none; margin: 0 auto;";
-			
-			//$("#imageSelect").setAttribute("style='float:none; margin: 0 auto;'");
-			//$("#imageSelect").style.cssText = "style='float:none; margin: 0 auto;'";
+			$("#imageSelect").removeAttr("style");
+			$("#imageSelect").attr("style", 'float:none; margin: 0 auto;');
 			$("#quantity").prop("readonly",true);
 			
 			$("#updateBtn, #deleteBtn, #back").css("display", "none");
@@ -203,13 +273,34 @@
 			$(".buttons").append(cancel);
 		})
 		
-		// 신청 버튼 클릭시
+		// 공구 신청 버튼 클릭시
 		$("#insertRequestBtn").on("click", function(){
 			let quantity = $("#quantity").val();
 			let code = $("#code").val();
 			let clientCode = ${clientCode};
 			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&clientCode="+clientCode;
 		})
+		
+		// 답글 달기 버튼 눌렀을 때
+		function viewInsertAnswer(code) {
+		
+			let row="";
+			row += '<div id="businessReplyAnswer'+code+'">';
+			row += '<div class="mb-3">';
+			// row += '<i class="fa-light fa-turn-down-right"></i>';
+			row += '<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>';
+			row += '&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>';
+			row += '<div class="reply" style="margin-left:5%;">';
+			row += '<textarea class="selectReplyAnswer form-control" rows="3"></textarea>';
+			row += '<div>';
+			row += '<button id="writeAnswerBtn" class="toWriteAnswerBtn btn btn-primary btn-sm">답글 등록</button>';
+			row += '</div>';
+			row += '</div>';
+			row += '</div>';
+			row += '</div>';
+			
+			$("#businessReplyAsk"+code).append(row);		
+		}
 		
 	</script>
 </body>

@@ -8,9 +8,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.BusinessMemberDTO;
@@ -25,21 +27,33 @@ public class BusinessMemberController {
 	
 	@Autowired
 	private BusinessMemberService bms;
+	
+	//  로그인 창으로 이동
+	@RequestMapping("login_form")
+	public String login_form() throws Exception {
+		return "member/clientLogin";
+	}
+	
 	//사업자 로그인
 		@RequestMapping("login")
-		public String login(BusinessMemberDTO dto) throws Exception {
-			System.out.println(dto);
+		public String login(BusinessMemberDTO dto, RedirectAttributes redir) throws Exception {
+			
 			String loginPw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(loginPw);
 			boolean result = bms.login(dto);
-			System.out.println(result);
 			if(result) {
-				session.setAttribute("loginID",dto.getBusinessId());
+				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+				BusinessMemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
+				
+				session.setAttribute("id",bmd.getBusinessId());
+				session.setAttribute("companyName",bmd.getCompanyName());
+				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
 				System.out.println("로그인 실행!");
-				return "home";
+				return "redirect:/";
 			}
 			System.out.println("로그인 실패!!");
-			return "error";
+			redir.addFlashAttribute("status","false2");
+			return "redirect:/businessMember/login_form";
 		}
 //		비밀번호 찾기할때 폰번호로 아이디값 받아오는 코드
 		@RequestMapping("getIdByPhone")
@@ -113,7 +127,7 @@ public class BusinessMemberController {
 			return "member/businessSign";
 		}
 		
-		// 회원가입 시 아이디 중복체크
+		// 회원가입 시 중복체크
 		@ResponseBody
 		@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 		public String checkId(String key, String value) throws Exception {
@@ -174,16 +188,29 @@ public class BusinessMemberController {
 		
 		// 회원가입 폼에서 입력한 값들 넘어옴
 		@RequestMapping("signup")
-		public String signup(BusinessMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception{
+		public String signup(BusinessMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
+			// 받은 생년월일 합치기
 			String birthDate = member_birth_year + member_birth_month + member_birth_day;
+			dto.setBirthDate(birthDate);
+			// 비밀번호 암호화
 			String shaPw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(shaPw);
-			dto.setBirthDate(birthDate);
-			System.out.println("가입약관확인 : " + dto.getAgree());
+			// 판매자회원 가입 시 authgradecode 1002 삽입
+			dto.setAuthGradeCode(1002);
+
 			
 			
-			bms.insertBusiness(dto);
-			return "redirect:login_form";
+			int result = bms.insertBusiness(dto);
+			if(result == 1) {
+				System.out.println(dto.getName());
+				m.addAttribute("businessName", dto.getName());
+				m.addAttribute("status", "complete");
+				return "member/businessSign";
+			}
+			else {
+				return "error";
+			}
+			
 		}
 		
 		
