@@ -20,7 +20,6 @@ import cc.spring.services.MealService;
 @Controller
 @RequestMapping("/meal/")
 public class MealController {
-//	mmmm
 	@Autowired
 	private MealService mService;
 	
@@ -36,7 +35,6 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-<<<<<<< HEAD
 	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
 		
 		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr, timeArrLength);
