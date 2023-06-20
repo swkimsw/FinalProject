@@ -226,7 +226,7 @@ public class ClientMemberController {
 		// 일반회원 가입 시 authgradecode 1003 삽입
 		dto.setAuthGradeCode(1003);
 		
-		
+
 		int result = cms.insertClient(dto);
 		if(result == 1) {
 			m.addAttribute("clientName", dto.getName());

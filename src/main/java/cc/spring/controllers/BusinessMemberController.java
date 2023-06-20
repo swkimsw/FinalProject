@@ -45,6 +45,7 @@ public class BusinessMemberController {
 				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 				BusinessMemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
 				
+				session.setAttribute("code", bmd.getCode());
 				session.setAttribute("businessId",bmd.getBusinessId());
 				session.setAttribute("companyName",bmd.getCompanyName());
 				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
