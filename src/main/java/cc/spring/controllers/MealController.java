@@ -36,11 +36,17 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public void aiMeal( int dayTime) throws Exception {
-		//, int special ,int timeArrLength, String timeStr
-//		List<MealDTO> result = mService.makeMeal(dayTime, special,timeArrLength, timeStr);
-	 mService.makeMeal(dayTime);
+<<<<<<< HEAD
+	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
 		
+		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr, timeArrLength);
+		
+		System.out.println("Controller: ");
+		System.out.println(result.toString());
+	    // ResponseEntity를 사용하여 결과 반환
+	    return ResponseEntity.status(HttpStatus.OK)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .body(result);
 	}
 	
 	@ExceptionHandler(Exception.class)
