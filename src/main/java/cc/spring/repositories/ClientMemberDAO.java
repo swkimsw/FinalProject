@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.ClientMemberDTO;
+import cc.spring.dto.TotalMemberDTO;
 @Repository
 public class ClientMemberDAO {
 	@Autowired
@@ -38,7 +39,13 @@ public class ClientMemberDAO {
 	}
 	
 	public int insertClient(ClientMemberDTO dto) {
-		return mybatis.insert("Client.insert",dto);
+		mybatis.insert("Client.insert",dto);
+		return dto.getCode();
+	}
+	
+	public int insertTotal(int clientmemberSeq) {
+		TotalMemberDTO dto = new TotalMemberDTO(0, clientmemberSeq, 0, 1003);
+		return mybatis.insert("Client.totalInsert",dto);
 	}
 	
 	public int updatePw(ClientMemberDTO dto) {
