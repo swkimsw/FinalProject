@@ -2,6 +2,8 @@ package cc.spring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.repositories.ClientMemberDAO;
@@ -25,8 +27,11 @@ public class ClientMemberService {
 		return cdao.phoneCheck(phone);
 	}
 	
+	@Transactional
 	public int insertClient(ClientMemberDTO dto) {
-		return cdao.insertClient(dto);
+	    int clientmemberSeq = cdao.insertClient(dto);
+	    int result = cdao.insertTotal(clientmemberSeq);
+	    return result;
 	}
 	
 	public int updatePw(ClientMemberDTO dto) {
