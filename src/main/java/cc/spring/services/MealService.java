@@ -54,23 +54,20 @@ public class MealService {
 //			System.out.println("day"+(i+1));
 			
 			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
-			int breakfastCount = dto.getBreakfast().length;
-			int lunchCount = dto.getLunch().length;
-			int dinnerCount = dto.getDinner().length;
 			
 			System.out.println("timeArrLength--> "+timeArrLength);
 			for(int x = 0; x < timeArrLength; x++) {
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
 					for(int j = 0; j < dto.getBreakfast().length; j++) {
-						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j], breakfastCount));
+						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));
 					}
 				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("lunch") && dto.getLunch() != null) {
 					for(int j = 0; j < dto.getLunch().length; j++) {
-						result.add(new MealDTO(0, 0, mealDate, 1002, dto.getLunch()[j], lunchCount));
+						result.add(new MealDTO(0, 0, mealDate, 1002, dto.getLunch()[j]));
 					}
 				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("dinner") && dto.getDinner() != null) {
 					for(int j = 0; j < dto.getDinner().length; j++) {
-						result.add(new MealDTO(0, 0, mealDate, 1003, dto.getDinner()[j], dinnerCount));
+						result.add(new MealDTO(0, 0, mealDate, 1003, dto.getDinner()[j]));
 					}
 				}
 			}

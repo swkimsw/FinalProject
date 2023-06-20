@@ -8,20 +8,18 @@ public class MealDTO {
 	private String mealDate;
 	private int timeCode;
 	private String meal;
-	private int mealCount;
 	
 	public MealDTO() {
 		super();
 	}
 
-	public MealDTO(int code, int clientCode, String mealDate, int timeCode, String meal, int mealCount) {
+	public MealDTO(int code, int clientCode, String mealDate, int timeCode, String meal) {
 		super();
 		this.code = code;
 		this.clientCode = clientCode;
 		this.mealDate = mealDate;
 		this.timeCode = timeCode;
 		this.meal = meal;
-		this.mealCount = mealCount;
 	}
 
 	public int getCode() {
@@ -64,18 +62,12 @@ public class MealDTO {
 		this.meal = meal;
 	}
 
-	public int getMealCount() {
-		return mealCount;
-	}
-
-	public void setMealCount(int mealCount) {
-		this.mealCount = mealCount;
-	}
-
 	@Override
 	public String toString() {
 		return "MealDTO [code=" + code + ", clientCode=" + clientCode + ", mealDate=" + mealDate + ", timeCode="
-				+ timeCode + ", meal=" + meal + ", mealCount=" + mealCount + "]";
+				+ timeCode + ", meal=" + meal + "]";
 	}
+
+	
 	
 }

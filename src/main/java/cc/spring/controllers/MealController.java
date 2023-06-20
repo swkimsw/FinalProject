@@ -47,6 +47,12 @@ public class MealController {
 	            .body(result);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="addMeal", produces="text/plain;charset=utf-8")
+	public void addMeal() {
+		
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

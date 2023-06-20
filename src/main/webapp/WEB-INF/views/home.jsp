@@ -154,7 +154,7 @@
 										</td>
 										<td class="c-header-center"></td>
 										<td class="c-header-right d-grid justify-content-end h-100">
-
+											<button id="addMealBtn"class="btn btn-success btn-rounded">저장하기</button>
 										</td>
 									</tr>
 								</tbody>
@@ -604,7 +604,15 @@
 					alert("생성 성공~!");
 				});
 			});
-
+			
+			// 식단 저장 
+			$("#addMealBtn").on("click", function(){
+				$.ajax({
+					url: "/meal/addMeal",
+					type: "post",
+					data
+				});
+			});
 		</script>
 
 		</html>
