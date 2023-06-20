@@ -17,7 +17,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-	
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
@@ -35,17 +35,25 @@
 				class="cc.spring.interceptors.ProcessSpeedChecker"></beans:bean>
 		</interceptor>
 	</interceptors>
-	
+
 	<!-- resolver 인스턴스 -->
 	<!-- maxsize : 1024 x 1024 x 10 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10485760"/>
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760" />
 	</beans:bean>
-	
 
 
-	<!-- API key -->
-	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <beans:property name="locations" value="classpath:/key/CGPK.properties" />
-</beans:bean>
+
+	<beans:bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<!-- API key -->
+				<beans:value>classpath:/key/CGPK.properties</beans:value>
+				<!-- meal values -->
+				<beans:value>classpath:/meal/meal.properties</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
 </beans:beans>

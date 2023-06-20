@@ -62,7 +62,7 @@ public class ShopService {
 	public int isClientMemberCode(String loginId){
 		return shopDAO.isClientMemberCode(loginId);
 	}
-	
+
 	// 판매자인 경우 회원코드 가져오기
 	public int isBusinessMemberCode(String loginId) {
 		return shopDAO.isBusinessMemberCode(loginId);
@@ -85,7 +85,7 @@ public class ShopService {
 	public List<FileDTO> selectShopImg(int code) {
 		return fileDAO.selectShopImg(code);
 	}
-	
+
 	// 공구샵 상품 목록
 	public List<ShopListDTO> shopList(){
 		return shopDAO.shopList();
@@ -104,10 +104,10 @@ public class ShopService {
 
 	// 공구샵 수정 update
 	@Transactional
-	public int updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
+	public void updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
 
 		int parentSeq = dto.getCode();	
-		
+
 		// shop 정보 update
 		String deadLineTemp = dto.getDeadLineTemp();
 		if(deadLineTemp != null) {
@@ -118,10 +118,19 @@ public class ShopService {
 
 			shopDAO.updateShop(dto);
 		}
-		
+
 		// shop image update
-		
-		return 0;
+		File realPathFile = new File(realPath);
+		if(!realPathFile.exists()) realPathFile.mkdir();
+		if(files != null) {
+			for(MultipartFile file : files) {
+				if(file.isEmpty()) {break;}
+				String oriName = file.getOriginalFilename();
+				String sysName = UUID.randomUUID() + "_" + oriName;
+				file.transferTo(new File(realPath+"/"+sysName));
+				fileDAO.updateShopImage(new FileDTO(0, parentSeq, realPath,oriName, sysName));
+			}
+		}
 	}
 
 	// 공구샵 삭제 delete

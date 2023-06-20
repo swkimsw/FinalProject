@@ -23,6 +23,8 @@ import cc.spring.dto.FileDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
+import cc.spring.dto.ShopReplyAskDTO;
+import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
 
 @Controller
@@ -31,6 +33,9 @@ public class ShopController {
 
 	@Autowired
 	private ShopService shopService;
+	
+	@Autowired
+	private ShopReplyService shopReplyService;
 
 	@Autowired
 	private HttpSession session;
@@ -50,7 +55,6 @@ public class ShopController {
 		}
 		// 판매자인 경우 businessCode 구해오기
 		int businessCode = shopService.isBusinessMemberCode(loginId);
-		System.out.println(businessCode);
 		
 		model.addAttribute("businessCode", businessCode);
 		return "/shop/shopRegister";
@@ -62,13 +66,22 @@ public class ShopController {
 		// 세션에서 ID 받아오게 수정
 		String loginId = "1112254";
 		int authgradeCode = 1002;
-
+		
+		// 판매자인 경우 해당 ID의 회원코드 가져오기
+		if(authgradeCode == 1002) {
+			int businessCode = 1; // 세션에서 받도록 수정
+			model.addAttribute("businessCode", businessCode);
+		}else {
+			model.addAttribute("businessCode", 0);
+		}
+		
 		// 일반 사용자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1003) {
 			int clientCode = shopService.isClientMemberCode(loginId);
 			model.addAttribute("clientCode", clientCode);
+		}else {
+			model.addAttribute("clientCode", 0);			
 		}
-		model.addAttribute("clientCode", 0);
 		
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
@@ -76,9 +89,13 @@ public class ShopController {
 		// 선택한 공구샵 이미지 가져오기
 		List<FileDTO> fileDTO = shopService.selectShopImg(code);
 		
+		// 선택한 공구샵 댓글 목록 가져오기
+		List<ShopReplyAskDTO> shopReplyAskDTO = shopReplyService.selectShopReply(code);
+		
 		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
+		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
 		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}

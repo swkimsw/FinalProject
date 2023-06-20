@@ -13,9 +13,12 @@
 		select * from groupbuyinimg where postcode=${code}
 	</select>
 	
+	<delete id="deleteShopImage">
+		delete from groupbuyinimg where postcode=${postcode}
+	</delete>
 	
 	<insert id="insertReviewImage">
-		insert into ReviewImage values( review_img_seq.nextval , #{dto.postcode} ,#{dto.path} ,#{dto.oriname} ,#{dto.sysname})
+		insert into reviewimg values(review_img_seq.nextval, #{postcode}, #{path}, #{oriname}, #{sysname})
 	</insert>
 	
 </mapper>

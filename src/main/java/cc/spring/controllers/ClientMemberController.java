@@ -35,7 +35,7 @@ public class ClientMemberController {
 	private AdminMemberService ams;
 	
 	
-	// 클라이언트 로그인 창으로 이동
+	//  로그인 창으로 이동
 	@RequestMapping("login_form")
 	public String login_form() throws Exception {
 		return "member/clientLogin";
@@ -60,13 +60,15 @@ public class ClientMemberController {
 		}
 		
 		
-		// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
-		ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+
 		
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
 		boolean result = cms.login(dto);
 		if(result) {
+			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+			ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+			
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());
 			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
@@ -99,7 +101,7 @@ public class ClientMemberController {
 		return "member/clientSign";
 	}
 	
-	// 회원가입 시 아이디 중복체크
+	// 회원가입 시 중복체크
 	@ResponseBody
 	@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 	public String checkId(String key, String value) throws Exception {

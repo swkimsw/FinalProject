@@ -112,37 +112,40 @@
 			<!-- 아침, 점심, 저녁 -->
 			<div class="d-flex justify-content-center">
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="breakfast" name="time" value="1001">
+					<input class="form-check-input" type="checkbox" id="breakfast" name="time" value="아침">
 					<label class="form-check-label" for="breakfast">아침</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="lunch" name="time" value="1002">
+					<input class="form-check-input" type="checkbox" id="lunch" name="time" value="점심">
 					<label class="form-check-label" for="lunch">점심</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="dinner" name="time" value="1003">
+					<input class="form-check-input" type="checkbox" id="dinner" name="time" value="저녁">
 					<label class="form-check-label" for="dinner">저녁</label>
 				</div>
 			</div>
-            <br>
 			<!-- 비건, 다이어트 -->
 			<div class="d-flex justify-content-center">
 				<p class="mx-3">식단 유형 :</p>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="vigan" name="special" value="1001">
+<<<<<<< HEAD
+					<input class="form-check-input" type="radio" id="general" name="special" value="1000" checked>
+					<label class="form-check-label" for="general">없음</label>
+				</div>
+				<div class="form-check form-check-inline">
+=======
+>>>>>>> 55b6ef8ed3f45e1f5c201c77779859a04fc5d117
+					<input class="form-check-input" type="radio" id="vigan" name="special" value="1001">
 					<label class="form-check-label" for="vigan">비건</label>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="diet" name="special" value="1002">
+					<input class="form-check-input" type="radio" id="diet" name="special" value="1002">
 					<label class="form-check-label" for="diet">다이어트</label>
-					</div>
 				</div>
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" id="viganDiet" name="special" value="1003">
+					<input class="form-check-input" type="radio" id="viganDiet" name="special" value="1003">
 					<label class="form-check-label" for="viganDiet">비건 다이어트</label>
-					</div>
 				</div>
-				<br>
 				<div class="d-flex justify-content-center">
 					<button type="button" id="sendBtn" class="btn btn-success btn-rounded">식단생성</button>
 				</div>
@@ -193,12 +196,7 @@
                     <tr>
                         <th class="time-header breakfast">아침</th>
                         <td class="day1 breakfast">
-                            <div class="meal-box">
-                                Meal 1 testsesetsetsetstsetstsetse<br>
-                                Meal 2<br>
-                                Meal 3<br>
-                                Meal 4<br>
-                            </div>
+                            <div class="meal-box"></div>
                         </td>
                         <td class="day2 breakfast">
                             <div class="meal-box"></div>
@@ -287,18 +285,15 @@
                 <tbody>
                     <tr>
                         <th class="day-header">Day 1</th>
-                        <td class="day1 breakfast test">
+                        <td class="day1 breakfast">
                             <div class="meal-box" data-bs-toggle="modal" data-bs-target="#mealModalToggle">
-                                Meal 1 testestesteststsetsetestsetstset<br>
-                                Meal 2<br>
-                                Meal 3<br>
-                                Meal 4<br>
+            
                             </div>
                         </td>
-                        <td class="day1 lunch test">
+                        <td class="day1 lunch">
                             <div class="meal-box"></div>
                         </td>
-                        <td class="day1 dinner test">
+                        <td class="day1 dinner">
                             <div class="meal-box"></div>
                         </td>
                     </tr>
@@ -508,39 +503,51 @@
 <!-- mealCalendar drag js -->
 <script src="${path}/resources/js/mealCalendar_drag.js"></script>
 <script type="text/javascript">
+
 	var timeArr = [];
+	var timeStr = "";
 	var special; 
 	var dayTime;
-	$("#sendBtn").on(
-			"click",
-			function() {
-				timeArr = [];
-				$("input[type=checkbox][name=time]:checked").each(function(i) {
-					timeArr.push($(this).val());
-				});
-				special;
-				$("input[type=checkbox][name=special]:checked").each(
-						function(i) {
-							specialArr.push($(this).val());
-						});
-				dayTime = $("select[name=dayTime]").val();
-				timeArrLength = timeArr.length;
-				sendMsg = dayTime + "일치 " + specialArr.join(',') + " 식단 "
-						+ timeArr.join(',') + "만 JSON데이터로 짜줘";
-				console.log(sendMsg);
-				console.log(timeArrLength);
-				$.ajax({
-					url : "/meal/aiMeal",
-					type : "post",
-					data : {
-						sendMsg : sendMsg,
-						dayTime : dayTime,
-						timeArrLength : timeArrLength
-					},
-					beforeSend : function() {
-						$(".spinner-border").css({
-							"display" : "block"
-						});
+	var todate;
+	
+	function dateFormat(date) {
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+        let hour = date.getHours();
+
+        month = month >= 10 ? month : '0' + month;
+        day = day >= 10 ? day : '0' + day;
+        hour = hour >= 10 ? hour : '0' + hour;
+
+        return date.getFullYear() + '-' + month + '-' + day;
+	}	
+
+	$("#sendBtn").on("click", function() {
+		timeArr = [];
+		$("input[type=checkbox][name=time]:checked").each(function(i) {
+			timeArr.push($(this).val());
+		});
+		timeStr = timeArr.join(',');
+		timeArrLength = timeArr.length;
+
+		special = $("input[name=special]:checked").val();
+		dayTime = $("select[name=dayTime]").val();
+		console.log("dayTime--> "+ dayTime);
+
+		$.ajax({
+			url : "/meal/aiMeal",
+			type : "post",
+			data : {
+				dayTime : dayTime,
+				special : special,
+				timeStr : timeStr,
+				timeArrLength : timeArrLength
+
+			},
+			beforeSend : function() {
+				$(".spinner-border").css({
+					"display" : "block"
+					});
 						$(".main").css({
 							"display" : "none"
 						});
@@ -555,8 +562,57 @@
 					}
 				}).done(function(resp) {
 					console.log(resp);
+					todate = dateFormat(today);
+					console.log("todate --> " + todate);
+					
+					$(resp).each(function(){
+						if(todate == this.mealDate){
+							console.log("day1");
+							
+							if(1001 == this.timeCode){ // 아침
+								$(".day1.breakfast").find(".meal-box").append(this.meal);
+								$(".day1.breakfast").find(".meal-box").append("<br>");
+							}else if(1002 == this.timeCode){ // 점심
+								$(".day1.lunch").find(".meal-box").append(this.meal);
+								$(".day1.lunch").find(".meal-box").append("<br>");
+							}else if(1003 == this.timeCode){ // 저녁
+								$(".day1.dinner").find(".meal-box").append(this.meal);
+								$(".day1.dinner").find(".meal-box").append("<br>");
+							}
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+						}else if(todate == this.mealDate){
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day2 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day3 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day4 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day5 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							today.setDate(today.getDate() + 1);
+							todate = dateFormat(today);
+							console.log("day6 --> " + todate);
+						}else if(todate == this.mealDate){
+							
+							console.log("day7 --> " + todate);
+						}
+					});
+					
 					alert("생성 성공~!");
 				});
-			});
 </script>
 </html>
