@@ -44,8 +44,8 @@
 }
 
 body {
-	/* background-color: white; */
-	background-color: rgba(255,255,194,0.75);
+background-color: pink;
+
 }
 
 .th {
@@ -71,9 +71,20 @@ tbody {
 .list-group{
 margin-bottom: 5px;
 border-radius: 0;
-background-color: #007936;
 }
-
+.board{
+	background-color: #007936;
+/* background-color: white; */
+color:white;
+}
+.list-group-item:hover{
+background-color: #007936;
+opacity:75%;
+color:white;
+}
+a{
+color:white;
+}
 .text-muted {
 	color: #8898aa !important;
 }
@@ -139,22 +150,22 @@ background-color: #007936;
 
 							<div class="list-group">
 								<a href="#"
-									class="list-group-item list-group-item-action active"
+									class="list-group-item list-group-item-action board"
 									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
 							</div>
 							<div class="list-group">
 								<a href="#"
-									class="list-group-item list-group-item-action active"
+									class="list-group-item list-group-item-action board"
 									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
 							</div>
 							<div class="list-group">
 								<a href="#"
-									class="list-group-item list-group-item-action active"
+									class="list-group-item list-group-item-action board"
 									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
 							</div>
 							<div class="list-group">
 								<a href="#"
-									class="list-group-item list-group-item-action active"
+									class="list-group-item list-group-item-action board"
 									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
 							</div>
 
