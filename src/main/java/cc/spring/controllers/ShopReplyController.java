@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cc.spring.dto.ShopReplyAnswerDTO;
 import cc.spring.dto.ShopReplyAskDTO;
 import cc.spring.services.ShopReplyService;
 
@@ -41,9 +42,9 @@ public class ShopReplyController {
 	
 	// 공구샵 판매자 답글 입력
 	@RequestMapping("insertReplyAnswer")
-	public String insertReplyAnswer() {
-		
-		return "";
+	public String insertReplyAnswer(ShopReplyAnswerDTO dto) {
+		shopReplyService.insertReplyAnswer(dto);
+		return "redirect:/shop/toShopApply?code="+dto.getPostCode();
 	}
 	
 	

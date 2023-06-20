@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cc.spring.dto.ShopReplyAnswerDTO;
 import cc.spring.dto.ShopReplyAskDTO;
 
 @Repository
@@ -28,6 +29,10 @@ public class ShopReplyDAO {
 	
 	public int deleteReplyAsk(ShopReplyAskDTO dto) {
 		return db.delete("ShopReply.deleteReplyAsk", dto);
+	}
+	
+	public int insertReplyAnswer(ShopReplyAnswerDTO dto) {
+		return db.insert("insertReplyAnswer", dto);
 	}
 	
 }

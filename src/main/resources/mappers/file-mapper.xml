@@ -6,7 +6,7 @@
 <mapper namespace="File">
 	
 	<insert id="insertShopImage">
-		insert into groupbuyinimg values(groupbuying_img_seq.nextval, ${postcode}, #{path}, #{oriname}, #{sysname})
+		insert into groupbuyingimg values(groupbuying_img_seq.nextval, ${postcode}, #{path}, #{oriname}, #{sysname})
 	</insert>
 	
 	<select id="selectShopImg" resultType="cc.spring.dto.FileDTO">
