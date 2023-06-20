@@ -128,13 +128,10 @@
 			<div class="d-flex justify-content-center">
 				<p class="mx-3">식단 유형 :</p>
 				<div class="form-check form-check-inline">
-<<<<<<< HEAD
 					<input class="form-check-input" type="radio" id="general" name="special" value="1000" checked>
 					<label class="form-check-label" for="general">없음</label>
 				</div>
 				<div class="form-check form-check-inline">
-=======
->>>>>>> 55b6ef8ed3f45e1f5c201c77779859a04fc5d117
 					<input class="form-check-input" type="radio" id="vigan" name="special" value="1001">
 					<label class="form-check-label" for="vigan">비건</label>
 				</div>
@@ -614,5 +611,7 @@
 					
 					alert("생성 성공~!");
 				});
+				});
+		
 </script>
 </html>
