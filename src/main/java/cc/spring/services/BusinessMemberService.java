@@ -2,6 +2,7 @@ package cc.spring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cc.spring.dto.BusinessMemberDTO;
 import cc.spring.dto.ClientMemberDTO;
@@ -29,8 +30,13 @@ public class BusinessMemberService {
 		return bdao.phoneCheck(phone);
 	}
 	
+	@Transactional
 	public int insertBusiness(BusinessMemberDTO dto) {
-		return bdao.insertBusiness(dto);
+		int businessmemberSeq = bdao.insertBusiness(dto);
+		System.out.println(businessmemberSeq);
+		
+		int result = bdao.totalInsertBusiness(businessmemberSeq);
+		return result;
 	}
 	
 	public int updatePwBusiness(BusinessMemberDTO dto) {

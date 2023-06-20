@@ -10,11 +10,11 @@
 	</insert>
 	
 	<select id="selectShopImg" resultType="cc.spring.dto.FileDTO">
-		select * from groupbuyinimg where postcode=${code}
+		select * from groupbuyingimg where postcode=${code}
 	</select>
 	
 	<delete id="deleteShopImage">
-		delete from groupbuyinimg where postcode=${postcode}
+		delete from groupbuyingimg where postcode=${postcode}
 	</delete>
 	
 	<insert id="insertReviewImage">
