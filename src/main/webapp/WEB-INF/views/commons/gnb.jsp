@@ -15,7 +15,7 @@
 					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color:#007936;">🍽CookCook</h1>
 			</a>
 		</div>
-		<c:if test="${sessionScope.id == null || sessionScope.businessId == null}">
+		<c:if test="${sessionScope.id == null}">
 			<a class="navbar-brand nav_a" href="/clientMember/login_form">Login</a>
 		</c:if>
 		<c:if test="${sessionScope.id != null}">
