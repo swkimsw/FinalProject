@@ -14,9 +14,9 @@ public class ClientMyPageService {
 	@Autowired
 	private ClientMyPageDAO cmdao;
 	
-	public String MyPageList(String id,int code) {
-		System.out.println("아이디 : "+id +"코드 : "+code);
-		return cmdao.selectCode(code,id);
+	public List<BoardFreeDTO> myPageList(int code) {
+		System.out.println("죽고잡냐");
+		return cmdao.selectCode(code);
 	
 }
 }

@@ -25,16 +25,11 @@ public class ClientMyPageController {
 	private ClientMyPageDAO cmpd;
 
 	@RequestMapping("myPage")
-	public String myPageForm() throws Exception {
-		return "member/myPage";
-	}
-
-	@RequestMapping("myPageList")
 	public String myPageList(int code) {
-		System.out.println("MyPage 실행!!");
-		String id = (String) session.getAttribute("id");
-		String ABC = cmp.MyPageList(id, code);
-		System.out.println(ABC);
+		code = 11;
+		System.out.println("신발");
+		List<BoardFreeDTO> list = cmp.myPageList(code);
+		System.out.println(code);
 		return "";
 	}
 }

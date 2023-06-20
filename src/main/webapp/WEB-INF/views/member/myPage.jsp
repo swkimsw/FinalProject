@@ -44,7 +44,6 @@
 }
 
 body {
-background-color: pink;
 
 }
 
@@ -73,12 +72,12 @@ margin-bottom: 5px;
 border-radius: 0;
 }
 .board{
-	background-color: #007936;
 /* background-color: white; */
+background-color: #007936;
 color:white;
 }
 .list-group-item:hover{
-background-color: #007936;
+	background-color: #00793670;
 opacity:75%;
 color:white;
 }
