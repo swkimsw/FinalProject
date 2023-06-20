@@ -5,7 +5,7 @@
 <mapper namespace="ShopReply">
 	
 	<select id="selectShopReply" resultType="cc.spring.dto.ShopReplyAskDTO">
-		select * from groupbuyingask where postcode=${code}
+		select g.*, c.nickname from groupbuyingask g join clientmember c on g.clientcode = c.code where postcode=${code}
 	</select>
 	
 </mapper>
