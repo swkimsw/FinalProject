@@ -12,9 +12,21 @@ import cc.spring.repositories.ShopReplyDAO;
 public class ShopReplyService {
 	
 	@Autowired
-	private ShopReplyDAO replyDAO;
+	private ShopReplyDAO shopReplyDAO;
 	
+	// 모든 댓글 select
 	public List<ShopReplyAskDTO> selectShopReply(int code) {
-		return replyDAO.selectShopReply(code);
+		return shopReplyDAO.selectShopReply(code);
 	}
+	
+	// 댓글 insert
+	public int insertReplyAsk(ShopReplyAskDTO dto) {
+		return shopReplyDAO.insertReplyAsk(dto);
+	}
+	
+	// 댓글 update
+	public int updateReplyAsk(ShopReplyAskDTO dto) {
+		return shopReplyDAO.updateReplyAsk(dto);
+	}
+	
 }

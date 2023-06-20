@@ -18,4 +18,12 @@ public class ShopReplyDAO {
 		return db.selectList("ShopReply.selectShopReply", code);
 	}
 	
+	public int insertReplyAsk(ShopReplyAskDTO dto) {
+		return db.insert("ShopReply.insertReplyAsk", dto);
+	}
+	
+	public int updateReplyAsk(ShopReplyAskDTO dto) {
+		return db.update("ShopReply.updateReplyAsk", dto);
+	}
+	
 }
