@@ -62,12 +62,12 @@ public class BoardController {
 	public String list_free() {
 
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
-		
+
 		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
 		System.out.println(list);
-		request.setAttribute("list", list); //<BoardFreeDTO> 에 컬럼명 추가해야함
-		
-		
+		request.setAttribute("list", list); 
+
+
 		if(user != null) {// 로그인했으면
 
 			System.out.println(user);
@@ -91,10 +91,14 @@ public class BoardController {
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
-		if(user.equals("admin123")) {
+		List<BoardAnnouncementDTO> list = boardservice.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
+		System.out.println(list);
+		request.setAttribute("list", list);
 
-			//			int result = boardservice.selectAdminresult(user); //권한등급 확인-관리자회원이면 1을 반납
-			//			System.out.println(result);
+		if(user != null) {
+
+			int result = boardservice.selectAdminresult(user); //권한등급 확인-관리자회원이면 1을 반납
+			System.out.println(result);
 
 			request.setAttribute("user", user ); 
 			return "/board/boardAnnouncement";
@@ -109,6 +113,10 @@ public class BoardController {
 	@RequestMapping("review")
 	public String list_review() {
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (일반회원만 글 작성할수있는 버튼보여야함)
+
+		List<BoardReviewDTO> list = boardservice.selectReviewlist(); //후기게시글 전부 다 가져오기
+		System.out.println(list);
+		request.setAttribute("list", list);
 
 		if(user != null) {
 			int result = boardservice.selectClientresult(user); //권한등급 확인-일반회원이면1을 반납
@@ -153,19 +161,22 @@ public class BoardController {
 
 		String writer =  (String)session.getAttribute("id"); 
 		System.out.println(writer);
-		int member = boardservice.selectClientSeq(writer);//로그인한 사람의 ID SEQ 가져오기 (일반회원)
+
+		int member = Integer.parseInt((String)session.getAttribute("code")); //로그인한 사람의 ID SEQ 가져오기 (일반회원)
+		// int member = boardservice.selectClientSeq(writer);
 		System.out.println(member);
+
 		int authgradecode = 1003;
-		
+
 		int code = boardservice.selectTotalCode(); //totalmember테이블의 데이터 집어넣을떄 고유 seq가져오기
 		System.out.println(code);
-		
+
 		boardservice.insertTotalMemberClient(member,authgradecode,code);//로그인한사람의 정보 넣기 totalmember(일반회원)
 		System.out.println("ㅁㄴㅇㄹ");
-		
+
 		int membercode = boardservice.selectCodeTotal(member,authgradecode,code);//totalmember테이블에서 작성한 사람의 total테이블 고유code빼오기
 		System.out.println(membercode);
-		
+
 		boardservice.insertFree(dto,membercode);//자유게시판 작성하기
 		return "redirect:/board/free"; //자유게시판으로 가기
 
@@ -178,19 +189,21 @@ public class BoardController {
 
 		String writer =  (String)session.getAttribute("id"); 
 		System.out.println(writer);
-		int member = boardservice.selectBusinessSeq(writer);//로그인한 사람의 ID SEQ 가져오기(일반회원)
+
+		int member = Integer.parseInt((String)session.getAttribute("code"));//로그인한 사람의 ID SEQ 가져오기(사업자회원)
 		System.out.println(member);
+
 		int authgradecode = 1002;
-		
+
 		int code = boardservice.selectTotalCode(); //totalmember테이블의 데이터 집어넣을떄 고유 seq가져오기
 		System.out.println(code);
-		
+
 		boardservice.insertTotalMemberBusiness(member,authgradecode,code);//로그인한사람의 정보 넣기 totalmember(사업자회원)
 		System.out.println("ㅁㄴㅇㄹ");
-		
+
 		int membercode = boardservice.selectCodeTotal(member,authgradecode,code);//totalmember테이블에서 작성한 사람의 total테이블 고유code빼오기
 		System.out.println(membercode);
-		
+
 		boardservice.insertFree(dto,membercode); //자유게시판 작성하기
 		return "redirect:/board/free"; //자유게시판으로 가기
 	}
@@ -200,10 +213,6 @@ public class BoardController {
 	@RequestMapping("inputAnnouncement")
 	public String inputAnnouncement(BoardAnnouncementDTO dto) {
 
-		//		String writer =  (String)session.getAttribute("id"); 
-		//		System.out.println(writer);
-		//		int writer_seq = boardservice.selectAdminSeq(writer);//로그인한 사람의 ID SEQ 가져오기(일반회원)
-		//		System.out.println(writer_seq);
 		System.out.println("sssssssss");
 		boardservice.insertAnnouncement(dto);
 		return "redirect:/board/announcement"; //자유게시판으로 가기
@@ -217,13 +226,13 @@ public class BoardController {
 	@RequestMapping("inputReview")
 	@Transactional
 	public String inputReview(BoardReviewDTO dto,
-            @RequestParam(name = "oriName") String[] oriName,
-            @RequestParam(name = "sysName") String[] sysName,
-            String realPath) {
+			@RequestParam(name = "oriName") String[] oriName,
+			@RequestParam(name = "sysName") String[] sysName,
+			String realPath) {
 
 		String writer =  (String)session.getAttribute("id"); 
 		System.out.println(writer);
-		int writer_seq = boardservice.selectClientSeq(writer);//로그인한 사람의 ID SEQ 가져오기 (일반회원)
+		int writer_seq = Integer.parseInt((String)session.getAttribute("code"));;//로그인한 사람의 ID SEQ 가져오기 (일반회원)
 		System.out.println(writer_seq);
 
 		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기
@@ -231,14 +240,14 @@ public class BoardController {
 		boardservice.insertReview(dto,writer_seq,parent_seq); //후기 게시판 작성
 
 		for(int i = 0 ; i<oriName.length ; i++) {
-			
+
 			System.out.println(oriName[i]);  //oriName
 			System.out.println(sysName[i]);  //oriName
 			System.out.println(realPath); //realpath
-			
-			
-			fileservice.insertReviewImage(parent_seq,realPath,oriName[i],sysName[i]); //후기게시판 글에 들어가는 이미지 db넣기
-		
+
+
+			boardservice.insertReviewImage(parent_seq,realPath,oriName[i],sysName[i]); //후기게시판 글에 들어가는 이미지 db넣기
+
 		}
 
 		return "redirect: /board/review" ;
@@ -274,11 +283,11 @@ public class BoardController {
 					jsonObject.addProperty("oriName", oriName);
 					jsonObject.addProperty("realPath", realPath);
 					jsonObject.addProperty("sysName", sysName);
-					
+
 					resp.add(jsonObject);
 				}
 			}
-			
+
 		}catch (IOException e) {
 			e.printStackTrace();
 		}

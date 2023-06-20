@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReviewImgDTO;
 import cc.spring.dto.TotalMemberDTO;
 
 @Repository
@@ -48,18 +49,18 @@ public class BoardDAO {
 
 	
 	
-
-	public int selectClientSeq(String writer) {
-		return mybatis.selectOne("Board.selectClientSeq",writer);
-	}
-
-	public int selectBusinessSeq(String writer) {
-		return mybatis.selectOne("Board.selectBusinessSeq",writer);
-	}
-
-	public int selectAdminSeq(String writer) {
-		return mybatis.selectOne("Board.selectAdminSeq",writer);
-	}
+//
+//	public int selectClientSeq(String writer) {
+//		return mybatis.selectOne("Board.selectClientSeq",writer);
+//	}
+//
+//	public int selectBusinessSeq(String writer) {
+//		return mybatis.selectOne("Board.selectBusinessSeq",writer);
+//	}
+//
+//	public int selectAdminSeq(String writer) {
+//		return mybatis.selectOne("Board.selectAdminSeq",writer);
+//	}
 	
 
 	public int selectTotalCode() {
@@ -87,6 +88,8 @@ public class BoardDAO {
 		return mybatis.selectOne("Board.selectReviewSeq");
 	}
 	
+	
+	
 	public int insertReview(BoardReviewDTO  dto,int writer_seq,int parent_seq) {
 		Map<String ,Object> param = new HashMap<>();
 		param.put("dto", dto);
@@ -95,6 +98,11 @@ public class BoardDAO {
 		
 		return mybatis.insert("Board.insertReview",param);
 	}
+	
+	public int insertReviewImage(ReviewImgDTO rdto) {
+		return mybatis.insert("Board.insertReviewImage", rdto);
+	}
+
 
 	public int insertFree(BoardFreeDTO dto, int membercode) {
 		System.out.println(dto.getContent());
@@ -106,14 +114,29 @@ public class BoardDAO {
 		return mybatis.insert("Board.insertFree",param);
 	}
 
+	
+	
+	
+	
 	public int insertAnnouncement(BoardAnnouncementDTO dto) {
 		return  mybatis.insert("Board.insertAnnouncement",dto);
+	}
+	
+
+	public List<BoardFreeDTO> selectFreelist() {
+		return  mybatis.selectList("Board.selectFreelist");
 	}
 
 
 
-	public List<BoardFreeDTO> selectFreelist() {
-		return  mybatis.selectList("Board.selectFreelist");
+	public List<BoardAnnouncementDTO> selectAnnouncementlist() {
+		return  mybatis.selectList("Board.selectAnnouncementlist");
+	}
+
+
+
+	public List<BoardReviewDTO> selectReviewlist() {
+		return  mybatis.selectList("Board.selectReviewlist");
 	}
 
 

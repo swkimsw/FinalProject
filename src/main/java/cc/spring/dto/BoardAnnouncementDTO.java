@@ -10,13 +10,15 @@ public class BoardAnnouncementDTO {
 	private String title;
 	private String content;
 	private int viewcount;
-	private int likecout;
+	private int likecount;
 	private Timestamp regdate;
 	private Timestamp moddate;
 	private Timestamp deldate;
+	private String admin_id;
+	private String admin_name;
 	public BoardAnnouncementDTO() {};
 	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
-			String content, int viewcount, int likecout, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
+			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
 		super();
 		this.code = code;
 		this.boardkindcode = boardkindcode;
@@ -25,10 +27,28 @@ public class BoardAnnouncementDTO {
 		this.title = title;
 		this.content = content;
 		this.viewcount = viewcount;
-		this.likecout = likecout;
+		this.likecount = likecount;
 		this.regdate = regdate;
 		this.moddate = moddate;
 		this.deldate = deldate;
+	}
+	
+	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
+			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String admin_id , String admin_name) {
+		super();
+		this.code = code;
+		this.boardkindcode = boardkindcode;
+		this.headlinecode = headlinecode;
+		this.clientcode = clientcode;
+		this.title = title;
+		this.content = content;
+		this.viewcount = viewcount;
+		this.likecount = likecount;
+		this.regdate = regdate;
+		this.moddate = moddate;
+		this.deldate = deldate;
+		this.admin_id = admin_id;
+		this.admin_name = admin_name;
 	}
 	public int getCode() {
 		return code;
@@ -72,11 +92,11 @@ public class BoardAnnouncementDTO {
 	public void setViewcount(int viewcount) {
 		this.viewcount = viewcount;
 	}
-	public int getLikecout() {
-		return likecout;
+	public int getLikecount() {
+		return likecount;
 	}
-	public void setLikecout(int likecout) {
-		this.likecout = likecout;
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
 	}
 	public Timestamp getRegdate() {
 		return regdate;
@@ -96,4 +116,18 @@ public class BoardAnnouncementDTO {
 	public void setDeldate(Timestamp deldate) {
 		this.deldate = deldate;
 	}
+	public String getAdmin_id() {
+		return admin_id;
+	}
+	public void setAdmin_id(String admin_id) {
+		this.admin_id = admin_id;
+	}
+	public String getAdmin_name() {
+		return admin_name;
+	}
+	public void setAdmin_name(String admin_name) {
+		this.admin_name = admin_name;
+	}
+	
+	
 }
