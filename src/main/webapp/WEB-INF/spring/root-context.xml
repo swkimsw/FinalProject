@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns:context="http://www.springframework.org/schema/context"
-   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
    
    <!-- Root Context: defines shared resources visible to all other web components -->
    
@@ -27,18 +29,32 @@
       <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
    </bean>
    
+   <!--히라키cp에 transaction을 주입 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+<tx:annotation-driven/>
+   
    <context:component-scan base-package="cc.spring.repositories" />   
    <context:component-scan base-package="cc.spring.services" />   
    <context:component-scan base-package="cc.spring.provider"/>
    
    	<!-- API key -->
-	<bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations" value="classpath:/key/CGPK.properties" />
-	</bean>	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/key/CGPK.properties</value>
+				<value>classpath:/meal/meal.properties</value>
+			</list>
+		</property>
+	</bean>
 	
 	<bean class="java.net.http.HttpClient" factory-method="newHttpClient">
 	</bean>
 	
 	<bean class="com.google.gson.Gson"></bean>
+	
+
 </beans>

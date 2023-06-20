@@ -36,4 +36,9 @@ public class BusinessMemberService {
 	public int updatePwBusiness(BusinessMemberDTO dto) {
 		return bdao.updatePw(dto);
 	}
+	
+	public BusinessMemberDTO selectBusinessMemberInfo(String id) {
+		System.out.println(id);
+		return bdao.selectBusinessMemberInfo(id);
+	}
 }

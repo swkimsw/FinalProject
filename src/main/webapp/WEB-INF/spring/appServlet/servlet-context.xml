@@ -44,8 +44,14 @@
 	
 
 
-	<!-- API key -->
-	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-    <beans:property name="locations" value="classpath:/key/CGPK.properties" />
+	<!-- API key & meal values-->
+	<beans:bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="locations">
+			<beans:list>
+				<beans:value>classpath:/key/CGPK.properties</beans:value>
+				<beans:value>classpath:/meal/meal.properties</beans:value>
+			</beans:list>
+		</beans:property>
 </beans:bean>
 </beans:beans>

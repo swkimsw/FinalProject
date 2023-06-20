@@ -52,7 +52,10 @@
 
 <main>
 	<div class="container">
-        <h1 class="text-center" id="title">주간 식단표</h1>
+        <div class="titleBox d-flex justify-content-center align-items-center">
+            <img class="mx-4" width="60rem" src="/resources/img/cutlery (1).png">
+            <h1 class="text-center m-0" id="title">주간 식단표</h1>
+        </div>
         <div id="calendar">
             <table class="c-header">
                 <tbody>
@@ -74,7 +77,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="c-body-large d-none d-xl-table">
+            <table class="c-body-large d-none d-xl-table" id="c-body-large">
                 <colgroup>
                     <col style="width:8%;" />
                     <col />
@@ -101,12 +104,7 @@
                     <tr>
                         <th class="time-header breakfast">아침</th>
                         <td class="day1 breakfast">
-                            <div class="meal-box">
-                                Meal 1 testsesetsetsetstsetstsetse<br>
-                                Meal 2<br>
-                                Meal 3<br>
-                                Meal 4<br>
-                            </div>
+                            <div class="meal-box">Meal 1 testsesetsetsetstsetstsetse<br>Meal 2<br>Meal 3<br>Meal 4<br></div>
                         </td>
                         <td class="day2 breakfast">
                             <div class="meal-box"></div>
@@ -177,7 +175,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="c-body-small d-table d-xl-none">
+            <table class="c-body-small d-table d-xl-none" id="c-body-small">
                 <colgroup>
                     <col style="width:10%;">
                     <col style="width:30%; max-width:30%;">
@@ -195,18 +193,13 @@
                 <tbody>
                     <tr>
                         <th class="day-header">Day 1</th>
-                        <td class="day1 breakfast test">
-                            <div class="meal-box" data-bs-toggle="modal" data-bs-target="#mealModalToggle">
-                                Meal 1 testestesteststsetsetestsetstset<br>
-                                Meal 2<br>
-                                Meal 3<br>
-                                Meal 4<br>
-                            </div>
+                        <td class="day1 breakfast">
+                            <div class="meal-box" data-bs-toggle="modal" data-bs-target="#mealModalToggle">Meal 1 testestesteststsetsetestsetstset<br>Meal 2<br>Meal 3<br>Meal 4<br></div>
                         </td>
-                        <td class="day1 lunch test">
+                        <td class="day1 lunch">
                             <div class="meal-box"></div>
                         </td>
-                        <td class="day1 dinner test">
+                        <td class="day1 dinner">
                             <div class="meal-box"></div>
                         </td>
                     </tr>
@@ -291,7 +284,7 @@
                         <td class="btnBox-ai">
                             <button type="button" id="aiMeal" class="btn btn-outline-success btn-lg btn-ai m-3">AI 식단
                                 추천</button>
-                            <button type="button" id="aiIngredient" class="btn btn-outline-success btn-lg btn-ai m-3">재료
+                            <button type="button" id="aiIngredient" class="btn btn-outline-success btn-lg btn-ai m-3" data-bs-toggle="modal" data-bs-target="#ingredientModal">재료
                                 추출</button>
                         </td>
                     </tr>
@@ -420,6 +413,28 @@
                     </div>
                 </div>
             </div>
+
+            <!-- 재료 추출 버튼 클릭 시 모달 -->
+            <div class="modal fade" id="ingredientModal" tabindex="-1" aria-labelledby="ingredientModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="ingredientModalLabel">내 식단 목록</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="m-3 mt-0">재료를 추출하여 장바구니에 등록해 보세요!</p>
+                            <ul class="list-group" id="myMealList">
+
+                            </ul>
+                        </div>
+                        <div class="modal-footer justify-content-center">
+                          <button type="button" class="btn btn-success">재료 추출</button>
+                        </div>
+                      </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </main>
@@ -427,17 +442,16 @@
 <script src="${path}/resources/js/mealCalendar_meal.js"></script>
 <!-- mealCalendar drag js -->
 <script src="${path}/resources/js/mealCalendar_drag.js"></script>
+<!-- mealCalendar ingredient js -->
+<script src="${path}/resources/js/mealCalendar_ingredient.js"></script>
 <script type="text/javascript">
+
 //AI 식단 추천 버튼 클릭 이벤트
 $("#aiMeal").on("click", function () {
     //location.href="/meal/식단추천페이지로 이동";
 });
 
-//재료 추출 버튼 클릭 이벤트
-$("#aiIngredient").on("click", function () {
-    //modal창 띄워서 식단표에 있는 메뉴 목록 띄우기
-    //select 된 메뉴 정보를 가지고 재료추출 페이지로 이동
-});
+
 </script>
 </body>
 </html>
