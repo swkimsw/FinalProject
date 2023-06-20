@@ -14,8 +14,8 @@
                     selectBox = $(parentClass).children();
 
                     //이미 값이 존재할 경우 input 태그에 넣어주기
-                    if (selectBox.html()) {   
-                        let meals = this.innerText.split("\n");
+                    if (selectBox.html()) {  
+                        let meals = this.innerHTML.split("<br>");
                         let inputMeals = document.getElementsByClassName("meal-name");
                         for (let i = 0; i < meals.length; i++) {
                             inputMeals[i].value = meals[i];
