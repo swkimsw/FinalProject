@@ -15,6 +15,13 @@ public class ShopReplyAskDTO {
 	private String nickName;
 	
 	public ShopReplyAskDTO() {}
+	
+	public ShopReplyAskDTO(int code, String content) {
+		super();
+		this.code = code;
+		this.content = content;
+	}
+
 	public ShopReplyAskDTO(int code, int postCode, int clientCode, String content, Timestamp regDate, Timestamp modDate,
 			Timestamp delDate, String nickName) {
 		super();
