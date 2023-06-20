@@ -153,6 +153,15 @@ public class BoardController {
 		return "/board/boardReviewWrite";
 	}
 
+	//글 자세히 보기
+	@RequestMapping("content")
+	public String content() {
+		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기
+		request.setAttribute("user", user ); 
+		
+		return "/board/content_re";
+	}
+	
 	//===============================================================================
 
 	//자유게시판 글 작성하기 - 일반회원
