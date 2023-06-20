@@ -51,12 +51,13 @@ public class ShopDAO {
 		return db.selectList("Shop.shopList");
 	}
 	
-	public List<ShopListDTO> getClosedList() {
-		return db.selectList("Shop.getClosedList");
+	public List<ShopListDTO> getStatusList(String status) {
+		return db.selectList("Shop.getStatusList",status);
 	}
 
 	public List<ShopListDTO> searchByKeyword(String category, String keyword ) {
 		Map<String, Object> param = new HashMap<>();
+		System.out.println(category +":"+ keyword);
 		param.put("category", category);
 		param.put("keyword", keyword);
 		return db.selectList("Shop.searchByKeyword",param);

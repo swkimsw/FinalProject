@@ -7,12 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -29,13 +27,7 @@ public class MealService {
 	
 	@Autowired
 	private Gson gson;
-//	
-//	@Value("${aa}")
-//	private String specialMap;
-	
-	@Value("${aa}")
-	private String chatGptApiKey;
-	
+
 	@Value("#{${SPECIAL-VALUES}}")
 	private Map<Integer, String> specialValues;
 	
@@ -91,6 +83,7 @@ public class MealService {
 	}
 
 }
+
 
 
 //package cc.spring.services;
@@ -178,3 +171,4 @@ public class MealService {
 //	}
 //
 //}
+

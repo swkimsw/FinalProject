@@ -92,10 +92,10 @@ public class ShopService {
 	}
 	
 	//마감된 공구 목록
-	public List<ShopListDTO> getClosedList(){
-		return shopDAO.getClosedList();
+	public List<ShopListDTO> getStatusList(String status){
+		return shopDAO.getStatusList(status);
 	}
-	
+		
 	// 공구샵 삼품 목록 검색
 	public List<ShopListDTO> searchByKeyword(String category,String keyword){
 		return shopDAO.searchByKeyword(category,keyword);

@@ -48,45 +48,49 @@
 	</insert>
 
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
-		select g.code, g.deadline,
+		select g.code, g.deadline,g.statuscode,
 		g.title, g.productprice, b.companyname, i.code as imgcode,
 		substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname
 		from groupbuying g
 		left join businessmember b on g.businesscode = b.code
-		left join groupbuyinimg i on g.code = i.postcode
-		where g.statuscode = 1001
-		and i.code in (select min(i.code) from groupbuyinimg i group by
+		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in (select min(i.code) from groupbuyingimg i group by
 		i.postcode)
-		order by g.code desc
+		order by g.deadline desc
 	</select>
 	
-		<select id="getClosedList" resultType="cc.spring.dto.ShopListDTO">
-		select g.code, g.deadline,
+	<select id="getStatusList" resultType="cc.spring.dto.ShopListDTO">
+		select g.code, g.deadline, g.statuscode,
 		g.title, g.productprice, b.companyname, i.code as imgcode,
 		substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname
 		from groupbuying g
 		left join businessmember b on g.businesscode = b.code
-		left join groupbuyinimg i on g.code = i.postcode
-		where g.statuscode = 1002
-		and i.code in (select min(i.code) from groupbuyinimg i group by
-		i.postcode)
-		order by g.code desc
+		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in (select min(i.code) from groupbuyingimg i group by i.postcode)
+		<choose>
+			<when test="status == 'closed'">
+				and g.statuscode in (1002,1003) order by g.deadline desc
+			</when>
+			<when test="status == 'open'">
+				and g.statuscode = 1001 order by g.deadline desc
+			</when>
+		</choose>
 	</select>
 
 	<select id="searchByKeyword" resultType="cc.spring.dto.ShopListDTO">
-		select g.code, g.deadline, g.title, g.productprice, b.companyname,
-		i.code as imgcode, substr(i.path, instr(i.path,'\resources',1,1))||'\'
-		as path, i.sysname
+		select g.code, g.deadline,
+		g.title, g.productprice, b.companyname,i.code as imgcode, 
+		substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname
 		from groupbuying g
 		left join businessmember b on g.businesscode = b.code
-		left join groupbuyinimg i on g.code = i.postcode
-		where i.code in (select min(i.code) from groupbuyinimg i group by i.postcode)
+		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in (select min(i.code) from groupbuyingimg i group by i.postcode)
 		<choose>
 			<when test="category == 'productName'">
-				and g.productName like '%${keyword}%' order by g.code desc
+				and g.productName like '%${keyword}%' order by g.deadline desc
 			</when>
 			<when test="category == 'companyName'">
-				and g.companyName like '%${keyword}%' order by g.code desc
+				and b.companyName like '%${keyword}%' order by g.deadline desc
 			</when>
 		</choose>
 	</select>

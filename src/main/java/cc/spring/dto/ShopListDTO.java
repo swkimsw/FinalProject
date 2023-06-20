@@ -6,6 +6,7 @@ public class ShopListDTO {
 	private int code;
 	private Timestamp deadLine;
 	private int dDay;
+	private int statusCode;
 	private String title;
 	private String productName;
 	private String productPrice;
@@ -58,6 +59,13 @@ public class ShopListDTO {
 	}
 	public void setdDay(int dDay) {
 		this.dDay = dDay;
+	}
+	
+	public int getStatusCode() {
+		return statusCode;
+	}
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
 	}
 	public String getTitle() {
 		return title;

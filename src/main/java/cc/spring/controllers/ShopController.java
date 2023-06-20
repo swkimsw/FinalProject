@@ -7,14 +7,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -116,15 +114,20 @@ public class ShopController {
 //최은지 Part
  	
  	//공구 목록으로 이동
- 	 	@RequestMapping("toShopList/{status}")
- 		public String toShopList(@PathVariable("status") String status, Model model) throws Exception{
- 	 		
+ 	 	@RequestMapping("toShopList")
+ 		public String toShopList(@RequestParam(name="status",required=false,defaultValue="") String status, Model model) throws Exception{
+ 	 		System.out.println("status는 " + status);
  	 		List<ShopListDTO> list = new ArrayList<ShopListDTO>();
  	 			
  	 		if(status.equals("closed")){
- 	 			list = shopService.getClosedList();
+ 	 			//마감된 공구 list
+ 	 			list = shopService.getStatusList(status);
+ 	 		}else if(status.equals("open")){
+ 	 			//진행중인 공구 list
+ 	 	 		list = shopService.getStatusList(status);
  	 		}else {
- 	 	 		list = shopService.shopList();
+ 	 			//전체 공구 list
+ 	 			list = shopService.shopList();
  	 		}
  	 		
  	 		//마감일 디데이 계산
@@ -169,10 +172,11 @@ public class ShopController {
  	 			d.setdDay(dDay);
  	 			dDayMap.put(d, dDay);
  	 		}
+ 	 		System.out.println("겨얼과는:" + searchList);
  			return searchList;
  	 	}
  	 	
- 	 //마감 목록 검색
+
  	 	
  	 	
 

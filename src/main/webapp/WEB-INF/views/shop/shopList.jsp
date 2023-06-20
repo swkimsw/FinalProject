@@ -50,16 +50,22 @@ body {
 .container {
 	margin-top: 100px;
 }
-#searchBtn: hover{
-	color: #007936;
+
+.searchInput{
+	height:60px;
 }
-.cover{
-	transition-duration: 300ms;
+
+.searchIcon{
+	position: absolute;
+	top:26px;
+	left:35px;
+	z-index:5;
 }
-.cover: hover{
-	background-color: #00000050;
-    cursor: pointer;
-    opacity: 1;
+.radio{
+	position:absolute;
+	z-index:5;
+	top: 2px;
+	left:50px;	
 }
 
 </style>
@@ -70,43 +76,41 @@ body {
 	</c:import>
 
 	<div class="container">
-		<div class="header">
-			<div class="row d-flex justify-content-center search">
-				<div class="col-10">
-					<div class="mx-quto input-group mt-1">
-					<input type="radio" value="productName" name="category" checked> 상품명 <br/>
-				 	<input type="radio" value="companyName" name="category"> 판매자명
-						<input type="text" id="keyword" name="searchByKeyword"
-							maxlength="25" class="form-control ml-25" style="height:50px;" placeholder="검색어 입력" >
-						<button class="btn" style="background-color:#007936; color:#ffffc2;" type="submit" id="searchBtn"
-							onclick="getSearchList()">search</button>
-					</div>
-				</div>
+		<div class="row subNav">
+			<div class="col">
+				<nav class="navbar navbar-expand-lg" >
+	  				<div class="container-fluid" style="background-color:rgba(255,255,194,0.75);">
+	   					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+	   						<span class="navbar-toggler-icon"></span>
+	   					</button>
+	  					
+	    				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+			      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			      				<li class="nav-item">
+			          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList">공구 모아보기</a>
+			        			</li>
+			       				<li class="nav-item">
+			          				<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=open">진행중인 공구</a>
+			        			</li>
+			        			<li class="nav-item">
+			          				<a class="nav-link active" onclick="activeChange()" href="/shop/toShopList?status=closed">마감된 공구</a>
+					        	</li>
+					        	<li class="nav-item">
+			          				<a class="nav-link active" onclick="activeChange()" href="/shop/toShopRegister">공구 등록</a>
+					        	</li>
+					    	</ul>
+					    	<div class="searchGroup" style="position:relative;width:50%;">
+						    	<div class="radio">
+			      					<input type="radio" value="productName" name="category" checked>  상품명  | 
+						 			<input type="radio" value="companyName" name="category"> 판매자명  
+			        				<i class='bi bi-search searchIcon'></i>
+			        				<input class="form-control ps-5 pt-4 searchInput" onkeypress="if(event.keyCode == 13 ){getSearchList()}" type="search" id="keyword" name="searchByKeyword" placeholder="검색어를 입력해주세요." maxlength="25">
+			        			</div>
+			        		</div>	
+	    				</div>
+	  				</div>
+				</nav>
 			</div>
-		</div>
-		<div class="subNav">
-			<nav class="navbar navbar-expand-lg ">
-  				<div class="container-fluid">
-   					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-   						<span class="navbar-toggler-icon"></span>
-   					</button>
-  					
-    				<div class="collapse navbar-collapse" id="navbarTogglerDemo03" style="background-color:none;">
-		      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-		       				<li class="nav-item">
-		          				<a class="nav-link active" aria-current="page" href="#">진행중인 공구</a>
-		        			</li>
-		        			<li class="nav-item">
-		          				<a class="nav-link" href="/shop/toShopList?status=closed">마감된 공구</a>
-				        	</li>
-				    	</ul>
-	      				<form class="d-flex">
-	        				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-	        				<button class="btn btn-outline-success" type="submit">Search</button>
-	      				</form>
-    				</div>
-  				</div>
-			</nav>
 		</div>
 		<div class="body">
 			<div class="row d-flex position-relative list">
@@ -129,7 +133,7 @@ body {
 										class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">마감</span>
 								</c:when>
 							</c:choose>
-								<a href="/shop/SelectShop?code=${i.code}"> 
+								<a href="/shop/toShopApply?code=${i.code}"> 
 									<img src="${i.path}${i.sysName}" style="width: 100%;">
 								</a>
 							<div class="card-body">
@@ -145,6 +149,7 @@ body {
 	</div>
 
 	<script>
+	
 	
 		//검색 결과 리스트 ajax
 		function getSearchList(){
@@ -162,25 +167,26 @@ body {
 					error: function(){alert("검색에 실패하였습니다");}
 				}).done(function(resp) {
 					$(".body> .list").empty();
-					$(".subNav").empty();
+					//$(".subNav").empty();
 					if(resp.length > 0){
+						div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-search'/>" + "   '" + keyword + "'의 검색결과는 " + resp.length + "개 입니다.</p><hr/></div>";
+						$(".list").append(div);
 						resp.forEach(function(i){
-							div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-search'/>" + "   '" + keyword + "'의 검색결과는 " + resp.length + "개 입니다.</p><hr/></div>";
-							div += "<div class='col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents'><div class='card border-0'>";
+							card = "<div class='col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents'><div class='card border-0'>";
 							if(i.dDay>0){
-								div += "<span class='badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2'>" + i.dDay+ "일 남음</span>"; 
+								card += "<span class='badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2'>" + i.dDay+ "일 남음</span>"; 
 							}
 							if(i.dDay==0){
-								div += "<span class='badge deadLine rounded-pill text-bg-danger position-absolute top-0 end-0 m-2 p-2'>오늘 마감</span>";
+								card += "<span class='badge deadLine rounded-pill text-bg-danger position-absolute top-0 end-0 m-2 p-2'>오늘 마감</span>";
 							}
 							if(i.dDay<0){
-								div += "<span class='badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>마감</span>	";
+								card += "<span class='badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>마감</span>	";
 							}
-							div += "<a href='/shop/SelectShop?code = " + i.code + "'>";
-							div += "<img src='" + i.path + i.sysName + "' style='width: 100%;'> </a> <div class='card-body'>";
-							div += "<p class='card-title' style='font-size: 20px;'>"+ i.title + "</p> ";
-							div += "<p class='card-text fw-lighter' style='font-size: 12px;'>" + i.companyName + "</p> </div> </div> </div>";
-							$(".list").append(div);
+							card += "<a href='/shop/SelectShop?code = " + i.code + "'>";
+							card += "<img src='" + i.path + i.sysName + "' style='width: 100%;'> </a> <div class='card-body'>";
+							card += "<p class='card-title' style='font-size: 20px;'>"+ i.title + "</p> ";
+							card += "<p class='card-text fw-lighter' style='font-size: 12px;'>" + i.companyName + "</p> </div> </div> </div>";
+							$(".list").append(card);
 						})
 						
 						keyword = "";
@@ -201,7 +207,7 @@ body {
 		}
 		
 		//마감된 공구 List ajax
-		function getClosedList(){
+		/*function getClosedList(){
 				$.ajax({
 					url : "/shop/getClosedList",
 					type : "post",
@@ -228,7 +234,8 @@ body {
 					}
 					
 				})
-		}
+		}*/
+		
 		
 	</script>
 
