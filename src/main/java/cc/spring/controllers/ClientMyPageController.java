@@ -25,11 +25,14 @@ public class ClientMyPageController {
 	private ClientMyPageDAO cmpd;
 
 	@RequestMapping("myPage")
-	public String myPageList(int code) {
-		code = 11;
+	public String myPageList(Model model) {
+		int code = (int) session.getAttribute("code");
+		//int code = 11;
 		System.out.println("신발");
-		List<BoardFreeDTO> list = cmp.myPageList(code);
 		System.out.println(code);
-		return "";
+		List<BoardFreeDTO> list = cmp.myPageList(code);
+		System.out.println(list);
+		model.addAttribute("list",list);
+		return "/member/myPage";
 	}
 }

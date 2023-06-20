@@ -69,7 +69,7 @@ public class ClientMemberController {
 		if(result) {
 			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 			ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
-			
+			System.out.println(cmd.getCode());
 			session.setAttribute("code", cmd.getCode());
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());

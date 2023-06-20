@@ -15,6 +15,6 @@ public class ClientMyPageDAO {
 	
 	public List<BoardFreeDTO> selectCode(int code) {
 		System.out.println("아니 왜안되는데?");
-		return mybatis.selectList("MyPage.freeboard",code);
+		return mybatis.selectList("MyPage.freeBoard",code);
 	}
 }

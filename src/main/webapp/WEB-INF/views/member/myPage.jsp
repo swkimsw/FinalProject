@@ -44,7 +44,7 @@
 }
 
 body {
-
+	
 }
 
 .th {
@@ -53,13 +53,13 @@ body {
 	text-overflow: ellipsis;
 	word-break: break-all;
 }
-.font_1{
 
+.font_1 {
+	
 }
+
 .container {
 	margin-top: 100px;
-
-
 }
 
 tbody {
@@ -67,23 +67,27 @@ tbody {
 	
 }
 
-.list-group{
-margin-bottom: 5px;
-border-radius: 0;
+.list-group {
+	margin-bottom: 5px;
+	border-radius: 0;
 }
-.board{
-/* background-color: white; */
-background-color: #007936;
-color:white;
+
+.board {
+	/* background-color: white; */
+	background-color: #007936;
+	color: white;
 }
-.list-group-item:hover{
+
+.list-group-item:hover {
 	background-color: #00793670;
-opacity:75%;
-color:white;
+	opacity: 75%;
+	color: white;
 }
-a{
-color:white;
+
+a {
+	color: white;
 }
+
 .text-muted {
 	color: #8898aa !important;
 }
@@ -146,37 +150,20 @@ color:white;
 				<div class="row font_1">
 					<div class="col">
 						<div class="row">
-
-							<div class="list-group">
-								<a href="#"
-									class="list-group-item list-group-item-action board"
-									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
-							</div>
-							<div class="list-group">
-								<a href="#"
-									class="list-group-item list-group-item-action board"
-									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
-							</div>
-							<div class="list-group">
-								<a href="#"
-									class="list-group-item list-group-item-action board"
-									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
-							</div>
-							<div class="list-group">
-								<a href="#"
-									class="list-group-item list-group-item-action board"
-									aria-current="true">[말머리]&nbsp이것은 제목입니다.&nbsp<br> <small>아이디 &nbsp&nbsp 작성일 &nbsp&nbsp 조회수 &nbsp&nbsp 좋아요</small></a>
-							</div>
-
-
-
-
-
-
-
-
-
-
+							<c:forEach var="i" items="${list }">
+								<div class="list-group">
+									<a href="#"
+										class="list-group-item list-group-item-action board"
+										aria-current="true">
+										${i.headlinecode }&nbsp$
+										{i.title}.&nbsp<br> 
+										<small>
+										${i.membercode } &nbsp&nbsp
+										${i.regdate } &nbsp&nbsp ${i.viewcount } &nbsp&nbsp
+										${i.likecout }</small>
+									</a>
+								</div>
+							</c:forEach>
 
 
 

@@ -12,7 +12,7 @@
 	
 	<select id="freeBoard" resultType="cc.spring.dto.BoardFreeDTO">
 <!-- 	SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=#{code}); -->
-SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=#{code});
+SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=${code})
 	</select>
 	
 	</mapper>
