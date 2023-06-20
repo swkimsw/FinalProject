@@ -223,12 +223,15 @@
 						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
 								<input type="hidden" name="code" value="${i.code}">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
- 									<div class="replyBtns">
- 										<button type="button" id="updateReplyBtn" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyClick(${i.code})">수정</button>
- 										<button type="button" id="deleteReplyBtn" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 									<div id="replyBtns${i.code}" class="replyBtns">
+ 										<button type="button" id="updateReplyBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyClick(${i.code})">수정</button>
+ 										<a href="/shopReply/deleteReplyAsk?code=${i.code}&postCode=${shopDTO.code}">
+ 											<button type="button" id="deleteReplyBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 										</a>
  									</div>
 								</div>
 							</div>
@@ -236,10 +239,12 @@
 					</form>
 				</c:when>
 				<c:when test="${shopDTO.businessCode == businessCode}">
-					<!-- <form action="/shopReply/insertReplyAnswer" method="post"> -->
+					<form action="/shopReply/insertReplyAnswer" method="post">
 						<!-- 판매자인 경우 -->
 						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
+								<input type="hidden" name="askCode" value="${i.code}">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea class="selectReply form-control" rows="3" readonly>${i.content}</textarea>
@@ -249,7 +254,7 @@
 								</div>
 							</div>
 						</div>
-					<!--  </form>-->
+					</form>
 				</c:when>
 				<c:otherwise>
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -328,7 +333,8 @@
 		// 자신이 쓴 댓글 수정 버튼 눌렀을 때
 		function updateReplyClick(code){
 			$("#replyAskContent"+code).removeAttr("readonly");
-			$("#updateReplyBtn, #deleteReplyBtn").css("display", "none");
+			$("#updateReplyBtn"+code).css("display", "none");
+			$("#deleteReplyBtn"+code).css("display", "none");
 			
 			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-primary btn-sm'>");
 			updateReplyComplete.text("수정 완료");
@@ -339,9 +345,8 @@
 				location.reload();
 			})
 			
-			$(".replyBtns").append(updateReplyComplete);
-			$(".replyBtns").append(cancel);
-			
+			$("#replyBtns"+code).append(updateReplyComplete);
+			$("#replyBtns"+code).append(cancel);
 		}
 		
 		

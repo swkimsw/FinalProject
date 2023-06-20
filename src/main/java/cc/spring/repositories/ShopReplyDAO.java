@@ -26,4 +26,8 @@ public class ShopReplyDAO {
 		return db.update("ShopReply.updateReplyAsk", dto);
 	}
 	
+	public int deleteReplyAsk(ShopReplyAskDTO dto) {
+		return db.delete("ShopReply.deleteReplyAsk", dto);
+	}
+	
 }
