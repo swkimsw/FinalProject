@@ -52,6 +52,7 @@ public class ClientMemberController {
 		if(admin) {
 			// 입력한 id와 비밀번호 일치하는 관리자 정보 가져오기
 			AdminMemberDTO amd = ams.selectAdminMemberInfo();
+			session.setAttribute("code", amd.getCode());
 			session.setAttribute("id", amd.getId());
 			session.setAttribute("nickname", amd.getName());
 			session.setAttribute("authGradeCode", amd.getAuthGradeCode());
@@ -68,7 +69,8 @@ public class ClientMemberController {
 		if(result) {
 			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 			ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
-			
+			System.out.println(cmd.getCode());
+			session.setAttribute("code", cmd.getCode());
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());
 			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
@@ -224,7 +226,7 @@ public class ClientMemberController {
 		// 일반회원 가입 시 authgradecode 1003 삽입
 		dto.setAuthGradeCode(1003);
 		
-		
+
 		int result = cms.insertClient(dto);
 		if(result == 1) {
 			m.addAttribute("clientName", dto.getName());

@@ -15,11 +15,14 @@
 					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color:#007936;">🍽CookCook</h1>
 			</a>
 		</div>
-		<c:if test="${sessionScope.id == null}">
+		<c:if test="${sessionScope.id == null || sessionScope.businessId == null}">
 			<a class="navbar-brand nav_a" href="/clientMember/login_form">Login</a>
 		</c:if>
-		<c:if test="${sessionScope.id != null || sessionScope.companyName != null}">
+		<c:if test="${sessionScope.id != null}">
 			<a class="navbar-brand nav_a" href="/clientMember/logout">Logout</a>
+		</c:if>
+		<c:if test="${sessionScope.businessId != null}">
+			<a class="navbar-brand nav_a" href="/businessMember/logout">Logout</a>
 		</c:if>
 		<div class="offcanvas offcanvas-start flex-shrink-0 p-3"
 			style="width: 280px;" tabindex="-1" id="offcanvasNavbar"
@@ -41,7 +44,7 @@
 				<c:choose>
 					<c:when test="${sessionScope.nickname != null || sessionScope.companyName != null}">
 						<!-- 유저이름 -->
-						<c:if test="${sessionScope.id != null}">
+						<c:if test="${sessionScope.nickname != null}">
 							<h3 class="nick_name text-center mb-3">${sessionScope.nickname}</h3>
 						</c:if>
 						<c:if test="${sessionScope.companyName != null}">
@@ -107,7 +110,7 @@
 								aria-expanded="true">마이페이지</button>
 							<div class="collapse show" id="home-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li class="login"><a href="/clientMyPage/login_form"
+									<li class="login"><a href="/clientMyPage/myPage"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											활동 관리</a></li>
 									<li class="login"><a href="#"

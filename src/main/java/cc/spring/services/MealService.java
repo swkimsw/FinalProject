@@ -47,7 +47,6 @@ public class MealService {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		String mealDate; 
 		
-
 		for(int i = 0; i < dayTime; i++) {
 			mealDate = format.format(cal.getTime());
 			System.out.println(dayTime);
@@ -56,21 +55,23 @@ public class MealService {
 //			System.out.println("day"+(i+1));
 			
 			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
-//			System.out.println(Arrays.toString(dto.getBreakfast()));
+			int breakfastCount = dto.getBreakfast().length;
+			int lunchCount = dto.getLunch().length;
+			int dinnerCount = dto.getDinner().length;
 			
 			System.out.println("timeArrLength--> "+timeArrLength);
 			for(int x = 0; x < timeArrLength; x++) {
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
 					for(int j = 0; j < dto.getBreakfast().length; j++) {
-						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));
+						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j], breakfastCount));
 					}
 				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("lunch") && dto.getLunch() != null) {
 					for(int j = 0; j < dto.getLunch().length; j++) {
-						result.add(new MealDTO(0, 0, mealDate, 1002, dto.getLunch()[j]));
+						result.add(new MealDTO(0, 0, mealDate, 1002, dto.getLunch()[j], lunchCount));
 					}
 				}else if(dto.getClass().getDeclaredFields()[x].getName().equals("dinner") && dto.getDinner() != null) {
 					for(int j = 0; j < dto.getDinner().length; j++) {
-						result.add(new MealDTO(0, 0, mealDate, 1003, dto.getDinner()[j]));
+						result.add(new MealDTO(0, 0, mealDate, 1003, dto.getDinner()[j], dinnerCount));
 					}
 				}
 			}

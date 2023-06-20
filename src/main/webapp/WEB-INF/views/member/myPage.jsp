@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,32 +35,78 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <!-- gbn css -->
-<link href="resources/css/gnb.css" rel="stylesheet" type="text/css">
+<link href="${path}/resources/css/gnb.css" rel="stylesheet"
+	type="text/css">
 
 <style>
 * {
 	font-family: NanumSquareNeo;
 }
-body{
-background-color: rgba(255,255,194,0.75);
-}
-.container {
-	margin-top: 100px;
-	background-color: white;
+
+body {
 	
 }
-input {
-	border-radius: 5px;
-	padding: 5px;
+
+.th {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	word-break: break-all;
+}
+
+.font_1 {
+	
 }
 
 .container {
 	margin-top: 100px;
-	border: 1px solid black;
 }
 
-th, td {
-	font-size: 20px;
+tbody {
+	/* display: p; */
+	
+}
+
+.list-group {
+	margin-bottom: 5px;
+	border-radius: 0;
+}
+
+.board {
+	/* background-color: white; */
+	background-color: #007936;
+	color: white;
+}
+
+.list-group-item:hover {
+	background-color: #00793670;
+	opacity: 75%;
+	color: white;
+}
+
+a {
+	color: white;
+}
+
+.text-muted {
+	color: #8898aa !important;
+}
+
+.user-table tbody tr .category-select {
+	max-width: 150px;
+	border-radius: 20px;
+}
+
+.font_1 {
+	font-size: 16px;
+}
+
+.th_nul {
+	width: 10px;
+}
+
+.current-page {
+	color: white;
 }
 </style>
 </head>
@@ -66,145 +114,115 @@ th, td {
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 
-
 	<div class="container">
+		<h1>My 게시글</h1>
 		<br>
+		<div class="row">
+			<div class="col">
+				<div class="row checkbox ">
+					<div class="col input-group mb-3">
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox"
+								id="inlineCheckbox1" value="option1"> <label
+								class="form-check-label" for="inlineCheckbox1">일상</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox"
+								id="inlineCheckbox2" value="option2"> <label
+								class="form-check-label" for="inlineCheckbox2">정보</label>
+						</div>
+						<div class="form-check form-check-inline">
+							<input class="form-check-input" type="checkbox"
+								id="inlineCheckbox3" value="option3"> <label
+								class="form-check-label" for="inlineCheckbox3">질문</label>
+						</div>
+						<div class="position-absolute top-0 end-0">
 
-		<div class="header position-relative">
+							<input type="text" placeholder="제목이나 작성자로 검색">
+							<button class="btn btn-outline-success" type="button">
+								<i class="bi bi-search"></i>
+							</button>
 
-			<div class="checkbox ">
-
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox1" value="option1"> <label
-						class="form-check-label" for="inlineCheckbox1">일상</label>
+						</div>
+					</div>
 				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox2" value="option2"> <label
-						class="form-check-label" for="inlineCheckbox2">정보</label>
-				</div>
-				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox"
-						id="inlineCheckbox2" value="option2"> <label
-						class="form-check-label" for="inlineCheckbox2">질문</label>
-				</div>
+				<!-- 메인시작 -->
+				<div class="row font_1">
+					<div class="col">
+						<div class="row">
+							<c:forEach var="i" items="${list }">
+								<div class="list-group">
+									<a href="#"
+										class="list-group-item list-group-item-action board"
+										aria-current="true">
+										${i.headlinecode }&nbsp$
+										{i.title}.&nbsp<br> 
+										<small>
+										${i.membercode } &nbsp&nbsp
+										${i.regdate } &nbsp&nbsp ${i.viewcount } &nbsp&nbsp
+										${i.likecout }</small>
+									</a>
+								</div>
+							</c:forEach>
 
+
+
+							<%-- <table
+								summary="This table shows how to create responsive tables using Datatables' extended functionality"
+								class="table table-bordered table-hover dt-responsive">
+								<colgroup>
+								<col style="width:5%">
+								<col style="width:7%">
+								<col style="width:40%">
+								<col style="width:5%">
+								<col style="width:5%">
+								<col style="width:5%">
+								</colgroup>
+								<thead>
+									<tr class="boradTop">
+										<th>no.</th>
+										<th>작성자</th>
+										<th class="">제목</th>
+										<th>작성일</th>
+										<th>조회수</th>
+										<th>추천</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+								<td>1</td>
+								<td>?</td>
+								<td>31221</td>
+								<td>2012/05/12</td>
+								<td>1</td>
+								<td>1</td>
+									<c:forEach var="i" items="${recordList}">
+										<div class="col-4 col-lg-2">
+											<tr>
+												<td>no : ${i.seq}</td>
+												<td>${i.writer}</td>
+												<td><a
+													href="secondHandBoardContents.secondHand?seq=${i.seq}&currentPage=1">${i.title}</a></td>
+												<td class="col d-none d-md-block" style="height: 55px;">${i.view_count}</td>
+												<td>${i.detailDate}</td>
+												<td>0</td>
+
+											</tr>
+										</div>
+									</c:forEach>
+
+
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="6" class="text-center">ㅇㄴ</td>
+									</tr>
+								</tfoot>
+							</table> --%>
+						</div>
+					</div>
+				</div>
 			</div>
-
-
-
-			<div class="position-absolute top-0 end-0">
-
-				<input type="text" placeholder="제목이나 작성자로 검색">
-				<button class="btn btn-outline-primary" type="button">
-					<i class="bi bi-search"></i>
-				</button>
-
-			</div>
-
-
-
-		</div>
-
-		<div class="table-responsive mt-5">
-
-			<table class="table table-hover">
-				<thead>
-					<tr style="font-size: large;">
-						<th>번호</th>
-						<th>제목</th>
-						<th>글쓴이</th>
-						<th>작성일</th>
-						<th>조회수</th>
-						<th>추천수</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>265121</td>
-						<td>엌 아래글 진짜 관리자임?</td>
-						<td>ㅇㅇ</td>
-						<td>2020.04.23</td>
-						<td>1000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>265120</td>
-						<td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-						<td>운영자</td>
-						<td>2020.04.23</td>
-						<td>7000</td>
-						<td>150</td>
-					</tr>
-					<tr>
-						<td>265121</td>
-						<td>엌 아래글 진짜 관리자임?</td>
-						<td>ㅇㅇ</td>
-						<td>2020.04.23</td>
-						<td>1000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>265120</td>
-						<td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-						<td>운영자</td>
-						<td>2020.04.23</td>
-						<td>7000</td>
-						<td>150</td>
-					</tr>
-					<tr>
-						<td>265121</td>
-						<td>엌 아래글 진짜 관리자임?</td>
-						<td>ㅇㅇ</td>
-						<td>2020.04.23</td>
-						<td>1000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>265120</td>
-						<td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-						<td>운영자</td>
-						<td>2020.04.23</td>
-						<td>7000</td>
-						<td>150</td>
-					</tr>
-					<tr>
-						<td>265121</td>
-						<td>엌 아래글 진짜 관리자임?</td>
-						<td>ㅇㅇ</td>
-						<td>2020.04.23</td>
-						<td>1000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>265120</td>
-						<td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-						<td>운영자</td>
-						<td>2020.04.23</td>
-						<td>7000</td>
-						<td>150</td>
-					</tr>
-					<tr>
-						<td>265121</td>
-						<td>엌 아래글 진짜 관리자임?</td>
-						<td>ㅇㅇ</td>
-						<td>2020.04.23</td>
-						<td>1000</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>265120</td>
-						<td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-						<td>운영자</td>
-						<td>2020.04.23</td>
-						<td>7000</td>
-						<td>150</td>
-					</tr>
-
-				</tbody>
-			</table>
-
 			<br>
 
 			<nav aria-label="Page navigation example" align="center">
@@ -239,28 +257,7 @@ th, td {
 				</ul>
 			</nav>
 
-			<%-- <c:choose>
-
-				<c:when test="${user != 1001}">
-
-					<div style="float: right;">
-						<a href="/board/freeWrite">
-							<button class="btn btn-outline-primary" type="button">작성하기</button>
-						</a>
-					</div>
-
-				</c:when>
-
-				<c:otherwise>
-
-				</c:otherwise>
-
-			</c:choose> --%>
-
-
-
 		</div>
-
 	</div>
 	<script>
 	var currentPage = ${cpage}; // 현재 페이지 번호
