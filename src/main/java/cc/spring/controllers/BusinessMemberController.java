@@ -46,7 +46,7 @@ public class BusinessMemberController {
 				BusinessMemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
 				
 				session.setAttribute("code", bmd.getCode());
-				session.setAttribute("businessId",bmd.getBusinessId());
+				session.setAttribute("id",bmd.getBusinessId());
 				session.setAttribute("companyName",bmd.getCompanyName());
 				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
 				System.out.println("로그인 실행!");
