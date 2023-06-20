@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -115,8 +116,8 @@ public class ShopController {
 //최은지 Part
  	
  	//공구 목록으로 이동
- 	 	@RequestMapping("toShopList")
- 		public String toShopList(@RequestParam("status") String status, Model model) throws Exception{
+ 	 	@RequestMapping("toShopList/{status}")
+ 		public String toShopList(@PathVariable("status") String status, Model model) throws Exception{
  	 		
  	 		List<ShopListDTO> list = new ArrayList<ShopListDTO>();
  	 			
