@@ -1,6 +1,8 @@
 package cc.spring.repositories;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +46,20 @@ public class ShopDAO {
 	public int insertShopRequest(RequestListDTO dto) {
 		return db.insert("insertShopRequest", dto);
 	}
-
-	public List<ShopListDTO> ShopList() {
+	
+	public List<ShopListDTO> shopList() {
 		return db.selectList("Shop.shopList");
 	}
-
 	
+	public List<ShopListDTO> getClosedList() {
+		return db.selectList("Shop.getClosedList");
+	}
+
+	public List<ShopListDTO> searchByKeyword(String category, String keyword ) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("category", category);
+		param.put("keyword", keyword);
+		return db.selectList("Shop.searchByKeyword",param);
+	}
 
 }
