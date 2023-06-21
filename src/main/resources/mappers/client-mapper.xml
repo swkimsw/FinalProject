@@ -15,11 +15,11 @@
 	</select>
 	
 	<select id="phoneDuplication" resultType="boolean">
-		select count(*) from Member where ${key} = #{value} and arthGradeCode = 1003
+		select count(*) from Member where ${key} = #{value} and authGradeCode = 1003
 	</select>
 		
 	<select id="phoneCheck" resultType="boolean">
-		select count(*) from Member where phone = #{phone}
+		select count(*) from Member where phone = #{phone} and authGradeCode = 1003
 	</select>
 	
 	<insert id="insert">
