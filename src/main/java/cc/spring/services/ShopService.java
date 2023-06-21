@@ -123,6 +123,9 @@ public class ShopService {
 		File realPathFile = new File(realPath);
 		if(!realPathFile.exists()) realPathFile.mkdir();
 		if(files != null) {
+			// 삭제할 image 리스트 뽑아서 삭제하기
+			//List<String> imageList = fileDAO.deleteImageList(dto.getCode());
+			
 			for(MultipartFile file : files) {
 				if(file.isEmpty()) {break;}
 				String oriName = file.getOriginalFilename();

@@ -16,17 +16,17 @@ public class FileDAO {
 	private SqlSessionTemplate db;
 	
 	public int insertShopImage(FileDTO dto) {
-		return db.insert("insertShopImage", dto);
+		return db.insert("File.insertShopImage", dto);
 	}
 	
 	public List<FileDTO> selectShopImg(int code) {
-		return db.selectList("selectShopImg", code);
+		return db.selectList("File.selectShopImg", code);
 	}
 	
 	public int updateShopImage(FileDTO dto) {
 		// 이미지 업데이트 - 입력된 이미지 삭제 후 다시 입력
-		db.delete("deleteShopImage", dto);
-		return db.insert("insertShopImage", dto);
+		db.delete("File.deleteShopImage", dto);
+		return db.insert("File.insertShopImage", dto);
 	}
 
 	
