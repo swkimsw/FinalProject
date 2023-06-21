@@ -528,12 +528,12 @@
 <script src="${path}/resources/js/aiCalendar_drag.js"></script>
 <script type="text/javascript">
 
-			var timeArr = [];
+			let timeArr = [];
 			let mealArr = [];
-			var timeStr = "";
-			var special;
-			var dayTime;
-			var todate;
+			let timeStr = "";
+			let special;
+			let dayTime;
+			let todate;
 
 			function dateFormat(date) {
 				let month = date.getMonth() + 1;
