@@ -93,7 +93,7 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr style="font-size: large;">
+                            <tr>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -105,19 +105,10 @@
                         <tbody>
 
                             <c:forEach var="l" items="${list}">
-                                <tr>
+                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}')">
                                     <td>${l.code}</td>
                                     <td>${l.title}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${l.client_nickname == null}">
-                                                ${l.business_nickname}
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${l.client_nickname}
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
+                                    <td>${l.member_nickname }</td>
                                     <td>${l.regdate}</td>
                                     <td>${l.viewcount}</td>
                                     <td>${l.likecount}</td>
@@ -171,8 +162,12 @@
 
             </div>
 
-            <script>
-
+             <script>
+            
+            function goToLink(url) {
+              window.location.href = url;
+            }
+        
             </script>
 
         </body>

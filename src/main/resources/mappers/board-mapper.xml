@@ -6,10 +6,6 @@
 <mapper namespace="Board">
 
 
-
-
-
-
 	<!-- 후기게시판의 고유번호 -->
 	<select id="selectReviewSeq" resultType="int">
 		select
@@ -44,7 +40,7 @@
 	</insert>
 
 
-
+<!-- ========================================================================================== -->
 
 	<!-- 자유게시판리스트 가져오기 -->
 	<select id="selectFreelist"
@@ -64,5 +60,24 @@
 		select * from boardReview_view order by regdate asc
 	</select>
 
+<!-- ========================================================================================== -->
+
+	<!-- 자유게시판 해당 글 가져오기 -->
+	<select id="selectFreeContent"
+		resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where code = #{code}
+	</select>
+	
+	<!-- 공지게시판 해당 글 가져오기 -->
+	<select id="selectAnnouncementContent"
+		resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardAnnouncement_view where code = #{code}
+	</select>
+	
+	<!-- 리뷰게시판 해당 글 가져오기 -->
+	<select id="selectReviewContent"
+		resultType="cc.spring.dto.BoardReviewDTO">
+		select * from boardReview_view where code = #{code}
+	</select>
 
 </mapper>

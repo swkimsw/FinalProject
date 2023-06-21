@@ -40,16 +40,6 @@ public class BoardController {
 	@Autowired
 	private HttpSession session;
 
-
-	@Autowired
-	private ServletContext servletContext;
-
-
-	@Autowired
-	public BoardController(ServletContext servletContext) {
-		this.servletContext = servletContext;
-	}
-
 	@Autowired
 	private HttpServletRequest request;
 
@@ -158,14 +148,47 @@ public class BoardController {
 		return "/board/boardReviewWrite";
 	}
 
-	//글 자세히 보기
-	@RequestMapping("content")
-	public String content() {
-		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기
+	//=========================================================================
+
+	//자유게시판 글 자세히 보기
+	@RequestMapping("FreeContent")
+	public String FreeContent(int code) {
+		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
 
-		return "/board/content_re";
+
+		BoardFreeDTO result = boardservice.selectFreeContent(code);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+
+		return "/board/FreeContent";
 	}
+
+	//공지게시판 글 자세히 보기
+	@RequestMapping("AnnouncementContent")
+	public String AnnouncementContent(int code) {
+		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
+		request.setAttribute("user", user ); 
+
+
+		BoardAnnouncementDTO result = boardservice.selectAnnouncementContent(code);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+
+		return "/board/AnnouncementContent";
+	}
+
+	//리뷰게시판 글 자세히 보기
+	@RequestMapping("ReviewContent")
+	public String ReviewContent(int code) {
+		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
+		request.setAttribute("user", user ); 
+
+
+		BoardReviewDTO result = boardservice.selectReviewContent(code);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+
+		return "/board/ReviewContent";
+	}
+
 
 	//===============================================================================
 
@@ -176,13 +199,10 @@ public class BoardController {
 		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
 		boardservice.insertFree(dto,membercode);//자유게시판 작성하기
-		
+
 		return "redirect:/board/free"; //자유게시판으로 가기
 
 	}
-
-
-
 
 
 	//공지게시판 글 작성하기
@@ -193,7 +213,7 @@ public class BoardController {
 		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
 		boardservice.insertAnnouncement(dto,membercode);//공지게시판 작성하기
-		
+
 		return "redirect:/board/announcement"; //공지게시판으로 가기
 	}
 
@@ -203,30 +223,17 @@ public class BoardController {
 
 	//후기게시판 글 작성하기
 	@RequestMapping("inputReview")
-	@Transactional
 	public String inputReview(BoardReviewDTO dto,
 			@RequestParam(name = "oriName") String[] oriName,
 			@RequestParam(name = "sysName") String[] sysName,
 			String realPath) {
 
-
-		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인한 사람의 ID SEQ 가져오기 (일반회원)
+		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
 		System.out.println(membercode);
 
-		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기
+		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능
 
-		boardservice.insertReview(dto,membercode,parent_seq); //후기 게시판 작성
-
-		for(int i = 0 ; i<oriName.length ; i++) {
-
-			System.out.println(oriName[i]);  //oriName
-			System.out.println(sysName[i]);  //oriName
-			System.out.println(realPath); //realpath
-
-
-			boardservice.insertReviewImage(parent_seq,realPath,oriName[i],sysName[i]); //후기게시판 글에 들어가는 이미지 db넣기
-
-		}
+		boardservice.insertReview(dto,membercode,parent_seq,realPath,oriName,sysName); //후기 게시판 작성
 
 		return "redirect: /board/review" ;
 	}

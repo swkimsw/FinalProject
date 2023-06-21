@@ -76,7 +76,7 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr style="font-size: large;">
+                            <tr >
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -89,11 +89,11 @@
                         
                         <c:forEach var="l" items="${list}">
                        
-                            <tr onclick="goToLink('/board/content')">
+                            <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}')">
                            
                                 <td>${l.code}</td>
                                 <td>${l.title}</td>
-                                <td>${l.admin_name}</td>
+                                <td>${l.member_nickname}</td>
                                 <td>${l.regdate}</td>
                                 <td>${l.viewcount}</td>
                                 <td>${l.likecount}</td>

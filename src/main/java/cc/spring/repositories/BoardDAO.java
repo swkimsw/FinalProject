@@ -28,6 +28,7 @@ public class BoardDAO {
 //===========================================================================================
 
 	
+	
 
 	public int selectReviewSeq() {
 		return mybatis.selectOne("Board.selectReviewSeq");
@@ -85,6 +86,24 @@ public class BoardDAO {
 
 	public List<BoardReviewDTO> selectReviewlist() {
 		return  mybatis.selectList("Board.selectReviewlist");
+	}
+
+
+//=====================================================================
+	
+	public BoardFreeDTO selectFreeContent(int code) {
+		return  mybatis.selectOne("Board.selectFreeContent",code);
+	}
+
+
+
+	public BoardAnnouncementDTO selectAnnouncementContent(int code) {
+		return  mybatis.selectOne("Board.selectAnnouncementContent",code);
+	}
+
+
+	public BoardReviewDTO selectReviewContent(int code) {
+		return  mybatis.selectOne("Board.selectReviewContent",code);
 	}
 
 	
