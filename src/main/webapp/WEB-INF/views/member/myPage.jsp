@@ -70,6 +70,7 @@ tbody {
 .list-group {
 	margin-bottom: 5px;
 	border-radius: 0;
+	height: 100px;
 }
 
 .board {
@@ -79,7 +80,7 @@ tbody {
 }
 
 .list-group-item:hover {
-	background-color: #00793670;
+	background-color: #00793650;
 	opacity: 75%;
 	color: white;
 }
@@ -108,6 +109,30 @@ a {
 .current-page {
 	color: white;
 }
+/* h1태그 */
+h1.second {
+  font-weight: 200;
+}
+
+h1.second span {
+  position: relative;
+  display: inline-block;
+  padding: 5px 10px ;
+  border-radius: 10px;
+  border-bottom: 1px solid mediumseagreen;
+}
+
+h1.second span:after {
+  content: '';
+  position: absolute;
+  bottom: calc(-100% - 1px);
+  margin-left: -10px;
+  display: block;
+  width: 100%; height: 100%;
+  border-radius: 10px;
+  border-top: 1px solid mediumseagreen;
+}
+/* h1태그 종료 */
 </style>
 </head>
 <body>
@@ -115,7 +140,7 @@ a {
 	</c:import>
 
 	<div class="container">
-		<h1>My 게시글</h1>
+		<h1 class="second"><span>MY FREEBOARD</span></h1>
 		<br>
 		<div class="row">
 			<div class="col">
@@ -150,17 +175,19 @@ a {
 				<div class="row font_1">
 					<div class="col">
 						<div class="row">
-							<c:forEach var="i" items="${list }">
+							<c:forEach var="i" items="${list}">
 								<div class="list-group">
 									<a href="#"
 										class="list-group-item list-group-item-action board"
 										aria-current="true">
-										${i.headlinecode }&nbsp$
-										{i.title}.&nbsp<br> 
+										${i.headlinecode}&nbsp&nbsp&nbsp&nbsp&nbsp
+										${i.title}&nbsp<br> 
 										<small>
-										${i.membercode } &nbsp&nbsp
-										${i.regdate } &nbsp&nbsp ${i.viewcount } &nbsp&nbsp
-										${i.likecout }</small>
+										${i.membercode}&nbsp&nbsp
+										${i.regdate}&nbsp&nbsp 
+										${i.viewcount}&nbsp&nbsp
+										${i.likecout}
+										</small>
 									</a>
 								</div>
 							</c:forEach>
