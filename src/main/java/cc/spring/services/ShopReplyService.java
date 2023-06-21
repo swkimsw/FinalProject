@@ -46,6 +46,9 @@ public class ShopReplyService {
 	}
 	
 	// 답글 update
+	public int updateReplyAnswer(ShopReplyAnswerDTO dto) {
+		return shopReplyDAO.updateReplyAnswer(dto);
+	}
 	
 	// 답글 delete
 	public int deleteReplyAnswer(int code) {

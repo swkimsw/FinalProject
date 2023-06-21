@@ -46,6 +46,13 @@ public class ShopReplyController {
 	}
 	
 	// 공구샵 판매자 답글 수정
+	@RequestMapping("updateReplyAnswer")
+	public String updateReplyAnswer(int code, int postCode, String content) {
+		ShopReplyAnswerDTO dto = new ShopReplyAnswerDTO(code, postCode, 0, 0, content, null, null, null);
+		
+		shopReplyService.updateReplyAnswer(dto);
+		return "redirect:/shop/toShopApply?code="+postCode;
+	}
 	
 	// 공구샵 판매자 답글 삭제
 	@RequestMapping("deleteReplyAnswer")
