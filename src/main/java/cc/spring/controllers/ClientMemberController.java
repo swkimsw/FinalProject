@@ -246,7 +246,7 @@ public class ClientMemberController {
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
-		return "redirect:?/error";
+		return "redirect:/error";
 	}
 
 }

@@ -28,6 +28,7 @@
 	.selectReplyAnswer{margin-left: 3%; margin-right:5%;}
 	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
+	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
 </style>
 </head>
 <body>
@@ -243,13 +244,14 @@
 						<!-- 판매자인 경우 -->
 						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
-								<input type="hidden" name="askCode" value="${i.code}">
 								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
+								<input type="hidden" name="askCode" value="${i.code}">
+								<input type="hidden" id="businessCode" name="businessCode" value="${businessCode}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea class="selectReply form-control" rows="3" readonly>${i.content}</textarea>
  									<div>
- 										<button type="button" id="" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
+ 										<button type="button" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
  									</div>
 								</div>
 							</div>
@@ -319,9 +321,9 @@
 			row += '<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>';
 			row += '&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>';
 			row += '<div class="reply" style="margin-left:5%;">';
-			row += '<textarea class="selectReplyAnswer form-control" rows="3"></textarea>';
+			row += '<textarea class="selectReplyAnswer form-control" name="content" rows="3"></textarea>';
 			row += '<div>';
-			row += '<button id="writeAnswerBtn" class="toWriteAnswerBtn btn btn-primary btn-sm">답글 등록</button>';
+			row += '<button id="writeAnswerBtn" class="writeAnswerBtn btn btn-primary btn-sm">답글 등록</button>';
 			row += '</div>';
 			row += '</div>';
 			row += '</div>';

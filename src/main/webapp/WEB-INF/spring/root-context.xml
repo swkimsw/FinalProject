@@ -42,7 +42,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<tx:annotation-driven />
+	
 	<context:component-scan
 		base-package="cc.spring.repositories" />
 	<context:component-scan
@@ -68,5 +68,5 @@
 
 	<bean class="com.google.gson.Gson"></bean>
 	
-
+	<tx:annotation-driven />	
 </beans>
