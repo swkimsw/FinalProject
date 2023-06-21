@@ -48,8 +48,8 @@
 	font-family: 'NanumSquareNeoBold';
 }
 
-html, body {
-	background-color: #ffffc2;
+body {
+	background-color: rgba(255,255,194,0.75);
 }
 
 .row {
