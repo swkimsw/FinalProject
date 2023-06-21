@@ -33,10 +33,8 @@ public class ShopReplyController {
 	
 	// 공구샵 본인 댓글 삭제
 	@RequestMapping("deleteReplyAsk")
-	public String deleteReplyAsk(int code, int postCode) {
-		ShopReplyAskDTO dto = new ShopReplyAskDTO(code, postCode);
-		
-		shopReplyService.deleteReplyAsk(dto);
+	public String deleteReplyAsk(int code, int postCode) {		
+		shopReplyService.deleteReplyAsk(code);
 		return "redirect:/shop/toShopApply?code="+postCode;
 	}
 	
@@ -45,6 +43,15 @@ public class ShopReplyController {
 	public String insertReplyAnswer(ShopReplyAnswerDTO dto) {
 		shopReplyService.insertReplyAnswer(dto);
 		return "redirect:/shop/toShopApply?code="+dto.getPostCode();
+	}
+	
+	// 공구샵 판매자 답글 수정
+	
+	// 공구샵 판매자 답글 삭제
+	@RequestMapping("deleteReplyAnswer")
+	public String deleteReplyAnswer(int code, int postCode) {
+		shopReplyService.deleteReplyAnswer(code);
+		return "redirect:/shop/toShopApply?code="+postCode;
 	}
 	
 	

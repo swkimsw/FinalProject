@@ -6,10 +6,10 @@
 
 	<insert id="insertShop">
 		insert into groupbuying
-		values(groupbuyin_seq.currval,${businessCode},1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
+		values(groupbuying_seq.currval,${businessCode},1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
 		<selectKey keyProperty="code" resultType="int"
 			order="BEFORE">
-			select groupbuyin_seq.nextval from dual
+			select groupbuying_seq.nextval from dual
 		</selectKey>
 	</insert>
 
