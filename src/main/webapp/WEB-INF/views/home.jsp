@@ -173,7 +173,7 @@
 								</span></td>
 								<td class="c-header-center"></td>
 								<td class="c-header-right d-grid justify-content-end h-100">
-									<button id="addMealBtn" class="btn btn-success btn-rounded">저장하기</button>
+									<button id="aiMealAddBtn" class="btn btn-success btn-rounded">저장하기</button>
 								</td>
 							</tr>
 						</tbody>
@@ -522,10 +522,10 @@
 			</div>
 		</div>
 </body>
-<!-- mealCalendar meal js -->
-<script src="${path}/resources/js/mealCalendar_meal.js"></script>
-<!-- mealCalendar drag js -->
-<script src="${path}/resources/js/mealCalendar_drag.js"></script>
+<!-- aiCalendar meal js -->
+<script src="${path}/resources/js/aiCalendar_meal.js"></script>
+<!-- aiCalendar drag js -->
+<script src="${path}/resources/js/aiCalendar_drag.js"></script>
 <script type="text/javascript">
 
 			var timeArr = [];
@@ -617,7 +617,7 @@
 			});
 			
 			// 식단 저장 
-			$("#addMealBtn").on("click", function(){
+			$("#aiMealAddBtn").on("click", function(){
 				
 				$.ajax({
 					url: "/meal/addAiMeal",
@@ -628,17 +628,7 @@
 				});
 			});
 			
-			// 식단을 저장하는 함수
-			// 모달창 저장하기 버튼 누르면 식단 새로저장
-			function mealAdd(resp){
-				mealArr = resp.map(i => i);
-			}
 
-			function mealChange(e){
-				// 특수문자, 이모티콘 입력방지
-				// startdayPoint 정보 가지고 있어야 한다
-					
-			}
 			
 			
 			
