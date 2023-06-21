@@ -5,7 +5,7 @@ let startMeal;
 let endPoint;
 let endMeal;
 
-$(".meal-box").on("dragstart", function (e, ) {
+$(".meal-box").on("dragstart", function (e) {
     e.stopPropagation();
     let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
     
