@@ -145,7 +145,7 @@ public class ShopController {
  	 		model.addAttribute("list",list);
  	 		
  	 		//사업자회원 공구등록 버튼 유무
- 	 		//session.setAttribute("authGradeCode",1002); //테스트용
+ 	 		session.setAttribute("authGradeCode",1002); //테스트용
  	 		//session.removeAttribute("authGradeCode");  //테스트용
  	 		if(session.getAttribute("authGradeCode")!= null) {
  	 			int authGradeCode = (Integer)session.getAttribute("authGradeCode");;
@@ -180,12 +180,25 @@ public class ShopController {
  			return searchList;
  	 	}
  	 	
-
- 	 	
- 	 	//@RequestMapping("toMyShopList")
- 	 	//public String toMyShopList(int code) {
- 	 		//List<ShopList>
- 	 	//}
+ 	 //내 공구목록	
+ 	 @RequestMapping("toMyShopList")
+ 	 public String toMyShopList(Model model) {
+ 		int code = (Integer)session.getAttribute("code");
+ 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
+ 		List<ShopListDTO> list = new ArrayList<>();
+ 		
+ 		//사업자일때
+ 		if(authGradeCode == 1002) {
+ 			
+ 			
+ 		//일반회원일때	
+ 		}else if(authGradeCode == 1003) {
+ 			list = shopService.clientBuyingList(code);
+ 		}
+ 		
+ 	 	model.addAttribute("list",list);
+ 	 	return "/shop/myShopList";
+ 	 }
 
 	// 공구샵 수정
 	@RequestMapping("updateShop")

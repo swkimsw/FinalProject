@@ -47,6 +47,7 @@
 		values(request_list_seq.nextval,#{clientCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
 
+
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
 		select g.code, g.deadLine, g.statusCode, g.title, g.productName, g.productPrice,
 		m.companyName, m.authGradeCode,
@@ -54,8 +55,24 @@
 		from groupbuying g
 		left join member m on g.memberCode = m.code
 		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode ) and m.code=#{code}
+		order by g.deadline desc
+		
+		
+	</select>
+	
+	<select id="clientBuyingList" resultType="cc.spring.dto.ShopListDTO">
+		select g.code, g.deadLine, g.statusCode, g.title, g.productName, g.productPrice,
+		m.name, 
+		i.code as imgcode, substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname,
+		r.quantity
+		from groupbuying g
+		left join member m on g.memberCode = m.code
+		left join groupbuyingimg i on g.code = i.postcode
+		left join requestList r on m.code = r.membercode
 		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode )
-		order by g.deadline desc;
+		and m.code = #{code}
+		order by g.deadline desc
 	</select>
 	
 	<select id="getStatusList" resultType="cc.spring.dto.ShopListDTO">
@@ -65,7 +82,7 @@
 		from groupbuying g
 		left join member m on g.membercode = m.code
 		left join groupbuyingimg i on g.code = i.postcode
-		where i.code in (select min(i.code) from groupbuyingimg i group by i.postcode);
+		where i.code in (select min(i.code) from groupbuyingimg i group by i.postcode)
 		
         <choose>
 			<when test="status == 'closed'">
@@ -91,7 +108,7 @@
 				and g.productName like '%${keyword}%' order by g.deadline desc
 			</when>
 			<when test="category == 'companyName'">
-				and b.companyName like '%${keyword}%' order by g.deadline desc
+				and m.companyName like '%${keyword}%' order by g.deadline desc
 			</when>
 		</choose>
 	</select>
