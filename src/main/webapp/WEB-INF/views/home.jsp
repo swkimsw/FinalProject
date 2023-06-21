@@ -529,6 +529,7 @@
 <script type="text/javascript">
 
 			var timeArr = [];
+			let mealArr = [];
 			var timeStr = "";
 			var special;
 			var dayTime;
@@ -593,7 +594,9 @@
 						});
 					}
 				}).done(function (resp) {
+					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
+					mealAdd(resp);
 					const meals = ['breakfast', 'lunch', 'dinner'];
 					const timeCodes = [1001, 1002, 1003];
 
@@ -616,24 +619,29 @@
 			// 식단 저장 
 			$("#addMealBtn").on("click", function(){
 				
-				let pram = [{
-					"day-week" : $(this).$(".day-header"), // 일 & 요일
-					"month-year" :  $("#month-year").val(), // 년 & 월
-					"time" : "", // 아침, 점심, 저녁
-					"meal" : "" // 식단
-				}];
-				
 				$.ajax({
-					url: "/meal/addMeal",
+					url: "/meal/addAiMeal",
 					type: "post",
-					data: JSON.stringify(param),
+					data: {
+						mealArr : mealArr
+					}
 				});
 			});
 			
-			// 식단 이동할때마다 이벤트 감지하는 함수
-			function mealChange(e){
-				
+			// 식단을 저장하는 함수
+			// 모달창 저장하기 버튼 누르면 식단 새로저장
+			function mealAdd(resp){
+				mealArr = resp.map(i => i);
 			}
+
+			function mealChange(e){
+				// 특수문자, 이모티콘 입력방지
+				// startdayPoint 정보 가지고 있어야 한다
+					
+			}
+			
+			
+			
 		</script>
 
 </html>

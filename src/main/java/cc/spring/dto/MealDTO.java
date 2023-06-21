@@ -2,7 +2,8 @@ package cc.spring.dto;
 
 public class MealDTO {
 	private int code;
-	private int clientCode;
+	private String seq;
+	private int memberCode;
 	private String mealDate;
 	private int timeCode;
 	private String meal;
@@ -11,10 +12,10 @@ public class MealDTO {
 		super();
 	}
 
-	public MealDTO(int code, int clientCode, String mealDate, int timeCode, String meal) {
+	public MealDTO(int code, int memberCode, String mealDate, int timeCode, String meal) {
 		super();
 		this.code = code;
-		this.clientCode = clientCode;
+		this.memberCode = memberCode;
 		this.mealDate = mealDate;
 		this.timeCode = timeCode;
 		this.meal = meal;
@@ -28,12 +29,12 @@ public class MealDTO {
 		this.code = code;
 	}
 
-	public int getClientCode() {
-		return clientCode;
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setClientCode(int clientCode) {
-		this.clientCode = clientCode;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public String getMealDate() {
@@ -62,10 +63,8 @@ public class MealDTO {
 
 	@Override
 	public String toString() {
-		return "MealDTO [code=" + code + ", clientCode=" + clientCode + ", mealDate=" + mealDate + ", timeCode="
+		return "MealDTO [code=" + code + ", memberCode=" + memberCode + ", mealDate=" + mealDate + ", timeCode="
 				+ timeCode + ", meal=" + meal + "]";
 	}
-
-	
 	
 }
