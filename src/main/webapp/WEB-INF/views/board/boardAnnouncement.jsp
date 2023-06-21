@@ -88,15 +88,18 @@
                         <tbody>
                         
                         <c:forEach var="l" items="${list}">
-                            <tr>
+                       
+                            <tr onclick="goToLink('/board/content')">
+                           
                                 <td>${l.code}</td>
                                 <td>${l.title}</td>
                                 <td>${l.admin_name}</td>
                                 <td>${l.regdate}</td>
                                 <td>${l.viewcount}</td>
                                 <td>${l.likecount}</td>
-                            </tr>
                             
+                            </tr>
+                         
                         </c:forEach>
                   
                         </tbody>
@@ -125,7 +128,7 @@
 
             <c:choose>
 			
-				<c:when test="${user == 'admin123'}">
+				<c:when test="${user == '1001'}">
 
 					<div style="float: right;">
 						<a href="/board/announcementWrite">
@@ -147,7 +150,11 @@
             </div>
 
             <script>
-
+            
+            function goToLink(url) {
+              window.location.href = url;
+            }
+        
             </script>
 
         </body>

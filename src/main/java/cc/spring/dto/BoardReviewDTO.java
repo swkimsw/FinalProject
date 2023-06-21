@@ -14,8 +14,8 @@ public class BoardReviewDTO {
 	private Timestamp regdate;
 	private Timestamp moddate;
 	private Timestamp deldate;
-	private String client_id;
-	private String client_nickname;
+	private String member_id;
+	private String member_nickname;
 	public BoardReviewDTO() {} ;
 	public BoardReviewDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title, String content,
 			int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
@@ -33,7 +33,7 @@ public class BoardReviewDTO {
 		this.deldate = deldate;
 	}
 	public BoardReviewDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title, String content,
-			int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String client_id, String client_nickname) {
+			int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String member_id, String member_nickname) {
 		super();
 		this.code = code;
 		this.boardkindcode = boardkindcode;
@@ -46,8 +46,8 @@ public class BoardReviewDTO {
 		this.regdate = regdate;
 		this.moddate = moddate;
 		this.deldate = deldate;
-		this.client_id = client_id;
-		this.client_nickname = client_nickname;
+		this.member_id = member_id;
+		this.member_nickname = member_nickname;
 	}
 	public int getCode() {
 		return code;
@@ -115,17 +115,18 @@ public class BoardReviewDTO {
 	public void setDeldate(Timestamp deldate) {
 		this.deldate = deldate;
 	}
-	public String getClient_id() {
-		return client_id;
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setClient_id(String client_id) {
-		this.client_id = client_id;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-	public String getClient_nickname() {
-		return client_nickname;
+	public String getMember_nickname() {
+		return member_nickname;
 	}
-	public void setClient_nickname(String client_nickname) {
-		this.client_nickname = client_nickname;
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
 	}
+
 	
 }
