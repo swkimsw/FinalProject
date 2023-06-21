@@ -1,7 +1,8 @@
 package cc.spring.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.spring.dto.MealDTO;
@@ -23,14 +23,29 @@ public class MealController {
 	@Autowired
 	private MealService mService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping("toMyMeal")
 	public String toMyMeal() {
+		int memberCode = (int)session.getAttribute("code");
+		List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
 		return "meal/mealCalendar";
 	}
 	
+	//ajax
 	@RequestMapping("insertMeal")
 	public void insertMeal(MealDTO dto) {
-		
+		mService.insertMeal(dto);
+	}
+	
+	//ajax
+	@ResponseBody
+	@RequestMapping("selectWeekMeal")
+	public String selectWeekMeal(String startDate) {
+		int memberCode = (int)session.getAttribute("code");
+		List<MealDTO> mealList = mService.selectWeekMeal(memberCode, startDate);
+		return "";
 	}
 	
 	@RequestMapping("toMyBasket")

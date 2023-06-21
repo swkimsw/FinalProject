@@ -1,6 +1,5 @@
 package cc.spring.services;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -18,6 +17,7 @@ import com.google.gson.JsonObject;
 import cc.spring.dto.ChatDTO;
 import cc.spring.dto.MealDTO;
 import cc.spring.provider.ChatGPTProvider;
+import cc.spring.repositories.MealDAO;
 
 @Service
 public class MealService {
@@ -26,7 +26,38 @@ public class MealService {
 	private ChatGPTProvider GPTprovider;
 	
 	@Autowired
+	private MealDAO mealDAO;
+	
+	@Autowired
 	private Gson gson;
+	
+	public int insertMeal(MealDTO dto) {
+		return mealDAO.insertMeal(dto);
+	}
+	
+	public List<MealDTO> selectMealCalendar(int memberCode){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(new Date());
+		String today = sdf.format(new Date());
+		cal.add(Calendar.DATE, 6);
+		String endDate = sdf.format(cal);
+		
+		return mealDAO.selectMealCalendar(memberCode, today, endDate);
+	}
+	
+	public List<MealDTO> selectWeekMeal(int memberCode, String startDate){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		try {
+			cal.setTime(sdf.parse(startDate));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		cal.add(Calendar.DATE, 6);
+		String endDate = sdf.format(cal);
+		return mealDAO.selectWeekMeal(memberCode, startDate, endDate);
+	}
 
 	@Value("#{${SPECIAL-VALUES}}")
 	private Map<Integer, String> specialValues;
