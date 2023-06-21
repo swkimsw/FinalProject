@@ -22,6 +22,7 @@ import cc.spring.dto.FileDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
+import cc.spring.dto.ShopReplyAnswerDTO;
 import cc.spring.dto.ShopReplyAskDTO;
 import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
@@ -93,10 +94,14 @@ public class ShopController {
 		// 선택한 공구샵 댓글 목록 가져오기
 		List<ShopReplyAskDTO> shopReplyAskDTO = shopReplyService.selectShopReply(code);
 		
+		// 선택한 공구샵 답글 목록 가져오기
+		List<ShopReplyAnswerDTO> shopReplyAnswerDTO = shopReplyService.selectShopReplyAnswer(code);
+		
 		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
 		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
+		model.addAttribute("shopReplyAnswerDTO", shopReplyAnswerDTO);
 		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}
