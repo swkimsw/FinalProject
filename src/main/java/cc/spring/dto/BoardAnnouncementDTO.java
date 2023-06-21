@@ -14,8 +14,8 @@ public class BoardAnnouncementDTO {
 	private Timestamp regdate;
 	private Timestamp moddate;
 	private Timestamp deldate;
-	private String admin_id;
-	private String admin_name;
+	private String member_id;
+	private String member_nickname;
 	public BoardAnnouncementDTO() {};
 	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
 			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
@@ -32,9 +32,8 @@ public class BoardAnnouncementDTO {
 		this.moddate = moddate;
 		this.deldate = deldate;
 	}
-	
 	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
-			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String admin_id , String admin_name) {
+			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate, String member_id , String member_nickname) {
 		super();
 		this.code = code;
 		this.boardkindcode = boardkindcode;
@@ -47,8 +46,8 @@ public class BoardAnnouncementDTO {
 		this.regdate = regdate;
 		this.moddate = moddate;
 		this.deldate = deldate;
-		this.admin_id = admin_id;
-		this.admin_name = admin_name;
+		this.member_id = member_id;
+		this.member_nickname = member_nickname;
 	}
 	public int getCode() {
 		return code;
@@ -116,18 +115,18 @@ public class BoardAnnouncementDTO {
 	public void setDeldate(Timestamp deldate) {
 		this.deldate = deldate;
 	}
-	public String getAdmin_id() {
-		return admin_id;
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setAdmin_id(String admin_id) {
-		this.admin_id = admin_id;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-	public String getAdmin_name() {
-		return admin_name;
+	public String getMember_nickname() {
+		return member_nickname;
 	}
-	public void setAdmin_name(String admin_name) {
-		this.admin_name = admin_name;
+	public void setMember_nickname(String member_nickname) {
+		this.member_nickname = member_nickname;
 	}
-	
+
 	
 }
