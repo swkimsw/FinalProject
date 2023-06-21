@@ -70,10 +70,11 @@ public class BoardController {
 
 		if(user != null) {// 로그인했으면
 
-			System.out.println(user);
-			int result = boardservice.selectAdminresult(user); //권한등급 확인-관리자회원이면 1을 반납
+
+			String result = (String) session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 자유게시판 못씀
 			System.out.println(result);
-			request.setAttribute("user", result); 
+			request.setAttribute("user", result);
+
 			return "/board/boardFree";
 
 		}else {// 로그인안했으면
@@ -95,14 +96,16 @@ public class BoardController {
 		System.out.println(list);
 		request.setAttribute("list", list);
 
-		if(user != null) {
+		if(user != null) {//로그인되어있으면
 
-			int result = boardservice.selectAdminresult(user); //권한등급 확인-관리자회원이면 1을 반납
+			String result = (String) session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 공지게시판작성가능
 			System.out.println(result);
+			request.setAttribute("user", result);
 
-			request.setAttribute("user", user ); 
 			return "/board/boardAnnouncement";
-		}else {
+
+		}else {//로그인안되어있으면
+
 			request.setAttribute("user", 0 ); 
 			return "/board/boardAnnouncement";
 		}
@@ -118,12 +121,15 @@ public class BoardController {
 		System.out.println(list);
 		request.setAttribute("list", list);
 
-		if(user != null) {
-			int result = boardservice.selectClientresult(user); //권한등급 확인-일반회원이면1을 반납
+		if(user != null) {//로그인되어있으면
+
+			String result = (String) session.getAttribute("authGradeCode");//권한등급 확인-일반회원만 후기게시판 작성가능-1003반환
 			System.out.println(result);
-			request.setAttribute("user", result ); 
+			request.setAttribute("user", result);
+
 			return "/board/boardReview";
-		}else {
+
+		}else {//로그인안되어있으면
 			request.setAttribute("user", 0 ); 
 			return "/board/boardReview";
 		}
@@ -135,8 +141,7 @@ public class BoardController {
 	//자유게시판 글 작성 으로 가기
 	@RequestMapping("freeWrite")
 	public String free_write() {
-		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기
-		int result = boardservice.selectClientresult(user); //권한등급 확인-일반회원이면1을 반납
+		String result = (String)session.getAttribute("authGradeCode"); //작성하는 사람이 일반회원인지 , 사업자회원인지 구분하기위한단계
 		request.setAttribute("user", result ); 
 		return "/board/boardFreeWrite";
 	}
@@ -153,69 +158,43 @@ public class BoardController {
 		return "/board/boardReviewWrite";
 	}
 
+	//글 자세히 보기
+	@RequestMapping("content")
+	public String content() {
+		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기
+		request.setAttribute("user", user ); 
+
+		return "/board/content_re";
+	}
+
 	//===============================================================================
 
-	//자유게시판 글 작성하기 - 일반회원
+	//자유게시판 글 작성하기 - 일반회원,사업자회원
 	@RequestMapping("inputFreeClient")
 	public String inputFreeClient(BoardFreeDTO dto) {
 
-		String writer =  (String)session.getAttribute("id"); 
-		System.out.println(writer);
-
-		int member = Integer.parseInt((String)session.getAttribute("code")); //로그인한 사람의 ID SEQ 가져오기 (일반회원)
-		// int member = boardservice.selectClientSeq(writer);
-		System.out.println(member);
-
-		int authgradecode = 1003;
-
-		int code = boardservice.selectTotalCode(); //totalmember테이블의 데이터 집어넣을떄 고유 seq가져오기
-		System.out.println(code);
-
-		boardservice.insertTotalMemberClient(member,authgradecode,code);//로그인한사람의 정보 넣기 totalmember(일반회원)
-		System.out.println("ㅁㄴㅇㄹ");
-
-		int membercode = boardservice.selectCodeTotal(member,authgradecode,code);//totalmember테이블에서 작성한 사람의 total테이블 고유code빼오기
+		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
-
 		boardservice.insertFree(dto,membercode);//자유게시판 작성하기
+		
 		return "redirect:/board/free"; //자유게시판으로 가기
 
 	}
 
 
-	//자유게시판 글 작성하기 - 사업자회원
-	@RequestMapping("inputFreeBusiness")
-	public String inputFreeBusiness(BoardFreeDTO dto) {
 
-		String writer =  (String)session.getAttribute("id"); 
-		System.out.println(writer);
-
-		int member = Integer.parseInt((String)session.getAttribute("code"));//로그인한 사람의 ID SEQ 가져오기(사업자회원)
-		System.out.println(member);
-
-		int authgradecode = 1002;
-
-		int code = boardservice.selectTotalCode(); //totalmember테이블의 데이터 집어넣을떄 고유 seq가져오기
-		System.out.println(code);
-
-		boardservice.insertTotalMemberBusiness(member,authgradecode,code);//로그인한사람의 정보 넣기 totalmember(사업자회원)
-		System.out.println("ㅁㄴㅇㄹ");
-
-		int membercode = boardservice.selectCodeTotal(member,authgradecode,code);//totalmember테이블에서 작성한 사람의 total테이블 고유code빼오기
-		System.out.println(membercode);
-
-		boardservice.insertFree(dto,membercode); //자유게시판 작성하기
-		return "redirect:/board/free"; //자유게시판으로 가기
-	}
 
 
 	//공지게시판 글 작성하기
 	@RequestMapping("inputAnnouncement")
 	public String inputAnnouncement(BoardAnnouncementDTO dto) {
 
-		System.out.println("sssssssss");
-		boardservice.insertAnnouncement(dto);
-		return "redirect:/board/announcement"; //자유게시판으로 가기
+
+		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인(작성자의고유 code가져오기)
+		System.out.println(membercode);
+		boardservice.insertAnnouncement(dto,membercode);//공지게시판 작성하기
+		
+		return "redirect:/board/announcement"; //공지게시판으로 가기
 	}
 
 
@@ -230,14 +209,13 @@ public class BoardController {
 			@RequestParam(name = "sysName") String[] sysName,
 			String realPath) {
 
-		String writer =  (String)session.getAttribute("id"); 
-		System.out.println(writer);
-		int writer_seq = Integer.parseInt((String)session.getAttribute("code"));;//로그인한 사람의 ID SEQ 가져오기 (일반회원)
-		System.out.println(writer_seq);
+
+		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인한 사람의 ID SEQ 가져오기 (일반회원)
+		System.out.println(membercode);
 
 		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기
 
-		boardservice.insertReview(dto,writer_seq,parent_seq); //후기 게시판 작성
+		boardservice.insertReview(dto,membercode,parent_seq); //후기 게시판 작성
 
 		for(int i = 0 ; i<oriName.length ; i++) {
 

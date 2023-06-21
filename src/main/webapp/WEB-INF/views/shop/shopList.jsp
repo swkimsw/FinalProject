@@ -38,39 +38,54 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
+<!-- infinite scroll -->	
+<script src="https://cdn.jsdelivr.net/gh/marshallku/infinite-scroll/dist/infiniteScroll.min.js"></script>
 <style>
 body {
-	background-color: rgba(255,255,194,0.75);
+	
 }
 
 * {
 	font-family: NanumSquareNeo;
 }
+.body{
+	position:relative;
+	top:40px;
+
+}
 
 .container {
 	margin-top: 100px;
 }
-.searchGroup{
-	position:relative;
+.subNav{
+	position:fixed;
 	width:100%;
 }
 .searchGroup{
-	height:70px;
+	position:relative;
+	width:100%;
+	height:40px;
 }
-.searchGroup > .inputGroup > .searchInput{
-	height:80px;
-	max-width:300px;
+.searchGroup > .category{
+	height:100%;
+	max-width: 85px;
+    min-width: 85px;
+}
+
+.searchGroup > .searchInput{
+	max-width:250px;
 	min-width: 50px;
+	height:100%;
 }
 
 .searchGroup > .searchIcon{
 	position: absolute;
-	top:50px;
-	left:100px;
+	top:10px;
+	left:300px;
 	z-index:5;
 }
-.form-check{
-	
+.form-check-input{
+
 }
 
 
@@ -82,16 +97,16 @@ body {
 	</c:import>
 
 	<div class="container">
-		<div class="row subNav">
-			<div class="col">
-				<nav class="navbar navbar-expand-lg" >
-	  				<div class="container-fluid" style="background-color:rgba(255,255,194,0.75);">
-	   					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+		<div class="subNav">
+			<div class="">
+				<nav class="navbar row navbar-expand-lg" >
+	  				<div class="container-fluid">
+	   					<!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
 	   						<span class="navbar-toggler-icon"></span>
-	   					</button>
+	   					</button> -->
 	  					
-	    				<div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-	    					<div class="linkGroup" style="position:relative;width:100%;">
+	    				<div class="row navbar" id="navbarTogglerDemo03">
+	    					<div class="col linkGroup" style="position:relative;width:100%;">
 				      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				      				<li class="nav-item">
 				          				<a class="nav-link active fs-5" onclick="activeChange()" href="/shop/toShopList">공구 모아보기</a>
@@ -109,58 +124,66 @@ body {
 						        	</c:if>
 						    	</ul>
 						    </div>	
-					    	<div class="input-group searchGroup">
-					    		<div class="input-group-text radioGroup" >
-			      					<input class="form-check-input mt-0" type="radio" value="productName" name="category" id="productNameRadio" checked>상품명<br>
-						 			<input class="form-check-input mt-0" type="radio" value="companyName" name="category" id="companyNameRadio"> 판매자명<br>
-						 		</div>
+					    	<div class="col input-group searchGroup">
+									<select class="form-select form-select-sm category">
+										<option value="productName">상품명</option>
+										<option value="companyName">판매자</option>
+									</select> 
 						 		<i class='bi bi-search searchIcon'></i>
-			        			<input class="form-control searchInput" onkeypress="if(event.keyCode == 13 ){getSearchList()}" type="search" id="keyword" name="searchByKeyword" placeholder="검색어를 입력해주세요." maxlength="20">
+			        			<input class="form-control form-control-sm searchInput" onkeypress="if(event.keyCode == 13 ){getSearchList()}" type="search" id="keyword" name="searchByKeyword" placeholder="검색어를 입력해주세요." maxlength="20">
 			        		</div>	
 	    				</div>
 	  				</div>
 				</nav>
 			</div>
 		</div>
-		<div class="body">
-			<div class="row d-flex position-relative list">
-				<c:forEach var="i" items="${list}">
-					<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents">
-						<div class="card border-0">
-							<c:choose>
-								<c:when test="${i.dDay > 0 }">
-									<span
-										class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">${i.dDay}일
-										남음</span>
-								</c:when>
-								<c:when test="${i.dDay == 0 }">
-									<span
-										class="badge deadLine rounded-pill text-bg-danger position-absolute top-0 end-0 m-2 p-2">오늘
-										마감</span>
-								</c:when>
-								<c:when test="${i.dDay < 0 }">
-									<span
-										class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">마감</span>
-								</c:when>
-							</c:choose>
-								<a href="/shop/toShopApply?code=${i.code}"> 
-									<img src="${i.path}${i.sysName}" style="width: 100%;">
-								</a>
-							<div class="card-body">
-								<p class="card-title" style="font-size: 20px;">${i.title}</p>
-								<p class="card-text fw-lighter" style="font-size: 12px;">${i.companyName}</p>
+		<div class="row body pt-3">
+			<div class="col">
+				<div class="row d-flex position-relative list">
+					<c:forEach var="i" items="${list}">
+						<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents">
+							<div class="card border-0">
+								<c:choose>
+									<c:when test="${i.dDay > 0 }">
+										<span
+											class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">${i.dDay}일
+											남음</span>
+									</c:when>
+									<c:when test="${i.dDay == 0 }">
+										<span
+											class="badge deadLine rounded-pill text-bg-danger position-absolute top-0 end-0 m-2 p-2">오늘
+											마감</span>
+									</c:when>
+									<c:when test="${i.dDay < 0 }">
+										<span
+											class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">마감</span>
+									</c:when>
+								</c:choose>
+									<a href="/shop/toShopApply?code=${i.code}"> 
+										<img src="${i.path}${i.sysName}" style="width: 100%;">
+									</a>
+								<div class="card-body">
+									<p class="card-title fw-medium" style="font-size: 20px;">${i.title}</p>
+									<p class="card-text fw-normal" style="font-size: 12px;"> ${i.productName} | ${i.companyName}</p>
+								</div>
 							</div>
+	
 						</div>
-
-					</div>
-				</c:forEach>
-			</div>
+					</c:forEach>
+				</div>
+			</div>	
 		</div>
 	</div>
 
 	<script>
-	
-	
+		//infinite scroll
+		infiniteScroll({
+			container: ".list",
+			item: ".contents",
+			next: ".next"
+		})
+		
+		
 		//검색 결과 리스트 ajax
 		function getSearchList(){
 			let category = $('input[type="radio"][name="category"]:checked').val(); // 체크박스 체크 여부(checked)
@@ -176,7 +199,7 @@ body {
 					},
 					error: function(){alert("검색에 실패하였습니다");}
 				}).done(function(resp) {
-					$(".body> .list").empty();
+					$(".body> .col> .list").empty();
 					//$(".subNav").empty();
 					if(resp.length > 0){
 						div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-search'/>" + "   '" + keyword + "'의 검색결과는 " + resp.length + "개 입니다.</p><hr/></div>";
@@ -195,7 +218,7 @@ body {
 							card += "<a href='/shop/SelectShop?code = " + i.code + "'>";
 							card += "<img src='" + i.path + i.sysName + "' style='width: 100%;'> </a> <div class='card-body'>";
 							card += "<p class='card-title' style='font-size: 20px;'>"+ i.title + "</p> ";
-							card += "<p class='card-text fw-lighter' style='font-size: 12px;'>" + i.companyName + "</p> </div> </div> </div>";
+							card += "<p class='card-text fw-lighter' style='font-size: 12px;'>" + i.productName + " | "+ i.companyName + "</p> </div> </div> </div>";
 							$(".list").append(card);
 						})
 						
@@ -215,36 +238,6 @@ body {
 			}
 
 		}
-		
-		//마감된 공구 List ajax
-		/*function getClosedList(){
-				$.ajax({
-					url : "/shop/getClosedList",
-					type : "post",
-					dataType:"json",
-					error: function(){alert("서버 연결에 실패하였습니다");}
-				}).done(function(resp) {
-					$(".body> .list").empty();
-					if(resp.length > 0){
-						resp.forEach(function(i){
-							div = "<div class='col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents'><div class='card border-0'>";
-							div += "<span class='badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>마감</span>	";
-							div += "<a href='/shop/SelectShop?code = " + i.code + "'>";
-							div += "<img src='" + i.path + i.sysName + "' style='width: 100%;'> </a> <div class='card-body'>";
-							div += "<p class='card-title' style='font-size: 20px;'>"+ i.title + "</p> ";
-							div += "<p class='card-text fw-lighter' style='font-size: 12px;'>" + i.companyName + "</p> </div> </div> </div>";
-							$(".list").append(div);
-						})
-						
-						keyword = "";
-						
-					}else{
-						div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-search'/> 마감된 공구가 없어요! </p><hr/></div>" ;
-						$(".list").append(div);
-					}
-					
-				})
-		}*/
 		
 		
 	</script>

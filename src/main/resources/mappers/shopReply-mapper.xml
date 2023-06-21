@@ -20,8 +20,20 @@
 		delete from groupbuyingask where code=${code}
 	</delete>
 	
+	<select id="selectShopReplyAnswer" resultType="cc.spring.dto.ShopReplyAnswerDTO">
+		select * from groupbuyinganswer where postcode=${code}
+	</select>
+	
 	<insert id="insertReplyAnswer">
 		insert into groupbuyinganswer values(groupbuying_answer_seq.nextval,${postCode},${askCode},${businessCode},#{content},sysdate,null,null)
 	</insert>
+	
+	<update id="updateReplyAnswer">
+		update groupbuyinganswer set content=#{content}, moddate=sysdate where code=${code}
+	</update>
+	
+	<delete id="deleteReplyAnswer">
+		delete from groupbuyinganswer where code=${code}
+	</delete>
 	
 </mapper>

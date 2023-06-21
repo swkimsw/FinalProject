@@ -31,13 +31,28 @@ public class ShopReplyService {
 	}
 	
 	// 댓글 delete
-	public int deleteReplyAsk(ShopReplyAskDTO dto) {
-		return shopReplyDAO.deleteReplyAsk(dto);
+	public int deleteReplyAsk(int code) {
+		return shopReplyDAO.deleteReplyAsk(code);
+	}
+	
+	// 모든 답글 select
+	public List<ShopReplyAnswerDTO> selectShopReplyAnswer(int code) {
+		return shopReplyDAO.selectShopReplyAnswer(code);
 	}
 	
 	// 답글 insert
 	public int insertReplyAnswer(ShopReplyAnswerDTO dto) {
 		return shopReplyDAO.insertReplyAnswer(dto);
+	}
+	
+	// 답글 update
+	public int updateReplyAnswer(ShopReplyAnswerDTO dto) {
+		return shopReplyDAO.updateReplyAnswer(dto);
+	}
+	
+	// 답글 delete
+	public int deleteReplyAnswer(int code) {
+		return shopReplyDAO.deleteReplyAnswer(code);
 	}
 	
 }

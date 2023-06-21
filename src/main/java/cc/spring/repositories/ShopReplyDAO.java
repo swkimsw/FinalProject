@@ -27,12 +27,24 @@ public class ShopReplyDAO {
 		return db.update("ShopReply.updateReplyAsk", dto);
 	}
 	
-	public int deleteReplyAsk(ShopReplyAskDTO dto) {
-		return db.delete("ShopReply.deleteReplyAsk", dto);
+	public int deleteReplyAsk(int code) {
+		return db.delete("ShopReply.deleteReplyAsk", code);
+	}
+	
+	public List<ShopReplyAnswerDTO> selectShopReplyAnswer(int code) {
+		return db.selectList("ShopReply.selectShopReplyAnswer", code);
 	}
 	
 	public int insertReplyAnswer(ShopReplyAnswerDTO dto) {
-		return db.insert("insertReplyAnswer", dto);
+		return db.insert("ShopReply.insertReplyAnswer", dto);
 	}
 	
+	public int updateReplyAnswer(ShopReplyAnswerDTO dto) {
+		return db.update("ShopReply.updateReplyAnswer", dto);
+	}
+	
+	public int deleteReplyAnswer(int code) {
+		return db.delete("ShopReply.deleteReplyAnswer", code);
+	}
+
 }
