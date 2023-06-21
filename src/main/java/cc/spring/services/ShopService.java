@@ -88,7 +88,17 @@ public class ShopService {
 
 	// 공구샵 상품 목록
 	public List<ShopListDTO> shopList(){
-		return shopDAO.ShopList();
+		return shopDAO.shopList();
+	}
+	
+	//마감된 공구 목록
+	public List<ShopListDTO> getStatusList(String status){
+		return shopDAO.getStatusList(status);
+	}
+		
+	// 공구샵 삼품 목록 검색
+	public List<ShopListDTO> searchByKeyword(String category,String keyword){
+		return shopDAO.searchByKeyword(category,keyword);
 	}
 
 

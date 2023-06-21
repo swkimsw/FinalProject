@@ -28,6 +28,7 @@
 	.selectReplyAnswer{margin-left: 3%; margin-right:5%;}
 	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
+	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
 </style>
 </head>
 <body>
@@ -223,33 +224,75 @@
 						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
 								<input type="hidden" name="code" value="${i.code}">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
- 									<div class="replyBtns">
- 										<button type="button" id="updateReplyBtn" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyClick(${i.code})">수정</button>
- 										<button type="button" id="deleteReplyBtn" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 									<div id="replyBtns${i.code}" class="replyBtns">
+ 										<button type="button" id="updateReplyAskBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyClick(${i.code})">수정</button>
+ 										<a href="/shopReply/deleteReplyAsk?code=${i.code}&postCode=${shopDTO.code}">
+ 											<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 										</a>
  									</div>
 								</div>
 							</div>
 						</div>
 					</form>
+					<!-- 답글 -->
+					<c:forEach var="j" items="${shopReplyAnswerDTO}">
+						<c:if test="${j.askCode == i.code}">
+							<div id="businessReplyAnswer${j.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+								<div class="mb-3">
+									<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>
+									&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>
+									<div class="reply" style="margin-left:5%;">
+										<textarea class="form-control" name="content" rows="3" readonly>${j.content}</textarea>
+									</div>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
 				</c:when>
 				<c:when test="${shopDTO.businessCode == businessCode}">
-					<!-- <form action="/shopReply/insertReplyAnswer" method="post"> -->
+					<form action="/shopReply/insertReplyAnswer" method="post">
 						<!-- 판매자인 경우 -->
 						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
+								<input type="hidden" name="askCode" value="${i.code}">
+								<input type="hidden" id="businessCode" name="businessCode" value="${businessCode}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea class="selectReply form-control" rows="3" readonly>${i.content}</textarea>
  									<div>
- 										<button type="button" id="" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
+ 										<button type="button" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
  									</div>
 								</div>
 							</div>
 						</div>
-					<!--  </form>-->
+					</form>
+					<!-- 답글 -->
+					<c:forEach var="j" items="${shopReplyAnswerDTO}">
+						<c:if test="${j.askCode == i.code}">
+							<form action="" method="post">
+								<div id="businessReplyAnswer${j.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+									<div class="mb-3">
+										<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>
+										&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>
+										<div class="reply" style="margin-left:5%;">
+											<textarea class="selectReplyAnswer form-control" name="content" rows="3" readonly>${j.content}</textarea>
+											<div class="replyBtns">
+												<button type="button" id="updateReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-primary btn-sm">답글 수정</button>
+												<a href="/shopReply/deleteReplyAnswer?code=${j.code}&postCode=${shopDTO.code}">
+													<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-primary btn-sm">답글 삭제</button>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</c:if>
+					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -257,9 +300,26 @@
   							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 							<div class="reply">
  								<textarea class="form-control" rows="3" readonly>${i.content}</textarea>
+ 								<div>
+ 									<button type="button" class="toWriteAnswerBtn btn btn-primary btn-sm" style="display:none;"></button>
+ 								</div>
 							</div>
 						</div>
 					</div>
+					<!-- 답글 -->
+					<c:forEach var="j" items="${shopReplyAnswerDTO}">
+						<c:if test="${j.askCode == i.code}">
+							<div id="businessReplyAnswer${j.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+								<div class="mb-3">
+									<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>
+									&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>
+									<div class="reply" style="margin-left:5%;">
+										<textarea class="form-control" name="content" rows="3" readonly>${j.content}</textarea>
+									</div>
+								</div>
+							</div>
+						</c:if>
+					</c:forEach>
 				</c:otherwise>
 			</c:choose>
 			<!-- 답글 -->
@@ -308,15 +368,15 @@
 		function viewInsertAnswer(code) {
 		
 			let row="";
-			row += '<div id="businessReplyAnswer'+code+'">';
+			row += '<div id="replyAnswerInsert'+code+'">';
 			row += '<div class="mb-3">';
 			// row += '<i class="fa-light fa-turn-down-right"></i>';
 			row += '<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>';
 			row += '&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>';
 			row += '<div class="reply" style="margin-left:5%;">';
-			row += '<textarea class="selectReplyAnswer form-control" rows="3"></textarea>';
+			row += '<textarea class="selectReplyAnswer form-control" name="content" rows="3"></textarea>';
 			row += '<div>';
-			row += '<button id="writeAnswerBtn" class="toWriteAnswerBtn btn btn-primary btn-sm">답글 등록</button>';
+			row += '<button id="writeAnswerBtn" class="writeAnswerBtn btn btn-primary btn-sm">답글 등록</button>';
 			row += '</div>';
 			row += '</div>';
 			row += '</div>';
@@ -328,7 +388,8 @@
 		// 자신이 쓴 댓글 수정 버튼 눌렀을 때
 		function updateReplyClick(code){
 			$("#replyAskContent"+code).removeAttr("readonly");
-			$("#updateReplyBtn, #deleteReplyBtn").css("display", "none");
+			$("#updateReplyAskBtn"+code).css("display", "none");
+			$("#deleteReplyAskBtn"+code).css("display", "none");
 			
 			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-primary btn-sm'>");
 			updateReplyComplete.text("수정 완료");
@@ -339,9 +400,8 @@
 				location.reload();
 			})
 			
-			$(".replyBtns").append(updateReplyComplete);
-			$(".replyBtns").append(cancel);
-			
+			$("#replyBtns"+code).append(updateReplyComplete);
+			$("#replyBtns"+code).append(cancel);
 		}
 		
 		

@@ -33,10 +33,7 @@ public class FileService {
 
 
 	
-	public int insertReviewImage(int postcode,String path,String oriname,String sysname) {
-		 ReviewImgDTO dto = new ReviewImgDTO(0 , postcode, path, oriname, sysname);
-		  return  dao.insertReviewImage(dto);
-	}
+
 
 	
 	

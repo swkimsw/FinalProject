@@ -2,6 +2,7 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <c:set var="path" value="${pageContext.request.contextPath}" />
 
+
         <!DOCTYPE html>
         <html>
 
@@ -20,34 +21,34 @@
                 crossorigin="anonymous"></script>
             <!-- Bootstrap - icon -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
-            <!-- Font 기본 : {font-family: 'NanumSquareNeoBold'}-->
+            <!-- Font 기본 : {font - family: 'NanumSquareNeoBold'}-->
             <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
             <!-- awesome font -icon -->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
                 integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-            <!-- gbn css -->
+            <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 
             <style>
                 * {
-                    font-family: NanumSquareNeo;
+                    font - family: NanumSquareNeo;
                 }
 
                 input {
-                    border-radius: 5px;
+                    border - radius: 5px;
                     padding: 5px;
                 }
 
                 .container {
-                    margin-top: 100px;
+                    margin - top: 100px;
                     border: 1px solid black;
                 }
 
                 th,
                 td {
-                    font-size: 20px;
+                    font - size: 20px;
                 }
             </style>
 
@@ -102,86 +103,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 dd아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>본</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>w</td>
-                                <td>w</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
+
+                            <c:forEach var="l" items="${list}">
+                                <tr>
+                                    <td>${l.code}</td>
+                                    <td>${l.title}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${l.client_nickname == null}">
+                                                ${l.business_nickname}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${l.client_nickname}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>${l.regdate}</td>
+                                    <td>${l.viewcount}</td>
+                                    <td>${l.likecount}</td>
+                                </tr>
+                            </c:forEach>
 
                         </tbody>
                     </table>
@@ -209,7 +150,7 @@
 
                     <c:choose>
 
-                        <c:when test="${user != 1 }">
+                        <c:when test="${user != '1001' }">
 
                             <div style="float: right;">
                                 <a href="/board/freeWrite">

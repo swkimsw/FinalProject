@@ -2,94 +2,78 @@ package cc.spring.dto;
 
 import java.sql.Timestamp;
 
-public class ShopReplyAskDTO {
+public class ShopReplyAnswerDTO {
 	
 	private int code;
 	private int postCode;
-	private int clientCode;
+	private int askCode;
+	private int businessCode;
 	private String content;
 	private Timestamp regDate;
 	private Timestamp modDate;
 	private Timestamp delDate;
 	
-	private String nickName;
-	
-	public ShopReplyAskDTO() {}
-	public ShopReplyAskDTO(int code, int postCode, int clientCode, String content, Timestamp regDate, Timestamp modDate,
-			Timestamp delDate, String nickName) {
+	public ShopReplyAnswerDTO() {}
+	public ShopReplyAnswerDTO(int code, int postCode, int askCode, int businessCode, String content, Timestamp regDate,
+			Timestamp modDate, Timestamp delDate) {
 		super();
 		this.code = code;
 		this.postCode = postCode;
-		this.clientCode = clientCode;
+		this.askCode = askCode;
+		this.businessCode = businessCode;
 		this.content = content;
 		this.regDate = regDate;
 		this.modDate = modDate;
 		this.delDate = delDate;
-		this.nickName = nickName;
 	}
 	
 	public int getCode() {
 		return code;
 	}
-
 	public void setCode(int code) {
 		this.code = code;
 	}
-
 	public int getPostCode() {
 		return postCode;
 	}
-
 	public void setPostCode(int postCode) {
 		this.postCode = postCode;
 	}
-
-	public int getClientCode() {
-		return clientCode;
+	public int getAskCode() {
+		return askCode;
 	}
-
-	public void setClientCode(int clientCode) {
-		this.clientCode = clientCode;
+	public void setAskCode(int askCode) {
+		this.askCode = askCode;
 	}
-
+	public int getBusinessCode() {
+		return businessCode;
+	}
+	public void setBusinessCode(int businessCode) {
+		this.businessCode = businessCode;
+	}
 	public String getContent() {
 		return content;
 	}
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 	public Timestamp getRegDate() {
 		return regDate;
 	}
-
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
-
 	public Timestamp getModDate() {
 		return modDate;
 	}
-
 	public void setModDate(Timestamp modDate) {
 		this.modDate = modDate;
 	}
-
 	public Timestamp getDelDate() {
 		return delDate;
 	}
-
 	public void setDelDate(Timestamp delDate) {
 		this.delDate = delDate;
-	}
-	
-	public String getNickName() {
-		return nickName;
-	}
-	
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
 	}
 	
 }

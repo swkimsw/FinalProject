@@ -3,97 +3,66 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-	<mapper namespace="Board">
-	
-<!-- 	
-	일반회원의 authgrade
-	<select id="selectClientAuthgrade" resultType="int">
-	select authgradecode from CLIENTMEMBER where id = #{user} 
-	</select>
-	
-	사업자회원의 authgrade
-	<select id="selectBusinessAuthgrade" resultType="int">
-	select authgradecode from BUSINESSMEMBER where id = #{user} 
-	</select>
-	
-	관리자회원의 authgrade
-	<select id="selectAdminAuthgrade" resultType="int">
-	select authgradecode from ADMINMEMBER where id = #{user} 
-	</select>
-	
-	 -->
-	
-	<!-- 관리자회원인지 아닌지 관리자회원이면 1 반환 -->
-	<select id="selectAdminresult" resultType="int">
-	select count(authgradecode) from ADMINMEMBER where id =  #{user}
-	</select>
-	
-	<!-- 관리자회원인지 아닌지 관리자회원이면 1 반환 -->
-	<select id="selectClientresult" resultType="int">
-	select count(authgradecode) from CLIENTMEMBER where id =  #{user}
-	</select>
-	
-	<!-- 자유게시판에서 작성한 사람의 seq가져오기- 일반회원 -->
-	<select id="selectClientSeq" resultType="int">
-	select code from CLIENTMEMBER where id =  #{writer}
-	</select>
-	
-	<!-- 자유게시판에서 작성한 사람의 seq가져오기- 사업자회원 -->
-	<select id="selectBusinessSeq" resultType="int">
-	select code from BUSINESSMEBER where id =  #{writer}
-	</select>
-	
-	<!-- totalmember code 가져오기-->
-	<select id="selectTotalCode" resultType="int">
-		select total_member_seq.nextval from dual
-	</select>
-	
-	<!-- totalmember 작성한 사람들의 정보 넣기 - 일반회원 -->
-	<insert id="insertTotalMemberClient" >
-	insert into totalmember values (#{code} , #{clientmember} , null , #{authgradecode})
-	</insert>
-	
-	<!-- totalmember 작성한 사람들의 정보 넣기 - 사업자회원 -->
-	<insert id="insertTotalMemberBusiness" >
-	insert into totalmember values (#{code} , null , #{businessmember} , #{authgradecode})
-	</insert>
-	
-	<!-- totalmember 작성한 사람들의 seq빼오기  -->
-	<select id="selectCodeTotal" resultType="int">
-	select code from totalmember where authgradecode = #{authgradecode} and (businessmember = #{member} or clientmember = #{member}) and code = #{code}
-	</select>
-	
-	<!-- 공지게시판에서 작성한 사람의 seq가져오기- 관리자회원 -->
-	<select id="selectAdminSeq" resultType="int">
-	select code from adminmember where id = #{writer}
-	</select>
-	
+<mapper namespace="Board">
+
+
+
+
+
 
 	<!-- 후기게시판의 고유번호 -->
 	<select id="selectReviewSeq" resultType="int">
-		select board_review_seq.nextval from dual
+		select
+		board_review_seq.nextval from dual
 	</select>
 
 	<!-- 후기게시판 작성 -->
 	<insert id="insertReview">
-		insert into BoardReview values ( #{seq}, 1003 , 1003 , #{writer_seq} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardReview values ( #{seq}, 1003 , 3001
+		, #{membercode} , #{dto.title} , #{dto.content} , 0 , 0, sysdate,
+		null,null)
 	</insert>
-	
+
+	<!-- 후기게시판 작성 - 이미지 -->
+	<insert id="insertReviewImage">
+		insert into reviewimg values(review_img_seq.nextval,
+		#{postcode}, #{path}, #{oriname}, #{sysname})
+	</insert>
+
 	<!-- 자유게시판 작성 -->
 	<insert id="insertFree">
-		insert into BoardFree values (board_free_seq.nextval, 1002 , #{dto.headlinecode} , #{membercode} , #{dto.title} , #{dto.content} , 0 , 0, sysdate, null,null)
+		insert into BoardFree values (board_free_seq.nextval,
+		1002 , #{dto.headlinecode} , #{membercode} , #{dto.title} ,
+		#{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
-	
+
 	<!-- 공지게시판 작성 -->
 	<insert id="insertAnnouncement">
-		insert into BoardAnnouncement values (board_announcement_seq.nextval, 1001 ,1001, 9999 , #{title} , #{content} , 0 , 0, sysdate, null,null)
+		insert into BoardAnnouncement values
+		(board_announcement_seq.nextval, 1001 ,1001, #{membercode} , #{dto.title} ,
+		#{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
+
+
 
 
 	<!-- 자유게시판리스트 가져오기 -->
-	<select id="selectFreelist" resultType="cc.spring.dto.BoardFreeDTO">
-		select * from boardfree_view
+	<select id="selectFreelist"
+		resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view order by regdate asc
 	</select>
-	
-	
-	</mapper>
+
+	<!-- 공지사항게시판리스트 가져오기 -->
+	<select id="selectAnnouncementlist"
+		resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardAnnouncement_view order by regdate asc
+	</select>
+
+	<!-- 리뷰게시판리스트 가져오기 -->
+	<select id="selectReviewlist"
+		resultType="cc.spring.dto.BoardReviewDTO">
+		select * from boardReview_view order by regdate asc
+	</select>
+
+
+</mapper>

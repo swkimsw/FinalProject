@@ -86,87 +86,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                        
+                          <c:forEach var="l" items="${list}">
                             <tr>
-                                <td>265121</td>
-                                <td>엌 dd아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
+                                <td>${l.code}</td>
+                                <td>${l.title}</td>
+                                <td>${l.client_nickname}</td>
+                                <td>${l.regdate}</td>
+                                <td>${l.viewcount}</td>
+                                <td>${l.likecount}</td>
                             </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>본</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>w</td>
-                                <td>w</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-                            <tr>
-                                <td>265121</td>
-                                <td>엌 아래글 진짜 관리자임?</td>
-                                <td>ㅇㅇ</td>
-                                <td>2020.04.23</td>
-                                <td>1000</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>265120</td>
-                                <td>본인 방금 추천 많이 받아서 개념글 상상함</td>
-                                <td>운영자</td>
-                                <td>2020.04.23</td>
-                                <td>7000</td>
-                                <td>150</td>
-                            </tr>
-
+                            
+                        </c:forEach>
+                         
                         </tbody>
                     </table>
 
@@ -193,7 +125,7 @@
 
             <c:choose>
 			
-				<c:when test="${user == 1}">
+				<c:when test="${user == '1003'}">
 
 					<div style="float: right;">
 						<a href="/board/reviewWrite">

@@ -15,7 +15,7 @@
 					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color:#007936;">🍽CookCook</h1>
 			</a>
 		</div>
-		<c:if test="${sessionScope.id == null || sessionScope.businessId == null}">
+		<c:if test="${sessionScope.id == null}">
 			<a class="navbar-brand nav_a" href="/clientMember/login_form">Login</a>
 		</c:if>
 		<c:if test="${sessionScope.id != null}">
@@ -113,7 +113,7 @@
 									<li class="login"><a href="/clientMyPage/myPage"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											활동 관리</a></li>
-									<li class="login"><a href="#"
+									<li class="login"><a href="/clientMyPage/myInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									<li class="login"><a href="#"
