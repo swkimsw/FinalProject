@@ -97,7 +97,11 @@
 						</tr>
 						<tr>
 							<td>배송 업체</td>
-							<td> CJ대한통운 (나중에 값 받아오기) </td>
+							<td>
+								<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+ 									<input type="text" class="form-control" id="max" name="max" required>
+								</div>
+							</td>
 						</tr>
 						<tr>
 							<td>교환 및 반품 주소</td>
