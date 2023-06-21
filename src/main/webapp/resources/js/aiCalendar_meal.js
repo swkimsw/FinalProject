@@ -5,11 +5,18 @@ function aiMealAdd(resp) {
 }
 
 // 모달창 입력이벤트 함수
-function aiMealChange(e) {
-    // 특수문자, 이모티콘 입력방지
-    // startdayPoint 정보 가지고 있어야 한다
-
+// 특수문자, 이모티콘 입력방지
+function aiMealChange(text) {
+    var regexp = /(?:[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]|[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
+    var value = $("#"+text).val();
+    if (regexp.test(value)) {
+        $("#"+text).val(value.replace(regexp, ''));
+    }
 }
+
+function remove (text) {
+    return text.replace(emojis, '');
+  }
 
 // 식단 수정하는 함수
 function aiMealUpdate(){
@@ -28,6 +35,7 @@ function getMealDate() {
     cloneDates = new Date(cloneDates.setDate(today.getDate() + days.indexOf(selectBox.parent().get(0).className.split(" ")[0])));
     let cloneMonth = cloneDates.getUTCMonth() + 1 >= 10 ? cloneDates.getUTCMonth() + 1 : '0' + (cloneDates.getUTCMonth() + 1);
     let cloneDate = cloneDates.getDate() >= 10 ? cloneDates.getDate() : '0' + cloneDates.getDate();
+    // 23-06-21 형식으로 return
     return cloneDates.getUTCFullYear() + "-" + cloneMonth + "-" + cloneDate;
 };
 
@@ -47,9 +55,9 @@ $(".meal-box").on("click", function () {
 
     //입력 위치 지정
     //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
-    let parentClass = "." + $(this).parent().attr('class').split(" ").join(".");
-    selectBox = $(parentClass).children();
-
+    //그냥 this로 했을때 큰창, 작은창 상관없으면 그대로
+    selectBox = $(this);
+    
     //이미 값이 존재할 경우 input 태그에 넣어주기
     if (selectBox.html()) {
         let meals = this.innerHTML.split("<br>");

@@ -406,7 +406,7 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0"
+												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -418,7 +418,7 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0"
+												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -430,7 +430,7 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0"
+												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -442,7 +442,7 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0"
+												<input type="text" class="form-control meal-name m-0"onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -454,7 +454,7 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0"
+												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
