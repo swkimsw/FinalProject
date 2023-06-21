@@ -1,7 +1,5 @@
 package cc.spring.dto;
 
-import java.sql.Timestamp;
-
 public class MealDTO {
 	private int code;
 	private int clientCode;
