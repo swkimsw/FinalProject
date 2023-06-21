@@ -2,24 +2,23 @@ package cc.spring.dto;
 
 public class MealDTO {
 	private int code;
-	private int clientCode;
+	private String seq;
+	private int memberCode;
 	private String mealDate;
 	private int timeCode;
 	private String meal;
-	private int mealCount;
 	
 	public MealDTO() {
 		super();
 	}
 
-	public MealDTO(int code, int clientCode, String mealDate, int timeCode, String meal, int mealCount) {
+	public MealDTO(int code, int memberCode, String mealDate, int timeCode, String meal) {
 		super();
 		this.code = code;
-		this.clientCode = clientCode;
+		this.memberCode = memberCode;
 		this.mealDate = mealDate;
 		this.timeCode = timeCode;
 		this.meal = meal;
-		this.mealCount = mealCount;
 	}
 
 	public int getCode() {
@@ -30,12 +29,12 @@ public class MealDTO {
 		this.code = code;
 	}
 
-	public int getClientCode() {
-		return clientCode;
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setClientCode(int clientCode) {
-		this.clientCode = clientCode;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public String getMealDate() {
@@ -62,18 +61,10 @@ public class MealDTO {
 		this.meal = meal;
 	}
 
-	public int getMealCount() {
-		return mealCount;
-	}
-
-	public void setMealCount(int mealCount) {
-		this.mealCount = mealCount;
-	}
-
 	@Override
 	public String toString() {
-		return "MealDTO [code=" + code + ", clientCode=" + clientCode + ", mealDate=" + mealDate + ", timeCode="
-				+ timeCode + ", meal=" + meal + ", mealCount=" + mealCount + "]";
+		return "MealDTO [code=" + code + ", memberCode=" + memberCode + ", mealDate=" + mealDate + ", timeCode="
+				+ timeCode + ", meal=" + meal + "]";
 	}
 	
 }
