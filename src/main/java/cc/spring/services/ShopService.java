@@ -100,6 +100,11 @@ public class ShopService {
 	public List<ShopListDTO> searchByKeyword(String category,String keyword){
 		return shopDAO.searchByKeyword(category,keyword);
 	}
+	
+	//일반회원 내 공구목록
+	public List<ShopListDTO> clientBuyingList(int code){
+		return shopDAO.clientBuyingList(code);
+	}
 
 
 	// 공구샵 수정 update
