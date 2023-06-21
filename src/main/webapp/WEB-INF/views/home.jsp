@@ -541,6 +541,9 @@
 			}
 
 			$("#sendBtn").on("click", function () {
+				
+				// 로그인시 실행 추가 && 아점저 선택안하면 생성 금지
+				
 				timeArr = [];
 				$("input[type=checkbox][name=time]:checked").each(function (i) {
 					timeArr.push($(this).val());
@@ -579,22 +582,15 @@
 					}
 				}).done(function (resp) {
 					console.log(resp);
-					
 					const meals = ['breakfast', 'lunch', 'dinner'];
 					const timeCodes = [1001, 1002, 1003];
 
-					
 					$(resp).each(function (index, item) {
 						for (let day = 0; day <= 6; day++) {
-							console.log("day--> " + day);
-							console.log("system day--> " + dateAdd(today, day));
-							console.log("meal day--> " + item.mealDate);
 							if (dateAdd(today, day) == item.mealDate) {
 								for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
 									if (item.timeCode == timeCodes[mealIndex]) {
-										//var targetClass = `.day${day + 1}.`+meals[mealIndex];
 										var targetClass = ".day" + (day+1) + "." + meals[mealIndex];
-										console.log(targetClass);
 										$(targetClass).find(".meal-box").append(item.meal, "<br>");
 									}
 								}
@@ -607,12 +603,25 @@
 			
 			// 식단 저장 
 			$("#addMealBtn").on("click", function(){
+				
+				let pram = [{
+					"day-week" : $(this).$(".day-header"), // 일 & 요일
+					"month-year" :  $("#month-year").val(), // 년 & 월
+					"time" : "", // 아침, 점심, 저녁
+					"meal" : "" // 식단
+				}];
+				
 				$.ajax({
 					url: "/meal/addMeal",
 					type: "post",
-					data
+					data: JSON.stringify(param),
 				});
 			});
+			
+			// 식단 이동할때마다 이벤트 감지하는 함수
+			function mealChange(e){
+				
+			}
 		</script>
 
 		</html>
