@@ -18,9 +18,18 @@
 	<select id="phoneCheck" resultType="boolean">
 		select count(*) from BusinessMember where phone = #{phone}
 	</select>
+	
 	<insert id="insert">
-	insert into BusinessMember values(Business_SEQ.nextval,#{businessId},#{pw},#{name},#{companyName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
+	insert into BusinessMember values(#{code},#{businessId},#{pw},#{name},#{companyName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
+		<selectKey keyProperty="code" resultType="int" order="BEFORE">
+			select business_seq.nextval from dual
+		</selectKey>
 	</insert>
+	
+	<insert id="totalInsert">
+		insert into TotalMember values(total_member_seq.nextval, 0, ${businessmember}, 1003)
+	</insert>
+	
 	<update id="updatePw">
 		update BusinessMember set pw = #{pw} where businessId = #{businessId}
 	</update>

@@ -29,10 +29,7 @@ public class FileDAO {
 		return db.insert("insertShopImage", dto);
 	}
 
-	public int insertReviewImage(ReviewImgDTO dto) {
-		return db.insert("File.insertReviewImage", dto);
-	}
-
+	
 
 	
 

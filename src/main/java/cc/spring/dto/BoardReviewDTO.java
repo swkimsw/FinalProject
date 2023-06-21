@@ -10,13 +10,15 @@ public class BoardReviewDTO {
 	private String title;
 	private String content;
 	private int viewcount;
-	private int likecout;
+	private int likecount;
 	private Timestamp regdate;
 	private Timestamp moddate;
 	private Timestamp deldate;
+	private String client_id;
+	private String client_nickname;
 	public BoardReviewDTO() {} ;
 	public BoardReviewDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title, String content,
-			int viewcount, int likecout, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
+			int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
 		super();
 		this.code = code;
 		this.boardkindcode = boardkindcode;
@@ -25,10 +27,27 @@ public class BoardReviewDTO {
 		this.title = title;
 		this.content = content;
 		this.viewcount = viewcount;
-		this.likecout = likecout;
+		this.likecount = likecount;
 		this.regdate = regdate;
 		this.moddate = moddate;
 		this.deldate = deldate;
+	}
+	public BoardReviewDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title, String content,
+			int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String client_id, String client_nickname) {
+		super();
+		this.code = code;
+		this.boardkindcode = boardkindcode;
+		this.headlinecode = headlinecode;
+		this.clientcode = clientcode;
+		this.title = title;
+		this.content = content;
+		this.viewcount = viewcount;
+		this.likecount = likecount;
+		this.regdate = regdate;
+		this.moddate = moddate;
+		this.deldate = deldate;
+		this.client_id = client_id;
+		this.client_nickname = client_nickname;
 	}
 	public int getCode() {
 		return code;
@@ -72,11 +91,11 @@ public class BoardReviewDTO {
 	public void setViewcount(int viewcount) {
 		this.viewcount = viewcount;
 	}
-	public int getLikecout() {
-		return likecout;
+	public int getLikecount() {
+		return likecount;
 	}
-	public void setLikecout(int likecout) {
-		this.likecout = likecout;
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
 	}
 	public Timestamp getRegdate() {
 		return regdate;
@@ -96,4 +115,17 @@ public class BoardReviewDTO {
 	public void setDeldate(Timestamp deldate) {
 		this.deldate = deldate;
 	}
+	public String getClient_id() {
+		return client_id;
+	}
+	public void setClient_id(String client_id) {
+		this.client_id = client_id;
+	}
+	public String getClient_nickname() {
+		return client_nickname;
+	}
+	public void setClient_nickname(String client_nickname) {
+		this.client_nickname = client_nickname;
+	}
+	
 }

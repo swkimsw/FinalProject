@@ -8,4 +8,20 @@
 		select g.*, c.nickname from groupbuyingask g join clientmember c on g.clientcode = c.code where postcode=${code}
 	</select>
 	
+	<insert id="insertReplyAsk">
+		insert into groupbuyingask values(groupbuying_ask_seq.nextval,${postCode},${clientCode},#{content},sysdate,null,null)
+	</insert>
+	
+	<update id="updateReplyAsk">
+		update groupbuyingask set content=#{content}, moddate=sysdate where code=${code}
+	</update>
+	
+	<delete id="deleteReplyAsk">
+		delete from groupbuyingask where code=${code}
+	</delete>
+	
+	<insert id="insertReplyAnswer">
+		insert into groupbuyinganswer values(groupbuying_answer_seq.nextval,${postCode},${askCode},${businessCode},#{content},sysdate,null,null)
+	</insert>
+	
 </mapper>
