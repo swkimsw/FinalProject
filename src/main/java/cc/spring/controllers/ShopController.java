@@ -72,17 +72,23 @@ public class ShopController {
 		// 판매자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1002) {
 			int businessCode = 1; // 세션에서 받도록 수정
+			String companyName = "ggcom"; // 세션에서 받도록 수정
 			model.addAttribute("businessCode", businessCode);
+			model.addAttribute("companyName", companyName);
 		}else {
 			model.addAttribute("businessCode", 0);
+			model.addAttribute("companyName", "");
 		}
 		
 		// 일반 사용자인 경우 해당 ID의 회원코드 가져오기
 		if(authgradeCode == 1003) {
 			int clientCode = 1; // 세션에서 받도록 수정
+			String nickName = "에이"; // 세션에서 받도록 수정
 			model.addAttribute("clientCode", clientCode);
+			model.addAttribute("nickName", nickName);
 		}else {
 			model.addAttribute("clientCode", 0);			
+			model.addAttribute("nickName", "");
 		}
 		
 		// 선택한 공구샵 정보 가져오기
