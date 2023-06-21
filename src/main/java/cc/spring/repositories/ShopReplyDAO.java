@@ -39,6 +39,10 @@ public class ShopReplyDAO {
 		return db.insert("ShopReply.insertReplyAnswer", dto);
 	}
 	
+	public int updateReplyAnswer(ShopReplyAnswerDTO dto) {
+		return db.update("ShopReply.updateReplyAnswer", dto);
+	}
+	
 	public int deleteReplyAnswer(int code) {
 		return db.delete("ShopReply.deleteReplyAnswer", code);
 	}
