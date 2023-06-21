@@ -3,7 +3,7 @@ package cc.spring.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cc.spring.dto.AdminMemberDTO;
+import cc.spring.dto.MemberDTO;
 import cc.spring.repositories.AdminMemberDAO;
 
 @Service
@@ -15,7 +15,7 @@ public class AdminMemberService {
 		return ADAO.login(id, pw);
 	}
 	
-	public AdminMemberDTO selectAdminMemberInfo() {
-		return ADAO.selectAdminMemberInfo();
+	public MemberDTO selectAdminMemberInfo(String id, String pw) {
+		return ADAO.selectAdminMemberInfo(id, pw);
 	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.BusinessMemberDTO;
+import cc.spring.dto.MemberDTO;
 import cc.spring.services.BusinessMemberService;
 import cc.spring.services.SmsService;
 
@@ -36,14 +37,14 @@ public class BusinessMemberController {
 	
 	//사업자 로그인
 		@RequestMapping("login")
-		public String login(BusinessMemberDTO dto, RedirectAttributes redir) throws Exception {
+		public String login(MemberDTO dto, RedirectAttributes redir) throws Exception {
 			
 			String loginPw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(loginPw);
 			boolean result = bms.login(dto);
 			if(result) {
 				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
-				BusinessMemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
+				MemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
 				
 				session.setAttribute("code", bmd.getCode());
 				session.setAttribute("id",bmd.getBusinessId());
@@ -113,7 +114,7 @@ public class BusinessMemberController {
 		// 비밀번호 재설정
 		@ResponseBody
 		@RequestMapping("changePw")
-		public void changePw(BusinessMemberDTO dto) throws Exception {
+		public void changePw(MemberDTO dto) throws Exception {
 			String updatePw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(updatePw);
 			bms.updatePwBusiness(dto);
@@ -139,6 +140,10 @@ public class BusinessMemberController {
 		@ResponseBody
 		@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 		public String checkId(String key, String value) throws Exception {
+			if(key.equals("PHONE")) {
+				boolean result = bms.phoneDuplication(key, value);
+				return String.valueOf(result);
+			}
 			boolean result = bms.isBusinessMember(key, value);
 			return String.valueOf(result);
 		}
@@ -196,7 +201,7 @@ public class BusinessMemberController {
 		
 		// 회원가입 폼에서 입력한 값들 넘어옴
 		@RequestMapping("signup")
-		public String signup(BusinessMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
+		public String signup(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
 			// 받은 생년월일 합치기
 			String birthDate = member_birth_year + member_birth_month + member_birth_day;
 			dto.setBirthDate(birthDate);

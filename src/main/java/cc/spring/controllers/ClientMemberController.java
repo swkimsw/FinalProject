@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.AdminMemberDTO;
-import cc.spring.dto.ClientMemberDTO;
+import cc.spring.dto.MemberDTO;
 import cc.spring.services.AdminMemberService;
 import cc.spring.services.ClientMemberService;
 import cc.spring.services.SmsService;
@@ -43,15 +43,14 @@ public class ClientMemberController {
 
 	// 클라이언트 로그인
 	@RequestMapping("login")
-	public String login(ClientMemberDTO dto, RedirectAttributes redir) throws Exception {
+	public String login(MemberDTO dto, RedirectAttributes redir) throws Exception {
 		
 
-	
 		// 입력한 id와 비밀번호가 관리자인지 확인
 		boolean admin = ams.login(dto.getId(), dto.getPw());
 		if(admin) {
 			// 입력한 id와 비밀번호 일치하는 관리자 정보 가져오기
-			AdminMemberDTO amd = ams.selectAdminMemberInfo();
+			MemberDTO amd = ams.selectAdminMemberInfo(dto.getId(), dto.getPw());
 			session.setAttribute("code", amd.getCode());
 			session.setAttribute("id", amd.getId());
 			session.setAttribute("nickname", amd.getName());
@@ -68,7 +67,7 @@ public class ClientMemberController {
 		boolean result = cms.login(dto);
 		if(result) {
 			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
-			ClientMemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+			MemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
 			System.out.println(cmd.getCode());
 			session.setAttribute("code", cmd.getCode());
 			session.setAttribute("id",cmd.getId());
@@ -107,8 +106,14 @@ public class ClientMemberController {
 	@ResponseBody
 	@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 	public String checkId(String key, String value) throws Exception {
-		boolean result = cms.isClientMember(key, value);
-		return String.valueOf(result);
+		if(key.equals("PHONE")) {
+			boolean result = cms.phoneDuplication(key, value);
+			return String.valueOf(result);
+		}
+		else {
+			boolean result = cms.isClientMember(key, value);
+			return String.valueOf(result);
+		}
 	}
 	
 	// 회원가입 시 인증번호 랜덤 발송
@@ -201,7 +206,7 @@ public class ClientMemberController {
 	// 비밀번호 재설정
 	@ResponseBody
 	@RequestMapping("changePw")
-	public void changePw(ClientMemberDTO dto) throws Exception {
+	public void changePw(MemberDTO dto) throws Exception {
 		String updatePw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(updatePw);
 		cms.updatePw(dto);
@@ -216,19 +221,16 @@ public class ClientMemberController {
 	
 	// 회원가입 폼에서 입력한 값들 넘어옴
 	@RequestMapping("signup")
-	public String signup(ClientMemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
+	public String signup(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception{
 		// 받은 생년월일 합치기
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
 		dto.setBirthDate(birthDate);
-		System.out.println("에러2");
 		// 비밀번호 암호화
 		String shaPw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(shaPw);
-		System.out.println("에러3");
 		// 일반회원 가입 시 authgradecode 1003 삽입
 		dto.setAuthGradeCode(1003);
 		
-
 		int result = cms.insertClient(dto);
 		if(result == 1) {
 			m.addAttribute("clientName", dto.getName());
