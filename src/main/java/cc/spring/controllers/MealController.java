@@ -1,16 +1,17 @@
 package cc.spring.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cc.spring.dto.MealDTO;
@@ -23,14 +24,30 @@ public class MealController {
 	@Autowired
 	private MealService mService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@RequestMapping("toMyMeal")
-	public String toMyMeal() {
+	public String toMyMeal(Model model) {
+		int memberCode = (int)session.getAttribute("code");
+		List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
+		model.addAttribute("mealList", mealList);
 		return "meal/mealCalendar";
 	}
 	
+	//ajax
 	@RequestMapping("insertMeal")
-	public String insertMeal(MealDTO dto) {
-		
+	public void insertMeal(MealDTO dto) {
+		mService.insertMeal(dto);
+	}
+	
+	//ajax
+	@ResponseBody
+	@RequestMapping("selectWeekMeal")
+	public String selectWeekMeal(String startDate) {
+		int memberCode = (int)session.getAttribute("code");
+		List<MealDTO> mealList = mService.selectWeekMeal(memberCode, startDate);
+		return "";
 	}
 	
 	@RequestMapping("toMyBasket")
@@ -50,6 +67,12 @@ public class MealController {
 	    return ResponseEntity.status(HttpStatus.OK)
 	            .contentType(MediaType.APPLICATION_JSON)
 	            .body(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="addMeal", produces="text/plain;charset=utf-8")
+	public void addMeal() {
+		
 	}
 	
 	@ExceptionHandler(Exception.class)

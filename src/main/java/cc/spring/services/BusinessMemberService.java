@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cc.spring.dto.BusinessMemberDTO;
-import cc.spring.dto.ClientMemberDTO;
+import cc.spring.dto.MemberDTO;
 import cc.spring.repositories.BusinessMemberDAO;
 
 @Service
@@ -13,7 +12,7 @@ public class BusinessMemberService {
 	@Autowired
 	private BusinessMemberDAO bdao;
 
-	public boolean login(BusinessMemberDTO dto) {
+	public boolean login(MemberDTO dto) {
 		System.out.println("123123");
 		return bdao.login(dto);
 	}
@@ -25,25 +24,24 @@ public class BusinessMemberService {
 		return bdao.isBusinessMember(key, value);
 	}
 	
+	public boolean phoneDuplication(String key, String value) {
+		return bdao.phoneDuplication(key, value);
+	}
+	
 	public boolean phoneCheck(String phone) {
 		System.out.println("비지니스 폰체크 서비스");
 		return bdao.phoneCheck(phone);
 	}
 	
-	@Transactional
-	public int insertBusiness(BusinessMemberDTO dto) {
-		int businessmemberSeq = bdao.insertBusiness(dto);
-		System.out.println(businessmemberSeq);
-		
-		int result = bdao.totalInsertBusiness(businessmemberSeq);
-		return result;
+	public int insertBusiness(MemberDTO dto) {
+		return bdao.insertBusiness(dto);
 	}
 	
-	public int updatePwBusiness(BusinessMemberDTO dto) {
+	public int updatePwBusiness(MemberDTO dto) {
 		return bdao.updatePw(dto);
 	}
 	
-	public BusinessMemberDTO selectBusinessMemberInfo(String id) {
+	public MemberDTO selectBusinessMemberInfo(String id) {
 		System.out.println(id);
 		return bdao.selectBusinessMemberInfo(id);
 	}

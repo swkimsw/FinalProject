@@ -14,9 +14,8 @@ private int likecount;
 private Timestamp regdate;
 private Timestamp moddate;
 private Timestamp deldate;
-private String client_id;
-private String client_nickname;
-private String business_name;
+private String member_id;
+private String member_nickname;
 public BoardFreeDTO() {};
 public BoardFreeDTO(int code, int boardkindcode, int headlinecode, int membercode, String title, String content,
 		int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
@@ -34,7 +33,7 @@ public BoardFreeDTO(int code, int boardkindcode, int headlinecode, int membercod
 	this.deldate = deldate;
 }
 public BoardFreeDTO(int code, int boardkindcode, int headlinecode, int membercode, String title, String content,
-		int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String client_id, String client_nickname, String business_name) {
+		int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate,String member_id , String member_nickname) {
 	super();
 	this.code = code;
 	this.boardkindcode = boardkindcode;
@@ -47,9 +46,8 @@ public BoardFreeDTO(int code, int boardkindcode, int headlinecode, int membercod
 	this.regdate = regdate;
 	this.moddate = moddate;
 	this.deldate = deldate;
-	this.client_id = client_id;
-	this.client_nickname = client_nickname;
-	this.business_name = business_name;
+	this.member_id = member_id;
+	this.member_nickname = member_nickname;
 }
 public int getCode() {
 	return code;
@@ -117,23 +115,18 @@ public Timestamp getDeldate() {
 public void setDeldate(Timestamp deldate) {
 	this.deldate = deldate;
 }
-public String getClient_id() {
-	return client_id;
+public String getMember_id() {
+	return member_id;
 }
-public void setClient_id(String client_id) {
-	this.client_id = client_id;
+public void setMember_id(String member_id) {
+	this.member_id = member_id;
 }
-public String getClient_nickname() {
-	return client_nickname;
+public String getMember_nickname() {
+	return member_nickname;
 }
-public void setClient_nickname(String client_nickname) {
-	this.client_nickname = client_nickname;
+public void setMember_nickname(String member_nickname) {
+	this.member_nickname = member_nickname;
 }
-public String getBusiness_name() {
-	return business_name;
-}
-public void setBusiness_name(String business_name) {
-	this.business_name = business_name;
-}
+
 
 }
