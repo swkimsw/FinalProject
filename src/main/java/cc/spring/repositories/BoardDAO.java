@@ -21,79 +21,24 @@ public class BoardDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	
 
-//	public int selectClientAuthgrade(String user) {
-//		return mybatis.selectOne("Board.selectClientAuthgrade",user);
-//	}
-//
-//
-//	public int selectBusinessAuthgrade(String user) {
-//		return mybatis.selectOne("Board.selectBusinessAuthgrade",user);
-//	}
-//	
-//	public int selectAdminAuthgrade(String user) {
-//		return mybatis.selectOne("Board.selectAdminAuthgrade",user);
-//	}
 
 	
-	public int selectAdminresult(String user) {
-		return mybatis.selectOne("Board.selectAdminresult",user);
-	}
+
+//===========================================================================================
 
 	
-	
-	public int selectClientresult(String user) {
-		return mybatis.selectOne("Board.selectClientresult",user);
-	}
 
-	
-	
-//
-//	public int selectClientSeq(String writer) {
-//		return mybatis.selectOne("Board.selectClientSeq",writer);
-//	}
-//
-//	public int selectBusinessSeq(String writer) {
-//		return mybatis.selectOne("Board.selectBusinessSeq",writer);
-//	}
-//
-//	public int selectAdminSeq(String writer) {
-//		return mybatis.selectOne("Board.selectAdminSeq",writer);
-//	}
-	
-
-	public int selectTotalCode() {
-		return  mybatis.selectOne("Board.selectTotalCode");
-	}
-	
-	public int insertTotalMemberClient(TotalMemberDTO dto) {
-		return  mybatis.insert("Board.insertTotalMemberClient",dto);
-	}
-
-	public int insertTotalMemberBusiness(TotalMemberDTO dto) {
-		return  mybatis.insert("Board.insertTotalMemberBusiness",dto);
-	}
-	
-	
-	public int selectCodeTotal(int member, int authgradecode,int code) {
-		Map<String ,Object > param = new HashMap<>();
-		param.put("member", member);
-		param.put("authgradecode" , authgradecode);
-		param.put("code" , code);
-		return  mybatis.selectOne("Board.selectCodeTotal",param);
-	}
-	
 	public int selectReviewSeq() {
 		return mybatis.selectOne("Board.selectReviewSeq");
 	}
 	
 	
 	
-	public int insertReview(BoardReviewDTO  dto,int writer_seq,int parent_seq) {
+	public int insertReview(BoardReviewDTO  dto,int membercode,int parent_seq) {
 		Map<String ,Object> param = new HashMap<>();
 		param.put("dto", dto);
-		param.put("writer_seq", writer_seq);
+		param.put("membercode", membercode);
 		param.put("seq", parent_seq);
 		
 		return mybatis.insert("Board.insertReview",param);
@@ -118,8 +63,11 @@ public class BoardDAO {
 	
 	
 	
-	public int insertAnnouncement(BoardAnnouncementDTO dto) {
-		return  mybatis.insert("Board.insertAnnouncement",dto);
+	public int insertAnnouncement(BoardAnnouncementDTO dto,int membercode) {
+		Map<String ,Object> param = new HashMap<>();
+		param.put("dto", dto);
+		param.put("membercode", membercode);
+		return  mybatis.insert("Board.insertAnnouncement",param);
 	}
 	
 
@@ -139,6 +87,7 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectReviewlist");
 	}
 
+	
 
 
 

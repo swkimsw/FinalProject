@@ -125,7 +125,7 @@
 
             <c:choose>
 			
-				<c:when test="${user == 1}">
+				<c:when test="${user == '1003'}">
 
 					<div style="float: right;">
 						<a href="/board/reviewWrite">
