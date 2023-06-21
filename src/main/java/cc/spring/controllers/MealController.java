@@ -28,6 +28,11 @@ public class MealController {
 		return "meal/mealCalendar";
 	}
 	
+	@RequestMapping("insertMeal")
+	public String insertMeal(MealDTO dto) {
+		
+	}
+	
 	@RequestMapping("toMyBasket")
 	public String toMyBasket() {
 		return "meal/basket";
