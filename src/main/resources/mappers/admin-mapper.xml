@@ -5,10 +5,10 @@
   
   <mapper namespace="Admin">
   	<select id="login" resultType="boolean">
-  		select count(*) from AdminMember where id = #{id} and pw = #{pw}
+  		select count(*) from Member where id = #{id} and pw = #{pw}
   	</select>
   	
-  	<select id="selectAdminMemberInfo" resultType="cc.spring.dto.AdminMemberDTO">
-  		select * from AdminMember
+  	<select id="selectAdminMemberInfo" resultType="cc.spring.dto.MemberDTO">
+  		select * from Member where id = #{id} and pw = #{pw}
   	</select>
   </mapper>
