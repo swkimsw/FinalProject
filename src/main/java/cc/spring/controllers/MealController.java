@@ -29,7 +29,7 @@ public class MealController {
 	}
 	
 	@RequestMapping("insertMeal")
-	public String insertMeal(MealDTO dto) {
+	public void insertMeal(MealDTO dto) {
 		
 	}
 	

@@ -38,13 +38,13 @@ public class ChatGPTProvider {
 		
 		String systemMessage1 = "{\"role\": \"system\", \"content\": \"지금부터 넌 한식 전문 영양사야.\"}";
 		String userMessage1 = "{\"role\": \"user\", \"content\": \"오늘 하루 식단을 JSON으로 작성해줄래?\"}";
-		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{\\\"breakfast\\\": [\\\"오트밀\\\", \\\"바나나\\\", \\\"우유\\\"],\\\"lunch\\\": [\\\"쌀밥\\\", \\\"된장찌개\\\", \\\"불고기\\\"],\\\"dinner\\\": [\\\"쌀국수\\\", \\\"새우튀김\\\", \\\"미역국\\\"]}\"}";
+		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{\\\"day1\\\":{\\\"breakfast\\\": [\\\"오트밀\\\", \\\"바나나\\\", \\\"우유\\\"],\\\"lunch\\\": [\\\"쌀밥\\\", \\\"된장찌개\\\", \\\"불고기\\\"],\\\"dinner\\\": [\\\"쌀국수\\\", \\\"새우튀김\\\", \\\"미역국\\\"]}}\"}";
 		String systemMessage2 = "{\"role\": \"system\", \"content\": \"" + sendMsg + "\"}";
-
+		
 		String messages = String.join(", ", systemMessage1, userMessage1, assistantMessage1, systemMessage2);
 
 		// API 요청 생성
-		String requestBody = "{\"model\": \"" + model + "\", \"messages\": [" + messages + "],  \\\"content\\\": \\\"\"+prompt+\"\\\"}],\\\"max_tokens\\\":1024, \\\"temperature\\\":0.2}";
+		String requestBody = "{\"model\": \"" + model + "\", \"messages\": [" + messages + "]}";
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl))
 				.header("Content-Type", "application/json").header("Authorization", "Bearer " + apiKey)
 				.POST(HttpRequest.BodyPublishers.ofString(requestBody)).build();
