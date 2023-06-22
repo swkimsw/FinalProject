@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Meal">
 	<insert id="insertMeal">
-		insert into meal values(meal_seq.nextval,${clientCode},#{mealDate},${timeCode},#{meal})
+		insert into meal values(meal_seq.nextval,${memberCode},#{mealDate},${timeCode},#{meal})
 	</insert>
 	<select id="selectMealCalendar" resultType="cc.spring.dto.MealDTO">
 		select * from meal where memberCode = ${memberCode} and to_date(mealDate,'YYYY-MM-DD') between to_date(#{today},'YYYY-MM-DD') and to_date(#{endDate},'YYYY-MM-DD')

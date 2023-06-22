@@ -58,11 +58,11 @@ public class MealController {
 	
 	//ajax
 	@ResponseBody
-	@RequestMapping("selectWeekMeal")
-	public String selectWeekMeal(String startDate) {
+	@RequestMapping(value="selectWeekMeal", produces="text/html; charset=utf8;")
+	public List<MealDTO> selectWeekMeal(String startDate) {
 		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectWeekMeal(memberCode, startDate);
-		return "";
+		return mealList;
 	}
 	
 	@RequestMapping("toMyBasket")

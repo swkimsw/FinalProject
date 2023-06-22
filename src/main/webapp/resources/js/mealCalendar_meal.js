@@ -1,6 +1,6 @@
 //const myModal = document.getElementById('mealModalToggle');
 
-window.addEventListener('load', function () {
+window.addEventListener('load',function(){
     //표준 음식 리스트 modal창에 추가하기
     const standardExamples = [
         "김치찌개",
@@ -107,11 +107,19 @@ window.addEventListener('load', function () {
         "꼬막탕",
         "육개장",
         "해물탕"
-    ];
-    standardExamples.forEach((e) => {
+      ];
+    standardExamples.forEach((e)=>{
         var menu = $("<button type='button' class='list-group-item list-group-item-action standard-meal'>").html(e);
         $(".mealListGroup").append(menu);
     });
+    
+    //Date 값을 넣으면 YYYY-MM-DD 형식의 문자열로 반환해주는 함수
+function getFormedDate(date) {
+let formedYear = date.getUTCFullYear();
+let formedMonth = date.getUTCMonth() + 1 >= 10 ? date.getUTCMonth + 1 : '0' + (date.getUTCMonth() + 1);
+let formedDate = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
+return formedYear + "-" + formedMonth + "-" + formedDate;
+}
 
     //model에 담아온 mealList를 meal-box에 적절히 append 하기
     let mealInit = JSON.parse($("#mealInit").val());
@@ -122,24 +130,22 @@ window.addEventListener('load', function () {
     //     {code:3,memberCode:0,mealDate:"2023-06-24",timeCode:1003,meal:"반찬"}
     // ]
 
-    function getDateDiff(date1, date2) {
+    function getDateDiff(date1, date2){
         let d1 = new Date(date1);
         let d2 = new Date(date2);
-        return Math.abs((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24));
+        return Math.abs((d1.getTime()-d2.getTime())/(1000*60*60*24));
     };
-
-    mealInit.forEach((meal) => {
+    
+mealInit.forEach((밥)=>{
         //mealDate, timeCode로 들어갈 meal-box 구하기
-        let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
-        let times = ["breakfast", "lunch", "dinner"];
-        let todayForm = today.getFullYear() + "-" + (today.getMonth() + 1 < 10 ? '0' + (today.getMonth() + 1) : today.getMonth() + 1) + "-" + today.getDate();
-        // console.log("."+days[getDateDiff(todayForm,e.mealDate)]+"."+times[e.timeCode-1001]);
-        let parentBoxClass = "." + days[getDateDiff(todayForm, meal.mealDate)] + "." + times[meal.timeCode - 1001];
+        let days = ["day1","day2","day3","day4","day5","day6","day7"];
+        let times = ["breakfast","lunch","dinner"];
+        let todayForm = getFormedDate(today);
+        let parentBoxClass="."+days[getDateDiff(todayForm,meal.mealDate)]+"."+times[meal.timeCode-1001];
         let insertBoxs = $(parentBoxClass).children();
         console.log(insertBoxs);
-        insertBoxs.each((i, box) => {
-            box.innerHTML = "";
-            console.log(box);
+        
+        insertBoxs.each((i,box)=>{
             $(box).append(meal.meal)
             $(box).append("<br>");
         });
@@ -148,25 +154,23 @@ window.addEventListener('load', function () {
 });
 
 //식단 날짜 구하는 함수
-function getMealDate() {
-    let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
+function getMealDate(){
+    let days = ["day1","day2","day3","day4","day5","day6","day7"];
     let cloneDates = new Date(today);
-    cloneDates = new Date(cloneDates.setDate(today.getDate() + days.indexOf(selectBox.parent().get(0).className.split(" ")[0])));
-    let cloneMonth = cloneDates.getUTCMonth() + 1 >= 10 ? cloneDates.getUTCMonth() + 1 : '0' + (cloneDates.getUTCMonth() + 1);
-    let cloneDate = cloneDates.getDate() >= 10 ? cloneDates.getDate() : '0' + cloneDates.getDate();
-    return cloneDates.getUTCFullYear() + "-" + cloneMonth + "-" + cloneDate;
+    cloneDates = new Date(cloneDates.setDate(today.getDate()+days.indexOf(selectBox.parent().get(0).className.split(" ")[0])));
+    return getFormedDate(cloneDates);
 };
 
 //식단 아/점/저 코드 구하는 함수
-function getMealTime() {
-    let times = ["breakfast", "lunch", "dinner"];
-    return 1001 + times.indexOf(selectBox.parent().get(0).className.split(" ")[1])
+function getMealTime(){
+    let times = ["breakfast","lunch","dinner"];
+    return 1001+times.indexOf(selectBox.parent().get(0).className.split(" ")[1])
 };
 
 //식단 박스 클릭 이벤트
 let selectBox;
-let preMeals = []; //열때 리스트
-let postMeals = []; //닫을때 리스트
+let preMeals=[]; //열때 리스트
+let postMeals=[]; //닫을때 리스트
 let preDiff; //교집합을 제거한 리스트
 let postDiff;
 $(".meal-box").off("click").on("click", function () {
@@ -175,12 +179,12 @@ $(".meal-box").off("click").on("click", function () {
 
     //입력 위치 지정
     //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
-    let parentClass = "." + $(this).parent().attr('class').split(" ").join(".");
+    let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
     selectBox = $(parentClass).children();
 
     //이미 값이 존재할 경우 input 태그에 넣어주기
-    if (selectBox.html()) {
-        let meals = this.innerHTML.split("<br>").filter(e => e != "");
+    if (selectBox.html()) {  
+        let meals = this.innerHTML.split("<br>").filter(e=>e!="");
         let inputMeals = document.getElementsByClassName("meal-name");
         for (let i = 0; i < meals.length; i++) {
             inputMeals[i].value = meals[i];
@@ -188,14 +192,14 @@ $(".meal-box").off("click").on("click", function () {
     }
     //원래 등록되어 있던 식단을 preMeals라는 리스트로 저장
     // preMeals = this.innerHTML.split("<br>");
-    $(".meal-name").each((i, e) => {
-        if (e.value) {
+    $(".meal-name").each((i,e)=>{
+        if(e.value){
             preMeals.push(e.value);
         }
     })
 
     //모두 삭제하기 클릭 이벤트
-    $("#delete-meals").on("click", function () {
+    $("#delete-meals").on("click", function () {     
         $(".meal-name").val("");
     });
 
@@ -230,63 +234,63 @@ $(".meal-box").off("click").on("click", function () {
     $("#saveMeal").off("click").on("click", function () {
 
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
-        postMeals = [];
-        $(".meal-name").each((i, e) => {
-            if (e.value) {
+        postMeals=[];
+        $(".meal-name").each((i,e)=>{
+            if(e.value){
                 postMeals.push(e.value);
             }
         });
-
+        
         //중복된 메뉴 입력 방지
         let exceptDuplMeal = new Set(postMeals);
-        if (postMeals.length > exceptDuplMeal.size) {
+        if(postMeals.length>exceptDuplMeal.size){
             alert("중복된 메뉴는 입력할 수 없습니다.");
             return;
         }
 
-        preDiff = preMeals.filter(e => !postMeals.includes(e));
-        postDiff = postMeals.filter(e => !preMeals.includes(e));
-
+        preDiff = preMeals.filter(e=>!postMeals.includes(e));
+        postDiff = postMeals.filter(e=>!preMeals.includes(e));
+        
         //그냥 update 없이 insert, delete만 만드는 걸로..  
-        preDiff.forEach((e, i) => {
+        preDiff.forEach((e,i)=>{
             //delete
             $.ajax({
-                url: "/meal/deleteMeal",
-                type: "post",
-                data: {
-                    //memberCode:"${sessionScope.code}",
-                    memberCode: 0,
-                    mealDate: getMealDate(),
-                    timeCode: getMealTime(),
-                    meal: e,
+                url:"/meal/deleteMeal",
+                type:"post",
+                data:{
+                   //memberCode:"${sessionScope.code}",
+                   memberCode:0,
+                   mealDate:getMealDate(),
+                   timeCode:getMealTime(),
+                    meal:e,       
                 },
-            }).done(function (resp) {
+            }).done(function(resp){
                 //아무것도 안해도 ?
             });
         })
 
-        postDiff.forEach((e, i) => {
+        postDiff.forEach((e,i)=>{
             console.log(e);
             //insert
             $.ajax({
-                url: "/meal/insertMeal",
-                type: "post",
-                data: {
+                url:"/meal/insertMeal",
+                type:"post",
+                data:{
                     //memberCode:"${sessionScope.code}",
-                    memberCode: 0,
-                    mealDate: getMealDate(),
-                    timeCode: getMealTime(),
-                    meal: e,
+                    memberCode:0,
+                    mealDate:getMealDate(),
+                    timeCode:getMealTime(),
+                    meal:e,
                 },
-            }).done(function (resp) {
-
+            }).done(function(resp){
+                
             });
         })
 
-        //선택한 박스의 내용을 비우고 입력한 내용으로 다시 append하기
+  //선택한 박스의 내용을 비우고 입력한 내용으로 다시 append하기
         selectBox.html("");
-        for (let i = 0; i < postMeals.length; i++) {
-            selectBox.append(postMeals[i] + "<br>");
+        for(let i=0;i<postMeals.length;i++){
+            selectBox.append(postMeals[i]+"<br>");
         }
 
         $("#closeModal").click();
@@ -309,9 +313,9 @@ $("#mealModalToggle").on("hidden.bs.modal", function () {
 //안에 내용물이 존재할 경우 draggable하게 설정
 let mealBoxes = document.getElementsByClassName("meal-box");
 Array.prototype.forEach.call(mealBoxes, (mealBox) => {
-    mealBox.setAttribute("data-bs-toggle", "modal");
-    mealBox.setAttribute("data-bs-target", "#mealModalToggle");
-    if (mealBox.innerHTML) {
-        mealBox.setAttribute("draggable", true);
-    }
+mealBox.setAttribute("data-bs-toggle", "modal");
+mealBox.setAttribute("data-bs-target", "#mealModalToggle");
+if (mealBox.innerHTML) {
+    mealBox.setAttribute("draggable", true);
+}
 });
