@@ -115,7 +115,7 @@
 										onclick="activeChange()" href="/shop/toShopList?status=open">진행중</a></li>
 									<li class="nav-item"><a class="nav-link"
 										onclick="activeChange()" href="/shop/toShopList?status=closed">마감</a></li>
-									<c:if test="${authGradeCode == 1002}">
+									<c:if test="${sessionScope.authGradeCode == 1002}">
 										<li class="nav-item"><a class="nav-link"
 											onclick="activeChange()" href="/shop/toShopRegister">공구
 												등록</a></li>
@@ -144,7 +144,7 @@
 					<c:choose>
 						<c:when test="${fn:length(list) > 0}">
 							<c:forEach var="i" items="${list}">
-								<div class="col-xl-4 col-sm-12 col-md-6 p-3 mb-2 contents">
+								<div class="col-xl-4 col-sm-12 col-md-6 p-4 mb-2 contents">
 									<div class="card">
 										<c:choose>
 											<c:when test="${i.dDay > 0 && i.statusCode == 1001}">

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
@@ -62,7 +63,7 @@ public class ShopDAO {
 		return db.selectList("Shop.searchByKeyword",param);
 	}
 	
-	public List<ShopListDTO> clientBuyingList(int code){
+	public List<MyShopListDTO> clientBuyingList(int code){
 		return db.selectList("Shop.clientBuyingList",code);
 	}
 

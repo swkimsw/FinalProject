@@ -149,7 +149,7 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${sessionScope.authgradeCode == 1002 and !sessionScope.loginId.equals(shopDTO.businessId)}">
+				<c:when test="${sessionScope.authGradeCode == 1002 and !sessionScope.loginId.equals(shopDTO.businessId)}">
 					<!-- 등록하지 않은 판매자일 때 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
@@ -157,7 +157,7 @@
 						</div>
 					</div>
 				</c:when>
-				<c:when test="${sessionScope.authgradeCode == 1003}">
+				<c:when test="${sessionScope.authGradeCode == 1003}">
 					<!-- 이용자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
@@ -182,7 +182,7 @@
 		<!-- 여기부터 댓글 -->
 		<!-- 댓글 등록 -->
 		<c:choose>
-			<c:when test="${sessionScope.authgradeCode == 1003}">
+			<c:when test="${sessionScope.authGradeCode == 1003}">
 				<!-- 이용자인 경우 -->
 				<form action="/shopReply/insertReplyAsk" method="post">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
