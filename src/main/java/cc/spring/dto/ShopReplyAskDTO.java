@@ -6,7 +6,7 @@ public class ShopReplyAskDTO {
 	
 	private int code;
 	private int postCode;
-	private int clientCode;
+	private int memberCode;
 	private String content;
 	private Timestamp regDate;
 	private Timestamp modDate;
@@ -15,12 +15,12 @@ public class ShopReplyAskDTO {
 	private String nickName;
 	
 	public ShopReplyAskDTO() {}
-	public ShopReplyAskDTO(int code, int postCode, int clientCode, String content, Timestamp regDate, Timestamp modDate,
+	public ShopReplyAskDTO(int code, int postCode, int memberCode, String content, Timestamp regDate, Timestamp modDate,
 			Timestamp delDate, String nickName) {
 		super();
 		this.code = code;
 		this.postCode = postCode;
-		this.clientCode = clientCode;
+		this.memberCode = memberCode;
 		this.content = content;
 		this.regDate = regDate;
 		this.modDate = modDate;
@@ -44,12 +44,12 @@ public class ShopReplyAskDTO {
 		this.postCode = postCode;
 	}
 
-	public int getClientCode() {
-		return clientCode;
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setClientCode(int clientCode) {
-		this.clientCode = clientCode;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public String getContent() {

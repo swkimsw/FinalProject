@@ -9,7 +9,7 @@
 	</select>
 	
 	<insert id="insertReplyAsk">
-		insert into groupbuyingask values(groupbuying_ask_seq.nextval,${postCode},${clientCode},#{content},sysdate,null,null)
+		insert into groupbuyingask values(groupbuying_ask_seq.nextval,${postCode},${memberCode},#{content},sysdate,null,null)
 	</insert>
 	
 	<update id="updateReplyAsk">
@@ -25,7 +25,7 @@
 	</select>
 	
 	<insert id="insertReplyAnswer">
-		insert into groupbuyinganswer values(groupbuying_answer_seq.nextval,${postCode},${askCode},${businessCode},#{content},sysdate,null,null)
+		insert into groupbuyinganswer values(groupbuying_answer_seq.nextval,${postCode},${askCode},${memberCode},#{content},sysdate,null,null)
 	</insert>
 	
 	<update id="updateReplyAnswer">
