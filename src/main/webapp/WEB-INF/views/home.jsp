@@ -78,6 +78,10 @@
 	<!-- gnb -->
 	<c:import url="commons/gnb.jsp">
 	</c:import>
+	
+	<!-- 로그인한 회원의 아이디를 담을 공간 -->
+	<input type="text" value="${sessionScope.code}" id="clientCode" hidden>
+	
 	<!-- main -->
 	<div class="container" style="margin-top: 100px;">
 		<div class="spinner-border text-dark" style="display: none;"
@@ -529,7 +533,7 @@
 <script type="text/javascript">
 
 			let timeArr = [];
-			let mealArr = [];
+			let aiMealArr = [];
 			let timeStr = "";
 			let special;
 			let dayTime;
@@ -555,8 +559,15 @@
 
 			$("#sendBtn").on("click", function () {
 				
-				// 로그인시 실행 추가 && 아점저 선택안하면 생성 금지
+				// 일단 식단생성 버튼 누르면 모든내용 삭제
+				$(".meal-box").html("");
 				
+				// 로그인시 실행 추가 
+				let clientCode = $("#clientCode").val();
+				if(!clientCode){
+					alert("일반회원만 사용할 수 있는 기능입니다. 일반회원으로 로그인해주세요");
+					//return false;
+				}
 				timeArr = [];
 				$("input[type=checkbox][name=time]:checked").each(function (i) {
 					timeArr.push($(this).val());
@@ -567,15 +578,18 @@
 				special = $("input[name=special]:checked").val();
 				dayTime = $("select[name=dayTime]").val();
 
+				// 아점저 선택안하면 생성 금지
+				if(timeArrLength == 0){
+					alert("아침, 점심, 저녁중 반드시 하나이상은 선택하셔야 합니다.");
+					return false;
+				}
 				$.ajax({
 					url: "/meal/aiMeal",
 					type: "post",
 					data: {
 						dayTime: dayTime,
 						special: special,
-						timeStr: timeStr,
-						timeArrLength: timeArrLength
-
+						timeStr: timeStr
 					},
 					beforeSend: function () {
 						$(".spinner-border").css({
@@ -596,7 +610,7 @@
 				}).done(function (resp) {
 					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
-					mealAdd(resp);
+					aiMealAdd(resp);
 					const meals = ['breakfast', 'lunch', 'dinner'];
 					const timeCodes = [1001, 1002, 1003];
 
@@ -623,7 +637,7 @@
 					url: "/meal/addAiMeal",
 					type: "post",
 					data: {
-						mealArr : mealArr
+						aiMealArr : aiMealArr
 					}
 				});
 			});
