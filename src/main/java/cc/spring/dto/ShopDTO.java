@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class ShopDTO {
 	
 	private int code;
-	private int businessCode;
+	private int memberCode;
 	private int statusCode;
 	private Timestamp deadLine;
 	private String deadLineTemp;
@@ -23,12 +23,12 @@ public class ShopDTO {
 	private String businessId;
 	
 	public ShopDTO() {}	
-	public ShopDTO(int code, int businessCode, int statusCode, Timestamp deadLine, String deadLineTemp, int max,
+	public ShopDTO(int code, int memberCode, int statusCode, Timestamp deadLine, String deadLineTemp, int max,
 			int min, String title, String detail, String productName, String productPrice, int boardKindCode,
 			Timestamp regDate, Timestamp modDate, Timestamp delDate, String businessId) {
 		super();
 		this.code = code;
-		this.businessCode = businessCode;
+		this.memberCode = memberCode;
 		this.statusCode = statusCode;
 		this.deadLine = deadLine;
 		this.deadLineTemp = deadLineTemp;
@@ -69,12 +69,12 @@ public class ShopDTO {
 		this.code = code;
 	}
 
-	public int getBusinessCode() {
-		return businessCode;
+	public int getMemberCode() {
+		return memberCode;
 	}
 
-	public void setBusinessCode(int businessCode) {
-		this.businessCode = businessCode;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 
 	public int getStatusCode() {

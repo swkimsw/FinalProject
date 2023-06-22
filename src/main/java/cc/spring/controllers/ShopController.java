@@ -46,19 +46,17 @@ public class ShopController {
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
 		// 세션에서 ID 받아오게 수정
-		String loginId = "1112254";
-		int authgradeCode = 1002;
+		session.setAttribute("loginId", "1112254");
+		session.setAttribute("authgradeCode", 1002);
+		session.setAttribute("memberCode", 2);
 		
 		// 판매자인지 체크
-		if(authgradeCode != 1002) {
-			return "redirect:/";
-		}
-		// 판매자인 경우 businessCode 구해오기
-		int businessCode = 1; // 세션에서 받도록 수정
+//		if(authgradeCode != 1002) {
+//			return "redirect:/";
+//		}
 		
 		// 업체명 / 배송 업체 정보 가져오기
 		
-		model.addAttribute("businessCode", businessCode);
 		return "/shop/shopRegister";
 	}
 
