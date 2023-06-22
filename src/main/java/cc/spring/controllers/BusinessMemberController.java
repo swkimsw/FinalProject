@@ -140,11 +140,13 @@ public class BusinessMemberController {
 		@ResponseBody
 		@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 		public String checkId(String key, String value) throws Exception {
-			if(key.equals("PHONE")) {
-				boolean result = bms.phoneDuplication(key, value);
+			// 같은 연락처와 이메일로 클라이언트와 비즈니스 회원가입 한 번씩 가능
+			if(key.equals("PHONE") || key.equals("EMAIL")) {
+				boolean result = bms.phoneAndemailDuplication(key,value);
 				return String.valueOf(result);
 			}
-			boolean result = bms.isBusinessMember(key, value);
+
+			boolean result = bms.isBusinessMember(key,value);
 			return String.valueOf(result);
 		}
 		

@@ -22,8 +22,8 @@ public class ClientMemberService {
 		return cdao.isClientMember(key, value);
 	}
 	
-	public boolean phoneDuplication(String key, String value) {
-		return cdao.phoneDuplication(key, value);
+	public boolean phoneAndemailDuplication(String key, String value) {
+		return cdao.phoneAndemailDuplication(key, value);
 	}
 	
 	public boolean phoneCheck(String phone) {
