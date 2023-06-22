@@ -249,6 +249,8 @@
                                 url:"/meal/deleteMeal",
                                 type:"post",
                                 data:{
+                                	//memberCode:"${sessionScope.code}",
+                                	memberCode:0,
                                 	mealDate:getMealDate(),
                                 	timeCode:getMealTime(),
                                     meal:e,       
@@ -265,7 +267,8 @@
                                 url:"/meal/insertMeal",
                                 type:"post",
                                 data:{
-                                    clientCode:"${sessionScope.code}",
+                                    //memberCode:"${sessionScope.code}",
+                                    memberCode:0,
                                     mealDate:getMealDate(),
                                     timeCode:getMealTime(),
                                     meal:e,

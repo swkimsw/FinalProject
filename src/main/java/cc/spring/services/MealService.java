@@ -35,6 +35,10 @@ public class MealService {
 		return mealDAO.insertMeal(dto);
 	}
 	
+	public int deleteMeal(MealDTO dto) {
+		return mealDAO.deleteMeal(dto);
+	}
+	
 	public List<MealDTO> selectMealCalendar(int memberCode){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
