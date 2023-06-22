@@ -112,6 +112,14 @@
                         var menu = $("<button type='button' class='list-group-item list-group-item-action standard-meal'>").html(e);
                         $(".mealListGroup").append(menu);
                     });
+                    
+                    //Date 값을 넣으면 YYYY-MM-DD 형식의 문자열로 반환해주는 함수
+function getFormedDate(date) {
+    let formedYear = date.getUTCFullYear();
+    let formedMonth = date.getUTCMonth() + 1 >= 10 ? date.getUTCMonth + 1 : '0' + (date.getUTCMonth() + 1);
+    let formedDate = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
+    return formedYear + "-" + formedMonth + "-" + formedDate;
+}
 
                     //model에 담아온 mealList를 meal-box에 적절히 append 하기
                     let mealInit = JSON.parse($("#mealInit").val());
@@ -132,14 +140,12 @@
                         //mealDate, timeCode로 들어갈 meal-box 구하기
                         let days = ["day1","day2","day3","day4","day5","day6","day7"];
                         let times = ["breakfast","lunch","dinner"];
-                        let todayForm = today.getFullYear()+"-"+(today.getMonth()+1<10?'0'+(today.getMonth()+1):today.getMonth()+1)+"-"+today.getDate();
-                        // console.log("."+days[getDateDiff(todayForm,e.mealDate)]+"."+times[e.timeCode-1001]);
+                        let todayForm = getFormedDate(today);
                         let parentBoxClass="."+days[getDateDiff(todayForm,meal.mealDate)]+"."+times[meal.timeCode-1001];
                         let insertBoxs = $(parentBoxClass).children();
                         console.log(insertBoxs);
+                        
                         insertBoxs.each((i,box)=>{
-                            box.innerHTML="";
-                            console.log(box);
                             $(box).append(meal.meal)
                             $(box).append("<br>");
                         });
@@ -152,9 +158,7 @@
                     let days = ["day1","day2","day3","day4","day5","day6","day7"];
                     let cloneDates = new Date(today);
                     cloneDates = new Date(cloneDates.setDate(today.getDate()+days.indexOf(selectBox.parent().get(0).className.split(" ")[0])));
-                    let cloneMonth = cloneDates.getUTCMonth()+1>=10?cloneDates.getUTCMonth()+1:'0'+(cloneDates.getUTCMonth()+1);
-                    let cloneDate = cloneDates.getDate()>=10?cloneDates.getDate():'0'+cloneDates.getDate();
-                    return cloneDates.getUTCFullYear()+"-"+cloneMonth+"-"+cloneDate;
+                    return getFormedDate(cloneDates);
                 };
 
                 //식단 아/점/저 코드 구하는 함수

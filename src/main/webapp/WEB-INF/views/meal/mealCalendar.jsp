@@ -104,7 +104,7 @@
                     <tr>
                         <th class="time-header breakfast">아침</th>
                         <td class="day1 breakfast">
-                            <div class="meal-box">Meal 1 testsesetsetsetstsetstsetse<br>Meal 2<br>Meal 3<br>Meal 4<br></div>
+                            <div class="meal-box"></div>
                         </td>
                         <td class="day2 breakfast">
                             <div class="meal-box"></div>
@@ -194,7 +194,7 @@
                     <tr>
                         <th class="day-header">Day 1</th>
                         <td class="day1 breakfast">
-                            <div class="meal-box" data-bs-toggle="modal" data-bs-target="#mealModalToggle">Meal 1 testestesteststsetsetestsetstset<br>Meal 2<br>Meal 3<br>Meal 4<br></div>
+                            <div class="meal-box"></div>
                         </td>
                         <td class="day1 lunch">
                             <div class="meal-box"></div>
@@ -436,7 +436,6 @@
 <!-- mealCalendar ingredient js -->
 <script src="${path}/resources/js/mealCalendar_ingredient.js"></script>
 <script type="text/javascript">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 //AI 식단 추천 버튼 클릭 이벤트
 $("#aiMeal").on("click", function () {
