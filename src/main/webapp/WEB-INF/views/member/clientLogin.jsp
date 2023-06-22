@@ -349,7 +349,7 @@ body {
 						<div>
 							<p class="footer_font">가입했던 계정이 기억나지 않으신가요?</p>
 							<p class="footer_font">걱정마세요!</p>
-							<p class="footer_font">customer@KickKick.co.kr로 문의하시길 바랍니다.</p>
+							<p class="footer_font">customer@CookCook.co.kr로 문의하시길 바랍니다.</p>
 						</div>
 					</div>
 				</div>

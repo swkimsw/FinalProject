@@ -21,11 +21,11 @@ public class BusinessMemberService {
 		return bdao.getIdByPhone(phone);
 	}
 	public boolean isBusinessMember(String key, String value) {
-		return bdao.isBusinessMember(key, value);
+		return bdao.isBusinessMember(key,value);
 	}
 	
-	public boolean phoneDuplication(String key, String value) {
-		return bdao.phoneDuplication(key, value);
+	public boolean phoneAndemailDuplication(String key, String value) {
+		return bdao.phoneAndemailDuplication(key,value);
 	}
 	
 	public boolean phoneCheck(String phone) {
