@@ -4,6 +4,10 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Shop">
 
+	<select id="selectBusinessInfo" resultType="cc.spring.dto.MemberDTO">
+		select companyname,phone,shippingcompany,zipcode,address1,address2 from member where code=${memberCode}
+	</select>
+
 	<insert id="insertShop">
 		insert into groupbuying
 		values(groupbuying_seq.currval,${memberCode},1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
@@ -24,10 +28,9 @@
 	</select>
 
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
-		select g.code,g.membercode,g.statuscode,g.deadline,g.max,g.min,
-		g.title,g.detail,g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,m.businessid
-		from groupbuying g join member m on g.membercode = m.code
-		where g.code = ${code}
+		select g.code,g.membercode,g.statuscode,g.deadline,g.max,g.min,g.title,g.detail,
+		g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,m.businessid 
+		from groupbuying g join member m on g.membercode = m.code where g.code = #{code}
 	</select>
 
 	<update id="updateShop">
@@ -42,7 +45,7 @@
 
 	<insert id="insertShopRequest">
 		insert into requestlist
-		values(request_list_seq.nextval,#{clientCode},#{quantity},#{parentCode},1001,sysdate,null,null)
+		values(request_list_seq.nextval,#{memberCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
 
 
