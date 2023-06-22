@@ -1,5 +1,7 @@
 package cc.spring.dto;
 
+import java.util.Arrays;
+
 public class ChatDTO {
 	private String[] breakfast;
 	private String[] lunch;
@@ -39,7 +41,10 @@ public class ChatDTO {
 	public void setDinner(String[] dinner) {
 		this.dinner = dinner;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "ChatDTO [breakfast=" + Arrays.toString(breakfast) + ", lunch=" + Arrays.toString(lunch) + ", dinner="
+				+ Arrays.toString(dinner) + "]";
+	}
 }

@@ -68,7 +68,7 @@ public class MealService {
 	// 식단 추출 기능
 	public List<MealDTO> makeMeal(int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
 		
-		String sendMsg = dayTime + "일치" + specialValues.get(special) + "식단 " + timeStr + "만 JSON데이터로 짜줘";
+		String sendMsg = dayTime + "일치" + specialValues.get(special) + " 식단 " + timeStr + "만 JSON데이터로 짜줘";
 		JsonObject content = GPTprovider.makeMeal(sendMsg);
 		System.out.println(sendMsg);
 		
@@ -88,7 +88,11 @@ public class MealService {
 			
 			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
 			
-			for(int x = 0; x < timeArrLength; x++) {
+			System.out.println("SERVICE--> ");
+			System.out.println(dto.toString());
+			
+			for(int x = 0; x < 3; x++) {
+				System.out.println("tiem--> "+ dto.getClass().getDeclaredFields()[x].getName());
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
 					for(int j = 0; j < dto.getBreakfast().length; j++) {
 						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));
