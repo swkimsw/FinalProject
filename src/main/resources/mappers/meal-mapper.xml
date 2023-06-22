@@ -12,4 +12,7 @@
 	<select id="selectWeekMeal" resultType="cc.spring.dto.MealDTO">
 		select * from meal where memberCode = ${memberCode} and to_date(mealDate,'YYYY-MM-DD') between to_date(#{startDate},'YYYY-MM-DD') and to_date(#{endDate},'YYYY-MM-DD')
 	</select>
+	<delete id="deleteMeal">
+		delete from meal where mealDate=#{mealDate} and timeCode=${timeCode} and meal=#{meal}
+	</delete>
 </mapper>

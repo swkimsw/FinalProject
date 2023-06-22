@@ -41,7 +41,8 @@ public class MealService {
 		cal.setTime(new Date());
 		String today = sdf.format(new Date());
 		cal.add(Calendar.DATE, 6);
-		String endDate = sdf.format(cal);
+		Date tmp = cal.getTime();
+		String endDate = sdf.format(tmp);
 		
 		return mealDAO.selectMealCalendar(memberCode, today, endDate);
 	}
@@ -55,7 +56,8 @@ public class MealService {
 			e.printStackTrace();
 		}
 		cal.add(Calendar.DATE, 6);
-		String endDate = sdf.format(cal);
+		Date tmp = cal.getTime();
+		String endDate = sdf.format(tmp);
 		return mealDAO.selectWeekMeal(memberCode, startDate, endDate);
 	}
 

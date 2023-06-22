@@ -5,7 +5,9 @@ import java.sql.Timestamp;
 public class BoardFreeDTO {
 private int code;
 private int boardkindcode;
+private String boardkindValue;
 private int headlinecode;
+private String headlineValue;
 private int membercode;
 private String title;
 private String content;
@@ -49,6 +51,19 @@ public BoardFreeDTO(int code, int boardkindcode, int headlinecode, int membercod
 	this.member_id = member_id;
 	this.member_nickname = member_nickname;
 }
+
+public BoardFreeDTO(String boardkindValue, String headlineValue, int membercode, String title, int viewcount,
+		int likecount, Timestamp regdate) {
+	super();
+	this.boardkindValue = boardkindValue;
+	this.headlineValue = headlineValue;
+	this.membercode = membercode;
+	this.title = title;
+	this.viewcount = viewcount;
+	this.likecount = likecount;
+	this.regdate = regdate;
+}
+
 public int getCode() {
 	return code;
 }
@@ -127,6 +142,17 @@ public String getMember_nickname() {
 public void setMember_nickname(String member_nickname) {
 	this.member_nickname = member_nickname;
 }
-
+public String getBoardkindValue() {
+	return boardkindValue;
+}
+public void setBoardkindValue(String boardkindValue) {
+	this.boardkindValue = boardkindValue;
+}
+public String getHeadlineValue() {
+	return headlineValue;
+}
+public void setHeadlineValue(String headlineValue) {
+	this.headlineValue = headlineValue;
+}
 
 }

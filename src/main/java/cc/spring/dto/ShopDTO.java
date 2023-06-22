@@ -22,10 +22,10 @@ public class ShopDTO {
 	
 	private String businessId;
 	
-	public ShopDTO() {}	
-	public ShopDTO(int code, int memberCode, int statusCode, Timestamp deadLine, String deadLineTemp, int max,
-			int min, String title, String detail, String productName, String productPrice, int boardKindCode,
-			Timestamp regDate, Timestamp modDate, Timestamp delDate, String businessId) {
+	public ShopDTO() {}
+	public ShopDTO(int code, int memberCode, int statusCode, Timestamp deadLine, String deadLineTemp, int max, int min,
+			String title, String detail, String productName, String productPrice, int boardKindCode, Timestamp regDate,
+			Timestamp modDate, Timestamp delDate, String businessId) {
 		super();
 		this.code = code;
 		this.memberCode = memberCode;
@@ -43,22 +43,6 @@ public class ShopDTO {
 		this.modDate = modDate;
 		this.delDate = delDate;
 		this.businessId = businessId;
-	}
-	
-	public String getBusinessId() {
-		return businessId;
-	}
-	
-	public void setBusinessId(String businessId) {
-		this.businessId = businessId;
-	}
-	
-	public String getDeadLineTemp() {
-		return deadLineTemp;
-	}
-
-	public void setDeadLineTemp(String deadLineTemp) {
-		this.deadLineTemp = deadLineTemp;
 	}
 
 	public int getCode() {
@@ -91,6 +75,14 @@ public class ShopDTO {
 
 	public void setDeadLine(Timestamp deadLine) {
 		this.deadLine = deadLine;
+	}
+
+	public String getDeadLineTemp() {
+		return deadLineTemp;
+	}
+
+	public void setDeadLineTemp(String deadLineTemp) {
+		this.deadLineTemp = deadLineTemp;
 	}
 
 	public int getMax() {
@@ -172,5 +164,13 @@ public class ShopDTO {
 	public void setDelDate(Timestamp delDate) {
 		this.delDate = delDate;
 	}
+
+	public String getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
+	}	
 	
 }

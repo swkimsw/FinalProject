@@ -195,7 +195,13 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>6.0.9</version>
 		</dependency>
-
+		
+		<!-- 제 oracle 인코딩과 달라서 추가했습니다 (김신희) -->
+		<dependency>
+			<groupId>com.oracle.ojdbc</groupId>
+			<artifactId>orai18n</artifactId>
+			<version>19.3.0.0</version>
+		</dependency>
 
 	</dependencies>
 	<build>

@@ -51,9 +51,9 @@
 </header>
 
 <main>
-	<div class="container">
+	    <div class="container">
         <div class="titleBox d-flex justify-content-center align-items-center">
-            <img class="mx-4" width="60rem" src="/resources/img/cutlery (1).png">
+            <img class="mx-4" width="60rem" src="/resources/img/cutlery.png">
             <h1 class="text-center m-0" id="title">주간 식단표</h1>
         </div>
         <div id="calendar">
@@ -77,7 +77,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="c-body-large d-none d-xl-table" id="c-body-large">
+            <table class="c-body c-body-large d-none d-xl-table" id="c-body-large">
                 <colgroup>
                     <col style="width:8%;" />
                     <col />
@@ -175,7 +175,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="c-body-small d-table d-xl-none" id="c-body-small">
+            <table class="c-body c-body-small d-table d-xl-none" id="c-body-small">
                 <colgroup>
                     <col style="width:10%;">
                     <col style="width:30%; max-width:30%;">
@@ -391,18 +391,7 @@
                             </div>
                             <div class="standard-mealList">
                                 <div class="list-group mealListGroup">
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action standard-meal">Menu 1</button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action standard-meal">Menu 2</button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action standard-meal">Menu 3</button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action standard-meal">Menu 4</button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action standard-meal">Menu 5</button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action standard-meal">Menu 6</button>
+
                                 </div>
                             </div>
                         </div>
@@ -437,21 +426,24 @@
 
         </div>
     </div>
+    
+    <input type="hidden" id="mealInit" value="<c:out value="${mealList}"/>">
 </main>
 <!-- mealCalendar meal js -->
-<script src="${path}/resources/js/mealCalendar_meal.js"></script>
+<script src="${path}/resources/js/mealCalendar_meal.js" th:inline="javascript"></script>
 <!-- mealCalendar drag js -->
 <script src="${path}/resources/js/mealCalendar_drag.js"></script>
 <!-- mealCalendar ingredient js -->
 <script src="${path}/resources/js/mealCalendar_ingredient.js"></script>
 <script type="text/javascript">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 //AI 식단 추천 버튼 클릭 이벤트
 $("#aiMeal").on("click", function () {
     //location.href="/meal/식단추천페이지로 이동";
 });
 
-
 </script>
+
 </body>
 </html>

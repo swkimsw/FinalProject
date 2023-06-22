@@ -29,21 +29,25 @@
             let dayBoxes = document.getElementsByClassName("day-header");
 
             let j = 0;
-            for (let i = 0; i < 7; i++) {
-                date = today.getDate();
-                day = getDayOfWeek(today.setDate(today.getDate() + 1));
-                dayBoxes[j].innerHTML = date + " " + day;
-                j++;
-            }
-            today = new Date();
-            for (let i = 0; i < 7; i++) {
-                date = today.getDate();
-                day = getDayOfWeek(today.setDate(today.getDate() + 1));
-                dayBoxes[j].innerHTML = date + " " + day;
-                j++;
-            }
+    		let cloneToday = new Date(today);
+    		for (let i = 0; i < 7; i++) {
+        		cloneToday.setDate(today.getDate() + i);
+        		date = cloneToday.getDate();
+        		day = getDayOfWeek(cloneToday);
+        		dayBoxes[j].innerHTML = date + " " + day;
 
-            today = new Date();
+        		j++;
+    		}
+    		today = new Date();
+    		cloneToday = new Date(today);
+    		for (let i = 0; i < 7; i++) {
+        		cloneToday.setDate(today.getDate() + i)
+        		date = cloneToday.getDate();
+        		day = getDayOfWeek(cloneToday);
+        		dayBoxes[j].innerHTML = date + " " + day;
+        		j++;
+    		}
+    		today = new Date();
 
             //1주일 전으로 이동
             $("#prevWeek").on("click", function () {
