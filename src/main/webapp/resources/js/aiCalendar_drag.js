@@ -11,7 +11,10 @@ $(".meal-box").on("dragstart", function (e) {
     
     aiStartPoint = $(parentClass);
     aiStartMeal = aiStartPoint.children();
-    
+
+    selectBox = $(this)
+    aiStartDate = getMealDate(selectBox);
+    aiStartTime = getMealTime(selectBox);
 });
 
 $(".meal-box").on("dragenter", function (e) {
@@ -20,8 +23,12 @@ $(".meal-box").on("dragenter", function (e) {
     e.target.classList.add("drag-over");
 
     let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
-    aiaiEndPoint = $(parentClass);
+    aiEndPoint = $(parentClass);
     aiEndMeal = aiEndPoint.children();
+
+    selectBox = $(this)
+    aiEndDate = getMealDate(selectBox);
+    aiEndTime = getMealTime(selectBox);
 });
 
 $(".meal-box").on("dragover", function (e) {

@@ -533,6 +533,7 @@
 <script type="text/javascript">
 
 			let timeArr = [];
+			let timeArrLength;
 			let aiMealArr = [];
 			let timeStr = "";
 			let special;
