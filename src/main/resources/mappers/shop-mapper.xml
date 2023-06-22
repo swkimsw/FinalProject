@@ -6,7 +6,7 @@
 
 	<insert id="insertShop">
 		insert into groupbuying
-		values(groupbuying_seq.currval,${businessCode},1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
+		values(groupbuying_seq.currval,${memberCode},1001,#{deadLine},${max},${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
 		<selectKey keyProperty="code" resultType="int"
 			order="BEFORE">
 			select groupbuying_seq.nextval from dual
@@ -24,12 +24,9 @@
 	</select>
 
 	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
-		select
-		g.code,g.businesscode,g.statuscode,g.deadLine,g.max,g.min,
-		g.title,g.detail,g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,b.businessid
-		from groupbuying g
-		join businessmember b on g.businesscode = b.code
-		where g.code = ${code}
+		select g.code,g.membercode,g.statuscode,g.deadline,g.max,g.min,g.title,g.detail,
+		g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,m.businessid 
+		from groupbuying g join member m on g.membercode = m.code where g.code = #{code}
 	</select>
 
 	<update id="updateShop">
@@ -44,7 +41,7 @@
 
 	<insert id="insertShopRequest">
 		insert into requestlist
-		values(request_list_seq.nextval,#{clientCode},#{quantity},#{parentCode},1001,sysdate,null,null)
+		values(request_list_seq.nextval,#{memberCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
 
 
@@ -55,24 +52,36 @@
 		from groupbuying g
 		left join member m on g.memberCode = m.code
 		left join groupbuyingimg i on g.code = i.postcode
-		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode ) and m.code=#{code}
+		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode )
 		order by g.deadline desc
 		
 		
 	</select>
 	
-	<select id="clientBuyingList" resultType="cc.spring.dto.ShopListDTO">
-		select g.code, g.deadLine, g.statusCode, g.title, g.productName, g.productPrice,
-		m.name, 
-		i.code as imgcode, substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname,
-		r.quantity
-		from groupbuying g
-		left join member m on g.memberCode = m.code
+	<select id="clientBuyingList" resultType="cc.spring.dto.MyShopListDTO">
+		select r.code as applyCode, r.membercode, r.quantity, r.regdate as applyDate,
+			m.name,
+			(select companyname from member where code in
+				(select g.membercode from requestlist r
+				left join member m on r.membercode = m.code
+				left join groupbuying g on r.parentcode = g.code
+				left join groupbuyingimg i on g.code = i.postcode
+				where r.membercode = #{code})) as companyname,
+			g.code as groupbuyingcode , g.membercode as businesscode, g.statuscode,
+			g.deadline, g.title, g.productname, g.productprice, g.regdate,
+			substr(i.path, instr(i.path,'\resources',1,1)) || '\' as path, i.sysname
+		from requestlist r
+		left join member m on r.membercode = m.code
+		left join groupbuying g on r.parentcode = g.code
 		left join groupbuyingimg i on g.code = i.postcode
-		left join requestList r on m.code = r.membercode
-		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode )
-		and m.code = #{code}
-		order by g.deadline desc
+		where r.membercode = #{code}
+		and i.code in ( select min(i.code) from groupbuyingimg i group by
+		i.postcode )
+
+	</select>
+	
+	<select id="businessRegisterList" resultType="cc.spring.dto.ShopListDTO">
+		select * from member;
 	</select>
 	
 	<select id="getStatusList" resultType="cc.spring.dto.ShopListDTO">

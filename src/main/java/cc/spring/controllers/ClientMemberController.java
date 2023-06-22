@@ -106,8 +106,9 @@ public class ClientMemberController {
 	@ResponseBody
 	@RequestMapping(value="checkSum", produces="text/html;charset=utf8")
 	public String checkId(String key, String value) throws Exception {
-		if(key.equals("PHONE")) {
-			boolean result = cms.phoneDuplication(key, value);
+		if(key.equals("PHONE") || key.equals("EMAIL")) {
+			boolean result = cms.phoneAndemailDuplication(key, value);
+			System.out.println(key + " : " + value);
 			return String.valueOf(result);
 		}
 		else {

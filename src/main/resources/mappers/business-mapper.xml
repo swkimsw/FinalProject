@@ -8,27 +8,23 @@
 	</select>
 	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
 	<select id="getIdByPhone" resultType="String">
-	select businessId from BusinessMember where phone = #{phone}
+	select businessId from Member where phone = #{phone} and authGradeCode = 1002
 	</select>
 	
 	<select id="isMember" resultType="boolean">
 		select count(*) from Member where ${key} = #{value}
 	</select>
 	
-	<select id="phoneDuplication" resultType="boolean">
+	<select id="phoneAndemailDuplication" resultType="boolean">
 		select count(*) from Member where ${key} = #{value} and authGradeCode = 1002
 	</select>
 		
 	<select id="phoneCheck" resultType="boolean">
-		select count(*) from Member where phone = #{phone}
+		select count(*) from Member where phone = #{phone} and authGradeCode = 1002
 	</select>
 	
 	<insert id="insert">
 		insert into Member values(member_seq.nextval,null,#{businessId},#{pw},#{name},#{companyName},#{authGradeCode},null,#{birthDate},#{phone},#{eMail},null,#{zipcode},#{address1},#{address2},#{agree},sysdate,null,null)
-	</insert>
-	
-	<insert id="totalInsert">
-		insert into TotalMember values(total_member_seq.nextval, 0, ${businessmember}, 1003)
 	</insert>
 	
 	<update id="updatePw">
@@ -38,4 +34,12 @@
 	<select id="selectBusinessMemberInfo" resultType="cc.spring.dto.MemberDTO">
 		select * from member where businessid = #{id}
 	</select>
+	
+	<select id="selectMemberInfoByCode" resultType="cc.spring.dto.MemberDTO">
+		select * from member where code = ${code}
+	</select>
+	
+	<update id="updateShippingCompany">
+		update member set shippingcompany = #{shippingCompany} where code = ${code}
+	</update>
 </mapper>

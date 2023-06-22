@@ -11,7 +11,10 @@ $(".meal-box").on("dragstart", function (e) {
     
     aiStartPoint = $(parentClass);
     aiStartMeal = aiStartPoint.children();
-    
+
+    selectBox = $(this);
+    aiStartDate = getMealDate(selectBox);
+    aiStartTime = getMealTime(selectBox);
 });
 
 $(".meal-box").on("dragenter", function (e) {
@@ -20,8 +23,12 @@ $(".meal-box").on("dragenter", function (e) {
     e.target.classList.add("drag-over");
 
     let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
-    aiaiEndPoint = $(parentClass);
+    aiEndPoint = $(parentClass);
     aiEndMeal = aiEndPoint.children();
+
+    selectBox = $(this)
+    aiEndDate = getMealDate(selectBox);
+    aiEndTime = getMealTime(selectBox);
 });
 
 $(".meal-box").on("dragover", function (e) {
@@ -48,4 +55,7 @@ $(".meal-box").on("drop", function (e) {
     aiStartPoint.get(1).append(aiEndMeal.get(1));
     aiEndPoint.get(0).append(aiStartMeal.get(0));
     aiEndPoint.get(1).append(aiStartMeal.get(1));
+    
+	// 배열값 바꾸기 
+	    
 });

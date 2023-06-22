@@ -19,8 +19,10 @@
 	*{font-family: 'NanumSquareNeo';}
 	textarea{resize:none;}
 	.container{width: 70%; margin-top:100px;}
+	.memberInfo{margin-top:2px; border:0;}
 	.solidHr{margin-left:auto;}
 	.dashedHr{width:80%; margin-left:10%; border-top:dashed;}
+	
 	.reply{display:flex;}
 	#insertReply{margin-right:5%;}
 	#insertReplyBtn{width:100px; height:40px; margin-top:20px;}
@@ -75,39 +77,39 @@
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
 							<input type="hidden" id="code" name="code" value="${shopDTO.code}">
-							<input type="hidden" id="">
-							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" readonly>
+							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
+							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" required readonly>
 						</div>
 					</div>
 				
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
-						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" readonly>
+						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
-						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" readonly>
+						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
-						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" readonly>
+						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
-						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" readonly>
+						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
-						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" readonly>
+						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -119,7 +121,7 @@
 				<div id="imageSelect" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto; display:none;">
   					<label for="formFile" class="form-label">사진 선택</label>
 						<div class="input-group mb-3">
-  							<input class="form-control" type="file" id="files" name="files" multiple>
+  							<input class="form-control" type="file" id="files" name="files" multiple required>
   						</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -134,35 +136,47 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<table class="table table-bordered">
 						<tr>
-							<td>배송 업체</td>
-							<td> CJ대한통운 (나중에 값 받아오기) </td>
+							<td>업체명</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.companyName}" readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>업체 연락처</td>
-							<td> 010-1234-5678 (나중에 값 받아오기) </td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.phone}" readonly>
+							</td>
+						</tr>
+						<tr>
+							<td>배송 업체</td>
+							<td style="padding:0px;">
+ 								<input type="text" class="memberInfo form-control shadow-none" id="shippingCompany" name="shippingCompany" value="${memberDTO.shippingCompany}" required readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>교환 및 반품 주소</td>
-							<td> 서울특별시 중구 남대문로 120 (나중에 값 받아오기) </td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}" readonly>
+							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${sessionScope.authgradeCode == 1002 and !sessionScope.loginId.equals(shopDTO.businessId)}">
+				<c:when test="${sessionScope.authGradeCode == 1002 and !sessionScope.id.equals(shopDTO.businessId)}">
 					<!-- 등록하지 않은 판매자일 때 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
-							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-primary"></a>
+							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-success"></a>
 						</div>
 					</div>
 				</c:when>
-				<c:when test="${sessionScope.authgradeCode == 1003}">
+				<c:when test="${sessionScope.authGradeCode == 1003}">
 					<!-- 이용자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
-							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-primary">
-							<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-success">
+							<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
 						</div>
 					</div>
 				</c:when>
@@ -170,9 +184,9 @@
 					<!-- 등록한 판매자 & 관리자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
-							<input type="button" id="updateBtn" value="수정" class="btn btn-primary">
-							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-primary"></a>
-							<a href="/"><input type="button" id="back" value="취소" class="btn btn-primary"></a>
+							<input type="button" id="updateBtn" value="수정" class="btn btn-success">
+							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-success"></a>
+							<a href="/"><input type="button" id="back" value="취소" class="btn btn-success"></a>
 						</div>
 					</div>
 				</c:otherwise>
@@ -182,18 +196,18 @@
 		<!-- 여기부터 댓글 -->
 		<!-- 댓글 등록 -->
 		<c:choose>
-			<c:when test="${sessionScope.authgradeCode == 1003}">
+			<c:when test="${sessionScope.authGradeCode == 1003}">
 				<!-- 이용자인 경우 -->
 				<form action="/shopReply/insertReplyAsk" method="post">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="mb-3">
 							<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
-							<input type="hidden" id="clientCode" name="clientCode" value="${sessionScope.clientCode}">
+							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
   							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${sessionScope.nickName}</label>
 							<div class="reply">
  						 		<textarea class="form-control" id="insertReply" name="content" rows="3"></textarea>
  								<div>
- 						 			<button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
+ 						 			<button id="insertReplyBtn" class="btn btn-success btn-sm">등록</button>
  						 		</div>
 							</div>
 						</div>
@@ -208,7 +222,7 @@
 						<div class="reply">
  						 	<textarea class="form-control" id="insertReply" name="content" rows="3" readonly></textarea>
  							<div>
- 						 		<button id="insertReplyBtn" class="btn btn-primary btn-sm">등록</button>
+ 						 		<button id="insertReplyBtn" class="btn btn-success btn-sm">등록</button>
  						 	</div>
 						</div>
 					</div>
@@ -220,7 +234,7 @@
 		<!-- 댓글 리스트 -->
 		<c:forEach var="i" items="${shopReplyAskDTO}">
 			<c:choose>
-				<c:when test="${i.clientCode == sessionScope.clientCode}">
+				<c:when test="${i.memberCode == sessionScope.memberCode}">
 					<form action="/shopReply/updateReplyAsk" method="post">
 						<!-- 본인이 작성한 댓글인 경우 -->
 						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -231,9 +245,9 @@
 								<div class="reply">
  									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
  									<div id="replyAskBtns${i.code}" class="replyBtns">
- 										<button type="button" id="updateReplyAskBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyAskClick(${i.code})">수정</button>
+ 										<button type="button" id="updateReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAskClick(${i.code})">수정</button>
  										<a href="/shopReply/deleteReplyAsk?code=${i.code}&postCode=${shopDTO.code}">
- 											<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-primary btn-sm">삭제</button>
+ 											<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm">삭제</button>
  										</a>
  									</div>
 								</div>
@@ -255,19 +269,19 @@
 						</c:if>
 					</c:forEach>
 				</c:when>
-				<c:when test="${shopDTO.businessCode == sessionScope.businessCode}">
+				<c:when test="${shopDTO.memberCode == sessionScope.memberCode}">
 					<form action="/shopReply/insertReplyAnswer" method="post">
 						<!-- 판매자인 경우 -->
 						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
 								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
 								<input type="hidden" name="askCode" value="${i.code}">
-								<input type="hidden" id="businessCode" name="businessCode" value="${sessionScope.businessCode}">
+								<input type="hidden" id="businessCode" name="businessCode" value="${sessionScope.memberCode}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea class="selectReply form-control" rows="3" readonly>${i.content}</textarea>
  									<div>
- 										<button type="button" class="toWriteAnswerBtn btn btn-primary btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
+ 										<button type="button" class="toWriteAnswerBtn btn btn-success btn-sm" onclick="viewInsertAnswer(${i.code})">답글 달기</button>
  									</div>
 								</div>
 							</div>
@@ -286,9 +300,9 @@
 										<div class="reply" style="margin-left:5%;">
 											<textarea id="replyAnswerContent${j.code}" class="selectReplyAnswer form-control" name="content" rows="3" readonly>${j.content}</textarea>
 											<div id="replyAnswerBtns${j.code}" class="replyBtns">
-												<button type="button" id="updateReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-primary btn-sm" onclick="updateReplyAnswerClick(${j.code})">답글 수정</button>
+												<button type="button" id="updateReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAnswerClick(${j.code})">답글 수정</button>
 												<a href="/shopReply/deleteReplyAnswer?code=${j.code}&postCode=${shopDTO.code}">
-													<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-primary btn-sm">답글 삭제</button>
+													<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm">답글 삭제</button>
 												</a>
 											</div>
 										</div>
@@ -305,7 +319,7 @@
 							<div class="reply">
  								<textarea class="form-control" rows="3" readonly>${i.content}</textarea>
  								<div>
- 									<button type="button" class="toWriteAnswerBtn btn btn-primary btn-sm" style="display:none;"></button>
+ 									<button type="button" class="toWriteAnswerBtn btn btn-success btn-sm" style="display:none;"></button>
  								</div>
 							</div>
 						</div>
@@ -342,14 +356,16 @@
 			$("#detail").removeAttr("readonly");
 			$("#imageSelect").removeAttr("style");
 			$("#imageSelect").attr("style", 'float:none; margin: 0 auto;');
+			$("#shippingCompany").removeAttr("readonly");
+			$("#shippingCompany").attr("class", 'memberInfo form-control');
 			$("#quantity").prop("readonly",true);
 			
 			$("#updateBtn, #deleteBtn, #back").css("display", "none");
 
-			let updateComplete = $("<button class='btn btn-primary'>");
+			let updateComplete = $("<button class='btn btn-success'>");
 			updateComplete.text("수정 완료");
 			
-			let cancel = $("<button type='button' class='btn btn-primary'>");
+			let cancel = $("<button type='button' class='btn btn-success'>");
 			cancel.text("취소");
 			cancel.on("click", function(){
 				location.reload();
@@ -364,9 +380,9 @@
 		$("#insertRequestBtn").on("click", function(){
 			let quantity = $("#quantity").val();
 			let code = $("#code").val();
-			let clientCode = ${sessionScope.clientCode};
+			let memberCode = ${sessionScope.memberCode};
 			
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&clientCode="+clientCode;
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 		})
 		
 		// 답글 달기 버튼 눌렀을 때
@@ -381,7 +397,7 @@
 			row += '<div class="reply" style="margin-left:5%;">';
 			row += '<textarea class="selectReplyAnswer form-control" name="content" rows="3"></textarea>';
 			row += '<div>';
-			row += '<button id="writeAnswerBtn" class="writeAnswerBtn btn btn-primary btn-sm">답글 등록</button>';
+			row += '<button id="writeAnswerBtn" class="writeAnswerBtn btn btn-success btn-sm">답글 등록</button>';
 			row += '</div>';
 			row += '</div>';
 			row += '</div>';
@@ -396,10 +412,10 @@
 			$("#updateReplyAskBtn"+code).css("display", "none");
 			$("#deleteReplyAskBtn"+code).css("display", "none");
 			
-			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-primary btn-sm'>");
+			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-success btn-sm'>");
 			updateReplyComplete.text("수정 완료");
 			
-			let cancel = $("<button type='button' class='selectReplyBtn btn btn-primary btn-sm'>");
+			let cancel = $("<button type='button' class='selectReplyBtn btn btn-success btn-sm'>");
 			cancel.text("취소");
 			cancel.on("click", function(){
 				location.reload();
@@ -415,10 +431,10 @@
 			$("#updateReplyAnswerBtn"+code).css("display", "none");
 			$("#deleteReplyAnswerBtn"+code).css("display", "none");
 			
-			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-primary btn-sm'>");
+			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-success btn-sm'>");
 			updateReplyComplete.text("수정 완료");
 			
-			let cancel = $("<button type='button' class='selectReplyBtn btn btn-primary btn-sm'>");
+			let cancel = $("<button type='button' class='selectReplyBtn btn btn-success btn-sm'>");
 			cancel.text("취소");
 			cancel.on("click", function(){
 				location.reload();

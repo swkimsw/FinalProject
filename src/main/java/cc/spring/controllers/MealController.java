@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import cc.spring.dto.MealDTO;
 import cc.spring.services.MealService;
 
@@ -27,27 +29,38 @@ public class MealController {
 	@Autowired
 	private HttpSession session;
 	
+	@Autowired
+	private Gson g;
+	
 	@RequestMapping("toMyMeal")
 	public String toMyMeal(Model model) {
 		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
-		model.addAttribute("mealList", mealList);
+		model.addAttribute("mealList", g.toJson(mealList));
 		return "meal/mealCalendar";
 	}
 	
+	//내 식단 목록에서 한끼 식단 편집할 때
 	//ajax
 	@RequestMapping("insertMeal")
 	public void insertMeal(MealDTO dto) {
 		mService.insertMeal(dto);
 	}
 	
+	//내 식단 목록에서 한끼 식단 편집할 때
+	//ajax
+	@RequestMapping("deleteMeal")
+	public void deleteMeal(MealDTO dto) {
+		mService.deleteMeal(dto);
+	}
+	
 	//ajax
 	@ResponseBody
-	@RequestMapping("selectWeekMeal")
+	@RequestMapping(value="selectWeekMeal", produces="text/html; charset=utf8;")
 	public String selectWeekMeal(String startDate) {
 		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectWeekMeal(memberCode, startDate);
-		return "";
+		return g.toJson(mealList);
 	}
 	
 	@RequestMapping("toMyBasket")
@@ -57,9 +70,9 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
+	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr) throws Exception {
 		
-		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr, timeArrLength);
+		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr);
 		
 		System.out.println("Controller: ");
 		System.out.println(result.toString());
@@ -71,7 +84,7 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="addMeal", produces="text/plain;charset=utf-8")
-	public void addMeal() {
+	public void aiAddMeal() {
 		
 	}
 	
