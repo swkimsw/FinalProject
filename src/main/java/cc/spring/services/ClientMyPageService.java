@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cc.spring.dto.BoardFreeDTO;
+import cc.spring.dto.MemberDTO;
 import cc.spring.repositories.ClientMyPageDAO;
 
 @Service
@@ -19,4 +20,12 @@ public class ClientMyPageService {
 		return cmdao.selectCode(code);
 	
 }
+	
+	public boolean checkPw(String id, String pw) {
+		return cmdao.checkPw(id, pw);
+	}
+	
+	public MemberDTO selectClientMemberInfo(String id) {
+		return cmdao.selectClientMemberInfo(id);
+	}
 }

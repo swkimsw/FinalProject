@@ -15,4 +15,11 @@
 SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=${code})
 	</select>
 	
+		<select id="checkPw" resultType="boolean">
+			select count(*) from Member where id = #{id} and pw = #{pw}
+		</select>
+		
+		<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
+			select * from Member where id = #{id}
+		</select>
 	</mapper>
