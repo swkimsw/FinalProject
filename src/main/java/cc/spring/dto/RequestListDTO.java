@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class RequestListDTO {
 	
 	private int code;
-	private int clientCode;
+	private int memberCode;
 	private int quantity;
 	private int parentCode;
 	private int statusCode;
@@ -15,18 +15,18 @@ public class RequestListDTO {
 	
 	public RequestListDTO() {}
 	
-	public RequestListDTO(int clientCode, int quantity, int parentCode) {
+	public RequestListDTO(int memberCode, int quantity, int parentCode) {
 		super();
-		this.clientCode = clientCode;
+		this.memberCode = memberCode;
 		this.quantity = quantity;
 		this.parentCode = parentCode;
 	}
 
-	public RequestListDTO(int code, int clientCode, int quantity, int parentCode, int statusCode, Timestamp regDate,
+	public RequestListDTO(int code, int memberCode, int quantity, int parentCode, int statusCode, Timestamp regDate,
 			Timestamp modDate, Timestamp delDate) {
 		super();
 		this.code = code;
-		this.clientCode = clientCode;
+		this.memberCode = memberCode;
 		this.quantity = quantity;
 		this.parentCode = parentCode;
 		this.statusCode = statusCode;
@@ -41,11 +41,11 @@ public class RequestListDTO {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public int getClientCode() {
-		return clientCode;
+	public int getMemberCode() {
+		return memberCode;
 	}
-	public void setClientCode(int clientCode) {
-		this.clientCode = clientCode;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 	public int getQuantity() {
 		return quantity;
