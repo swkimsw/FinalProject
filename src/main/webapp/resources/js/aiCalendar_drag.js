@@ -12,7 +12,7 @@ $(".meal-box").on("dragstart", function (e) {
     aiStartPoint = $(parentClass);
     aiStartMeal = aiStartPoint.children();
 
-    selectBox = $(this)
+    selectBox = $(this);
     aiStartDate = getMealDate(selectBox);
     aiStartTime = getMealTime(selectBox);
 });
@@ -55,4 +55,7 @@ $(".meal-box").on("drop", function (e) {
     aiStartPoint.get(1).append(aiEndMeal.get(1));
     aiEndPoint.get(0).append(aiStartMeal.get(0));
     aiEndPoint.get(1).append(aiStartMeal.get(1));
+    
+	// 배열값 바꾸기 
+	    
 });

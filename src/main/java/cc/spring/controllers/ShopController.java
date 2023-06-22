@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
@@ -51,9 +52,10 @@ public class ShopController {
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
 		// 세션에서 ID 받아오게 수정
-		session.setAttribute("loginId", "1112254");
-		session.setAttribute("authGradeCode", 1002);
-		session.setAttribute("code", 2);
+
+		//session.setAttribute("loginId", "1112254");
+		//session.setAttribute("authGradeCode", 1002);
+		//session.setAttribute("code", 2);
 		
 		// 판매자인지 체크
 //		if(authgradeCode != 1002) {
@@ -61,7 +63,7 @@ public class ShopController {
 //		}
 		
 		// 업체명 / 배송 업체 정보 가져오기
-		String loginId = (String) session.getAttribute("loginId");
+		String loginId = (String) session.getAttribute("id");
 		
 		MemberDTO memberDTO = businessMemberService.selectBusinessMemberInfo(loginId);
 		model.addAttribute("memberDTO", memberDTO);
@@ -73,15 +75,16 @@ public class ShopController {
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
 		// 테스트용 세션 값 넣음
+
 		//session.setAttribute("id", "1112254");
 		//session.setAttribute("authGradeCode", 1002);
-		session.setAttribute("id", "aaa");
-		session.setAttribute("authGradeCode", 1003);
+		//session.setAttribute("id", "aaa");
+		//session.setAttribute("authGradeCode", 1003);
 		
 		//session.setAttribute("memberCode", 2);
 		//session.setAttribute("companyName", "ggcom");
-		session.setAttribute("memberCode", 1);
-		session.setAttribute("nickName", "에이");
+		//session.setAttribute("memberCode", 1);
+		//session.setAttribute("nickName", "에이");
 		
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
@@ -124,7 +127,9 @@ public class ShopController {
  	 	@RequestMapping("toShopList")
  		public String toShopList(@RequestParam(name="status",required=false,defaultValue="") String status, Model model) throws Exception{
  	 		List<ShopListDTO> list = new ArrayList<ShopListDTO>();
- 	 			
+ 	 		System.out.println( "코드는" + session.getAttribute("code") );
+ 	 		System.out.println( "아이디는" + session.getAttribute("id") );
+ 	 		System.out.println("권한등급은" + session.getAttribute("authGradeCode"));
  	 		if(status.equals("closed")){
  	 			//마감된 공구 list
  	 			list = shopService.getStatusList(status);
@@ -154,14 +159,6 @@ public class ShopController {
  	 		}
  	 		//상품정보, 이미지정보, 디데이 전송
  	 		model.addAttribute("list",list);
- 	 		
- 	 		//사업자회원 공구등록 버튼 유무
- 	 		session.setAttribute("authGradeCode",1002); //테스트용
- 	 		//session.removeAttribute("authGradeCode");  //테스트용
- 	 		if(session.getAttribute("authGradeCode")!= null) {
- 	 			int authGradeCode = (Integer)session.getAttribute("authGradeCode");;
- 	 			model.addAttribute("authGradeCode",authGradeCode);
- 	 		}
  	 		
  			return "/shop/shopList";
  		}
@@ -196,7 +193,7 @@ public class ShopController {
  	 public String toMyShopList(Model model) {
  		int code = (Integer)session.getAttribute("code");
  		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
- 		List<ShopListDTO> list = new ArrayList<>();
+ 		List<MyShopListDTO> list = new ArrayList<>();
  		
  		//사업자일때
  		if(authGradeCode == 1002) {

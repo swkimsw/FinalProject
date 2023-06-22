@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
@@ -110,7 +111,7 @@ public class ShopService {
 	}
 	
 	//일반회원 내 공구목록
-	public List<ShopListDTO> clientBuyingList(int code){
+	public List<MyShopListDTO> clientBuyingList(int code){
 		return shopDAO.clientBuyingList(code);
 	}
 
