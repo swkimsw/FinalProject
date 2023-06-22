@@ -14,6 +14,7 @@
 SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.title,b.viewcount,b.likecount,b.regdate FROM  BOARDFREE b join headline h on b.headlinecode = h.code join boadkind k on  b.boardkindcode= k.code WHERE b.membercode=(select code from member where code=${code})
 	</select>
 	
+
 	
 	
 	<select id="btpage" resultType="cc.spring.dto.BoardFreeDTO">
@@ -21,4 +22,13 @@ SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.
 	</select>
 	
 	
+
+		<select id="checkPw" resultType="boolean">
+			select count(*) from Member where id = #{id} and pw = #{pw}
+		</select>
+		
+		<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
+			select * from Member where id = #{id}
+		</select>
+
 	</mapper>
