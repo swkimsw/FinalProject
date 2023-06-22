@@ -11,8 +11,16 @@
 	
 	
 	<select id="freeBoard" resultType="cc.spring.dto.BoardFreeDTO">
-<!-- 	SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=#{code}); -->
-SELECT b.* FROM  BOARDFREE b WHERE b.membercode=(select code from totalmember where clientmember=${code})
+SELECT b.code,b.boardkindcode,h.value as headlinevalue,b.membercode,b.title,b.viewcount,b.likecount,b.regdate 
+FROM  BOARDFREE b join headline h on b.headlinecode = h.code 
+WHERE b.membercode=(select code from member where code=${code})
 	</select>
+	
+	
+	
+	<select id="btpage" resultType="cc.spring.dto.BoardFreeDTO">
+	select count(*) from boardfree where membercode=${code};
+	</select>
+	
 	
 	</mapper>
