@@ -67,6 +67,7 @@
         .button-container {
             text-align: center;
         }
+        
     </style>
 
 </head>
@@ -100,6 +101,7 @@
                 <tr>
                     <td colspan="2">
                         <textarea id="content" name="content"></textarea>
+                        
                     </td>
                 </tr>
                 <tr>
@@ -146,11 +148,23 @@
                     onImageUpload: function (data) {
                         data.pop();
                     }
+            
+            onKeyup: function(e) {
+                var content = $(this).summernote('getText');
+                var maxLength = 500; // 최대 글자수 제한
+                if (content.length > maxLength) {
+                  $(this).summernote('editor').text(content.substring(0, maxLength));
+                }
+              }
+                    
                 }
             });
 
+            
+           
         });
         
+
         
         
         $("#frm").on("submit",function(){

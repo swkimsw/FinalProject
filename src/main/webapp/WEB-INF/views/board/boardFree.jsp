@@ -66,15 +66,15 @@
                     <div class="checkbox ">
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <input class="form-check-input" type="checkbox" id="ckb1" name="category" value="2001">
                             <label class="form-check-label" for="inlineCheckbox1">일상</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            <input class="form-check-input" type="checkbox" id="ckb2" name="category" value="2002">
                             <label class="form-check-label" for="inlineCheckbox2">정보</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                            <input class="form-check-input" type="checkbox" id="ckb3"  name="category" value="2003">
                             <label class="form-check-label" for="inlineCheckbox3">질문</label>
                         </div>
 
