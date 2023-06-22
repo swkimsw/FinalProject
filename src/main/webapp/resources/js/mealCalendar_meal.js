@@ -228,8 +228,6 @@
 
                     //저장하기 버튼 클릭 이벤트
                     $("#saveMeal").off("click").on("click", function () {
-                        //우선 선택한 meal-box의 내용 모두 지우기
-                        selectBox.html("");
 
                         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
                         postMeals=[];
@@ -237,7 +235,14 @@
                             if(e.value){
                                 postMeals.push(e.value);
                             }
-                        })
+                        });
+                        
+                        //중복된 메뉴 입력 방지
+                        let exceptDuplMeal = new Set(postMeals);
+                        if(postMeals.length>exceptDuplMeal.size){
+                            alert("중복된 메뉴는 입력할 수 없습니다.");
+                            return;
+                        }
 
                         preDiff = preMeals.filter(e=>!postMeals.includes(e));
                         postDiff = postMeals.filter(e=>!preMeals.includes(e));
@@ -278,6 +283,8 @@
                             });
                         })
 
+						//선택한 박스의 내용을 비우고 입력한 내용으로 다시 append하기
+                        selectBox.html("");
                         for(let i=0;i<postMeals.length;i++){
                             selectBox.append(postMeals[i]+"<br>");
                         }
