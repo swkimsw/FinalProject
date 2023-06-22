@@ -2,9 +2,9 @@
 let selectBox;
 let preMeals; //열때 리스트
 let postMeals; //닫을때 리스트
-let aiStartDate; 
+let aiStartDate;
 let aiStartTime;
-let aiEndDate; 
+let aiEndDate;
 let aiEndTime;
 let inputMealArr = [];
 $(".meal-box").on("click", function () {
@@ -15,10 +15,10 @@ $(".meal-box").on("click", function () {
     //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
     //그냥 this로 했을때 큰창, 작은창 상관없으면 그대로
     selectBox = $(this);
-    
+
     aiStartDate = getMealDate(selectBox);
     aiStartTime = getMealTime(selectBox);
-    
+
     //이미 값이 존재할 경우 input 태그에 넣어주기
     if (selectBox.html()) {
         let meals = this.innerHTML.split("<br>");
@@ -64,27 +64,32 @@ $(".meal-box").on("click", function () {
     $("#saveMeal").on("click", function () {
         //우선 선택한 meal-box의 내용 모두 지우기
         selectBox.html("");
-		
+
         let meals = $(".meal-name");
         for (let i = 0; i < meals.length; i++) {
-			if (meals.get(i).value) {
-				selectBox.append(meals.get(i).value+"<br>");
-			
+            if (meals.get(i).value) {
+                selectBox.append(meals.get(i).value + "<br>");
 
-		 $("#closeModal").click();
-		    
-    	let clientCode = $("#clientCode").val();
-    	let inputMeal = {
-    		"code" : 0,
-    		"meal" : value,
-    		"mealDate" : aiStartDate,
-    		"memberCode" : clientCode,
-    		"timeCode" :  aiStartTime
-    	};
-    	inputMealArr.push(inputMeal);    
-    	}
-		}
-    	});
+                let exceptDuplMeal = new Set(postMeals);
+                if (postMeals.length != exceptDuplMeal.size) {
+                    alert("중복된 메뉴는 입력할 수 없습니다.");
+                    return;
+                }
+
+                $("#closeModal").click();
+
+                let clientCode = $("#clientCode").val();
+                let inputMeal = {
+                    "code": 0,
+                    "meal": value,
+                    "mealDate": aiStartDate,
+                    "memberCode": clientCode,
+                    "timeCode": aiStartTime
+                };
+                inputMealArr.push(inputMeal);
+            }
+        }
+    });
 });
 
 //모달 창이 닫힐 때, 안에 내용물이 있으면 draggable로 만들기
@@ -129,32 +134,32 @@ function getMealTime() {
 // 모달창 저장하기 버튼 누르면 식단 새로저장
 function aiMealAdd(resp) {
     mealArr = resp.map(i => i);
-} 
+}
 
 
 // 모달창 입력이벤트 함수
 function aiMealChange(pram) {
-	
-	// 특수문자, 이모티콘 입력방지
+
+    // 특수문자, 이모티콘 입력방지
     var regexp = /(?:[a-z0-9]|[ \[\]{}()<>?|`~!@#$%^&*-_+=,.;:\"'\\]|[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])/g;
     var value = $(pram).val();
     if (regexp.test(value)) {
-    	alert("한글만 입력해주세요");
+        alert("한글만 입력해주세요");
         $(pram).val(value.replace(regexp, ''));
     }
 }
 
-function remove (text) {
+function remove(text) {
     return text.replace(emojis, '');
-  }
+}
 
 // 식단 수정하는 함수
-function aiMealUpdate(){
+function aiMealUpdate() {
 
 }
 
 // 식단 삭제하는 함수
-function aiMealDelete(){
+function aiMealDelete() {
 
 }
 
