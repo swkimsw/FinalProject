@@ -7,7 +7,13 @@ public class MyShopListDTO {
 	private int memberCode;
 	private int quantity;
 	private Timestamp applyDate;
+	private String clientId;
 	private String name;
+	private String phone;
+	private String email;
+	private String zipcode;
+	private String address1;
+	private String address2;
 	private String companyName;
 	private int groupbuyingCode;
 	private int businessCode;
@@ -21,9 +27,11 @@ public class MyShopListDTO {
 	private String sysName;
 	
 	public MyShopListDTO() {}
+	//일반회원 구매목록용 생성자
 	public MyShopListDTO(int applyCode,int membercode,int quantity,Timestamp applyDate,String name,String companyName,
 			int groupbuyingCode,int businessCode,int statusCode,Timestamp deadLine,String title, String productName,
 			String productPrice,Timestamp regDate,String path,String sysName ) {
+		super();
 		this.applyCode = applyCode;
 		this.memberCode = membercode;
 		this.quantity = quantity;
@@ -40,6 +48,24 @@ public class MyShopListDTO {
 		this.regDate = regDate;
 		this.path = path;
 		this.sysName = sysName;
+	}
+	
+	//사업자회원 공구글별 구매자 정보 리스트용 생성자
+	public MyShopListDTO(int applyCode, int memberCode, int quantity, Timestamp applyDate, 
+			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, String productPrice) {
+		super();
+		this.applyCode = applyCode;
+		this.memberCode = memberCode;
+		this.quantity = quantity;
+		this.applyDate = applyDate;
+		this.clientId = clientId;
+		this.name = name;
+		this.phone = phone;
+		this.email = email;
+		this.zipcode= zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.productPrice = productPrice;
 	}
 	
 	
@@ -67,11 +93,49 @@ public class MyShopListDTO {
 	public void setApplyDate(Timestamp applyDate) {
 		this.applyDate = applyDate;
 	}
+	
+	public String getClientId() {
+		return clientId;
+	}
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	public String getAddress1() {
+		return address1;
+	}
+	public void setAddress1(String address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
 	public String getCompanyName() {
 		return companyName;
