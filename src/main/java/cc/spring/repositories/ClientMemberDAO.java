@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.ClientMemberDTO;
-import cc.spring.dto.TotalMemberDTO;
+import cc.spring.dto.MemberDTO;
 @Repository
 public class ClientMemberDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
 	
-	public boolean login(ClientMemberDTO dto) {
+	public boolean login(MemberDTO dto) {
 		boolean result = mybatis.selectOne("Client.login",dto);
 		System.out.println("DAO 리턴결과:"+result);
 		return result;
@@ -31,28 +31,29 @@ public class ClientMemberDAO {
 		Map<String,Object> param = new HashMap<>();
 		param.put("key", key);
 		param.put("value", value);
-		return mybatis.selectOne("Client.isMember", param);
+		return mybatis.selectOne("Client.isMember",param);
+	}
+	
+	public boolean phoneDuplication(String key, String value) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("key", key);
+		param.put("value", value);
+		return mybatis.selectOne("Client.phoneDuplication",param);
 	}
 	
 	public boolean phoneCheck(String phone) {
 		return mybatis.selectOne("Client.phoneCheck",phone);
 	}
 	
-	public int insertClient(ClientMemberDTO dto) {
-		mybatis.insert("Client.insert",dto);
-		return dto.getCode();
+	public int insertClient(MemberDTO dto) {
+		return mybatis.insert("Client.insert",dto);
 	}
 	
-	public int totalInsertClient(int clientmemberSeq) {
-		TotalMemberDTO dto = new TotalMemberDTO(0, clientmemberSeq, 0, 1003);
-		return mybatis.insert("Client.totalInsert",dto);
-	}
-	
-	public int updatePw(ClientMemberDTO dto) {
+	public int updatePw(MemberDTO dto) {
 		return mybatis.update("Client.updatePw", dto);
 	}
 	
-	public ClientMemberDTO selectClientMemberInfo(String id) {
+	public MemberDTO selectClientMemberInfo(String id) {
 		return mybatis.selectOne("Client.selectClientMemberInfo",id);
 	}
 

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Business">
-<select id="login" resultType="boolean">select count(*) from BusinessMember where
+<select id="login" resultType="boolean">select count(*) from Member where
 		businessId= #{businessId} and pw= #{pw}
 	</select>
 	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
@@ -12,18 +12,19 @@
 	</select>
 	
 	<select id="isMember" resultType="boolean">
-		select count(*) from BusinessMember where ${key} = #{value}
+		select count(*) from Member where ${key} = #{value}
+	</select>
+	
+	<select id="phoneDuplication" resultType="boolean">
+		select count(*) from Member where ${key} = #{value} and authGradeCode = 1002
 	</select>
 		
 	<select id="phoneCheck" resultType="boolean">
-		select count(*) from BusinessMember where phone = #{phone}
+		select count(*) from Member where phone = #{phone}
 	</select>
 	
 	<insert id="insert">
-	insert into BusinessMember values(#{code},#{businessId},#{pw},#{name},#{companyName},#{birthDate},#{phone},#{eMail},#{zipcode},#{address1},#{address2},#{agree},#{authGradeCode},sysdate,null,null)
-		<selectKey keyProperty="code" resultType="int" order="BEFORE">
-			select business_seq.nextval from dual
-		</selectKey>
+		insert into Member values(member_seq.nextval,null,#{businessId},#{pw},#{name},#{companyName},#{authGradeCode},null,#{birthDate},#{phone},#{eMail},null,#{zipcode},#{address1},#{address2},#{agree},sysdate,null,null)
 	</insert>
 	
 	<insert id="totalInsert">
@@ -31,10 +32,10 @@
 	</insert>
 	
 	<update id="updatePw">
-		update BusinessMember set pw = #{pw} where businessId = #{businessId}
+		update Member set pw = #{pw} where businessId = #{businessId}
 	</update>
 	
-	<select id="selectBusinessMemberInfo" resultType="cc.spring.dto.BusinessMemberDTO">
-		select * from businessmember where businessid = #{id}
+	<select id="selectBusinessMemberInfo" resultType="cc.spring.dto.MemberDTO">
+		select * from member where businessid = #{id}
 	</select>
 </mapper>
