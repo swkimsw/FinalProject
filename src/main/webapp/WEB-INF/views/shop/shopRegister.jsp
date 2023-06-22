@@ -18,6 +18,7 @@
 <style>
 	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
 	.container{width: 70%; margin-top:100px;}
+	.memberInfo{margin-top:2px; border:0;}
 </style>
 </head>
 <body>
@@ -89,29 +90,35 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>업체명</td>
-							<td>${memberDTO.companyName}</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.companyName}" readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>업체 연락처</td>
-							<td>${memberDTO.phone}</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.phone}" readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>배송 업체</td>
-							<td style="padding:0;">
- 								<input type="text" class="form-control" id="shippingCompany" name="shippingCompany" placeholder="배송 업체명을 입력해 주세요" style="border:0" required>
+							<td style="padding:0px;">
+ 								<input type="text" class="memberInfo form-control" id="shippingCompany" name="shippingCompany" placeholder="배송 업체명을 입력해 주세요" required>
 							</td>
 						</tr>
 						<tr>
 							<td>교환 및 반품 주소</td>
-							<td>${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}" readonly>
+							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="buttons">
 				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-					<button class="btn btn-primary">등록</button>
-					<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+					<button class="btn btn-success">등록</button>
+					<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
 				</div>
 			</div>
 			
