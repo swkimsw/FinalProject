@@ -17,6 +17,7 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
 	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
+	textarea{resize:none;}
 	.container{width: 70%; margin-top:100px;}
 	.memberInfo{margin-top:2px; border:0;}
 </style>
@@ -34,7 +35,7 @@
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
 							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
-							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example">
+							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example" required>
 						</div>
 					</div>
 				
@@ -74,13 +75,13 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
   					<label for="formFile" class="form-label">사진 선택</label>
 						<div class="input-group mb-3">
-  							<input class="form-control" type="file" id="files" name="files" multiple>
+  							<input class="form-control" type="file" id="files" name="files" multiple required>
   						</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mb-3">
   						<label for="exampleFormControlTextarea1" class="form-label">추가 정보 입력</label>
- 						 <textarea class="form-control" id="detail" name="detail" rows="3"></textarea>
+ 						 <textarea class="form-control" id="detail" name="detail" rows="5"></textarea>
 					</div>
 				</div>
 			</div>

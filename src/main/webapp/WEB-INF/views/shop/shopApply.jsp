@@ -77,39 +77,39 @@
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
 							<input type="hidden" id="code" name="code" value="${shopDTO.code}">
-							<input type="hidden" id="memberCode" name="memberCode" value="${shopDTO.memberCode}">
-							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" readonly>
+							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
+							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" required readonly>
 						</div>
 					</div>
 				
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
-						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" readonly>
+						<input type="text" class="form-control" id="productName" name="productName" value="${shopDTO.productName}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
-						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" readonly>
+						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
-						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" readonly>
+						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
-						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" readonly>
+						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
-						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" readonly>
+						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -121,7 +121,7 @@
 				<div id="imageSelect" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto; display:none;">
   					<label for="formFile" class="form-label">사진 선택</label>
 						<div class="input-group mb-3">
-  							<input class="form-control" type="file" id="files" name="files" multiple>
+  							<input class="form-control" type="file" id="files" name="files" multiple required>
   						</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -150,7 +150,7 @@
 						<tr>
 							<td>배송 업체</td>
 							<td style="padding:0px;">
- 								<input type="text" class="memberInfo form-control shadow-none" id="shippingCompany" name="shippingCompany" value="${memberDTO.shippingCompany}" readonly>
+ 								<input type="text" class="memberInfo form-control shadow-none" id="shippingCompany" name="shippingCompany" value="${memberDTO.shippingCompany}" required readonly>
 							</td>
 						</tr>
 						<tr>
