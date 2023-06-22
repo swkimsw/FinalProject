@@ -8,7 +8,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cc.spring.dto.MemberDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
@@ -18,10 +17,6 @@ public class ShopDAO {
 	
 	@Autowired
 	private SqlSessionTemplate db;
-	
-	public MemberDTO selectBusinessInfo(int memberCode) {
-		return db.selectOne("selectBusinessInfo", memberCode);
-	}
 	
 	public int insertShop(ShopDTO dto) {
 		db.insert("Shop.insertShop", dto);

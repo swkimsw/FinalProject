@@ -29,11 +29,6 @@ public class ShopService {
 	@Autowired
 	private FileDAO fileDAO;
 	
-	// ShopRegister - 업체 정보 select
-	public MemberDTO selectBusinessInfo(int memberCode) {
-		return shopDAO.selectBusinessInfo(memberCode);
-	}
-	
 	// 공구샵 등록 insert
 	@Transactional
 	public void insertShop(ShopDTO dto, String shippingCompany, MultipartFile[] files, String realPath) throws Exception {
@@ -64,7 +59,6 @@ public class ShopService {
 		}
 		
 		// member 배송 업체명(shippingCompany) update
-		
 	}
 
 	// 일반 사용자인 경우 회원코드 가져오기
