@@ -7,14 +7,14 @@
 	</select>
 	<!-- 폰번호로 아이디값 가져오는 쿼리문 -->
 	<select id="getIdByPhone" resultType="String">
-	select id from ClientMember where phone = #{phone}
+	select id from Member where phone = #{phone} and authGradeCode = 1003
 	</select>
 	
 	<select id="isMember" resultType="boolean">
 		select count(*) from Member where ${key} = #{value}
 	</select>
 	
-	<select id="phoneDuplication" resultType="boolean">
+	<select id="phoneAndemailDuplication" resultType="boolean">
 		select count(*) from Member where ${key} = #{value} and authGradeCode = 1003
 	</select>
 		
@@ -27,7 +27,7 @@
 	</insert>
 	
 	<update id="updatePw">
-		update ClientMember set pw = #{pw} where id = #{id}
+		update Member set pw = #{pw} where id = #{id}
 	</update>
 	
 	<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
