@@ -14,21 +14,11 @@ public class ShopListDTO {
 	private String imgCode;
 	private String path;
 	private String sysName;
+	private int quantity;
 	
 	public ShopListDTO() {}
-	//메인 목록용 생성자
-	public ShopListDTO(int code,int dDay,String title,String productPrice,String companyName,String imgCode,String path,String sysName ) {
-		super();
-		this.code=code;
-		this.dDay = dDay;
-		this.title = title;
-		this.productPrice = productPrice;
-		this.companyName = companyName;
-		this.imgCode = imgCode;
-		this.path = path;
-		this.sysName = sysName;
-	}
-	//검색용 생성자
+	
+	//전체,검색,상태 생성자
 	public ShopListDTO(int code,int dDay,String title,String productName,String productPrice,String companyName,String imgCode,String path,String sysName ) {
 		super();
 		this.code=code;
@@ -41,6 +31,23 @@ public class ShopListDTO {
 		this.path = path;
 		this.sysName = sysName;
 	}
+	
+	//내 공구 리스트 목록용 생성자
+	public ShopListDTO(int code,int dDay,String title,String productName,String productPrice,String companyName,String imgCode,String path,String sysName,int quantity ) {
+		super();
+		this.code=code;
+		this.dDay = dDay;
+		this.title = title;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.companyName = companyName;
+		this.imgCode = imgCode;
+		this.path = path;
+		this.sysName = sysName;
+		this.quantity = quantity;
+	}
+	
+	
 	public int getCode() {
 		return code;
 	}
@@ -109,12 +116,20 @@ public class ShopListDTO {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	@Override
 	public String toString() {
-		return "ShopListDTO [code=" + code + ", deadLine=" + deadLine + ", dDay=" + dDay + ", title="
-				+ title + ", productPrice=" + productPrice + ", companyName=" + companyName + ", imgCode=" + imgCode
-				+ ", path=" + path + ", sysName=" + sysName + "]";
+		return "ShopListDTO [code=" + code + ", deadLine=" + deadLine + ", dDay=" + dDay + ", statusCode=" + statusCode
+				+ ", title=" + title + ", productName=" + productName + ", productPrice=" + productPrice
+				+ ", companyName=" + companyName + ", imgCode=" + imgCode + ", path=" + path + ", sysName=" + sysName
+				+ ", quantity=" + quantity + "]";
 	}
+	
 
 	
 	

@@ -100,6 +100,11 @@ public class ShopService {
 	public List<ShopListDTO> searchByKeyword(String category,String keyword){
 		return shopDAO.searchByKeyword(category,keyword);
 	}
+	
+	//일반회원 내 공구목록
+	public List<ShopListDTO> clientBuyingList(int code){
+		return shopDAO.clientBuyingList(code);
+	}
 
 
 	// 공구샵 수정 update
@@ -123,6 +128,9 @@ public class ShopService {
 		File realPathFile = new File(realPath);
 		if(!realPathFile.exists()) realPathFile.mkdir();
 		if(files != null) {
+			// 삭제할 image 리스트 뽑아서 삭제하기
+			//List<String> imageList = fileDAO.deleteImageList(dto.getCode());
+			
 			for(MultipartFile file : files) {
 				if(file.isEmpty()) {break;}
 				String oriName = file.getOriginalFilename();

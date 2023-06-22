@@ -32,7 +32,7 @@
 			<div class="input1">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
-							<input type="hidden" id="businessCode" name="businessCode" value="${businessCode}">
+							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example">
 						</div>
 					</div>
@@ -97,7 +97,9 @@
 						</tr>
 						<tr>
 							<td>배송 업체</td>
-							<td> CJ대한통운 (나중에 값 받아오기) </td>
+							<td>
+ 								<input type="text" class="form-control" id="" name="max" placeholder="배송 업체명을 입력해 주세요" required>
+							</td>
 						</tr>
 						<tr>
 							<td>교환 및 반품 주소</td>

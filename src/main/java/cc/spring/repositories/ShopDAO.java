@@ -57,10 +57,13 @@ public class ShopDAO {
 
 	public List<ShopListDTO> searchByKeyword(String category, String keyword ) {
 		Map<String, Object> param = new HashMap<>();
-		System.out.println(category +":"+ keyword);
 		param.put("category", category);
 		param.put("keyword", keyword);
 		return db.selectList("Shop.searchByKeyword",param);
+	}
+	
+	public List<ShopListDTO> clientBuyingList(int code){
+		return db.selectList("Shop.clientBuyingList",code);
 	}
 
 }

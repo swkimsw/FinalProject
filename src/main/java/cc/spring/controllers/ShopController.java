@@ -46,50 +46,33 @@ public class ShopController {
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
 		// 세션에서 ID 받아오게 수정
-		String loginId = "1112254";
-		int authgradeCode = 1002;
+		session.setAttribute("loginId", "1112254");
+		session.setAttribute("authgradeCode", 1002);
+		session.setAttribute("memberCode", 2);
 		
 		// 판매자인지 체크
-		if(authgradeCode != 1002) {
-			return "redirect:/";
-		}
-		// 판매자인 경우 businessCode 구해오기
-		int businessCode = 1; // 세션에서 받도록 수정
+//		if(authgradeCode != 1002) {
+//			return "redirect:/";
+//		}
 		
-		model.addAttribute("businessCode", businessCode);
+		// 업체명 / 배송 업체 정보 가져오기
+		
 		return "/shop/shopRegister";
 	}
 
 	// 공구샵 신청 폼으로 이동
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
-		// 세션에서 ID 받아오게 수정
-		String loginId = "1112254";
-		int authgradeCode = 1002;
-		//String loginId = "aaa";
-		//int authgradeCode = 1003;
+		// 테스트용 세션 값 넣음
+		session.setAttribute("loginId", "1112254");
+		session.setAttribute("authgradeCode", 1002);
+		//session.setAttribute("loginId", "aaa");
+		//session.setAttribute("authgradeCode", 1003);
 		
-		// 판매자인 경우 해당 ID의 회원코드 가져오기
-		if(authgradeCode == 1002) {
-			int businessCode = 1; // 세션에서 받도록 수정
-			String companyName = "ggcom"; // 세션에서 받도록 수정
-			model.addAttribute("businessCode", businessCode);
-			model.addAttribute("companyName", companyName);
-		}else {
-			model.addAttribute("businessCode", 0);
-			model.addAttribute("companyName", "");
-		}
-		
-		// 일반 사용자인 경우 해당 ID의 회원코드 가져오기
-		if(authgradeCode == 1003) {
-			int clientCode = 1; // 세션에서 받도록 수정
-			String nickName = "에이"; // 세션에서 받도록 수정
-			model.addAttribute("clientCode", clientCode);
-			model.addAttribute("nickName", nickName);
-		}else {
-			model.addAttribute("clientCode", 0);			
-			model.addAttribute("nickName", "");
-		}
+		session.setAttribute("businessCode", 1);
+		session.setAttribute("companyName", "ggcom");
+		//session.setAttribute("clientCode", 1);
+		//session.setAttribute("nickName", "에이");
 		
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
@@ -103,12 +86,10 @@ public class ShopController {
 		// 선택한 공구샵 답글 목록 가져오기
 		List<ShopReplyAnswerDTO> shopReplyAnswerDTO = shopReplyService.selectShopReplyAnswer(code);
 		
-		model.addAttribute("loginId", loginId);
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
 		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
 		model.addAttribute("shopReplyAnswerDTO", shopReplyAnswerDTO);
-		model.addAttribute("authgradeCode", authgradeCode);
 		return "/shop/shopApply";
 	}
 
@@ -162,7 +143,7 @@ public class ShopController {
  	 		model.addAttribute("list",list);
  	 		
  	 		//사업자회원 공구등록 버튼 유무
- 	 		//session.setAttribute("authGradeCode",1002); //테스트용
+ 	 		session.setAttribute("authGradeCode",1002); //테스트용
  	 		//session.removeAttribute("authGradeCode");  //테스트용
  	 		if(session.getAttribute("authGradeCode")!= null) {
  	 			int authGradeCode = (Integer)session.getAttribute("authGradeCode");;
@@ -197,12 +178,25 @@ public class ShopController {
  			return searchList;
  	 	}
  	 	
-
- 	 	
- 	 	//@RequestMapping("toMyShopList")
- 	 	//public String toMyShopList(int code) {
- 	 		//List<ShopList>
- 	 	//}
+ 	 //내 공구목록	
+ 	 @RequestMapping("toMyShopList")
+ 	 public String toMyShopList(Model model) {
+ 		int code = (Integer)session.getAttribute("code");
+ 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
+ 		List<ShopListDTO> list = new ArrayList<>();
+ 		
+ 		//사업자일때
+ 		if(authGradeCode == 1002) {
+ 			
+ 			
+ 		//일반회원일때	
+ 		}else if(authGradeCode == 1003) {
+ 			list = shopService.clientBuyingList(code);
+ 		}
+ 		
+ 	 	model.addAttribute("list",list);
+ 	 	return "/shop/myShopList";
+ 	 }
 
 	// 공구샵 수정
 	@RequestMapping("updateShop")

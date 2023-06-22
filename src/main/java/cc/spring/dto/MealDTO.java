@@ -2,7 +2,6 @@ package cc.spring.dto;
 
 public class MealDTO {
 	private int code;
-	private String seq;
 	private int memberCode;
 	private String mealDate;
 	private int timeCode;
