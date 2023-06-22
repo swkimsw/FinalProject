@@ -27,6 +27,11 @@ public class MemberDTO {
 	public MemberDTO() {
 
 	}
+	public MemberDTO(int code, String shippingCompany) {
+		super();
+		this.code = code;
+		this.shippingCompany = shippingCompany;
+	}
 	public MemberDTO(int code, String id, String businessId, String pw, String name, String companyName,
 			int authGradeCode, String nickName, String birthDate, String phone, String eMail, String shippingCompany,
 			String zipcode, String address1, String address2, String agree, Timestamp regDate, Timestamp modDate,

@@ -54,7 +54,7 @@ public class ShopController {
 		// 세션에서 ID 받아오게 수정
 
 		session.setAttribute("loginId", "1112254");
-		session.setAttribute("authgradeCode", 1002);
+		session.setAttribute("authGradeCode", 1002);
 		session.setAttribute("code", 2);
 		
 		// 판매자인지 체크
@@ -64,8 +64,10 @@ public class ShopController {
 		
 		// 업체명 / 배송 업체 정보 가져오기
 		String loginId = (String) session.getAttribute("loginId");
+		
 		MemberDTO memberDTO = businessMemberService.selectBusinessMemberInfo(loginId);
 		model.addAttribute("memberDTO", memberDTO);
+		
 		return "/shop/shopRegister";
 	}
 
@@ -73,22 +75,25 @@ public class ShopController {
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
 		// 테스트용 세션 값 넣음
-		//session.setAttribute("loginId", "1112254");
-		//session.setAttribute("authgradeCode", 1002);
-		//session.setAttribute("loginId", "aaa");
-		//session.setAttribute("authgradeCode", 1003);
-		
 
-		session.setAttribute("memberCode", 2);
-		session.setAttribute("companyName", "ggcom");
-		//session.setAttribute("memberCode", 1);
-		//session.setAttribute("nickName", "에이");
+		//session.setAttribute("id", "1112254");
+		//session.setAttribute("authGradeCode", 1002);
+		session.setAttribute("id", "aaa");
+		session.setAttribute("authGradeCode", 1003);
+		
+		//session.setAttribute("memberCode", 2);
+		//session.setAttribute("companyName", "ggcom");
+		session.setAttribute("memberCode", 1);
+		session.setAttribute("nickName", "에이");
 		
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
 		
 		// 선택한 공구샵 이미지 가져오기
 		List<FileDTO> fileDTO = shopService.selectShopImg(code);
+		
+		// 선택한 공구샵 업체 정보 가져오기
+		MemberDTO memberDTO = businessMemberService.selectMemberInfoByCode(shopDTO.getMemberCode());
 		
 		// 선택한 공구샵 댓글 목록 가져오기
 		List<ShopReplyAskDTO> shopReplyAskDTO = shopReplyService.selectShopReply(code);
@@ -98,6 +103,7 @@ public class ShopController {
 		
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
 		model.addAttribute("shopReplyAnswerDTO", shopReplyAnswerDTO);
 		return "/shop/shopApply";
@@ -106,7 +112,7 @@ public class ShopController {
 	// 공구샵 등록시 DB에 insert
 	@RequestMapping("insertShop")
 	public String insertShop(ShopDTO dto, String shippingCompany, MultipartFile[] files) throws Exception {
-
+		
 		// realPath - 폴더가 없다면 만들기
 		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
 		shopService.insertShop(dto, shippingCompany, files, realPath);
@@ -202,10 +208,10 @@ public class ShopController {
 
 	// 공구샵 수정
 	@RequestMapping("updateShop")
-	public String updateShop(ShopDTO dto, MultipartFile[] files) throws Exception {
+	public String updateShop(ShopDTO dto, String shippingCompany, MultipartFile[] files) throws Exception {
 		// realPath - 폴더가 없다면 만들기
 		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
-		shopService.updateShop(dto, files, realPath);
+		shopService.updateShop(dto, shippingCompany, files, realPath);
 		return "redirect:/shop/toShopApply?code="+dto.getCode();
 	}
 

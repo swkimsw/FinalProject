@@ -258,8 +258,7 @@ $(".meal-box").off("click").on("click", function () {
                 url: "/meal/deleteMeal",
                 type: "post",
                 data: {
-                    //memberCode:"${sessionScope.code}",
-                    memberCode: 0,
+                    memberCode:"${sessionScope.code}",
                     mealDate: getMealDate(),
                     timeCode: getMealTime(),
                     meal: e,
@@ -276,8 +275,7 @@ $(".meal-box").off("click").on("click", function () {
                 url: "/meal/insertMeal",
                 type: "post",
                 data: {
-                    //memberCode:"${sessionScope.code}",
-                    memberCode: 0,
+                    memberCode:"${sessionScope.code}",
                     mealDate: getMealDate(),
                     timeCode: getMealTime(),
                     meal: e,
