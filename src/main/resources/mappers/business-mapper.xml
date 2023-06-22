@@ -34,4 +34,12 @@
 	<select id="selectBusinessMemberInfo" resultType="cc.spring.dto.MemberDTO">
 		select * from member where businessid = #{id}
 	</select>
+	
+	<select id="selectMemberInfoByCode" resultType="cc.spring.dto.MemberDTO">
+		select * from member where code = ${code}
+	</select>
+	
+	<update id="updateShippingCompany">
+		update member set shippingcompany = #{shippingCompany} where code = ${code}
+	</update>
 </mapper>
