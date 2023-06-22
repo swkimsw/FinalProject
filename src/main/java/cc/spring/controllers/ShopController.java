@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
@@ -51,6 +52,7 @@ public class ShopController {
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
 		// 세션에서 ID 받아오게 수정
+
 		session.setAttribute("loginId", "1112254");
 		session.setAttribute("authGradeCode", 1002);
 		session.setAttribute("code", 2);
@@ -73,6 +75,7 @@ public class ShopController {
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
 		// 테스트용 세션 값 넣음
+
 		//session.setAttribute("id", "1112254");
 		//session.setAttribute("authGradeCode", 1002);
 		session.setAttribute("id", "aaa");
@@ -155,14 +158,6 @@ public class ShopController {
  	 		//상품정보, 이미지정보, 디데이 전송
  	 		model.addAttribute("list",list);
  	 		
- 	 		//사업자회원 공구등록 버튼 유무
- 	 		session.setAttribute("authGradeCode",1002); //테스트용
- 	 		//session.removeAttribute("authGradeCode");  //테스트용
- 	 		if(session.getAttribute("authGradeCode")!= null) {
- 	 			int authGradeCode = (Integer)session.getAttribute("authGradeCode");;
- 	 			model.addAttribute("authGradeCode",authGradeCode);
- 	 		}
- 	 		
  			return "/shop/shopList";
  		}
  	
@@ -196,7 +191,7 @@ public class ShopController {
  	 public String toMyShopList(Model model) {
  		int code = (Integer)session.getAttribute("code");
  		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
- 		List<ShopListDTO> list = new ArrayList<>();
+ 		List<MyShopListDTO> list = new ArrayList<>();
  		
  		//사업자일때
  		if(authGradeCode == 1002) {

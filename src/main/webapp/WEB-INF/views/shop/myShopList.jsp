@@ -36,8 +36,7 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <!-- gbn css -->
-<link href="${path}/resources/css/gnb.css" rel="stylesheet"
-	type="text/css">
+<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 
 <style>
 body {
@@ -59,7 +58,10 @@ body {
 	</c:import>
 	
 	<div class="container">
-	
-	</div>
+		<c:forEach var="i" items="${list}">
+			<p>${i.memberCode}</p>
+			<p>${i.quantity}</p>
+		</c:forEach>
+	</div>		
 </body>
 </html>
