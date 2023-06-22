@@ -589,9 +589,7 @@
 					data: {
 						dayTime: dayTime,
 						special: special,
-						timeStr: timeStr,
-						timeArrLength: timeArrLength
-
+						timeStr: timeStr
 					},
 					beforeSend: function () {
 						$(".spinner-border").css({
