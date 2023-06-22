@@ -635,7 +635,7 @@
 			$("#aiMealAddBtn").on("click", function(){
 				
 				$.ajax({
-					url: "/meal/addAiMeal",
+					url: "/meal/aiAddAiMeal",
 					type: "post",
 					data: {
 						aiMealArr : aiMealArr
