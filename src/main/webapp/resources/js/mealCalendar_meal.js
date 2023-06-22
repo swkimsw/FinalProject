@@ -167,6 +167,16 @@ function getMealTime() {
     return 1001 + times.indexOf(selectBox.parent().get(0).className.split(" ")[1])
 };
 
+//식단 하나 등록하는 함수
+function insertMeal(){
+
+}
+
+//식단 하나 삭제하는 함수
+function deleteMeal(){
+
+}
+
 //식단 박스 클릭 이벤트
 let selectBox;
 let preMeals = []; //열때 리스트
@@ -269,7 +279,6 @@ $(".meal-box").off("click").on("click", function () {
         })
 
         postDiff.forEach((e, i) => {
-            console.log(e);
             //insert
             $.ajax({
                 url: "/meal/insertMeal",
