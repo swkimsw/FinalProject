@@ -34,11 +34,9 @@ public class MealController {
 	
 	@RequestMapping("toMyMeal")
 	public String toMyMeal(Model model) {
-//		int memberCode = (int)session.getAttribute("code");
-		int memberCode = 0;
+		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
-		String mealStr = g.toJson(mealList);
-		model.addAttribute("mealList", mealStr);
+		model.addAttribute("mealList", g.toJson(mealList));
 		return "meal/mealCalendar";
 	}
 	
@@ -59,10 +57,10 @@ public class MealController {
 	//ajax
 	@ResponseBody
 	@RequestMapping(value="selectWeekMeal", produces="text/html; charset=utf8;")
-	public List<MealDTO> selectWeekMeal(String startDate) {
+	public String selectWeekMeal(String startDate) {
 		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectWeekMeal(memberCode, startDate);
-		return mealList;
+		return g.toJson(mealList);
 	}
 	
 	@RequestMapping("toMyBasket")

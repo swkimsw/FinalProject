@@ -21,6 +21,13 @@ function getFormedDate(date) {
     return formedYear + "-" + formedMonth + "-" + formedDate;
 }
 
+//두 날짜 사이 일수 차이를 반환하는 함수
+function getDateDiff(date1, date2) {
+    let d1 = new Date(date1);
+    let d2 = new Date(date2);
+    return Math.abs((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24));
+};
+
 //특정 날짜로부터 일주일 치 식단을 꺼내 출력하는 함수
 function selectWeekMeal(date) {
 
@@ -33,6 +40,21 @@ function selectWeekMeal(date) {
     }).done(function (resp) {
         let mealList = JSON.parse(resp);
         console.log(mealList);
+
+        $(".meal-box").html("");
+        mealList.forEach((meal)=>{
+            //mealDate, timeCode로 들어갈 meal-box 구하기
+            let days = ["day1","day2","day3","day4","day5","day6","day7"];
+            let times = ["breakfast","lunch","dinner"];
+            let todayForm = getFormedDate(today);
+            let parentBoxClass="."+days[getDateDiff(todayForm,meal.mealDate)]+"."+times[meal.timeCode-1001];
+            let insertBoxs = $(parentBoxClass).children();
+            
+            insertBoxs.each((i,box)=>{
+                $(box).append(meal.meal)
+                $(box).append("<br>");
+            });
+        })
     });
 }
 
@@ -44,7 +66,7 @@ let month = getNameOfMonth(today);
 let date = today.getDate();
 let day = getDayOfWeek(today);
 
-window.onload = function () {
+window.addEventListener('load', function () {
 
     //년, 월 설정
     $("#month-year").html(month + " " + year);
@@ -73,7 +95,6 @@ window.onload = function () {
     }
     today = new Date();
 
-};
 
 
 //1주일 전으로 이동 이벤트
@@ -169,4 +190,6 @@ $("#nextWeek").on("click", function () {
 
     //일주일치 식단 새로 꺼내 출력하기
     selectWeekMeal(today);
+});
+
 });
