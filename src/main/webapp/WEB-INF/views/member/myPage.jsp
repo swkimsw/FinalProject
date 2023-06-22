@@ -41,19 +41,15 @@
 <style>
 * {
 	font-family: NanumSquareNeo;
+	border: 1px solid black;
 }
 
 body {
 	
 }
-
-.th {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	word-break: break-all;
+.th{
+	text-align: inherit;
 }
-
 .font_1 {
 	
 }
@@ -67,22 +63,25 @@ tbody {
 	
 }
 
-.list-group {
+thead {
 	margin-bottom: 5px;
 	border-radius: 0;
-	height: 100px;
+	height: 70px;
 }
+.btValue{
+height: 20px;
 
+}
 .board {
 	/* background-color: white; */
 	background-color: #007936;
 	color: white;
 }
 
-.list-group-item:hover {
+thead:hover {
 	background-color: #00793650;
 	opacity: 75%;
-	color: white;
+	color: black;
 }
 
 a {
@@ -93,10 +92,10 @@ a {
 	color: #8898aa !important;
 }
 
-.user-table tbody tr .category-select {
+./* user-table tbody tr .category-select {
 	max-width: 150px;
 	border-radius: 20px;
-}
+} */
 
 .font_1 {
 	font-size: 16px;
@@ -111,26 +110,27 @@ a {
 }
 /* h1태그 */
 h1.second {
-  font-weight: 200;
+	font-weight: 200;
 }
 
 h1.second span {
-  position: relative;
-  display: inline-block;
-  padding: 5px 10px ;
-  border-radius: 10px;
-  border-bottom: 1px solid mediumseagreen;
+	position: relative;
+	display: inline-block;
+	padding: 5px 10px;
+	border-radius: 10px;
+	border-bottom: 1px solid mediumseagreen;
 }
 
 h1.second span:after {
-  content: '';
-  position: absolute;
-  bottom: calc(-100% - 1px);
-  margin-left: -10px;
-  display: block;
-  width: 100%; height: 100%;
-  border-radius: 10px;
-  border-top: 1px solid mediumseagreen;
+	content: '';
+	position: absolute;
+	bottom: calc(-100% - 1px);
+	margin-left: -10px;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	border-top: 1px solid mediumseagreen;
 }
 /* h1태그 종료 */
 </style>
@@ -140,7 +140,9 @@ h1.second span:after {
 	</c:import>
 
 	<div class="container">
-		<h1 class="second"><span>MY FREEBOARD</span></h1>
+		<h1 class="second">
+			<span>MY FREEBOARD</span>
+		</h1>
 		<br>
 		<div class="row">
 			<div class="col">
@@ -175,22 +177,23 @@ h1.second span:after {
 				<div class="row font_1">
 					<div class="col">
 						<div class="row">
+									<table class="table">
 							<c:forEach var="i" items="${list}">
-								<div class="list-group">
-									<a href="#"
-										class="list-group-item list-group-item-action board"
-										aria-current="true">
-										${i.headlinecode}&nbsp&nbsp&nbsp&nbsp&nbsp
-										${i.title}&nbsp<br> 
-										<small>
-										${i.membercode}&nbsp&nbsp
-										${i.regdate}&nbsp&nbsp 
-										${i.viewcount}&nbsp&nbsp
-										${i.likecout}
-										</small>
-									</a>
-								</div>
+										<thead>
+											<tr>
+												<th>${i.headlinecode}</th>
+												<th colspan='3'>${i.title}</th>
+											</tr>
+											<tr class="btValue">
+												<td>${i.membercode}</td>
+												<td>${i.regdate}</td>
+												<td>${i.viewcount}</td>
+												<td>${i.likecount}</td>
+											</tr>
+											<br>
+										</thead>
 							</c:forEach>
+									</table>
 
 
 
@@ -250,41 +253,42 @@ h1.second span:after {
 					</div>
 				</div>
 			</div>
-			<br>
-
-			<nav aria-label="Page navigation example" align="center">
-				<ul class="pagination d-flex justify-content-center">
-					<c:forEach var="i" items="${navi}">
-						<c:choose>
-							<c:when test="${i eq '<<'}">
-								<li class="page-item"><a class="page-link"
-									href="/secondHand.adminBoard?cpage=${start}">${i}</a></li>
-							</c:when>
-							<c:when test="${i eq '<'}">
-								<li class="page-item"><a class="page-link"
-									href="/secondHand.adminBoard?cpage=${cpage - 1}">${i}</a></li>
-							</c:when>
-							<c:when test="${i eq '>'}">
-								<li class="page-item"><a class="page-link"
-									href="/secondHand.adminBoard?cpage=${cpage + 1}">${i}</a></li>
-							</c:when>
-							<c:when test="${i eq '>>'}">
-								<li class="page-item"><a class="page-link"
-									href="/secondHand.adminBoard?cpage=${end}">${i}</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="page-item"><a
-									class="page-link ${i == cpage ? 'current-page' : ''}"
-									href="/secondHand.adminBoard?cpage=${i}"
-									${i == cpage ? "disabled" : ""} onclick="${i == cpage ? "event.preventDefault()" : ""}">
-										${i} </a></li>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-				</ul>
-			</nav>
-
 		</div>
+		<br>
+
+		<nav aria-label="Page navigation example" align="center">
+			<ul class="pagination d-flex justify-content-center">
+				<c:forEach var="i" items="${navi}">
+					<c:choose>
+						<c:when test="${i eq '<<'}">
+							<li class="page-item"><a class="page-link"
+								href="/secondHand.adminBoard?cpage=${start}">${i}</a></li>
+						</c:when>
+						<c:when test="${i eq '<'}">
+							<li class="page-item"><a class="page-link"
+								href="/secondHand.adminBoard?cpage=${cpage - 1}">${i}</a></li>
+						</c:when>
+						<c:when test="${i eq '>'}">
+							<li class="page-item"><a class="page-link"
+								href="/secondHand.adminBoard?cpage=${cpage + 1}">${i}</a></li>
+						</c:when>
+						<c:when test="${i eq '>>'}">
+							<li class="page-item"><a class="page-link"
+								href="/secondHand.adminBoard?cpage=${end}">${i}</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a
+								class="page-link ${i == cpage ? 'current-page' : ''}"
+								href="/secondHand.adminBoard?cpage=${i}"
+								${i == cpage ? "disabled" : ""} onclick="${i == cpage ? "event.preventDefault()" : ""}">
+									${i} </a></li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		</nav>
+
+	</div>
 	</div>
 	<script>
 	var currentPage = ${cpage}; // 현재 페이지 번호
