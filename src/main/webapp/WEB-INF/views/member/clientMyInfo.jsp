@@ -541,12 +541,10 @@ label {
 						<br>
 						<div class="row justify-content-center">
 							<div class="col-auto d-flex justify-content-end">
-								<button class="btn btn-secondary" id="join" style="background-color: #76b852;">수정완료</button>
+								<button class="btn btn-secondary" id="joinBtn" style="background-color: #76b852;">수정완료</button>
 							</div>
 							<div class="col-auto d-flex justify-content-start">
-								<a href="/clientMember/login_form"">
-									<button class="btn btn-secondary" type="button" id="back" style="background-color: #76b852;">뒤로가기</button>
-								</a>
+								<button class="btn btn-secondary" type="button" id="backBtn" style="background-color: #76b852;">뒤로가기</button>
 							</div>
 						</div>
 					</div>
@@ -586,7 +584,7 @@ label {
 								id : $("#id").val()
 							}
 						}).done(function (resp) {
-							$("#name").val(resp.id)
+							$("#name").val(resp.name)
 							$("#nickName").val(resp.nickName)
 							$("#phone").val(resp.phone)
 							$("#birth").val(resp.birthDate)
@@ -607,6 +605,25 @@ label {
 		$("#join").on("click", function() {
 			$("#info").hide();
 			$("#frm").fadeIn();
+			$.ajax({
+				url : "/clientMyPage/selectClientMemberInfo",
+				type : "post",
+				dataType : "json",
+				data : {
+					id : $("#id").val()
+				}
+			}).done(function (resp) {
+				$("#member_name").val(resp.name)
+				$("#member_nickname").val(resp.nickName)
+				$("#member_phone").val(resp.phone)
+				$("#member_birth_year").val(resp.birthDate.substr(0,4))
+				$("#member_birth_month").val(resp.birthDate.substr(4,2))
+				$("#member_birth_day").val(resp.birthDate.substr(6,2))
+				$("#member_email").val(resp.eMail)
+				$("#sample6_postcode").val(resp.zipcode)
+				$("#sample6_address").val(resp.address1)
+				$("#sample6_detailAddress").val(resp.address2)
+			})
 		})
 		
 		// 여기부터 회원수정할 때 정규식, 중복체크
@@ -668,7 +685,7 @@ label {
 				}
 			});
 			
-			$("#join").on("click", function() {
+			$("#joinBtn").on("click", function() {
 				if(setValid.get(id) == false) {
 					$("#" + id).focus();
 					return false;
@@ -1056,6 +1073,13 @@ label {
 			    member_email.focus();
 			  }
 			});	
+		
+		// 회원정보 수정할 수 있는 폼에서 뒤로가기 누를 시
+		$("#backBtn").on("click", function() {
+			$("#frm").hide()
+			$("#info").fadeIn();
+			
+		})
 	</script>
 </body>
 </html>
