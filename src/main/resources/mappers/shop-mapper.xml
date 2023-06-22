@@ -55,7 +55,7 @@
 		from groupbuying g
 		left join member m on g.memberCode = m.code
 		left join groupbuyingimg i on g.code = i.postcode
-		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode ) and m.code=#{code}
+		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode )
 		order by g.deadline desc
 		
 		

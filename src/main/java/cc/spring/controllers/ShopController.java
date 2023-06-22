@@ -145,7 +145,7 @@ public class ShopController {
  	 		model.addAttribute("list",list);
  	 		
  	 		//사업자회원 공구등록 버튼 유무
- 	 		session.setAttribute("authGradeCode",1002); //테스트용
+ 	 		//session.setAttribute("authGradeCode",1002); //테스트용
  	 		//session.removeAttribute("authGradeCode");  //테스트용
  	 		if(session.getAttribute("authGradeCode")!= null) {
  	 			int authGradeCode = (Integer)session.getAttribute("authGradeCode");;

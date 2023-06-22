@@ -51,18 +51,20 @@
 }
 
 .container {
-	margin-top: 100px;
+	margin-top: 90px;
 }
 
 .subNav {
 	position: fixed;
 	width: 100%;
+	z-index:2;
 }
 
 .searchGroup {
 	position: relative;
 	width: 100%;
 	height: 40px;
+	z-index: 3;
 }
 
 .searchGroup>.category {
@@ -75,6 +77,7 @@
 	max-width: 250px;
 	min-width: 100px;
 	height: 100%;
+	z-index: 4;
 }
 
 .searchGroup>.searchIcon {
@@ -82,6 +85,11 @@
 	top: 10px;
 	left: 300px;
 	z-index: 5;
+}
+.card-image{
+	overflow: hidden;
+	width: 100%; 
+	height:250px;
 }
 
 </style>
@@ -93,7 +101,7 @@
 
 	<div class="container">
 		<div class="subNav">
-				<nav class="navbar navbar-expand-sm">
+				<nav class="navbar bg-body-tertiary navbar-expand-sm">
 					<div class="container-fluid">
 
 						<div class="row navbar w-100" id="navbarTogglerDemo03">
@@ -136,8 +144,8 @@
 					<c:choose>
 						<c:when test="${fn:length(list) > 0}">
 							<c:forEach var="i" items="${list}">
-								<div class="col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents">
-									<div class="card border-0">
+								<div class="col-xl-4 col-sm-12 col-md-6 p-3 mb-2 contents">
+									<div class="card">
 										<c:choose>
 											<c:when test="${i.dDay > 0 && i.statusCode == 1001}">
 												<span
@@ -160,9 +168,11 @@
 													실패</span>
 											</c:when>
 										</c:choose>
+										<div class="card-image">
 										<a href="/shop/toShopApply?code=${i.code}"> <img
-											src="${i.path}${i.sysName}" style="width: 100%;">
+											src="${i.path}${i.sysName}" style="width:100%;">
 										</a>
+										</div>
 										<div class="card-body">
 											<p class="card-title fw-medium" style="font-size: 20px;">${i.title}</p>
 											<p class="card-text fw-normal" style="font-size: 12px;">
@@ -224,9 +234,8 @@
 												+ resp.length
 												+ "개 입니다.</p><hr/></div>";
 										$(".list").append(div);
-										resp
-												.forEach(function(i) {
-													card = "<div class='col-xl-4 col-sm-12 col-md-6 p-2 mt-2 mb-2 contents'><div class='card border-0'>";
+											resp.forEach(function(i) {
+													card = "<div class='col-xl-4 col-sm-12 col-md-6 p-3 mb-2 contents'><div class='card border-0'>";
 													if (i.dDay > 0 && i.statusCode == 1001) {
 														card += "<span class='badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2'>"
 																+ i.dDay
@@ -241,12 +250,12 @@
 													if (i.dDay < 0 && i.statusCode == 1003) {
 														card += "<span class='badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>공구 실패</span>";
 													}
-													card += "<a href='/shop/SelectShop?code = "
+													card += "<div class='card-image'><a href='/shop/SelectShop?code = "
 															+ i.code + "'>";
 													card += "<img src='"
 															+ i.path
 															+ i.sysName
-															+ "' style='width: 100%;'> </a> <div class='card-body'>";
+															+ "' style='width: 100%;'> </a> </div> <div class='card-body'>";
 													card += "<p class='card-title' style='font-size: 20px;'>"
 															+ i.title + "</p> ";
 													card += "<p class='card-text fw-lighter' style='font-size: 12px;'>"

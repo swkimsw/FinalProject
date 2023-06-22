@@ -149,10 +149,10 @@
 							aria-expanded="false">공구 카테고리</button>
 						<div class="collapse" id="orders-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li class="login"><a href="/shop/toShopRegister"
+								<li class="login"><a href="/shop/toShopList"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">공구
 										하러가기</a></li>
-								<li><a href="/shop/toShopList"
+								<li><a href="/shop/toMyShopList"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내 공구 리스트</a></li>
 							</ul>
