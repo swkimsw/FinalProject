@@ -59,4 +59,12 @@ public class BusinessMemberDAO {
 		System.out.println(id);
 		return mybatis.selectOne("Business.selectBusinessMemberInfo",id);
 	}
+	
+	public MemberDTO selectMemberInfoByCode(int code) {
+		return mybatis.selectOne("Business.selectMemberInfoByCode", code);
+	}
+	
+	public int updateShippingCompany(MemberDTO dto) {
+		return mybatis.update("updateShippingCompany", dto);
+	}
 }

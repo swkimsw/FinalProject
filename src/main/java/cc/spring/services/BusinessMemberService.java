@@ -45,4 +45,8 @@ public class BusinessMemberService {
 		System.out.println(id);
 		return bdao.selectBusinessMemberInfo(id);
 	}
+	
+	public MemberDTO selectMemberInfoByCode(int code) {
+		return bdao.selectMemberInfoByCode(code);
+	}
 }
