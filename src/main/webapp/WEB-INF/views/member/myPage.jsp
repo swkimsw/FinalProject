@@ -181,7 +181,7 @@ h1.second span:after {
 							<c:forEach var="i" items="${list}">
 										<thead>
 											<tr>
-												<th>${i.headlinecode}</th>
+												<th>${i.headlineValue}</th>
 												<th colspan='3'>${i.title}</th>
 											</tr>
 											<tr class="btValue">
