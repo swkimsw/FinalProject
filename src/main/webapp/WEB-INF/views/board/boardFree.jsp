@@ -33,23 +33,24 @@
 
             <style>
                 * {
-                    font - family: NanumSquareNeo;
+                    font-family: NanumSquareNeo;
                 }
 
                 input {
-                    border - radius: 5px;
+                    border-radius:5px;
                     padding: 5px;
                 }
 
                 .container {
-                    margin - top: 100px;
+                   margin-top: 100px;
                     border: 1px solid black;
                 }
 
                 th,
                 td {
-                    font - size: 20px;
+                    font-size: 20px;
                 }
+                
             </style>
 
         </head>
@@ -107,7 +108,7 @@
                             <c:forEach var="l" items="${list}">
                                 <tr onclick="goToLink('/board/FreeContent?code=${l.code}')">
                                     <td>${l.code}</td>
-                                    <td>${l.title}</td>
+                                    <td style="width: 50%;">${l.title}</td>
                                     <td>${l.member_nickname }</td>
                                     <td>${l.regdate}</td>
                                     <td>${l.viewcount}</td>

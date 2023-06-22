@@ -49,6 +49,7 @@
                 td {
                     font-size: 20px;
                 }
+
             </style>
 
         </head>
@@ -90,7 +91,7 @@
                           <c:forEach var="l" items="${list}">
                             <tr onclick="goToLink('/board/ReviewContent?code=${l.code}')">
                                 <td>${l.code}</td>
-                                <td>${l.title}</td>
+                                <td style="width: 50%;">${l.title}</td>
                                 <td>${l.member_nickname}</td>
                                 <td>${l.regdate}</td>
                                 <td>${l.viewcount}</td>

@@ -131,7 +131,7 @@
             <script>
                 $(document).ready(function () {
                     $('#content').summernote({
-                        placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
+                        placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
                         height: 600,
                         focus: true,
                         maxHeight: 800,
@@ -149,11 +149,53 @@
                             onImageUpload: function (files) {
                                 uploadImages(files);
 
-                            }
+                            },
+                            onKeyup: function(data) {
+                    	        checkContentLength();
+                  	      },
+                  	      onPaste: function(data) {
+                  	        checkContentLength();
+                  	      }
                         }
                     })
+                    
+                    
+                    
+                   
+                    
+                    
                 });
 
+            	function checkContentLength() {
+                	  var maxLength = 2000;
+                	  var content = $('#content').summernote('code');
+                	  var text = $('<div>').html(content).text();
+
+          			console.log(text)
+          			console.log(text.length)
+
+                	  if (text.length > maxLength) {
+                	    alert("내용은 최대 2000자까지 입력할 수 있습니다.");
+                	    var truncatedText = text.substring(0, maxLength);
+                	    var truncatedContent = $('<div>').text(truncatedText).html();
+                	    $('#content').summernote('code', truncatedContent);
+                	  }
+                	}
+            	
+                
+                $("#title").on("input", function() {
+                    var maxLength = 50;
+                    var title = $(this).val();
+                    
+                    if (title.length > maxLength) {
+                        alert("제목은 최대 50자까지 입력할 수 있습니다.");
+                        title = title.slice(0, maxLength - 1);
+                        $(this).val(title);
+
+                    }
+                });
+                
+                
                 function uploadImages(files) {
                     var formData = new FormData();
                     // FormData 객체를 사용하여 파일 데이터를 추가합니다.

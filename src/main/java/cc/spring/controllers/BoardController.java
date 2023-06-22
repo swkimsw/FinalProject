@@ -61,7 +61,7 @@ public class BoardController {
 		if(user != null) {// 로그인했으면
 
 
-			String result = (String) session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 자유게시판 못씀
+			int result =  (int)session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 자유게시판 못씀
 			System.out.println(result);
 			request.setAttribute("user", result);
 
@@ -88,7 +88,7 @@ public class BoardController {
 
 		if(user != null) {//로그인되어있으면
 
-			String result = (String) session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 공지게시판작성가능
+			int result = (int) session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 공지게시판작성가능
 			System.out.println(result);
 			request.setAttribute("user", result);
 
@@ -113,7 +113,7 @@ public class BoardController {
 
 		if(user != null) {//로그인되어있으면
 
-			String result = (String) session.getAttribute("authGradeCode");//권한등급 확인-일반회원만 후기게시판 작성가능-1003반환
+			int result = (int) session.getAttribute("authGradeCode");//권한등급 확인-일반회원만 후기게시판 작성가능-1003반환
 			System.out.println(result);
 			request.setAttribute("user", result);
 
@@ -131,7 +131,7 @@ public class BoardController {
 	//자유게시판 글 작성 으로 가기
 	@RequestMapping("freeWrite")
 	public String free_write() {
-		String result = (String)session.getAttribute("authGradeCode"); //작성하는 사람이 일반회원인지 , 사업자회원인지 구분하기위한단계
+		int result = (int)session.getAttribute("authGradeCode"); //작성하는 사람이 일반회원인지 , 사업자회원인지 구분하기위한단계
 		request.setAttribute("user", result ); 
 		return "/board/boardFreeWrite";
 	}
@@ -154,8 +154,7 @@ public class BoardController {
 	@RequestMapping("FreeContent")
 	public String FreeContent(int code) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
-		request.setAttribute("user", user ); 
-
+		request.setAttribute("user", user );
 
 		BoardFreeDTO result = boardservice.selectFreeContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
@@ -193,10 +192,10 @@ public class BoardController {
 	//===============================================================================
 
 	//자유게시판 글 작성하기 - 일반회원,사업자회원
-	@RequestMapping("inputFreeClient")
-	public String inputFreeClient(BoardFreeDTO dto) {
+	@RequestMapping("inputFree")
+	public String inputFree(BoardFreeDTO dto) {
 
-		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인(작성자의고유 code가져오기)
+		int membercode = (int)session.getAttribute("code"); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
 		boardservice.insertFree(dto,membercode);//자유게시판 작성하기
 
@@ -210,7 +209,7 @@ public class BoardController {
 	public String inputAnnouncement(BoardAnnouncementDTO dto) {
 
 
-		int membercode = Integer.parseInt((String)session.getAttribute("code")); //로그인(작성자의고유 code가져오기)
+		int membercode = (int) session.getAttribute("code"); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
 		boardservice.insertAnnouncement(dto,membercode);//공지게시판 작성하기
 

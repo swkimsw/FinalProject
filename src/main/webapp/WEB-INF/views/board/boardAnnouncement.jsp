@@ -49,6 +49,7 @@
                 td {
                     font-size: 20px;
                 }
+              
             </style>
 
         </head>
@@ -92,8 +93,8 @@
                             <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}')">
                            
                                 <td>${l.code}</td>
-                                <td>${l.title}</td>
-                                <td>${l.member_nickname}</td>
+                                <td style="width: 50%;">${l.title}</td>
+                                <td>${l.member_name}</td>
                                 <td>${l.regdate}</td>
                                 <td>${l.viewcount}</td>
                                 <td>${l.likecount}</td>
