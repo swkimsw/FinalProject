@@ -498,6 +498,7 @@ label {
 		});
 		// 정규식 & 중복 체크 - 아이디 & 닉네임 & 이메일 ...
 		let valid = new Map();
+		let setValid;
 		function checksum(evt, type) {
 			let id = $(evt).attr("id");
 			let regex = new RegExp($(evt).attr("pattern"));
@@ -535,7 +536,8 @@ label {
 			}).done(function(resp) {
 				if (resp) {
 					$("#" + id + "_checking").html("중복된 " + id.split("_")[1].toUpperCase()).css("color", "red");
-					valid.set(id, false);
+					setValid = valid.set(id, false);
+
 				} else {
 					$("#" + id + "_checking").html("사용가능한 " + id.split("_")[1].toUpperCase()).css("color", "#198754");
 					valid.set(id, true);
@@ -547,7 +549,14 @@ label {
 				}
 			});
 			
+			$("#join").on("click", function() {
+				if(setValid.get(id) == false) {
+					$("#" + id).focus();
+					return false;
+				}
+			})
 		}
+		
 		// PW 유효성 검사
 		addEventListener("DOMContentLoaded", (event) => {
 			const password = document.getElementById("member_pw");
@@ -928,14 +937,7 @@ label {
 			    member_email.focus();
 			  }
 			});
-$("#join").on("click",function(){
-	var pw1 = document.getElementById("member_pw").val();
-	var pw2 = document.getElementById("password_check").val();
-	if(pw1 != p2){
-console.log("실패")		
-	}
-	
-})		
+
 		
 	</script>
 	<!-- 가입 완료시 가입 환영 메세지 -->
