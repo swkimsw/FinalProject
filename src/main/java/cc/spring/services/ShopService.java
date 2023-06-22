@@ -13,11 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
-<<<<<<< HEAD
 import cc.spring.dto.MyShopListDTO;
-=======
 import cc.spring.dto.MemberDTO;
->>>>>>> 8f03a53301bde141afb6aa3c71e9ae09635ec25a
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
