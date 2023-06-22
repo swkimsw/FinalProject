@@ -596,7 +596,7 @@
 				}).done(function (resp) {
 					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
-					mealAdd(resp);
+					aiMealAdd(resp);
 					const meals = ['breakfast', 'lunch', 'dinner'];
 					const timeCodes = [1001, 1002, 1003];
 
