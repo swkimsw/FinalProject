@@ -43,10 +43,10 @@
 	font-family: NanumSquareNeo;
 	border: 1px solid black;
 }
-
-body {
-	
+.font{
+font-size: 10px;
 }
+
 .th{
 	text-align: inherit;
 }
@@ -182,13 +182,14 @@ h1.second span:after {
 										<thead>
 											<tr>
 												<th>${i.headlineValue}</th>
+												<th>${i.boardkindValue}</th>
 												<th colspan='3'>${i.title}</th>
 											</tr>
 											<tr class="btValue">
-												<td>${i.membercode}</td>
-												<td>${i.regdate}</td>
-												<td>${i.viewcount}</td>
-												<td>${i.likecount}</td>
+												<td class="font">${i.membercode}</td>
+												<td class="font num1">${i.regdate}</td>
+												<td class="font num1">${i.viewcount}</td>
+												<td class="font num1">${i.likecount}</td>
 											</tr>
 											<br>
 										</thead>
