@@ -16,7 +16,7 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
-	*{font-family: 'NanumSquareNeo';}
+	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
 	.container{width: 70%; margin-top:100px;}
 </style>
 </head>
@@ -89,21 +89,21 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>업체명</td>
-							<td> 귤이 좋아 (나중에 값 받아오기) </td>
+							<td>${memberDTO.companyName}</td>
 						</tr>
 						<tr>
 							<td>업체 연락처</td>
-							<td> 010-1234-5678 (나중에 값 받아오기) </td>
+							<td>${memberDTO.phone}</td>
 						</tr>
 						<tr>
 							<td>배송 업체</td>
-							<td>
- 								<input type="text" class="form-control" id="" name="max" placeholder="배송 업체명을 입력해 주세요" required>
+							<td style="padding:0;">
+ 								<input type="text" class="form-control" id="shippingCompany" name="shippingCompany" placeholder="배송 업체명을 입력해 주세요" style="border:0" required>
 							</td>
 						</tr>
 						<tr>
 							<td>교환 및 반품 주소</td>
-							<td> 서울특별시 중구 남대문로 120 (나중에 값 받아오기) </td>
+							<td>${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}</td>
 						</tr>
 					</table>
 				</div>

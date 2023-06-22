@@ -1,33 +1,48 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>Insert title here</title>
 <!-- JQuery-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<!-- Bootstrap - JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<!-- Bootstrap bundle -->
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+	crossorigin="anonymous"></script>
 <!-- Bootstrap - icon -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+	rel="stylesheet">
+<!-- awesome font -icon -->
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+	rel="stylesheet"
+	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Font 기본 : {font-family: 'NanumSquareNeoBold'}-->
-<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-<!-- sweetAlert2 -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <!-- gbn css -->
-<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+<link href="${path}/resources/css/gnb.css" rel="stylesheet"
+	type="text/css">
 <!-- 다음 주소 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+	
 <style>
 * {
-	font-family:'NanumSquareNeo';
+	font-family: NanumSquareNeo;
 	box-sizing: border-box;
 }
 
@@ -36,8 +51,7 @@ body {
 }
 
 .container {
-	margin-top: 10%;
-	margin-bottom: 5%;
+	margin-top: 18%;
 }
 
 .wrapper {
@@ -45,19 +59,9 @@ body {
 	padding: 32px;
 	background: whitesmoke;
 	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0
+		rgba(0, 0, 0, 0.19);
 	animation-duration: 5s;
-}
-
-.welcome {
-	height: 100%;
-	width: 50%;
-	padding: 32px;
-	background: whitesmoke;
-	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	animation-duration: 5s;
-	margin: 0 auto;
 }
 
 label {
@@ -127,131 +131,208 @@ label {
 	}
 }
 
-.wrapper .welcome {
-	width: 80%;
-	padding: 32px;
-	background: whitesmoke;
-	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	animation-duration: 5s;
-}
-#welcome_fadein {
-	position: relative;
-	bottom: 180px;
-}
+
 </style>
 </head>
-
 <body>
-	<div class="container join_form_container d-flex justify-content-center">
-		<div class="wrapper join_form" id="join_form">
-			<div class="header text-center">
-				<h3>⚽CookCook</h3>
+	<c:import url="../commons/gnb.jsp">
+	</c:import>
+	
+	<input id="id" type="hidden" value="${sessionScope.id}">
+	
+	
+	<div class="container login_container align-self-center">
+		<div class="wrapper mx-auto position-relative">
+		
+		<!-- 본인인증 확인하기 위한 폼 -->
+			<div class="wrapper_find_member" id="find_member_fadeIn">
+				<div class="row d-flex justify-content-center mx-auto p-0">
+					<div class="col-md-8 align-center">
+						<div class="text-center d-md-block mb-4">
+							<h3 class="mb-5">본인 인증</h3>
+							<p class="body_font mb-5">비밀번호를 입력해주세요.</p>
+						</div>
+						<div class="row text-center">
+							<div class="col-9"><input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호를 입력하세요..."/></div>
+							<div class="col-3 text-center"><input type="button" class="site_login form-control" value="입력" id="btn"/></div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<form action="/businessMember/signup" method="post">
-				<div class="row justify-content-center">
+			
+			<!-- 회원정보 -->
+			<div class="row justify-content-center" id="info" style="display: none;">
+				<div class="col-12 col-md-8">
+					<div class="header text-center">
+						<h3>⚽CookCook</h3>
+					</div>
+
+					<!-- 이름 -->
+					<div class="row insert">
+						<div class="col-10">
+							<!-- 이름 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="name">이름</label>
+								</div>
+							</div>
+							<!-- 이름 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" class="form-control" id="name" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 닉네임 -->
+					<div class="row insert">
+						<div class="col-10 ">
+							<!-- 닉네임 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="nickName">닉네임</label>
+								</div>
+							</div>
+							<!-- 닉네임 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" class="form-control" id="nickName" disabled>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<br>
+					
+					<!-- 전화번호 -->
+					<div class="row insert" id="pAuth">
+						<div class="col-10">
+							<!-- 전화번호 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="phone">전화번호</label>
+								</div>
+							</div>
+							<!-- 전화번호 출력 -->
+							<div class="row input">
+								<div class="col-8">
+									<input type="text" class="form-control" id="phone" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 생년월일 -->
+					<div class="row insert">
+						<div class="col-10">
+							<!-- 생년월일 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="birth">생년월일</label>
+								</div>
+							</div>
+							<!-- 생년월일 출력 -->
+							<div class="row input">
+								<div class="col-4">
+									<input type="text" class="form-control" id="birth" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 이메일 -->
+					<div class="row insert">
+						<div class="col-10">
+							<!-- 이메일 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="email">E-mail</label>
+								</div>
+							</div>
+							<!-- 이메일 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="email" class="form-control" id="email" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 주소 -->
+					<div class="row insert">
+						<div class="col-10">
+							<div class="row label">
+								<div class="col-12">
+									<label>우편번호</label>
+								</div>
+							</div>
+							<div class="row input">
+								<div class="col-9">
+									<input type="text" id="add1" class="col-35 form-control" disabled>
+								</div>
+							</div>		
+						</div>
+					</div>
+					<br>
+
+					<div class="row insert">
+						<div class="col-10">
+							<div class="row label">
+								<div class="col-12">
+									<label>주소1</label>
+								</div>
+							</div>
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" id="add2" class="col-10 form-control" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<div class="row insert">
+						<div class="col-10">
+							<div class="row label">
+								<div class="col-12">
+									<label>주소2</label>
+								</div>
+							</div>
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" id="add3" class="col-10 form-control" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+
+					<!-- 가입버튼 & 돌아가기 버튼 -->
+					<br>
+					<div class="row justify-content-center">
+						<div class="col-auto d-flex justify-content-end">
+							<button class="btn btn-secondary" type="button" id="join" style="background-color: #76b852;">수정하기</button>
+						</div>
+						<div class="col-auto d-flex justify-content-start">
+							<a href="/">
+								<button class="btn btn-secondary" type="button" id="back" style="background-color: #76b852;">뒤로가기</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 회원정보 수정하기 -->
+			<form action="/clientMember/signup" method="post" id="frm" style="display:none;">
+				<div class="row justify-content-center" id="info">
 					<div class="col-12 col-md-8">
-						<!-- *&nbsp;타이틀 -->
-						<div class="row insert">
-							<div class="col-10">
-								<div class="row label">
-									<div class="col-12">
-										<span class="essential" style="font-size: x-small;">*&nbsp;</span>
-										<label for="B_businessId" style="font-size: x-small;">은 필수로 입력해주세요.</label>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 아이디 -->
-						<div class="row insert">
-							<div class="col-10">
-								<!-- 아이디 타이틀 -->
-								<div class="row label">
-									<div class="col-12">
-										<span class="essential">*&nbsp;</span>
-										<label for="B_businessId">사업자등록번호</label>
-									</div>
-								</div>
-								<!-- 아이디 입력창 -->
-								<div class="row input">
-									<div class="col-12">
-										<input type="text" class="form-control" id="B_businessId" name="businessId" onkeyup="checksum(this, 'A');" pattern="^[0-9]{10}$" minlength="1" oninput="validateInput(event)" title="숫자 10자리" maxlength="10" required>
-									</div>
-								</div>
-								<!-- 아이디 중복 & 정규식 확인 메세지 -->
-								<div class="row checking">
-									<div class="col-12">
-										<h9 id="B_businessId_checking" style="font-size:x-small;"></h9>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- 비밀번호 -->
-						<div class="row insert">
-							<div class="col-10">
-								<!-- 비밀번호 타이틀 -->
-								<div class="row label">
-									<div class="col-12">
-										<span class="essential">*&nbsp;</span>
-										<label for="member_pw">비밀번호</label>
-									</div>
-								</div>
-								<!-- 비밀번호 보기 & 숨기기 버튼 -->
-								<!-- 
-								<div class="row label">
-									<div class="col-10">
-										<button class="btn btn-sm p-0" id="view_pw" type="button">보기</button>
-									</div>
-								</div>
-								 -->
-								<!-- 비밀번호 입력창 -->
-								<div class="row input">
-									<div class="col-12">
-										<input type="password" class="password form-control rounded" aria-label="password" aria-describedby="password" id="member_pw" name="pw" maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()-_=+[{]}\\|;:'\,./?`~])(?=.*[0-9]).{8,20}$" required/>
-										<div class="valid-feedback" style="font-size: x-small;">Good</div>
-										<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
-									</div>
-								</div>
-								<!-- 아이디 중복 & 정규식 확인 메세지 -->
-								<div class="row d-flex justify-content-center">
-									<div class="col-10 mt-xxl-0 w-auto h-auto">
-										<div class="alert px-4 py-3 mb-0 alert-warning d-none" role="alert" data-mdb-color="warning" id="password-alert">
-											<ul class="list-unstyled mb-0">
-												<li class="requirements leng">
-													<i class="bi bi-check text-success me-2"></i>
-													<i class="bi bi-x text-danger me-3"></i>
-													암호는 8자 이상이어야 합니다
-												</li>
-												<li class="requirements big-letter">
-													<i class="bi bi-check text-success me-2"></i>
-													<i class="bi bi-x text-danger me-3"></i>
-													암호에 하나 이상의 알파벳 대문자를 포함해야 합니다.
-												</li>
-												<li class="requirements num">
-													<i class="bi bi-check text-success me-2"></i>
-													<i class="bi bi-x text-danger me-3"></i>
-													암호에 숫자가 하나 이상 포함되어야 합니다.
-												</li>
-												<li class="requirements special-char">
-													<i class="bi bi-check text-success me-2"></i>
-													<i class="bi bi-x text-danger me-3"></i>
-													암호에 특수문자가 하나 이상 포함되어야 합니다.
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<!-- 비밀번호 확인 입력창 -->
-								<div class="row input">
-									<div class="col-12">
-										<input type="password" class="password_check form-control rounded mt-1" aria-label="password" aria-describedby="password_check" id="password_check" maxlength="20" pattern="^(?=.*[a-zA-Z])(?=.*[!@#$%^&*()-_=+[{]}\\|;:'\,./?`~])(?=.*[0-9]).{8,20}$" required placeholder="비밀번호 재입력"/>
-										<div class="valid-feedback" style="font-size: x-small;">Good</div>
-										<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
-									</div>
-								</div>
-								
-								
-							</div>
+						<div class="header text-center">
+							<h3>⚽CookCook</h3>
 						</div>
 						<!-- 이름 -->
 						<div class="row insert">
@@ -277,26 +358,26 @@ label {
 								</div>
 							</div>
 						</div>
-						<!-- 사업장명 -->
+						<!-- 닉네임 -->
 						<div class="row insert">
 							<div class="col-10 ">
-								<!-- 사업장명 타이틀 -->
+								<!-- 닉네임 타이틀 -->
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="companyname">사업장명</label>
+										<label for="member_nickname">닉네임</label>
 									</div>
 								</div>
-								<!-- 사업장명 입력창 -->
+								<!-- 닉네임 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="B_companyname" name="companyName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{1,30}$" title="1자 이상 30자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="1" maxlength="30" required>
+										<input type="text" class="form-control" id="member_nickname" name="nickName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{2,10}$" title="2자 이상 10자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="2" maxlength="10" required>
 									</div>
 								</div>
 								<!-- 닉네임 중복 & 정규식 확인 메세지 -->
 								<div class="row checking">
 									<div class="col-12">
-										<h9 id="B_companyname_checking" style="font-size:x-small;"></h9>
+										<h9 id="member_nickname_checking" style="font-size:x-small;"></h9>
 									</div>
 								</div>
 							</div>
@@ -382,7 +463,7 @@ label {
 								<!-- 이메일 타이틀 -->
 								<div class="row label">
 									<div class="col-12">
-										<span class="essential">&nbsp;&nbsp;</span>
+										<span class="essential">*&nbsp;</span>
 										<label for="member_email">E-mail</label>
 									</div>
 								</div>
@@ -422,7 +503,7 @@ label {
 							</div>
 							<br>
 						</div>
-
+		
 						<div class="row insert">
 							<div class="col-10">
 								<div class="row label">
@@ -437,7 +518,7 @@ label {
 									</div>
 								</div>
 							</div>
-
+		
 						</div>
 						<div class="row insert">
 							<div class="col-10">
@@ -454,28 +535,16 @@ label {
 								</div>
 							</div>
 						</div>
-						
-						<!-- 가입동의 -->
 						<hr>
-						<div class="row insert">
-							<div class="col-10">
-								<!-- 가입동의 입력창 -->
-								<div class="row input member_agree justify-content-center">
-									<div class="col-auto">
-										<span> 가입에 동의하시겠습니까? </span>
-										<input class="form-check-input" type="checkbox" id="member_agree" name="agree" value="Y" required>
-									</div>
-								</div>
-							</div>
-						</div>
+
 						<!-- 가입버튼 & 돌아가기 버튼 -->
 						<br>
 						<div class="row justify-content-center">
 							<div class="col-auto d-flex justify-content-end">
-								<button class="btn btn-secondary" id="join" style="background-color: #76b852;">가입하기</button>
+								<button class="btn btn-secondary" id="join" style="background-color: #76b852;">수정완료</button>
 							</div>
 							<div class="col-auto d-flex justify-content-start">
-								<a href="/businessMember/login_form"">
+								<a href="/clientMember/login_form"">
 									<button class="btn btn-secondary" type="button" id="back" style="background-color: #76b852;">뒤로가기</button>
 								</a>
 							</div>
@@ -485,16 +554,62 @@ label {
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript">
-	
-	// 사업자 아이디 입력칸 숫자만 입력되게 해주는 정규식이벤트입니다.
-	function validateInput(event) {
-        var input = event.target;
-        var regex = /[^0-9]/g;
-        input.value = input.value.replace(regex, '');
-    }
 	
 	
+	
+	<script>
+	// 마이페이지로 이동 전 비밀번호로 본인인증
+		$("#btn").on("click", function() {
+			if($("#pw").val().trim() == "") {
+				alert("비밀번호를 입력해주세요.");
+			}
+			else {
+				$.ajax({
+					url : "/clientMyPage/checkPw",
+					type : "post",
+					dataType : "json",
+					data : {
+						pw : $("#pw").val()
+					}
+				}).done(function (resp) {
+					if(resp) {
+						$("#find_member_fadeIn").hide();
+						$("#info").fadeIn();
+						$(".container").css("margin-top", "100px");
+						$(".container").css("margin-bottom", "20px");
+						
+						$.ajax({
+							url : "/clientMyPage/selectClientMemberInfo",
+							type : "post",
+							dataType : "json",
+							data : {
+								id : $("#id").val()
+							}
+						}).done(function (resp) {
+							$("#name").val(resp.id)
+							$("#nickName").val(resp.nickName)
+							$("#phone").val(resp.phone)
+							$("#birth").val(resp.birthDate)
+							$("#email").val(resp.eMail)
+							$("#add1").val(resp.zipcode)
+							$("#add2").val(resp.address1)
+							$("#add3").val(resp.address2)
+						})
+					}
+					else {
+						alert("비밀번호가 일치하지 않습니다.");
+					}
+				})
+			}
+		})
+		
+		// 마이페이지에서 수정하기 버튼 입력 시 수정가능한 폼으로 이동
+		$("#join").on("click", function() {
+			$("#info").hide();
+			$("#frm").fadeIn();
+		})
+		
+		// 여기부터 회원수정할 때 정규식, 중복체크
 		$("#member_phone").on("keydown", function () {
 			$("#phone_auth").attr("disabled", true);
 			$("#phone_auth_code").attr("readonly", true);
@@ -527,7 +642,7 @@ label {
 			if (type != "A") return false;
 			// 중복 체크
 			$.ajax({
-				url : "/businessMember/checkSum",
+				url : "/clientMember/checkSum",
 				type : "post",
 				dataType : "json",
 				data : {
@@ -740,7 +855,7 @@ label {
 					clearInterval(this.timer);
 					alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
 					$.ajax({
-						url : "/businessMember/removeSession"
+						url : "/clientMember/removeSession"
 					})
 					$("#phone_auth").attr("disabled", false);
 					$("#timeLimit").text("");
@@ -752,7 +867,7 @@ label {
 		$("#phone_auth").on("click", function (evt) {
 			// 전화번호 check 및 인증번호 발송
 			$.ajax({
-				url: "/businessMember/sendSmsSign",
+				url: "/clientMember/sendSmsSign",
 				type: "post",
 				dataType: "json",
 				data: { phone: $("#member_phone").val(), type: "JOIN" }
@@ -790,7 +905,7 @@ label {
 			}
 			// 인증 체크
 			$.ajax({
-				url: "/businessMember/certificationSign",
+				url: "/clientMember/certificationSign",
 				type: "post",
 				dataType: "json",
 				data: { code: $("#phone_auth_code").val() }
@@ -913,7 +1028,7 @@ label {
 		document.addEventListener("DOMContentLoaded", function() {
 			  var password_check = document.getElementById("password_check");
 			  var member_name = document.getElementById("member_name");
-			  var companyname = document.getElementById("companyname");
+			  var member_nickname = document.getElementById("member_nickname");
 			  var member_phone = document.getElementById("member_phone");
 			  var phone_auth_code = document.getElementById("phone_auth_code");
 			  var sample6_postcode = document.getElementById("sample6_postcode");
@@ -925,8 +1040,8 @@ label {
 			    password_check.focus();
 			  } else if (member_name.value === "") {
 			    member_name.focus();
-			  } else if (companyname.value === "") {
-			    companyname.focus();
+			  } else if (member_nickname.value === "") {
+			    member_nickname.focus();
 			  } else if (member_phone.value === "") {
 			    member_phone.focus();
 			  } else if (phone_auth_code.value === "") {
@@ -940,38 +1055,7 @@ label {
 			  } else if (member_email.value === "") {
 			    member_email.focus();
 			  }
-			});
-
-		
+			});	
 	</script>
-	<!-- 가입 완료시 가입 환영 메세지 -->
-	<c:if test="${status=='complete'}">
-		<script>
-			$(".container").css({
-				"height" : "300px"
-			})
-			$("#join_form").css({
-				"display" : "none"
-			});
-		</script>
-		<div class="wrapper welcome" id="welcome_fadein">
-			<div class="row">
-				<div class="col d-flex justify-content-center">
-					<div>${businessName}님</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col d-flex justify-content-center mb-3">
-					<div>CookCook에 오신걸 환영합니다.</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col d-flex justify-content-center">
-					<button type="button" class="btn btn-success" onclick="location.href = '/businessMember/login_form'">로그인하러가기</button>
-				</div>
-			</div>
-		</div>
-	</c:if>
 </body>
-
 </html>

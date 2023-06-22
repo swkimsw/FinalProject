@@ -34,11 +34,11 @@ public class ClientMemberDAO {
 		return mybatis.selectOne("Client.isMember",param);
 	}
 	
-	public boolean phoneDuplication(String key, String value) {
+	public boolean phoneAndemailDuplication(String key, String value) {
 		Map<String,Object> param = new HashMap<>();
 		param.put("key", key);
 		param.put("value", value);
-		return mybatis.selectOne("Client.phoneDuplication",param);
+		return mybatis.selectOne("Client.phoneAndemailDuplication",param);
 	}
 	
 	public boolean phoneCheck(String phone) {

@@ -20,11 +20,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
 import cc.spring.dto.MyShopListDTO;
+import cc.spring.dto.MemberDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.dto.ShopReplyAnswerDTO;
 import cc.spring.dto.ShopReplyAskDTO;
+import cc.spring.services.BusinessMemberService;
 import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
 
@@ -37,6 +39,9 @@ public class ShopController {
 	
 	@Autowired
 	private ShopReplyService shopReplyService;
+	
+	@Autowired
+	private BusinessMemberService businessMemberService;
 
 	@Autowired
 	private HttpSession session;
@@ -47,9 +52,10 @@ public class ShopController {
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
 		// 세션에서 ID 받아오게 수정
-		//session.setAttribute("loginId", "1112254");
-		//session.setAttribute("authgradeCode", 1002);
-		//session.setAttribute("memberCode", 2);
+
+		session.setAttribute("loginId", "1112254");
+		session.setAttribute("authgradeCode", 1002);
+		session.setAttribute("code", 2);
 		
 		// 판매자인지 체크
 //		if(authgradeCode != 1002) {
@@ -57,7 +63,9 @@ public class ShopController {
 //		}
 		
 		// 업체명 / 배송 업체 정보 가져오기
-		
+		String loginId = (String) session.getAttribute("loginId");
+		MemberDTO memberDTO = businessMemberService.selectBusinessMemberInfo(loginId);
+		model.addAttribute("memberDTO", memberDTO);
 		return "/shop/shopRegister";
 	}
 
@@ -70,9 +78,10 @@ public class ShopController {
 		//session.setAttribute("loginId", "aaa");
 		//session.setAttribute("authgradeCode", 1003);
 		
-		//session.setAttribute("businessCode", 1);
-		//session.setAttribute("companyName", "ggcom");
-		//session.setAttribute("clientCode", 1);
+
+		session.setAttribute("memberCode", 2);
+		session.setAttribute("companyName", "ggcom");
+		//session.setAttribute("memberCode", 1);
 		//session.setAttribute("nickName", "에이");
 		
 		// 선택한 공구샵 정보 가져오기
@@ -96,11 +105,11 @@ public class ShopController {
 
 	// 공구샵 등록시 DB에 insert
 	@RequestMapping("insertShop")
-	public String insertShop(ShopDTO dto, MultipartFile[] files) throws Exception {
+	public String insertShop(ShopDTO dto, String shippingCompany, MultipartFile[] files) throws Exception {
 
 		// realPath - 폴더가 없다면 만들기
 		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
-		shopService.insertShop(dto, files, realPath);
+		shopService.insertShop(dto, shippingCompany, files, realPath);
 
 		return "redirect:/";
 	}
@@ -209,8 +218,8 @@ public class ShopController {
 
 	// 공구샵 신청시 DB에 insert
 	@RequestMapping("insertShopRequest")
-	public String insertShopRequest(int clientCode, int quantity, int parentCode) {
-		shopService.insertShopRequest(new RequestListDTO(clientCode,quantity,parentCode));
+	public String insertShopRequest(int memberCode, int quantity, int parentCode) {
+		shopService.insertShopRequest(new RequestListDTO(memberCode,quantity,parentCode));
 		return "redirect:/shop/toShopList";
 	}
 
