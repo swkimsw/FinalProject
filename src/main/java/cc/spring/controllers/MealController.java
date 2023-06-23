@@ -1,6 +1,7 @@
 package cc.spring.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -120,15 +123,21 @@ public class MealController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="addMeal", produces="text/plain;charset=utf-8")
-	public void aiAddMeal() {
-		
+	@RequestMapping(value="addAiMeal", produces="text/plain;charset=utf-8")
+	public void aiAddMeal(@RequestBody List<MealDTO> aiMealArr) {
+//		int memberCode = (int)session.getAttribute("code");
+		int memberCode = 000;
+		for(int i=0; i<aiMealArr.size(); i++) {
+			aiMealArr.get(i).setMemberCode(memberCode);
+			mService.insertMeal(aiMealArr.get(i));
+		}
 	}
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
 		return "redirect:?/error";
+		//safsdfad
 	}
 
 
