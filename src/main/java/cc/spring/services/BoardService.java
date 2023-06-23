@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
@@ -28,16 +29,25 @@ public class BoardService {
 	}
 
 	//리뷰 게시판 작성하기												==postcode
-	public void insertReview(BoardReviewDTO dto,int membercode,int parent_seq) {
+	@Transactional
+	public void insertReview(BoardReviewDTO dto,int membercode,int parent_seq,String realPath,String[] oriName,String[] sysName) {
+
+
 		boarddao.insertReview(dto,membercode,parent_seq);
 
+		for(int i = 0 ; i<oriName.length ; i++) {
+
+			System.out.println(oriName[i]);  //oriName
+			System.out.println(sysName[i]);  //oriName
+			System.out.println(realPath); //realpath
+
+			ReviewImgDTO rdto = new ReviewImgDTO(0 , parent_seq , realPath, oriName[i], sysName[i]);
+			boarddao.insertReviewImage(rdto); //후기게시판 글에 들어가는 이미지 db넣기
+
+		}
+
 	}
 
-	//리뷰게시판- 이미지 작성
-	public void insertReviewImage(int postcode,String path,String oriname,String sysname) {
-		ReviewImgDTO rdto = new ReviewImgDTO(0 , postcode, path, oriname, sysname);
-		boarddao.insertReviewImage(rdto);
-	}
 
 
 	//자유게시판 작성하기
@@ -49,8 +59,7 @@ public class BoardService {
 
 	//공지게시판 작성하기
 	public int insertAnnouncement(BoardAnnouncementDTO dto,int membercode) {
-		System.out.println(dto.getTitle());
-		System.out.println(dto.getContent());
+		
 		return boarddao.insertAnnouncement(dto,membercode);
 
 	}
@@ -73,6 +82,25 @@ public class BoardService {
 	//리뷰게시글 리스트 다 가져오기
 	public List<BoardReviewDTO> selectReviewlist() {
 		return boarddao.selectReviewlist();
+	}
+
+	
+//====================================================================================
+	
+	//자유게시판 리스트중 누른 해당 글 가져오기
+	public BoardFreeDTO selectFreeContent(int code) {
+		return boarddao.selectFreeContent(code);
+		
+	}
+
+	//공지게시판 리스트중 누른 해당 글 가져오기
+	public BoardAnnouncementDTO selectAnnouncementContent(int code) {
+		return boarddao.selectAnnouncementContent(code);
+	}
+
+	//리뷰게시판 리스트중 누른 해당 글 가져오기
+	public BoardReviewDTO selectReviewContent(int code) {
+		return boarddao.selectReviewContent(code);
 	}
 
 

@@ -16,10 +16,6 @@ public class MealDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
-	public int insertMeal(MealDTO dto) {
-		return mybatis.insert("Meal.insertMeal", dto);
-	}
-	
 	//내 식단표 들어갔을 때 오늘날짜부터 7일치 식단 리스트 가져가 출력
 	public List<MealDTO> selectMealCalendar(int memberCode, String today, String endDate){
 		Map<String, Object> param = new HashMap<>();
@@ -38,4 +34,13 @@ public class MealDAO {
 		return mybatis.selectList("Meal.selectWeekMeal", param);
 	}
 
+	//내 식단표에서 한끼 식단 수정할 때 메뉴 하나당 insert
+	public int insertMeal(MealDTO dto) {
+		return mybatis.insert("Meal.insertMeal", dto);
+	}
+	
+	//내 식단표에서 한끼 식단 수정할 때 메뉴 하나당 delete
+	public int deleteMeal(MealDTO dto) {
+		return mybatis.delete("Meal.deleteMeal", dto);
+	}
 }

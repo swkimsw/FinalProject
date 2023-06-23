@@ -17,7 +17,9 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <style>
 	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
+	textarea{resize:none;}
 	.container{width: 70%; margin-top:100px;}
+	.memberInfo{margin-top:2px; border:0;}
 </style>
 </head>
 <body>
@@ -33,7 +35,7 @@
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
 							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
-							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example">
+							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example" required>
 						</div>
 					</div>
 				
@@ -73,13 +75,13 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
   					<label for="formFile" class="form-label">사진 선택</label>
 						<div class="input-group mb-3">
-  							<input class="form-control" type="file" id="files" name="files" multiple>
+  							<input class="form-control" type="file" id="files" name="files" multiple required>
   						</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mb-3">
   						<label for="exampleFormControlTextarea1" class="form-label">추가 정보 입력</label>
- 						 <textarea class="form-control" id="detail" name="detail" rows="3"></textarea>
+ 						 <textarea class="form-control" id="detail" name="detail" rows="5"></textarea>
 					</div>
 				</div>
 			</div>
@@ -89,29 +91,35 @@
 					<table class="table table-bordered">
 						<tr>
 							<td>업체명</td>
-							<td>${memberDTO.companyName}</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.companyName}" readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>업체 연락처</td>
-							<td>${memberDTO.phone}</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.phone}" readonly>
+							</td>
 						</tr>
 						<tr>
 							<td>배송 업체</td>
-							<td style="padding:0;">
- 								<input type="text" class="form-control" id="shippingCompany" name="shippingCompany" placeholder="배송 업체명을 입력해 주세요" style="border:0" required>
+							<td style="padding:0px;">
+ 								<input type="text" class="memberInfo form-control" id="shippingCompany" name="shippingCompany" placeholder="배송 업체명을 입력해 주세요" required>
 							</td>
 						</tr>
 						<tr>
 							<td>교환 및 반품 주소</td>
-							<td>${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}</td>
+							<td style="padding:0px;">
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}" readonly>
+							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="buttons">
 				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-					<button class="btn btn-primary">등록</button>
-					<a href="/"><input type="button" value="취소" class="btn btn-primary"></a>
+					<button class="btn btn-success">등록</button>
+					<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
 				</div>
 			</div>
 			

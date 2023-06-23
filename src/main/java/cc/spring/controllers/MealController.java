@@ -34,11 +34,9 @@ public class MealController {
 	
 	@RequestMapping("toMyMeal")
 	public String toMyMeal(Model model) {
-//		int memberCode = (int)session.getAttribute("code");
-		int memberCode = 0;
+		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
-		String mealStr = g.toJson(mealList);
-		model.addAttribute("mealList", mealStr);
+		model.addAttribute("mealList", g.toJson(mealList));
 		return "meal/mealCalendar";
 	}
 	
@@ -58,11 +56,11 @@ public class MealController {
 	
 	//ajax
 	@ResponseBody
-	@RequestMapping("selectWeekMeal")
+	@RequestMapping(value="selectWeekMeal", produces="text/html; charset=utf8;")
 	public String selectWeekMeal(String startDate) {
 		int memberCode = (int)session.getAttribute("code");
 		List<MealDTO> mealList = mService.selectWeekMeal(memberCode, startDate);
-		return "";
+		return g.toJson(mealList);
 	}
 	
 	@RequestMapping("toMyBasket")
@@ -72,9 +70,9 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
-	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
+	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr) throws Exception {
 		
-		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr, timeArrLength);
+		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr);
 		
 		System.out.println("Controller: ");
 		System.out.println(result.toString());
@@ -86,7 +84,7 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value="addMeal", produces="text/plain;charset=utf-8")
-	public void addMeal() {
+	public void aiAddMeal() {
 		
 	}
 	

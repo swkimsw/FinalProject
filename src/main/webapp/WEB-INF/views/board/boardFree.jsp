@@ -33,23 +33,24 @@
 
             <style>
                 * {
-                    font - family: NanumSquareNeo;
+                    font-family: NanumSquareNeo;
                 }
 
                 input {
-                    border - radius: 5px;
+                    border-radius:5px;
                     padding: 5px;
                 }
 
                 .container {
-                    margin - top: 100px;
+                   margin-top: 100px;
                     border: 1px solid black;
                 }
 
                 th,
                 td {
-                    font - size: 20px;
+                    font-size: 20px;
                 }
+                
             </style>
 
         </head>
@@ -66,15 +67,15 @@
                     <div class="checkbox ">
 
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                            <input class="form-check-input" type="checkbox" id="ckb1" name="category" value="2001">
                             <label class="form-check-label" for="inlineCheckbox1">일상</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                            <input class="form-check-input" type="checkbox" id="ckb2" name="category" value="2002">
                             <label class="form-check-label" for="inlineCheckbox2">정보</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                            <input class="form-check-input" type="checkbox" id="ckb3"  name="category" value="2003">
                             <label class="form-check-label" for="inlineCheckbox3">질문</label>
                         </div>
 
@@ -93,7 +94,7 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr style="font-size: large;">
+                            <tr>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -105,22 +106,20 @@
                         <tbody>
 
                             <c:forEach var="l" items="${list}">
-                                <tr>
+                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}')">
                                     <td>${l.code}</td>
-                                    <td>${l.title}</td>
-                                    <td>
-                                        <c:choose>
-                                            <c:when test="${l.client_nickname == null}">
-                                                ${l.business_nickname}
-                                            </c:when>
-                                            <c:otherwise>
-                                                ${l.client_nickname}
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </td>
-                                    <td>${l.regdate}</td>
-                                    <td>${l.viewcount}</td>
-                                    <td>${l.likecount}</td>
+                                    <td style="width: 50%;">${l.title}</td>
+                                  <c:choose>
+                                  <c:when  test="${l.memberNickName == null }">
+                                  <td>${l.memberCompanyName}</td>
+                                  </c:when>
+                                  <c:otherwise>
+                                   <td>${l.memberNickName}</td>
+                                  </c:otherwise>
+                                  </c:choose>
+                                    <td>${l.regDate}</td>
+                                    <td>${l.viewCount}</td>
+                                    <td>${l.likeCount}</td>
                                 </tr>
                             </c:forEach>
 
@@ -171,8 +170,12 @@
 
             </div>
 
-            <script>
-
+             <script>
+            
+            function goToLink(url) {
+              window.location.href = url;
+            }
+        
             </script>
 
         </body>

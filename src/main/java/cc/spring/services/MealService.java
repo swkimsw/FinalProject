@@ -35,6 +35,10 @@ public class MealService {
 		return mealDAO.insertMeal(dto);
 	}
 	
+	public int deleteMeal(MealDTO dto) {
+		return mealDAO.deleteMeal(dto);
+	}
+	
 	public List<MealDTO> selectMealCalendar(int memberCode){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar cal = Calendar.getInstance();
@@ -66,9 +70,9 @@ public class MealService {
 	
 	// content 까지는 provider에서 가공해서 가져오고 그뒤는 service에서 각자 가공하기
 	// 식단 추출 기능
-	public List<MealDTO> makeMeal(int dayTime, int special ,String timeStr, int timeArrLength) throws Exception {
+	public List<MealDTO> makeMeal(int dayTime, int special ,String timeStr) throws Exception {
 		
-		String sendMsg = dayTime + "일치" + specialValues.get(special) + "식단 " + timeStr + "만 JSON데이터로 짜줘";
+		String sendMsg = dayTime + "일치" + specialValues.get(special) + " 식단 " + timeStr + "만 JSON데이터로 짜줘";
 		JsonObject content = GPTprovider.makeMeal(sendMsg);
 		System.out.println(sendMsg);
 		
@@ -88,7 +92,11 @@ public class MealService {
 			
 			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
 			
-			for(int x = 0; x < timeArrLength; x++) {
+			System.out.println("SERVICE--> ");
+			System.out.println(dto.toString());
+			
+			for(int x = 0; x < 3; x++) {
+				System.out.println("tiem--> "+ dto.getClass().getDeclaredFields()[x].getName());
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
 					for(int j = 0; j < dto.getBreakfast().length; j++) {
 						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));

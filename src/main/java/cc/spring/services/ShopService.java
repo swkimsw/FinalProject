@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
+import cc.spring.repositories.BusinessMemberDAO;
 import cc.spring.repositories.FileDAO;
 import cc.spring.repositories.ShopDAO;
 
@@ -28,6 +30,9 @@ public class ShopService {
 
 	@Autowired
 	private FileDAO fileDAO;
+	
+	@Autowired
+	private BusinessMemberDAO businessMemberDAO;
 	
 	// 공구샵 등록 insert
 	@Transactional
@@ -59,6 +64,7 @@ public class ShopService {
 		}
 		
 		// member 배송 업체명(shippingCompany) update
+		businessMemberDAO.updateShippingCompany(new MemberDTO(dto.getMemberCode(), shippingCompany));
 	}
 
 	// 일반 사용자인 경우 회원코드 가져오기
@@ -105,14 +111,14 @@ public class ShopService {
 	}
 	
 	//일반회원 내 공구목록
-	public List<ShopListDTO> clientBuyingList(int code){
+	public List<MyShopListDTO> clientBuyingList(int code){
 		return shopDAO.clientBuyingList(code);
 	}
 
 
 	// 공구샵 수정 update
 	@Transactional
-	public void updateShop(ShopDTO dto, MultipartFile[] files, String realPath) throws Exception {
+	public void updateShop(ShopDTO dto, String shippingCompany, MultipartFile[] files, String realPath) throws Exception {
 
 		int parentSeq = dto.getCode();	
 
@@ -142,6 +148,9 @@ public class ShopService {
 				fileDAO.updateShopImage(new FileDTO(0, parentSeq, realPath,oriName, sysName));
 			}
 		}
+		
+		// member 배송 업체명(shippingCompany) update
+		businessMemberDAO.updateShippingCompany(new MemberDTO(dto.getMemberCode(), shippingCompany));		
 	}
 
 	// 공구샵 삭제 delete
