@@ -454,7 +454,13 @@
 			
 			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
 			$.ajax({
-				
+				url:"/shop/",
+				type:"post",
+				dataType:"json",
+				data:{
+					code:code,
+					memberCode:memberCode
+				}
 			}).done(function(resp) {
 				
 			})
