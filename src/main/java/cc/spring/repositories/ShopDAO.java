@@ -66,5 +66,9 @@ public class ShopDAO {
 	public List<MyShopListDTO> clientBuyingList(int code){
 		return db.selectList("Shop.clientBuyingList",code);
 	}
+	
+	public int isCountRequest(int code) {
+		return db.selectOne("isCountRequest", code);
+	}
 
 }
