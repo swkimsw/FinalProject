@@ -125,7 +125,8 @@ public class MealController {
 	@ResponseBody
 	@RequestMapping(value="addAiMeal", produces="text/plain;charset=utf-8")
 	public void aiAddMeal(@RequestBody List<MealDTO> aiMealArr) {
-		int memberCode = (int)session.getAttribute("code");
+//		int memberCode = (int)session.getAttribute("code");
+		int memberCode = 000;
 		for(int i=0; i<aiMealArr.size(); i++) {
 			aiMealArr.get(i).setMemberCode(memberCode);
 			mService.insertMeal(aiMealArr.get(i));
