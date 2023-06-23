@@ -106,7 +106,7 @@
                 <br>
 
                 <div class="category">
-                  카테고리(일반) : <select id="headline" name="headlinecode">
+                  카테고리(일반) : <select id="headline" name="headLineCode">
                     <option value="0">선택</option>
                     <option value="2001">일상</option>
                     <option value="2002">정보</option>
@@ -167,7 +167,7 @@
                 <br>
 
                 <div class="category">
-                  카테고리(사업자) : <select id="headline" name="headlinecode">
+                  카테고리(사업자) : <select id="headline" name="headLineCode">
                     <option value="0">선택</option>
                     <option value="2001">일상</option>
                     <option value="2002">정보</option>
@@ -246,48 +246,54 @@
               onImageUpload: function (data) {
                 data.pop();
               },
-              onKeyup: function(data) {
+    	      onKeyup: function() {
       	        checkContentLength();
       	      },
-      	      onPaste: function(data) {
+      	      onPaste: function() {
       	        checkContentLength();
-      	      }
-      	      
+      	        
+      	      },
+      	      onChange: function(contents, $editable) {
+      	    	  console.log("asdf")
+      				checkContentLength();
+      	        }
             }
           
           })
         });
 
      
-
-        
-        
         function checkContentLength() {
-            var maxLength = 300;
-            var content = $('#content').summernote('code');
-            console.log(content); // 태그 및 문법 사용됨
+        	  var maxLength = 1000;
+        	  var content = $('#content').summernote('code');
+        	  var text = $('<div>').html(content).text();
 
-            var text = $('<div>').html(content).text();
-            console.log(text); // 태그 및 문법 제거됨 (공백 포함)
+        	console.log(content)
+  			console.log(text)
+  			console.log(text.length)
+  			
+  			 var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
+              var iframeCount = iframeTags.length; // 영상 개수
 
-            var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
-            var iframeCount = iframeTags.length; // 영상 개수
+              var imageTags = (content.match(/<img[^>]+>/g) || []);
+              var imageCount = imageTags.length; // 이미지 개수
 
-            var contentLength = text.length + (iframeCount * 200);
+              var contentLength = text.length + (iframeCount * 100)+ (imageCount * 100);
 
-            console.log("contentLength: " + contentLength);
-            console.log("Iframe Count: " + iframeCount);
-
-            if (contentLength > maxLength) {
-            	  alert("내용은 최대 1300자까지 입력할 수 있습니다.");
-            	  $('#content').summernote('code', content.substring(0, maxLength));
-                }
-
+              console.log("contentLength: " + contentLength);
+              console.log("Iframe Count: " + iframeCount);
+              console.log("Image Count: " + imageCount);
               
-            }
-       
 
-        
+        	  if (contentLength > maxLength) {
+        	    alert("내용은 최대 1000자까지 입력할 수 있습니다.");
+        	      	    $('#content').summernote('undo');
+        	  }else{
+        		  return;
+        	  }
+        	}
+        	
+
         $("#title").on("input", function() {
             var maxLength = 50;
             var title = $(this).val();
@@ -303,6 +309,11 @@
         
         
         $("#frm").on("submit", function () {
+        	
+        	var content = $('#content').summernote('code');
+      	  var text = $('<div>').html(content).text();
+      	  
+      	  
           if ($("select[id=headline] option:selected").val() == 0) {
             alert("카테고리를 선택해주세요.");
             return false;
@@ -312,7 +323,10 @@
           } else if ($('#content').val() == "") {
             alert("내용을 입력해주세요.");
             return false;
-          }
+          } else if (text.length == 0) {
+              alert("내용을 입력해주세요.");
+              return false;
+            }
         })
 
 

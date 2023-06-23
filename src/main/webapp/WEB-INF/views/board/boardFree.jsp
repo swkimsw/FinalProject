@@ -109,10 +109,17 @@
                                 <tr onclick="goToLink('/board/FreeContent?code=${l.code}')">
                                     <td>${l.code}</td>
                                     <td style="width: 50%;">${l.title}</td>
-                                    <td>${l.member_nickname }</td>
-                                    <td>${l.regdate}</td>
-                                    <td>${l.viewcount}</td>
-                                    <td>${l.likecount}</td>
+                                  <c:choose>
+                                  <c:when  test="${l.memberNickName == null }">
+                                  <td>${l.memberCompanyName}</td>
+                                  </c:when>
+                                  <c:otherwise>
+                                   <td>${l.memberNickName}</td>
+                                  </c:otherwise>
+                                  </c:choose>
+                                    <td>${l.regDate}</td>
+                                    <td>${l.viewCount}</td>
+                                    <td>${l.likeCount}</td>
                                 </tr>
                             </c:forEach>
 
