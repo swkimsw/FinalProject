@@ -92,10 +92,10 @@
                             <tr onclick="goToLink('/board/ReviewContent?code=${l.code}')">
                                 <td>${l.code}</td>
                                 <td style="width: 50%;">${l.title}</td>
-                                <td>${l.member_nickname}</td>
-                                <td>${l.regdate}</td>
-                                <td>${l.viewcount}</td>
-                                <td>${l.likecount}</td>
+                                <td>${l.memberNickName}</td>
+                                <td>${l.regDate}</td>
+                                <td>${l.viewCount}</td>
+                                <td>${l.likeCount}</td>
                             </tr>
                             
                         </c:forEach>

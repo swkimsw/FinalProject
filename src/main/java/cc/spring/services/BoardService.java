@@ -59,8 +59,7 @@ public class BoardService {
 
 	//공지게시판 작성하기
 	public int insertAnnouncement(BoardAnnouncementDTO dto,int membercode) {
-		System.out.println(dto.getTitle());
-		System.out.println(dto.getContent());
+		
 		return boarddao.insertAnnouncement(dto,membercode);
 
 	}

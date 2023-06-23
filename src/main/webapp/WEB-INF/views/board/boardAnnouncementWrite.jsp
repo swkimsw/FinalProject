@@ -141,6 +141,7 @@ div>table {
 
 
             $(document).ready(function() {
+            	
             	  $('#content').summernote({
             	    placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
             	    height: 600,
@@ -162,32 +163,55 @@ div>table {
             	      onImageUpload: function (data) {
                             data.pop();
                           },
-            	      onKeyup: function(data) {
+            	      onKeyup: function() {
             	        checkContentLength();
             	      },
-            	      onPaste: function(data) {
+            	      onPaste: function() {
             	        checkContentLength();
-            	      }
+            	        
+            	      },
+            	      onChange: function(contents, $editable) {
+            	    	  console.log("asdf")
+            				checkContentLength();
+            	    	  
+            	        }
             	    }
             	  
-            	  })
+            	  });
+  
             	});
  
 
       	
       	function checkContentLength() {
-      	  var maxLength = 2000;
+      	  var maxLength = 1000;
       	  var content = $('#content').summernote('code');
       	  var text = $('<div>').html(content).text();
 
+      	console.log(content)
 			console.log(text)
 			console.log(text.length)
+			
+			 var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
+            var iframeCount = iframeTags.length; // 영상 개수
+            
+            var imageTags = (content.match(/<img[^>]+>/g) || []);
+            var imageCount = imageTags.length; // 이미지 개수
 
-      	  if (text.length > maxLength) {
-      	    alert("내용은 최대 2000자까지 입력할 수 있습니다.");
-      	    var truncatedText = text.substring(0, maxLength);
-      	    var truncatedContent = $('<div>').text(truncatedText).html();
-      	    $('#content').summernote('code', truncatedContent);
+
+            var contentLength = text.length + (iframeCount * 100)+ (imageCount * 100);
+
+            console.log("contentLength: " + contentLength);
+            console.log("Iframe Count: " + iframeCount);
+            console.log("Image Count: " + imageCount);
+
+            
+
+      	  if (contentLength > maxLength) {
+      	    alert("내용은 최대 1000자까지 입력할 수 있습니다.");
+      	      	    $('#content').summernote('undo');
+      	  }else{
+      		  return;
       	  }
       	}
       	
@@ -203,15 +227,26 @@ div>table {
       	    }
       	  });
 
-      	  $("#frm").on("submit", function() {
-      	    if ($("#title").val() == "" || $("#title").val().trim() == "") {
-      	      alert("제목을 작성해주세요.");
-      	      return false;
-      	    } else if ($('#content').val() == "") {
-      	      alert("내용을 입력해주세요.");
-      	      return false;
-      	    }
-      	  });
+      	 $("#frm").on("submit", function () {
+         	
+         	var content = $('#content').summernote('code');
+       	  var text = $('<div>').html(content).text();
+       	  
+       	  
+           if ($("select[id=headline] option:selected").val() == 0) {
+             alert("카테고리를 선택해주세요.");
+             return false;
+           } else if ($("#title").val() == "" || $("#title").val().trim() == "") {
+             alert("제목을 작성해주세요.");
+             return false;
+           } else if ($('#content').val() == "") {
+             alert("내용을 입력해주세요.");
+             return false;
+           } else if (text.length == 0) {
+               alert("내용을 입력해주세요.");
+               return false;
+             }
+         })
 
 
 
