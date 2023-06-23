@@ -275,6 +275,8 @@ $(".meal-box").off("click").on("click", function () {
 
     //저장하기 버튼 클릭 이벤트
     $("#saveMeal").off("click").on("click", function () {
+    
+    console.log(selectBox.parent().get(0).className.split(" ")[1]);
 
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
         postMeals = [];
