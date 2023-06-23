@@ -155,6 +155,7 @@ public class BoardController {
 	public String FreeContent(int code) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user );
+		
 
 		BoardFreeDTO result = boardservice.selectFreeContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
@@ -230,10 +231,9 @@ public class BoardController {
 		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
 		System.out.println(membercode);
 
-		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능
+		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
 
 		boardservice.insertReview(dto,membercode,parent_seq,realPath,oriName,sysName); //후기 게시판 작성
-
 		return "redirect: /board/review" ;
 	}
 

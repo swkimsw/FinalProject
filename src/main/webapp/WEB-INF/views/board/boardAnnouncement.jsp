@@ -94,10 +94,10 @@
                            
                                 <td>${l.code}</td>
                                 <td style="width: 50%;">${l.title}</td>
-                                <td>${l.member_name}</td>
-                                <td>${l.regdate}</td>
-                                <td>${l.viewcount}</td>
-                                <td>${l.likecount}</td>
+                                <td>${l.memberName}</td>
+                                <td>${l.regDate}</td>
+                                <td>${l.viewCount}</td>
+                                <td>${l.likeCount}</td>
                             
                             </tr>
                          

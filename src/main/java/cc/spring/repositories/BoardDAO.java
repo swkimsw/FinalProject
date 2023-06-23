@@ -51,9 +51,6 @@ public class BoardDAO {
 
 
 	public int insertFree(BoardFreeDTO dto, int membercode) {
-		System.out.println(dto.getContent());
-		System.out.println(dto.getHeadlinecode());
-		System.out.println(dto.getTitle());
 		Map<String ,Object> param = new HashMap<>();
 		param.put("dto", dto);
 		param.put("membercode", membercode);

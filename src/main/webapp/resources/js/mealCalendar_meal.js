@@ -151,6 +151,17 @@ window.addEventListener('load', function () {
         });
 
     });
+
+    //meal-box들에 modal 설정 추가
+    //안에 내용물이 존재할 경우 draggable하게 설정
+    let mealBoxes = document.getElementsByClassName("meal-box");
+    Array.prototype.forEach.call(mealBoxes, (mealBox) => {
+    mealBox.setAttribute("data-bs-toggle", "modal");
+    mealBox.setAttribute("data-bs-target", "#mealModalToggle");
+    if (mealBox.innerHTML) {
+        mealBox.setAttribute("draggable", true);
+    }
+});
 });
 
 //식단 날짜 구하는 함수
@@ -164,8 +175,40 @@ function getMealDate() {
 //식단 아/점/저 코드 구하는 함수
 function getMealTime() {
     let times = ["breakfast", "lunch", "dinner"];
-    return 1001 + times.indexOf(selectBox.parent().get(0).className.split(" ")[1])
+    return 1001 + times.indexOf(selectBox.parent().get(0).className.split(" ")[1]);
 };
+
+//식단 하나 등록하는 함수
+function insertMeal(e){
+	//insert
+     $.ajax({
+           url: "/meal/insertMeal",
+           type: "post",
+           data: {
+               mealDate: getMealDate(),
+               timeCode: getMealTime(),
+               meal: e,
+           },
+     }).done(function (resp) {
+
+     });
+}
+
+//식단 하나 삭제하는 함수
+function deleteMeal(e){
+	//delete
+    $.ajax({
+          url: "/meal/deleteMeal",
+          type: "post",
+          data: {
+              mealDate: getMealDate(),
+              timeCode: getMealTime(),
+              meal: e,
+          },
+    }).done(function (resp) {
+          //아무것도 안해도 ?
+    });
+}
 
 //식단 박스 클릭 이벤트
 let selectBox;
@@ -232,6 +275,8 @@ $(".meal-box").off("click").on("click", function () {
 
     //저장하기 버튼 클릭 이벤트
     $("#saveMeal").off("click").on("click", function () {
+    
+    console.log(selectBox.parent().get(0).className.split(" ")[1]);
 
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
         postMeals = [];
@@ -240,6 +285,7 @@ $(".meal-box").off("click").on("click", function () {
                 postMeals.push(e.value);
             }
         });
+
 
         //중복된 메뉴 입력 방지
         let exceptDuplMeal = new Set(postMeals);
@@ -254,35 +300,12 @@ $(".meal-box").off("click").on("click", function () {
         //그냥 update 없이 insert, delete만 만드는 걸로..  
         preDiff.forEach((e, i) => {
             //delete
-            $.ajax({
-                url: "/meal/deleteMeal",
-                type: "post",
-                data: {
-                    memberCode:"${sessionScope.code}",
-                    mealDate: getMealDate(),
-                    timeCode: getMealTime(),
-                    meal: e,
-                },
-            }).done(function (resp) {
-                //아무것도 안해도 ?
-            });
+            deleteMeal(e);
         })
 
         postDiff.forEach((e, i) => {
-            console.log(e);
             //insert
-            $.ajax({
-                url: "/meal/insertMeal",
-                type: "post",
-                data: {
-                    memberCode:"${sessionScope.code}",
-                    mealDate: getMealDate(),
-                    timeCode: getMealTime(),
-                    meal: e,
-                },
-            }).done(function (resp) {
-
-            });
+            insertMeal(e);
         })
 
         //선택한 박스의 내용을 비우고 입력한 내용으로 다시 append하기
@@ -307,13 +330,8 @@ $("#mealModalToggle").on("hidden.bs.modal", function () {
     }
 });
 
-//meal-box들에 modal 설정 추가
-//안에 내용물이 존재할 경우 draggable하게 설정
-let mealBoxes = document.getElementsByClassName("meal-box");
-Array.prototype.forEach.call(mealBoxes, (mealBox) => {
-    mealBox.setAttribute("data-bs-toggle", "modal");
-    mealBox.setAttribute("data-bs-target", "#mealModalToggle");
-    if (mealBox.innerHTML) {
-        mealBox.setAttribute("draggable", true);
-    }
+//AI 식단 추천 버튼 클릭 이벤트
+$("#aiMeal").on("click", function () {
+    location.href="/meal/toAiMeal";
 });
+

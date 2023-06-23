@@ -28,7 +28,7 @@
 	<!-- 자유게시판 작성 -->
 	<insert id="insertFree">
 		insert into BoardFree values (board_free_seq.nextval,
-		1002 , #{dto.headlinecode} , #{membercode} , #{dto.title} ,
+		1002 , #{dto.headLineCode} , #{membercode} , #{dto.title} ,
 		#{dto.content} , 0 , 0, sysdate, null,null)
 	</insert>
 
@@ -45,19 +45,19 @@
 	<!-- 자유게시판리스트 가져오기 -->
 	<select id="selectFreelist"
 		resultType="cc.spring.dto.BoardFreeDTO">
-		select * from boardfree_view order by regdate asc
+		select * from boardfree_view order by regdate desc
 	</select>
 
 	<!-- 공지사항게시판리스트 가져오기 -->
 	<select id="selectAnnouncementlist"
 		resultType="cc.spring.dto.BoardAnnouncementDTO">
-		select * from boardAnnouncement_view order by regdate asc
+		select * from boardAnnouncement_view order by regdate desc
 	</select>
 
 	<!-- 리뷰게시판리스트 가져오기 -->
 	<select id="selectReviewlist"
 		resultType="cc.spring.dto.BoardReviewDTO">
-		select * from boardReview_view order by regdate asc
+		select * from boardReview_view order by regdate desc
 	</select>
 
 <!-- ========================================================================================== -->

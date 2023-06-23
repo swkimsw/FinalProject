@@ -34,21 +34,22 @@
 			<div class="input1">
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
-							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
+							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.code}">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" placeholder="제목을 입력해 주세요" aria-label=".form-control-lg example" required>
 						</div>
 					</div>
 				
-				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+				<div id="zz" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">상품명</span>
 						<input type="text" class="form-control" id="productName" name="productName" required>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-					<div class="mm input-group mb-3">
+					<div class="input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
-						<input type="text" class="form-control" id="productPrice" name="productPrice" required>
+						<input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="', / 원' 제외 숫자만 입력해 주세요" required>
+						<span class="input-group-text">원</span>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -60,13 +61,15 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최소 인원</span>
-						<input type="text" class="form-control" id="min" name="min" required>
+						<input type="text" class="form-control" id="min" name="min" placeholder="'명' 제외 숫자만 입력해 주세요" required>
+						<span class="input-group-text">명</span>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">최대 인원</span>
-						<input type="text" class="form-control" id="max" name="max" required>
+						<input type="text" class="form-control" id="max" name="max" placeholder="'명' 제외 숫자만 입력해 주세요" required>
+						<span class="input-group-text">명</span>
 					</div>
 				</div>
 			</div>
@@ -110,7 +113,7 @@
 						<tr>
 							<td>교환 및 반품 주소</td>
 							<td style="padding:0px;">
-								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}" readonly>
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} ${memberDTO.address2}" readonly>
 							</td>
 						</tr>
 					</table>
@@ -118,7 +121,7 @@
 			</div>
 			<div class="buttons">
 				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-					<button class="btn btn-success">등록</button>
+					<button id="register" class="btn btn-success">등록</button>
 					<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
 				</div>
 			</div>
@@ -126,5 +129,39 @@
 		</div>
 	</main>
 	</form>
+	<script>
+		
+		let regexProductPrice = /^[0-9]+$/;
+		let regexMin = /^[0-9]+$/;
+		let regexMax = /^[0-9]+$/;
+		
+		$("#register").on("click", function(){
+			
+			let productPrice = $("#productPrice").val();
+			let min = $("#min").val();
+			let max = $("#max").val();
+			
+			let resultProductPrice = regexProductPrice.exec(productPrice);
+			let resultMin = regexMin.exec(min);
+			let resultMax = regexMax.exec(max);
+			
+			if(!resultProductPrice){
+				alert("상품가격 은 숫자로 입력해 주세요!");
+				return false;
+			}
+			
+			if(!resultMin){
+				alert("최소 인원 은 숫자로 입력해 주세요!");
+				return false;
+			}
+			
+			if(!resultMax){
+				alert("최대 인원 은 숫자로 입력해 주세요!");
+				return false;
+			}
+			
+		})
+	
+	</script>
 </body>
 </html>
