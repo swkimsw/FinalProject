@@ -79,7 +79,6 @@ $(".meal-box").off("click").on("click", function () {
         meals.each((i, e) => {
             if (e.value) {
                 postMeals.push(e.value);
-                console.log("postMeals--> " + postMeals);
             }
 
             let exceptDuplMeal = new Set(postMeals);
@@ -96,7 +95,6 @@ $(".meal-box").off("click").on("click", function () {
         postDiff = postMeals.filter(e => !preMeals.includes(e));
 		
         preDiff.forEach((e, i) => {
-            console.log(e);
             aiMealArr = aiMealArr.filter(target => target.meal != e);
         });
 
@@ -141,20 +139,20 @@ Array.prototype.forEach.call(mealBoxes, (mealBox) => {
     }
 });
 //식단 날짜 구하는 함수
-function getMealDate() {
+function getMealDate(selectBox) {
     let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
     let cloneDates = new Date(today);
-    console.log(cloneDates);
     cloneDates = new Date(cloneDates.setDate(today.getDate() + days.indexOf(selectBox.parent().get(0).className.split(" ")[0])));
     let cloneMonth = cloneDates.getUTCMonth() + 1 >= 10 ? cloneDates.getUTCMonth() + 1 : '0' + (cloneDates.getUTCMonth() + 1);
     let cloneDate = cloneDates.getDate() >= 10 ? cloneDates.getDate() : '0' + cloneDates.getDate();
     // 23-06-21 형식으로 return
-    console.log("mealDate--> " + cloneDates.getUTCFullYear() + "-" + cloneMonth + "-" + cloneDate);
     return cloneDates.getUTCFullYear() + "-" + cloneMonth + "-" + cloneDate;
 };
 
 //식단 아/점/저 코드 구하는 함수
-function getMealTime() {
+function getMealTime(selectBox
+    
+    ) {
     let times = ["breakfast", "lunch", "dinner"];
     return 1001 + times.indexOf(selectBox.parent().get(0).className.split(" ")[1])
 };
@@ -192,6 +190,7 @@ function aiMealAdd(resp) {
     aiMealArr = resp.map(i => i);
 }
 
+// 식단을 출력하는 함수
 function aiMealPrint(resp) {
 	//시작하기전에 이전에 있던 값들 지워주기
 	$(".meal-box").html("");
@@ -213,4 +212,14 @@ function aiMealPrint(resp) {
             }
         }
     });
+}
+
+// startPoint, endPoint 를 aiMealArr이랑 비교할 수 있게 하는 함수
+function aiMealCompare(resp){
+    let pointStr = resp.get(0);
+
+    pointStr.split('.', 1); // day
+    pointStr.split('.', 2); // 아/점/저
+
+    
 }

@@ -39,7 +39,6 @@ function selectWeekMeal(date) {
         }
     }).done(function (resp) {
         let mealList = JSON.parse(resp);
-        console.log(mealList);
 
         $(".meal-box").html("");
         mealList.forEach((meal)=>{
