@@ -63,8 +63,7 @@ body {
 				<h3> ${info.name}님의 공구 신청 목록</h3>
 				<h5>${info.clientId}</h5>
 				<c:forEach var="c" items="${list}">
-					<p>회원코드: ${c.memberCode}</p>
-					<p>주문자명: ${c.name} </p>
+					<a href="/shop/toShopApply?code=${c.groupbuyingCode}">${c.title}</a>
 					<p>상품명 : ${c.productName}</p>
 					<p>가격 : ${c.productPrice} 원</p>
 					<p>수량 : ${c.quantity}</p>
