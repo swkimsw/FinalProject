@@ -47,7 +47,7 @@ public class ShopController {
 	private HttpSession session;
 
 
-	//김은지 Part	
+//--김은지 Part--------------------------------------------------------------------------------------------------------	
 	// 공구샵 등록 폼으로 이동
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
@@ -152,94 +152,104 @@ public class ShopController {
 //	public int 
 
 
-	//최은지 Part
-
-	//공구 목록으로 이동
-	@RequestMapping("toShopList")
-	public String toShopList(@RequestParam(name="status",required=false,defaultValue="") String status, Model model) throws Exception{
-		List<ShopListDTO> list = new ArrayList<ShopListDTO>();
-		System.out.println( "코드는" + session.getAttribute("code") );
-		System.out.println( "아이디는" + session.getAttribute("id") );
-		System.out.println("권한등급은" + session.getAttribute("authGradeCode"));
-		if(status.equals("closed")){
-			//마감된 공구 list
-			list = shopService.getStatusList(status);
-		}else if(status.equals("open")){
-			//진행중인 공구 list
-			list = shopService.getStatusList(status);
-		}else {
-			//전체 공구 list
-			list = shopService.shopList();
-		}
-
-		//마감일 디데이 계산
-		Map< ShopListDTO, Integer> dDayMap = new HashMap<>();
-		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
-		for(ShopListDTO d : list) {
-			String deadLineFmt = dateFmt.format(d.getDeadLine());
-			String todayFmt = dateFmt.format(new Date(System.currentTimeMillis()));
-
-			Date deadLine = new Date(dateFmt.parse(deadLineFmt).getTime());
-			Date today = new Date(dateFmt.parse(todayFmt).getTime());
-
-			long calculate = deadLine.getTime() - today.getTime();
-			int dDay = (int)(calculate / (24*60*60*1000));
-
-			d.setdDay(dDay);
-			dDayMap.put(d, dDay);
-		}
-		//상품정보, 이미지정보, 디데이 전송
-		model.addAttribute("list",list);
-
-		return "/shop/shopList";
-	}
-
-	//공구 목록 검색
-	@ResponseBody
-	@RequestMapping("searchByKeyword")
-	public List<ShopListDTO> searchByKeyword(String category, String keyword) throws Exception{
-		List<ShopListDTO> searchList = shopService.searchByKeyword(category,keyword);
-
-		Map< ShopListDTO, Integer> dDayMap = new HashMap<>();
-		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
-		for(ShopListDTO d : searchList) {
-			String deadLineFmt = dateFmt.format(d.getDeadLine());
-			String todayFmt = dateFmt.format(new Date(System.currentTimeMillis()));
-
-			Date deadLine = new Date(dateFmt.parse(deadLineFmt).getTime());
-			Date today = new Date(dateFmt.parse(todayFmt).getTime());
-
-			long calculate = deadLine.getTime() - today.getTime();
-			int dDay = (int)(calculate / (24*60*60*1000));
-
-			d.setdDay(dDay);
-			dDayMap.put(d, dDay);
-		}
-		System.out.println("겨얼과는:" + searchList);
-		return searchList;
-	}
-
-	//내 공구목록	
-	@RequestMapping("toMyShopList")
-	public String toMyShopList(Model model) {
-		int code = (Integer)session.getAttribute("code");
-		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
-		List<MyShopListDTO> list = new ArrayList<>();
-
-		//사업자일때
-		if(authGradeCode == 1002) {
 
 
-			//일반회원일때	
-		}else if(authGradeCode == 1003) {
-			list = shopService.clientBuyingList(code);
-		}
+//--최은지 Part---------------------------------------------------------------------------------------------------------
+ 	
+	 	//공구 목록으로 이동:  key값이 status인 매개변수로 넘어오는 값에 따라 진행사항별(진행중,마감) 목록
+	 	 	@RequestMapping("toShopList")
+	 		public String toShopList(@RequestParam(name="status",required=false,defaultValue="") String status, Model model) throws Exception{
+	 	 		List<ShopListDTO> list = new ArrayList<ShopListDTO>();
+	 	 	
+	 	 		if(status.equals("closed")){
+	 	 			//마감된 공구 list: 매개변수가 closed일 때 ->  마감,실패한 공구 목록
+	 	 			list = shopService.getStatusList(status);
+	 	 		}else if(status.equals("open")){
+	 	 			//진행중인 공구 list: 매개변수가 open일 때 -> 진행중인 공구 목록
+	 	 	 		list = shopService.getStatusList(status);
+	 	 		}else {
+	 	 			//전체 공구 list: 매개변수가 없을 때 -> 전체 공구 목록
+	 	 			list = shopService.shopList();
+	 	 		}
+	 	 		
+	 	 		//마감일 디데이 계산
+	 	 		Map< ShopListDTO, Integer> dDayMap = new HashMap<>();
+	 	 		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
+	 	 		for(ShopListDTO d : list) {
+	 	 			String deadLineFmt = dateFmt.format(d.getDeadLine());
+	 	 			String todayFmt = dateFmt.format(new Date(System.currentTimeMillis()));
+	 	 			
+	 	 			Date deadLine = new Date(dateFmt.parse(deadLineFmt).getTime());
+	 	 			Date today = new Date(dateFmt.parse(todayFmt).getTime());
+	 	 			
+	 	 			long calculate = deadLine.getTime() - today.getTime();
+	 	 			int dDay = (int)(calculate / (24*60*60*1000));
+	 	 			
+	 	 			d.setdDay(dDay);
+	 	 			dDayMap.put(d, dDay);
+	 	 		}
+	 	 		//상품정보, 이미지정보, 디데이 전송
+	 	 		model.addAttribute("list",list);
+	 	 		
+	 			return "/shop/shopList";
+	 		}
+	 	
+	 	 //공구 목록 검색: 검색어와 카테고리(상품명과 판매자명)에 따라 검색 
+	 	 	@ResponseBody
+	 	 	@RequestMapping("searchByKeyword")
+	 	 	public List<ShopListDTO> searchByKeyword(String category, String keyword) throws Exception{
+	 	 		List<ShopListDTO> searchList = shopService.searchByKeyword(category,keyword);
+	 	 		
+	 	 		Map< ShopListDTO, Integer> dDayMap = new HashMap<>();
+	 	 		SimpleDateFormat dateFmt = new SimpleDateFormat("yyyy-MM-dd");
+	 	 		for(ShopListDTO d : searchList) {
+	 	 			String deadLineFmt = dateFmt.format(d.getDeadLine());
+	 	 			String todayFmt = dateFmt.format(new Date(System.currentTimeMillis()));
+	 	 			
+	 	 			Date deadLine = new Date(dateFmt.parse(deadLineFmt).getTime());
+	 	 			Date today = new Date(dateFmt.parse(todayFmt).getTime());
+	 	 			
+	 	 			long calculate = deadLine.getTime() - today.getTime();
+	 	 			int dDay = (int)(calculate / (24*60*60*1000));
+	 	 			
+	 	 			d.setdDay(dDay);
+	 	 			dDayMap.put(d, dDay);
+	 	 		}
+	 	 		System.out.println("겨얼과는:" + searchList);
+	 			return searchList;
+	 	 	}
+	 	 	
+	 	 //내 공구목록: session에 저장된 authGradeCode(1002,1003)에 따라 다른 목록 출력
+	 	 @RequestMapping("toMyShopList")
+	 	 public String toMyShopList(Model model) {
+	 		int code = (Integer)session.getAttribute("code");
+	 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
+	 		MyShopListDTO info = shopService.getInfo(code);
+	 		model.addAttribute("info",info);
+	 		
+	 		List<MyShopListDTO> list = new ArrayList<>();
+	 		//사업자일 때 공구 등록 목록으로 이동
+	 		if(authGradeCode == 1002) {
+	 			list = shopService.businessRegisterList(code);
+	 			
+	 		//일반회원일 때 공구 신청 목록으로 이동
+	 		}else if(authGradeCode == 1003) {
+	 			list = shopService.clientBuyingList(code);
+	 		}
+	 		
+	 	 	model.addAttribute("list",list);
+	 	 	return "/shop/myShopList";
+	 	 }
 
-		model.addAttribute("list",list);
-		return "/shop/myShopList";
-	}
-
-
+	 	 //사업자회원용 공구 신청인 정보 목록: 사업자회원 공구 등록 목록에서 출력
+	 	 @RequestMapping("buyingMemberInfoList")
+	 	 public String buyingMemberInfoList(int groupbuyingCode, Model model) {
+	 		List<MyShopListDTO> list = shopService.buyingMemberInfoList(groupbuyingCode);
+	 		model.addAttribute("list",list);
+	 		return "/";
+	 	 }
+	
+	
 	//예외처리
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

@@ -7,14 +7,14 @@ let aiEndMeal;
 
 $(".meal-box").on("dragstart", function (e) {
     e.stopPropagation();
-    let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
-    
+    let parentClass = "." + $(this).parent().attr('class').split(" ").join(".");
+
     aiStartPoint = $(parentClass);
     aiStartMeal = aiStartPoint.children();
 
-    selectBox = $(this);
-    aiStartDate = getMealDate(selectBox);
-    aiStartTime = getMealTime(selectBox);
+    let startSelectBox = $(this);
+    aiStartDate = getMealDate(startSelectBox); // 00-00-00
+    aiStartTime = getMealTime(startSelectBox); // 1001
 });
 
 $(".meal-box").on("dragenter", function (e) {
@@ -22,13 +22,13 @@ $(".meal-box").on("dragenter", function (e) {
     e.preventDefault();
     e.target.classList.add("drag-over");
 
-    let parentClass = "."+$(this).parent().attr('class').split(" ").join(".");
+    let parentClass = "." + $(this).parent().attr('class').split(" ").join(".");
     aiEndPoint = $(parentClass);
     aiEndMeal = aiEndPoint.children();
 
-    selectBox = $(this)
-    aiEndDate = getMealDate(selectBox);
-    aiEndTime = getMealTime(selectBox);
+    let endSelectBox = $(this)
+    aiEndDate = getMealDate(endSelectBox);
+    aiEndTime = getMealTime(endSelectBox);
 });
 
 $(".meal-box").on("dragover", function (e) {
@@ -46,16 +46,34 @@ $(".meal-box").on("drop", function (e) {
     e.stopPropagation();
     e.preventDefault();
     e.target.classList.remove("drag-over");
-    
-    aiStartPoint.get(0).innerHTML ="";
-    aiStartPoint.get(1).innerHTML ="";
-    aiEndPoint.get(0).innerHTML ="";
-    aiEndPoint.get(1).innerHTML ="";
+
+    aiStartPoint.get(0).innerHTML = "";
+    aiStartPoint.get(1).innerHTML = "";
+    aiEndPoint.get(0).innerHTML = "";
+    aiEndPoint.get(1).innerHTML = "";
     aiStartPoint.get(0).append(aiEndMeal.get(0));
     aiStartPoint.get(1).append(aiEndMeal.get(1));
     aiEndPoint.get(0).append(aiStartMeal.get(0));
     aiEndPoint.get(1).append(aiStartMeal.get(1));
-    
-	// 배열값 바꾸기 
-	    
+
+    // let tmpDate;
+    // let tmpTime;
+    let startTarget = $(aiStartPoint.get(0)).children().get(0);
+    let startMeals = startTarget.innerHTML.split("<br>").filter(e => e != "");
+
+    // 배열값 바꾸기 
+    aiMealArr.map((element, i) => {
+        if (aiStartDate == element.mealDate && aiStartTime == element.timeCode) {
+
+            element.mealDate = aiEndDate;
+            element.timeCode = aiEndTime;
+
+        } else if (aiEndDate == element.mealDate && aiEndTime == element.timeCode) {
+
+            element.mealDate = aiStartDate;
+            element.timeCode = aiStartTime;
+
+        }
+    });
+
 });
