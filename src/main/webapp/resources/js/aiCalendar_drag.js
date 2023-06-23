@@ -57,5 +57,7 @@ $(".meal-box").on("drop", function (e) {
     aiEndPoint.get(1).append(aiStartMeal.get(1));
     
 	// 배열값 바꾸기 
-	    
+	console.log("aiStartPoint" + aiStartPoint);
+	console.log("aiEndPoint" + aiEndPoint);
+
 });
