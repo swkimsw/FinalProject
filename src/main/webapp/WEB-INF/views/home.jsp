@@ -43,7 +43,7 @@
 <link href="${path}/resources/css/mealCalendar.css" rel="stylesheet"
 	type="text/css">
 <!-- mealCalendar calendar js -->
-<script src="${path}/resources/js/mealCalendar_calendar.js"></script>
+<script src="${path}/resources/js/aiCalendar_calendar.js"></script>
 <style>
 * {
 	font-family: NanumSquareNeoBold;
@@ -611,22 +611,10 @@
 				}).done(function (resp) {
 					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
+					
 					aiMealAdd(resp);
-					const meals = ['breakfast', 'lunch', 'dinner'];
-					const timeCodes = [1001, 1002, 1003];
+					aiMealPrint(resp);
 
-					$(resp).each(function (index, item) {
-						for (let day = 0; day <= 6; day++) {
-							if (dateAdd(today, day) == item.mealDate) {
-								for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
-									if (item.timeCode == timeCodes[mealIndex]) {
-										var targetClass = ".day" + (day+1) + "." + meals[mealIndex];
-										$(targetClass).find(".meal-box").append(item.meal, "<br>");
-									}
-								}
-							}
-						}
-					});
 					alert("생성 성공~!");
 				});
 			});
@@ -635,11 +623,16 @@
 			$("#aiMealAddBtn").on("click", function(){
 				
 				$.ajax({
-					url: "/meal/aiAddAiMeal",
-					type: "post",
-					data: {
-						aiMealArr : aiMealArr
-					}
+				    type: 'POST',
+				    url: '/meal/addAiMeal',
+				    data: JSON.stringify(aiMealArr),
+				    contentType: 'application/json',
+				    success: function(response) {
+				        console.log(response);
+				    },
+				    error: function(error) {
+				        console.log(error);
+				    }
 				});
 			});
 			

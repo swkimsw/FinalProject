@@ -19,6 +19,7 @@ public class ShopDAO {
 	@Autowired
 	private SqlSessionTemplate db;
 	
+//---김은지 part------------------------------------------------------------------------------------------------
 	public int insertShop(ShopDTO dto) {
 		db.insert("Shop.insertShop", dto);
 		return dto.getCode();
@@ -48,6 +49,18 @@ public class ShopDAO {
 		return db.insert("Shop.insertShopRequest", dto);
 	}
 	
+	public int isCountRequest(int code) {
+		return db.selectOne("Shop.isCountRequest", code);
+	}
+	
+	public int isExistRequest(int code, String memberCode) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("code", code);
+		param.put("memberCode", memberCode);
+		return db.selectOne("Shop.isExistRequest", param);
+	}
+	
+//---최은지 part------------------------------------------------------------------------------------------------
 	public List<ShopListDTO> shopList() {
 		return db.selectList("Shop.shopList");
 	}
@@ -63,19 +76,20 @@ public class ShopDAO {
 		return db.selectList("Shop.searchByKeyword",param);
 	}
 	
+	public MyShopListDTO getInfo(int code) {
+		return db.selectOne("Shop.getInfo",code);
+	}
+	
 	public List<MyShopListDTO> clientBuyingList(int code){
 		return db.selectList("Shop.clientBuyingList",code);
 	}
-	
-	public int isCountRequest(int code) {
-		return db.selectOne("Shop.isCountRequest", code);
-	}
-	
-	public int isExistRequest(int code, String memberCode) {
-		Map<String, Object> param = new HashMap<>();
-		param.put("code", code);
-		param.put("memberCode", memberCode);
-		return db.selectOne("Shop.isExistRequest", param);
-	}
 
+	public List<MyShopListDTO> businessRegisterList(int code){
+		return db.selectList("Shop.businessRegisterList",code);
+	}
+	
+	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
+		return db.selectList("Shop.buyingMemberInfoList", groupbuyingCode);
+	}
+	
 }
