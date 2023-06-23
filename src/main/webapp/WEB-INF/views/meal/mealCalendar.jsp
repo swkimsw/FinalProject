@@ -435,14 +435,6 @@
 <script src="${path}/resources/js/mealCalendar_drag.js"></script>
 <!-- mealCalendar ingredient js -->
 <script src="${path}/resources/js/mealCalendar_ingredient.js"></script>
-<script type="text/javascript">
-
-//AI 식단 추천 버튼 클릭 이벤트
-$("#aiMeal").on("click", function () {
-    //location.href="/meal/식단추천페이지로 이동";
-});
-
-</script>
 
 </body>
 </html>
