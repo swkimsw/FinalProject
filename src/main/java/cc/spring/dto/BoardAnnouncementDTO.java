@@ -1,6 +1,7 @@
 package cc.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardAnnouncementDTO {
 	private int code;
@@ -15,7 +16,7 @@ public class BoardAnnouncementDTO {
 	private Timestamp moddate;
 	private Timestamp deldate;
 	private String member_id;
-	private String member_nickname;
+	private String member_name;
 	public BoardAnnouncementDTO() {};
 	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
 			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
@@ -33,7 +34,7 @@ public class BoardAnnouncementDTO {
 		this.deldate = deldate;
 	}
 	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
-			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate, String member_id , String member_nickname) {
+			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate, String member_id , String member_name) {
 		super();
 		this.code = code;
 		this.boardkindcode = boardkindcode;
@@ -47,7 +48,7 @@ public class BoardAnnouncementDTO {
 		this.moddate = moddate;
 		this.deldate = deldate;
 		this.member_id = member_id;
-		this.member_nickname = member_nickname;
+		this.member_name = member_name;
 	}
 	public int getCode() {
 		return code;
@@ -97,9 +98,11 @@ public class BoardAnnouncementDTO {
 	public void setLikecount(int likecount) {
 		this.likecount = likecount;
 	}
-	public Timestamp getRegdate() {
-		return regdate;
+	public String getRegdate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+		return formatter.format(regdate);
 	}
+
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;
 	}
@@ -121,11 +124,11 @@ public class BoardAnnouncementDTO {
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
 	}
-	public String getMember_nickname() {
-		return member_nickname;
+	public String getMember_name() {
+		return member_name;
 	}
-	public void setMember_nickname(String member_nickname) {
-		this.member_nickname = member_nickname;
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
 	}
 
 	

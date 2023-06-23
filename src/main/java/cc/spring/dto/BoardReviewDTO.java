@@ -1,6 +1,7 @@
 package cc.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardReviewDTO {
 	private int code;
@@ -97,8 +98,9 @@ public class BoardReviewDTO {
 	public void setLikecount(int likecount) {
 		this.likecount = likecount;
 	}
-	public Timestamp getRegdate() {
-		return regdate;
+	public String getRegdate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+		return formatter.format(regdate);
 	}
 	public void setRegdate(Timestamp regdate) {
 		this.regdate = regdate;

@@ -67,6 +67,7 @@
                     border: 1px solid black;
                 }
 
+
                 #content {
                     width: 100%;
                     height: 600px;
@@ -90,8 +91,7 @@
 
                 .btn-primary {
                     margin-top: -15px;
-                    margin-right: 15px;
-                    font-size: medium;
+                    font-size: small;
                 }
 
                 .button-container {
@@ -108,266 +108,400 @@
 
         <body>
             <c:import url="../commons/gnb.jsp">
-		</c:import>
+            </c:import>
 
 
-            <div class="container">
+            <c:choose>
+                <c:when test="${user == result.code}">
+                    <div class="container">
 
-                <div class="row header">
-                    <h2>자유게시판</h2>
-                    <br>
-                </div>
-
-
-                <div class="row body">
-
-                    <table>
-                        <form>
-                            <tr>
-                                <td>
-                                    카테고리 : <select id="select" disabled>
-                                        <option>일상</option>
-                                        <option>정보</option>
-                                        <option>질문</option>
-                                    </select>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>글번호 : ${result.seq} | 작성자 : ${result.writer} </td>
-                            </tr>
-
-                            <tr>
-                                <td>제목 :
-                                    <input id="title" type="text" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)" disabled>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>첨부 사진 :
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <c:forEach var="f" items="${file}">
-                                    <a href="/board/download?oriName=${f.oriName}&sysName=${f.sysName}">
-                                        <td> ${f.oriName}</td>
-                                    </a>
-                                </c:forEach>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <div id="content"></div>
-                                </td>
-                            </tr>
+                        <div class="row header">
+                            <h2>자유게시판</h2>
+                            <br>
+                        </div>
 
 
-                            <tr>
-                                <td>
-                                    <div id="asdf" class="button-container">
-                                        <button id="modi" class=" btn btn-outline-primary" onclick="edit()"
-                                            type="button">수정</button>
-                                        <button id="save" class="btn btn-outline-primary" onclick="save()"
-                                            type="button">수정
-                                            완료</button>
-                                        <button id="undo" class="btn btn btn-outline-primary" onclick="undo()"
-                                            type="button">취소</button>
-                                    </div>
-                                </td>
-                            </tr>
+                        <div class="row body">
 
-                        </form>
+                            <table>
+                                <form>
+                                    <tr>
+                                        <td>
+                                            카테고리 : <select id="select" disabled>
+                                                <option>일상</option>
+                                                <option>정보</option>
+                                                <option>질문</option>
+                                            </select>
+                                        </td>
+                                    </tr>
 
-                        <tr>
-                            <td>
-                                <!-- Comment form-->
-                                <textarea id="write_reply" style="color:rgba(41, 41, 163, 0.928);" type="text"
-                                    class="form-control mt-3 " rows="3" placeholder="댓글을 남겨주세요!"></textarea>
-                                <div class="fs-2"
-                                    style="display: inline; float:right; color:rgba(41, 41, 163, 0.928) ; margin-right:10px;">
-                                    <i class="bi bi-send" type="button"></i>
-                                </div>
+                                    <tr>
+                                        <td>글번호 : ${result.seq} | 작성자 : ${result.writer} </td>
+                                    </tr>
 
-                            </td>
-                        </tr>
+                                    <tr>
+                                        <td>제목 :
+                                            <input id="title" type="text" placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"
+                                                disabled>
+                                        </td>
+                                    </tr>
 
-                    </table>
-
-                </div>
-
-                <div class="row footer">
-
-                    <table>
-                        <tr>
+                                    <tr>
+                                        <td>
+                                            <div id="content"></div>
+                                        </td>
+                                    </tr>
 
 
-                            <td>
-
-                                <div class="card">
-
-                                    <div class="card-body">
-
-
-
-
-                                        <!-- Comment with nested comments-->
-
-
-
-                                        <!-- Parent comment-->
-                                        <div class="d-flex mt-2">
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+                                    <tr>
+                                        <td>
+                                            <div id="asdf" class="button-container">
+                                                <button id="modi" class=" btn btn-outline-primary" onclick="edit()"
+                                                    type="button">수정</button>
+                                                <button id="save" class="btn btn-outline-primary" onclick="save()"
+                                                    type="button">수정
+                                                    완료</button>
+                                                <button id="undo" class="btn btn btn-outline-primary" onclick="undo()"
+                                                    type="button">취소</button>
                                             </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="submit">수정</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">취소</button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </form>
+
+                                <tr>
+                                    <td>
+                                        <!-- Comment form-->
+                                        <textarea id="write_reply" style="color:rgba(41, 41, 163, 0.928);" type="text"
+                                            class="form-control mt-3 " rows="3" placeholder="댓글을 남겨주세요!"></textarea>
+                                        <div class="fs-2"
+                                            style="display: inline; float:right; color:rgba(41, 41, 163, 0.928) ; margin-right:10px;">
+                                            <i class="bi bi-send" type="button"></i>
                                         </div>
 
+                                    </td>
+                                </tr>
 
-                                        <!-- child comment-->
-                                        <div class="ms-5">
-                                            <div class="d-flex mt-1">
+                            </table>
 
-                                                <div class="flex-shrink-0"><img class="rounded-circle"
-                                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">작성자</div>
-                                                    <div class="reply">
-                                                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                        <div class="button-container" style="float:right ;">
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                type="button">수정</button>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                type="button">취소</button>
+                        </div>
+
+                        <div class="row footer">
+
+                            <table>
+                                <tr>
+
+
+                                    <td>
+
+                                        <div class="card">
+
+                                            <div class="card-body">
+
+
+
+
+                                                <!-- Comment with nested comments-->
+
+
+
+                                                <!-- Parent comment-->
+                                                <div class="d-flex mt-2">
+                                                    <div class="flex-shrink-0"><img class="rounded-circle"
+                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                            alt="...">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <div class="fw-bold">작성자</div>
+                                                        <div class="reply">
+                                                            ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                            <div class="button-container" style="float:right ;">
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="submit">수정</button>
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="button">취소</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                        <!-- child comment-->
-                                        <div class="ms-5">
-                                            <div class="d-flex mt-1">
 
-                                                <div class="flex-shrink-0"><img class="rounded-circle"
-                                                        src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                                </div>
-                                                <div class="ms-3">
-                                                    <div class="fw-bold">작성자</div>
-                                                    <div class="reply">
-                                                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                        <div class="button-container" style="float:right ;">
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                type="button"> <i
-                                                                    class="bi bi-hand-thumbs-up"></i>13</button>
-                                                            <button class="btn btn-outline-primary btn-sm"
-                                                                type="button">신고</button>
+                                                <!-- child comment-->
+                                                <div class="ms-5">
+                                                    <div class="d-flex mt-1">
+
+                                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">작성자</div>
+                                                            <div class="reply">
+                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                                <div class="button-container" style="float:right ;">
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="button">수정</button>
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="button">취소</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="d-flex mt-2">
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="submit">수정</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">취소</button>
+                                                <!-- child comment-->
+                                                <div class="ms-5">
+                                                    <div class="d-flex mt-1">
+
+                                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">작성자</div>
+                                                            <div class="reply">
+                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                                <div class="button-container" style="float:right ;">
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="button"> <i
+                                                                            class="bi bi-hand-thumbs-up"></i>13</button>
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="button">신고</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
 
-
-                                        <div class="d-flex mt-2">
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="submit">수정</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">취소</button>
+                                                <div class="d-flex mt-2">
+                                                    <div class="flex-shrink-0"><img class="rounded-circle"
+                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                            alt="...">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <div class="fw-bold">작성자</div>
+                                                        <div class="reply">
+                                                            sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                            <div class="button-container" style="float:right ;">
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="submit">수정</button>
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="button">취소</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+
+
+                                                <div class="d-flex mt-2">
+                                                    <div class="flex-shrink-0"><img class="rounded-circle"
+                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                            alt="...">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <div class="fw-bold">작성자</div>
+                                                        <div class="reply">
+                                                            sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                            <div class="button-container" style="float:right ;">
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="submit">수정</button>
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="button">취소</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
+
                                         </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <script>
 
-                                    </div>
-
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-
-
-
-            </div>
-
-            <script>
-
-                var htmlContent = '<p><br></p><p><iframe frameborder="0" src="//www.youtube.com/embed/XLo_K6GkGHk" width="640" height="360" class="note-video-clip"></iframe></p><p>오킹 재밌음 봐봐</p>';
-                // ID를 사용하여 textarea 요소를 선택합니다.
-                var content = document.getElementById('content');
-                // innerHTML 속성을 사용하여 HTML 내용을 설정합니다.
-                content.innerHTML = htmlContent;
+                            var htmlContent = '<p><br></p><p><iframe frameborder="0" src="//www.youtube.com/embed/XLo_K6GkGHk" width="640" height="360" class="note-video-clip"></iframe></p><p>오킹 재밌음 봐봐</p>';
+                            // ID를 사용하여 textarea 요소를 선택합니다.
+                            var content = document.getElementById('content');
+                            // innerHTML 속성을 사용하여 HTML 내용을 설정합니다.
+                            content.innerHTML = htmlContent;
 
 
-                // 수정버튼
-                $("#modi").on("click", function () {
-                    $('#content').summernote({
-                        placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
-                        height: 600,
-                        focus: true,
-                        maxHeight: 800,
-                        minHeight: 200,
-                        lang: 'ko-KR', // default: 'en-US'
-                        toolbar: [
-                            ['style', ['style']],
-                            ['font', ['bold', 'underline', 'clear']],
-                            ['color', ['color']],
-                            ['para', ['ul', 'ol', 'paragraph']],
-                            ['table', ['table']],
-                            ['insert', ['picture', 'video']],
-                            ['view', ['codeview', 'help']]
-                        ]
-                    });
-                })
+                            // 수정버튼
+                            $("#modi").on("click", function () {
+                                $('#content').summernote({
+                                    placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
+                                    height: 600,
+                                    focus: true,
+                                    maxHeight: 800,
+                                    minHeight: 200,
+                                    lang: 'ko-KR', // default: 'en-US'
+                                    toolbar: [
+                                        ['style', ['style']],
+                                        ['font', ['bold', 'underline', 'clear']],
+                                        ['color', ['color']],
+                                        ['para', ['ul', 'ol', 'paragraph']],
+                                        ['table', ['table']],
+                                        ['insert', ['picture', 'video']],
+                                        ['view', ['codeview', 'help']]
+                                    ]
+                                });
+                            })
 
-                // 완료
-                $("#save").on("click", function () {
-                    var markup = $('#content').summernote('code');
-                    $('#content').summernote('destroy');
-                })
+                            // 완료
+                            $("#save").on("click", function () {
+                                var markup = $('#content').summernote('code');
+                                $('#content').summernote('destroy');
+                            })
 
 
 
-            </script>
+                        </script>
+
+
+                    </div>
+
+
+                </c:when>
+                <c:otherwise>
+                    <div class="container">
+
+                        <div class="row header">
+                            <h2>자유게시판</h2>
+                            <br>
+                        </div>
+
+                        <div class="row body">
+                            <table>
+                                <tr>
+                                    <td>
+                                        카테고리 : 일상
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>글번호 : ${result.seq} | 작성자 : ${result.writer} </td>
+                                </tr>
+
+                                <tr>
+                                    <td>제목 :
+                                        우동을 먹었더니 냉우동이...
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        <div id="content"></div>
+                                    </td>
+                                </tr>
+
+
+
+                            </table>
+                        </div>
+
+                        <div class="row footer">
+
+                            <table>
+                                <tr>
+                                    <td>
+
+                                        <div class="card">
+
+                                            <div class="card-body" class="mt-5 ">
+
+                                                <!-- Comment form-->
+                                                <textarea id="write_reply" class="form-control mt-3" rows="3"
+                                                    placeholder="댓글을 작성해주세요!"></textarea>
+                                                <a href="#" class="btn btn-primary btn-sm mt-2 "
+                                                    style="float:right;">작성</a>
+                                                <!-- Comment with nested comments-->
+
+                                                <!-- Parent comment-->
+                                                <div class="d-flex mt-5">
+                                                    <div class="flex-shrink-0"><img class="rounded-circle"
+                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                            alt="...">
+                                                    </div>
+                                                    <div class="ms-3">
+                                                        <div class="fw-bold">작성자</div>
+                                                        <div class="reply">
+                                                            sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                            <div class="button-container"
+                                                                style="float:right ; margin-top: 10px;">
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="submit">수정</button>
+                                                                <button class="btn btn-outline-primary btn-sm"
+                                                                    type="button">취소</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!-- child comment-->
+                                                <div class="ms-5">
+                                                    <div class="d-flex mt-1">
+
+                                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">작성자</div>
+                                                            <div class="reply">
+                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                                <div class="button-container"
+                                                                    style="float:right ; margin-top: 10px;">
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="submit">수정</button>
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="button">취소</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- child comment-->
+                                                <div class="ms-5">
+                                                    <div class="d-flex mt-1">
+
+                                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
+                                                                alt="...">
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">작성자</div>
+                                                            <div class="reply">
+                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                                <div class="button-container"
+                                                                    style="float:right ; margin-top: 10px;">
+                                                                    <button class="btn btn-outline-primary btn-sm"
+                                                                        type="button"> <i
+                                                                            class="bi bi-hand-thumbs-up"></i>13</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                        </div>
+                    </div>
+                </c:otherwise>
+
+            </c:choose>
+
 
 
         </body>

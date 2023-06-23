@@ -93,7 +93,7 @@
 
         <c:when test="${user == '1003'}">
 
-          <form id="frm" action="/board/inputFree" method="get">
+          <form id="frm" action="/board/inputFree" method="post">
             <div class="container">
 
               <div class="header">
@@ -227,7 +227,7 @@
         $(document).ready(function () {
 
           $('#content').summernote({
-            placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
+            placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
             height: 600,
             focus: true,
             maxHeight: 800,
@@ -245,12 +245,63 @@
             ], callbacks: { //이미지 복 붙 안되게
               onImageUpload: function (data) {
                 data.pop();
-              }
+              },
+              onKeyup: function(data) {
+      	        checkContentLength();
+      	      },
+      	      onPaste: function(data) {
+      	        checkContentLength();
+      	      }
+      	      
             }
-          });
-
+          
+          })
         });
 
+     
+
+        
+        
+        function checkContentLength() {
+            var maxLength = 300;
+            var content = $('#content').summernote('code');
+            console.log(content); // 태그 및 문법 사용됨
+
+            var text = $('<div>').html(content).text();
+            console.log(text); // 태그 및 문법 제거됨 (공백 포함)
+
+            var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
+            var iframeCount = iframeTags.length; // 영상 개수
+
+            var contentLength = text.length + (iframeCount * 200);
+
+            console.log("contentLength: " + contentLength);
+            console.log("Iframe Count: " + iframeCount);
+
+            if (contentLength > maxLength) {
+            	  alert("내용은 최대 1300자까지 입력할 수 있습니다.");
+            	  $('#content').summernote('code', content.substring(0, maxLength));
+                }
+
+              
+            }
+       
+
+        
+        $("#title").on("input", function() {
+            var maxLength = 50;
+            var title = $(this).val();
+            
+            if (title.length > maxLength) {
+                alert("제목은 최대 50자까지 입력할 수 있습니다.");
+                title = title.slice(0, maxLength - 1);
+                $(this).val(title);
+
+            }
+        });
+
+        
+        
         $("#frm").on("submit", function () {
           if ($("select[id=headline] option:selected").val() == 0) {
             alert("카테고리를 선택해주세요.");
