@@ -204,7 +204,7 @@ div.button, div.checker, div.radio, div.selector, div.uploader {
 	<main>
 		<div class="container">
 			<div class="header title">
-				<h2 class="p-2">나의 장바구니 목록</h2>
+				<h2 class="text-center p-4">나의 장바구니 목록</h2>
 			</div>
 			<div class="row">
 				<div class="col-6 d-none d-md-block col-md-6 extraBox">
