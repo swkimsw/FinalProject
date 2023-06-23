@@ -47,6 +47,10 @@
 	<select id="isCountRequest" resultType="int">
 		select count(*) from requestlist where parentcode=${code}
 	</select>
+	
+	<select id="isExistRequest" resultType="int">
+		select count(*) from requestlist where parentcode=${code} and membercode=${memberCode}
+	</select>
 
 
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">

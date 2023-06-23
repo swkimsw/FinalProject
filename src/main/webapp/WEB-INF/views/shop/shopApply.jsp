@@ -429,8 +429,8 @@
 				return false;
 			}
 			
-			let code = $("#code").val();
-			let memberCode = 0${sessionScope.code};
+			let code = $("#code").val(); // 공구샵 코드
+			let memberCode = 0${sessionScope.code}; // 멤버 코드
 			let max = $("#max").val();
 			
 			// 최대 인원수가 되면 더 이상 신청하지 못하도록			
@@ -442,19 +442,15 @@
 					code:code
 				}
 			}).done(function(resp) {
-				resp = 25;
-				console.log(resp);
-				console.log(max);
 				if(resp == max){
 					alert("신청 인원이 꽉 찼습니다");
 					return false;
 				}
-				
 			})
 			
 			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
 			$.ajax({
-				url:"/shop/",
+				url:"/shop/isExistRequest",
 				type:"post",
 				dataType:"json",
 				data:{
@@ -462,11 +458,13 @@
 					memberCode:memberCode
 				}
 			}).done(function(resp) {
-				
+				if(resp){
+					alert("이미 신청한 공구입니다!");
+					return false;
+				}
 			})
-			
-			
-			//location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
+		
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 		})
 		
 		// 답글 달기 버튼 눌렀을 때
@@ -527,9 +525,6 @@
 			$("#replyAnswerBtns"+code).append(updateReplyComplete);
 			$("#replyAnswerBtns"+code).append(cancel);
 		}
-		
-		
-		
 		
 	</script>
 </body>

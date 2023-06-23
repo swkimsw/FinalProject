@@ -68,12 +68,14 @@ public class ShopDAO {
 	}
 	
 	public int isCountRequest(int code) {
-		return db.selectOne("isCountRequest", code);
+		return db.selectOne("Shop.isCountRequest", code);
 	}
 	
 	public int isExistRequest(int code, String memberCode) {
-		//Map<>
-		return db.selectOne("isExistRequest", code);
+		Map<String, Object> param = new HashMap<>();
+		param.put("code", code);
+		param.put("memberCode", memberCode);
+		return db.selectOne("Shop.isExistRequest", param);
 	}
 
 }
