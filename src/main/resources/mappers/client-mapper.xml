@@ -33,4 +33,8 @@
 	<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
 		select * from Member where id = #{id}
 	</select>
+	
+	<select id="checkPw" resultType="boolean">
+		select count(*) from Member where id = #{id} and pw = #{pw}
+	</select>
 </mapper>
