@@ -162,6 +162,11 @@ public class ShopService {
 	public int insertShopRequest(RequestListDTO dto) {
 		return shopDAO.insertShopRequest(dto);
 	}
+	
+	// 최대 인원수가 되면 더 이상 신청하지 못하도록 - 요청 인원수 select
+	public int isCountRequest(int code) {
+		return shopDAO.isCountRequest(code);
+	}
 
 
 
