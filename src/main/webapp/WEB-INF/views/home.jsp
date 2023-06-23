@@ -623,11 +623,16 @@
 			$("#aiMealAddBtn").on("click", function(){
 				
 				$.ajax({
-					url: "/meal/aiAddAiMeal",
-					type: "post",
-					data: {
-						aiMealArr : aiMealArr
-					}
+				    type: 'POST',
+				    url: '/meal/addAiMeal',
+				    data: JSON.stringify(aiMealArr),
+				    contentType: 'application/json',
+				    success: function(response) {
+				        console.log(response);
+				    },
+				    error: function(error) {
+				        console.log(error);
+				    }
 				});
 			});
 			
