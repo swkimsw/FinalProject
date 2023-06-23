@@ -43,6 +43,10 @@
 		insert into requestlist
 		values(request_list_seq.nextval,#{memberCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
+	
+	<select id="isCountRequest" resultType="int">
+		select count(*) from requestlist where parentcode=${code}
+	</select>
 
 
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
