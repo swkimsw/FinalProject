@@ -167,6 +167,11 @@ public class ShopService {
 	public int isCountRequest(int code) {
 		return shopDAO.isCountRequest(code);
 	}
+	
+	// 이미 공구 신청한 경우 더 이상 신청하지 못하도록 - 해당 멤버코드로 신청 select
+	public int isExistRequest(int code, String memberCode) {
+		return shopDAO.isExistRequest(code, memberCode);
+	}
 
 
 

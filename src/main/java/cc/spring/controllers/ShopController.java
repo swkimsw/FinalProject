@@ -147,9 +147,12 @@ public class ShopController {
 	}
 	
 	// 이미 공구 신청한 경우 더 이상 신청하지 못하도록 - 해당 멤버코드로 신청 select
-//	@ResponseBody
-//	@RequestMapping("")
-//	public int 
+	@ResponseBody
+	@RequestMapping("isExistRequest")
+	public int isExistRequest(int code, String memberCode) {
+		int result = shopService.isExistRequest(code, memberCode);
+		return result;
+	}
 
 
 	//최은지 Part

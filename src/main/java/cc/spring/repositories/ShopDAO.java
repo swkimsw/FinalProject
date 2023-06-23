@@ -70,5 +70,10 @@ public class ShopDAO {
 	public int isCountRequest(int code) {
 		return db.selectOne("isCountRequest", code);
 	}
+	
+	public int isExistRequest(int code, String memberCode) {
+		//Map<>
+		return db.selectOne("isExistRequest", code);
+	}
 
 }
