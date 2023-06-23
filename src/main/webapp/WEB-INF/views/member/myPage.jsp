@@ -37,77 +37,61 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
-
+<!-- DataTables -->
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <style>
 * {
 	font-family: NanumSquareNeo;
-	border: 1px solid black;
-}
-.font{
-font-size: 10px;
+	/* border: 1px solid black; */
 }
 
-.th{
-	text-align: inherit;
+.font {
+	font-size: 10px;
 }
-.font_1 {
-	
+
+table {
+	margin: auto;
 }
 
 .container {
 	margin-top: 100px;
 }
 
-tbody {
-	/* display: p; */
-	
+.hd1 {
+	width: 50px;
+	text-align: center;
 }
 
-thead {
-	margin-bottom: 5px;
-	border-radius: 0;
-	height: 70px;
-}
-.btValue{
-height: 20px;
-
-}
-.board {
-	/* background-color: white; */
-	background-color: #007936;
-	color: white;
+.hd2 {
+	width: 100px;
+	text-align: center;
 }
 
-thead:hover {
-	background-color: #00793650;
-	opacity: 75%;
-	color: black;
+.hd3 {
+	width: 70%;
+	text-align: center;
 }
 
-a {
-	color: white;
+.hd4 {
+	width: 50px;
+	text-align: center;
 }
 
-.text-muted {
-	color: #8898aa !important;
+.hd5 {
+	width: 50px;
+	text-align: center;
 }
 
-./* user-table tbody tr .category-select {
-	max-width: 150px;
-	border-radius: 20px;
-} */
-
-.font_1 {
-	font-size: 16px;
+.hd6 {
+	width: 100px;
+	text-align: center;
 }
 
-.th_nul {
-	width: 10px;
+.b1 {
+	text-align: center;
 }
 
-.current-page {
-	color: white;
-}
 /* h1태그 */
 h1.second {
 	font-weight: 200;
@@ -177,139 +161,59 @@ h1.second span:after {
 				<div class="row font_1">
 					<div class="col">
 						<div class="row">
-									<table class="table">
-							<c:forEach var="i" items="${list}">
-										<thead>
-											<tr>
-												<th>${i.headlineValue}</th>
-												<th>${i.boardkindValue}</th>
-												<th colspan='3'>${i.title}</th>
-											</tr>
-											<tr class="btValue">
-												<td class="font">${i.membercode}</td>
-												<td class="font num1">${i.regdate}</td>
-												<td class="font num1">${i.viewcount}</td>
-												<td class="font num1">${i.likecount}</td>
-											</tr>
-											<br>
-										</thead>
-							</c:forEach>
-									</table>
-
-
-
-							<%-- <table
-								summary="This table shows how to create responsive tables using Datatables' extended functionality"
-								class="table table-bordered table-hover dt-responsive">
-								<colgroup>
-								<col style="width:5%">
-								<col style="width:7%">
-								<col style="width:40%">
-								<col style="width:5%">
-								<col style="width:5%">
-								<col style="width:5%">
-								</colgroup>
+							<table id="myTable">
 								<thead>
-									<tr class="boradTop">
-										<th>no.</th>
-										<th>작성자</th>
-										<th class="">제목</th>
-										<th>작성일</th>
-										<th>조회수</th>
-										<th>추천</th>
+									<tr>
+										<th class="hd1" scope="col">NO</th>
+										<th class="hd1">말머리</th>
+										<th class="hd2">게시판종류</th>
+										<th class="hd3">게시판제목</th>
+										<th class="hd4">붐업</th>
+										<th class="hd5">발자국</th>
+										<th class="hd6">게시글날짜</th>
 									</tr>
 								</thead>
 								<tbody>
-								
-								<td>1</td>
-								<td>?</td>
-								<td>31221</td>
-								<td>2012/05/12</td>
-								<td>1</td>
-								<td>1</td>
-									<c:forEach var="i" items="${recordList}">
-										<div class="col-4 col-lg-2">
+									<c:forEach var="i" items="${list}" varStatus="status">
+										
 											<tr>
-												<td>no : ${i.seq}</td>
-												<td>${i.writer}</td>
-												<td><a
-													href="secondHandBoardContents.secondHand?seq=${i.seq}&currentPage=1">${i.title}</a></td>
-												<td class="col d-none d-md-block" style="height: 55px;">${i.view_count}</td>
-												<td>${i.detailDate}</td>
-												<td>0</td>
-
+												<td class="b1">${status.count}</td>
+												<td class="b1">${i.headlineValue}</td>
+												<td class="b1">${i.boardkindValue}</td>
+												<td><a href="#">${i.title}</a></td>
+												<td class="b1">${i.membercode}</td>
+												<td class="b1">${i.viewcount}</td>
+												<td class="b1">${i.likecount}</td>
 											</tr>
-										</div>
 									</c:forEach>
-
-
 								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="6" class="text-center">ㅇㄴ</td>
-									</tr>
-								</tfoot>
-							</table> --%>
+							</table>
+							<br>
+							<!-- <div class="row">
+								<div class="col">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination justify-content-center">
+											<li class="page-item"><a class="page-link" href="#"
+												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											</a></li>
+											<li class="page-item active"><a class="page-link"
+												href="#">1</a></li>
+											<li class="page-item"><a class="page-link" href="#">2</a></li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item"><a class="page-link" href="#"
+												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											</a></li>
+										</ul>
+									</nav>
+								</div>
+							</div> -->
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-		<br>
-
-		<nav aria-label="Page navigation example" align="center">
-			<ul class="pagination d-flex justify-content-center">
-				<c:forEach var="i" items="${navi}">
-					<c:choose>
-						<c:when test="${i eq '<<'}">
-							<li class="page-item"><a class="page-link"
-								href="/secondHand.adminBoard?cpage=${start}">${i}</a></li>
-						</c:when>
-						<c:when test="${i eq '<'}">
-							<li class="page-item"><a class="page-link"
-								href="/secondHand.adminBoard?cpage=${cpage - 1}">${i}</a></li>
-						</c:when>
-						<c:when test="${i eq '>'}">
-							<li class="page-item"><a class="page-link"
-								href="/secondHand.adminBoard?cpage=${cpage + 1}">${i}</a></li>
-						</c:when>
-						<c:when test="${i eq '>>'}">
-							<li class="page-item"><a class="page-link"
-								href="/secondHand.adminBoard?cpage=${end}">${i}</a></li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item"><a
-								class="page-link ${i == cpage ? 'current-page' : ''}"
-								href="/secondHand.adminBoard?cpage=${i}"
-								${i == cpage ? "disabled" : ""} onclick="${i == cpage ? "event.preventDefault()" : ""}">
-									${i} </a></li>
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-			</ul>
-		</nav>
-
-	</div>
-	</div>
-	<script>
-	var currentPage = ${cpage}; // 현재 페이지 번호
-	var pageLinks = document.querySelectorAll(".page-link"); // 페이지 링크 요소들을 가져옴
-	for (var i = 0; i < pageLinks.length; i++) {
-	  // 페이지 링크 요소들에 클릭 이벤트를 추가
-	  pageLinks[i].addEventListener("click", function(event) {
-		if (parseInt(event.target.textContent) === currentPage) {
-		  // 현재 페이지 번호와 클릭한 페이지 번호가 같으면 클릭 이벤트를 막음
-		  event.preventDefault();
-		} else {
-		  // 현재 페이지 번호와 클릭한 페이지 번호가 다르면 링크를 따라 이동
-		  window.location.href = event.target.getAttribute("href");
-		}
-		
-	  });
-	}
-	
-	const currentPage2 = document.querySelector('.current-page');
-	currentPage2.style.backgroundColor = '#1e3c3e';
-  </script>
+					<script>
+					
+						$(document).ready(function() {
+							   $('#myTable').DataTable();
+							});
+					</script>
 </body>
 </html>

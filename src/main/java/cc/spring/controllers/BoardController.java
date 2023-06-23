@@ -32,10 +32,10 @@ import cc.spring.services.FileService;
 public class BoardController {
 
 	@Autowired
-	private BoardService boardservice;
+	private BoardService boardService;
 
 	@Autowired
-	private FileService fileservice;
+	private FileService fileService;
 
 	@Autowired
 	private HttpSession session;
@@ -63,7 +63,7 @@ public class BoardController {
 
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
 
-		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
+		List<BoardFreeDTO> list = boardService.selectFreelist(); //자유게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list); 
 
