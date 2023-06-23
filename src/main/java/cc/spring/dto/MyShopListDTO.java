@@ -32,7 +32,7 @@ public class MyShopListDTO {
 	//기본 생성자
 	public MyShopListDTO() {}
 	
-	// 이름,아이디 get용 생성자
+	// 이름,사업아이디 get용 생성자
 	public MyShopListDTO(String clientId, String businessId, String name, String companyName){
 		super();
 		this.clientId = clientId;

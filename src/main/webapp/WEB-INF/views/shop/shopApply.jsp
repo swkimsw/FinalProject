@@ -77,7 +77,7 @@
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="input-group mb-3">
 							<input type="hidden" id="code" name="code" value="${shopDTO.code}">
-							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
+							<input type="hidden" id="memberCode" name="memberCode" value="${shopDTO.memberCode}">
 							<input class="form-control form-control-lg" type="text" id="title" name="title" value="${shopDTO.title}" aria-label=".form-control-lg example" required readonly>
 						</div>
 					</div>
@@ -115,13 +115,21 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">개수</span>
-						<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" required>
+						<c:choose>
+							<c:when test="${sessionScope.authGradeCode == 1003}">
+								<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" required>
+							</c:when>
+							<c:otherwise>
+								<input type="text" class="form-control" placeholder="입력해 주세요" id="quantity" name="quantity" readonly>
+							</c:otherwise>
+						</c:choose>
+						<span class="input-group-text">개</span>
 					</div>
 				</div>
 				<div id="imageSelect" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto; display:none;">
   					<label for="formFile" class="form-label">사진 선택</label>
 						<div class="input-group mb-3">
-  							<input class="form-control" type="file" id="files" name="files" multiple required>
+  							<input class="form-control" type="file" id="files" name="files" multiple>
   						</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -202,8 +210,8 @@
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="mb-3">
 							<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
-							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.memberCode}">
-  							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${sessionScope.nickName}</label>
+							<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.code}">
+  							<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${sessionScope.nickname}</label>
 							<div class="reply">
  						 		<textarea class="form-control" id="insertReply" name="content" rows="3"></textarea>
  								<div>
@@ -234,7 +242,7 @@
 		<!-- 댓글 리스트 -->
 		<c:forEach var="i" items="${shopReplyAskDTO}">
 			<c:choose>
-				<c:when test="${i.memberCode == sessionScope.memberCode}">
+				<c:when test="${i.memberCode == sessionScope.code}">
 					<form action="/shopReply/updateReplyAsk" method="post">
 						<!-- 본인이 작성한 댓글인 경우 -->
 						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -269,14 +277,14 @@
 						</c:if>
 					</c:forEach>
 				</c:when>
-				<c:when test="${shopDTO.memberCode == sessionScope.memberCode}">
+				<c:when test="${shopDTO.memberCode == sessionScope.code}">
 					<form action="/shopReply/insertReplyAnswer" method="post">
 						<!-- 판매자인 경우 -->
 						<div id="businessReplyAsk${i.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 							<div class="mb-3">
 								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
 								<input type="hidden" name="askCode" value="${i.code}">
-								<input type="hidden" id="businessCode" name="businessCode" value="${sessionScope.memberCode}">
+								<input type="hidden" id="memberCode" name="memberCode" value="${sessionScope.code}">
   								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
 								<div class="reply">
  									<textarea class="selectReply form-control" rows="3" readonly>${i.content}</textarea>
@@ -345,6 +353,7 @@
 	</div>
 	</main>
 	<script>
+	
 		// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
 		$("#updateBtn").on("click", function(){
 			$("#title").removeAttr("readonly");
@@ -362,7 +371,7 @@
 			
 			$("#updateBtn, #deleteBtn, #back").css("display", "none");
 
-			let updateComplete = $("<button class='btn btn-success'>");
+			let updateComplete = $("<button id='updateCompleteBtn' class='btn btn-success'>");
 			updateComplete.text("수정 완료");
 			
 			let cancel = $("<button type='button' class='btn btn-success'>");
@@ -376,13 +385,88 @@
 			$(".buttons").append(cancel);
 		})
 		
+		// 공구 수정 완료 버튼 클릭시 유효성 검사
+		$(document).on("click", "#updateCompleteBtn", function(){
+			
+			let regexProductPrice = /^[0-9]+$/;
+			let regexMin = /^[0-9]+$/;
+			let regexMax = /^[0-9]+$/;
+			
+			let productPrice = $("#productPrice").val();
+			let min = $("#min").val();
+			let max = $("#max").val();
+			
+			let resultProductPrice = regexProductPrice.exec(productPrice);
+			let resultMin = regexMin.exec(min);
+			let resultMax = regexMax.exec(max);
+			
+			if(!resultProductPrice){
+				alert("상품가격 은 숫자로 입력해 주세요!");
+				return false;
+			}
+			
+			if(!resultMin){
+				alert("최소 인원 은 숫자로 입력해 주세요!");
+				return false;
+			}
+			
+			if(!resultMax){
+				alert("최대 인원 은 숫자로 입력해 주세요!");
+				return false;
+			}
+		})
+		
 		// 공구 신청 버튼 클릭시
 		$("#insertRequestBtn").on("click", function(){
-			let quantity = $("#quantity").val();
-			let code = $("#code").val();
-			let memberCode = ${sessionScope.memberCode};
 			
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
+			// 유효성 검사
+			let regexQuantity = /^[0-9]+$/;
+			
+			let quantity = $("#quantity").val();
+			let resultQuantity = regexQuantity.exec(quantity);
+			if(!resultQuantity){
+				alert("개수는 한글/영어 제외 숫자만 입력해 주세요!");
+				return false;
+			}
+			
+			let code = $("#code").val();
+			let memberCode = 0${sessionScope.code};
+			let max = $("#max").val();
+			
+			// 최대 인원수가 되면 더 이상 신청하지 못하도록			
+			$.ajax({
+				url:"/shop/isCountRequest",
+				type:"post",
+				dataType:"json",
+				data:{
+					code:code
+				}
+			}).done(function(resp) {
+				resp = 25;
+				console.log(resp);
+				console.log(max);
+				if(resp == max){
+					alert("신청 인원이 꽉 찼습니다");
+					return false;
+				}
+				
+			})
+			
+			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
+			$.ajax({
+				url:"/shop/",
+				type:"post",
+				dataType:"json",
+				data:{
+					code:code,
+					memberCode:memberCode
+				}
+			}).done(function(resp) {
+				
+			})
+			
+			
+			//location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 		})
 		
 		// 답글 달기 버튼 눌렀을 때

@@ -34,6 +34,7 @@ public class ShopService {
 	@Autowired
 	private BusinessMemberDAO businessMemberDAO;
 	
+//--김은지 Part---------------------------------------------------------------------------------------------------------	
 	// 공구샵 등록 insert
 	@Transactional
 	public void insertShop(ShopDTO dto, String shippingCompany, MultipartFile[] files, String realPath) throws Exception {
@@ -94,43 +95,7 @@ public class ShopService {
 	public List<FileDTO> selectShopImg(int code) {
 		return fileDAO.selectShopImg(code);
 	}
-
-	// 전체 공구 목록
-	public List<ShopListDTO> shopList(){
-		return shopDAO.shopList();
-	}
 	
-	//status별 공구 목록
-	public List<ShopListDTO> getStatusList(String status){
-		return shopDAO.getStatusList(status);
-	}
-		
-	// 공구 검색
-	public List<ShopListDTO> searchByKeyword(String category,String keyword){
-		return shopDAO.searchByKeyword(category,keyword);
-	}
-	
-	//이름, id 가져오기
-	public MyShopListDTO getInfo(int code) {
-		return shopDAO.getInfo(code);
-	}
-	
-	//일반회원 내 공구 신청 목록
-	public List<MyShopListDTO> clientBuyingList(int code){
-		return shopDAO.clientBuyingList(code);
-	}
-	
-	//사업자회원 내 공구 등록 목록 
-	public List<MyShopListDTO> businessRegisterList(int code){
-		return shopDAO.businessRegisterList(code);
-	}
-	
-	//사업자회원용 공구 신청인 정보 목록
-	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
-		return shopDAO.buyingMemberInfoList(groupbuyingCode);
-	}
-
-
 	// 공구샵 수정 update
 	@Transactional
 	public void updateShop(ShopDTO dto, String shippingCompany, MultipartFile[] files, String realPath) throws Exception {
@@ -176,6 +141,47 @@ public class ShopService {
 	// 공구 신청 insert
 	public int insertShopRequest(RequestListDTO dto) {
 		return shopDAO.insertShopRequest(dto);
+	}
+	
+	// 최대 인원수가 되면 더 이상 신청하지 못하도록 - 요청 인원수 select
+	public int isCountRequest(int code) {
+		return shopDAO.isCountRequest(code);
+	}
+
+//--최은지 Part---------------------------------------------------------------------------------------------------------	
+	// 전체 공구 목록
+	public List<ShopListDTO> shopList(){
+		return shopDAO.shopList();
+	}
+	
+	//status별(진행중,마감,종료) 공구 목록
+	public List<ShopListDTO> getStatusList(String status){
+		return shopDAO.getStatusList(status);
+	}
+		
+	// 공구 카테고리별 키워드 검색
+	public List<ShopListDTO> searchByKeyword(String category,String keyword){
+		return shopDAO.searchByKeyword(category,keyword);
+	}
+	
+	//로그인한 회원의 이름, 사업장명, id만 가져오기
+	public MyShopListDTO getInfo(int code) {
+		return shopDAO.getInfo(code);
+	}
+	
+	//일반회원 내 공구 신청 목록
+	public List<MyShopListDTO> clientBuyingList(int code){
+		return shopDAO.clientBuyingList(code);
+	}
+	
+	//사업자회원 내 공구 등록 목록 
+	public List<MyShopListDTO> businessRegisterList(int code){
+		return shopDAO.businessRegisterList(code);
+	}
+	
+	//사업자회원용 공구 신청인 정보(이름,배송지,전화번호,수량 등등) 목록
+	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
+		return shopDAO.buyingMemberInfoList(groupbuyingCode);
 	}
 
 

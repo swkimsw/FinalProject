@@ -19,6 +19,7 @@ public class ShopDAO {
 	@Autowired
 	private SqlSessionTemplate db;
 	
+//---김은지 part------------------------------------------------------------------------------------------------
 	public int insertShop(ShopDTO dto) {
 		db.insert("Shop.insertShop", dto);
 		return dto.getCode();
@@ -48,6 +49,12 @@ public class ShopDAO {
 		return db.insert("Shop.insertShopRequest", dto);
 	}
 	
+	public int isCountRequest(int code) {
+		return db.selectOne("isCountRequest", code);
+	}
+
+	
+//---최은지 part------------------------------------------------------------------------------------------------
 	public List<ShopListDTO> shopList() {
 		return db.selectList("Shop.shopList");
 	}
@@ -78,5 +85,5 @@ public class ShopDAO {
 	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
 		return db.selectList("Shop.buyingMemberInfoList", groupbuyingCode);
 	}
-
+	
 }
