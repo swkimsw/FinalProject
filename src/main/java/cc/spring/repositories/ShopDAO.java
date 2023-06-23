@@ -63,8 +63,20 @@ public class ShopDAO {
 		return db.selectList("Shop.searchByKeyword",param);
 	}
 	
+	public MyShopListDTO getInfo(int code) {
+		return db.selectOne("Shop.getInfo",code);
+	}
+	
 	public List<MyShopListDTO> clientBuyingList(int code){
 		return db.selectList("Shop.clientBuyingList",code);
+	}
+	
+	public List<MyShopListDTO> businessRegisterList(int code){
+		return db.selectList("Shop.businessRegisterList",code);
+	}
+	
+	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
+		return db.selectList("Shop.buyingMemberInfoList", groupbuyingCode);
 	}
 
 }

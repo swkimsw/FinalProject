@@ -95,24 +95,39 @@ public class ShopService {
 		return fileDAO.selectShopImg(code);
 	}
 
-	// 공구샵 상품 목록
+	// 전체 공구 목록
 	public List<ShopListDTO> shopList(){
 		return shopDAO.shopList();
 	}
 	
-	//마감된 공구 목록
+	//status별 공구 목록
 	public List<ShopListDTO> getStatusList(String status){
 		return shopDAO.getStatusList(status);
 	}
 		
-	// 공구샵 삼품 목록 검색
+	// 공구 검색
 	public List<ShopListDTO> searchByKeyword(String category,String keyword){
 		return shopDAO.searchByKeyword(category,keyword);
 	}
 	
-	//일반회원 내 공구목록
+	//이름, id 가져오기
+	public MyShopListDTO getInfo(int code) {
+		return shopDAO.getInfo(code);
+	}
+	
+	//일반회원 내 공구 신청 목록
 	public List<MyShopListDTO> clientBuyingList(int code){
 		return shopDAO.clientBuyingList(code);
+	}
+	
+	//사업자회원 내 공구 등록 목록 
+	public List<MyShopListDTO> businessRegisterList(int code){
+		return shopDAO.businessRegisterList(code);
+	}
+	
+	//사업자회원용 공구 신청인 정보 목록
+	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
+		return shopDAO.buyingMemberInfoList(groupbuyingCode);
 	}
 
 

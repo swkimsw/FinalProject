@@ -163,7 +163,7 @@ public class ShopController {
  			return "/shop/shopList";
  		}
  	
- 	 //공구 목록 검색
+ 	 //공구 목록 검색 (카테고리별)
  	 	@ResponseBody
  	 	@RequestMapping("searchByKeyword")
  	 	public List<ShopListDTO> searchByKeyword(String category, String keyword) throws Exception{
@@ -193,11 +193,13 @@ public class ShopController {
  	 public String toMyShopList(Model model) {
  		int code = (Integer)session.getAttribute("code");
  		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
- 		List<MyShopListDTO> list = new ArrayList<>();
+ 		MyShopListDTO info = shopService.getInfo(code);
+ 		model.addAttribute("info",info);
  		
+ 		List<MyShopListDTO> list = new ArrayList<>();
  		//사업자일때
  		if(authGradeCode == 1002) {
- 			
+ 			list = shopService.businessRegisterList(code);
  			
  		//일반회원일때	
  		}else if(authGradeCode == 1003) {
@@ -208,6 +210,16 @@ public class ShopController {
  	 	return "/shop/myShopList";
  	 }
 
+ 	 //사업자회원용 공구 신청인 정보 목록
+ 	 @RequestMapping("buyingMemberInfoList")
+ 	 public String buyingMemberInfoList(int groupbuyingCode, Model model) {
+ 		List<MyShopListDTO> list = shopService.buyingMemberInfoList(groupbuyingCode);
+ 		model.addAttribute("list",list);
+ 		return "/";
+ 	 }
+ 	 
+ 	 
+ 	 
 	// 공구샵 수정
 	@RequestMapping("updateShop")
 	public String updateShop(ShopDTO dto, String shippingCompany, MultipartFile[] files) throws Exception {
