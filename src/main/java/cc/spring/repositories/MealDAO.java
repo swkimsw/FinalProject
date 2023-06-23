@@ -43,4 +43,12 @@ public class MealDAO {
 	public int deleteMeal(MealDTO dto) {
 		return mybatis.delete("Meal.deleteMeal", dto);
 	}
+	
+	public int updateMeal(MealDTO dto, String modDate, int modTime) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("mealDTO", dto);
+		param.put("modDate", modDate);
+		param.put("modTime", modTime);
+		return mybatis.update("Meal.updateMeal", param);
+	}
 }

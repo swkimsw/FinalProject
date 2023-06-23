@@ -1,53 +1,54 @@
 package cc.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class BoardAnnouncementDTO {
 	private int code;
-	private int boardkindcode;
-	private int headlinecode;
-	private int clientcode;
+	private int boardKindCode;
+	private int headLineCode;
+	private int memberCode;
 	private String title;
 	private String content;
-	private int viewcount;
-	private int likecount;
-	private Timestamp regdate;
-	private Timestamp moddate;
-	private Timestamp deldate;
-	private String member_id;
-	private String member_nickname;
+	private int viewCount;
+	private int likeCount;
+	private Timestamp regDate;
+	private Timestamp modDate;
+	private Timestamp delDate; //
+	private String memberId;
+	private String memberName;
 	public BoardAnnouncementDTO() {};
-	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
-			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate) {
+	public BoardAnnouncementDTO(int code, int boardKindCode, int headLineCode, int memberCode, String title,
+			String content, int viewCount, int likeCount, Timestamp regDate, Timestamp modDate, Timestamp delDate) {
 		super();
 		this.code = code;
-		this.boardkindcode = boardkindcode;
-		this.headlinecode = headlinecode;
-		this.clientcode = clientcode;
+		this.boardKindCode = boardKindCode;
+		this.headLineCode = headLineCode;
+		this.memberCode = memberCode;
 		this.title = title;
 		this.content = content;
-		this.viewcount = viewcount;
-		this.likecount = likecount;
-		this.regdate = regdate;
-		this.moddate = moddate;
-		this.deldate = deldate;
+		this.viewCount = viewCount;
+		this.likeCount = likeCount;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
 	}
-	public BoardAnnouncementDTO(int code, int boardkindcode, int headlinecode, int clientcode, String title,
-			String content, int viewcount, int likecount, Timestamp regdate, Timestamp moddate, Timestamp deldate, String member_id , String member_nickname) {
+	public BoardAnnouncementDTO(int code, int boardKindCode, int headLineCode, int memberCode, String title,
+			String content, int viewCount, int likeCount, Timestamp regDate, Timestamp modDate, Timestamp delDate, String memberId , String memberName) {
 		super();
 		this.code = code;
-		this.boardkindcode = boardkindcode;
-		this.headlinecode = headlinecode;
-		this.clientcode = clientcode;
+		this.boardKindCode = boardKindCode;
+		this.headLineCode = headLineCode;
+		this.memberCode = memberCode;
 		this.title = title;
 		this.content = content;
-		this.viewcount = viewcount;
-		this.likecount = likecount;
-		this.regdate = regdate;
-		this.moddate = moddate;
-		this.deldate = deldate;
-		this.member_id = member_id;
-		this.member_nickname = member_nickname;
+		this.viewCount = viewCount;
+		this.likeCount = likeCount;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
+		this.memberId = memberId;
+		this.memberName = memberName;
 	}
 	public int getCode() {
 		return code;
@@ -55,23 +56,23 @@ public class BoardAnnouncementDTO {
 	public void setCode(int code) {
 		this.code = code;
 	}
-	public int getBoardkindcode() {
-		return boardkindcode;
+	public int getBoardKindCode() {
+		return boardKindCode;
 	}
-	public void setBoardkindcode(int boardkindcode) {
-		this.boardkindcode = boardkindcode;
+	public void setBoardKindCode(int boardKindCode) {
+		this.boardKindCode = boardKindCode;
 	}
-	public int getHeadlinecode() {
-		return headlinecode;
+	public int getHeadLineCode() {
+		return headLineCode;
 	}
-	public void setHeadlinecode(int headlinecode) {
-		this.headlinecode = headlinecode;
+	public void setHeadLineCode(int headLineCode) {
+		this.headLineCode = headLineCode;
 	}
-	public int getClientcode() {
-		return clientcode;
+	public int getMemberCode() {
+		return memberCode;
 	}
-	public void setClientcode(int clientcode) {
-		this.clientcode = clientcode;
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
 	}
 	public String getTitle() {
 		return title;
@@ -85,47 +86,48 @@ public class BoardAnnouncementDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getViewcount() {
-		return viewcount;
+	public int getViewCount() {
+		return viewCount;
 	}
-	public void setViewcount(int viewcount) {
-		this.viewcount = viewcount;
+	public void setViewCount(int viewCount) {
+		this.viewCount = viewCount;
 	}
-	public int getLikecount() {
-		return likecount;
+	public int getLikeCount() {
+		return likeCount;
 	}
-	public void setLikecount(int likecount) {
-		this.likecount = likecount;
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
-	public Timestamp getRegdate() {
-		return regdate;
+	public String getRegDate() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy.MM.dd");
+		return formatter.format(regDate);
 	}
-	public void setRegdate(Timestamp regdate) {
-		this.regdate = regdate;
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
 	}
-	public Timestamp getModdate() {
-		return moddate;
+	public Timestamp getModDate() {
+		return modDate;
 	}
-	public void setModdate(Timestamp moddate) {
-		this.moddate = moddate;
+	public void setModDate(Timestamp modDate) {
+		this.modDate = modDate;
 	}
-	public Timestamp getDeldate() {
-		return deldate;
+	public Timestamp getDelDate() {
+		return delDate;
 	}
-	public void setDeldate(Timestamp deldate) {
-		this.deldate = deldate;
+	public void setDelDate(Timestamp delDate) {
+		this.delDate = delDate;
 	}
-	public String getMember_id() {
-		return member_id;
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
-	public String getMember_nickname() {
-		return member_nickname;
+	public String getMemberName() {
+		return memberName;
 	}
-	public void setMember_nickname(String member_nickname) {
-		this.member_nickname = member_nickname;
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
 	}
 
 	
