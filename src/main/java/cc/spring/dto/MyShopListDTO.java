@@ -14,6 +14,7 @@ public class MyShopListDTO {
 	private String zipcode;
 	private String address1;
 	private String address2;
+	private String businessId;
 	private String companyName;
 	private int groupbuyingCode;
 	private int businessCode;
@@ -25,9 +26,22 @@ public class MyShopListDTO {
 	private Timestamp regDate;
 	private String path;
 	private String sysName;
+	private int applyCount;
+	private int applyQuantity;
 	
+	//기본 생성자
 	public MyShopListDTO() {}
-	//일반회원 구매목록용 생성자
+	
+	// 이름,사업아이디 get용 생성자
+	public MyShopListDTO(String clientId, String businessId, String name, String companyName){
+		super();
+		this.clientId = clientId;
+		this.businessId = businessId;
+		this.name = name;
+		this.companyName = companyName;
+	}
+	
+	//일반회원 내 구매목록용 생성자
 	public MyShopListDTO(int applyCode,int membercode,int quantity,Timestamp applyDate,String name,String companyName,
 			int groupbuyingCode,int businessCode,int statusCode,Timestamp deadLine,String title, String productName,
 			String productPrice,Timestamp regDate,String path,String sysName ) {
@@ -50,7 +64,24 @@ public class MyShopListDTO {
 		this.sysName = sysName;
 	}
 	
-	//사업자회원 공구글별 구매자 정보 리스트용 생성자
+	//사업자회원 내 공구 등록 목록용 생성자
+	public MyShopListDTO(int groupbuyingCode,int businessCode, int statusCode, Timestamp deadLine, String title,
+			String productName, String productPrice, Timestamp regDate, String companyName, int applyCount, int applyQuantity) {
+		super();
+		this.groupbuyingCode = groupbuyingCode;
+		this.businessCode = businessCode;
+		this.statusCode = statusCode;
+		this.deadLine = deadLine;
+		this.title = title;
+		this.productName = productName;
+		this.productPrice = productPrice;
+		this.regDate = regDate;
+		this.companyName = companyName;
+		this.applyCount = applyCount;
+		this.applyQuantity = applyQuantity;
+	}	
+	
+	//사업자회원 내 공구글별 구매자 정보 리스트용 생성자
 	public MyShopListDTO(int applyCode, int memberCode, int quantity, Timestamp applyDate, 
 			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, String productPrice) {
 		super();
@@ -137,6 +168,15 @@ public class MyShopListDTO {
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
+	
+	public String getBusinessId() {
+		return businessId;
+	}
+
+	public void setBusinessId(String businessId) {
+		this.businessId = businessId;
+	}
+
 	public String getCompanyName() {
 		return companyName;
 	}
@@ -203,14 +243,32 @@ public class MyShopListDTO {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
+	public int getApplyCount() {
+		return applyCount;
+	}
+	public void setApplyCount(int applyCount) {
+		this.applyCount = applyCount;
+	}
+	public int getApplyQuantity() {
+		return applyQuantity;
+	}
+	public void setApplyQuantity(int applyQuantity) {
+		this.applyQuantity = applyQuantity;
+	}
+
 	@Override
 	public String toString() {
 		return "MyShopListDTO [applyCode=" + applyCode + ", memberCode=" + memberCode + ", quantity=" + quantity
-				+ ", applyDate=" + applyDate + ", name=" + name + ", companyName=" + companyName + ", groupbuyingCode="
-				+ groupbuyingCode + ", businessCode=" + businessCode + ", statusCode=" + statusCode + ", deadLine="
-				+ deadLine + ", title=" + title + ", productName=" + productName + ", productPrice=" + productPrice
-				+ ", regDate=" + regDate + ", path=" + path + ", sysName=" + sysName + "]";
+				+ ", applyDate=" + applyDate + ", clientId=" + clientId + ", name=" + name + ", phone=" + phone
+				+ ", email=" + email + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2=" + address2
+				+ ", businessId=" + businessId + ", companyName=" + companyName + ", groupbuyingCode=" + groupbuyingCode
+				+ ", businessCode=" + businessCode + ", statusCode=" + statusCode + ", deadLine=" + deadLine
+				+ ", title=" + title + ", productName=" + productName + ", productPrice=" + productPrice + ", regDate="
+				+ regDate + ", path=" + path + ", sysName=" + sysName + ", applyCount=" + applyCount
+				+ ", applyQuantity=" + applyQuantity + "]";
 	}
+
+	
 
 	
 }
