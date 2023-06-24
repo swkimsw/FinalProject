@@ -91,6 +91,7 @@ $(".meal-box").off("click").on("click", function () {
 
         // if 걸어서 빈값이면 delete 
         // 겹치는 부분 제거 
+
         preDiff = preMeals.filter(e => !postMeals.includes(e)); 
         postDiff = postMeals.filter(e => !preMeals.includes(e));
 		
@@ -110,6 +111,7 @@ $(".meal-box").off("click").on("click", function () {
                 "timeCode": aiStartTime,
                 "meal": e
             });
+            console.log("aiMealArr--> "+ aiMealArr);
         });
         
         aiMealPrint(aiMealArr);
@@ -182,7 +184,6 @@ function aiMealDelete(resp){
             aiMealArr.splice(i, 1);
         }
     })
-    
 }
 
 // 식단을 저장하는 함수
@@ -212,14 +213,4 @@ function aiMealPrint(resp) {
             }
         }
     });
-}
-
-// startPoint, endPoint 를 aiMealArr이랑 비교할 수 있게 하는 함수
-function aiMealCompare(resp){
-    let pointStr = resp.get(0);
-
-    pointStr.split('.', 1); // day
-    pointStr.split('.', 2); // 아/점/저
-
-    
 }

@@ -634,6 +634,8 @@
 				    error: function(error) {
 				        console.log(error);
 				    }
+				}).done(function(){
+					alert("저장 전송 성공");
 				});
 			});
 			
