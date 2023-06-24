@@ -8,7 +8,7 @@ let aiStartDate;
 let aiStartTime;
 let aiEndDate;
 let aiEndTime;
-
+let calenderMap = new Map();
 
 $(".meal-box").off("click").on("click", function () {
     //우선 modal창에 입력된 input 전부 삭제
@@ -66,18 +66,18 @@ $(".meal-box").off("click").on("click", function () {
         selectBox.html("");
 
         let meals = $(".meal-name");
-        for (let i = 0; i < meals.length; i++) {
-            if (meals.get(i).value) {
-                selectBox.append(meals.get(i).value + "<br>");
-            }
-        }
+        // for (let i = 0; i < meals.length; i++) {
+        //     if (meals.get(i).value) {
+        //         selectBox.append(meals.get(i).value + "<br>");
+        //     }
+        // }
 
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
         postMeals = [];
         meals.each((i, e) => {
             if (e.value) {
                 postMeals.push(e.value);
-                console.log("postMeals--> "+postMeals);
+                console.log("postMeals--> " + postMeals);
             }
 
             let exceptDuplMeal = new Set(postMeals);
@@ -87,31 +87,32 @@ $(".meal-box").off("click").on("click", function () {
             }
 
         });
-        
+
         // if 걸어서 빈값이면 delete 
         // 겹치는 부분 제거 
-		preDiff = preMeals.filter(e=>!postMeals.includes(e)); 
-        postDiff = postMeals.filter(e=>!preMeals.includes(e)); 
-        
-		preDiff.forEach((e,i)=>{
-           		aiMealArr
-        });
-        
+        // preDiff = preMeals.filter(e => !postMeals.includes(e));
+        // postDiff = postMeals.filter(e => !preMeals.includes(e));
+
+        // preDiff.forEach((e, i) => {
+        //     aiMealArr
+        // });
+
         // postMeals에 있는 값만큼 aiMealArr 에 값저장
         let clientCode = $("#clientCode").val();
         aiStartDate = getMealDate(selectBox);
         aiStartTime = getMealTime(selectBox);
-        postMeals.map((i) => {
-           aiMealArr.push({
+        postMeals.map((e) => {
+            aiMealArr.push({
                 "code": 0,
-                "meal": i,
-                "mealDate": aiStartDate,
                 "memberCode": clientCode,
-                "timeCode": aiStartTime
+                "mealDate": aiStartDate,
+                "timeCode": aiStartTime,
+                "meal": e
             });
+            console.log("aiMealArr--> "+ aiMealArr);
         });
-        console.log(aiMealArr);
         
+        makeKey(aiMealArr);
         $("#closeModal").click();
     });
 });
@@ -172,9 +173,9 @@ function aiMealChange(e) {
         $(e).val(value.replace(regexp, ''));
     }
     //엔터키 막기
-	if(e.keyCode && e.keyCode == 13){
-		  e.preventDefault();	
-	}
+    if (e.keyCode && e.keyCode == 13) {
+        e.preventDefault();
+    }
 }
 
 // 식단 삭제하는 함수
@@ -182,4 +183,32 @@ function aiMealDelete() {
 
 }
 
+// Calendar에 키 매기는 함수
+function makeKey(resp) {
+	console.log("makeKey의 resp길이 " + resp.length);
 
+    // 캘린더에 뿌리는 로직
+    const meals = ['breakfast', 'lunch', 'dinner'];
+    const timeCodes = [1001, 1002, 1003];
+
+    // aiMealAdd에 Map으로 고유키 부여하기
+    // aiMealAdd(resp);
+    
+    const mealsKey = ['B','L','D'];
+    $(resp).each(function (index, item) {
+        for (let day = 0; day <= 6; day++) {
+            if (dateAdd(today, day) == item.mealDate) {
+                for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
+                    if (item.timeCode == timeCodes[mealIndex]) { 
+                        var targetClass = ".day" + (day + 1) + "." + meals[mealIndex];
+                        $(targetClass).find(".meal-box").append(item.meal, "<br>");
+                        // 배열에 고유키 부여하기
+                        calenderMap.set((day+1+mealsKey[mealIndex]), resp[index]);
+                    }
+                }
+            }
+        }
+    });
+
+    console.log(calenderMap);
+}

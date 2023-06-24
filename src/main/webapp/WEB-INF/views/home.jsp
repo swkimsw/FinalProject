@@ -611,22 +611,8 @@
 				}).done(function (resp) {
 					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
-					aiMealAdd(resp);
-					const meals = ['breakfast', 'lunch', 'dinner'];
-					const timeCodes = [1001, 1002, 1003];
-
-					$(resp).each(function (index, item) {
-						for (let day = 0; day <= 6; day++) {
-							if (dateAdd(today, day) == item.mealDate) {
-								for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
-									if (item.timeCode == timeCodes[mealIndex]) {
-										var targetClass = ".day" + (day+1) + "." + meals[mealIndex];
-										$(targetClass).find(".meal-box").append(item.meal, "<br>");
-									}
-								}
-							}
-						}
-					});
+					makeKey(resp);
+					
 					alert("생성 성공~!");
 				});
 			});
