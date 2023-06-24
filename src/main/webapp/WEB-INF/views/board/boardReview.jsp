@@ -49,6 +49,7 @@
                 td {
                     font-size: 20px;
                 }
+
             </style>
 
         </head>
@@ -76,7 +77,7 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr style="font-size: large;">
+                            <tr>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -88,13 +89,13 @@
                         <tbody>
                         
                           <c:forEach var="l" items="${list}">
-                            <tr>
+                            <tr onclick="goToLink('/board/ReviewContent?code=${l.code}')">
                                 <td>${l.code}</td>
-                                <td>${l.title}</td>
-                                <td>${l.client_nickname}</td>
-                                <td>${l.regdate}</td>
-                                <td>${l.viewcount}</td>
-                                <td>${l.likecount}</td>
+                                <td style="width: 50%;">${l.title}</td>
+                                <td>${l.memberNickName}</td>
+                                <td>${l.regDate}</td>
+                                <td>${l.viewCount}</td>
+                                <td>${l.likeCount}</td>
                             </tr>
                             
                         </c:forEach>
@@ -147,6 +148,12 @@
 
             <script>
 
+            
+            function goToLink(url) {
+              window.location.href = url;
+            }
+        
+            
             </script>
 
         </body>

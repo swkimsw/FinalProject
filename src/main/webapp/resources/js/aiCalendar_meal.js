@@ -8,12 +8,11 @@ let aiStartDate;
 let aiStartTime;
 let aiEndDate;
 let aiEndTime;
-let calenderMap = new Map();
 
 $(".meal-box").off("click").on("click", function () {
     //우선 modal창에 입력된 input 전부 삭제
     $(".meal-name").val("");
-
+    
     //입력 위치 지정
     //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
     //그냥 this로 했을때 큰창, 작은창 상관없으면 그대로
@@ -27,6 +26,13 @@ $(".meal-box").off("click").on("click", function () {
             inputMeals[i].value = meals[i];
         }
     }
+    //원래 등록되어 있던 식단을 preMeals라는 리스트로 저장
+    // preMeals = this.innerHTML.split("<br>");
+    $(".meal-name").each((i, e) => {
+        if (e.value) {
+            preMeals.push(e.value);
+        }
+    })
 
     //모두 삭제하기 클릭 이벤트
     $("#delete-meals").on("click", function () {
@@ -60,24 +66,19 @@ $(".meal-box").off("click").on("click", function () {
         takeMeal.val(selectMeal);
     });
 
+
+
     //저장하기 버튼 클릭 이벤트
     $("#saveMeal").off("click").on("click", function () {
         //우선 선택한 meal-box의 내용 모두 지우기
         selectBox.html("");
 
-        let meals = $(".meal-name");
-        // for (let i = 0; i < meals.length; i++) {
-        //     if (meals.get(i).value) {
-        //         selectBox.append(meals.get(i).value + "<br>");
-        //     }
-        // }
-
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
+        let meals = $(".meal-name");
         postMeals = [];
         meals.each((i, e) => {
             if (e.value) {
                 postMeals.push(e.value);
-                console.log("postMeals--> " + postMeals);
             }
 
             let exceptDuplMeal = new Set(postMeals);
@@ -90,18 +91,19 @@ $(".meal-box").off("click").on("click", function () {
 
         // if 걸어서 빈값이면 delete 
         // 겹치는 부분 제거 
-        // preDiff = preMeals.filter(e => !postMeals.includes(e));
-        // postDiff = postMeals.filter(e => !preMeals.includes(e));
 
-        // preDiff.forEach((e, i) => {
-        //     aiMealArr
-        // });
+        preDiff = preMeals.filter(e => !postMeals.includes(e)); 
+        postDiff = postMeals.filter(e => !preMeals.includes(e));
+		
+        preDiff.forEach((e, i) => {
+            aiMealArr = aiMealArr.filter(target => target.meal != e);
+        });
 
         // postMeals에 있는 값만큼 aiMealArr 에 값저장
         let clientCode = $("#clientCode").val();
         aiStartDate = getMealDate(selectBox);
         aiStartTime = getMealTime(selectBox);
-        postMeals.map((e) => {
+        postDiff.map((e,i) => {
             aiMealArr.push({
                 "code": 0,
                 "memberCode": clientCode,
@@ -112,7 +114,7 @@ $(".meal-box").off("click").on("click", function () {
             console.log("aiMealArr--> "+ aiMealArr);
         });
         
-        makeKey(aiMealArr);
+        aiMealPrint(aiMealArr);
         $("#closeModal").click();
     });
 });
@@ -139,7 +141,7 @@ Array.prototype.forEach.call(mealBoxes, (mealBox) => {
     }
 });
 //식단 날짜 구하는 함수
-function getMealDate() {
+function getMealDate(selectBox) {
     let days = ["day1", "day2", "day3", "day4", "day5", "day6", "day7"];
     let cloneDates = new Date(today);
     cloneDates = new Date(cloneDates.setDate(today.getDate() + days.indexOf(selectBox.parent().get(0).className.split(" ")[0])));
@@ -150,17 +152,12 @@ function getMealDate() {
 };
 
 //식단 아/점/저 코드 구하는 함수
-function getMealTime() {
+function getMealTime(selectBox
+    
+    ) {
     let times = ["breakfast", "lunch", "dinner"];
     return 1001 + times.indexOf(selectBox.parent().get(0).className.split(" ")[1])
 };
-
-// 식단을 저장하는 함수
-// 모달창 저장하기 버튼 누르면 식단 새로저장
-function aiMealAdd(resp) {
-    aiMealArr = resp.map(i => i);
-}
-
 
 // 모달창 입력이벤트 함수
 function aiMealChange(e) {
@@ -177,38 +174,43 @@ function aiMealChange(e) {
         e.preventDefault();
     }
 }
+// 식단을 삭제하는 함수
+function aiMealDelete(resp){
 
-// 식단 삭제하는 함수
-function aiMealDelete() {
-
+    let selectBox = $(this);
+    $(resp).each((i, e) => {
+        if(aiMealArr[i].mealDate == getMealDate() && 
+            aiMealArr[i].timeCode == getMealTime()){
+            aiMealArr.splice(i, 1);
+        }
+    })
 }
 
-// Calendar에 키 매기는 함수
-function makeKey(resp) {
-	console.log("makeKey의 resp길이 " + resp.length);
+// 식단을 저장하는 함수
+function aiMealAdd(resp) {
+    aiMealArr = resp.map(i => i);
+}
 
+// 식단을 출력하는 함수
+function aiMealPrint(resp) {
+	//시작하기전에 이전에 있던 값들 지워주기
+	$(".meal-box").html("");
+	
     // 캘린더에 뿌리는 로직
     const meals = ['breakfast', 'lunch', 'dinner'];
     const timeCodes = [1001, 1002, 1003];
-
-    // aiMealAdd에 Map으로 고유키 부여하기
-    // aiMealAdd(resp);
-    
-    const mealsKey = ['B','L','D'];
+    today = new Date();
+    cloneToday = new Date(today);
     $(resp).each(function (index, item) {
         for (let day = 0; day <= 6; day++) {
-            if (dateAdd(today, day) == item.mealDate) {
+            if (dateAdd(cloneToday, day) == item.mealDate) {
                 for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
-                    if (item.timeCode == timeCodes[mealIndex]) { 
+                    if (item.timeCode == timeCodes[mealIndex]) {
                         var targetClass = ".day" + (day + 1) + "." + meals[mealIndex];
                         $(targetClass).find(".meal-box").append(item.meal, "<br>");
-                        // 배열에 고유키 부여하기
-                        calenderMap.set((day+1+mealsKey[mealIndex]), resp[index]);
                     }
                 }
             }
         }
     });
-
-    console.log(calenderMap);
 }

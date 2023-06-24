@@ -43,7 +43,7 @@
 <link href="${path}/resources/css/mealCalendar.css" rel="stylesheet"
 	type="text/css">
 <!-- mealCalendar calendar js -->
-<script src="${path}/resources/js/mealCalendar_calendar.js"></script>
+<script src="${path}/resources/js/aiCalendar_calendar.js"></script>
 <style>
 * {
 	font-family: NanumSquareNeoBold;
@@ -159,11 +159,12 @@
 							name="special" value="1003"> <label
 							class="form-check-label" for="viganDiet">비건 다이어트</label>
 					</div>
+					
+				</div>
 					<div class="d-flex justify-content-center">
 						<button type="button" id="sendBtn"
-							class="btn btn-success btn-rounded">식단생성</button>
+							class="btn btn-success btn-lg btn-rounded">식단생성</button>
 					</div>
-				</div>
 			</div>
 
 			<div class="mealCalender">
@@ -611,8 +612,10 @@
 				}).done(function (resp) {
 					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
-					makeKey(resp);
 					
+					aiMealAdd(resp);
+					aiMealPrint(resp);
+
 					alert("생성 성공~!");
 				});
 			});
@@ -621,11 +624,18 @@
 			$("#aiMealAddBtn").on("click", function(){
 				
 				$.ajax({
-					url: "/meal/aiAddAiMeal",
-					type: "post",
-					data: {
-						aiMealArr : aiMealArr
-					}
+				    type: 'POST',
+				    url: '/meal/addAiMeal',
+				    data: JSON.stringify(aiMealArr),
+				    contentType: 'application/json',
+				    success: function(response) {
+				        console.log(response);
+				    },
+				    error: function(error) {
+				        console.log(error);
+				    }
+				}).done(function(){
+					aler("저장 전송 성공");
 				});
 			});
 			
