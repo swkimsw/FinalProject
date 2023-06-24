@@ -12,6 +12,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -30,19 +31,7 @@ public class ChatGPTProvider {
 	@Autowired
 	private Gson gson;
 	
-	public JsonObject makeMeal(String sendMsg) throws Exception{
-		
-		String apiUrl = "https://api.openai.com/v1/chat/completions";
-		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다.
-		String model = "gpt-3.5-turbo-0613"; // 사용할 model
-		
-		String systemMessage1 = "{\"role\": \"system\", \"content\": \"지금부터 넌 한식 전문 영양사야.\"}";
-		String userMessage1 = "{\"role\": \"user\", \"content\": \"1일치 식단 아침,점심,저녁만 JSON데이터로 짜줘\"}";
-		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{\\\"day1\\\":{\\\"breakfast\\\": [\\\"오트밀\\\", \\\"바나나\\\", \\\"우유\\\"],\\\"lunch\\\": [\\\"쌀밥\\\", \\\"된장찌개\\\", \\\"불고기\\\"],\\\"dinner\\\": [\\\"쌀국수\\\", \\\"새우튀김\\\", \\\"미역국\\\"]}}\"}";
-		String systemMessage2 = "{\"role\": \"system\", \"content\": \"" + sendMsg + "\"}";
-		
-		String messages = String.join(", ", systemMessage1, userMessage1, assistantMessage1, systemMessage2);
-
+	public JsonObject gpt(String messages) throws Exception {
 		// API 요청 생성
 		String requestBody = "{\"model\": \"" + model + "\", \"messages\": [" + messages + "]}";
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl))
@@ -69,8 +58,32 @@ public class ChatGPTProvider {
 		
 		System.out.println("PROVIDER: ");
 		System.out.println(content);
-		///sdfasdfasd
 		return content;
 	}
 	
+	String apiUrl = "https://api.openai.com/v1/chat/completions";
+	String apiKey = chatGptApiKey; // API 키로 변경해야 합니다.
+	String model = "gpt-3.5-turbo-0613"; // 사용할 model
+	public JsonObject makeMeal(String sendMsg) throws Exception{
+		
+		String systemMessage1 = "{\"role\": \"system\", \"content\": \"지금부터 넌 한식 전문 영양사야.\"}";
+		String userMessage1 = "{\"role\": \"user\", \"content\": \"1일치 식단 아침,점심,저녁만 JSON데이터로 짜줘\"}";
+		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{\\\"day1\\\":{\\\"breakfast\\\": [\\\"오트밀\\\", \\\"바나나\\\", \\\"우유\\\"],\\\"lunch\\\": [\\\"쌀밥\\\", \\\"된장찌개\\\", \\\"불고기\\\"],\\\"dinner\\\": [\\\"쌀국수\\\", \\\"새우튀김\\\", \\\"미역국\\\"]}}\"}";
+		String systemMessage2 = "{\"role\": \"system\", \"content\": \"" + sendMsg + "\"}";
+		
+		String messages = String.join(", ", systemMessage1, userMessage1, assistantMessage1, systemMessage2);
+		return gpt(messages);
+	}
+	
+	public JsonObject extractIngredients(String sendMsg) throws Exception{
+		
+		String systemMessage1 = "{\"role\": \"system\", \"content\": \"여기에 역할 지정해주기\"}";
+		String userMessage1 = "{\"role\": \"user\", \"content\": \"식단 추출할 명령어 패턴 넣기 ( 가급적 제일 많은 조건선택한걸로 대입)\"}";
+		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{여기에 완벽한 응답 넣기}";
+		String systemMessage2 = "{\"role\": \"system\", \"content\": \"" + sendMsg + "\"}";
+		
+		String messages = String.join(", ", systemMessage1, userMessage1, assistantMessage1, systemMessage2);
+
+		return gpt(messages);
+	}
 }
