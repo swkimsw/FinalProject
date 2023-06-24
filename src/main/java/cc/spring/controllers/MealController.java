@@ -1,6 +1,8 @@
 package cc.spring.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -125,18 +127,10 @@ public class MealController {
 	public void aiAddMeal(@RequestBody List<MealDTO> aiMealArr) {
 		
 		int memberCode = (int)session.getAttribute("code");
-		String mealDate = ""; 
-		int timeCode = 0;
-		
 		for(int i=0; i<aiMealArr.size(); i++) {
-			// 식단 추가하기 전에 기존에 있던 데이터 DB에서 삭제하기
-			timeCode = aiMealArr.get(i).getTimeCode();
-			mealDate  = aiMealArr.get(i).getMealDate();
-			mService.deleteAiMeal(memberCode, timeCode, mealDate);
-			
 			aiMealArr.get(i).setMemberCode(memberCode);
-			mService.insertMeal(aiMealArr.get(i));
 		}
+		mService.insertAiMeal(aiMealArr);
 	}
 	
 	@ExceptionHandler(Exception.class)

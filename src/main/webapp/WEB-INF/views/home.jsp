@@ -635,7 +635,7 @@
 				        console.log(error);
 				    }
 				}).done(function(){
-					aler("저장 전송 성공");
+					alert("저장 전송 성공");
 				});
 			});
 			

@@ -53,7 +53,7 @@ public class MealDAO {
 	}
 	
 	//내 식단표에서 한끼 식단 수정할 때 메뉴 하나당 delete
-	public int deleteMeal(MealDTO dto) {
-		return mybatis.delete("Meal.deleteMeal", dto);
+	public int deleteAiMeal(MealDTO dto) {
+		return mybatis.delete("Meal.deleteAiMeal", dto);
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -99,7 +100,6 @@ public class MealService {
 			System.out.println(dto.toString());
 			
 			for(int x = 0; x < 3; x++) {
-				System.out.println("tiem--> "+ dto.getClass().getDeclaredFields()[x].getName());
 				if(dto.getClass().getDeclaredFields()[x].getName().equals("breakfast") && dto.getBreakfast() != null) {
 					for(int j = 0; j < dto.getBreakfast().length; j++) {
 						result.add(new MealDTO(0, 0, mealDate, 1001, dto.getBreakfast()[j]));
@@ -118,7 +118,15 @@ public class MealService {
 		}
 		return result;
 	}
-	public int deleteAiMeal(int memberCode, int timeCode, String mealDate) {
-		return mealDAO.deleteAiMeal(memberCode, timeCode, mealDate);
+	
+	@Transactional
+	public void insertAiMeal(List<MealDTO> aiMealArr) {
+		
+		for(int i=0; i<aiMealArr.size(); i++) {
+			mealDAO.deleteAiMeal(aiMealArr.get(i));
+		}
+		for(int i=0; i<aiMealArr.size(); i++) {
+			mealDAO.insertMeal(aiMealArr.get(i));
+		}
 	}
 }
