@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
-import cc.spring.dto.AdminMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.services.AdminMemberService;
 import cc.spring.services.ClientMemberService;
@@ -243,6 +242,74 @@ public class ClientMemberController {
 		}
 	}
 	
+	// 내 정보 보기 클릭 시 페이지 이동
+	@RequestMapping("clientMyInfo")
+	public String myInfo() throws Exception {
+		return "/member/clientMyInfo";
+	}
+	
+	// 비밀번호 입력 시 로그인한 회원의 비밀번호와 일치하는지 확인
+	@ResponseBody
+	@RequestMapping("checkPw")
+	public String checkPw(String pw) throws Exception {
+		String enPw = EncryptionUtils.sha512(pw);
+		String id = (String) session.getAttribute("id");
+		boolean result = cms.checkPw(id, enPw);
+		return String.valueOf(result);
+	}
+	
+	// 입력한 비밀번호 일치 시 회원정보 가져오기
+	@ResponseBody
+	@RequestMapping("selectClientMemberInfo")
+	public MemberDTO selectClientMemberInfo(String id) throws Exception {
+		MemberDTO dto = cms.selectClientMemberInfo(id);
+		return dto;
+	}
+	
+	// 회원정보 수정이 가능한 폼으로 이동
+	@RequestMapping("goUpdateInfo")
+	public String goUpdateInfo(String id, Model m) throws Exception {
+		MemberDTO dto = cms.selectClientMemberInfo(id);
+		m.addAttribute("info", dto);
+		return "/member/clientInfoUpdate";
+	}
+	
+	// 회원정보 수정 시 모든 변경은 연락처 인증을 통해서만 가능해....
+	// 이 부분은 로그인된 회원의 연락처와 비회원의 연락처만 넘어옴
+	@ResponseBody
+	@RequestMapping("sendSmsUpdate")
+	public String sendSmsUpdate(String phone) throws Exception {
+				
+			Random rand = new Random(); 
+			String numStr = "";
+			for(int i=0; i<5; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr+=ran;
+			}
+			SmsService.certifiedPhoneNumber(phone, numStr);
+			session.setAttribute("numStr", numStr);	
+		System.out.println(String.valueOf(true));	
+		
+		return String.valueOf(true);
+	}
+	
+	// 회원정보(업데이트) 입력한 내용 넘어오는 곳 
+	@RequestMapping("updateMemberInfo")
+	public void updateMemberInfo(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception {
+		// 받은 생년월일 합치기
+		String birthDate = member_birth_year + member_birth_month + member_birth_day;
+		dto.setBirthDate(birthDate);
+		// 일반회원 수정 시 authgradecode 1003 삽입
+		dto.setAuthGradeCode(1003);
+		
+		System.out.println(dto.getName() + " : " + dto.getNickName() + " : " +
+		dto.getPhone() + " : " + dto.getBirthDate() + " : " + dto.geteMail());
+		
+//		int result = cms.updateMemberInfo(dto);
+//		if(result == 1) {
+//			
+//		}
+	}
 	
 	
 	

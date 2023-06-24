@@ -114,12 +114,12 @@
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											활동 관리</a></li>
 									<c:if test="${sessionScope.authGradeCode == 1003}">
-									<li class="login"><a href="/clientMyPage/clientMyInfo"
+									<li class="login"><a href="/clientMember/clientMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
-									<li class="login"><a href="/businessMyPage/businessMyInfo"
+									<li class="login"><a href="/businessMember/businessMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
