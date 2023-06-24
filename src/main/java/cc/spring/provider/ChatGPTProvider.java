@@ -19,6 +19,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+
+
 @Component
 public class ChatGPTProvider {
 	
@@ -32,6 +34,11 @@ public class ChatGPTProvider {
 	private Gson gson;
 	
 	public JsonObject gpt(String messages) throws Exception {
+
+		String apiUrl = "https://api.openai.com/v1/chat/completions";
+		String apiKey = chatGptApiKey; // API 키로 변경해야 합니다.
+		String model = "gpt-3.5-turbo-0613"; // 사용할 model
+		
 		// API 요청 생성
 		String requestBody = "{\"model\": \"" + model + "\", \"messages\": [" + messages + "]}";
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create(apiUrl))
@@ -61,9 +68,6 @@ public class ChatGPTProvider {
 		return content;
 	}
 	
-	String apiUrl = "https://api.openai.com/v1/chat/completions";
-	String apiKey = chatGptApiKey; // API 키로 변경해야 합니다.
-	String model = "gpt-3.5-turbo-0613"; // 사용할 model
 	public JsonObject makeMeal(String sendMsg) throws Exception{
 		
 		String systemMessage1 = "{\"role\": \"system\", \"content\": \"지금부터 넌 한식 전문 영양사야.\"}";
