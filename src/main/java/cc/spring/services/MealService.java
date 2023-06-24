@@ -92,7 +92,6 @@ public class MealService {
 			mealDate = format.format(cal.getTime());
 
 			JsonObject day = content.get("day"+(i+1)).getAsJsonObject();
-//			System.out.println("day"+(i+1));
 			
 			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
 			
@@ -117,10 +116,9 @@ public class MealService {
 			}
 			cal.add(Calendar.DATE, 1);	
 		}
-		
-		
 		return result;
-
 	}
-
+	public int deleteAiMeal(int memberCode, int timeCode, String mealDate) {
+		return mealDAO.deleteAiMeal(memberCode, timeCode, mealDate);
+	}
 }
