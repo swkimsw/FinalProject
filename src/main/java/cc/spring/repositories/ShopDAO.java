@@ -50,9 +50,15 @@ public class ShopDAO {
 	}
 	
 	public int isCountRequest(int code) {
-		return db.selectOne("isCountRequest", code);
+		return db.selectOne("Shop.isCountRequest", code);
 	}
-
+	
+	public int isExistRequest(int code, String memberCode) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("code", code);
+		param.put("memberCode", memberCode);
+		return db.selectOne("Shop.isExistRequest", param);
+	}
 	
 //---최은지 part------------------------------------------------------------------------------------------------
 	public List<ShopListDTO> shopList() {
@@ -77,7 +83,7 @@ public class ShopDAO {
 	public List<MyShopListDTO> clientBuyingList(int code){
 		return db.selectList("Shop.clientBuyingList",code);
 	}
-	
+
 	public List<MyShopListDTO> businessRegisterList(int code){
 		return db.selectList("Shop.businessRegisterList",code);
 	}
