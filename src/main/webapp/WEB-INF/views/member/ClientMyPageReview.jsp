@@ -38,7 +38,7 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
 <!-- DataTables -->
-<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <style>
 * {
@@ -50,7 +50,7 @@
 	font-size: 10px;
 }
 
-table {
+.myTables {
 	margin: auto;
 }
 
@@ -58,9 +58,15 @@ table {
 	margin-top: 100px;
 }
 
+/* .hd0 {
+	width: 100%;
+}
+
 .hd1 {
 	width: 50px;
 	text-align: center;
+	position: relative;
+	right: 300px;
 }
 
 .hd2 {
@@ -87,11 +93,10 @@ table {
 	width: 100px;
 	text-align: center;
 }
-
-.b1 {
-	text-align: center;
+ */
+.title {
+	text-align: left;
 }
-
 /* h1태그 */
 h1.second {
 	font-weight: 200;
@@ -129,8 +134,7 @@ h1.second span:after {
 		</h1>
 		<br>
 		<div class="row">
-			<div class="col">
-				<div class="row checkbox ">
+				<!-- <div class="row checkbox ">
 					<div class="col input-group mb-3">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
@@ -156,64 +160,44 @@ h1.second span:after {
 
 						</div>
 					</div>
-				</div>
+				</div> -->
 				<!-- 메인시작 -->
-				<div class="row font_1">
-					<div class="col">
-						<div class="row">
-							<table id="myTable">
-								<thead>
-									<tr>
-										<th class="hd1" scope="col">NO</th>
-										<th class="hd1">말머리</th>
-										<th class="hd2">게시판종류</th>
-										<th class="hd3">게시판제목</th>
-										<th class="hd4">붐업</th>
-										<th class="hd5">발자국</th>
-										<th class="hd6">게시글날짜</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:forEach var="i" items="${list}" varStatus="status">
-										
-											<tr>
-												<td class="b1">${status.count}</td>
-												<td class="b1">${i.headlineValue}</td>
-												<td class="b1">${i.boardkindValue}</td>
-												<td><a href="#">${i.title}</a></td>
-												<td class="b1">${i.membercode}</td>
-												<td class="b1">${i.viewcount}</td>
-												<td class="b1">${i.likecount}</td>
-											</tr>
-									</c:forEach>
-								</tbody>
-							</table>
-							<br>
-							<!-- <div class="row">
-								<div class="col">
-									<nav aria-label="Page navigation example">
-										<ul class="pagination justify-content-center">
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-											</a></li>
-											<li class="page-item active"><a class="page-link"
-												href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#"
-												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-											</a></li>
-										</ul>
-									</nav>
-								</div>
-							</div> -->
-						</div>
-					</div>
-					<script>
+				<table id="myTables" class="table"
+					style="width: 100%">
+					<thead>
+						<tr>
+							<th><h9 class="hd1">no</h9></th>
+							<th class="hd0">말머리</th>
+							<th class="hd2">게시판종류</th>
+							<th class="hd3">게시판제목</th>
+							<th class="hd4">붐업</th>
+							<th class="hd5">발자국</th>
+							<th class="hd6">게시글날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="i" items="${list}" varStatus="status">
+							<tr>
+								<td>${status.count}</td>
+								<td class="b1">${i.headLineValue}</td>
+								<td class="b1">${i.boardKindValue}</td>
+								<td><a href="#">${i.title}</a></td>
+								<td class="b1">${i.likeCount}</td>
+								<td class="b1">${i.viewCount}</td>
+								<td class="b1">${i.regdate}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<br>
+			</div>
+			<script>
+				$(document).ready(function() {
 					
-						$(document).ready(function() {
-							   $('#myTable').DataTable();
-							});
-					</script>
+					$('#myTables').DataTable({
+						pagingType : "full_numbers"
+					});
+				});
+			</script>
 </body>
 </html>

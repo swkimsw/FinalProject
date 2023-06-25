@@ -1,28 +1,16 @@
 package cc.spring.controllers;
 
-
-import java.io.UnsupportedEncodingException;
-
-import java.util.HashMap;
-
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.BoardFreeDTO;
-
-import cc.spring.dto.MemberDTO;
-
+import cc.spring.dto.BoardReviewDTO;
 import cc.spring.services.ClientMyPageService;
 
 @Controller
@@ -30,41 +18,60 @@ import cc.spring.services.ClientMyPageService;
 public class ClientMyPageController {
 	@Autowired
 	private HttpSession session;
-
 	@Autowired
 	private ClientMyPageService cmp;
-
-	@RequestMapping("myPage")
+	
+	@RequestMapping("myPageFreeboard")
 	public String myPageList(Model model) {
 		int code = (int) session.getAttribute("code");
+		
 		//int code = 11;
 		System.out.println("신발");
 		System.out.println(code);
 		List<BoardFreeDTO> list = cmp.myPageList(code);
 		System.out.println(list);
 		model.addAttribute("list",list);
-		return "/member/myPage";
+		return "/member/ClientMyPageFreeBoard";
+	}
+	@RequestMapping("myPageReview")
+	public String myPageReview(Model model) {
+		int code = (int) session.getAttribute("code");
+		List<BoardReviewDTO> list = cmp.myPageReview(code);
+		model.addAttribute("list",list);
+		return "/member/ClientMyPageReview";
 	}
 	
-//    @RequestMapping("/study_select.adminBoard")
-//    public String clientFreeBoard(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
+//	@RequestMapping("myPage")
+//	public String myPageList(Pageable pageable, Model model) {
+//        int code = (int) session.getAttribute("code");
+//        pageable = PageRequest.of(pageable.getPageNumber(), 10); // 페이지당 10개씩 표시
+//
+//        Page<BoardFreeDTO> page = cmp.myPageList(code, pageable);
+//        model.addAttribute("list", page.getContent());
+//        model.addAttribute("totalPages", page.getTotalPages());
+//        model.addAttribute("currentPage", pageable.getPageNumber());
+//
+//        return "myPage";
+//    }
+//    @RequestMapping("/mpPage")
+//    public String myPageList(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
 //        request.setCharacterEncoding("UTF-8");
 //        int currentPage = Integer.parseInt(request.getParameter("cpage"));
 //        System.out.println("currentPage: " + currentPage);
 //
 //        // 페이지 번호 검증
-//        int totalPage = (int) Math.ceil(cmp.getRecordCount() / (double) Settings.BOARD_RECORD_COUNT_PER_PAGE);
+//        int totalPage = (int) Math.ceil(cmp.getRecordCount() / (double) Paging.BOARD_RECORD_COUNT_PER_PAGE);
 //        if (currentPage < 0) {
 //            currentPage = 1;
 //        } else if (currentPage > totalPage) {
 //            currentPage = totalPage;
 //        }
 //
-//        int start = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE - (Settings.BOARD_RECORD_COUNT_PER_PAGE - 1);
-//        int end = currentPage * Settings.BOARD_RECORD_COUNT_PER_PAGE;
+//        int start = currentPage * Paging.BOARD_RECORD_COUNT_PER_PAGE - (Paging.BOARD_RECORD_COUNT_PER_PAGE - 1);
+//        int end = currentPage * Paging.BOARD_RECORD_COUNT_PER_PAGE;
 //
-//        int first = (currentPage - 1) / Settings.BOARD_NAVI_COUNT_PER_PAGE * Settings.BOARD_NAVI_COUNT_PER_PAGE;
-//        int last = (currentPage - 1) / Settings.BOARD_NAVI_COUNT_PER_PAGE * Settings.BOARD_NAVI_COUNT_PER_PAGE + Settings.BOARD_NAVI_COUNT_PER_PAGE + 1;
+//        int first = (currentPage - 1) / Paging.BOARD_NAVI_COUNT_PER_PAGE * Paging.BOARD_NAVI_COUNT_PER_PAGE;
+//        int last = (currentPage - 1) / Paging.BOARD_NAVI_COUNT_PER_PAGE * Paging.BOARD_NAVI_COUNT_PER_PAGE + Paging.BOARD_NAVI_COUNT_PER_PAGE + 1;
 //
 //        System.out.println("start/end: " + start + "/" + end);
 //        System.out.println("first/last: " + first + "/" + last);
@@ -84,36 +91,16 @@ public class ClientMyPageController {
 //        return "/admin/admin_StudyBoard";
 //    }
 	// 내 정보 보기 클릭 시 페이지 이동
-	@RequestMapping("clientMyInfo")
+	@RequestMapping("myInfo")
 	public String myInfo() {
-		return "/member/clientMyInfo";
+		return "/member/myInfo";
 	}
 	
 	// 비밀번호 입력 시 로그인한 회원의 비밀번호와 일치하는지 확인
-	@ResponseBody
-	@RequestMapping("checkPw")
-	public String checkPw(String pw) throws Exception {
-		String enPw = EncryptionUtils.sha512(pw);
-		String id = (String) session.getAttribute("id");
-		boolean result = cmp.checkPw(id, enPw);
-		return String.valueOf(result);
-	}
-	
-	// 입력한 비밀번호 일치 시 회원정보 가져오기
-	@ResponseBody
-	@RequestMapping("selectClientMemberInfo")
-	public MemberDTO selectClientMemberInfo(String id) throws Exception {
-		MemberDTO dto = cmp.selectClientMemberInfo(id);
-		return dto;
-	}
-	
-	
-
-	
-	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e) {
-		e.printStackTrace();
-		return "redirect:/error";
-	}
+//	@ResponseBody
+//	@RequestMapping("checkPw")
+//	public String checkPw() {
+//		
+//	}
 	
 }

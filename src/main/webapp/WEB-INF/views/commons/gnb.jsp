@@ -110,10 +110,13 @@
 								aria-expanded="true">마이페이지</button>
 							<div class="collapse show" id="home-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+									<c:if test="${sessionScope.authGradeCode == 1003}">
 									<li class="login"><a href="/clientMyPage/myPage"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											활동 관리</a></li>
-									<c:if test="${sessionScope.authGradeCode == 1003}">
+											게시글 보기</a></li>
+									<li class="login"><a href="/clientMyPage/myPage"
+										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
+											리뷰 보기</a></li>
 									<li class="login"><a href="/clientMyPage/clientMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
