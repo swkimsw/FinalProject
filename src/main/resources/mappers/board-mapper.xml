@@ -105,5 +105,11 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		resultType="cc.spring.dto.BoardReviewDTO">
 		select * from boardReview_view where code = #{code}
 	</select>
+<!-- ========================================================================================== -->
+
+<!-- 자유게시판 수정 -->
+	<update id="updateFree" >
+		update boardFree set headlinecode = #{headLineCode}, title =  #{title}, content = #{content} where code = #{code}
+	</update>
 
 </mapper>

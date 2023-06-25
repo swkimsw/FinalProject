@@ -109,16 +109,10 @@
 
                     <nav aria-label="...">
                         <ul class="pagination justify-content-center">
-                        
-                        
-                    
-                            
-                            <c:forEach var="ln" items="${listnavi}">
-                            <li class="page-item"><a class="page-link" href="#">${ln }</a></li>
-                            </c:forEach>
-                           
-                            
-                        </ul>
+        <c:forEach var="ln" items="${listnavi}">
+            <li class="page-item"><a class="page-link" href="#">${ln}</a></li>
+        </c:forEach>
+    </ul>
                     </nav>
 
 

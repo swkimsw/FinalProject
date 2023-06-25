@@ -81,23 +81,29 @@ public class BoardController {
 	public String list_Announcement() throws Exception{
 
 		System.out.println("adffghjgfdsaqwerthy");
-		String cpage =  (String) request.getAttribute("cpage"); //처음 게시판 누를때는
-		System.out.println("sdcsdc:" + cpage);
+	int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+	System.out.println(cpage);
 		
+	
+	
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
 		List<BoardAnnouncementDTO> list = boardservice.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
+		System.out.println(list);
+		request.setAttribute("list", list);
+		
 		
 		int recordTotalCount = list.size();//총 게시글 개수
+		System.out.println(recordTotalCount);
 		
 		List<String>  listnavi = boardservice.selectPageNavi(recordTotalCount,cpage);
 		
+
 		request.setAttribute("listnavi", listnavi);
 		
 		
-		System.out.println(list);
-		request.setAttribute("list", list);
+
 
 		if(user != null) {//로그인되어있으면
 
@@ -293,12 +299,32 @@ public class BoardController {
 		}
 		return resp;
 	}
-}
+
 
 //===========================================================================================
 
 
+	
+	//자유게시판 글 수정
+		@ResponseBody
+		@RequestMapping("updateFree")
+		public int updateFree(BoardFreeDTO dto) {
+			
+			System.out.println(dto.getTitle());
+			System.out.println(dto.getCode());
+			System.out.println(dto.getHeadLineCode());
+			System.out.println(dto.getContent());
+			
+			int result = boardservice.updateFree(dto); 
+			
+			return result;
+			
+		}
+		
+		
 
 
+	
 
 
+}

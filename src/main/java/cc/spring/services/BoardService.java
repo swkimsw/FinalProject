@@ -150,7 +150,7 @@ public class BoardService {
 	    }
 	    List<String> list = new ArrayList<>();
 	    
-	    StringBuilder sb = new StringBuilder(); // 문자열 조립용 클래스
+
 
 	    if (needPrev) {
 	       // sb.append("<a href='/list.board?cpage=" + (startNavi - 1) + "'> < </a> ");
@@ -168,6 +168,13 @@ public class BoardService {
 	    }
 	  System.out.println(list);
 	    return list;
+	}
+
+	//자유게시판 게시물 수정
+	public int updateFree(BoardFreeDTO dto) {
+		
+		return boarddao.updateFree(dto);
+		
 	}
 
 

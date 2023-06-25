@@ -100,6 +100,12 @@ public class BoardDAO {
 		return  mybatis.selectOne("Board.selectReviewContent",code);
 	}
 
+
+
+	public int updateFree(BoardFreeDTO dto) {
+		return mybatis.update("Board.updateFree",dto);
+	}
+
 	
 
 
