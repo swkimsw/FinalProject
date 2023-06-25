@@ -67,7 +67,6 @@ public class ClientMemberController {
 		if(result) {
 			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 			MemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
-			System.out.println(cmd.getCode());
 			session.setAttribute("code", cmd.getCode());
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());
@@ -235,7 +234,7 @@ public class ClientMemberController {
 		if(result == 1) {
 			m.addAttribute("clientName", dto.getName());
 			m.addAttribute("status", "complete");
-			return "member/clientSign";
+			return "/member/clientSign";
 		}
 		else {
 			return "error";
@@ -258,11 +257,12 @@ public class ClientMemberController {
 		return String.valueOf(result);
 	}
 	
-	// 입력한 비밀번호 일치 시 회원정보 가져오기
+	// 회원정보 가져오기
 	@ResponseBody
 	@RequestMapping("selectClientMemberInfo")
 	public MemberDTO selectClientMemberInfo(String id) throws Exception {
 		MemberDTO dto = cms.selectClientMemberInfo(id);
+		System.out.println(dto);
 		return dto;
 	}
 	
@@ -295,20 +295,32 @@ public class ClientMemberController {
 	
 	// 회원정보(업데이트) 입력한 내용 넘어오는 곳 
 	@RequestMapping("updateMemberInfo")
-	public void updateMemberInfo(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day) throws Exception {
+	public String updateMemberInfo(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception {
 		// 받은 생년월일 합치기
 		String birthDate = member_birth_year + member_birth_month + member_birth_day;
 		dto.setBirthDate(birthDate);
-		// 일반회원 수정 시 authgradecode 1003 삽입
-		dto.setAuthGradeCode(1003);
+		// 회원 수정 시 where = id에서 id값이 필요함
+		String id = (String) session.getAttribute("id");
+		dto.setId(id);
 		
-		System.out.println(dto.getName() + " : " + dto.getNickName() + " : " +
-		dto.getPhone() + " : " + dto.getBirthDate() + " : " + dto.geteMail());
 		
-//		int result = cms.updateMemberInfo(dto);
-//		if(result == 1) {
-//			
-//		}
+		int result = cms.updateMemberInfo(dto);
+		if(result == 1) {
+			MemberDTO updateDto = cms.selectClientMemberInfo(id);
+			// 업데이트된 정보 다시 세션에 담기
+			session.setAttribute("code", updateDto.getCode());
+			session.setAttribute("id", updateDto.getId());
+			session.setAttribute("nickname", updateDto.getNickName());
+			session.setAttribute("authGradeCode", updateDto.getAuthGradeCode());
+			
+			m.addAttribute("status", "complete");
+			m.addAttribute("dto", updateDto);
+			return "/member/clientMyInfo";
+		}
+		else {
+			return "error";
+		}
+		
 	}
 	
 	
