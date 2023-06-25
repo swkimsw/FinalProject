@@ -45,4 +45,8 @@ public class ClientMemberService {
 	public boolean checkPw(String id, String pw) {
 		return cdao.checkPw(id, pw);
 	}
+	
+	public int updateMemberInfo(MemberDTO dto) {
+		return cdao.updateMemberInfo(dto);
+	}
 }

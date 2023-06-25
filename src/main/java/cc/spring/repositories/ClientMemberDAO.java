@@ -63,5 +63,9 @@ public class ClientMemberDAO {
 		param.put("pw", pw);
 		return mybatis.selectOne("Client.checkPw",param);
 	}
+	
+	public int updateMemberInfo(MemberDTO dto) {
+		return mybatis.update("Client.updateMemberInfo",dto);
+	}
 
 }

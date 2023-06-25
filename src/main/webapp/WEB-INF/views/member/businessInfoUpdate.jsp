@@ -126,7 +126,7 @@ label {
 		<div class="wrapper mx-auto position-relative">
 		
 		<!-- 회원정보 수정하기 -->
-			<form action="/clientMember/updateMemberInfo" method="post" id="frm">
+			<form action="/businessMember/updateMemberInfo" method="post" id="frm">
 				<div class="row justify-content-center" id="info">
 					<div class="col-12 col-md-8">
 						<div class="header text-center">
@@ -156,26 +156,26 @@ label {
 								</div>
 							</div>
 						</div>
-						<!-- 닉네임 -->
+						<!-- 사업장명 -->
 						<div class="row insert">
 							<div class="col-10 ">
-								<!-- 닉네임 타이틀 -->
+								<!-- 사업장명 타이틀 -->
 								<div class="row label">
 									<div class="col-12">
 										<span class="essential">*&nbsp;</span>
-										<label for="member_nickname">닉네임</label>
+										<label for="member_companyname">사업장명</label>
 									</div>
 								</div>
-								<!-- 닉네임 입력창 -->
+								<!-- 사업장명 입력창 -->
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" class="form-control" id="member_nickname" name="nickName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{2,10}$" title="2자 이상 10자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="2" maxlength="10" value="${info.nickName}" required>
+										<input type="text" class="form-control" id="member_companyname" name="companyName" onkeyup="checksum(this, 'A');" pattern="^[가-힣a-zA-Z0-9]{1,30}$" title="1자 이상 30자 이내로 한글, 영대소문자, 숫자 중 1개 이상 포함 " minlength="1" maxlength="30" value="${info.companyName}" required>
 									</div>
 								</div>
 								<!-- 닉네임 중복 & 정규식 확인 메세지 -->
 								<div class="row checking">
 									<div class="col-12">
-										<h9 id="member_nickname_checking" style="font-size:x-small;"></h9>
+										<h9 id="member_companyname_checking" style="font-size:x-small;"></h9>
 									</div>
 								</div>
 							</div>
@@ -390,7 +390,7 @@ label {
 		if (type != "A") return false;
 		// 중복 체크
 		$.ajax({
-			url : "/clientMember/checkSum",
+			url : "/businessMember/checkSum",
 			type : "post",
 			dataType : "json",
 			data : {
@@ -403,15 +403,15 @@ label {
 		}).done(function(resp) {
 			if (resp) {
 				$.ajax({
-					url : "/clientMember/selectClientMemberInfo",
+					url : "/businessMember/selectBusinessMemberInfo",
 					type : "post",
 					dataType : "json",
 					data : {
 						id : "${sessionScope.id}"
 					}
 				}).done(function (info) {
-						if (id.split("_")[1].toUpperCase() === "NICKNAME") {
-							if(info.nickName == $("#member_nickname").val()) {
+						if (id.split("_")[1].toUpperCase() === "COMPANYNAME") {
+							if(info.companyName == $("#member_companyname").val()) {
 								$("#" + id + "_checking").html("사용가능한 " + id.split("_")[1].toUpperCase()).css("color", "#198754");
 								setValid = valid.set(id, true);
 							}
@@ -488,7 +488,7 @@ label {
 				clearInterval(this.timer);
 				alert("인증시간이 초과하였습니다. 다시 인증해주시기 바랍니다.");
 				$.ajax({
-					url : "/clientMember/removeSession"
+					url : "/businessMember/removeSession"
 				})
 				$("#phone_auth").attr("disabled", false);
 				$("#timeLimit").text("");
@@ -500,7 +500,7 @@ label {
 	$("#phone_auth").on("click", function (evt) {
 		// 전화번호 check 및 인증번호 발송
 		$.ajax({
-			url: "/clientMember/sendSmsUpdate",
+			url: "/businessMember/sendSmsUpdate",
 			type: "post",
 			dataType: "json",
 			data: { phone: $("#member_phone").val(), type: "JOIN" }
@@ -534,7 +534,7 @@ label {
 		}
 		// 인증 체크
 		$.ajax({
-			url: "/clientMember/certificationSign",
+			url: "/businessMember/certificationSign",
 			type: "post",
 			dataType: "json",
 			data: { code: $("#phone_auth_code").val() }
@@ -583,13 +583,13 @@ label {
 		
 		// 컨트롤러에서 넘어온 값 중 생년월일을 년 월 일로 나누어서 값 대입시키기
 		let birthDate = "${info.birthDate}";
-		let clientYear = birthDate.substr(0,4);
-		let clientMonth = birthDate.substr(4,2);
-		let clientDay = birthDate.substr(6,2);
+		let businessYear = birthDate.substr(0,4);
+		let businessMonth = birthDate.substr(4,2);
+		let businessDay = birthDate.substr(6,2);
 
-		$("#member_birth_year").val(clientYear);
-		$("#member_birth_month").val(clientMonth);
-		$("#member_birth_day").val(clientDay);
+		$("#member_birth_year").val(businessYear);
+		$("#member_birth_month").val(businessMonth);
+		$("#member_birth_day").val(businessDay);
 	});
 	// 생년월일 select option setting - 일
 	$("#member_birth_month").on("click", function () {
@@ -672,6 +672,5 @@ label {
 		window.history.back();
 	})
 	</script>
-	
 </body>
 </html>
