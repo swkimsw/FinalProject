@@ -51,12 +51,11 @@
 }
 
 .container {
-	margin-top: 90px;
+	margin-top: 100px;
 }
 
 .subNav {
 	position: fixed;
-	width: 100%;
 	z-index:2;
 }
 
@@ -70,7 +69,7 @@
 .searchGroup>.category {
 	height: 100%;
 	max-width: 85px;
-	min-width: 85px;
+	min-width: 85px;s
 }
 
 .searchGroup>.searchInput {
@@ -99,26 +98,34 @@
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 
-	<div class="container">
-		<div class="subNav">
-				<nav class="navbar bg-body-tertiary navbar-expand-sm">
-					<div class="container-fluid">
-
+	<div class="container w-75">
+		<div class="row subNav w-75">
+				<nav class="navbar col bg-body-tertiary navbar-expand-sm">
 						<div class="row navbar w-100" id="navbarTogglerDemo03">
 							<div class="col linkGroup"
 								style="position: relative; width: 100%;">
 								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-									<a class="nav-link fs-5" href="/shop/toShopList">
-										<button class="nav-item btn active" onclick="activeChange()">전체</button>
-									</a>
-									<li class="nav-item"><a class="nav-link"
-										onclick="activeChange()" href="/shop/toShopList?status=open">진행중</a></li>
-									<li class="nav-item"><a class="nav-link"
-										onclick="activeChange()" href="/shop/toShopList?status=closed">마감</a></li>
+									<li class="nav-item btn active">
+										<a class="nav-link" href="/shop/toShopList">
+										전체
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=open">
+										진행중
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=closed">
+										마감
+										</a>
+									</li>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
-										<li class="nav-item"><a class="nav-link"
-											onclick="activeChange()" href="/shop/toShopRegister">공구
-												등록</a></li>
+										<li class="nav-item">
+											<a class="nav-link" onclick="activeChange()" href="/shop/toShopRegister">
+											공구 등록
+											</a>
+										</li>
 									</c:if>
 								</ul>
 							</div>
@@ -134,7 +141,6 @@
 									placeholder="검색어를 입력해주세요." maxlength="20">
 							</div>
 						</div>
-					</div>
 				</nav>
 		</div>
 		<div class="row body pt-3">
