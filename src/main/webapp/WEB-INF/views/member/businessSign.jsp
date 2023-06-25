@@ -547,7 +547,6 @@ label {
 					valid.set(id, true);
 					if (id == "member_phone") {
 						$("#phone_auth").attr("disabled", false);
-						$("#phone_auth_ok").attr("disabled", false);
 						valid.set("auth", false);
 					}
 				}
@@ -767,6 +766,8 @@ label {
 				else {
 					alert("인증문자가 전송되었습니다.");
 					$("#phone_auth_code").attr("readonly", false);
+					$("#phone_auth_ok").attr("disabled", false);
+
 				}
 				
 				// 인증번호 받기 버튼 비활성화
