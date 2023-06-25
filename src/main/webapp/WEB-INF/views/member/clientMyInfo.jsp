@@ -281,8 +281,188 @@ label {
 					</div>
 				</div>
 			</div>
+			
+		<!-- 이 부분은 수정하기 완료 후 바뀐 정보보기 -->
+		<c:if test="${status=='complete'}">
+		<script>
+			$("#find_member_fadeIn").css("display", "none");
+		</script>
+			<div class="row justify-content-center" id="info">
+				<div class="col-12 col-md-8">
+					<div class="header text-center">
+						<h3>⚽CookCook</h3>
+					</div>
+
+					<!-- 이름 -->
+					<div class="row insert">
+						<div class="col-10">
+							<!-- 이름 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="name">이름</label>
+								</div>
+							</div>
+							<!-- 이름 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" class="form-control" id="name" value="${dto.name}" disabled >
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 닉네임 -->
+					<div class="row insert">
+						<div class="col-10 ">
+							<!-- 닉네임 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="nickName">닉네임</label>
+								</div>
+							</div>
+							<!-- 닉네임 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" class="form-control" id="nickName" value="${dto.nickName}" disabled>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<br>
+					
+					<!-- 전화번호 -->
+					<div class="row insert" id="pAuth">
+						<div class="col-10">
+							<!-- 전화번호 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="phone">전화번호</label>
+								</div>
+							</div>
+							<!-- 전화번호 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" class="form-control" id="phone" value="${dto.phone}"disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 생년월일 -->
+					<div class="row insert">
+						<div class="col-10">
+							<!-- 생년월일 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="birth">생년월일</label>
+								</div>
+							</div>
+							<!-- 생년월일 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" class="form-control" id="birth" value="${dto.birthDate}" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 이메일 -->
+					<div class="row insert">
+						<div class="col-10">
+							<!-- 이메일 타이틀 -->
+							<div class="row label">
+								<div class="col-12">
+									<label for="email">E-mail</label>
+								</div>
+							</div>
+							<!-- 이메일 출력 -->
+							<div class="row input">
+								<div class="col-12">
+									<input type="email" class="form-control" id="email" value="${dto.eMail}" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<!-- 주소 -->
+					<div class="row insert">
+						<div class="col-10">
+							<div class="row label">
+								<div class="col-12">
+									<label>우편번호</label>
+								</div>
+							</div>
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" id="add1" class="col-35 form-control" value="${dto.zipcode}" disabled>
+								</div>
+							</div>		
+						</div>
+					</div>
+					<br>
+
+					<div class="row insert">
+						<div class="col-10">
+							<div class="row label">
+								<div class="col-12">
+									<label>주소1</label>
+								</div>
+							</div>
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" id="add2" class="col-10 form-control" value="${dto.address1}" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<br>
+					
+					<div class="row insert">
+						<div class="col-10">
+							<div class="row label">
+								<div class="col-12">
+									<label>주소2</label>
+								</div>
+							</div>
+							<div class="row input">
+								<div class="col-12">
+									<input type="text" id="add3" class="col-10 form-control" value="${dto.address2}" disabled>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+
+					<!-- 수정하러가기 버튼 & 돌아가기 버튼 -->
+					<br>
+					<div class="row justify-content-center">
+						<div class="col-auto d-flex justify-content-end">
+							<a href="/clientMember/goUpdateInfo?id=${sessionScope.id}">
+								<button class="btn btn-secondary" type="button" id="goUpdateBtn" style="background-color: #76b852;">수정하기</button>
+							</a>
+						</div>
+						<div class="col-auto d-flex justify-content-start">
+							<a href="/">
+								<button class="btn btn-secondary" type="button" id="back" style="background-color: #76b852;">뒤로가기</button>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
+		
 		</div>
 	</div>
+	
+	
+			
+		
+
 	
 	
 	
@@ -331,9 +511,7 @@ label {
 				})
 			}
 		})
-		
-		
-		
+
 	</script>
 </body>
 </html>

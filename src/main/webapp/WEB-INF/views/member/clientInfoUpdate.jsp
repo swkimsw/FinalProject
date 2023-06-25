@@ -12,6 +12,8 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<!-- Bootstrap - JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <!-- Bootstrap - icon -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet" >
 <!-- awesome font -icon -->
@@ -362,8 +364,10 @@ label {
 	// 정규식 & 중복 체크 - 아이디 & 닉네임 & 이메일 ...
 	let valid = new Map();
 	let setValid;
+	setValid = valid.set("auth", false);
+	let id;
 	function checksum(evt, type) {
-		let id = $(evt).attr("id");
+		id = $(evt).attr("id");
 		let regex = new RegExp($(evt).attr("pattern"));
 		let value = $(evt).val();
 		// MAP(valid)에 KEY(value)가 없으면 flase 추가
@@ -408,7 +412,7 @@ label {
 				}).done(function (info) {
 						if (id.split("_")[1].toUpperCase() === "NICKNAME") {
 							if(info.nickName == $("#member_nickname").val()) {
-								$("#" + id + "_checking").html("사용가능한 " + id.split("_")[1].toUpperCase()).css({"color": "#198754"});
+								$("#" + id + "_checking").html("사용가능한 " + id.split("_")[1].toUpperCase()).css("color", "#198754");
 								setValid = valid.set(id, true);
 							}
 							else {
@@ -441,184 +445,29 @@ label {
 						}
 				})
 			} else {
-				console.log(resp)
 				$("#" + id + "_checking").html("사용가능한 " + id.split("_")[1].toUpperCase()).css("color", "#198754");
 				setValid = valid.set(id, true);
 				if (id == "member_phone") {
 					$("#phone_auth").attr("disabled", false);
-					$("#phone_auth_ok").attr("disabled", false);
 					valid.set("auth", false);
 				}
 			}
 		});
-		$("#updateBtn").on("click", function() {
-			if(setValid.get(id) == false) {
-				$("#" + id).focus();
-				return false;
-			}
-			
-		})
 	}
 	
-	// PW 유효성 검사
-	addEventListener("DOMContentLoaded", (event) => {
-		const password = document.getElementById("member_pw");
-		const passwordAlert = document.getElementById("password-alert");
-		const requirements = document.querySelectorAll(".requirements");
-		let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
-		let leng = document.querySelector(".leng");
-		let bigLetter = document.querySelector(".big-letter");
-		let num = document.querySelector(".num");
-		let specialChar = document.querySelector(".special-char");
-		const specialChars = "!@#$%^&*()-_=+[{]}\\|;:'\,./?`~";
-		const numbers = "0123456789";
-		
-		requirements.forEach((element) => element.classList.add("wrong"));
-		
-		
-		password.addEventListener("focus", () => {
-			passwordAlert.classList.remove("d-none");
-			if (!password.classList.contains("is-valid")) {
-				password.classList.add("is-invalid");
-			}
-		});
-		
-		password.addEventListener("input", () => {
-			let value = password.value;
-			
-			if (value.length < 8) {
-			    lengBoolean = false;
-			} else if (value.length > 7) {
-			    lengBoolean = true;
-			}
-			
-			if (value.toLowerCase() == value) {
-			    bigLetterBoolean = false;
-			} else {
-			    bigLetterBoolean = true;
-			}
-			
-			numBoolean = false;
-			for (let i = 0; i < value.length; i++) {
-			    for (let j = 0; j < numbers.length; j++) {
-			        if (value[i] == numbers[j]) {
-			            numBoolean = true;
-			        }
-			    }
-			}
-			
-			specialCharBoolean = false;
-			for (let i = 0; i < value.length; i++) {
-			    for (let j = 0; j < specialChars.length; j++) {
-			        if (value[i] == specialChars[j]) {
-			            specialCharBoolean = true;
-			        }
-			    }
-			}
-			
-			if (lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean == true) {
-				password.classList.remove("is-invalid");
-				password.classList.add("is-valid");
-				
-				requirements.forEach((element) => {
-					element.classList.remove("wrong");
-					element.classList.add("good");
-				});
-				passwordAlert.classList.remove("alert-warning");
-				passwordAlert.classList.add("alert-success");
-			} else {
-				password.classList.remove("is-valid");
-				password.classList.add("is-invalid");
-				
-				passwordAlert.classList.add("alert-warning");
-				passwordAlert.classList.remove("alert-success");
-				
-				if (lengBoolean == false) {
-					leng.classList.add("wrong");
-					leng.classList.remove("good");
-				} else {
-					leng.classList.add("good");
-					leng.classList.remove("wrong");
-				}
-				
-				if (bigLetterBoolean == false) {
-					bigLetter.classList.add("wrong");
-					bigLetter.classList.remove("good");
-				} else {
-					bigLetter.classList.add("good");
-					bigLetter.classList.remove("wrong");
-				}
-				
-				if (numBoolean == false) {
-					num.classList.add("wrong");
-					num.classList.remove("good");
-				} else {
-					num.classList.add("good");
-					num.classList.remove("wrong");
-				}
-				
-				if (specialCharBoolean == false) {
-					specialChar.classList.add("wrong");
-					specialChar.classList.remove("good");
-				} else {
-					specialChar.classList.add("good");
-					specialChar.classList.remove("wrong");
-				}
-			}
-		});
-		
-		password.addEventListener("blur", () => {
-			passwordAlert.classList.add("d-none");
-			if (password.value == "") {
-				password.classList.remove("is-invalid");
-			}
-		});
-	});
-	// PW 일치 검사
-	addEventListener("DOMContentLoaded", (event) => {
-		const password = document.getElementById("password_check");
-		const passwordAlert = document.getElementById("password-alert");
-		const requirements = document.querySelectorAll(".requirements");
-		
-		password.addEventListener("focus", () => {
-			if (!password.classList.contains("is-valid")) {
-				password.classList.add("is-invalid");
-			}
-		});
-		requirements.forEach((element) => element.classList.add("wrong"));
-		
-		password.addEventListener("input", () => {
-			let value = password.value;
-			if (value == document.getElementById("member_pw").value) {
-				password.classList.remove("is-invalid");
-				password.classList.add("is-valid");
-				
-				requirements.forEach((element) => {
-					element.classList.remove("wrong");
-					element.classList.add("good");
-				});
-				passwordAlert.classList.remove("alert-warning");
-				passwordAlert.classList.add("alert-success");
-			}else {
-				password.classList.add("is-invalid");
-				password.classList.remove("is-valid");
-				
-				requirements.forEach((element) => {
-					element.classList.add("wrong");
-					element.classList.remove("good");
-				});
-				passwordAlert.classList.add("alert-warning");
-				passwordAlert.classList.remove("alert-success");
-				console.log("틀렷음");
-			}
-		});
-		
-		password.addEventListener("blur", () => {
-			if (password.value == "") {
-				password.classList.remove("is-invalid");
-			}
-		});
-    });
+	$("#updateBtn").on("click", function() {
+		if(setValid.get(id) == false) {
+			$("#" + id).focus();
+			return false;
+		}
+		if(setValid.get("auth") == false) {
+			alert("수정 시 휴대폰 인증은 필수입니다.");
+			return false;
+		}
+		alert("변경되었습니다.");
+	})
+
+	
 	// 타이머 구현
 	function $ComTimer() { }
 	$ComTimer.prototype = {
@@ -696,14 +545,16 @@ label {
 				
 				$("#pAuth button").attr("disabled", true);
 				$("#pAuth input").attr("readonly", true);
-				
-				valid.set("auth", true);
+				setValid = valid.set("auth", true);
 			} else {
 				alert("인증번호가 틀렸거나 시간이 초과되었습니다.");
 				$("#phone_auth_code").val("");
 			}
 		});
 	});
+	
+
+
 	// 생년월일 select option setting - 년 / 월
 	$(document).ready(function () {
 		var now = new Date();
@@ -814,41 +665,11 @@ label {
 	
 		
 	}
-	document.addEventListener("DOMContentLoaded", function() {
-		  var password_check = document.getElementById("password_check");
-		  var member_name = document.getElementById("member_name");
-		  var member_nickname = document.getElementById("member_nickname");
-		  var member_phone = document.getElementById("member_phone");
-		  var phone_auth_code = document.getElementById("phone_auth_code");
-		  var sample6_postcode = document.getElementById("sample6_postcode");
-		  var sample6_address = document.getElementById("sample6_address");
-		  var sample6_detailAddress = document.getElementById("sample6_detailAddress");
-		  var member_email = document.getElementById("member_email");
 
-		  if (password_check.value === "") {
-		    password_check.focus();
-		  } else if (member_name.value === "") {
-		    member_name.focus();
-		  } else if (member_nickname.value === "") {
-		    member_nickname.focus();
-		  } else if (member_phone.value === "") {
-		    member_phone.focus();
-		  } else if (phone_auth_code.value === "") {
-		    phone_auth_code.focus();
-		  } else if (sample6_postcode.value === "") {
-		    sample6_postcode.focus();
-		  } else if (sample6_address.value === "") {
-		    sample6_address.focus();
-		  } else if (sample6_detailAddress.value === "") {
-		    sample6_detailAddress.focus();
-		  } else if (member_email.value === "") {
-		    member_email.focus();
-		  }
-		});	
 	
 	// 회원정보 수정할 수 있는 폼에서 뒤로가기 누를 시
 	$("#backBtn").on("click", function() {
-		
+		window.history.back();
 	})
 	</script>
 	
