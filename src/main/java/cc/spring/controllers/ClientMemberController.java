@@ -262,7 +262,6 @@ public class ClientMemberController {
 	@RequestMapping("selectClientMemberInfo")
 	public MemberDTO selectClientMemberInfo(String id) throws Exception {
 		MemberDTO dto = cms.selectClientMemberInfo(id);
-		System.out.println(dto);
 		return dto;
 	}
 	
