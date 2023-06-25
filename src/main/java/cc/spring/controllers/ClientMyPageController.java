@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cc.spring.dto.BoardFreeDTO;
@@ -20,76 +21,36 @@ public class ClientMyPageController {
 	private HttpSession session;
 	@Autowired
 	private ClientMyPageService cmp;
-	
+	//클라이언트 마이페이지 내가쓴 자유게시판 
 	@RequestMapping("myPageFreeboard")
 	public String myPageList(Model model) {
 		int code = (int) session.getAttribute("code");
-		
-		//int code = 11;
 		System.out.println("신발");
-		System.out.println(code);
+		System.out.println("클라이언트 코드 :"+code);
 		List<BoardFreeDTO> list = cmp.myPageList(code);
-		System.out.println(list);
 		model.addAttribute("list",list);
 		return "/member/ClientMyPageFreeBoard";
 	}
+	//클라이언트 마이페이지 내가 쓴 리뷰 게시판
 	@RequestMapping("myPageReview")
 	public String myPageReview(Model model) {
 		int code = (int) session.getAttribute("code");
 		List<BoardReviewDTO> list = cmp.myPageReview(code);
+		System.out.println("클라이언트 코드 :"+code);
+		System.out.println("리뷰 컨트롤러");
 		model.addAttribute("list",list);
 		return "/member/ClientMyPageReview";
 	}
+	//비지니스 마이페이지 내가 쓴 자유게시판 
+	@RequestMapping("businessMypageBoard")
+	public String businessMypageBoard(Model model) {
+		int code = (int) session.getAttribute("code");
+		List<BoardFreeDTO> list = cmp.myPageList(code);
+		System.out.println("비지니스 :"+code);
+		model.addAttribute("list",list);
+		return "/member/ClientMyPageFreeBoard";
+	}
 	
-//	@RequestMapping("myPage")
-//	public String myPageList(Pageable pageable, Model model) {
-//        int code = (int) session.getAttribute("code");
-//        pageable = PageRequest.of(pageable.getPageNumber(), 10); // 페이지당 10개씩 표시
-//
-//        Page<BoardFreeDTO> page = cmp.myPageList(code, pageable);
-//        model.addAttribute("list", page.getContent());
-//        model.addAttribute("totalPages", page.getTotalPages());
-//        model.addAttribute("currentPage", pageable.getPageNumber());
-//
-//        return "myPage";
-//    }
-//    @RequestMapping("/mpPage")
-//    public String myPageList(HttpServletRequest request, Model model) throws UnsupportedEncodingException {
-//        request.setCharacterEncoding("UTF-8");
-//        int currentPage = Integer.parseInt(request.getParameter("cpage"));
-//        System.out.println("currentPage: " + currentPage);
-//
-//        // 페이지 번호 검증
-//        int totalPage = (int) Math.ceil(cmp.getRecordCount() / (double) Paging.BOARD_RECORD_COUNT_PER_PAGE);
-//        if (currentPage < 0) {
-//            currentPage = 1;
-//        } else if (currentPage > totalPage) {
-//            currentPage = totalPage;
-//        }
-//
-//        int start = currentPage * Paging.BOARD_RECORD_COUNT_PER_PAGE - (Paging.BOARD_RECORD_COUNT_PER_PAGE - 1);
-//        int end = currentPage * Paging.BOARD_RECORD_COUNT_PER_PAGE;
-//
-//        int first = (currentPage - 1) / Paging.BOARD_NAVI_COUNT_PER_PAGE * Paging.BOARD_NAVI_COUNT_PER_PAGE;
-//        int last = (currentPage - 1) / Paging.BOARD_NAVI_COUNT_PER_PAGE * Paging.BOARD_NAVI_COUNT_PER_PAGE + Paging.BOARD_NAVI_COUNT_PER_PAGE + 1;
-//
-//        System.out.println("start/end: " + start + "/" + end);
-//        System.out.println("first/last: " + first + "/" + last);
-//        System.out.println("currentPage: " + currentPage);
-//
-//        List<BoardFreeDTO> list = cmp.selectStudyBoard(start, end);
-//        List<String> pageNavi = cmp.getPageNavi(cmp.getRecordCount(), currentPage);
-//
-//        System.out.println("pageNavi: " + pageNavi);
-//
-//        model.addAttribute("list", list);
-//        model.addAttribute("navi", pageNavi);
-//        model.addAttribute("cpage", currentPage);
-//        model.addAttribute("start", first);
-//        model.addAttribute("end", last);
-//
-//        return "/admin/admin_StudyBoard";
-//    }
 	// 내 정보 보기 클릭 시 페이지 이동
 	@RequestMapping("myInfo")
 	public String myInfo() {
@@ -102,5 +63,9 @@ public class ClientMyPageController {
 //	public String checkPw() {
 //		
 //	}
-	
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "redirect:/error";
+	}
 }

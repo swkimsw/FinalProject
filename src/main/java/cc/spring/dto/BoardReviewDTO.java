@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 public class BoardReviewDTO {
 	private int code;
 	private int boardKindCode;
+	private String boardKindValue;
 	private int headLineCode;
+	private String headLineValue;
 	private int memberCode;
 	private String title;
 	private String content;
@@ -47,6 +49,23 @@ public class BoardReviewDTO {
 		this.regDate = regDate;
 		this.modDate = modDate;
 		this.delDate = delDate;
+		this.memberId = memberId;
+		this.memberNickName = memberNickName;
+	}
+	public BoardReviewDTO(int code, int boardKindCode, String boardKindValue, int headLineCode, String headLineValue,
+			int memberCode, String title, int viewCount, int likeCount, Timestamp regDate, String memberId,
+			String memberNickName) {
+		super();
+		this.code = code;
+		this.boardKindCode = boardKindCode;
+		this.boardKindValue = boardKindValue;
+		this.headLineCode = headLineCode;
+		this.headLineValue = headLineValue;
+		this.memberCode = memberCode;
+		this.title = title;
+		this.viewCount = viewCount;
+		this.likeCount = likeCount;
+		this.regDate = regDate;
 		this.memberId = memberId;
 		this.memberNickName = memberNickName;
 	}
@@ -128,6 +147,18 @@ public class BoardReviewDTO {
 	}
 	public void setMemberNickName(String memberNickName) {
 		this.memberNickName = memberNickName;
+	}
+	public String getBoardKindValue() {
+		return boardKindValue;
+	}
+	public void setBoardKindValue(String boardKindValue) {
+		this.boardKindValue = boardKindValue;
+	}
+	public String getHeadLineValue() {
+		return headLineValue;
+	}
+	public void setHeadLineValue(String headLineValue) {
+		this.headLineValue = headLineValue;
 	}
 
 }

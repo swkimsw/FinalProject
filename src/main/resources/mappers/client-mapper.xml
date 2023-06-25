@@ -33,4 +33,12 @@
 	<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
 		select * from Member where id = #{id}
 	</select>
+	
+	<select id="checkPw" resultType="boolean">
+		select count(*) from Member where id = #{id} and pw = #{pw}
+	</select>
+	
+	<update id="updateMemberInfo">
+		update Member set name = #{name}, nickName = #{nickName}, phone = #{phone}, birthDate = #{birthDate}, eMail = #{eMail}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} where id = #{id}
+	</update>
 </mapper>

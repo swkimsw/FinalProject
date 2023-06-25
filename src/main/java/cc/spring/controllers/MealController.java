@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,16 +35,27 @@ public class MealController {
 	
 	@RequestMapping("toMyMeal")
 	public String toMyMeal(Model model) {
-		int memberCode = (int)session.getAttribute("code");
-		List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
-		model.addAttribute("mealList", g.toJson(mealList));
-		return "meal/mealCalendar";
+		int memberCode = 0;
+		if(session.getAttribute("code")!=null) {
+			memberCode = (int)session.getAttribute("code");
+		}
+		
+		if(memberCode==0) {
+			return "redirect:/clientMember/login_form";
+		}
+		else {
+			List<MealDTO> mealList = mService.selectMealCalendar(memberCode);
+			model.addAttribute("mealList", g.toJson(mealList));
+			return "meal/mealCalendar";			
+		}
 	}
 	
 	//내 식단 목록에서 한끼 식단 편집할 때
 	//ajax
 	@RequestMapping("insertMeal")
 	public void insertMeal(MealDTO dto) {
+		int memberCode = (int)session.getAttribute("code");
+		dto.setMemberCode(memberCode);
 		mService.insertMeal(dto);
 	}
 	
@@ -51,7 +63,18 @@ public class MealController {
 	//ajax
 	@RequestMapping("deleteMeal")
 	public void deleteMeal(MealDTO dto) {
+		int memberCode = (int)session.getAttribute("code");
+		dto.setMemberCode(memberCode);
 		mService.deleteMeal(dto);
+	}
+	
+	//내 식단 목록에서 한끼 식단 편집할 때
+	//ajax
+	@RequestMapping("updateMeal")
+	public void updateMeal(MealDTO dto, String modDate, int modTime) {
+		int memberCode = (int)session.getAttribute("code");
+		dto.setMemberCode(memberCode);
+		mService.updateMeal(dto, modDate, modTime);
 	}
 	
 	//ajax
@@ -64,8 +87,23 @@ public class MealController {
 	}
 	
 	@RequestMapping("toMyBasket")
-	public String toMyBasket() {
-		return "meal/basket";
+	public String toMyBasket(Model model) {
+		int memberCode = 0;
+		if(session.getAttribute("code")!=null) {
+			memberCode = (int)session.getAttribute("code");
+		}
+		
+		if(memberCode==0) {
+			return "redirect:/clientMember/login_form";
+		}
+		else {
+			return "meal/basket";			
+		}
+	}
+	
+	@RequestMapping("toAiMeal")
+	public String toAiMeal() {
+		return "home";
 	}
 	
 	@ResponseBody
@@ -83,9 +121,14 @@ public class MealController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="addMeal", produces="text/plain;charset=utf-8")
-	public void aiAddMeal() {
+	@RequestMapping(value="addAiMeal", produces="text/plain;charset=utf-8")
+	public void aiAddMeal(@RequestBody List<MealDTO> aiMealArr) {
 		
+		int memberCode = (int)session.getAttribute("code");
+		for(int i=0; i<aiMealArr.size(); i++) {
+			aiMealArr.get(i).setMemberCode(memberCode);
+		}
+		mService.insertAiMeal(aiMealArr);
 	}
 	
 	@ExceptionHandler(Exception.class)

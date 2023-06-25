@@ -26,6 +26,13 @@ public class ClientMyPageDAO {
 		System.out.println("내가쓴 후기게시판 DAO 실행");
 		return mybatis.selectList("MyPage.reView",code);
 	}
+// 비지니스가 쓴 자유게시판 목록 
+	public List<BoardFreeDTO> businessSelectReview(int code){
+		System.out.println("비지니스 내가 쓴 후기게시판");
+		return mybatis.selectList("MyPage.businessFreeBoard",code);
+	}
+	
+	
 	public boolean checkPw(String id, String pw) {
 		Map<String,Object> param = new HashMap<>();
 		param.put("id", id);

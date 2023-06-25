@@ -15,4 +15,10 @@
 	<delete id="deleteMeal">
 		delete from meal where memberCode=${memberCode} and mealDate=#{mealDate} and timeCode=${timeCode} and meal=#{meal}
 	</delete>
+	<delete id="deleteAiMeal">
+		delete from meal where memberCode=${memberCode} and mealDate=#{mealDate} and timeCode=${timeCode}
+	</delete>
+	<update id="updateMeal">
+		update meal set mealDate=#{modDate}, timeCode=${modTime} where memberCode=${mealDTO.memberCode} and mealDate=#{mealDTO.mealDate} and timeCode=${mealDTO.timeCode} and meal=#{mealDTO.meal}
+	</update>
 </mapper>

@@ -58,10 +58,35 @@ body {
 	</c:import>
 	
 	<div class="container">
-		<c:forEach var="i" items="${list}">
-			<p>${i.memberCode}</p>
-			<p>${i.quantity}</p>
-		</c:forEach>
+		<c:choose>
+			<c:when test="${sessionScope.authGradeCode == 1003}">
+				<h3> ${info.name}님의 공구 신청 목록</h3>
+				<h5>${info.clientId}</h5>
+				<c:forEach var="c" items="${list}">
+					<p>회원코드: ${c.memberCode}</p>
+					<p>주문자명: ${c.name} </p>
+					<p>상품명 : ${c.productName}</p>
+					<p>가격 : ${c.productPrice} 원</p>
+					<p>수량 : ${c.quantity}</p>
+					<p>합계액 : ${c.productPrice * c.quantity} 원</p>
+					<hr>
+				</c:forEach>
+			</c:when>
+			<c:when test="${sessionScope.authGradeCode == 1002}">
+					<h3> ${info.companyName}님의 공구 등록 목록</h3>
+					<h5>${info.businessId}</h5>
+				<c:forEach var="b" items="${list}">
+					<a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a>
+					<p>상품명 : ${b.productName}</p>
+					<p>가격 : ${b.productPrice} 원 </p>
+					<p>신청건수 : ${b.applyCount}</p>
+					<p>상품수량 : ${b.applyQuantity}</p>
+					<p>총 매출 : ${b.productPrice * b.applyQuantity}</p>
+					<button onclick="">신청자 목록</button>
+					<hr>
+				</c:forEach>
+			</c:when>
+		</c:choose>
 	</div>		
 </body>
 </html>
