@@ -49,4 +49,12 @@ public class BusinessMemberService {
 	public MemberDTO selectMemberInfoByCode(int code) {
 		return bdao.selectMemberInfoByCode(code);
 	}
+	
+	public boolean checkPw(String id, String pw) {
+		return bdao.checkPw(id, pw);
+	}
+	
+	public int updateMemberInfo(MemberDTO dto) {
+		return bdao.updateMemberInfo(dto);
+	}
 }
