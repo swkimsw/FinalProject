@@ -114,18 +114,15 @@
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											활동 관리</a></li>
 									<c:if test="${sessionScope.authGradeCode == 1003}">
-									<li class="login"><a href="/clientMyPage/clientMyInfo"
+									<li class="login"><a href="/clientMember/clientMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
-									<li class="login"><a href="/businessMyPage/businessMyInfo"
+									<li class="login"><a href="/businessMember/businessMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
-									<li class="login"><a href="#"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											식단 보기</a></li>
 								</ul>
 							</div></li>
 					</c:if>
@@ -172,14 +169,14 @@
 							aria-expanded="false">식단 카테고리</button>
 						<div class="collapse" id="meal-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li class="login"><a href="#"
+								<li class="login"><a href="/meal/toAiMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 추천
 										받기</a></li>
 								<li><a href="/meal/toMyMeal"
-									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 식단 리스트</a></li>
 								<li><a href="/meal/toMyBasket"
-									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 장바구니</a></li>
 							</ul>
 						</div></li>
@@ -208,3 +205,10 @@
 		</div>
 	</div>
 </nav>
+<script>
+	function needLogin(code){
+		if(code==null){
+			alert('로그인이 필요한 서비스입니다.');
+			}
+	}
+</script>

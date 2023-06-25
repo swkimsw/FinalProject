@@ -43,7 +43,7 @@
 <link href="${path}/resources/css/mealCalendar.css" rel="stylesheet"
 	type="text/css">
 <!-- mealCalendar calendar js -->
-<script src="${path}/resources/js/mealCalendar_calendar.js"></script>
+<script src="${path}/resources/js/aiCalendar_calendar.js"></script>
 <style>
 * {
 	font-family: NanumSquareNeoBold;
@@ -61,11 +61,11 @@
 	height: 256px;
 }
 
-/* @keyframes rotate_image{
-    100% {
+@keyframes rotate_image{
+	100% {
         transform: rotate(360deg);
     }
-} */
+}
 .selectBox {
 	padding: 2rem;
 	background-color: #fdeeb39a;
@@ -159,11 +159,12 @@
 							name="special" value="1003"> <label
 							class="form-check-label" for="viganDiet">비건 다이어트</label>
 					</div>
-					<div class="d-flex justify-content-center">
-						<button type="button" id="sendBtn"
-							class="btn btn-success btn-rounded">식단생성</button>
-					</div>
+					
 				</div>
+					<div class="d-flex justify-content-center">
+						<button type="button" id="sendBtn" class="btn btn-success btn-lg btn-rounded">식단생성</button>
+						<button type="button" id="aiMealAddBtn" class="btn btn-success btn-lg btn-rounded" hidden>저장하기</button>
+					</div>
 			</div>
 
 			<div class="mealCalender">
@@ -177,7 +178,6 @@
 								</span></td>
 								<td class="c-header-center"></td>
 								<td class="c-header-right d-grid justify-content-end h-100">
-									<button id="aiMealAddBtn" class="btn btn-success btn-rounded">저장하기</button>
 								</td>
 							</tr>
 						</tbody>
@@ -611,22 +611,13 @@
 				}).done(function (resp) {
 					// resp List<MealDTO> 로 저장하는 함수 만들기?
 					console.log(resp);
+					
 					aiMealAdd(resp);
-					const meals = ['breakfast', 'lunch', 'dinner'];
-					const timeCodes = [1001, 1002, 1003];
-
-					$(resp).each(function (index, item) {
-						for (let day = 0; day <= 6; day++) {
-							if (dateAdd(today, day) == item.mealDate) {
-								for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
-									if (item.timeCode == timeCodes[mealIndex]) {
-										var targetClass = ".day" + (day+1) + "." + meals[mealIndex];
-										$(targetClass).find(".meal-box").append(item.meal, "<br>");
-									}
-								}
-							}
-						}
-					});
+					aiMealPrint(resp);
+					
+					$("#aiMealAddBtn").removeAttr("hidden");
+					$("#sendBtn").attr("hidden", true);
+					
 					alert("생성 성공~!");
 				});
 			});
@@ -635,18 +626,20 @@
 			$("#aiMealAddBtn").on("click", function(){
 				
 				$.ajax({
-					url: "/meal/aiAddAiMeal",
-					type: "post",
-					data: {
-						aiMealArr : aiMealArr
-					}
+				    type: 'POST',
+				    url: '/meal/addAiMeal',
+				    data: JSON.stringify(aiMealArr),
+				    contentType: 'application/json',
+				    success: function(response) {
+				        console.log(response);
+				    },
+				    error: function(error) {
+				        console.log(error);
+				    }
+				}).done(function(){
+					alert("저장 전송 성공");
 				});
 			});
-			
-
-			
-			
-			
 		</script>
 
 </html>

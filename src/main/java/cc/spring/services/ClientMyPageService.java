@@ -23,12 +23,6 @@ public class ClientMyPageService {
 	
 }
 
-	public boolean checkPw(String id, String pw) {
-		return cmdao.checkPw(id, pw);
-	}
-	
-	public MemberDTO selectClientMemberInfo(String id) {
-		return cmdao.selectClientMemberInfo(id);
-	}
+
 
 }

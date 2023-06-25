@@ -43,6 +43,14 @@
 		insert into requestlist
 		values(request_list_seq.nextval,#{memberCode},#{quantity},#{parentCode},1001,sysdate,null,null)
 	</insert>
+	
+	<select id="isCountRequest" resultType="int">
+		select count(*) from requestlist where parentcode=${code}
+	</select>
+	
+	<select id="isExistRequest" resultType="int">
+		select count(*) from requestlist where parentcode=${code} and membercode=${memberCode}
+	</select>
 
 
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
@@ -54,6 +62,11 @@
 		left join groupbuyingimg i on g.code = i.postcode
 		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode )
 		order by g.deadline desc
+	</select>
+	
+	<select id="getInfo" resultType="cc.spring.dto.MyShopListDTO">
+		select name, id as clientid, companyname, businessid
+		from member where code = #{code}
 	</select>
 	
 	<select id="clientBuyingList" resultType="cc.spring.dto.MyShopListDTO">
@@ -78,17 +91,26 @@
 	</select>
 	
 	<select id="businessRegisterList" resultType="cc.spring.dto.MyShopListDTO">
-		select * from member;
+		select g.code as groupbuyingcode , g.membercode as businesscode ,
+		g.statuscode, g.deadline, g.title, g.productname, g.productprice, g.regdate,
+		m.companyname,
+		count(r.parentcode) as applycount, 
+		nvl(sum(r.quantity),0) as applyquantity
+		from groupbuying g
+		left join member m on g.membercode = m.code
+		left join requestlist r on r.parentcode = g.code
+		where g.membercode = #{code}
+		group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode
 	</select>
 	
 	<select id="buyingMemberInfoList" resultType="cc.spring.dto.MyShopListDTO">
-	select r.code as applycode, r.membercode, r.quantity, r.regdate as applydate,
-	m.id as clientid , m.name, m.phone, m.email, m.zipcode, m.address1, m.address2,
-	g.productprice
-	from requestlist r
-	left join member m on r.membercode = m.code
-	left join groupbuying g on r.parentcode = g.code
-	where r.parentcode = #{code}
+		select r.code as applycode, r.membercode, r.quantity, r.regdate as applydate,
+		m.id as clientid , m.name, m.phone, m.email, m.zipcode, m.address1, m.address2,
+		g.productprice
+		from requestlist r
+		left join member m on r.membercode = m.code
+		left join groupbuying g on r.parentcode = g.code
+		where r.parentcode = #{groupbuyingCode}
 	</select>
 	
 	<select id="getStatusList" resultType="cc.spring.dto.ShopListDTO">
