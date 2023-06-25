@@ -99,7 +99,7 @@
                     margin-top: 10px;
                 }
 
-                #asdf {
+                #button {
                     margin-right: 15px;
                     float: right;
                 }
@@ -168,14 +168,12 @@
 
                                     <tr>
                                         <td>
-                                            <div id="asdf" class="button-container">
-                                                <button id="modi" class=" btn btn-outline-primary" onclick="edit()"
+                                            <div id="button" class="button-container">
+                                                <button id="modi" class=" btn btn-outline-primary" 
                                                     type="button">수정</button>
-                                                <button id="save" class="btn btn-outline-primary" onclick="save()"
-                                                    type="button">수정
-                                                    완료</button>
-                                                <button id="undo" class="btn btn btn-outline-primary" onclick="undo()"
-                                                    type="button">취소</button>
+                                            
+                                                <button id="del" class="btn btn btn-outline-primary"
+                                                    type="button">삭제</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -373,7 +371,7 @@
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     type="submit">수정</button>
                                                                 <button class="btn btn-outline-primary btn-sm"
-                                                                    type="button">취소</button>
+                                                                    type="button">삭제</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -448,6 +446,11 @@
 
                 // 수정버튼
                 $("#modi").on("click", function () {
+                	
+                	
+                	$("#modi").css("display", "none");
+                    $("#button").prepend("<button id="save" class=" btn btn-outline-primary" type="button">수정완료</button>");
+                
                     $('#content').summernote({
                         placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
                         height: 600,
@@ -465,12 +468,22 @@
                             ['view', ['codeview', 'help']]
                         ]
                     });
+                    
+                    $("#title").removeAttr("disabled");
                 })
 
                 // 완료
                 $("#save").on("click", function () {
-                    var markup = $('#content').summernote('code');
-                    $('#content').summernote('destroy');
+                	let result = confirm("수정하시겠습니까?");
+                	
+                	if(result){
+                		var markup = $('#content').summernote('code');
+                        $('#content').summernote('destroy');
+                        $("#title").attr("disabled", true);
+                	}else {
+                		location.reload();
+                	}
+                    
                 })
 
 
