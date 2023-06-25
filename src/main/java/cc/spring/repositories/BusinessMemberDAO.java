@@ -67,4 +67,15 @@ public class BusinessMemberDAO {
 	public int updateShippingCompany(MemberDTO dto) {
 		return mybatis.update("updateShippingCompany", dto);
 	}
+	
+	public boolean checkPw(String id, String pw) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("pw", pw);
+		return mybatis.selectOne("Business.checkPw",param);
+	}
+	
+	public int updateMemberInfo(MemberDTO dto) {
+		return mybatis.update("Business.updateMemberInfo",dto);
+	}
 }
