@@ -185,14 +185,15 @@
 			}
 		})
 		
-		// 오늘 이전은 선택하지 못하도록
+		// 오늘 이전은 선택하지 못하도록 - 하루 뒤부터 선택 가능
+		let days = 1 * 24 * 60 * 60 * 1000;
+		
 		var nowUtc = Date.now();
-		console.log(nowUtc);
 		var timeOff = new Date().getTimezoneOffset()*60000;
-		console.log(timeOff);
-		var today = new Date(nowUtc-timeOff).toISOString().substring(0,16);
-		console.log(today);
-		$("#deadLineTemp").attr("min", today);
+		var afterOneDay = new Date(nowUtc+days-timeOff).toISOString().substring(0,16);
+		console.log(afterOneDay);
+		
+		$("#deadLineTemp").attr("min", afterOneDay);
 		
 	</script>
 </body>

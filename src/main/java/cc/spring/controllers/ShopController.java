@@ -1,5 +1,7 @@
 package cc.spring.controllers;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
-import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
@@ -29,6 +32,7 @@ import cc.spring.dto.ShopReplyAskDTO;
 import cc.spring.services.BusinessMemberService;
 import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
+import net.nurigo.java_sdk.api.Image;
 
 @Controller
 @RequestMapping("/shop/")
@@ -86,7 +90,7 @@ public class ShopController {
 
 		// 선택한 공구샵 이미지 가져오기
 		List<FileDTO> fileDTO = shopService.selectShopImg(code);
-
+		
 		// 선택한 공구샵 업체 정보 가져오기
 		MemberDTO memberDTO = businessMemberService.selectMemberInfoByCode(shopDTO.getMemberCode());
 
@@ -112,6 +116,8 @@ public class ShopController {
 		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
 		shopService.insertShop(dto, shippingCompany, files, realPath);
 
+		System.out.println(dto.getDeadLineTemp());
+		
 		return "redirect:/";
 	}
 
