@@ -42,4 +42,12 @@
 	<update id="updateShippingCompany">
 		update member set shippingcompany = #{shippingCompany} where code = ${code}
 	</update>
+	
+	<select id="checkPw" resultType="boolean">
+		select count(*) from Member where businessId = #{id} and pw = #{pw}
+	</select>
+	
+	<update id="updateMemberInfo">
+		update Member set name = #{name}, companyName = #{companyName}, phone = #{phone}, birthDate = #{birthDate}, eMail = #{eMail}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} where businessId = #{businessId}
+	</update>
 </mapper>
