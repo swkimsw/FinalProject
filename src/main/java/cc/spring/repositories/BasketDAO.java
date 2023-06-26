@@ -17,4 +17,8 @@ public class BasketDAO {
 	public List<BasketDTO> selectBasket(int memberCode){
 		return mybatis.selectList("Basket.selectBasket", memberCode);
 	}
+	
+	public int insertBasket(BasketDTO dto) {
+		return mybatis.insert("Basket.insertBasket",dto);
+	}
 }

@@ -1,12 +1,11 @@
 package cc.spring.services;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -41,6 +40,13 @@ public class BasketService {
 		}
 		
 		return result;
+	}
+	
+	@Transactional
+	public void insertAiIngredients(int memberCode, String[] targetIngredients) {
+		for(String target:targetIngredients) {
+			basketDAO.insertBasket(new BasketDTO(0,memberCode,target,0));
+		}
 	}
 	
 	public List<BasketDTO> selectBasket(int memberCode){

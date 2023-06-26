@@ -95,10 +95,14 @@
             targetIngredients = [new Set(targetIngredients)];
             console.log(targetIngredients);
             $.ajax({
-            	url:"/basket/aiAddBasket",
+            	url:"/basket/addAiBasket",
             	type:"post",
             	data:{
             		aiBasketArr:targetIngredients,
             	},
+            }).done(function(){
+            	if(confirm("등록되었습니다! 장바구니로 이동합니까?")){
+            		location.href="/basket/toMybasket";            	
+            	}
             })
         });

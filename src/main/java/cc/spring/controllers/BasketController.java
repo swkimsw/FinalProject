@@ -72,11 +72,13 @@ public class BasketController {
 		return g.toJson(result);
 	}
 	
-	@RequestMapping("aiAddBasket")
-	public String aiAddBasket(String aiBasketArr) {
+	@ResponseBody
+	@RequestMapping(value="addAiBasket", produces="text/plain; charset=utf8;")
+	public void aiAddBasket(String aiBasketArr) {
+		System.out.println(aiBasketArr);
 		String[] targetIngredients = g.fromJson(aiBasketArr, String[].class);
-		
-		
-		return "redirect:/basket/toMyBasket";
+		System.out.println(targetIngredients[0]);
+		int memberCode = (int)session.getAttribute("code");
+		bService.insertAiIngredients(memberCode, targetIngredients);
 	}
 }
