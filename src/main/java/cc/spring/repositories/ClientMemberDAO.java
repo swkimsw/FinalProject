@@ -68,9 +68,15 @@ public class ClientMemberDAO {
 		return mybatis.update("Client.updateMemberInfo",dto);
 	}
 	
+
+	public int deleteMember(int code) {
+		return mybatis.delete("Client.deleteMember",code);
+	}
+	
 	// Admin
 	public List<MemberDTO> selectAllClientMember() {
 		return mybatis.selectList("Client.selectAllClientMember");
+
 	}
 
 }
