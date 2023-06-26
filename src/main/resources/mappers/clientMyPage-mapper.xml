@@ -21,14 +21,5 @@ SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.
 	select count(*) from boardfree where membercode=${code};
 	</select>
 	
-	
-
-		<select id="checkPw" resultType="boolean">
-			select count(*) from Member where id = #{id} and pw = #{pw}
-		</select>
-		
-		<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
-			select * from Member where id = #{id}
-		</select>
 
 	</mapper>

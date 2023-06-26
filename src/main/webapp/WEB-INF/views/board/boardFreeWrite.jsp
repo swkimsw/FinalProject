@@ -93,7 +93,7 @@
 
         <c:when test="${user == '1003'}">
 
-          <form id="frm" action="/board/inputFree" method="post">
+          <form id="frm" action="/board/inputFree" method="get">
             <div class="container">
 
               <div class="header">

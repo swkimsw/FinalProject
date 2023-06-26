@@ -19,7 +19,7 @@ public class MealDTO {
 		this.timeCode = timeCode;
 		this.meal = meal;
 	}
-
+	
 	public int getCode() {
 		return code;
 	}

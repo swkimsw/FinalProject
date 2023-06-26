@@ -56,5 +56,16 @@ public class ClientMemberDAO {
 	public MemberDTO selectClientMemberInfo(String id) {
 		return mybatis.selectOne("Client.selectClientMemberInfo",id);
 	}
+	
+	public boolean checkPw(String id, String pw) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("id", id);
+		param.put("pw", pw);
+		return mybatis.selectOne("Client.checkPw",param);
+	}
+	
+	public int updateMemberInfo(MemberDTO dto) {
+		return mybatis.update("Client.updateMemberInfo",dto);
+	}
 
 }

@@ -21,14 +21,4 @@ public class ClientMyPageDAO {
 		return mybatis.selectList("MyPage.freeBoard",code);
 	}
 	
-	public boolean checkPw(String id, String pw) {
-		Map<String,Object> param = new HashMap<>();
-		param.put("id", id);
-		param.put("pw", pw);
-		return mybatis.selectOne("MyPage.checkPw",param);
-	}
-	
-	public MemberDTO selectClientMemberInfo(String id) {
-		return mybatis.selectOne("MyPage.selectClientMemberInfo",id);
-	}
 }

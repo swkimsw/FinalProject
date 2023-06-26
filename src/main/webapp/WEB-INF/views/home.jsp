@@ -60,12 +60,13 @@
 	width: 256px;
 	height: 256px;
 }
-
+/* 
  @keyframes rotate_image{
     100% {
         transform: rotate(360deg);
     }
-} 
+}  */
+
 .selectBox {
 	padding: 2rem;
 	background-color: #fdeeb39a;
@@ -163,6 +164,10 @@
 					<div class="d-flex justify-content-center">
 						<button type="button" id="sendBtn"
 							class="btn btn-success btn-lg btn-rounded">식단생성</button>
+				</div>
+					<div class="d-flex justify-content-center">
+						<button type="button" id="sendBtn" class="btn btn-success btn-lg btn-rounded">식단생성</button>
+						<button type="button" id="aiMealAddBtn" class="btn btn-success btn-lg btn-rounded" hidden>저장하기</button>
 					</div>
 			</div>
 
@@ -177,7 +182,6 @@
 								</span></td>
 								<td class="c-header-center"></td>
 								<td class="c-header-right d-grid justify-content-end h-100">
-									<button id="aiMealAddBtn" class="btn btn-success btn-rounded">저장하기</button>
 								</td>
 							</tr>
 						</tbody>
@@ -614,7 +618,10 @@
 					
 					aiMealAdd(resp);
 					aiMealPrint(resp);
-
+					
+					$("#aiMealAddBtn").removeAttr("hidden");
+					$("#sendBtn").attr("hidden", true);
+					
 					alert("생성 성공~!");
 				});
 			});
@@ -633,13 +640,10 @@
 				    error: function(error) {
 				        console.log(error);
 				    }
+				}).done(function(){
+					alert("저장 전송 성공");
 				});
 			});
-			
-
-			
-			
-			
 		</script>
 
 </html>

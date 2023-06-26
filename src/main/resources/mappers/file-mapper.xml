@@ -14,11 +14,15 @@
 	</select>
 	
 	<delete id="deleteShopImage">
-		delete from groupbuyingimg where postcode=${postcode}
+		delete from groupbuyingimg where postcode=${code}
 	</delete>
 	
 	<insert id="insertReviewImage">
 		insert into reviewimg values(review_img_seq.nextval, #{postcode}, #{path}, #{oriname}, #{sysname})
 	</insert>
+	
+	<select id="deleteImageList" resultType="cc.spring.dto.FileDTO">
+		select * from groupbuyingimg where postcode=${code}
+	</select>
 	
 </mapper>

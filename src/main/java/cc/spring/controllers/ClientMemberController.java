@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
-import cc.spring.dto.AdminMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.services.AdminMemberService;
 import cc.spring.services.ClientMemberService;
@@ -68,7 +67,6 @@ public class ClientMemberController {
 		if(result) {
 			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 			MemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
-			System.out.println(cmd.getCode());
 			session.setAttribute("code", cmd.getCode());
 			session.setAttribute("id",cmd.getId());
 			session.setAttribute("nickname", cmd.getNickName());
@@ -236,13 +234,93 @@ public class ClientMemberController {
 		if(result == 1) {
 			m.addAttribute("clientName", dto.getName());
 			m.addAttribute("status", "complete");
-			return "member/clientSign";
+			return "/member/clientSign";
 		}
 		else {
 			return "error";
 		}
 	}
 	
+	// 내 정보 보기 클릭 시 페이지 이동
+	@RequestMapping("clientMyInfo")
+	public String myInfo() throws Exception {
+		return "/member/clientMyInfo";
+	}
+	
+	// 비밀번호 입력 시 로그인한 회원의 비밀번호와 일치하는지 확인
+	@ResponseBody
+	@RequestMapping("checkPw")
+	public String checkPw(String pw) throws Exception {
+		String enPw = EncryptionUtils.sha512(pw);
+		String id = (String) session.getAttribute("id");
+		boolean result = cms.checkPw(id, enPw);
+		return String.valueOf(result);
+	}
+	
+	// 회원정보 가져오기
+	@ResponseBody
+	@RequestMapping("selectClientMemberInfo")
+	public MemberDTO selectClientMemberInfo(String id) throws Exception {
+		MemberDTO dto = cms.selectClientMemberInfo(id);
+		return dto;
+	}
+	
+	// 회원정보 수정이 가능한 폼으로 이동
+	@RequestMapping("goUpdateInfo")
+	public String goUpdateInfo(String id, Model m) throws Exception {
+		MemberDTO dto = cms.selectClientMemberInfo(id);
+		m.addAttribute("info", dto);
+		return "/member/clientInfoUpdate";
+	}
+	
+	// 회원정보 수정 시 모든 변경은 연락처 인증을 통해서만 가능해....
+	// 이 부분은 로그인된 회원의 연락처와 비회원의 연락처만 넘어옴
+	@ResponseBody
+	@RequestMapping("sendSmsUpdate")
+	public String sendSmsUpdate(String phone) throws Exception {
+				
+			Random rand = new Random(); 
+			String numStr = "";
+			for(int i=0; i<5; i++) {
+				String ran = Integer.toString(rand.nextInt(10));
+				numStr+=ran;
+			}
+			SmsService.certifiedPhoneNumber(phone, numStr);
+			session.setAttribute("numStr", numStr);	
+		System.out.println(String.valueOf(true));	
+		
+		return String.valueOf(true);
+	}
+	
+	// 회원정보(업데이트) 입력한 내용 넘어오는 곳 
+	@RequestMapping("updateMemberInfo")
+	public String updateMemberInfo(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception {
+		// 받은 생년월일 합치기
+		String birthDate = member_birth_year + member_birth_month + member_birth_day;
+		dto.setBirthDate(birthDate);
+		// 회원 수정 시 where = id에서 id값이 필요함
+		String id = (String) session.getAttribute("id");
+		dto.setId(id);
+		
+		
+		int result = cms.updateMemberInfo(dto);
+		if(result == 1) {
+			MemberDTO updateDto = cms.selectClientMemberInfo(id);
+			// 업데이트된 정보 다시 세션에 담기
+			session.setAttribute("code", updateDto.getCode());
+			session.setAttribute("id", updateDto.getId());
+			session.setAttribute("nickname", updateDto.getNickName());
+			session.setAttribute("authGradeCode", updateDto.getAuthGradeCode());
+			
+			m.addAttribute("status", "complete");
+			m.addAttribute("dto", updateDto);
+			return "/member/clientMyInfo";
+		}
+		else {
+			return "error";
+		}
+		
+	}
 	
 	
 	

@@ -6,25 +6,51 @@
 <mapper namespace="Board">
 
 
-	<!-- 후기게시판의 고유번호 -->
+
+
+
+<insert id="insertReview">
+
+insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} , #{content} , 0 , 0, sysdate, null, null)
+
+<selectKey keyProperty="code" resultType="int" order="BEFORE">
+   select board_review_seq.nextval from dual 
+</selectKey>
+
+</insert>
+
+	<!-- 후기게시판 작성 - 이미지 -->
+	<insert id="insertReviewImage">
+		insert into reviewimg values(review_img_seq.nextval,#{postcode}, #{path}, #{oriname}, #{sysname})
+	</insert>
+
+
+
+
+<!-- 
+
+	후기게시판의 고유번호
 	<select id="selectReviewSeq" resultType="int">
 		select
 		board_review_seq.nextval from dual
 	</select>
 
-	<!-- 후기게시판 작성 -->
+	후기게시판 작성 
 	<insert id="insertReview">
 		insert into BoardReview values ( #{seq}, 1003 , 3001
 		, #{membercode} , #{dto.title} , #{dto.content} , 0 , 0, sysdate,
 		null,null)
 	</insert>
 
-	<!-- 후기게시판 작성 - 이미지 -->
+	 후기게시판 작성 - 이미지 
 	<insert id="insertReviewImage">
 		insert into reviewimg values(review_img_seq.nextval,
 		#{postcode}, #{path}, #{oriname}, #{sysname})
 	</insert>
-
+	
+ -->
+ 
+ 
 	<!-- 자유게시판 작성 -->
 	<insert id="insertFree">
 		insert into BoardFree values (board_free_seq.nextval,
@@ -79,5 +105,11 @@
 		resultType="cc.spring.dto.BoardReviewDTO">
 		select * from boardReview_view where code = #{code}
 	</select>
+<!-- ========================================================================================== -->
+
+<!-- 자유게시판 수정 -->
+	<update id="updateFree" >
+		update boardFree set headlinecode = #{headLineCode}, title =  #{title}, content = #{content} where code = #{code}
+	</update>
 
 </mapper>
