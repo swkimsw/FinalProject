@@ -36,11 +36,12 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <!-- gbn css -->
-<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+<link href="${path}/resources/css/gnb.css" rel="stylesheet"
+	type="text/css">
 
 <style>
 body {
-	background-color: rgba(255,255,194,0.75);
+	background-color: rgba(255, 255, 194, 0.75);
 }
 
 * {
@@ -50,35 +51,131 @@ body {
 .container {
 	margin-top: 100px;
 }
+
+.subNav {
+	/*position: fixed;
+	width: 100%;
+	z-index: 2;*/
+}
+
+.naviColor{
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius:10px;
+	background-color:white;
+}
+
+.searchGroup {
+	position: relative;
+	width: 100%;
+	height: 40px;
+	z-index: 3;
+}
+
+.searchGroup>.category {
+	height: 100%;
+	max-width: 85px;
+	min-width: 85px;
+}
+
+.searchGroup>.searchInput {
+	max-width: 250px;
+	min-width: 100px;
+	height: 100%;
+	z-index: 4;
+}
+
+.searchGroup>.searchIcon {
+	position: absolute;
+	top: 10px;
+	left: 300px;
+	z-index: 5;
+}
 </style>
 </head>
 <body>
 	<!-- gnb -->
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
-	
+
 	<div class="container">
 		<c:choose>
 			<c:when test="${sessionScope.authGradeCode == 1003}">
-				<h3> ${info.name}님의 공구 신청 목록</h3>
+				<h3>${info.name}님의공구신청목록</h3>
 				<h5>${info.clientId}</h5>
+				<div class="subNav">
+					<nav class="navbar bg-body-tertiary navbar-expand-sm">
+						<div class="container-fluid" style="border-radius:10px;">
+							<div class="naviColor row navbar w-100">
+								<div class="col linkGroup" style="position: relative; width: 100%; border-radius:10px;">
+									<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+										<li class="nav-item">
+											<a class="nav-link fs-5" href="/shop/toShopList">
+												<button class="nav-item btn active">전체</button>
+											</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="/shop/toShopList?status=open">진행중</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="/shop/toShopList?status=closed">공구 완료</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="/shop/toShopList?status=closed">공구 실패</a>
+										</li>
+									</ul>
+								</div>
+								<div class="col input-group searchGroup">
+									<select class="form-select form-select-sm category"
+										name="category">
+										<option value="productName">상품명</option>
+										<option value="companyName">판매자</option>
+									</select> <i class='bi bi-search searchIcon'></i> <input
+										class="form-control form-control-sm searchInput"
+										onkeypress="if(event.keyCode == 13 ){getSearchList()}"
+										type="search" id="keyword" name="searchByKeyword"
+										placeholder="검색어를 입력해주세요." maxlength="20">
+								</div>
+							</div>
+						</div>
+					</nav>
+				</div>
+				<br>
 				<c:forEach var="c" items="${list}">
-					<p>회원코드: ${c.memberCode}</p>
-					<p>주문자명: ${c.name} </p>
-					<p>상품명 : ${c.productName}</p>
-					<p>가격 : ${c.productPrice} 원</p>
-					<p>수량 : ${c.quantity}</p>
-					<p>합계액 : ${c.productPrice * c.quantity} 원</p>
+					<div class="card mb-3" style="max-width: 540px;">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="${c.path}${c.sysName}" class="img-fluid rounded-start"
+									alt="...">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">
+										<a href="/shop/toShopApply?code=${c.groupbuyingCode}">${c.title}</a>
+									</h5>
+									<p class="card-text">상품명 : ${c.productName}</p>
+									<p class="card-text">판매자 : ${c.companyName}</p>
+									<p class="card-text">가격 : ${c.productPrice} 원</p>
+									<p class="card-text">수량 : ${c.quantity} 개</p>
+									<p class="card-text">합계액 : ${c.productPrice * c.quantity} 원</p>
+									<p class="card-text">마감 : ${c.deadLineTemp}</p>
+									<p class="card-text">
+										<small class="text-body-secondary">스테코드 :
+											${c.statusCode}</small>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 					<hr>
 				</c:forEach>
 			</c:when>
 			<c:when test="${sessionScope.authGradeCode == 1002}">
-					<h3> ${info.companyName}님의 공구 등록 목록</h3>
-					<h5>${info.businessId}</h5>
+				<h3>${info.companyName}님의공구등록목록</h3>
+				<h5>${info.businessId}</h5>
 				<c:forEach var="b" items="${list}">
 					<a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a>
 					<p>상품명 : ${b.productName}</p>
-					<p>가격 : ${b.productPrice} 원 </p>
+					<p>가격 : ${b.productPrice} 원</p>
 					<p>신청건수 : ${b.applyCount}</p>
 					<p>상품수량 : ${b.applyQuantity}</p>
 					<p>총 매출 : ${b.productPrice * b.applyQuantity}</p>
@@ -87,6 +184,6 @@ body {
 				</c:forEach>
 			</c:when>
 		</c:choose>
-	</div>		
+	</div>
 </body>
 </html>
