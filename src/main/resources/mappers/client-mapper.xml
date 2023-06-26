@@ -41,4 +41,14 @@
 	<update id="updateMemberInfo">
 		update Member set name = #{name}, nickName = #{nickName}, phone = #{phone}, birthDate = #{birthDate}, eMail = #{eMail}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} where id = #{id}
 	</update>
+	
+
+	<delete id="deleteMember">
+		delete from Member where code = #{code}
+	</delete>
+
+	<select id="selectAllClientMember" resultType="cc.spring.dto.MemberDTO">
+		select * from member where authgradecode = 1003
+	</select>
+
 </mapper>

@@ -90,6 +90,7 @@
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" required readonly>
+						<span class="input-group-text">원</span>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -100,14 +101,9 @@
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
-						<span class="input-group-text">최소 인원</span>
+						<span class="input-group-text">최소 수량</span>
 						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" required readonly>
-					</div>
-				</div>
-				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-					<div class="input-group mb-3">
-						<span class="input-group-text">최대 인원</span>
-						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" required readonly>
+						<span class="input-group-text">개</span>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -358,7 +354,6 @@
 			$("#productName").removeAttr("readonly");
 			$("#productPrice").removeAttr("readonly");
 			$("#deadLineTemp").removeAttr("readonly");
-			$("#max").removeAttr("readonly");
 			$("#min").removeAttr("readonly");
 			$("#detail").removeAttr("readonly");
 			$("#imageSelect").removeAttr("style");
@@ -388,15 +383,12 @@
 			
 			let regexProductPrice = /^[0-9]+$/;
 			let regexMin = /^[0-9]+$/;
-			let regexMax = /^[0-9]+$/;
 			
 			let productPrice = $("#productPrice").val();
 			let min = $("#min").val();
-			let max = $("#max").val();
 			
 			let resultProductPrice = regexProductPrice.exec(productPrice);
 			let resultMin = regexMin.exec(min);
-			let resultMax = regexMax.exec(max);
 			
 			if(!resultProductPrice){
 				alert("상품가격 은 숫자로 입력해 주세요!");
@@ -408,10 +400,6 @@
 				return false;
 			}
 			
-			if(!resultMax){
-				alert("최대 인원 은 숫자로 입력해 주세요!");
-				return false;
-			}
 		})
 		
 		// 공구 신청 버튼 클릭시
@@ -429,22 +417,6 @@
 			
 			let code = $("#code").val(); // 공구샵 코드
 			let memberCode = 0${sessionScope.code}; // 멤버 코드
-			let max = $("#max").val();
-			
-			// 최대 인원수가 되면 더 이상 신청하지 못하도록			
-			$.ajax({
-				url:"/shop/isCountRequest",
-				type:"post",
-				dataType:"json",
-				data:{
-					code:code
-				}
-			}).done(function(resp) {
-				if(resp == max){
-					alert("신청 인원이 꽉 찼습니다");
-					return false;
-				}
-			})
 			
 			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
 			$.ajax({

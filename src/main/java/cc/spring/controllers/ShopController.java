@@ -1,7 +1,5 @@
 package cc.spring.controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,6 @@ import cc.spring.dto.ShopReplyAskDTO;
 import cc.spring.services.BusinessMemberService;
 import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
-import net.nurigo.java_sdk.api.Image;
 
 @Controller
 @RequestMapping("/shop/")
@@ -55,11 +51,6 @@ public class ShopController {
 	// 공구샵 등록 폼으로 이동
 	@RequestMapping("toShopRegister")
 	public String toShopRegister(Model model) {
-		// 세션에서 ID 받아오게 수정
-
-		//session.setAttribute("loginId", "1112254");
-		//session.setAttribute("authGradeCode", 1002);
-		//session.setAttribute("code", 2);
 
 		// 업체명 / 배송 업체 정보 가져오기
 		String loginId = (String) session.getAttribute("id");
@@ -73,17 +64,6 @@ public class ShopController {
 	// 공구샵 신청 폼으로 이동
 	@RequestMapping("toShopApply")
 	public String toShopApply(int code, Model model) {
-		// 테스트용 세션 값 넣음
-
-		//session.setAttribute("id", "1112254");
-		//session.setAttribute("authGradeCode", 1002);
-		//session.setAttribute("id", "aaa");
-		//session.setAttribute("authGradeCode", 1003);
-
-		//session.setAttribute("memberCode", 2);
-		//session.setAttribute("companyName", "ggcom");
-		//session.setAttribute("memberCode", 1);
-		//session.setAttribute("nickName", "에이");
 
 		// 선택한 공구샵 정보 가져오기
 		ShopDTO shopDTO = shopService.selectShopInfo(code);
@@ -142,14 +122,6 @@ public class ShopController {
 	public String insertShopRequest(int memberCode, int quantity, int parentCode) {
 		shopService.insertShopRequest(new RequestListDTO(memberCode,quantity,parentCode));
 		return "redirect:/shop/toShopList";
-	}
-	
-	// 최대 인원수가 되면 더 이상 신청하지 못하도록 - 요청 인원수 select
-	@ResponseBody
-	@RequestMapping("isCountRequest")
-	public int isCountRequest(int code) {
-		int result = shopService.isCountRequest(code);
-		return result;
 	}
 	
 	// 이미 공구 신청한 경우 더 이상 신청하지 못하도록 - 해당 멤버코드로 신청 select
