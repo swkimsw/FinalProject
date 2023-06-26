@@ -158,7 +158,7 @@
 						<tr>
 							<td>교환 및 반품 주소</td>
 							<td style="padding:0px;">
-								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}" readonly>
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} ${memberDTO.address2}" readonly>
 							</td>
 						</tr>
 					</table>

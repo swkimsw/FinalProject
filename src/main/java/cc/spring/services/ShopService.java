@@ -118,18 +118,20 @@ public class ShopService {
 		File realPathFile = new File(realPath);
 		if(!realPathFile.exists()) realPathFile.mkdir();
 		if(files != null) {
-
-			// 삭제할 image 리스트 뽑아서 파일에서 삭제하기
-			List<FileDTO> imageList = fileDAO.deleteImageList(dto.getCode());
-			for(FileDTO f : imageList) {
-				File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
-				if(deleteFile.exists()) {
-					deleteFile.delete();
+			if(files[0].getOriginalFilename() != "") {
+				// 삭제할 image 리스트 뽑아서 파일에서 삭제하기
+				List<FileDTO> imageList = fileDAO.deleteImageList(dto.getCode());
+				for(FileDTO f : imageList) {
+					File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
+					if(deleteFile.exists()) {
+						deleteFile.delete();
+					}
 				}
+				// DB에서 삭제
+				fileDAO.deleteShopImage(parentSeq);
 			}
-			// DB에서 삭제
-			fileDAO.deleteShopImage(parentSeq);
-
+			
+			// DB에 image 저장
 			for(MultipartFile file : files) {
 				if(file.isEmpty()) {break;}
 				String oriName = file.getOriginalFilename();
@@ -145,6 +147,16 @@ public class ShopService {
 
 	// 공구샵 삭제 delete
 	public int deleteShop(int code) {
+		
+		// 삭제할 image 리스트 뽑아서 파일에서 삭제하기
+		List<FileDTO> imageList = fileDAO.deleteImageList(code);
+		for(FileDTO f : imageList) {
+			File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
+			if(deleteFile.exists()) {
+				deleteFile.delete();
+			}
+		}
+		
 		return shopDAO.deleteShop(code);
 	}
 
