@@ -32,10 +32,10 @@ import cc.spring.services.FileService;
 public class BoardController {
 
 	@Autowired
-	private BoardService boardservice;
+	private BoardService boardService;
 
 	@Autowired
-	private FileService fileservice;
+	private FileService fileService;
 
 	@Autowired
 	private HttpSession session;
@@ -53,7 +53,6 @@ public class BoardController {
 
 		
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
-		
 		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list); 
@@ -89,7 +88,7 @@ public class BoardController {
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
-		List<BoardAnnouncementDTO> list = boardservice.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
+		List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
 		
@@ -126,7 +125,7 @@ public class BoardController {
 	public String list_review() {
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (일반회원만 글 작성할수있는 버튼보여야함)
 
-		List<BoardReviewDTO> list = boardservice.selectReviewlist(); //후기게시글 전부 다 가져오기
+		List<BoardReviewDTO> list = boardService.selectReviewlist(); //후기게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
 
@@ -177,7 +176,7 @@ public class BoardController {
 		request.setAttribute("user", user );
 		
 
-		BoardFreeDTO result = boardservice.selectFreeContent(code);
+		BoardFreeDTO result = boardService.selectFreeContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		return "/board/FreeContent";
@@ -190,7 +189,7 @@ public class BoardController {
 		request.setAttribute("user", user ); 
 
 
-		BoardAnnouncementDTO result = boardservice.selectAnnouncementContent(code);
+		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		return "/board/AnnouncementContent";
@@ -203,7 +202,7 @@ public class BoardController {
 		request.setAttribute("user", user ); 
 
 
-		BoardReviewDTO result = boardservice.selectReviewContent(code);
+		BoardReviewDTO result = boardService.selectReviewContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		return "/board/ReviewContent";
@@ -218,7 +217,7 @@ public class BoardController {
 
 		int membercode = (int)session.getAttribute("code"); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
-		boardservice.insertFree(dto,membercode);//자유게시판 작성하기
+		boardService.insertFree(dto,membercode);//자유게시판 작성하기
 
 		return "redirect:/board/free"; //자유게시판으로 가기
 
@@ -232,7 +231,7 @@ public class BoardController {
 
 		int membercode = (int) session.getAttribute("code"); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
-		boardservice.insertAnnouncement(dto,membercode);//공지게시판 작성하기
+		boardService.insertAnnouncement(dto,membercode);//공지게시판 작성하기
 
 		return "redirect:/board/announcement"; //공지게시판으로 가기
 	}
