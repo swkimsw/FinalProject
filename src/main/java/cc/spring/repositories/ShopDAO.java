@@ -49,8 +49,8 @@ public class ShopDAO {
 		return db.insert("Shop.insertShopRequest", dto);
 	}
 	
-	public int isCountRequest(int code) {
-		return db.selectOne("Shop.isCountRequest", code);
+	public int updateShopTotal(RequestListDTO dto) {
+		return db.update("Shop.updateShopTotal", dto);
 	}
 	
 	public int isExistRequest(int code, String memberCode) {

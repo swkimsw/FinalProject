@@ -18,10 +18,8 @@
                 }
             }
 
-            // console.log(meals);
-
             for(let i=0;i<meals.length;i++){
-                let input = $(`<input class="form-check-input me-1" type="checkbox" value="">`).attr('id',"checkboxStretched"+i);
+                let input = $(`<input class="form-check-input targetMeal me-1" type="checkbox" value="">`).attr('id',"checkboxStretched"+i);
                 let label = $(`<label class="form-check-label stretched-link">`).attr('for',"checkboxStretched"+i).text(meals[i]);
                 let li = $("<li class='list-group-item'>").append(input,label);
 
@@ -29,4 +27,33 @@
             }
 
             meals = [];
+        });
+        
+        $("#myMealList").on("click",".targetMeal",function(){
+        	if($(this).prop("checked")){
+        		$(this).val($(this).next().text());        	
+        	}else{
+        		$(this).val("");
+        	}
+        });
+        
+        $("#btnExtract").on("click",function(){
+            let targetMeals = [];
+            $(".targetMeal").each((i,e)=>{
+                if(e.value){
+                    targetMeals.push(e.value);
+                }
+            });
+
+        	$.ajax({
+        		url:"/basket/aiBasket",
+        		type:"post",
+        		data:{
+                    targetList:JSON.stringify(targetMeals),
+                },
+        	}).done(function(resp){
+        		console.log(resp);
+        		$("#ingredientModal").modal('hide');
+            	$("#ingredientModal2").modal('show');
+        	});
         });

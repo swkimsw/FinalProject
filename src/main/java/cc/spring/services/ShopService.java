@@ -42,12 +42,13 @@ public class ShopService {
 
 		// shop 정보 insert
 		String deadLineTemp = dto.getDeadLineTemp();
+		deadLineTemp = deadLineTemp.replace("T", " ");
 		if(deadLineTemp != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date parsedDate = dateFormat.parse(deadLineTemp);
 			Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 			dto.setDeadLine(timestamp);
-
+			System.out.println(dto.getDeadLine());
 			parentSeq = shopDAO.insertShop(dto);
 		}
 
@@ -85,7 +86,7 @@ public class ShopService {
 
 		// Timestamp -> String
 		Timestamp deadLine = dto.getDeadLine();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		dto.setDeadLineTemp(dateFormat.format(deadLine));
 
 		return dto;
@@ -117,8 +118,17 @@ public class ShopService {
 		File realPathFile = new File(realPath);
 		if(!realPathFile.exists()) realPathFile.mkdir();
 		if(files != null) {
-			// 삭제할 image 리스트 뽑아서 삭제하기
-			//List<String> imageList = fileDAO.deleteImageList(dto.getCode());
+			
+			// 삭제할 image 리스트 뽑아서 파일에서 삭제하기
+			List<FileDTO> imageList = fileDAO.deleteImageList(dto.getCode());
+			for(FileDTO f : imageList) {
+				File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
+				if(deleteFile.exists()) {
+					deleteFile.delete();
+				}
+			}
+			// DB에서 삭제
+			fileDAO.deleteShopImage(parentSeq);
 			
 			for(MultipartFile file : files) {
 				if(file.isEmpty()) {break;}
@@ -139,13 +149,10 @@ public class ShopService {
 	}
 
 	// 공구 신청 insert
-	public int insertShopRequest(RequestListDTO dto) {
-		return shopDAO.insertShopRequest(dto);
-	}
-	
-	// 최대 인원수가 되면 더 이상 신청하지 못하도록 - 요청 인원수 select
-	public int isCountRequest(int code) {
-		return shopDAO.isCountRequest(code);
+	@Transactional
+	public void insertShopRequest(RequestListDTO dto) {
+		shopDAO.insertShopRequest(dto);
+		shopDAO.updateShopTotal(dto);
 	}
 	
 	// 이미 공구 신청한 경우 더 이상 신청하지 못하도록 - 해당 멤버코드로 신청 select

@@ -75,6 +75,10 @@ label {
 .row .insert {
 	justify-content: center;
 }
+
+#find_member {
+	display: none;
+}
 </style>
 </head>
 
@@ -105,7 +109,7 @@ label {
 			<div class="row justify-content-center" id="info" style="display: none;">
 				<div class="col-12 col-md-8">
 					<div class="header text-center">
-						<h3>⚽CookCook</h3>
+						<h3>CookCook</h3>
 					</div>
 
 					<!-- 이름 -->
@@ -253,13 +257,16 @@ label {
 					</div>
 					<hr>
 
-					<!-- 수정하러가기 버튼 & 돌아가기 버튼 -->
+					<!-- 수정하러가기 버튼 & 탈퇴하기 버튼 & 돌아가기 버튼 -->
 					<br>
 					<div class="row justify-content-center">
 						<div class="col-auto d-flex justify-content-end">
 							<a href="/businessMember/goUpdateInfo?id=${sessionScope.id}">
 								<button class="btn btn-secondary" type="button" id="goUpdateBtn" style="background-color: #76b852;">수정하기</button>
 							</a>
+						</div>
+						<div class="col-auto d-flex justify-content-end">
+							<button class="btn btn-secondary resignBtn" type="button" style="background-color: #76b852;">탈퇴하기</button>
 						</div>
 						<div class="col-auto d-flex justify-content-start">
 							<a href="/">
@@ -280,7 +287,7 @@ label {
 			<div class="row justify-content-center" id="info">
 				<div class="col-12 col-md-8">
 					<div class="header text-center">
-						<h3>⚽CookCook</h3>
+						<h3>CookCook</h3>
 					</div>
 
 					<!-- 이름 -->
@@ -428,13 +435,16 @@ label {
 					</div>
 					<hr>
 
-					<!-- 수정하러가기 버튼 & 돌아가기 버튼 -->
+					<!-- 수정하러가기 버튼 & 탈퇴하기 버튼 & 돌아가기 버튼 -->
 					<br>
 					<div class="row justify-content-center">
 						<div class="col-auto d-flex justify-content-end">
 							<a href="/businessMember/goUpdateInfo?id=${sessionScope.id}">
 								<button class="btn btn-secondary" type="button" id="goUpdateBtn" style="background-color: #76b852;">수정하기</button>
 							</a>
+						</div>
+						<div class="col-auto d-flex justify-content-end">
+							<button class="btn btn-secondary resignBtn" type="button" style="background-color: #76b852;">탈퇴하기</button>
 						</div>
 						<div class="col-auto d-flex justify-content-start">
 							<a href="/">
@@ -445,6 +455,28 @@ label {
 				</div>
 			</div>
 		</c:if>
+		
+			<!-- 탈퇴하기 버튼 눌렀을 때 본인인증 확인하기 위한 폼 나타남 -->
+			<div class="wrapper_find_member" id="find_member">
+				<div class="row d-flex justify-content-center mx-auto p-0">
+					<div class="col-md-8 align-center">
+						<div class="text-center d-md-block mb-4">
+							<h3 class="mb-5">계정 삭제하기</h3>
+							<p class="body_font mb-5">비밀번호를 입력해주세요.</p>
+						</div>
+						<div class="row text-center">
+							<div class="col-9">
+								<input type="password" class="form-control" id="resignPw"
+									name="resignPw" placeholder="비밀번호를 입력하세요..." />
+							</div>
+							<div class="col-3 text-center">
+								<input type="button" class="site_login form-control"
+									value="삭제하기" id="resignBtn" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		
 		</div>
 	</div>
@@ -502,6 +534,61 @@ label {
 					}
 				})
 			}
+		})
+		
+		// 탈퇴하기 버튼 클릭 시
+		$(".resignBtn").on("click", function() {
+			$("#info").hide();
+			$("#updateInfo").hide();
+			$("#find_member").fadeIn();
+			$(".container").css("margin-top", "18%");
+			$(".container").css("margin-bottom", "");
+		})
+		
+		// 삭제하기 버튼 클릭 시
+		$("#resignBtn").on("click", function() {
+			if ($("#resignPw").val().trim() == "") {
+				alert("비밀번호를 입력해주세요.");
+			} else {
+				$.ajax({
+					url : "/businessMember/checkPw",
+					type : "post",
+					dataType : "json",
+					data : {
+						pw : $("#resignPw").val()
+					}
+				}).done(function(resp) {
+					if (resp) {
+						if (confirm("정말로 삭제하시겠습니까?") == true) {
+							// 확인버튼	
+							$.ajax({
+								url : "/businessMember/deleteMember",
+								
+							}).done(function(resp) {
+								if (resp) {
+									console.log("1 : " + resp)
+									alert("현재 공구 진행중인 상품이 있습니다.");
+									return false;
+								} 
+								else {
+									console.log("2 : " + resp)
+									alert("계정이 삭제되었습니다.");
+									window.location.href = "/";
+								}
+
+							})
+						} else {
+							// 취소버튼
+							return false;
+						}
+					} else {
+						alert("비밀번호가 일치하지 않습니다.");
+						$("#resignPw").val("");
+						$("#resignPw").focus();
+					}
+				})
+			}
+
 		})
 
 	</script>

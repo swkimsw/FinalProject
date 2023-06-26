@@ -1,6 +1,7 @@
 package cc.spring.repositories;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.MemberDTO;
-import cc.spring.dto.TotalMemberDTO;
 
 @Repository
 public class BusinessMemberDAO {
@@ -77,5 +77,18 @@ public class BusinessMemberDAO {
 	
 	public int updateMemberInfo(MemberDTO dto) {
 		return mybatis.update("Business.updateMemberInfo",dto);
+	}
+	
+	public boolean checkGroupBuying(int code) {
+		return mybatis.selectOne("Business.checkGroupBuying",code);
+	}
+	
+	public int deleteMember(int code) {
+		return mybatis.delete("Business.deleteMember",code);
+	}
+	
+	// Admin
+	public List<MemberDTO> selectAllBusinessMember() {
+		return mybatis.selectList("Business.selectAllBusinessMember");
 	}
 }

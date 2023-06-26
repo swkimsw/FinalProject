@@ -32,10 +32,10 @@ import cc.spring.services.FileService;
 public class BoardController {
 
 	@Autowired
-	private BoardService boardservice;
+	private BoardService boardService;
 
 	@Autowired
-	private FileService fileservice;
+	private FileService fileService;
 
 	@Autowired
 	private HttpSession session;
@@ -51,12 +51,12 @@ public class BoardController {
 	@RequestMapping("free")
 	public String list_free() {
 
+		
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
-
-		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
+		List<BoardFreeDTO> list = boardService.selectFreelist(); //자유게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list); 
-
+		
 
 		if(user != null) {// 로그인했으면
 
@@ -64,7 +64,7 @@ public class BoardController {
 			int result =  (int)session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 자유게시판 못씀
 			System.out.println(result);
 			request.setAttribute("user", result);
-
+			
 			return "/board/boardFree";
 
 		}else {// 로그인안했으면
@@ -77,14 +77,32 @@ public class BoardController {
 
 	//공지게시판으로 가기  - 관리자회원
 	@RequestMapping("announcement")
-	public String list_Announcement() {
+	public String list_Announcement() throws Exception{
 
+		System.out.println("adffghjgfdsaqwerthy");
+	int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+	System.out.println(cpage);
+		
+	
+	
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
-		List<BoardAnnouncementDTO> list = boardservice.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
+		List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
+		
+		
+		int recordTotalCount = list.size();//총 게시글 개수
+		System.out.println(recordTotalCount);
+		
+		List<String>  listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
+		
+
+		request.setAttribute("listnavi", listnavi);
+		
+		
+
 
 		if(user != null) {//로그인되어있으면
 
@@ -107,10 +125,11 @@ public class BoardController {
 	public String list_review() {
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (일반회원만 글 작성할수있는 버튼보여야함)
 
-		List<BoardReviewDTO> list = boardservice.selectReviewlist(); //후기게시글 전부 다 가져오기
+		List<BoardReviewDTO> list = boardService.selectReviewlist(); //후기게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
 
+		
 		if(user != null) {//로그인되어있으면
 
 			int result = (int) session.getAttribute("authGradeCode");//권한등급 확인-일반회원만 후기게시판 작성가능-1003반환
@@ -157,7 +176,7 @@ public class BoardController {
 		request.setAttribute("user", user );
 		
 
-		BoardFreeDTO result = boardservice.selectFreeContent(code);
+		BoardFreeDTO result = boardService.selectFreeContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		return "/board/FreeContent";
@@ -170,7 +189,7 @@ public class BoardController {
 		request.setAttribute("user", user ); 
 
 
-		BoardAnnouncementDTO result = boardservice.selectAnnouncementContent(code);
+		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		return "/board/AnnouncementContent";
@@ -183,7 +202,7 @@ public class BoardController {
 		request.setAttribute("user", user ); 
 
 
-		BoardReviewDTO result = boardservice.selectReviewContent(code);
+		BoardReviewDTO result = boardService.selectReviewContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		return "/board/ReviewContent";
@@ -198,7 +217,7 @@ public class BoardController {
 
 		int membercode = (int)session.getAttribute("code"); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
-		boardservice.insertFree(dto,membercode);//자유게시판 작성하기
+		boardService.insertFree(dto,membercode);//자유게시판 작성하기
 
 		return "redirect:/board/free"; //자유게시판으로 가기
 
@@ -212,31 +231,47 @@ public class BoardController {
 
 		int membercode = (int) session.getAttribute("code"); //로그인(작성자의고유 code가져오기)
 		System.out.println(membercode);
-		boardservice.insertAnnouncement(dto,membercode);//공지게시판 작성하기
+		boardService.insertAnnouncement(dto,membercode);//공지게시판 작성하기
 
 		return "redirect:/board/announcement"; //공지게시판으로 가기
 	}
 
 
 
-
-
 	//후기게시판 글 작성하기
-	@RequestMapping("inputReview")
-	public String inputReview(BoardReviewDTO dto,
-			@RequestParam(name = "oriName") String[] oriName,
-			@RequestParam(name = "sysName") String[] sysName,
-			String realPath) {
+		@RequestMapping("inputReview")
+		public String inputReview(BoardReviewDTO dto) {
 
-		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
-		System.out.println(membercode);
+			int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+			dto.setMemberCode(membercode);
+			
+			System.out.println(membercode);
 
-		int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+			// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
 
-		boardservice.insertReview(dto,membercode,parent_seq,realPath,oriName,sysName); //후기 게시판 작성
-		return "redirect: /board/review" ;
-	}
+			boardService.insertReview(dto); //후기 게시판 작성
+			return "redirect: /board/review" ;
+		}
 
+		
+//	후기게시판 글 작성하기
+//	@RequestMapping("inputReview")
+//	public String inputReview(BoardReviewDTO dto,
+//			@RequestParam(name = "oriName") String[] oriName,
+//			@RequestParam(name = "sysName") String[] sysName,
+//			String realPath) {
+//
+//		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+//		dto.setMemberCode(membercode);
+//		
+//		System.out.println(membercode);
+//
+//		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+//
+//		boardservice.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
+//		return "redirect: /board/review" ;
+//	}
+//
 
 
 	@ResponseBody //ajax로 이미지 주고받는거
@@ -277,12 +312,66 @@ public class BoardController {
 		}
 		return resp;
 	}
-}
+
 
 //===========================================================================================
 
 
 
+	//자유게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateFree")
+	public int updateFree(BoardFreeDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getHeadLineCode());
+		System.out.println(dto.getContent());
+
+		int result = boardService.updateFree(dto); 
+
+		return result;
+
+	}
 
 
 
+	//공지게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateAnnouncement")
+	public int updateAnnouncement(BoardAnnouncementDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getHeadLineCode());
+		System.out.println(dto.getContent());
+
+		int result = boardService.updateAnnouncement(dto); 
+
+		return result;
+
+	}
+
+
+	//자유게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateReview")
+	public int updateReview(BoardReviewDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getContent());
+
+		int result = boardService.updateReview(dto); 
+
+		return result;
+
+			}
+		
+		
+
+
+	
+
+
+}

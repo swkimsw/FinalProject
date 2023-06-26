@@ -36,13 +36,10 @@ public class BoardDAO {
 	
 	
 	
-	public int insertReview(BoardReviewDTO  dto,int membercode,int parent_seq) {
-		Map<String ,Object> param = new HashMap<>();
-		param.put("dto", dto);
-		param.put("membercode", membercode);
-		param.put("seq", parent_seq);
+	public int insertReview(BoardReviewDTO dto) {
 		
-		return mybatis.insert("Board.insertReview",param);
+		mybatis.insert("Board.insertReview",dto);
+		return dto.getCode();
 	}
 	
 	public int insertReviewImage(ReviewImgDTO rdto) {
@@ -101,6 +98,24 @@ public class BoardDAO {
 
 	public BoardReviewDTO selectReviewContent(int code) {
 		return  mybatis.selectOne("Board.selectReviewContent",code);
+	}
+
+
+
+	public int updateFree(BoardFreeDTO dto) {
+		return mybatis.update("Board.updateFree",dto);
+	}
+
+
+
+	public int updateAnnouncement(BoardAnnouncementDTO dto) {
+		return mybatis.update("Board.updateAnnouncement",dto);
+	}
+
+
+
+	public int updateReview(BoardReviewDTO dto) {
+		return mybatis.update("Board.updateReview",dto);
 	}
 
 	

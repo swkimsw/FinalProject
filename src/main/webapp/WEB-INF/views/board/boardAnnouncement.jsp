@@ -49,7 +49,6 @@
                 td {
                     font-size: 20px;
                 }
-              
             </style>
 
         </head>
@@ -77,7 +76,7 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr >
+                            <tr>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -87,22 +86,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
-                        <c:forEach var="l" items="${list}">
-                       
-                            <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}')">
-                           
-                                <td>${l.code}</td>
-                                <td style="width: 50%;">${l.title}</td>
-                                <td>${l.memberName}</td>
-                                <td>${l.regDate}</td>
-                                <td>${l.viewCount}</td>
-                                <td>${l.likeCount}</td>
-                            
-                            </tr>
-                         
-                        </c:forEach>
-                  
+
+                            <c:forEach var="l" items="${list}">
+
+                                <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}')">
+
+                                    <td>${l.code}</td>
+                                    <td style="width: 50%;">${l.title}</td>
+                                    <td>${l.memberName}</td>
+                                    <td>${l.regDate}</td>
+                                    <td>${l.viewCount}</td>
+                                    <td>${l.likeCount}</td>
+
+                                </tr>
+
+                            </c:forEach>
+
                         </tbody>
                     </table>
 
@@ -110,40 +109,30 @@
 
                     <nav aria-label="...">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link">
-                                    < </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">></a>
-                            </li>
-                        </ul>
-
+        <c:forEach var="ln" items="${listnavi}">
+            <li class="page-item"><a class="page-link" href="#">${ln}</a></li>
+        </c:forEach>
+    </ul>
                     </nav>
 
 
-            <c:choose>
-			
-				<c:when test="${user == '1001'}">
+                    <c:choose>
 
-					<div style="float: right;">
-						<a href="/board/announcementWrite">
-							<button class="btn btn-outline-primary" type="button">작성하기</button>
-						</a>
-					</div>
+                        <c:when test="${user == '1001'}">
 
-				</c:when>
-			
-				<c:otherwise> 
-			
-				</c:otherwise> 
-			
-			</c:choose>
+                            <div style="float: right;">
+                                <a href="/board/announcementWrite">
+                                    <button class="btn btn-outline-primary" type="button">작성하기</button>
+                                </a>
+                            </div>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                        </c:otherwise>
+
+                    </c:choose>
 
 
                 </div>
@@ -151,11 +140,11 @@
             </div>
 
             <script>
-            
-            function goToLink(url) {
-              window.location.href = url;
-            }
-        
+
+                function goToLink(url) {
+                    window.location.href = url;
+                }
+
             </script>
 
         </body>

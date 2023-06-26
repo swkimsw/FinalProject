@@ -322,7 +322,21 @@ public class ClientMemberController {
 		
 	}
 	
-	
+	// 회원탈퇴하기
+	@ResponseBody
+	@RequestMapping("deleteMember")
+	public String deleteMember() throws Exception {
+		int code = (int) session.getAttribute("code");
+		int result = cms.deleteMember(code);
+		
+		if(result == 1) {
+			session.invalidate();
+		}
+		
+		
+		return String.valueOf(result);
+	}
+
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

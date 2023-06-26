@@ -9,7 +9,7 @@ public class ShopDTO {
 	private int statusCode;
 	private Timestamp deadLine;
 	private String deadLineTemp;
-	private int max;
+	private int total;
 	private int min;
 	private String title;
 	private String detail;
@@ -23,7 +23,7 @@ public class ShopDTO {
 	private String businessId;
 	
 	public ShopDTO() {}
-	public ShopDTO(int code, int memberCode, int statusCode, Timestamp deadLine, String deadLineTemp, int max, int min,
+	public ShopDTO(int code, int memberCode, int statusCode, Timestamp deadLine, String deadLineTemp, int total, int min,
 			String title, String detail, String productName, String productPrice, int boardKindCode, Timestamp regDate,
 			Timestamp modDate, Timestamp delDate, String businessId) {
 		super();
@@ -32,7 +32,7 @@ public class ShopDTO {
 		this.statusCode = statusCode;
 		this.deadLine = deadLine;
 		this.deadLineTemp = deadLineTemp;
-		this.max = max;
+		this.total = total;
 		this.min = min;
 		this.title = title;
 		this.detail = detail;
@@ -85,12 +85,12 @@ public class ShopDTO {
 		this.deadLineTemp = deadLineTemp;
 	}
 
-	public int getMax() {
-		return max;
+	public int getTotal() {
+		return total;
 	}
 
-	public void setMax(int max) {
-		this.max = max;
+	public void setTotal(int total) {
+		this.total = total;
 	}
 
 	public int getMin() {
