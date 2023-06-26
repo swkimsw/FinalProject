@@ -18,6 +18,10 @@ public class BasketDAO {
 		return mybatis.selectList("Basket.selectBasket", memberCode);
 	}
 	
+	public int insertBasket(BasketDTO dto) {
+		return mybatis.insert("Basket.insertBasket", dto);
+	}
+	
 	public int deleteBasket(BasketDTO dto) {
 		return mybatis.delete("Basket.deleteBasket", dto);
 	}
