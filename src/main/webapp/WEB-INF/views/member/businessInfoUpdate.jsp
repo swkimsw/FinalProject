@@ -130,7 +130,7 @@ label {
 				<div class="row justify-content-center" id="info">
 					<div class="col-12 col-md-8">
 						<div class="header text-center">
-							<h3>⚽CookCook</h3>
+							<h3>CookCook</h3>
 						</div>
 						<!-- 이름 -->
 						<div class="row insert">
