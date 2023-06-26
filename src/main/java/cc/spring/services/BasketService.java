@@ -29,8 +29,8 @@ public class BasketService {
 	public List<BasketDTO> extractIngredient(String[] targetList) throws Exception{
 		
 		String sendMsg = String.join(", ", targetList)+"의 재료를 JSON 데이터로 작성해줘";
-		JsonObject content = GPTprovider.extractIngredients(sendMsg);
 		System.out.println(sendMsg);
+		JsonObject content = GPTprovider.extractIngredients(sendMsg);
 		
 		List<BasketDTO> result = new ArrayList<>();
 		
