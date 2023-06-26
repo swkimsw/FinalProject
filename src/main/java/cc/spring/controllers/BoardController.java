@@ -53,7 +53,7 @@ public class BoardController {
 
 		
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
-		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
+		List<BoardFreeDTO> list = boardService.selectFreelist(); //자유게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list); 
 		
@@ -96,7 +96,7 @@ public class BoardController {
 		int recordTotalCount = list.size();//총 게시글 개수
 		System.out.println(recordTotalCount);
 		
-		List<String>  listnavi = boardservice.selectPageNavi(recordTotalCount,cpage);
+		List<String>  listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
 		
 
 		request.setAttribute("listnavi", listnavi);
@@ -249,7 +249,7 @@ public class BoardController {
 
 			// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
 
-			boardservice.insertReview(dto); //후기 게시판 작성
+			boardService.insertReview(dto); //후기 게시판 작성
 			return "redirect: /board/review" ;
 		}
 
@@ -328,7 +328,7 @@ public class BoardController {
 		System.out.println(dto.getHeadLineCode());
 		System.out.println(dto.getContent());
 
-		int result = boardservice.updateFree(dto); 
+		int result = boardService.updateFree(dto); 
 
 		return result;
 
@@ -346,7 +346,7 @@ public class BoardController {
 		System.out.println(dto.getHeadLineCode());
 		System.out.println(dto.getContent());
 
-		int result = boardservice.updateAnnouncement(dto); 
+		int result = boardService.updateAnnouncement(dto); 
 
 		return result;
 
@@ -362,7 +362,7 @@ public class BoardController {
 		System.out.println(dto.getCode());
 		System.out.println(dto.getContent());
 
-		int result = boardservice.updateReview(dto); 
+		int result = boardService.updateReview(dto); 
 
 		return result;
 

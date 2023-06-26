@@ -103,6 +103,12 @@
                     margin-right: 15px;
                     float: right;
                 }
+
+                .note-modal-footer>input {
+                    margin-right: 20px;
+                    margin-top: -15px;
+                    font-size: small;
+                }
             </style>
 
         </head>
@@ -180,104 +186,6 @@
 
                         </div>
 
-                        <div class="row footer">
-
-                            <table>
-                                <tr>
-                                    <td>
-
-                                        <div class="card">
-
-                                            <div class="card-body" class="mt-5 ">
-
-                                                <!-- Comment form-->
-                                                <textarea id="write_reply" class="form-control mt-3" rows="3"
-                                                    placeholder="댓글을 작성해주세요!"></textarea>
-                                                <a href="#" class="btn btn-primary btn-sm mt-2 "
-                                                    style="float:right;">작성</a>
-                                                <!-- Comment with nested comments-->
-
-                                                <!-- Parent comment-->
-                                                <div class="d-flex mt-5">
-                                                    <div class="flex-shrink-0"><img class="rounded-circle"
-                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                            alt="...">
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <div class="fw-bold">작성자</div>
-                                                        <div class="reply">
-                                                            ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                            <div class="button-container"
-                                                                style="float:right ; margin-top: 10px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    type="button">수정</button>
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    type="button">취소</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <!-- child comment-->
-                                                <div class="ms-5">
-
-                                                    <div class="d-flex mt-1">
-
-                                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                                alt="...">
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <div class="fw-bold">작성자</div>
-                                                            <div class="reply">
-                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                                <div class="button-container" style="float:right ;">
-                                                                    <button class="btn btn-outline-primary btn-sm"
-                                                                        type="button"> <i
-                                                                            class="bi bi-hand-thumbs-up"></i>13</button>
-                                                                    <button class="btn btn-outline-primary btn-sm"
-                                                                        type="button">신고</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- child comment-->
-                                                <div class="ms-5">
-                                                    <div class="d-flex mt-1">
-
-                                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                                alt="...">
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <div class="fw-bold">작성자</div>
-                                                            <div class="reply">
-                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                                <div class="button-container"
-                                                                    style="float:right ; margin-top: 10px;">
-                                                                    <button class="btn btn-outline-primary btn-sm"
-                                                                        type="button"> <i
-                                                                            class="bi bi-hand-thumbs-up"></i>13</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-
-                    </div>
 
 
                 </c:when>
@@ -312,106 +220,104 @@
                             </table>
                         </div>
 
-                        <div class="row footer">
-
-                            <table>
-                                <tr>
-                                    <td>
-
-                                        <div class="card">
-
-                                            <div class="card-body" class="mt-5 ">
-
-                                                <!-- Comment form-->
-                                                <textarea id="write_reply" class="form-control mt-3" rows="3"
-                                                    placeholder="댓글을 작성해주세요!"></textarea>
-                                                <a href="#" class="btn btn-primary btn-sm mt-2 "
-                                                    style="float:right;">작성</a>
-                                                <!-- Comment with nested comments-->
-
-                                                <!-- Parent comment-->
-                                                <div class="d-flex mt-5">
-                                                    <div class="flex-shrink-0"><img class="rounded-circle"
-                                                            src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                            alt="...">
-                                                    </div>
-                                                    <div class="ms-3">
-                                                        <div class="fw-bold">작성자</div>
-                                                        <div class="reply">
-                                                            sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                            <div class="button-container"
-                                                                style="float:right ; margin-top: 10px;">
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    type="button">수정</button>
-                                                                <button class="btn btn-outline-primary btn-sm"
-                                                                    type="button">삭제</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
 
-                                                <!-- child comment-->
-                                                <div class="ms-5">
-
-                                                    <div class="d-flex mt-1">
-
-                                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                                alt="...">
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <div class="fw-bold">작성자</div>
-                                                            <div class="reply">
-                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                                <div class="button-container" style="float:right ;">
-                                                                    <button class="btn btn-outline-primary btn-sm"
-                                                                        type="button"> <i
-                                                                            class="bi bi-hand-thumbs-up"></i>13</button>
-                                                                    <button class="btn btn-outline-primary btn-sm"
-                                                                        type="button">신고</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <!-- child comment-->
-                                                <div class="ms-5">
-                                                    <div class="d-flex mt-1">
-
-                                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg"
-                                                                alt="...">
-                                                        </div>
-                                                        <div class="ms-3">
-                                                            <div class="fw-bold">작성자</div>
-                                                            <div class="reply">
-                                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                                <div class="button-container"
-                                                                    style="float:right ; margin-top: 10px;">
-                                                                    <button class="btn btn-outline-primary btn-sm"
-                                                                        type="button"> <i
-                                                                            class="bi bi-hand-thumbs-up"></i>13</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-
-
-                        </div>
-                    </div>
                 </c:otherwise>
 
             </c:choose>
+
+
+            <div class="row footer">
+
+                <table>
+                    <tr>
+                        <td>
+
+                            <div class="card">
+
+                                <div class="card-body" class="mt-5 ">
+
+                                    <!-- Comment form-->
+                                    <textarea id="write_reply" class="form-control mt-3" rows="3"
+                                        placeholder="댓글을 작성해주세요!"></textarea>
+                                    <a href="#" class="btn btn-primary btn-m mt-2 " style="float:right;">작성</a>
+                                    <!-- Comment with nested comments-->
+
+                                    <!-- Parent comment-->
+                                    <div class="d-flex mt-5">
+                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+                                        </div>
+                                        <div class="ms-3">
+                                            <div class="fw-bold">작성자</div>
+                                            <div class="reply">
+                                                ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                <div class="button-container" style="float:right ; margin-top: 10px;">
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        type="button">수정</button>
+                                                    <button class="btn btn-outline-primary btn-sm"
+                                                        type="button">취소</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- child comment-->
+                                    <div class="ms-5">
+
+                                        <div class="d-flex mt-1">
+
+                                            <div class="flex-shrink-0"><img class="rounded-circle"
+                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+                                            </div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">작성자</div>
+                                                <div class="reply">
+                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                    <div class="button-container" style="float:right ;">
+                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
+                                                                class="bi bi-hand-thumbs-up"></i>13</button>
+                                                        <button class="btn btn-outline-primary btn-sm"
+                                                            type="button">신고</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- child comment-->
+                                    <div class="ms-5">
+                                        <div class="d-flex mt-1">
+
+                                            <div class="flex-shrink-0"><img class="rounded-circle"
+                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+                                            </div>
+                                            <div class="ms-3">
+                                                <div class="fw-bold">작성자</div>
+                                                <div class="reply">
+                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                                                    <div class="button-container"
+                                                        style="float:right ; margin-top: 10px;">
+                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
+                                                                class="bi bi-hand-thumbs-up"></i>13</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+            </div>
 
             <script>
 
@@ -445,17 +351,21 @@
                                 ['view', ['codeview', 'help']]
                             ], callbacks: {
                                 onImageUpload: function (files) {
+                                    console.log("1번째")
                                     uploadImages(files);
                                     checkContentLength();
 
                                 },
                                 onKeyup: function () {
+                                    console.log("2번째")
                                     checkContentLength();
                                 },
                                 onPaste: function () {
+                                    console.log("3번째")
                                     checkContentLength();
                                 },
                                 onChange: function (contents, $editable) {
+                                    console.log("4번째")
                                     checkContentLength();
                                 }
                             }
