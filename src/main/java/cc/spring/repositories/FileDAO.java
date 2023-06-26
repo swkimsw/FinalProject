@@ -25,10 +25,16 @@ public class FileDAO {
 	
 	public int updateShopImage(FileDTO dto) {
 		// 이미지 업데이트 - 입력된 이미지 삭제 후 다시 입력
-		db.delete("File.deleteShopImage", dto);
 		return db.insert("File.insertShopImage", dto);
 	}
-
+	
+	public List<FileDTO> deleteImageList(int code) {
+		return db.selectList("File.deleteImageList", code);
+	}
+	
+	public int deleteShopImage(int code) {
+		return db.delete("File.deleteShopImage", code);
+	}
 	
 
 	

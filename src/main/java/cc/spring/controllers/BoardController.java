@@ -51,12 +51,18 @@ public class BoardController {
 	@RequestMapping("free")
 	public String list_free() {
 
+		
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
+<<<<<<< HEAD
 
 		List<BoardFreeDTO> list = boardService.selectFreelist(); //자유게시글 전부 다 가져오기
+=======
+		
+		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
+>>>>>>> 800ab68f5155e6e517b19f0b649a978787988139
 		System.out.println(list);
 		request.setAttribute("list", list); 
-
+		
 
 		if(user != null) {// 로그인했으면
 
@@ -64,7 +70,7 @@ public class BoardController {
 			int result =  (int)session.getAttribute("authGradeCode");//권한등급 확인-관리자회원이면 1001반환- 관리자만 자유게시판 못씀
 			System.out.println(result);
 			request.setAttribute("user", result);
-
+			
 			return "/board/boardFree";
 
 		}else {// 로그인안했으면
@@ -77,14 +83,32 @@ public class BoardController {
 
 	//공지게시판으로 가기  - 관리자회원
 	@RequestMapping("announcement")
-	public String list_Announcement() {
+	public String list_Announcement() throws Exception{
 
+		System.out.println("adffghjgfdsaqwerthy");
+	int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+	System.out.println(cpage);
+		
+	
+	
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
 		List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
+		
+		
+		int recordTotalCount = list.size();//총 게시글 개수
+		System.out.println(recordTotalCount);
+		
+		List<String>  listnavi = boardservice.selectPageNavi(recordTotalCount,cpage);
+		
+
+		request.setAttribute("listnavi", listnavi);
+		
+		
+
 
 		if(user != null) {//로그인되어있으면
 
@@ -111,6 +135,7 @@ public class BoardController {
 		System.out.println(list);
 		request.setAttribute("list", list);
 
+		
 		if(user != null) {//로그인되어있으면
 
 			int result = (int) session.getAttribute("authGradeCode");//권한등급 확인-일반회원만 후기게시판 작성가능-1003반환
@@ -229,11 +254,19 @@ public class BoardController {
 			String realPath) {
 
 		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+		dto.setMemberCode(membercode);
+		
 		System.out.println(membercode);
 
+<<<<<<< HEAD
 		int parent_seq = boardService.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
 
 		boardService.insertReview(dto,membercode,parent_seq,realPath,oriName,sysName); //후기 게시판 작성
+=======
+		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+
+		boardservice.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
+>>>>>>> 800ab68f5155e6e517b19f0b649a978787988139
 		return "redirect: /board/review" ;
 	}
 
@@ -277,12 +310,32 @@ public class BoardController {
 		}
 		return resp;
 	}
-}
+
 
 //===========================================================================================
 
 
+	
+	//자유게시판 글 수정
+		@ResponseBody
+		@RequestMapping("updateFree")
+		public int updateFree(BoardFreeDTO dto) {
+			
+			System.out.println(dto.getTitle());
+			System.out.println(dto.getCode());
+			System.out.println(dto.getHeadLineCode());
+			System.out.println(dto.getContent());
+			
+			int result = boardservice.updateFree(dto); 
+			
+			return result;
+			
+		}
+		
+		
 
 
+	
 
 
+}
