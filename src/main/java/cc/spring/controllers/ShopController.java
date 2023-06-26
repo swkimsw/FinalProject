@@ -1,7 +1,5 @@
 package cc.spring.controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,6 @@ import cc.spring.dto.ShopReplyAskDTO;
 import cc.spring.services.BusinessMemberService;
 import cc.spring.services.ShopReplyService;
 import cc.spring.services.ShopService;
-import net.nurigo.java_sdk.api.Image;
 
 @Controller
 @RequestMapping("/shop/")
