@@ -46,17 +46,17 @@ public class ClientMemberController {
 		
 
 		// 입력한 id와 비밀번호가 관리자인지 확인
-//		boolean admin = ams.login(dto.getId(), dto.getPw());
-//		if(admin) {
-//			// 입력한 id와 비밀번호 일치하는 관리자 정보 가져오기
-//			MemberDTO amd = ams.selectAdminMemberInfo(dto.getId(), dto.getPw());
-//			session.setAttribute("code", amd.getCode());
-//			session.setAttribute("id", amd.getId());
-//			session.setAttribute("nickname", amd.getName());
-//			session.setAttribute("authGradeCode", amd.getAuthGradeCode());
-//			System.out.println("관리자로그인 성공");
-//			return "redirect:/";
-//		}
+		boolean admin = ams.login(dto.getId(), dto.getPw());
+		if(admin) {
+			// 입력한 id와 비밀번호 일치하는 관리자 정보 가져오기
+			MemberDTO amd = ams.selectAdminMemberInfo(dto.getId(), dto.getPw());
+			session.setAttribute("code", amd.getCode());
+			session.setAttribute("id", amd.getId());
+			session.setAttribute("nickname", amd.getName());
+			session.setAttribute("authGradeCode", amd.getAuthGradeCode());
+			System.out.println("관리자로그인 성공");
+			return "redirect:/";
+		}
 		
 		
 
