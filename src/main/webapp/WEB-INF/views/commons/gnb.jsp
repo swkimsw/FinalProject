@@ -117,7 +117,7 @@
 									<li class="login"><a href="/clientMyPage/myPageReview"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내 
 										후기글 보기</a></li>
-									<li class="login"><a href="/clientMyPage/clientMyInfo"
+									<li class="login"><a href="/clientMember/clientMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
@@ -125,7 +125,7 @@
 									<li class="login"><a href="/clientMyPage/businessMypageBoard"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 										내가 쓴 게시글 보기</a></li>
-									<li class="login"><a href="/businessMyPage/businessMyInfo"
+									<li class="login"><a href="/businessMember/businessMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
@@ -184,7 +184,7 @@
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 식단 리스트</a></li>
-								<li><a href="/meal/toMyBasket"
+								<li><a href="/basket/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 장바구니</a></li>
 							</ul>

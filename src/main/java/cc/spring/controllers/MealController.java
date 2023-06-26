@@ -86,21 +86,6 @@ public class MealController {
 		return g.toJson(mealList);
 	}
 	
-	@RequestMapping("toMyBasket")
-	public String toMyBasket(Model model) {
-		int memberCode = 0;
-		if(session.getAttribute("code")!=null) {
-			memberCode = (int)session.getAttribute("code");
-		}
-		
-		if(memberCode==0) {
-			return "redirect:/clientMember/login_form";
-		}
-		else {
-			return "meal/basket";			
-		}
-	}
-	
 	@RequestMapping("toAiMeal")
 	public String toAiMeal() {
 		return "home";
