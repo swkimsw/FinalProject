@@ -194,6 +194,11 @@ public class BoardService {
 	}
 
 
+	public int deleteAnnouncement(int code) {
+		return boarddao.deleteAnnouncement(code);
+	}
+
+
 
 
 

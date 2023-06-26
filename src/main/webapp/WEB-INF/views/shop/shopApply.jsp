@@ -18,7 +18,7 @@
 <style>
 	*{font-family: 'NanumSquareNeo';}
 	textarea{resize:none;}
-	.container{width: 70%; margin-top:100px;}
+	.container{width: 70%; margin-top:100px; background-color:white;}
 	.memberInfo{margin-top:2px; border:0;}
 	.solidHr{margin-left:auto;}
 	.dashedHr{width:80%; margin-left:10%; border-top:dashed;}
@@ -51,12 +51,12 @@
   					<div class="carousel-inner">
   						<div class="carousel-item active">
   							<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
-      						<img src="/resources/shopImg/${fileDTO[0].sysname}" class="d-block w-100" alt="...">
+      						<img src="${fileDTO[0].path}${fileDTO[0].sysname}" class="d-block w-100" alt="...">
     					</div>
   						<c:forEach var="i" items="${fileDTO}" begin="1">
   							<div class="carousel-item">
   								<input type="hidden" name="sysname" value="${i.sysname}">
-      							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
+      							<img src="${i.path}${i.sysname}" class="d-block w-100" alt="...">
     						</div>
   						</c:forEach>
   					</div>

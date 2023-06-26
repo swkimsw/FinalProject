@@ -49,6 +49,21 @@ public class BasketController {
 		}
 	}
 	
+	@RequestMapping("insertBasket")
+	public void insertBasket() {
+		
+	}
+	
+	@RequestMapping("deleteBasket")
+	public void deleteBasket() {
+		
+	}
+	
+	@RequestMapping("updateBasket")
+	public void updateBasket () {
+		
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="aiBasket", produces="text/plain; charset=utf8;")
 	public String aiBasket(String targetList) throws Exception{

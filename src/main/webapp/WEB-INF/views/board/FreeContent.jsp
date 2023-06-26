@@ -218,8 +218,10 @@
                                             <button id="del" class="btn btn btn-outline-primary"
                                                 type="button">삭제</button>
 
-                                            <a href="/board/free"> <button id="list" class=" btn btn-outline-primary"
-                                                    type="button">목록</button></a>
+                                             <a href="/board/free">
+                                            <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
+                                            </a>
+                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -311,7 +313,22 @@
                                     </td>
                                 </tr>
 
-
+								<tr>
+						            <td>
+						                <div id="button" class="button-container">
+						                
+						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
+						                  
+						
+						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
+						
+						                    <a href="/board/announcement"> 
+						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
+						                    </a>
+						                    
+						                </div>
+						            </td>
+        						</tr>
 
                             </table>
                         </div>
