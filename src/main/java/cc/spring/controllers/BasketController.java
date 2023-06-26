@@ -43,4 +43,21 @@ public class BasketController {
 			return "meal/basket";		
 		}
 	}
+	
+	@RequestMapping("insertBasket")
+	public void insertBasket() {
+		
+	}
+	
+	@RequestMapping("deleteBasket")
+	public void deleteBasket() {
+		
+	}
+	
+	@RequestMapping("updateBasket")
+	public void updateBasket () {
+		
+	}
+	
+	
 }
