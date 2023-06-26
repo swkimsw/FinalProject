@@ -101,6 +101,16 @@ public class MealController {
 		}
 	}
 	
+//	@ResponseBody
+//	@RequestMapping(value="aiBasket", produces="text/plain; chatset=utf8;")
+//	public ResponseEntity<List<BasketDTO>> aiBasket(){
+//		List<BasketDTO> result = mService.extractIngredient();
+//		System.out.println(result.toString());
+//		return ResponseEntity.status(HttpStatus.OK)
+//				.contentType(MediaType.APPLICATION_JSON)
+//				.body(result);
+//	}
+	
 	@RequestMapping("toAiMeal")
 	public String toAiMeal() {
 		return "home";

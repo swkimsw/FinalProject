@@ -75,9 +75,10 @@ window.addEventListener('load', function () {
     let dayBoxes = document.getElementsByClassName("day-header");
 
     let j = 0;
-    let cloneToday = new Date(today);
+
     for (let i = 0; i < 7; i++) {
-        cloneToday.setDate(today.getDate() + i);
+        cloneToday = new Date(today);
+        cloneToday.setDate(today.getDate()+i);
         date = cloneToday.getDate();
         day = getDayOfWeek(cloneToday);
         dayBoxes[j].innerHTML = date + " " + day;
@@ -85,12 +86,14 @@ window.addEventListener('load', function () {
         j++;
     }
     today = new Date();
-    cloneToday = new Date(today);
+    //cloneToday = new Date(today);
     for (let i = 0; i < 7; i++) {
-        cloneToday.setDate(today.getDate() + i)
+        cloneToday = new Date(today);
+        cloneToday.setDate(today.getDate()+i);
         date = cloneToday.getDate();
         day = getDayOfWeek(cloneToday);
         dayBoxes[j].innerHTML = date + " " + day;
+
         j++;
     }
     today = new Date();
@@ -100,10 +103,10 @@ window.addEventListener('load', function () {
 //1주일 전으로 이동 이벤트
 $("#prevWeek").on("click", function () {
     let clone = new Date(today.setDate(today.getDate() - 7));
-    year = today.getFullYear();
-    month = getNameOfMonth(today);
-    date = today.getDate();
-    day = getDayOfWeek(today);
+    year = clone.getFullYear();
+    month = getNameOfMonth(clone);
+    date = clone.getDate();
+    day = getDayOfWeek(clone);
 
     $("#month-year").html(month + " " + year);
 
@@ -112,15 +115,17 @@ $("#prevWeek").on("click", function () {
     let j = 0;
     for (let i = 0; i < 7; i++) {
         date = clone.getDate();
-        day = getDayOfWeek(clone.setDate(clone.getDate() + 1));
+        day = getDayOfWeek(clone);
         dayBoxes[j].innerHTML = date + " " + day;
+        clone.setDate(clone.getDate() + 1);
         j++;
     }
     today = new Date(clone.setDate(clone.getDate() - 7));
     for (let i = 0; i < 7; i++) {
         date = clone.getDate();
-        day = getDayOfWeek(clone.setDate(clone.getDate() + 1));
+        day = getDayOfWeek(clone);
         dayBoxes[j].innerHTML = date + " " + day;
+        clone.setDate(clone.getDate() + 1);
         j++;
     }
 
@@ -133,10 +138,10 @@ $("#prevWeek").on("click", function () {
 $("#today").on("click", function () {
     today = new Date();
     let clone = new Date(today);
-    year = today.getFullYear();
-    month = getNameOfMonth(today);
-    date = today.getDate();
-    day = getDayOfWeek(today);
+    year = clone.getFullYear();
+    month = getNameOfMonth(clone);
+    date = clone.getDate();
+    day = getDayOfWeek(clone);
 
     $("#month-year").html(month + " " + year);
 
@@ -145,15 +150,17 @@ $("#today").on("click", function () {
     let j = 0;
     for (let i = 0; i < 7; i++) {
         date = clone.getDate();
-        day = getDayOfWeek(clone.setDate(clone.getDate() + 1));
+        day = getDayOfWeek(clone);
         dayBoxes[j].innerHTML = date + " " + day;
+        clone.setDate(clone.getDate() + 1);
         j++;
     }
     today = new Date(clone.setDate(clone.getDate() - 7));
     for (let i = 0; i < 7; i++) {
         date = clone.getDate();
-        day = getDayOfWeek(clone.setDate(clone.getDate() + 1));
+        day = getDayOfWeek(clone);
         dayBoxes[j].innerHTML = date + " " + day;
+        clone.setDate(clone.getDate() + 1);
         j++;
     }
 
@@ -176,15 +183,17 @@ $("#nextWeek").on("click", function () {
     let j = 0;
     for (let i = 0; i < 7; i++) {
         date = clone.getDate();
-        day = getDayOfWeek(clone.setDate(clone.getDate() + 1));
+        day = getDayOfWeek(clone);
         dayBoxes[j].innerHTML = date + " " + day;
+        clone.setDate(clone.getDate() + 1);
         j++;
     }
     today = new Date(clone.setDate(clone.getDate() - 7));
     for (let i = 0; i < 7; i++) {
         date = clone.getDate();
-        day = getDayOfWeek(clone.setDate(clone.getDate() + 1));
+        day = getDayOfWeek(clone);
         dayBoxes[j].innerHTML = date + " " + day;
+        clone.setDate(clone.getDate() + 1);
         j++;
     }
 
