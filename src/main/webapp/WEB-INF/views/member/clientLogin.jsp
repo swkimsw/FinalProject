@@ -71,7 +71,12 @@ body {
 	position: relative;
 	margin-left: -41.5%;
 }
-
+.nav_a{
+color: #007936;
+}
+.nav_a:hover{
+color: #00793690;
+}
 .wrapper {
 	width: 80%;
 	padding: 32px;
@@ -324,7 +329,7 @@ body {
                      </div>
 							<img src="/resources/img/foodWithPlate.png" class="mx-auto d-block"
 								id="to_main_ball_img" alt="메인으로" onclick="location.href = '/'"
-								style="height: 50%; width: 50%;">
+								style="height: 80%; width: 80%;">
 						</div>
 
 					</div>
@@ -531,7 +536,7 @@ body {
                      </div>
 							<img src="/resources/img/foodWithPlate.png" class="mx-auto d-block"
 								id="to_main_ball_img" alt="메인으로" onclick="location.href = '/'"
-								style="height: 50%; width: 50%;">
+								style="height: 80%; width: 80%;">
 						</div>
 
 					</div>
