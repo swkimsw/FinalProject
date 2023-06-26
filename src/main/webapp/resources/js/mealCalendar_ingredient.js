@@ -1,4 +1,4 @@
-        //재료 추출 버튼 클릭 이벤트
+        //재료 추출(하러가기) 버튼 클릭 이벤트
         $("#aiIngredient").on("click", function () {
             //우선 모달창에 입력된 li 모두 비우기
             $("#myMealList").html("");
@@ -28,7 +28,8 @@
 
             meals = [];
         });
-        
+
+        //재료 추출할 식단 선택 이벤트 (checkBox에 value 설정)
         $("#myMealList").on("click",".targetMeal",function(){
         	if($(this).prop("checked")){
         		$(this).val($(this).next().text());        	
@@ -37,6 +38,7 @@
         	}
         });
         
+        //재료추출 하기 버튼 클릭 이벤트
         $("#btnExtract").on("click",function(){
             let targetMeals = [];
             $(".targetMeal").each((i,e)=>{
@@ -52,8 +54,51 @@
                     targetList:JSON.stringify(targetMeals),
                 },
         	}).done(function(resp){
-        		console.log(resp);
+                //다음 모달창에 추출한 재료 목록 append하고 띄워주기
+                let ingredientList = JSON.parse(resp);
+                let count=1;
+                Array.prototype.forEach.call(ingredientList, (element) => {
+                    $("#ingredientList").append("🍽 "+element.meal).append("<hr class='titleLine'>");
+                    let ul = $('<ul class="list-group ingredientUL">');
+                    element.ingredients.forEach(i=>{
+                        let li = $(`<li class="list-group-item">`);
+                        let inputs = $(`<input class="form-check-input me-1 selectIngredient" type="checkbox" value="">`).attr('id',"selectIngredient"+count);
+                        let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(i);
+                        li.append(inputs,labels);
+                        ul.append(li);
+                        count++;
+                    });
+                    $("#ingredientList").append(ul);
+                });
         		$("#ingredientModal").modal('hide');
             	$("#ingredientModal2").modal('show');
         	});
+        });
+
+        //장바구니에 저장할 재료 선택 이벤트 (checkBox에 value 설정)
+        $("#ingredientList").on("click",".selectIngredient",function(){
+        	if($(this).prop("checked")){
+        		$(this).val($(this).next().text());        	
+        	}else{
+        		$(this).val("");
+        	}
+        });
+
+        //장바구니에 담기 버튼 클릭 이벤트
+        $("#btnInsertBasket").on("click",function(){
+            let targetIngredients = [];
+            $(".selectIngredient").each((i,e)=>{
+                if(e.value){
+                    targetIngredients.push(e.value);
+                }
+            });
+            targetIngredients = [new Set(targetIngredients)];
+            console.log(targetIngredients);
+            $.ajax({
+            	url:"/basket/aiAddBasket",
+            	type:"post",
+            	data:{
+            		aiBasketArr:targetIngredients,
+            	},
+            })
         });
