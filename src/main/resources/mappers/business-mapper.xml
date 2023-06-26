@@ -50,4 +50,8 @@
 	<update id="updateMemberInfo">
 		update Member set name = #{name}, companyName = #{companyName}, phone = #{phone}, birthDate = #{birthDate}, eMail = #{eMail}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} where businessId = #{businessId}
 	</update>
+	
+	<select id="selectAllBusinessMember" resultType="cc.spring.dto.MemberDTO">
+		select * from member where authgradecode = 1002
+	</select>
 </mapper>
