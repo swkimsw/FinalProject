@@ -199,6 +199,16 @@ public class BoardService {
 	}
 
 
+	public int deleteReview(int code) {
+		return boarddao.deleteReview(code);
+	}
+
+
+	public int deleteFree(int code) {
+		return boarddao.deleteFree(code);
+	}
+
+
 
 
 

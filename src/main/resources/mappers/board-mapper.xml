@@ -129,7 +129,22 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 <!-- ========================================================================================== -->	
 
 <!-- 공지게시판 삭제 -->
-	<update id="deleteAnnouncement" >
+	<delete id="deleteAnnouncement" >
 		delete from boardAnnouncement where code = #{code}
-	</update>
+	</delete>
+	
+	<!-- 리뷰게시판 삭제 -->
+	<delete id="deleteReview" >
+		delete from boardReview where code = #{code}
+	</delete>
+	
+	
+	<!-- 자유게시판 삭제 -->
+	<delete id="deleteFree" >
+		delete from boardFree where code = #{code}
+	</delete>
+	
+	
+	
+	
 </mapper>

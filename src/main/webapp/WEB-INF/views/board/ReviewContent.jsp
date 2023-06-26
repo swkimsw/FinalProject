@@ -561,6 +561,16 @@
                         }
                     } //유효성검사
 
+                    $("#del").on("click",function(){
+                    	let result = confirm("삭제하시겠습니까?")
+                    
+                    	if(result){
+                    		alert("삭제되었습니다");
+                    		location.href = "/board/deleteReview?code=" + ${result.code};
+                    	}else{
+                    		return false;
+                    	}
+                    })
 
 
                 })

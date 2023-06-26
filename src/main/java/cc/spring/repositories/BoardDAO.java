@@ -124,6 +124,18 @@ public class BoardDAO {
 		return mybatis.delete("Board.deleteAnnouncement",code);
 	}
 
+
+
+	public int deleteReview(int code) {
+		return mybatis.delete("Board.deleteReview",code);
+	}
+
+
+
+	public int deleteFree(int code) {
+		return mybatis.delete("Board.deleteFree",code);
+	}
+
 	
 
 

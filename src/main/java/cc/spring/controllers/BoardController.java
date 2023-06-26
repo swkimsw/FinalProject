@@ -373,9 +373,9 @@ public class BoardController {
 
 			}
 		
-		
-	//공지게시판 글 삭제
+//===========================================================================================		
 	
+	//공지게시판 글 삭제
 	@RequestMapping("deleteAnnouncement")
 	public String deleteAnnouncement() {
 
@@ -387,6 +387,35 @@ public class BoardController {
 		return "redirect: /board/announcement" ;
 
 	}
+	
+	
+	//리뷰게시판 글 삭제
+		@RequestMapping("deleteReview")
+		public String deleteReview() {
+
+			int code =  Integer.parseInt((String)request.getParameter("code"));
+			System.out.println(code);
+			
+			int result = boardService.deleteReview(code); 
+
+			return "redirect: /board/review" ;
+
+		}
+		
+		
+		//자유게시판 글 삭제
+		@RequestMapping("deleteFree")
+		public String deleteFree() {
+
+			int code =  Integer.parseInt((String)request.getParameter("code"));
+			System.out.println(code);
+			
+			int result = boardService.deleteFree(code); 
+
+			return "redirect: /board/free" ;
+
+		}		
+		
 
 	
 
