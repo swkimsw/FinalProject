@@ -61,18 +61,10 @@
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
-						<span class="input-group-text">최소 인원</span>
-						<input type="text" class="form-control" id="min" name="min" placeholder="'명' 제외 숫자만 입력해 주세요" required>
-						<span class="input-group-text">명</span>
+						<span class="input-group-text">최소 수량</span>
+						<input type="text" class="form-control" id="min" name="min" placeholder="'개' 제외 숫자만 입력해 주세요" required>
+						<span class="input-group-text">개</span>
 					</div>
-				</div>
-				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-					<div class="input-group">
-						<span class="input-group-text">최대 인원</span>
-						<input type="text" class="form-control" id="max" name="max" placeholder="'명' 제외 숫자만 입력해 주세요" required>
-						<span class="input-group-text">명</span>
-					</div>
-					<div id="message" class="mb-3"></div>
 				</div>
 			</div>
 			
@@ -135,17 +127,14 @@
 	
 		let regexProductPrice = /^[0-9]+$/;
 		let regexMin = /^[0-9]+$/;
-		let regexMax = /^[0-9]+$/;
 		
 		$("#register").on("click", function(){
 			
 			let productPrice = $("#productPrice").val();
 			let min = $("#min").val();
-			let max = $("#max").val();
 			
 			let resultProductPrice = regexProductPrice.exec(productPrice);
 			let resultMin = regexMin.exec(min);
-			let resultMax = regexMax.exec(max);
 			
 			if(!resultProductPrice){
 				alert("상품가격 은 숫자로 입력해 주세요!");
@@ -157,34 +146,8 @@
 				return false;
 			}
 			
-			if(!resultMax){
-				alert("최대 인원 은 숫자로 입력해 주세요!");
-				return false;
-			}
-			
-			if( parseInt(min) >= parseInt(max) ){
-				alert("최대 인원 값을 다시 설정해 주세요!");
-				return false;
-			}
-			
 		})
 	
-		$("#max").on("keyup", function(){
-			
-			console.log($("#deadLineTemp").val());
-			let min = $("#min").val();
-			let max = $("#max").val();
-			
-			if( parseInt(min) >= parseInt(max) ){
-				$("#message").html("최대 인원이 최소 인원보다 커야 합니다.");
-				$("#message").css("color", "red");
-				$("#message").css("font-size", "small");
-				return false;
-			}else{
-				$("#message").html("");
-			}
-		})
-		
 		// 오늘 이전은 선택하지 못하도록 - 하루 뒤부터 선택 가능
 		let days = 1 * 24 * 60 * 60 * 1000;
 		
