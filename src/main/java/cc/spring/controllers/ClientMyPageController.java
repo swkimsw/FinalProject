@@ -29,7 +29,7 @@ public class ClientMyPageController {
 		System.out.println("클라이언트 코드 :"+code);
 		List<BoardFreeDTO> list = cmp.myPageList(code);
 		model.addAttribute("list",list);
-		return "/member/ClientMyPageFreeBoard";
+		return "/member/clientMyPageFreeBoard";
 	}
 	//클라이언트 마이페이지 내가 쓴 리뷰 게시판
 	@RequestMapping("myPageReview")
@@ -39,7 +39,7 @@ public class ClientMyPageController {
 		System.out.println("클라이언트 코드 :"+code);
 		System.out.println("리뷰 컨트롤러");
 		model.addAttribute("list",list);
-		return "/member/ClientMyPageReview";
+		return "/member/clientMyPageReview";
 	}
 	//비지니스 마이페이지 내가 쓴 자유게시판 
 	@RequestMapping("businessMypageBoard")
@@ -48,7 +48,7 @@ public class ClientMyPageController {
 		List<BoardFreeDTO> list = cmp.myPageList(code);
 		System.out.println("비지니스 :"+code);
 		model.addAttribute("list",list);
-		return "/member/ClientMyPageFreeBoard";
+		return "/member/businessMyPageFreeBoard";
 	}
 	
 	// 내 정보 보기 클릭 시 페이지 이동

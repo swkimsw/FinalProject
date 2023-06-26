@@ -130,7 +130,7 @@ h1.second span:after {
 
 	<div class="container">
 		<h1 class="second">
-			<span>MY FREEBOARD</span>
+			<span>My FreeBoard</span>
 		</h1>
 		<br>
 		<div class="row">
@@ -182,9 +182,9 @@ h1.second span:after {
 								<td class="b1">${i.headLineValue}</td>
 								<td class="b1">${i.boardKindValue}</td>
 								<td><a href="#">${i.title}</a></td>
-								<td class="b1">${i.memberCode}</td>
-								<td class="b1">${i.viewCount}</td>
 								<td class="b1">${i.likeCount}</td>
+								<td class="b1">${i.viewCount}</td>
+								<td class="b1">${i.regDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
