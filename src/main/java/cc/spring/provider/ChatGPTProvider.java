@@ -81,9 +81,9 @@ public class ChatGPTProvider {
 	
 	public JsonObject extractIngredients(String sendMsg) throws Exception{
 		
-		String systemMessage1 = "{\"role\": \"system\", \"content\": \"여기에 역할 지정해주기\"}";
-		String userMessage1 = "{\"role\": \"user\", \"content\": \"식단 추출할 명령어 패턴 넣기 ( 가급적 제일 많은 조건선택한걸로 대입)\"}";
-		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{여기에 완벽한 응답 넣기}";
+		String systemMessage1 = "{\"role\": \"system\", \"content\": \"지금부터 넌 전문 요리사야.\"}";
+		String userMessage1 = "{\"role\": \"user\", \"content\": \"비빔밥, 김치찌개, 프렌치토스트의 재료를 JSON 데이터로 짜줘\"}";
+		String assistantMessage1 = "{\"role\": \"assistant\", \"content\": \"{{\\\"메뉴\\\":\\\"비빔밥\\\",\\\"재료\\\":[\\\"밥\\\",\\\"고추장\\\",\\\"참기름\\\",\\\"간장\\\",\\\"다진 소고기\\\",\\\"단호박\\\",\\\"시금치\\\",\\\"콩나물\\\",\\\"시금치\\\",\\\"당근\\\",\\\"계란\\\",\\\"김\\\"]},{\\\"메뉴\\\":\\\"김치찌개\\\",\\\"재료\\\":[\\\"김치\\\",\\\"두부\\\",\\\"돼지고기\\\",\\\"양파\\\",\\\"대파\\\",\\\"고춧가루\\\",\\\"소금\\\",\\\"설탕\\\"]},{\\\"메뉴\\\":\\\"프렌치토스트\\\",\\\"재료\\\":[\\\"식빵\\\",\\\"달걀\\\",\\\"우유\\\",\\\"설탕\\\",\\\"버터\\\"]}}\"}";
 		String systemMessage2 = "{\"role\": \"system\", \"content\": \"" + sendMsg + "\"}";
 		
 		String messages = String.join(", ", systemMessage1, userMessage1, assistantMessage1, systemMessage2);
