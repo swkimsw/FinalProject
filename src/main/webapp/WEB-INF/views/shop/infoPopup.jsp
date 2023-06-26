@@ -47,13 +47,17 @@
 		<table class="table table-striped">
 	 		<thead>
 	 			<tr>
-	 				<th></th>
-	 				<th></th>
-	 				<th></th>
-	 				<th></th>
-	 				<th></th>
-	 				
-	 				
+	 				<th>no</th>
+	 				<th>신청코드</th>
+	 				<th>신청자명</th>
+	 				<th>아이디</th>
+	 				<th>전화번호</th>
+	 				<th>이메일</th>
+	 				<th>우편번호</th>
+	 				<th>도로명주소</th>
+	 				<th>상세주소</th>
+	 				<th>신청수량</th>
+	 				<th>총액</th>
 	 			</tr>
 	 		</thead>
 	 		<tbody>
@@ -61,16 +65,24 @@
 	 				<c:when test="${fn:length(list) > 0}">
 			 			<c:forEach var="i" items="${list}">
 				 			<tr>
-				 				<th scope='row'></th>
-				 				<td></td>
-				 				<td></td>
-				 				<td></td>
-				 				<td></td>
+				 				<th scope='row'>1</th>
+				 				<td>${i.applyCode}</td>
+				 				<td>${i.name }</td>
+				 				<td>${i.clientId }</td>
+				 				<td>${i.phone }</td>
+				 				<td>${i.email }</td>
+				 				<td>${i.zipcode }</td>
+				 				<td>${i.address1 }</td>
+				 				<td>${i.address2 }</td>
+				 				<td>${i.quantity }</td>
+				 				<td>${i.quantity * i.productPrice }</td>
 				 			</tr>
 		 				</c:forEach>
 		 			</c:when>
 		 			<c:otherwise>
-		 				
+		 				<tr>
+		 					<th colspan='11'>신청자가 없습니다.</th>
+		 				</tr>
 		 			</c:otherwise>
 	 			</c:choose>
 	 		</tbody>

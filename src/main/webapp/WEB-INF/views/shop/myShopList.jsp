@@ -94,7 +94,7 @@ body {
 	<script>
 		function openInfo(int groupbuyingCode){
 			const option = 'width:700, height:800, scrollbars=yes';
-			window.open('shop/buyingeMemberInfoList','_parent',option);
+			window.open('/shop/buyingeMemberInfoList','_parent',option);
 		}
 		
 	</script>
