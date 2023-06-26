@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import cc.spring.dto.ChatBasketDTO;
+import cc.spring.dto.BasketDTO;
 import cc.spring.provider.ChatGPTProvider;
 import cc.spring.repositories.BasketDAO;
 
@@ -25,10 +26,9 @@ public class BasketService {
 	@Autowired
 	private Gson gson;
 	
-	public List<BasketDTO> extractIngredient(String[] targetList){
+	public List<BasketDTO> extractIngredient(String[] targetList) throws Exception{
 		
-		//String sendMsg = String.join(", ", targetList)+"의 재료를 JSON 데이터로 작성해줘";
-		String sendMsg = "부대찌개, 해물찜의 재료를 JSON 데이터로 작성해줘";
+		String sendMsg = String.join(", ", targetList)+"의 재료를 JSON 데이터로 작성해줘";
 		JsonObject content = GPTprovider.extractIngredients(sendMsg);
 		System.out.println(sendMsg);
 		
@@ -41,5 +41,9 @@ public class BasketService {
 		System.out.println(dto.toString());
 		
 		return result;
+	}
+	
+	public List<BasketDTO> selectBasket(int memberCode){
+		return basketDAO.selectBasket(memberCode);
 	}
 }
