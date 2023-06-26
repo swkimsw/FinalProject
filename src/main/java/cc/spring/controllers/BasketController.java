@@ -44,7 +44,7 @@ public class BasketController {
 			return "redirect:/clientMember/login_form";
 		}else {
 			List<BasketDTO> basketList = bService.selectBasket(memberCode);
-			model.addAttribute("basketList", g.toJson(basketList));
+			model.addAttribute("basketList", basketList);
 			return "meal/basket";		
 		}
 	}
