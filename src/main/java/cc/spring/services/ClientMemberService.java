@@ -49,4 +49,8 @@ public class ClientMemberService {
 	public int updateMemberInfo(MemberDTO dto) {
 		return cdao.updateMemberInfo(dto);
 	}
+	
+	public int deleteMember(int code) {
+		return cdao.deleteMember(code);
+	}
 }
