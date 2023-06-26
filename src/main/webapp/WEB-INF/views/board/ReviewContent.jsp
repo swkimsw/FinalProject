@@ -48,12 +48,9 @@
                     text-align: center;
                 }
 
-			
-
-                form>table {
+                div>table {
                     width: 100%;
                     table-layout: fixed;
-                    
                 }
 
                 button {
@@ -99,11 +96,10 @@
                 }
 
                 .button-container {
-               
                     margin-top: 10px;
                 }
 
-                #asdf {
+                #button {
                     margin-right: 15px;
                     float: right;
                 }
@@ -121,53 +117,66 @@
                     <div class="container">
 
                         <div class="row header">
-                            <h2>리뷰게시판</h2>
+                            <h2>후기게시판</h2>
                             <br>
                         </div>
 
 
                         <div class="row body">
-                            <form style="padding:0">
-                                <table>
+
+                            <table>
 
 
-                                    <tr>
-                                        <td>글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
-                                    </tr>
+                                <tr>
+                                    <td>글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
+                                </tr>
 
-                                    <tr>
-                                        <td>제목 :
-                                            <input id="title" type="text" value="${result.title}" disabled>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <div id="content">${result.content}</div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>
+                                        <input id="code" type="text" value="${result.code}" style="display:none">
+                                    </td>
+                                </tr>
 
 
-                                    <tr>
-                                        <td>
-                                            <div id="asdf" class="button-container">
-                                                <button id="modi" class=" btn btn-outline-primary" onclick="edit()"
-                                                    type="button">수정</button>
-                                                <button id="save" class="btn btn-outline-primary" onclick="save()"
-                                                    type="button">수정
-                                                    완료</button>
-                                                <button id="undo" class="btn btn btn-outline-primary" onclick="undo()"
-                                                    type="button">취소</button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>제목 :
+                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <div id="info">
+                                            <input type="hidden" name="oriName">
+                                            <input type="hidden" name="sysName">
+                                            <input type="hidden" name="realPath">
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div id="content">${result.content}</div>
+                                    </td>
+                                </tr>
 
 
+                                <tr>
+                                    <td>
+                                        <div id="button" class="button-container">
+                                            <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
-                                </table>
+                                            <button id="save" class=" btn btn-outline-primary" style="display:none"
+                                                type="submit">완료</button>
 
-                            </form>
+                                            <button id="cancel" class=" btn btn-outline-primary" style="display:none"
+                                                type="button">취소</button>
+
+                                            <button id="del" class="btn btn btn-outline-primary"
+                                                type="button">삭제</button>
+
+                                            <a href="/board/announcement"> <button id="list"
+                                                    class=" btn btn-outline-primary" type="button">목록</button></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+
 
                         </div>
 
@@ -201,7 +210,7 @@
                                                             <div class="button-container"
                                                                 style="float:right ; margin-top: 10px;">
                                                                 <button class="btn btn-outline-primary btn-sm"
-                                                                    type="submit">수정</button>
+                                                                    type="button">수정</button>
                                                                 <button class="btn btn-outline-primary btn-sm"
                                                                     type="button">취소</button>
                                                             </div>
@@ -276,13 +285,12 @@
                     <div class="container">
 
                         <div class="row header">
-                            <h2>리뷰게시판</h2>
+                            <h2>공지게시판</h2>
                             <br>
                         </div>
 
                         <div class="row body">
                             <table>
-
 
                                 <tr>
                                     <td>글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
@@ -290,17 +298,15 @@
 
                                 <tr>
                                     <td>제목 :
-                                        ${result.title}
+                                        <input id="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
-
 
                                 <tr>
                                     <td>
                                         <div id="content">${result.content}</div>
                                     </td>
                                 </tr>
-
 
 
                             </table>
@@ -336,9 +342,9 @@
                                                             <div class="button-container"
                                                                 style="float:right ; margin-top: 10px;">
                                                                 <button class="btn btn-outline-primary btn-sm"
-                                                                    type="submit">수정</button>
+                                                                    type="button">수정</button>
                                                                 <button class="btn btn-outline-primary btn-sm"
-                                                                    type="button">취소</button>
+                                                                    type="button">삭제</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -410,36 +416,226 @@
             <script>
 
 
-
                 // 수정버튼
-                $("#modi").on("click", function () {
-                    $('#content').summernote({
-                        placeholder: '글을 입력해주세요 (최대 4000자까지 가능합니다)',
-                        height: 600,
-                        focus: true,
-                        maxHeight: 800,
-                        minHeight: 200,
-                        lang: 'ko-KR', // default: 'en-US'
-                        toolbar: [
-                            ['style', ['style']],
-                            ['font', ['bold', 'underline', 'clear']],
-                            ['color', ['color']],
-                            ['para', ['ul', 'ol', 'paragraph']],
-                            ['table', ['table']],
-                            ['insert', ['video']],
-                            ['view', ['codeview', 'help']]
-                        ]
+
+
+                $(document).ready(function () {
+
+
+
+                    $("#modi").on("click", function () {
+
+                        $("#modi").css("display", "none"); // 수정버튼 안보이게
+
+                        $('#content').summernote({
+                            placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
+                            height: 600,
+                            focus: true,
+                            maxHeight: 800,
+                            minHeight: 200,
+                            disableDragAndDrop: true,
+                            lang: 'ko-KR',
+                            toolbar: [
+                                ['style', ['style']],
+                                ['font', ['bold', 'underline', 'clear']],
+                                ['color', ['color']],
+                                ['para', ['ul', 'ol', 'paragraph']],
+                                ['table', ['table']],
+                                ['insert', ['picture', 'video']],
+                                ['view', ['codeview', 'help']]
+                            ], callbacks: {
+                                onImageUpload: function (files) {
+                                    uploadImages(files);
+                                    checkContentLength();
+
+                                },
+                                onKeyup: function () {
+                                    checkContentLength();
+                                },
+                                onPaste: function () {
+                                    checkContentLength();
+                                },
+                                onChange: function (contents, $editable) {
+                                    checkContentLength();
+                                }
+                            }
+                        });
+
+
+                        $("#title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
+                        $("#save").css("display", "inline"); // 완료버튼보이게
+
+
                     });
+
+
+
+                    // 완료
+                    $("#save").on("click", function () {
+
+                        let result = confirm("수정하시겠습니까?");
+
+                        if (result) {
+
+
+                            let content = $('#content').summernote('code'); //태그있는거
+                            var text = $('<div>').html(content).text(); //태그없는거
+
+                            if ($("#title").val() == "" || $("#title").val().trim() == "") {
+                                alert("제목을 작성해주세요.");
+                                return false;
+                            } else if (content == "") {
+                                alert("내용을 입력해주세요.");
+                                return false;
+                            } else if (text.length == 0) {
+                                alert("글자를 입력해주세요.");
+                                return false;
+                            }
+
+
+                            let title = $("#title").val();
+                            let code = $("#code").val();
+
+
+                            $.ajax({
+                                url: "/board/updateReview",
+                                type: "post",
+                                dataType: "json",
+                                data: {
+                                    title: title,
+                                    content: content,
+                                    code: code,
+                                }
+                            }).done(function (resp) {
+                                if (resp == 1) {
+                                    alert("수정되었습니다");
+                                    location.reload();
+
+                                } else {
+                                    alert("수정에 실패했습니다");
+                                    return false;
+                                }
+                            })
+
+
+                        } else {
+                            location.reload();
+                        }
+
+
+
+                    });
+
+                    function uploadImages(files) {
+                        var formData = new FormData();
+                        // FormData 객체를 사용하여 파일 데이터를 추가합니다.
+                        for (var i = 0; i < files.length; i++) {
+                            console.log(files.length);
+                            formData.append('image', files[i]);
+                            //  FormData 객체의 append 메서드를 사용하여 키-값 쌍으로 데이터를 추가합니다. 여기서 "image"라는 키 이름으로 파일 데이터를 추가하고 있습니다.
+                        }
+
+
+                        $.ajax({
+                            url: "/board/uploadImage",
+                            type: 'POST',
+                            data: formData, //FormData 객체로 만들면 일반적인 텍스트 필드뿐만 아니라 파일 업로드 필드와 같은 복잡한 데이터도 쉽게 처리가능
+                            contentType: false,
+                            processData: false,
+                        }).done(function (resp) {
+
+                            if (resp != null) {
+
+                                alert('이미지 업로드에 성공했습니다.');
+
+                                $('#info input[name="realPath"]').val(resp[0].realPath);
+
+                                var imageUrls = [];
+                                var sysNames = [];
+                                var oriNames = [];
+
+
+                                // resp 배열에서 이미지 URL을 추출하여 imageUrls 배열에 저장합니다
+                                for (var i = 0; i < resp.length; i++) {
+                                    console.log(resp[i]);
+                                    imageUrls.push(resp[i].url);
+                                    oriNames.push(resp[i].oriName);
+                                    sysNames.push(resp[i].sysName);
+                                }
+
+                                // imageUrls 배열의 각 이미지 URL을 사용하여 미리보기 이미지를 생성하고 에디터에 삽입합니다.
+                                for (var i = 0; i < imageUrls.length; i++) {
+                                    var imageUrl = imageUrls[i];
+                                    var $preview = $('<img src="' + imageUrl + '">');
+                                    $('#content').summernote('editor.insertNode', $preview[0]);
+                                }
+
+
+                                for (var i = 0; i < oriNames.length; i++) {
+                                    var oriName = oriNames[i];
+                                    var sysName = sysNames[i];
+
+                                    console.log(oriName);
+                                    console.log(sysName);
+
+                                    // Set the oriName and sysName values as input tag values
+                                    $('#info input[name="oriName"]').val(oriNames.join(','));
+                                    $('#info input[name="sysName"]').val(sysNames.join(','));
+
+                                }
+
+
+                            } else {
+                                alert('이미지 업로드에 실패했습니다.');
+                            }
+                        });
+
+                    }
+
+
+
+                    $("#title").on("input", function () {
+                        var maxLength = 50;
+                        var title = $(this).val();
+
+                        if (title.length > maxLength) {
+                            alert("제목은 최대 50자까지 입력할 수 있습니다.");
+                            title = title.slice(0, maxLength - 1);
+                            $(this).val(title);
+                        }
+                    }); // 제목 글자수 제한
+
+
+                    function checkContentLength() {
+                        var maxLength = 1000;
+                        var content = $('#content').summernote('code');
+
+
+                        var text = $('<div>').html(content).text();
+
+                        var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
+                        var iframeCount = iframeTags.length; // 영상 개수
+
+                        var imageTags = (content.match(/<img[^>]+>/g) || []);
+                        var imageCount = imageTags.length; // 이미지 개수
+
+                        var contentLength = text.length + (iframeCount * 100) + (imageCount * 100);
+
+                        console.log("contentLength: " + contentLength);
+                        console.log("Iframe Count: " + iframeCount);
+                        console.log("Image Count: " + imageCount);
+
+                        if (contentLength > maxLength) {
+                            alert("내용은 최대 1000자까지 입력할 수 있습니다.");
+                            $('#content').summernote('undo');
+                        } else {
+                            return;
+                        }
+                    } //유효성검사
+
+
+
                 })
-
-                // 완료
-                $("#save").on("click", function () {
-                    var markup = $('#content').summernote('code');
-                    $('#content').summernote('destroy');
-                })
-
-
-
             </script>
 
 

@@ -48,7 +48,7 @@
                     text-align: center;
                 }
 
-                form>table {
+               div>table {
                     width: 100%;
                     table-layout: fixed;
                 }
@@ -123,7 +123,7 @@
 
 
                         <div class="row body">
-                            <form style="padding:0" id="frm" action="/board/updateFree"  method="post">
+                       
                                 <table>
                                     <c:choose>
                                         <c:when test="${result.memberAuthGradeCode == 1002 }">
@@ -209,15 +209,19 @@
 
                                                 <button id="save" class=" btn btn-outline-primary" style="display:none"
                                                     type="submit">완료</button>
-
+                                                    
+                                                   <button id="cancel" class=" btn btn-outline-primary" style="display:none" type="button">취소</button>
+                                                   
                                                 <button id="del" class="btn btn btn-outline-primary"
                                                     type="button">삭제</button>
+
+                                                    <a href="/board/free"> <button id="list" class=" btn btn-outline-primary" type="button">목록</button></a>	
                                             </div>
                                         </td>
                                     </tr>
                             </table>
                             
-                                   </form>
+
 
                         </div>
 
@@ -399,7 +403,7 @@
 
                                 <tr>
                                     <td>
-                                        <div>${result.content}</div>
+                                        <div id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
@@ -590,9 +594,8 @@
 
                     // 완료
                     $("#save").on("click", function () {
-                  
-                        
-                        
+                  console.log("adgyusg")
+
                         let result = confirm("수정하시겠습니까?");
 
                         if (result) {

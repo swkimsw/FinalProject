@@ -239,26 +239,40 @@ public class BoardController {
 
 
 
-
-
 	//후기게시판 글 작성하기
-	@RequestMapping("inputReview")
-	public String inputReview(BoardReviewDTO dto,
-			@RequestParam(name = "oriName") String[] oriName,
-			@RequestParam(name = "sysName") String[] sysName,
-			String realPath) {
+		@RequestMapping("inputReview")
+		public String inputReview(BoardReviewDTO dto) {
 
-		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
-		dto.setMemberCode(membercode);
+			int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+			dto.setMemberCode(membercode);
+			
+			System.out.println(membercode);
+
+			// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+
+			boardservice.insertReview(dto); //후기 게시판 작성
+			return "redirect: /board/review" ;
+		}
+
 		
-		System.out.println(membercode);
-
-		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
-
-		boardservice.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
-		return "redirect: /board/review" ;
-	}
-
+//	후기게시판 글 작성하기
+//	@RequestMapping("inputReview")
+//	public String inputReview(BoardReviewDTO dto,
+//			@RequestParam(name = "oriName") String[] oriName,
+//			@RequestParam(name = "sysName") String[] sysName,
+//			String realPath) {
+//
+//		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+//		dto.setMemberCode(membercode);
+//		
+//		System.out.println(membercode);
+//
+//		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+//
+//		boardservice.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
+//		return "redirect: /board/review" ;
+//	}
+//
 
 
 	@ResponseBody //ajax로 이미지 주고받는거
@@ -304,22 +318,56 @@ public class BoardController {
 //===========================================================================================
 
 
-	
+
 	//자유게시판 글 수정
-		@ResponseBody
-		@RequestMapping("updateFree")
-		public int updateFree(BoardFreeDTO dto) {
-			
-			System.out.println(dto.getTitle());
-			System.out.println(dto.getCode());
-			System.out.println(dto.getHeadLineCode());
-			System.out.println(dto.getContent());
-			
-			int result = boardservice.updateFree(dto); 
-			
-			return result;
-			
-		}
+	@ResponseBody
+	@RequestMapping("updateFree")
+	public int updateFree(BoardFreeDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getHeadLineCode());
+		System.out.println(dto.getContent());
+
+		int result = boardservice.updateFree(dto); 
+
+		return result;
+
+	}
+
+
+
+	//공지게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateAnnouncement")
+	public int updateAnnouncement(BoardAnnouncementDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getHeadLineCode());
+		System.out.println(dto.getContent());
+
+		int result = boardservice.updateAnnouncement(dto); 
+
+		return result;
+
+	}
+
+
+	//자유게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateReview")
+	public int updateReview(BoardReviewDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getContent());
+
+		int result = boardservice.updateReview(dto); 
+
+		return result;
+
+			}
 		
 		
 

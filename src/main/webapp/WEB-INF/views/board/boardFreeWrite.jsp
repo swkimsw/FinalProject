@@ -93,7 +93,7 @@
 
         <c:when test="${user == '1003'}">
 
-          <form id="frm" action="/board/inputFree" method="get">
+          <form id="frm" action="/board/inputFree" method="post">
             <div class="container">
 
               <div class="header">
@@ -154,7 +154,7 @@
 
         <c:otherwise>
 
-          <form id="frm" action="/board/inputFree" method="get">
+          <form id="frm" action="/board/inputFree" method="post">
             <div class="container">
 
               <div class="header">
