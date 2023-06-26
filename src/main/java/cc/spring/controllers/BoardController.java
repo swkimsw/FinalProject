@@ -53,13 +53,7 @@ public class BoardController {
 
 		
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
-<<<<<<< HEAD
-
-		List<BoardFreeDTO> list = boardService.selectFreelist(); //자유게시글 전부 다 가져오기
-=======
-		
 		List<BoardFreeDTO> list = boardservice.selectFreelist(); //자유게시글 전부 다 가져오기
->>>>>>> 800ab68f5155e6e517b19f0b649a978787988139
 		System.out.println(list);
 		request.setAttribute("list", list); 
 		
@@ -258,15 +252,9 @@ public class BoardController {
 		
 		System.out.println(membercode);
 
-<<<<<<< HEAD
-		int parent_seq = boardService.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
-
-		boardService.insertReview(dto,membercode,parent_seq,realPath,oriName,sysName); //후기 게시판 작성
-=======
 		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
 
 		boardservice.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
->>>>>>> 800ab68f5155e6e517b19f0b649a978787988139
 		return "redirect: /board/review" ;
 	}
 
