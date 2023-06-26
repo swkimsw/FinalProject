@@ -61,11 +61,11 @@
 	height: 256px;
 }
 
-/* @keyframes rotate_image{
+ @keyframes rotate_image{
     100% {
         transform: rotate(360deg);
     }
-} */
+} 
 .selectBox {
 	padding: 2rem;
 	background-color: #fdeeb39a;
@@ -159,11 +159,11 @@
 							name="special" value="1003"> <label
 							class="form-check-label" for="viganDiet">비건 다이어트</label>
 					</div>
+				</div>
 					<div class="d-flex justify-content-center">
 						<button type="button" id="sendBtn"
-							class="btn btn-success btn-rounded">식단생성</button>
+							class="btn btn-success btn-lg btn-rounded">식단생성</button>
 					</div>
-				</div>
 			</div>
 
 			<div class="mealCalender">
