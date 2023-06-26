@@ -124,8 +124,6 @@ public class ShopService {
 			for(FileDTO f : imageList) {
 				File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
 				if(deleteFile.exists()) {
-					System.out.println(deleteFile);
-					System.out.println("삭제 성공");
 					deleteFile.delete();
 				}
 			}
@@ -151,13 +149,10 @@ public class ShopService {
 	}
 
 	// 공구 신청 insert
-	public int insertShopRequest(RequestListDTO dto) {
-		return shopDAO.insertShopRequest(dto);
-	}
-	
-	// 최대 인원수가 되면 더 이상 신청하지 못하도록 - 요청 인원수 select
-	public int isCountRequest(int code) {
-		return shopDAO.isCountRequest(code);
+	@Transactional
+	public void insertShopRequest(RequestListDTO dto) {
+		shopDAO.insertShopRequest(dto);
+		shopDAO.updateShopTotal(dto);
 	}
 	
 	// 이미 공구 신청한 경우 더 이상 신청하지 못하도록 - 해당 멤버코드로 신청 select

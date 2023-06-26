@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
@@ -60,12 +61,12 @@
 	width: 256px;
 	height: 256px;
 }
-
-@keyframes rotate_image{
-	100% {
+/* 
+ @keyframes rotate_image{
+    100% {
         transform: rotate(360deg);
     }
-}
+}  */
 .selectBox {
 	padding: 2rem;
 	background-color: #fdeeb39a;
@@ -78,10 +79,10 @@
 	<!-- gnb -->
 	<c:import url="commons/gnb.jsp">
 	</c:import>
-	
+
 	<!-- 로그인한 회원의 아이디를 담을 공간 -->
 	<input type="text" value="${sessionScope.code}" id="clientCode" hidden>
-	
+
 	<!-- main -->
 	<div class="container" style="margin-top: 100px;">
 		<div class="spinner-border text-dark" style="display: none;"
@@ -159,12 +160,13 @@
 							name="special" value="1003"> <label
 							class="form-check-label" for="viganDiet">비건 다이어트</label>
 					</div>
-					
 				</div>
-					<div class="d-flex justify-content-center">
-						<button type="button" id="sendBtn" class="btn btn-success btn-lg btn-rounded">식단생성</button>
-						<button type="button" id="aiMealAddBtn" class="btn btn-success btn-lg btn-rounded" hidden>저장하기</button>
-					</div>
+				<div class="d-flex justify-content-center">
+					<button type="button" id="sendBtn"
+						class="btn btn-success btn-lg btn-rounded">식단생성</button>
+					<button type="button" id="aiMealAddBtn"
+						class="btn btn-success btn-lg btn-rounded" hidden>저장하기</button>
+				</div>
 			</div>
 
 			<div class="mealCalender">
@@ -410,7 +412,8 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
+												<input type="text" class="form-control meal-name m-0"
+													onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -422,7 +425,8 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
+												<input type="text" class="form-control meal-name m-0"
+													onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -434,7 +438,8 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
+												<input type="text" class="form-control meal-name m-0"
+													onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -446,7 +451,8 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0"onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
+												<input type="text" class="form-control meal-name m-0"
+													onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -458,7 +464,8 @@
 									<div class="insertBox m-2">
 										<div class="row">
 											<div class="col-9" style="padding-right: 0;">
-												<input type="text" class="form-control meal-name m-0" onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
+												<input type="text" class="form-control meal-name m-0"
+													onkeyup="aiMealChange(this)" onkeydown="aiMealChange(this)"
 													placeholder="요리명 입력">
 											</div>
 											<div class="col-3">
@@ -531,115 +538,110 @@
 <!-- aiCalendar drag js -->
 <script src="${path}/resources/js/aiCalendar_drag.js"></script>
 <script type="text/javascript">
+	let timeArr = [];
+	let timeArrLength;
+	let aiMealArr = [];
+	let timeStr = "";
+	let special;
+	let dayTime;
+	let todate;
 
-			let timeArr = [];
-			let timeArrLength;
-			let aiMealArr = [];
-			let timeStr = "";
-			let special;
-			let dayTime;
-			let todate;
+	function dateFormat(date) {
+		let month = date.getMonth() + 1;
+		let day = date.getDate();
+		let hour = date.getHours();
 
-			function dateFormat(date) {
-				let month = date.getMonth() + 1;
-				let day = date.getDate();
-				let hour = date.getHours();
+		month = month >= 10 ? month : '0' + month;
+		day = day >= 10 ? day : '0' + day;
+		hour = hour >= 10 ? hour : '0' + hour;
 
-				month = month >= 10 ? month : '0' + month;
-				day = day >= 10 ? day : '0' + day;
-				hour = hour >= 10 ? hour : '0' + hour;
+		return date.getFullYear() + '-' + month + '-' + day;
+	}
 
-				return date.getFullYear() + '-' + month + '-' + day;
-			}
+	function dateAdd(addDays) {
+		let today = new Date();
+		today.setDate(today.getDate() + addDays);
+		return dateFormat(today);
+	}
 
-			function dateAdd(date, addDays) {
-				let today = new Date();
-				date.setDate(today.getDate() + addDays);
-				return dateFormat(date);
-			}
+	$("#sendBtn").on("click", function() {
 
-			$("#sendBtn").on("click", function () {
-				
-				// 일단 식단생성 버튼 누르면 모든내용 삭제
-				$(".meal-box").html("");
-				
-				// 로그인시 실행 추가 
-				let clientCode = $("#clientCode").val();
-				if(!clientCode){
-					alert("일반회원만 사용할 수 있는 기능입니다. 일반회원으로 로그인해주세요");
-					//return false;
-				}
-				timeArr = [];
-				$("input[type=checkbox][name=time]:checked").each(function (i) {
-					timeArr.push($(this).val());
+		// 로그인시 실행 추가 
+		if (!clientCode) {
+			alert("일반회원만 사용할 수 있는 기능입니다. 일반회원으로 로그인해주세요");
+			//return false;
+		}
+		timeArr = [];
+		$("input[type=checkbox][name=time]:checked").each(function(i) {
+			timeArr.push($(this).val());
+		});
+		timeStr = timeArr.join(',');
+		timeArrLength = timeArr.length;
+
+		special = $("input[name=special]:checked").val();
+		dayTime = $("select[name=dayTime]").val();
+
+		// 아점저 선택안하면 생성 금지
+		if (timeArrLength == 0) {
+			alert("아침, 점심, 저녁중 반드시 하나이상은 선택하셔야 합니다.");
+			return false;
+		}
+		$.ajax({
+			url : "/meal/aiMeal",
+			type : "post",
+			data : {
+				dayTime : dayTime,
+				special : special,
+				timeStr : timeStr
+			},
+			beforeSend : function() {
+				$(".spinner-border").css({
+					"display" : "block"
 				});
-				timeStr = timeArr.join(',');
-				timeArrLength = timeArr.length;
-
-				special = $("input[name=special]:checked").val();
-				dayTime = $("select[name=dayTime]").val();
-
-				// 아점저 선택안하면 생성 금지
-				if(timeArrLength == 0){
-					alert("아침, 점심, 저녁중 반드시 하나이상은 선택하셔야 합니다.");
-					return false;
-				}
-				$.ajax({
-					url: "/meal/aiMeal",
-					type: "post",
-					data: {
-						dayTime: dayTime,
-						special: special,
-						timeStr: timeStr
-					},
-					beforeSend: function () {
-						$(".spinner-border").css({
-							"display": "block"
-						});
-						$(".main").css({
-							"display": "none"
-						});
-					},
-					complete: function () {
-						$(".spinner-border").css({
-							"display": "none"
-						});
-						$(".main").css({
-							"display": "block"
-						});
-					}
-				}).done(function (resp) {
-					// resp List<MealDTO> 로 저장하는 함수 만들기?
-					console.log(resp);
-					
-					aiMealAdd(resp);
-					aiMealPrint(resp);
-					
-					$("#aiMealAddBtn").removeAttr("hidden");
-					$("#sendBtn").attr("hidden", true);
-					
-					alert("생성 성공~!");
+				$(".main").css({
+					"display" : "none"
 				});
-			});
+			},
+			complete : function() {
+				$(".spinner-border").css({
+					"display" : "none"
+				});
+				$(".main").css({
+					"display" : "block"
+				});
+			}
+		}).done(function(resp) {
+			// resp List<MealDTO> 로 저장하는 함수 만들기?
+			console.log(resp);
+
+			aiMealAdd(resp);
+			aiMealPrint(resp);
 			
-			// 식단 저장 
-			$("#aiMealAddBtn").on("click", function(){
-				
-				$.ajax({
-				    type: 'POST',
-				    url: '/meal/addAiMeal',
-				    data: JSON.stringify(aiMealArr),
-				    contentType: 'application/json',
-				    success: function(response) {
-				        console.log(response);
-				    },
-				    error: function(error) {
-				        console.log(error);
-				    }
-				}).done(function(){
-					alert("저장 전송 성공");
-				});
-			});
-		</script>
+			$("#aiMealAddBtn").removeAttr("hidden");
+			$("#sendBtn").attr("hidden", true);
+
+			alert("생성 성공~!");
+		});
+	});
+
+	// 식단 저장 
+	$("#aiMealAddBtn").on("click", function() {
+
+		$.ajax({
+			type : 'POST',
+			url : '/meal/addAiMeal',
+			data : JSON.stringify(aiMealArr),
+			contentType : 'application/json',
+			success : function(response) {
+				console.log(response);
+			},
+			error : function(error) {
+				console.log(error);
+			}
+		}).done(function() {
+			alert("저장 전송 성공");
+		});
+	});
+</script>
 
 </html>

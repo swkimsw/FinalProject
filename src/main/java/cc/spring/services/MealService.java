@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import cc.spring.dto.ChatDTO;
+import cc.spring.dto.ChatMealDTO;
 import cc.spring.dto.MealDTO;
 import cc.spring.provider.ChatGPTProvider;
 import cc.spring.repositories.MealDAO;
@@ -94,7 +94,7 @@ public class MealService {
 
 			JsonObject day = content.get("day"+(i+1)).getAsJsonObject();
 			
-			ChatDTO dto = gson.fromJson(day.toString(), ChatDTO.class);
+			ChatMealDTO dto = gson.fromJson(day.toString(), ChatMealDTO.class);
 			
 			System.out.println("SERVICE--> ");
 			System.out.println(dto.toString());
