@@ -2,13 +2,13 @@ package cc.spring.repositories;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import cc.spring.dto.ClientMemberDTO;
 import cc.spring.dto.MemberDTO;
 @Repository
 public class ClientMemberDAO {
@@ -66,6 +66,11 @@ public class ClientMemberDAO {
 	
 	public int updateMemberInfo(MemberDTO dto) {
 		return mybatis.update("Client.updateMemberInfo",dto);
+	}
+	
+	// Admin
+	public List<MemberDTO> selectAllClientMember() {
+		return mybatis.selectList("Client.selectAllClientMember");
 	}
 
 }
