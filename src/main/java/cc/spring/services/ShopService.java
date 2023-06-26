@@ -124,8 +124,6 @@ public class ShopService {
 			for(FileDTO f : imageList) {
 				File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
 				if(deleteFile.exists()) {
-					System.out.println(deleteFile);
-					System.out.println("삭제 성공");
 					deleteFile.delete();
 				}
 			}
