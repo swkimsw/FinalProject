@@ -184,7 +184,7 @@
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 식단 리스트</a></li>
-								<li><a href="/meal/toMyBasket"
+								<li><a href="/basket/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 장바구니</a></li>
 							</ul>
