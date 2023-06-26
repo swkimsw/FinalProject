@@ -81,11 +81,22 @@ body {
 					<p>신청건수 : ${b.applyCount}</p>
 					<p>상품수량 : ${b.applyQuantity}</p>
 					<p>총 매출 : ${b.productPrice * b.applyQuantity}</p>
-					<button onclick="">신청자 목록</button>
+					<button onclick="openInfo(${b.groupbuyingCode})">신청자 목록</button>
 					<hr>
 				</c:forEach>
 			</c:when>
 		</c:choose>
 	</div>		
+	
+	
+	
+	
+	<script>
+		function openInfo(int groupbuyingCode){
+			const option = 'width:700, height:800, scrollbars=yes';
+			window.open('shop/buyingeMemberInfoList','_parent',option);
+		}
+		
+	</script>
 </body>
 </html>

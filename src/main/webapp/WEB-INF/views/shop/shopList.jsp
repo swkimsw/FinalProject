@@ -51,12 +51,13 @@
 }
 
 .container {
-	margin-top: 100px;
+	margin-top: 80px;
 }
 
 .subNav {
 	position: fixed;
 	z-index:2;
+	max-height: 80px;
 }
 
 .searchGroup {
@@ -105,7 +106,7 @@
 							<div class="col linkGroup"
 								style="position: relative; width: 100%;">
 								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-									<li class="nav-item btn active">
+									<li class="nav-item active">
 										<a class="nav-link" href="/shop/toShopList">
 										전체
 										</a>

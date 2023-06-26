@@ -249,7 +249,7 @@ public class ShopController {
 	 	 public String buyingMemberInfoList(int groupbuyingCode, Model model) {
 	 		List<MyShopListDTO> list = shopService.buyingMemberInfoList(groupbuyingCode);
 	 		model.addAttribute("list",list);
-	 		return "/";
+	 		return "/shop/infoPopup";
 	 	 }
 	
 	
