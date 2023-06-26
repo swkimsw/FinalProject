@@ -38,9 +38,9 @@ public class BasketController {
 		if(memberCode == 0) {
 			return "redirect:/clientMember/login_form";
 		}else {
-			List<BasketDTO> basketList = bService.selectBasketList(memberCode);
+			List<BasketDTO> basketList = bService.selectBasket(memberCode);
 			model.addAttribute("basketList", g.toJson(basketList));
-			return "";		
+			return "meal/basket";		
 		}
 	}
 }
