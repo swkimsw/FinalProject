@@ -32,6 +32,8 @@
 	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
+	
+	
 </style>
 </head>
 <body>
@@ -43,20 +45,16 @@
 	<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 		<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
-
-			<div class="images">
-				<div id="carouselExampleIndicators" class="carousel slide mb-3">
-  					<div class="carousel-indicators">
-  						<c:forEach var="i" items="${fileDTO}">
-  							
-  						</c:forEach>
-    					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  					</div>
+			
+			<div class="images" style="height:40%;">
+				<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
   					<div class="carousel-inner">
-  						<c:forEach var="i" items="${fileDTO}">
-  							<div class="carousel-item active">
+  						<div class="carousel-item active">
+  							<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
+      						<img src="/resources/shopImg/${fileDTO[0].sysname}" class="d-block w-100" alt="...">
+    					</div>
+  						<c:forEach var="i" items="${fileDTO}" begin="1">
+  							<div class="carousel-item">
   								<input type="hidden" name="sysname" value="${i.sysname}">
       							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
     						</div>
@@ -97,7 +95,7 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
-						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" required readonly>
+						<input type="datetime-local" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">

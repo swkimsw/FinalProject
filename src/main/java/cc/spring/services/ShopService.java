@@ -42,12 +42,13 @@ public class ShopService {
 
 		// shop 정보 insert
 		String deadLineTemp = dto.getDeadLineTemp();
+		deadLineTemp = deadLineTemp.replace("T", " ");
 		if(deadLineTemp != null) {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			Date parsedDate = dateFormat.parse(deadLineTemp);
 			Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 			dto.setDeadLine(timestamp);
-
+			System.out.println(dto.getDeadLine());
 			parentSeq = shopDAO.insertShop(dto);
 		}
 
@@ -85,7 +86,7 @@ public class ShopService {
 
 		// Timestamp -> String
 		Timestamp deadLine = dto.getDeadLine();
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		dto.setDeadLineTemp(dateFormat.format(deadLine));
 
 		return dto;
@@ -117,8 +118,19 @@ public class ShopService {
 		File realPathFile = new File(realPath);
 		if(!realPathFile.exists()) realPathFile.mkdir();
 		if(files != null) {
-			// 삭제할 image 리스트 뽑아서 삭제하기
-			//List<String> imageList = fileDAO.deleteImageList(dto.getCode());
+			
+			// 삭제할 image 리스트 뽑아서 파일에서 삭제하기
+			List<FileDTO> imageList = fileDAO.deleteImageList(dto.getCode());
+			for(FileDTO f : imageList) {
+				File deleteFile = new File(f.getPath() + "\\" + f.getSysname());
+				if(deleteFile.exists()) {
+					System.out.println(deleteFile);
+					System.out.println("삭제 성공");
+					deleteFile.delete();
+				}
+			}
+			// DB에서 삭제
+			fileDAO.deleteShopImage(parentSeq);
 			
 			for(MultipartFile file : files) {
 				if(file.isEmpty()) {break;}
