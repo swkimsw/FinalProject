@@ -9,17 +9,33 @@
 	select code from CLIENTMEMBER where id=#{id};
 	</select>
 	
-	
+	<!-- 내가쓴 게시판 맵퍼 -->
 	<select id="freeBoard" resultType="cc.spring.dto.BoardFreeDTO">
-SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.title,b.viewcount,b.likecount,b.regdate FROM  BOARDFREE b join headline h on b.headlinecode = h.code join boadkind k on  b.boardkindcode= k.code WHERE b.membercode=(select code from member where code=${code})
+SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.title,b.viewcount,b.likecount,b.regdate FROM BOARDFREE b 
+join headline h on b.headlinecode = h.code 
+join boadkind k on b.boardkindcode= k.code 
+WHERE b.membercode=(select code from member where code=${code})
 	</select>
-	
-
-	
-	
-	<select id="btpage" resultType="cc.spring.dto.BoardFreeDTO">
-	select count(*) from boardfree where membercode=${code};
+<select id="reView"	resultType="cc.spring.dto.BoardReviewDTO">
+SELECT r.code,k.value as boardkindValue,h.value as headlinevalue,r.title,r.viewcount,r.likecount,r.regdate FROM  boardreview r
+join headline h on r.headlinecode = h.code 
+join boadkind k on  r.boardkindcode= k.code 
+join member m on r.membercode=m.code
+WHERE r.membercode=(select code from member where code=${code})
+</select>
+<!-- 판매자가 쓴 게시판 맵퍼 -->
+<select id="businessFreeBoard" resultType="cc.spring.dto.BoardFreeDTO">
+SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.title,b.viewcount,b.likecount,b.regdate FROM BOARDFREE b 
+join headline h on b.headlinecode = h.code 
+join boadkind k on b.boardkindcode= k.code 
+WHERE b.membercode=(select code from member where code=${code})
 	</select>
-	
+		<select id="checkPw" resultType="boolean">
+			select count(*) from Member where id = #{id} and pw = #{pw}
+		</select>
+		
+		<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
+			select * from Member where id = #{id}
+		</select>
 
 	</mapper>
