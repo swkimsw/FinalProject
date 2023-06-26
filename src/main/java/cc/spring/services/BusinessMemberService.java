@@ -57,4 +57,12 @@ public class BusinessMemberService {
 	public int updateMemberInfo(MemberDTO dto) {
 		return bdao.updateMemberInfo(dto);
 	}
+	
+	public boolean checkGroupBuying(int code) {
+		return bdao.checkGroupBuying(code);
+	}
+	
+	public int deleteMember(int code) {
+		return bdao.deleteMember(code);
+	}
 }
