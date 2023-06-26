@@ -2,16 +2,16 @@ package cc.spring.dto;
 
 import java.util.Arrays;
 
-public class ChatDTO {
+public class ChatMealDTO {
 	private String[] breakfast;
 	private String[] lunch;
 	private String[] dinner;
 	
-	public ChatDTO() {
+	public ChatMealDTO() {
 		super();
 	}
 
-	public ChatDTO(String[] breakfast, String[] lunch, String[] dinner) {
+	public ChatMealDTO(String[] breakfast, String[] lunch, String[] dinner) {
 		super();
 		this.breakfast = breakfast;
 		this.lunch = lunch;
