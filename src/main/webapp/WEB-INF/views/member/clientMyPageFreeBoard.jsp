@@ -38,7 +38,8 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
 <!-- DataTables -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 <style>
 * {
@@ -56,44 +57,80 @@
 
 .container {
 	margin-top: 100px;
+}.row{
+border: 5px solid #fee1e870;
+border-radius: 30px;
+background-color: #ffffc230;
 }
-
-/* .hd0 {
-	width: 100%;
-}
-
-.hd1 {
-	width: 50px;
+/* 페이징 */
+.dataTables_wrapper .dataTables_paginate .dataTables_paginate{
+	box-sizing: border-box;
+	display: inline-block;
+	min-width: 1.5em;
+	padding: 0.5em 1em;
+	margin-left: 2px;
 	text-align: center;
-	position: relative;
-	right: 300px;
+	text-decoration: none !important;
+	cursor: pointer;
+	color: inherit !important;
+	border: 1px solid #f6eac2;
+	border-radius: 10px;
+	background-color: #ffffc2;
 }
 
-.hd2 {
-	width: 100px;
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+	box-sizing: border-box;
+	display: inline-block;
+	min-width: 1.5em;
+	padding: 0.5em 1em;
+	margin-left: 2px;
 	text-align: center;
+	text-decoration: none !important;
+	cursor: pointer;
+	color: white;
+	border-radius: 10px;
+	border: 1px solid #00793630;
+	background-color: #ffffc2;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: inherit !important;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #ffffc2;
+    border-radius: 30px;
+}
+/* input */
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 3px;
+    border-radius: 10px;
+}
+/* select */
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid doderblue;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: transparent;
+    padding: 4px;
+    
 }
 
-.hd3 {
-	width: 70%;
-	text-align: center;
+td {
+	color: #007936;
 }
 
-.hd4 {
-	width: 50px;
-	text-align: center;
+table.dataTable tbody tr {
+	border-radius: 50px;
+	color: red;
 }
 
-.hd5 {
-	width: 50px;
-	text-align: center;
+table.dataTable tbody tr:hover {
+	background-color: #00793630;
+	color: red;
 }
 
-.hd6 {
-	width: 100px;
-	text-align: center;
-}
- */
 .title {
 	text-align: left;
 }
@@ -130,11 +167,11 @@ h1.second span:after {
 
 	<div class="container">
 		<h1 class="second">
-			<span>MY FREEBOARD</span>
+			<span>My FreeBoard</span>
 		</h1>
 		<br>
 		<div class="row">
-				<!-- <div class="row checkbox ">
+			<!-- <div class="row checkbox ">
 					<div class="col input-group mb-3">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="checkbox"
@@ -161,43 +198,65 @@ h1.second span:after {
 						</div>
 					</div>
 				</div> -->
-				<!-- 메인시작 -->
-				<table id="myTables" class="table"
-					style="width: 100%">
-					<thead>
+			<!-- 메인시작 -->
+			<table id="myTables" class="table" style="width: 100%">
+				<thead>
+					<tr>
+						<th><h9 class="hd1">no</h9></th>
+						<th class="hd0">말머리</th>
+						<th class="hd2">게시판종류</th>
+						<th class="hd3">게시판제목</th>
+						<th class="hd4">붐업</th>
+						<th class="hd5">발자국</th>
+						<th class="hd6">게시글날짜</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="i" items="${list}" varStatus="status">
 						<tr>
-							<th><h9 class="hd1">no</h9></th>
-							<th class="hd0">말머리</th>
-							<th class="hd2">게시판종류</th>
-							<th class="hd3">게시판제목</th>
-							<th class="hd4">붐업</th>
-							<th class="hd5">발자국</th>
-							<th class="hd6">게시글날짜</th>
+							<td>${status.count}</td>
+							<td class="b2">${i.headLineValue}</td>
+							<td class="b1">${i.boardKindValue}</td>
+							<td><a href="#">&#127880;${i.title}</a></td>
+							<td class="b1">👍${i.likeCount}</td>
+							<td class="b1">👣${i.viewCount}</td>
+							<td class="b1">&#128197;${i.regDate}</td>
 						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="i" items="${list}" varStatus="status">
-							<tr>
-								<td>${status.count}</td>
-								<td class="b1">${i.headLineValue}</td>
-								<td class="b1">${i.boardKindValue}</td>
-								<td><a href="#">${i.title}</a></td>
-								<td class="b1">${i.memberCode}</td>
-								<td class="b1">${i.viewCount}</td>
-								<td class="b1">${i.likeCount}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-				<br>
-			</div>
-			<script>
-				$(document).ready(function() {
-					
-					$('#myTables').DataTable({
-						pagingType : "full_numbers"
-					});
+					</c:forEach>
+				</tbody>
+			</table>
+			<br>
+		</div>
+		<script>
+		$(document).ready(function() {
+		    $("td.b1").each(function() {
+		        if ($(this).text() === "자유 게시판") {
+		            $(this).html("&#127803;자유 게시판");
+		        }else if($(this).text() === "후기 게시판"){
+		        	 $(this).html("&#127804;후기 게시판");
+		        }else if($(this).text() === "문의 게시판"){
+		        	 $(this).html("&#127801;문의 게시판");
+		        }
+		    });
+		    $("td.b2").each(function() {
+		        if ($(this).text() === "일상") {
+		            $(this).html("💃일상");
+		        }else if($(this).text() === "정보"){
+		        	 $(this).html("🕵️‍♂️정보");
+		        }else if($(this).text() === "질문"){
+		        	 $(this).html("🙋‍♀️질문");
+		        }else if($(this).text() === "후기"){
+		        	 $(this).html("🤷후기");
+		        }
+		    });
+		});
+			$(document).ready(function() {
+
+				$('#myTables').DataTable({
+					pagingType : "full_numbers",
+						info: false
 				});
-			</script>
+			});
+		</script>
 </body>
 </html>
