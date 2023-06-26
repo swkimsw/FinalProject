@@ -45,6 +45,7 @@ public class BasketService {
 	@Transactional
 	public void insertAiIngredients(int memberCode, String[] targetIngredients) {
 		for(String target:targetIngredients) {
+			System.out.println(target);
 			basketDAO.insertBasket(new BasketDTO(0,memberCode,target,0));
 		}
 	}

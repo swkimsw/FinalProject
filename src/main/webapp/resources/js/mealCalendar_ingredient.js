@@ -92,13 +92,12 @@
                     targetIngredients.push(e.value);
                 }
             });
-            targetIngredients = [new Set(targetIngredients)];
-            console.log(targetIngredients);
+            targetIngredients = [...new Set(targetIngredients)];
             $.ajax({
             	url:"/basket/addAiBasket",
             	type:"post",
             	data:{
-            		aiBasketArr:targetIngredients,
+            		aiBasketArr:JSON.stringify(targetIngredients),
             	},
             }).done(function(){
             	if(confirm("등록되었습니다! 장바구니로 이동합니까?")){
