@@ -70,6 +70,16 @@
                 .button-container {
                     text-align: center;
                 }
+                
+                .note-group-image-url{
+                     display: none;
+                }
+
+                .note-modal-footer>input {
+                    margin-right: 20px;
+                    margin-top: -15px;
+                    font-size: small;
+                }
             </style>
 
         </head>
@@ -147,21 +157,24 @@
                             ['view', ['codeview', 'help']]
                         ], callbacks: {
                             onImageUpload: function (files) {
+                            	console.log("1번째")
                                 uploadImages(files);
                                 checkContentLength();
 
                             },
                   	      onKeyup: function() {
+                  	    	console.log("2번째")
                     	        checkContentLength();
                     	      },
                     	      onPaste: function() {
+                    	    	  console.log("3번째")
                     	        checkContentLength();
                     	        
                     	      },
-                    	      onChange: function(contents, $editable) {
-                    	    	  console.log("asdf")
+                    	      onChange: function(contents, $editable ) {
+                    	    	  console.log("4번째")
                     				checkContentLength();
-                    	        }
+                    	      }
                         }
                     })
                     
