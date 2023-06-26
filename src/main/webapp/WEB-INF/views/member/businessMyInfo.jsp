@@ -253,13 +253,16 @@ label {
 					</div>
 					<hr>
 
-					<!-- 수정하러가기 버튼 & 돌아가기 버튼 -->
+					<!-- 수정하러가기 버튼 & 탈퇴하기 버튼 & 돌아가기 버튼 -->
 					<br>
 					<div class="row justify-content-center">
 						<div class="col-auto d-flex justify-content-end">
 							<a href="/businessMember/goUpdateInfo?id=${sessionScope.id}">
 								<button class="btn btn-secondary" type="button" id="goUpdateBtn" style="background-color: #76b852;">수정하기</button>
 							</a>
+						</div>
+						<div class="col-auto d-flex justify-content-end">
+							<button class="btn btn-secondary resignBtn" type="button" style="background-color: #76b852;">탈퇴하기</button>
 						</div>
 						<div class="col-auto d-flex justify-content-start">
 							<a href="/">
@@ -428,13 +431,16 @@ label {
 					</div>
 					<hr>
 
-					<!-- 수정하러가기 버튼 & 돌아가기 버튼 -->
+					<!-- 수정하러가기 버튼 & 탈퇴하기 버튼 & 돌아가기 버튼 -->
 					<br>
 					<div class="row justify-content-center">
 						<div class="col-auto d-flex justify-content-end">
 							<a href="/businessMember/goUpdateInfo?id=${sessionScope.id}">
 								<button class="btn btn-secondary" type="button" id="goUpdateBtn" style="background-color: #76b852;">수정하기</button>
 							</a>
+						</div>
+						<div class="col-auto d-flex justify-content-end">
+							<button class="btn btn-secondary resignBtn" type="button" style="background-color: #76b852;">탈퇴하기</button>
 						</div>
 						<div class="col-auto d-flex justify-content-start">
 							<a href="/">
