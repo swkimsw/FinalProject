@@ -17,4 +17,12 @@ public class BasketDAO {
 	public List<BasketDTO> selectBasket(int memberCode){
 		return mybatis.selectList("Basket.selectBasket", memberCode);
 	}
+	
+	public int deleteBasket(BasketDTO dto) {
+		return mybatis.delete("Basket.deleteBasket", dto);
+	}
+	
+	public int updateBasket(BasketDTO dto) {
+		return mybatis.update("Basket.updateBasket", dto);
+	}
 }
