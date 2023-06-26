@@ -48,6 +48,21 @@ public class BasketController {
 		}
 	}
 	
+	@RequestMapping("insertBasket")
+	public void insertBasket() {
+		
+	}
+	
+	@RequestMapping("deleteBasket")
+	public void deleteBasket() {
+		
+	}
+	
+	@RequestMapping("updateBasket")
+	public void updateBasket () {
+		
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="aiBasket", produces="text/plain; chatset=utf8;")
 	public ResponseEntity<List<BasketDTO>> aiBasket(String targetList) throws Exception{
