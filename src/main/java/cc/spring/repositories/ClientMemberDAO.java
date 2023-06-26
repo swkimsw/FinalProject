@@ -67,5 +67,9 @@ public class ClientMemberDAO {
 	public int updateMemberInfo(MemberDTO dto) {
 		return mybatis.update("Client.updateMemberInfo",dto);
 	}
+	
+	public int deleteMember(int code) {
+		return mybatis.delete("Client.deleteMember",code);
+	}
 
 }
