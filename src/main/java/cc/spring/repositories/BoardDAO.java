@@ -118,6 +118,12 @@ public class BoardDAO {
 		return mybatis.update("Board.updateReview",dto);
 	}
 
+
+
+	public int deleteAnnouncement(int code) {
+		return mybatis.delete("Board.deleteAnnouncement",code);
+	}
+
 	
 
 
