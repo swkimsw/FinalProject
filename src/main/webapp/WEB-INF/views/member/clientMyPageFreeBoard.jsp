@@ -244,7 +244,7 @@ h1.second span:after {
                                 <td class="fontCol b2 col-1 col-sm-1 col-xs-3">${i.headLineValue}</td>
                                 <td class="fontCol b1 col-1 d-none d-lg-table-cell">${i.boardKindValue}</td>
                                 <td class="fontCol title col-12 col-md-5 col-lg-5">
-                                    <a href="/board/FreeContent?code=${i.code}" class="atag">${i.title}</a>
+                                    <a href="/board/ReviewContent?code=${i.code}" class="atag">${i.title}</a>
                                 </td>
                                 <td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.likeCount}</td>
                                 <td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.viewCount}</td>
