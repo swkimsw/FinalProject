@@ -227,7 +227,7 @@
 						
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
-						                    <a href="/board/announcement"> 
+						                    <a href="/board/review"> 
 						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
 						                    </a>
 						                    
@@ -567,6 +567,17 @@
                     	if(result){
                     		alert("삭제되었습니다");
                     		location.href = "/board/deleteReview?code=" + ${result.code};
+                    	}else{
+                    		return false;
+                    	}
+                    })
+                    
+                    
+                     $("#report").on("click",function(){
+                    	let result = confirm("신고하겠습니까?")
+                    
+                    	if(result){
+                    		 window.open("/board/reviewReport?postcode="+ ${result.code}+"&boardKindCode=1003&reporterCode="+${user}+"&reporteeCode="+ ${result.memberCode},"", "width=500px, height=600px");
                     	}else{
                     		return false;
                     	}

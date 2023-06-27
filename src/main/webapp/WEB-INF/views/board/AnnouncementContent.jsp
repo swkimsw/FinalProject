@@ -218,9 +218,7 @@
 						            <td>
 						                <div id="button" class="button-container">
 						                
-						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
-						                  
-						
+						                	
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
 						                    <a href="/board/announcement"> 

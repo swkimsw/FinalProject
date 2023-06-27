@@ -144,7 +144,24 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		delete from boardFree where code = #{code}
 	</delete>
 	
+<!-- ========================================================================================== -->
+
+<!-- 자유게시판 신고대상이름 가져오기 -->
+
+<select id="selectReporteeNickname" resultType="String">
+      select nickname from member where code = #{reporteeCode}
+</select>
+
+
+<select id="selectReporteeCompanyName" resultType="String">
+      select companyname from member where code = #{reporteeCode}
+</select>
 	
+	
+	<!-- 게시판 신고 기능 -->
+	<insert id="insertReport" >
+insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</insert>	
 	
 	
 </mapper>
