@@ -1,4 +1,53 @@
-        //재료 추출(하러가기) 버튼 클릭 이벤트
+       //재료 추출하는 함수 따로 생성
+       function extractIngredients(targetMeals, limit){
+
+        $.ajax({
+            url:"/basket/aiBasket",
+            type:"post",
+            data:{
+                targetList:JSON.stringify(targetMeals),
+            },
+            beforeSend : function() {
+                $("#myMealList").slideUp(600,'swing',()=>{
+                    $("#waitingSpinner").fadeIn(600);
+                });
+            },
+            complete : function() {
+                $("#waitingSpinner").slideUp(400,'swing',()=>{
+                    $("#myMealList").fadeOut(600);
+                });
+            }
+        }).done(function(resp){
+            //다음 모달창에 추출한 재료 목록 append하고 띄워주기
+            let ingredientList = JSON.parse(resp);
+            let count=1;
+            Array.prototype.forEach.call(ingredientList, (element) => {
+                $("#ingredientList").append("🍽 "+element.meal).append("<hr class='titleLine'>");
+                let ul = $('<ul class="list-group ingredientUL">');
+                element.ingredients.forEach(i=>{
+                    let li = $(`<li class="list-group-item">`);
+                    let inputs = $(`<input class="form-check-input me-1 selectIngredient" type="checkbox" value="">`).attr('id',"selectIngredient"+count);
+                    let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(i);
+                    li.append(inputs,labels);
+                    ul.append(li);
+                    count++;
+                });
+                $("#ingredientList").append(ul);
+            });
+            
+            $("#ingredientModal").modal('hide');
+            $("#ingredientModal2").modal('show');
+            
+        }).error(function(error){
+            console.log(error);
+            if(count>0){
+                extractIngredients(targetMeals, limit-1);
+            }
+        });
+
+       }
+       
+       //재료 추출(하러가기) 버튼 클릭 이벤트
         $("#aiIngredient").on("click", function () {
             //우선 모달창에 입력된 li 모두 비우기
             $("#myMealList").html("");
@@ -7,7 +56,6 @@
             //select 된 메뉴 정보를 가지고 재료추출 페이지로 이동
             let meals = [];
             let targets = document.getElementById("c-body-large").getElementsByClassName("meal-box");
-            console.log(targets);
 
             for(let i=0;i<targets.length;i++){
                 if(targets[i].innerHTML){
@@ -47,32 +95,8 @@
                 }
             });
 
-        	$.ajax({
-        		url:"/basket/aiBasket",
-        		type:"post",
-        		data:{
-                    targetList:JSON.stringify(targetMeals),
-                },
-        	}).done(function(resp){
-                //다음 모달창에 추출한 재료 목록 append하고 띄워주기
-                let ingredientList = JSON.parse(resp);
-                let count=1;
-                Array.prototype.forEach.call(ingredientList, (element) => {
-                    $("#ingredientList").append("🍽 "+element.meal).append("<hr class='titleLine'>");
-                    let ul = $('<ul class="list-group ingredientUL">');
-                    element.ingredients.forEach(i=>{
-                        let li = $(`<li class="list-group-item">`);
-                        let inputs = $(`<input class="form-check-input me-1 selectIngredient" type="checkbox" value="">`).attr('id',"selectIngredient"+count);
-                        let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(i);
-                        li.append(inputs,labels);
-                        ul.append(li);
-                        count++;
-                    });
-                    $("#ingredientList").append(ul);
-                });
-        		$("#ingredientModal").modal('hide');
-            	$("#ingredientModal2").modal('show');
-        	});
+            //에러나면 3번까지 재전송, 그 이상은 취소
+        	extractIngredients(targetMeals, 3);
         });
 
         //장바구니에 저장할 재료 선택 이벤트 (checkBox에 value 설정)

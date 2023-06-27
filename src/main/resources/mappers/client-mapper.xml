@@ -23,11 +23,27 @@
 	</select>
 	
 	<insert id="insert">
-		insert into Member values(member_seq.nextval,#{id},null,#{pw},#{name},null,#{authGradeCode},#{nickName},#{birthDate},#{phone},#{eMail},null,#{zipcode},#{address1},#{address2},#{agree},sysdate,null,null)
+		insert into Member values(${code}, #{id}, null, #{pw}, #{name}, null, #{authGradeCode}, #{nickName},#{birthDate},#{phone},#{eMail},null,#{zipcode},#{address1},#{address2},#{agree},sysdate,null,null)
+		<selectKey keyProperty="code" order="BEFORE" resultType="int">
+			select member_seq.nextval from dual
+		</selectKey>
+	</insert>
+	
+	<insert id="insertGptCount">
+		
+		insert into gptCount values(${memberCode}, ${mealCount}, ${mealSucess}, ${mealFail}, ${basketCount}, ${basketSucess}, ${basketFail})
+	</insert>
+	
+	<insert id="insertLoginCount">
+		insert into loginCount values(${memberCode}, ${count}, DEFAULT)
 	</insert>
 	
 	<update id="updatePw">
 		update Member set pw = #{pw} where id = #{id}
+	</update>
+	
+	<update id="updateLoginCount">
+		update loginCount set count = (select count from loginCount where memberCode = ${memberCode})+1 , loginDate = DEFAULT where memberCode = ${memberCode}
 	</update>
 	
 	<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">

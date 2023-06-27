@@ -50,6 +50,10 @@ public class BasketService {
 		}
 	}
 	
+	public int insertOne(BasketDTO dto) {
+		return basketDAO.insertBasket(dto);
+	}
+	
 	public List<BasketDTO> selectBasket(int memberCode){
 		return basketDAO.selectBasket(memberCode);
 	}
@@ -64,10 +68,6 @@ public class BasketService {
 	
 	public int deleteAllBasket(int memberCode) {
 		return basketDAO.deleteAllBasket(memberCode);
-	}
-	
-	public int updateBasket(BasketDTO dto) {
-		return basketDAO.updateBasket(dto);
 	}
 	
 	public int updateChecked(BasketDTO dto) {

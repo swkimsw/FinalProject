@@ -218,9 +218,7 @@
 						            <td>
 						                <div id="button" class="button-container">
 						                
-						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
-						                  
-						
+						                	
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
 						                    <a href="/board/announcement"> 
@@ -490,6 +488,7 @@
                     	let result = confirm("삭제하시겠습니까?")
                     
                     	if(result){
+            				alert("삭제되었습니다");
                     		location.href = "/board/deleteAnnouncement?code=" + ${result.code};
                     	}else{
                     		return false;
