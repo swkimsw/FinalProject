@@ -26,6 +26,14 @@
 		insert into Member values(member_seq.nextval,#{id},null,#{pw},#{name},null,#{authGradeCode},#{nickName},#{birthDate},#{phone},#{eMail},null,#{zipcode},#{address1},#{address2},#{agree},sysdate,null,null)
 	</insert>
 	
+	<insert id="gptCount">
+		insert into gptCount values(${memberCode}, ${mealCount}, ${mealSucess}, ${mealFail}, ${basketCount}, ${basketSucess}, ${basketFail})
+	</insert>
+	
+	<insert id="loginCount">
+		insert into loginCount values(${memberCode}, #{loginDate})
+	</insert>
+	
 	<update id="updatePw">
 		update Member set pw = #{pw} where id = #{id}
 	</update>
