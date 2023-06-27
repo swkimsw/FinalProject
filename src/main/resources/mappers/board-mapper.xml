@@ -125,4 +125,11 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		update boardReview set title =  #{title}, content = #{content} where code = #{code}
 	</update>
 	
+	
+<!-- ========================================================================================== -->	
+
+<!-- 공지게시판 삭제 -->
+	<update id="deleteAnnouncement" >
+		delete from boardAnnouncement where code = #{code}
+	</update>
 </mapper>

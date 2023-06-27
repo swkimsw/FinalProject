@@ -18,7 +18,7 @@
 <style>
 	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
 	textarea{resize:none;}
-	.container{width: 70%; margin-top:100px;}
+	.container{width: 70%; margin-top:100px; background-color:white;}
 	.memberInfo{margin-top:2px; border:0;}
 	#message{margin-top: 6px; margin-left: 92px;}
 </style>

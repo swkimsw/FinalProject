@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import cc.spring.dto.BasketDTO;
+import cc.spring.dto.ChatBasketDTO;
 import cc.spring.services.BasketService;
 
 @Controller
@@ -43,7 +44,7 @@ public class BasketController {
 			return "redirect:/clientMember/login_form";
 		}else {
 			List<BasketDTO> basketList = bService.selectBasket(memberCode);
-			model.addAttribute("basketList", g.toJson(basketList));
+			model.addAttribute("basketList", basketList);
 			return "meal/basket";		
 		}
 	}
@@ -70,14 +71,20 @@ public class BasketController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="aiBasket", produces="text/plain; chatset=utf8;")
-	public ResponseEntity<List<BasketDTO>> aiBasket(String targetList) throws Exception{
-		System.out.println(targetList);
+	@RequestMapping(value="aiBasket", produces="text/plain; charset=utf8;")
+	public String aiBasket(String targetList) throws Exception{
 		String[] targetMeals = g.fromJson(targetList, String[].class);
-		List<BasketDTO> result = bService.extractIngredient(targetMeals);
-		System.out.println(result.toString());
-		return ResponseEntity.status(HttpStatus.OK)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(result);
+		List<ChatBasketDTO> result = bService.extractIngredient(targetMeals);
+		return g.toJson(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="addAiBasket", produces="text/plain; charset=utf8;")
+	public void aiAddBasket(String aiBasketArr) {
+		System.out.println(aiBasketArr);
+		String[] targetIngredients = g.fromJson(aiBasketArr, String[].class);
+		System.out.println(targetIngredients[0]);
+		int memberCode = (int)session.getAttribute("code");
+		bService.insertAiIngredients(memberCode, targetIngredients);
 	}
 }
