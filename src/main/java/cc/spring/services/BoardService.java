@@ -30,26 +30,33 @@ public class BoardService {
 		return boarddao.selectReviewSeq();
 	}
 
-	//리뷰 게시판 작성하기												==postcode
-	@Transactional
-	public void insertReview(BoardReviewDTO dto,String realPath,String[] oriName,String[] sysName) {
-
-
+	
+	//리뷰 게시판 작성하기												
+	public void insertReview(BoardReviewDTO dto) {
 		int postCode = boarddao.insertReview(dto);
-
-		for(int i = 0 ; i<oriName.length ; i++) {
-
-			System.out.println(oriName[i]);  //oriName
-			System.out.println(sysName[i]);  //oriName
-			System.out.println(realPath); //realpath
-
-			ReviewImgDTO rdto = new ReviewImgDTO(0 , postCode , realPath, oriName[i], sysName[i]);
-			boarddao.insertReviewImage(rdto); //후기게시판 글에 들어가는 이미지 db넣기
-
-		}
-
 	}
-
+	
+//	
+//	리뷰 게시판 작성하기												==postcode
+//	@Transactional
+//	public void insertReview(BoardReviewDTO dto,String realPath,String[] oriName,String[] sysName) {
+//
+//
+//		int postCode = boarddao.insertReview(dto);
+//
+//		for(int i = 0 ; i<oriName.length ; i++) {
+//
+//			System.out.println(oriName[i]);  //oriName
+//			System.out.println(sysName[i]);  //oriName
+//			System.out.println(realPath); //realpath
+//
+//			ReviewImgDTO rdto = new ReviewImgDTO(0 , postCode , realPath, oriName[i], sysName[i]);
+//			boarddao.insertReviewImage(rdto); //후기게시판 글에 들어가는 이미지 db넣기
+//
+//		}
+//
+//	}
+//
 
 
 	//자유게시판 작성하기
@@ -175,6 +182,20 @@ public class BoardService {
 		
 		return boarddao.updateFree(dto);
 		
+	}
+	//공지게시판 게시물 수정
+	public int updateAnnouncement(BoardAnnouncementDTO dto) {
+		return boarddao.updateAnnouncement(dto);
+	}
+
+	//리뷰게시판 게시물 수정
+	public int updateReview(BoardReviewDTO dto) {
+		return boarddao.updateReview(dto);
+	}
+
+
+	public int deleteAnnouncement(int code) {
+		return boarddao.deleteAnnouncement(code);
 	}
 
 

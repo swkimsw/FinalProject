@@ -106,6 +106,24 @@ public class BoardDAO {
 		return mybatis.update("Board.updateFree",dto);
 	}
 
+
+
+	public int updateAnnouncement(BoardAnnouncementDTO dto) {
+		return mybatis.update("Board.updateAnnouncement",dto);
+	}
+
+
+
+	public int updateReview(BoardReviewDTO dto) {
+		return mybatis.update("Board.updateReview",dto);
+	}
+
+
+
+	public int deleteAnnouncement(int code) {
+		return mybatis.delete("Board.deleteAnnouncement",code);
+	}
+
 	
 
 

@@ -308,6 +308,30 @@ public class BusinessMemberController {
 			
 		}
 		
+		// 회원탈퇴하기
+		@ResponseBody
+		@RequestMapping("deleteMember")
+		public boolean deleteMember() throws Exception {
+			int code = (int) session.getAttribute("code");
+			
+			// 판매자가 등록한 공구가 있으면 계정 삭제를 막을거에요.
+			boolean result1 = bms.checkGroupBuying(code);
+			
+			if(result1) {
+				return true;
+			}
+			else {
+				int result2 = bms.deleteMember(code);
+				if(result2 == 1) {
+					session.invalidate();
+				}
+				System.out.println(String.valueOf(false));
+				return false;
+			}
+			
+			
+		}
+		
 		@ExceptionHandler(Exception.class)
 		public String exceptionHandler(Exception e) {
 			e.printStackTrace();

@@ -418,12 +418,28 @@
                             </ul>
                         </div>
                         <div class="modal-footer justify-content-center">
-                          <button type="button" class="btn btn-success">재료 추출</button>
+                          <button type="button" class="btn btn-success" id="btnExtract">재료 추출</button>
                         </div>
                       </div>
                 </div>
             </div>
+            <div class="modal fade" id="ingredientModal2" aria-hidden="true" aria-labelledby="ingredientModalLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="ingredientModalLabel2">재료 목록</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="ingredientList">
 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" id="btnInsertBasket">장바구니에 담기</button>
+                      <button type="button" class="btn btn-success" data-bs-target="#ingredientModal" data-bs-toggle="modal">돌아가기</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
     

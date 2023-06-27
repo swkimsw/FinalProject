@@ -112,4 +112,24 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		update boardFree set headlinecode = #{headLineCode}, title =  #{title}, content = #{content} where code = #{code}
 	</update>
 
+
+<!-- 공지게시판 수정 -->
+	<update id="updateAnnouncement" >
+		update boardAnnouncement set title =  #{title}, content = #{content} where code = #{code}
+	</update>
+	
+	
+
+<!-- 리뷰게시판 수정 -->
+	<update id="updateReview" >
+		update boardReview set title =  #{title}, content = #{content} where code = #{code}
+	</update>
+	
+	
+<!-- ========================================================================================== -->	
+
+<!-- 공지게시판 삭제 -->
+	<update id="deleteAnnouncement" >
+		delete from boardAnnouncement where code = #{code}
+	</update>
 </mapper>

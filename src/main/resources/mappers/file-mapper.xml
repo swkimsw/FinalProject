@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="selectShopImg" resultType="cc.spring.dto.FileDTO">
-		select * from groupbuyingimg where postcode=${code}
+		select code, postcode, substr(path, instr(path,'\resources',1,1)) || '\' as path, oriname, sysname from groupbuyingimg where postcode=${code}
 	</select>
 	
 	<delete id="deleteShopImage">

@@ -80,11 +80,14 @@ public class BoardController {
 	public String list_Announcement() throws Exception{
 
 		System.out.println("adffghjgfdsaqwerthy");
-	int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		
+		int cpage = (int) session.getAttribute("cpage");
+		if(cpage == 0) {
+			 cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		}
+
 	System.out.println(cpage);
 		
-	
-	
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
@@ -233,34 +236,49 @@ public class BoardController {
 		System.out.println(membercode);
 		boardService.insertAnnouncement(dto,membercode);//공지게시판 작성하기
 
+		session.setAttribute("cpage", 1);
+		
 		return "redirect:/board/announcement"; //공지게시판으로 가기
 	}
 
 
 
-
-
 	//후기게시판 글 작성하기
-	@RequestMapping("inputReview")
-	public String inputReview(BoardReviewDTO dto,
-			@RequestParam(name = "oriName") String[] oriName,
-			@RequestParam(name = "sysName") String[] sysName,
-			String realPath) {
+		@RequestMapping("inputReview")
+		public String inputReview(BoardReviewDTO dto) {
 
-		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
-		dto.setMemberCode(membercode);
+			int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+			dto.setMemberCode(membercode);
+			
+			System.out.println(membercode);
+
+			// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+
+			boardService.insertReview(dto); //후기 게시판 작성
+			return "redirect: /board/review" ;
+		}
+
 		
-		System.out.println(membercode);
+//	후기게시판 글 작성하기
+//	@RequestMapping("inputReview")
+//	public String inputReview(BoardReviewDTO dto,
+//			@RequestParam(name = "oriName") String[] oriName,
+//			@RequestParam(name = "sysName") String[] sysName,
+//			String realPath) {
+//
+//		int membercode = (int) session.getAttribute("code"); //로그인한 사람의 ID code 가져오기 
+//		dto.setMemberCode(membercode);
+//		
+//		System.out.println(membercode);
+//
+//		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
+//
+//		boardservice.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
+//		return "redirect: /board/review" ;
+//	}
+//
 
-		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
-
-		boardService.insertReview(dto,realPath,oriName,sysName); //후기 게시판 작성
-		return "redirect: /board/review" ;
-	}
-
-
-
-	@ResponseBody //ajax로 이미지 주고받는거
+		@ResponseBody //ajax로 이미지 주고받는거
 	@RequestMapping(value="/uploadImage", method=RequestMethod.POST)
 	public List<JsonObject> uploadSummernoteImageFile(@RequestParam("image") MultipartFile[] images) {
 		List<JsonObject> resp = new ArrayList<>();
@@ -301,27 +319,70 @@ public class BoardController {
 
 
 //===========================================================================================
-
-
-	
 	//자유게시판 글 수정
-		@ResponseBody
-		@RequestMapping("updateFree")
-		public int updateFree(BoardFreeDTO dto) {
-			
-			System.out.println(dto.getTitle());
-			System.out.println(dto.getCode());
-			System.out.println(dto.getHeadLineCode());
-			System.out.println(dto.getContent());
-			
-			int result = boardService.updateFree(dto); 
-			
-			return result;
-			
-		}
-		
-		
+	@ResponseBody
+	@RequestMapping("updateFree")
+	public int updateFree(BoardFreeDTO dto) {
 
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getHeadLineCode());
+		System.out.println(dto.getContent());
+
+		int result = boardService.updateFree(dto); 
+
+		return result;
+
+	}
+
+
+
+	//공지게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateAnnouncement")
+	public int updateAnnouncement(BoardAnnouncementDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getHeadLineCode());
+		System.out.println(dto.getContent());
+
+		int result = boardService.updateAnnouncement(dto); 
+
+		return result;
+
+	}
+
+
+	//자유게시판 글 수정
+	@ResponseBody
+	@RequestMapping("updateReview")
+	public int updateReview(BoardReviewDTO dto) {
+
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCode());
+		System.out.println(dto.getContent());
+
+		int result = boardService.updateReview(dto); 
+
+		return result;
+
+			}
+		
+		
+	//공지게시판 글 삭제
+	
+	@RequestMapping("deleteAnnouncement")
+	public String deleteAnnouncement() {
+
+		int code =  Integer.parseInt((String)request.getParameter("code"));
+		System.out.println(code);
+		
+		int result = boardService.deleteAnnouncement(code); 
+
+		return "redirect: /board/announcement" ;
+
+	}
 
 	
 

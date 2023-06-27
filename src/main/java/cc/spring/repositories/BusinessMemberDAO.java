@@ -79,6 +79,14 @@ public class BusinessMemberDAO {
 		return mybatis.update("Business.updateMemberInfo",dto);
 	}
 	
+	public boolean checkGroupBuying(int code) {
+		return mybatis.selectOne("Business.checkGroupBuying",code);
+	}
+	
+	public int deleteMember(int code) {
+		return mybatis.delete("Business.deleteMember",code);
+	}
+	
 	// Admin
 	public List<MemberDTO> selectAllBusinessMember() {
 		return mybatis.selectList("Business.selectAllBusinessMember");
