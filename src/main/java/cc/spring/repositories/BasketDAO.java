@@ -28,9 +28,6 @@ public class BasketDAO {
 	public int deleteAllBasket(int memberCode) {
 		return mybatis.delete("Basket.deleteAllBasket", memberCode);
 	}
-	public int updateBasket(BasketDTO dto) {
-		return mybatis.update("Basket.updateBasket", dto);
-	}
 	
 	public int updateChecked(BasketDTO dto) {
 		return mybatis.update("Basket.updateChecked",dto);
