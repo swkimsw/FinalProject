@@ -39,20 +39,23 @@
 * {
 	font-family: 'NanumSquareNeo';
 }
-
 .container {
 	margin-top: 100px;
 	background-color: #F5F5F5;
 }
+
 .tab-content{
 	margin-top: 20px;
 }
 .nav-link {
 	background-color: white;
 }
-
 .box {
 	background-color: white;
+}
+
+table.dataTable tfoot td {
+    text-align: right;
 }
 </style>
 </head>
@@ -71,15 +74,15 @@
 							aria-controls="home-tab-pane" aria-selected="true">대시보드</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-							data-bs-target="#profile-tab-pane" type="button" role="tab"
-							aria-controls="profile-tab-pane" aria-selected="false">회원
+						<button class="nav-link" id="business-tab" data-bs-toggle="tab"
+							data-bs-target="#business-tab-pane" type="button" role="tab"
+							aria-controls="business-tab-pane" aria-selected="false">회원
 							관리 - 판매자</button>
 					</li>
 					<li class="nav-item" role="presentation">
-						<button class="nav-link" id="contact-tab" data-bs-toggle="tab"
-							data-bs-target="#contact-tab-pane" type="button" role="tab"
-							aria-controls="contact-tab-pane" aria-selected="false">회원
+						<button class="nav-link" id="client-tab" data-bs-toggle="tab"
+							data-bs-target="#client-tab-pane" type="button" role="tab"
+							aria-controls="client-tab-pane" aria-selected="false">회원
 							관리 - 이용자</button>
 					</li>
 					<li class="nav-item" role="presentation">
@@ -90,7 +93,7 @@
 					<li class="nav-item" role="presentation">
 						<button class="nav-link" id="disabled-tab" data-bs-toggle="tab"
 							data-bs-target="#disabled-tab-pane" type="button" role="tab"
-							aria-controls="disabled-tab-pane" aria-selected="false">컨텐츠 관리</button>
+							aria-controls="disabled-tab-pane" aria-selected="false">게시판 관리</button>
 					</li>
 				</ul>
 			</div>
@@ -98,18 +101,21 @@
 				<!-- Main -->
 				<div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 					<div class="col-12 col-md-6 col-xl-6">
-						<div class="box mb-3" style="width: 100px; height: 100px;">
+						<div class="box mb-3" style="width: 200px; height: 200px;">
 							방문자 현황	
 						</div>
-						<div class="box mb-3" style="width: 100px; height: 100px;">
+					</div>
+					<div class="col-12 col-md-6 col-xl-6">
+						<div class="box mb-3" style="width: 200px; height: 200px;">
 							일자별 요약
 						</div>
 					</div>
 				</div>
-				<!-- 회원 관리 -->
-				<div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+				
+				<!-- 회원 관리 : 판매자 -->
+				<div class="tab-pane fade" id="business-tab-pane" role="tabpanel" aria-labelledby="business-tab" tabindex="0">
 					<div class="table-responsive">
-						<table id="myTable" class="table">
+						<table id="businessTable" class="table">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
@@ -121,13 +127,36 @@
 									<th scope="col"></th>
 								</tr>
 							</thead>
-							
+							<tbody>
+								<c:forEach var="i" items="${businessMemberDTO}" varStatus="status">
+									<tr>
+										<th scope="row">${status.count}</th>
+										<td>${i.businessId}</td>
+										<td>${i.companyName}</td>
+										<td>${i.phone}</td>
+										<td>${i.eMail}</td>
+										<td>${i.regDate}</td>
+										<td><input class="form-check-input-business" type="checkbox" value="">삭제</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="7" align="right">
+										<button type="button" class="btn btn-outline-secondary btn-sm" onclick="checkAll()">전체 선택</button>
+										<button type="button" class="btn btn-outline-secondary btn-sm" onclick="uncheckAll()">전체 해제</button>
+										<button type="button" class="btn btn-outline-secondary btn-sm" onclick="checkDelete()">선택 삭제</button>
+									</td>
+								</tr>
+							</tfoot>
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+				
+				<!-- 회원 관리 : 이용자 -->
+				<div class="tab-pane fade" id="client-tab-pane" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
 					<div class="table-responsive">
-						<table class="table">
+						<table id="clientTable" class="table">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
@@ -140,19 +169,27 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="i" items="${clientMemberDTO}">
+								<c:forEach var="i" items="${clientMemberDTO}" varStatus="status">
 									<tr>
-										<th scope="row">1</th>
+										<th scope="row">${status.count}</th>
 										<td>${i.id}</td>
 										<td>${i.name}</td>
 										<td>${i.phone}</td>
 										<td>${i.eMail}</td>
 										<td>${i.regDate}</td>
-										<td><input class="form-check-input" type="checkbox"
-											value="" id="flexCheckDefault">삭제</td>
+										<td><input class="form-check-input-client" type="checkbox" value="">삭제</td>
 									</tr>
 								</c:forEach>
 							</tbody>
+							<tfoot>
+								<tr>
+									<td colspan="7" align="right">
+										<button type="button" class="btn btn-outline-secondary btn-sm" onclick="checkAll()">전체 선택</button>
+										<button type="button" class="btn btn-outline-secondary btn-sm" onclick="uncheckAll()">전체 해제</button>
+										<button type="button" class="btn btn-outline-secondary btn-sm" onclick="checkDelete()">선택 삭제</button>
+									</td>
+								</tr>
+							</tfoot>
 						</table>
 					</div>
 				</div>
@@ -166,21 +203,22 @@
 		</div>
 	</main>
 	<script>
-	
-	$("#myTable").DataTable({
-			ajax:{
-				url: "/admin/allBusinessMember",
-				type:"post"
-			},
-			columns:[
-				{"data": 1},
-				{"data": "businessId"},
-				{"data": "companyName"},
-				{"data": "phone"},
-				{"data": "eMail"},
-				{"data": "regDate"}
-			]
-		});
+		$("#businessTable").DataTable({});
+		$("#clientTable").DataTable({});
+		
+		function checkAll(){
+			$("input:checkbox").prop("checked", true);
+		}
+		
+		function uncheckAll(){
+			$("input:checkbox").prop("checked", false);
+		}
+		
+		function checkDelete(){
+			if(confirm("정말 삭제하시겠습니까?")){
+				alert("삭제완료!");
+			}
+		}
 	
 	</script>
 </body>
