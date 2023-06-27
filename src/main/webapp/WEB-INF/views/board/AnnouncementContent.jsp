@@ -171,7 +171,7 @@
                                             <button id="del" class="btn btn btn-outline-primary"
                                                 type="button">삭제</button>
 
-                                            <a href="/board/announcement">
+                                            <a href="/board/announcement?cpage=${cpage}">
                                             <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
                                             </a>
                                         </div>
@@ -221,7 +221,7 @@
 						                	
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
-						                    <a href="/board/announcement"> 
+						                    <a href="/board/announcement?cpage=${cpage}"> 
 						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
 						                    </a>
 						                    
@@ -489,7 +489,7 @@
                     
                     	if(result){
             				alert("삭제되었습니다");
-                    		location.href = "/board/deleteAnnouncement?code=" + ${result.code};
+                    		location.href = "/board/deleteAnnouncement?code=" + ${result.code} + "&cpage=" + ${cpage};
                     	}else{
                     		return false;
                     	}

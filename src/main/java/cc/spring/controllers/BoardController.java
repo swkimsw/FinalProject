@@ -50,13 +50,28 @@ public class BoardController {
 
 	//자유게시판으로 가기 - 일반회원,사업자회원만 작성버튼이 보이게
 	@RequestMapping("free")
-	public String list_free() {
-
+	public String list_free(int cpage) throws Exception {
 
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (관리자랑 로그인하지 않는 사람들 빼고 모두 글 작성할수있는 버튼보여야함)
-		List<BoardFreeDTO> list = boardService.selectFreelist(); //자유게시글 전부 다 가져오기
+		
+		int start = (cpage * 10 ) - (10 -1);
+		int end = cpage * 10;
+		System.out.println("시작" + start);
+		System.out.println("끝"+end);
+		
+		
+		List<BoardFreeDTO> list = boardService.selectFreelist(start,end); //자유게시글 페이징에 맞게 가져오기
 		System.out.println(list);
-		request.setAttribute("list", list); 
+		request.setAttribute("list", list);
+		
+		
+		List<BoardFreeDTO> all = boardService.selectAllFree(); //자유게시글 전부 다 가져오기
+		int recordTotalCount = all.size();
+		System.out.println(recordTotalCount);
+
+		List<String> listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
+		request.setAttribute("listnavi", listnavi);
+		request.setAttribute("cpage", cpage);
 
 
 		if(user != null) {// 로그인했으면
@@ -78,33 +93,30 @@ public class BoardController {
 
 	//공지게시판으로 가기  - 관리자회원
 	@RequestMapping("announcement")
-	public String list_Announcement() throws Exception{
-
-		System.out.println("adffghjgfdsaqwerthy");
-
-		//		int cpage = (int) session.getAttribute("cpage");
-		//		if(cpage == 0) {
-		//			 cpage = Integer.parseInt((String)request.getParameter("cpage"));
-		//		}
-		int cpage = 1;
-		System.out.println(cpage);
-
+	public String list_Announcement(int cpage) throws Exception{
+		
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
-
-		List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(); //공지사항게시글 전부 다 가져오기
+		
+		
+		int start = (cpage * 10 ) - (10 -1);
+		int end = cpage * 10;
+		System.out.println("시작" + start);
+		System.out.println("끝"+end);
+		
+		
+		List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(start,end); //공지사항게시글 페이징에 맞게 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
 
 
-		int recordTotalCount = list.size();//총 게시글 개수
+		List<BoardAnnouncementDTO> all= boardService.selectAllAnnouncement(); //공지사항게시글 전부 다 가져오기
+		int recordTotalCount = all.size();
 		System.out.println(recordTotalCount);
 
 		List<String>  listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
-
-
 		request.setAttribute("listnavi", listnavi);
-
+		request.setAttribute("cpage", cpage);
 
 
 
@@ -114,6 +126,7 @@ public class BoardController {
 			System.out.println(result);
 			request.setAttribute("user", result);
 
+			
 			return "/board/boardAnnouncement";
 
 		}else {//로그인안되어있으면
@@ -124,14 +137,30 @@ public class BoardController {
 
 	}
 
-	//후기게시판으로 가기  - 일반회원
+	//후기게시판으로 가기 
 	@RequestMapping("review")
-	public String list_review() {
+	public String list_review(int cpage) throws Exception {
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기 (일반회원만 글 작성할수있는 버튼보여야함)
 
-		List<BoardReviewDTO> list = boardService.selectReviewlist(); //후기게시글 전부 다 가져오기
+		
+		int start = (cpage * 10 ) - (10 -1);
+		int end = cpage * 10;
+		System.out.println("시작" + start);
+		System.out.println("끝"+end);
+		
+		
+		List<BoardReviewDTO> list = boardService.selectReviewlist(start,end); //공지사항게시글 페이징에 맞게 가져오기
 		System.out.println(list);
 		request.setAttribute("list", list);
+		
+		
+		List<BoardReviewDTO> all = boardService.selectAllReview(); //후기게시글 전부 다 가져오기
+		int recordTotalCount = all.size();
+		System.out.println(recordTotalCount);
+
+		List<String>  listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
+		request.setAttribute("listnavi", listnavi);
+		request.setAttribute("cpage", cpage);
 
 
 		if(user != null) {//로그인되어있으면
@@ -175,33 +204,35 @@ public class BoardController {
 
 	//자유게시판 글 자세히 보기
 	@RequestMapping("FreeContent")
-	public String FreeContent(int code) {
+	public String FreeContent(int code,int cpage) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user );
-
 
 		BoardFreeDTO result = boardService.selectFreeContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
+		request.setAttribute("cpage", cpage);
 		return "/board/FreeContent";
 	}
 
 	//공지게시판 글 자세히 보기
 	@RequestMapping("AnnouncementContent")
-	public String AnnouncementContent(int code) {
+	public String AnnouncementContent(int code,int cpage) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
-
-
+		request.setAttribute("cpage", cpage);
+		
 		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
+		System.out.println(cpage);
+		
 		return "/board/AnnouncementContent";
 	}
 
 	//리뷰게시판 글 자세히 보기
 	@RequestMapping("ReviewContent")
-	public String ReviewContent(int code) {
+	public String ReviewContent(int code,int cpage) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
 
@@ -209,6 +240,8 @@ public class BoardController {
 		BoardReviewDTO result = boardService.selectReviewContent(code);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
+		request.setAttribute("cpage", cpage);
+		
 		return "/board/ReviewContent";
 	}
 
@@ -223,7 +256,7 @@ public class BoardController {
 		System.out.println(membercode);
 		boardService.insertFree(dto,membercode);//자유게시판 작성하기
 
-		return "redirect:/board/free"; //자유게시판으로 가기
+		return "redirect:/board/free?cpage=1"; //자유게시판으로 가기
 
 	}
 
@@ -237,9 +270,8 @@ public class BoardController {
 		System.out.println(membercode);
 		boardService.insertAnnouncement(dto,membercode);//공지게시판 작성하기
 
-		session.setAttribute("cpage", 1);
 
-		return "redirect:/board/announcement"; //공지게시판으로 가기
+		return "redirect:/board/announcement?cpage=1"; //공지게시판으로 가기
 	}
 
 
@@ -256,7 +288,7 @@ public class BoardController {
 		// int parent_seq = boardservice.selectReviewSeq(); //후기 게시판 작성할때 작성되는 글의 고유 번호 가져오기 = select key기능으로 고치기
 
 		boardService.insertReview(dto); //후기 게시판 작성
-		return "redirect: /board/review" ;
+		return "redirect: /board/review?cpage=1" ;
 	}
 
 
@@ -279,7 +311,7 @@ public class BoardController {
 	//	}
 	//
 
-		@ResponseBody //ajax로 이미지 주고받는거
+	@ResponseBody //ajax로 이미지 주고받는거
 	@RequestMapping(value="/uploadImage", method=RequestMethod.POST)
 	public List<JsonObject> uploadSummernoteImageFile(@RequestParam("image") MultipartFile[] images) {
 		List<JsonObject> resp = new ArrayList<>();
@@ -374,42 +406,43 @@ public class BoardController {
 
 	//공지게시판 글 삭제
 	@RequestMapping("deleteAnnouncement")
-	public String deleteAnnouncement() {
+	public String deleteAnnouncement(int cpage) {
 
 		int code =  Integer.parseInt((String)request.getParameter("code"));
 		System.out.println(code);
+		int result = boardService.deleteAnnouncement(code);
+		
+		System.out.println(cpage);
 
-		int result = boardService.deleteAnnouncement(code); 
-
-		return "redirect: /board/announcement" ;
+		return "redirect: /board/announcement?cpage="+cpage;
 
 	}
 
 
 	//리뷰게시판 글 삭제
 	@RequestMapping("deleteReview")
-	public String deleteReview() {
+	public String deleteReview(int cpage) {
 
 		int code =  Integer.parseInt((String)request.getParameter("code"));
 		System.out.println(code);
 
 		int result = boardService.deleteReview(code); 
 
-		return "redirect: /board/review" ;
+		return "redirect: /board/review?cpage="+ cpage;
 
 	}
 
 
 	//자유게시판 글 삭제
 	@RequestMapping("deleteFree")
-	public String deleteFree() {
+	public String deleteFree(int cpage) {
 
 		int code =  Integer.parseInt((String)request.getParameter("code"));
 		System.out.println(code);
 
 		int result = boardService.deleteFree(code); 
 
-		return "redirect: /board/free" ;
+		return "redirect: /board/free?cpage="+cpage ;
 
 	}		
 
