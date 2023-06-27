@@ -37,13 +37,10 @@
                         count++;
                     });
                     $("#ingredientList").append(ul);
-            });
-
-            });
-            
-            $("#ingredientModal").modal('hide');
-            $("#ingredientModal2").modal('show');
-            
+                });
+                $("#ingredientModal").modal('hide');
+                $("#ingredientModal2").modal('show');
+            }); 
         }).error(function(error){
             console.log(error);
             $.ajax({
