@@ -13,7 +13,7 @@
 	<select id="freeBoard" resultType="cc.spring.dto.BoardFreeDTO">
 SELECT b.code,k.value as boardkindValue,h.value as headlinevalue,b.membercode,b.title,b.viewcount,b.likecount,b.regdate FROM BOARDFREE b 
 join headline h on b.headlinecode = h.code 
-join boadkind k on b.boardkindcode= k.code 
+join boardkind k on b.boardkindcode= k.code 
 WHERE b.membercode=(select code from member where code=${code})
 	</select>
 <select id="reView"	resultType="cc.spring.dto.BoardReviewDTO">

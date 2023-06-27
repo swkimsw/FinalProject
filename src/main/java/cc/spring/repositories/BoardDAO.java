@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReportDTO;
 import cc.spring.dto.ReviewImgDTO;
 import cc.spring.dto.TotalMemberDTO;
 
@@ -122,6 +123,37 @@ public class BoardDAO {
 
 	public int deleteAnnouncement(int code) {
 		return mybatis.delete("Board.deleteAnnouncement",code);
+	}
+
+
+
+	public int deleteReview(int code) {
+		return mybatis.delete("Board.deleteReview",code);
+	}
+
+
+
+	public int deleteFree(int code) {
+		return mybatis.delete("Board.deleteFree",code);
+	}
+
+
+
+	public String selectReporteeName(int reporteeCode,int authGradeCode) {
+
+	    if (authGradeCode == 1003) {
+	    	//사람nickname
+	        return mybatis.selectOne("Board.selectReporteeNickname", reporteeCode);
+	    } else {
+	    	//회사이름
+	        return mybatis.selectOne("Board.selectReporteeCompanyName", reporteeCode);
+	    }
+	}
+
+
+
+	public int insertReport(ReportDTO dto) {
+		return mybatis.insert("Board.insertReport",dto);
 	}
 
 	

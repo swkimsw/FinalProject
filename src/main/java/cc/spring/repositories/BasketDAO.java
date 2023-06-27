@@ -19,7 +19,8 @@ public class BasketDAO {
 	}
 	
 	public int insertBasket(BasketDTO dto) {
-		return mybatis.insert("Basket.insertBasket", dto);
+		mybatis.insert("Basket.insertBasket",dto);
+		return dto.getCode();
 	}
 	
 	public int deleteBasket(BasketDTO dto) {

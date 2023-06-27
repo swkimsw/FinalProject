@@ -322,7 +322,7 @@
 						
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
-						                    <a href="/board/announcement"> 
+						                    <a href="/board/free"> 
 						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
 						                    </a>
 						                    
@@ -611,7 +611,30 @@
                         }
                     } //유효성검사
 
-
+                    
+                    $("#del").on("click",function(){
+                    	let result = confirm("삭제하시겠습니까?")
+                    
+                    	if(result){
+                    		alert("삭제되었습니다");
+                    		location.href = "/board/deleteFree?code=" + ${result.code};
+                    	}else{
+                    		return false;
+                    	}
+                    })
+                    
+                    
+                    
+                     $("#report").on("click",function(){
+                    	let result = confirm("신고하겠습니까?")
+                    
+                    	if(result){
+                    		 window.open("/board/freeReport?postcode="+ ${result.code}+"&boardKindCode=1002&reporterCode="+${user}+"&reporteeCode="+ ${result.memberCode}+"&authGradeCode="+${result.memberAuthGradeCode},"", "width=500px, height=600px");
+                    	}else{
+                    		return false;
+                    	}
+                    })
+                    
 
                 })
             </script>
