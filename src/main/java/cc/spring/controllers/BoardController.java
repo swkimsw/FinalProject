@@ -279,8 +279,7 @@ public class BoardController {
 	//	}
 	//
 
-
-	@ResponseBody //ajax로 이미지 주고받는거
+		@ResponseBody //ajax로 이미지 주고받는거
 	@RequestMapping(value="/uploadImage", method=RequestMethod.POST)
 	public List<JsonObject> uploadSummernoteImageFile(@RequestParam("image") MultipartFile[] images) {
 		List<JsonObject> resp = new ArrayList<>();
@@ -318,9 +317,6 @@ public class BoardController {
 		}
 		return resp;
 	}
-
-
-	//===========================================================================================
 
 
 

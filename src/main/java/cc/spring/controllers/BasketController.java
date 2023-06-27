@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import cc.spring.dto.BasketDTO;
+import cc.spring.dto.ChatBasketDTO;
 import cc.spring.services.BasketService;
 
 @Controller
@@ -43,20 +44,67 @@ public class BasketController {
 			return "redirect:/clientMember/login_form";
 		}else {
 			List<BasketDTO> basketList = bService.selectBasket(memberCode);
-			model.addAttribute("basketList", g.toJson(basketList));
+			model.addAttribute("basketList", basketList);
 			return "meal/basket";		
 		}
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="aiBasket", produces="text/plain; chatset=utf8;")
-	public ResponseEntity<List<BasketDTO>> aiBasket(String targetList) throws Exception{
-		System.out.println(targetList);
+	@RequestMapping(value="updateChecked", produces="text/plain; charset=utf8;")
+	public String updateChecked(int code) {
+		int memberCode = (int)session.getAttribute("code");
+		int result = bService.updateChecked(new BasketDTO(code,memberCode,null,0));
+		return result+"";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateUnchecked", produces="text/plain; charset=utf8;")
+	public String updateUnchecked(int code) {
+		int memberCode = (int)session.getAttribute("code");
+		int result = bService.updateUnchecked(new BasketDTO(code,memberCode,null,0));
+		return result+"";
+	}
+	
+	@RequestMapping("insertBasket")
+	public void insertBasket(BasketDTO dto) {
+		int memberCode = (int)session.getAttribute("code");
+		dto.setCode(memberCode);
+		bService.insertBasket(dto);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteBasket", produces="text/plain; charset=utf8;")
+	public void deleteBasket(int basketCode) {
+		int memberCode = (int)session.getAttribute("code");
+		BasketDTO dto = new BasketDTO(basketCode, memberCode, null, 0);
+		bService.deleteBasket(dto);
+	}
+	@ResponseBody
+	@RequestMapping(value="deleteAllBasket", produces="text/plain; charset=utf8;")
+	public void deleteAllBasket() {
+		int memberCode = (int)session.getAttribute("code");
+		bService.deleteAllBasket(memberCode);
+	}
+	@RequestMapping("updateBasket")
+	public void updateBasket (BasketDTO dto) {
+		int memberCode = (int)session.getAttribute("code");
+		dto.setCode(memberCode);
+		bService.updateBasket(dto);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="aiBasket", produces="text/plain; charset=utf8;")
+	public String aiBasket(String targetList) throws Exception{
 		String[] targetMeals = g.fromJson(targetList, String[].class);
-		List<BasketDTO> result = bService.extractIngredient(targetMeals);
-		System.out.println(result.toString());
-		return ResponseEntity.status(HttpStatus.OK)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(result);
+		List<ChatBasketDTO> result = bService.extractIngredient(targetMeals);
+		return g.toJson(result);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="addAiBasket", produces="text/plain; charset=utf8;")
+	public void aiAddBasket(String aiBasketArr) {
+		String[] targetIngredients = g.fromJson(aiBasketArr, String[].class);
+		int memberCode = (int)session.getAttribute("code");
+		bService.insertAiIngredients(memberCode, targetIngredients);
 	}
 }
