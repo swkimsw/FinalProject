@@ -62,6 +62,10 @@ public class BasketService {
 		return basketDAO.deleteBasket(dto);
 	}
 	
+	public int deleteAllBasket(int memberCode) {
+		return basketDAO.deleteAllBasket(memberCode);
+	}
+	
 	public int updateBasket(BasketDTO dto) {
 		return basketDAO.updateBasket(dto);
 	}

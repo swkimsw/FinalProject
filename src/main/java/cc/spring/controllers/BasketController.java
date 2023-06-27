@@ -63,6 +63,12 @@ public class BasketController {
 		bService.deleteBasket(dto);
 	}
 	
+	@RequestMapping("deleteAllBasket")
+	public String deleteAllBasket() {
+		int memberCode = (int)session.getAttribute("code");
+		bService.deleteAllBasket(memberCode);
+		return "redirect:/";
+	}
 	@RequestMapping("updateBasket")
 	public void updateBasket (BasketDTO dto) {
 		int memberCode = (int)session.getAttribute("code");
