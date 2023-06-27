@@ -73,18 +73,24 @@ public class BasketController {
 	}
 	
 	@RequestMapping("insertBasket")
-	public void insertBasket() {
-		
+	public void insertBasket(BasketDTO dto) {
+		int memberCode = (int)session.getAttribute("code");
+		dto.setCode(memberCode);
+		bService.insertBasket(dto);
 	}
 	
-	@RequestMapping("deleteBasket")
-	public void deleteBasket() {
-		
+	@ResponseBody
+	@RequestMapping(value="deleteBasket", produces="text/plain; charset=utf8;")
+	public void deleteBasket(int basketCode) {
+		int memberCode = (int)session.getAttribute("code");
+		BasketDTO dto = new BasketDTO(basketCode, memberCode, null, 0);
+		bService.deleteBasket(dto);
 	}
-	
-	@RequestMapping("updateBasket")
-	public void updateBasket () {
-		
+	@ResponseBody
+	@RequestMapping(value="deleteAllBasket", produces="text/plain; charset=utf8;")
+	public void deleteAllBasket() {
+		int memberCode = (int)session.getAttribute("code");
+		bService.deleteAllBasket(memberCode);
 	}
 	
 	@ResponseBody

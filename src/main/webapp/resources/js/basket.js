@@ -115,3 +115,32 @@ $( document ).ready(function() {
         });
     });
 }); 
+
+//삭제 이벤트
+$(".btnDeleteAll").on("click", function() {
+	if (!confirm("장바구니를 모두 삭제 하시겠습니까?")) {
+		alert("취소 되었습니다");
+	} else {
+		$.ajax({
+			type : "post",
+			url : "/basket/deleteAllBasket"
+		}).done(function(resp) {
+			$(".todo-list").children().remove();
+			alert("장바구니가 모두 삭제되었습니다");
+		});
+	}
+});
+
+$(".btnDeleteOne").on("click", function() {
+	let basketCode = $(".checkOne").val();
+	let checkOne = $(this);
+	$.ajax({
+		type : "post",
+		url : "/basket/deleteBasket",
+		data : {
+			"basketCode" : basketCode
+		}
+	}).done(function(resp){
+		checkOne.parent().remove();
+	});
+});

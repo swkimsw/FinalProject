@@ -567,9 +567,10 @@
 	$("#sendBtn").on("click", function() {
 
 		// 로그인시 실행 추가 
+		let clientCode = $("#clientCode").val();
 		if (!clientCode) {
 			alert("일반회원만 사용할 수 있는 기능입니다. 일반회원으로 로그인해주세요");
-			//return false;
+			return false;
 		}
 		timeArr = [];
 		$("input[type=checkbox][name=time]:checked").each(function(i) {
@@ -581,15 +582,18 @@
 		special = $("input[name=special]:checked").val();
 		dayTime = $("select[name=dayTime]").val();
 
+		let counter= 3;
 		// 아점저 선택안하면 생성 금지
 		if (timeArrLength == 0) {
 			alert("아침, 점심, 저녁중 반드시 하나이상은 선택하셔야 합니다.");
 			return false;
 		}
-		$.ajax({
-			url : "/meal/aiMeal",
-			type : "post",
-			data : {
+		
+		const makeAiMealAjax = (dayTime, special, timeStr, count) => {
+			$.ajax({
+				url : "/meal/aiMeal",
+				type : "post",
+				data : {
 				dayTime : dayTime,
 				special : special,
 				timeStr : timeStr
@@ -610,18 +614,28 @@
 					"display" : "block"
 				});
 			}
-		}).done(function(resp) {
-			// resp List<MealDTO> 로 저장하는 함수 만들기?
-			console.log(resp);
+			}).done(function(resp) {
+				// resp List<MealDTO> 로 저장하는 함수 만들기?
+				console.log(resp);
 
-			aiMealAdd(resp);
-			aiMealPrint(resp);
+				aiMealAdd(resp);
+				aiMealPrint(resp);
 			
-			$("#aiMealAddBtn").removeAttr("hidden");
-			$("#sendBtn").attr("hidden", true);
+				$("#aiMealAddBtn").removeAttr("hidden");
+				$("#sendBtn").attr("hidden", true);
 
-			alert("생성 성공~!");
-		});
+				alert("생성 성공~!");
+			}).error(function(error){
+				console.log(error);
+				if(count > 0){
+					makeAiMealAjax(dayTime, special, timeStr, count-1);
+				}
+			});
+		};
+		// 3번 gpt재전송하면 재전송 취소
+		makeAiMealAjax(dayTime, special, timeStr, 3);
+		
+
 	});
 
 	// 식단 저장 
