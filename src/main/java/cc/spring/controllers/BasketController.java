@@ -49,17 +49,20 @@ public class BasketController {
 		}
 	}
 	
-	@RequestMapping("updateChecked")
-	public void updateChecked(int code) {
+	@ResponseBody
+	@RequestMapping(value="updateChecked", produces="text/plain; charset=utf8;")
+	public String updateChecked(int code) {
 		int memberCode = (int)session.getAttribute("code");
-		bService.updateChecked(new BasketDTO(code,memberCode,null,0));
-		
+		int result = bService.updateChecked(new BasketDTO(code,memberCode,null,0));
+		return result+"";
 	}
 	
-	@RequestMapping("updateUnchecked")
-	public void updateUnchecked(int code) {
+	@ResponseBody
+	@RequestMapping(value="updateUnchecked", produces="text/plain; charset=utf8;")
+	public String updateUnchecked(int code) {
 		int memberCode = (int)session.getAttribute("code");
-		bService.updateUnchecked(new BasketDTO(code,memberCode,null,0));
+		int result = bService.updateUnchecked(new BasketDTO(code,memberCode,null,0));
+		return result+"";
 	}
 	
 	@RequestMapping("insertBasket")

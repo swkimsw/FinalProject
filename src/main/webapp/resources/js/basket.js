@@ -20,7 +20,8 @@ $( document ).ready(function() {
                 data:{
 					code:target.prop("id"),
                 },
-            }).done(function(){
+            }).done(function(resp){
+                console.log(11111111);
                 target.attr("status","4002");
                 target.parent().parent().parent().toggleClass('complete');
             });
@@ -31,55 +32,56 @@ $( document ).ready(function() {
                 data:{
 					code:target.prop("id"),
                 },
-            }).done(function(){
+            }).done(function(resp){
+                console.log(222222222);
                 target.attr("status","4001");
                 target.parent().parent().parent().toggleClass('complete');
             });
         }
        });
     
-    $(".card-body").on("click",'.todo-nav .all-task', function() {
-        console.log(222222);
-        console.log(this);
-        $('.todo-list').removeClass('only-active');
-        $('.todo-list').removeClass('only-complete');
-        $('.todo-nav li.active').removeClass('active');
-        $(this).addClass('active');
-    });
+    // $(".card-body").on("click",'.todo-nav .all-task', function() {
+    //     console.log(222222);
+    //     console.log(this);
+    //     $('.todo-list').removeClass('only-active');
+    //     $('.todo-list').removeClass('only-complete');
+    //     $('.todo-nav li.active').removeClass('active');
+    //     $(this).addClass('active');
+    // });
     
-    $(".card-body").on("click",'.todo-nav .active-task', function() {
-        console.log(333333);
-        console.log(this);
-        $('.todo-list').removeClass('only-complete');
-        $('.todo-list').addClass('only-active');
-        $('.todo-nav li.active').removeClass('active');
-        $(this).addClass('active');
-    });
+    // $(".card-body").on("click",'.todo-nav .active-task', function() {
+    //     console.log(333333);
+    //     console.log(this);
+    //     $('.todo-list').removeClass('only-complete');
+    //     $('.todo-list').addClass('only-active');
+    //     $('.todo-nav li.active').removeClass('active');
+    //     $(this).addClass('active');
+    // });
     
-    $(".card-body").on("click",'.todo-nav .completed-task', function() {
-        console.log(444444);
-        console.log(this);
-        $('.todo-list').removeClass('only-active');
-        $('.todo-list').addClass('only-complete');
-        $('.todo-nav li.active').removeClass('active');
-        $(this).addClass('active');
-    });
+    // $(".card-body").on("click",'.todo-nav .completed-task', function() {
+    //     console.log(444444);
+    //     console.log(this);
+    //     $('.todo-list').removeClass('only-active');
+    //     $('.todo-list').addClass('only-complete');
+    //     $('.todo-nav li.active').removeClass('active');
+    //     $(this).addClass('active');
+    // });
     
-    $(".card-body").on("click",'#uniform-all-complete input', function() {
-        console.log(555555);
-        console.log(this);
-        if($(this).is(':checked')) {
-            $('.todo-item .checker span:not(.checked) input').click();
-        } else {
-            $('.todo-item .checker span.checked input').click();
-        }
-    });
+    // $(".card-body").on("click",'#uniform-all-complete input', function() {
+    //     console.log(555555);
+    //     console.log(this);
+    //     if($(this).is(':checked')) {
+    //         $('.todo-item .checker span:not(.checked) input').click();
+    //     } else {
+    //         $('.todo-item .checker span.checked input').click();
+    //     }
+    // });
     
-    $(".card-body").on("click",'.remove-todo-item', function() {
-        console.log(666666);
-        console.log(this);
-        $(this).parent().remove();
-    });
+    // $(".card-body").on("click",'.remove-todo-item', function() {
+    //     console.log(666666);
+    //     console.log(this);
+    //     $(this).parent().remove();
+    // });
     };
     
     todo();
