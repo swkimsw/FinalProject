@@ -149,6 +149,14 @@
     width:19px;
     height:19px;
  }
+.selectAllBox>label{
+    font-size: smaller;
+    font-family: NanumSquareNeo;
+}
+.checkAllLabel>input{
+	position: relative;
+    top: 5px;	
+}
  .btnDeleteAll{
     --bs-btn-padding-y: .25rem;
      --bs-btn-padding-x: .5rem;

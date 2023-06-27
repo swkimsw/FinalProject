@@ -70,8 +70,12 @@
                            placeholder="새로운 재료 등록...">
                      </form>
                      <div class="selectAllBox d-flex justify-content-between">
+                     	<label class="checkAllLabel">
                         <input type="checkbox" class="checkAll">
+                     	전체 클릭</label>
+                        <label class="deleteAllLabel">전체 삭제
                         <button type="button" class="btn btn-success btnDeleteAll">X</button>
+                        </label>
                      </div>
                      <div class="todo-list">
                         <c:forEach items="${basketList}" var="i">
