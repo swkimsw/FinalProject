@@ -18,4 +18,10 @@
 	<update id="updateBasket">
 		update basket set name = #{name} where code = ${code} and memberCode = ${memberCode}
 	</update>
+	<update id="updateChecked">
+		update basket set statusCode=4002 where memberCode=${memberCode} and code=${code}
+	</update>
+	<update id="updateUnchecked">
+		update basket set statusCode=4001 where memberCode=${memberCode} and code=${code}
+	</update>
 </mapper>

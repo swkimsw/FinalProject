@@ -49,6 +49,19 @@ public class BasketController {
 		}
 	}
 	
+	@RequestMapping("updateChecked")
+	public void updateChecked(int code) {
+		int memberCode = (int)session.getAttribute("code");
+		bService.updateChecked(new BasketDTO(code,memberCode,null,0));
+		
+	}
+	
+	@RequestMapping("updateUnchecked")
+	public void updateUnchecked(int code) {
+		int memberCode = (int)session.getAttribute("code");
+		bService.updateUnchecked(new BasketDTO(code,memberCode,null,0));
+	}
+	
 	@RequestMapping("insertBasket")
 	public void insertBasket() {
 		
@@ -75,9 +88,7 @@ public class BasketController {
 	@ResponseBody
 	@RequestMapping(value="addAiBasket", produces="text/plain; charset=utf8;")
 	public void aiAddBasket(String aiBasketArr) {
-		System.out.println(aiBasketArr);
 		String[] targetIngredients = g.fromJson(aiBasketArr, String[].class);
-		System.out.println(targetIngredients[0]);
 		int memberCode = (int)session.getAttribute("code");
 		bService.insertAiIngredients(memberCode, targetIngredients);
 	}
