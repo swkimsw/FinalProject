@@ -21,10 +21,13 @@ public class AdminMemberController {
 	@RequestMapping("toAdmin")
 	public String toAdmin(Model model) {
 		
+		// business 멤버 정보 select
+		List<MemberDTO> businessMemberDTO = adminMemberService.selectAllBusinessMember();
 		
 		// client 멤버 정보 select
 		List<MemberDTO> clientMemberDTO = adminMemberService.selectAllClientMember();
 		
+		model.addAttribute("businessMemberDTO", businessMemberDTO);
 		model.addAttribute("clientMemberDTO", clientMemberDTO);
 		return "/admin/manage";
 	}
