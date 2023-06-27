@@ -24,8 +24,12 @@ public class ClientMemberDAO {
 		return result;
 	}
 	
-	public int loginCount(loginCountDTO dto) {
-		return mybatis.insert("Client.loginCout", dto);
+	public int insertloginCount(loginCountDTO dto) {
+		return mybatis.insert("Client.insertLoginCount", dto);
+	}
+	
+	public int updatelogintCount(loginCountDTO dto) {
+		return mybatis.update("Client.updateLoginCount", dto);
 	}
 //	폰 번호 넘겨서 아이디 찾아오는거에요
 	public String getIdByPhone(String phone) {
@@ -52,11 +56,12 @@ public class ClientMemberDAO {
 	}
 	
 	public int insertClient(MemberDTO dto) {
-		return mybatis.insert("Client.insert",dto);
+		mybatis.insert("Client.insert",dto);
+		return dto.getCode();
 	}
 	
-	public int gptCount(gptCountDTO dto) {
-		return mybatis.insert("Client.gptCount", dto);
+	public int insertGptCount(gptCountDTO dto) {
+		return mybatis.insert("Client.insertGptCount", dto);
 	}
 	
 	public int updatePw(MemberDTO dto) {

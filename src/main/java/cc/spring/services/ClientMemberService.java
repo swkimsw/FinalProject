@@ -17,7 +17,7 @@ public class ClientMemberService {
 	
 	@Transactional
 	public boolean login(loginCountDTO ldto ,MemberDTO mdto){
-		cdao.loginCount(ldto);
+		cdao.updatelogintCount(ldto);
 		return cdao.login(mdto);
 	}
 	public String getIdByPhone(String phone) {
@@ -36,9 +36,11 @@ public class ClientMemberService {
 	}
 	
 	@Transactional
-	public int insertClient(gptCountDTO gdto,MemberDTO mdto) {
-		cdao.gptCount(gdto);
-	    return cdao.insertClient(mdto);
+	public int insertClient(MemberDTO mdto) {
+		int memberCode = cdao.insertClient(mdto);
+		cdao.insertloginCount(new loginCountDTO(memberCode, 0, null));
+		cdao.insertGptCount(new gptCountDTO(memberCode, 0,0,0,0,0,0));
+		return memberCode;
 	}
 	
 	public int updatePw(MemberDTO dto) {
