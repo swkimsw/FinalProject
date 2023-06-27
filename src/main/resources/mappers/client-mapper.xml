@@ -31,7 +31,7 @@
 	</insert>
 	
 	<insert id="loginCount">
-		insert into loginCount values(${memberCode}, #{loginDate})
+		insert into loginCount values(${memberCode}, DEFAULT)
 	</insert>
 	
 	<update id="updatePw">

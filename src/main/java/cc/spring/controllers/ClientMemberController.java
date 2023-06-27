@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.gptCountDTO;
+import cc.spring.dto.loginCountDTO;
 import cc.spring.services.AdminMemberService;
 import cc.spring.services.ClientMemberService;
 import cc.spring.services.SmsService;
@@ -63,7 +65,10 @@ public class ClientMemberController {
 		
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
-		boolean result = cms.login(dto);
+		
+		// 로그인시 count 추가
+		loginCountDTO ldto = new loginCountDTO(dto.getCode(), null);
+		boolean result = cms.login(ldto,dto);
 		if(result) {
 			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 			MemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
@@ -230,7 +235,8 @@ public class ClientMemberController {
 		// 일반회원 가입 시 authgradecode 1003 삽입
 		dto.setAuthGradeCode(1003);
 		
-		int result = cms.insertClient(dto);
+		gptCountDTO gdto = new gptCountDTO(dto.getCode(), 0, 0, 0, 0, 0, 0);
+		int result = cms.insertClient(gdto, dto);
 		if(result == 1) {
 			m.addAttribute("clientName", dto.getName());
 			m.addAttribute("status", "complete");
