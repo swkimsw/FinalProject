@@ -82,7 +82,7 @@
 									<div class="todo-item position-relative">
 										<div class="checker">
 											<span class=""><input type="checkbox" class="checkOne"
-												id="${i.code}"></span>
+												id="${i.code}" value="${i.code}"></span>
 										</div>
 										<span>${i.name}</span> <a href="javascript:void(0);"
 											class="float-right remove-todo-item"><i
@@ -99,6 +99,7 @@
 		</div>
 	</main>
 	<script type="text/javascript">
+
 		$(".btnDeleteAll").on("click", function() {
 			if (!confirm("장바구니를 모두 삭제 하시겠습니까?")) {
 				alert("취소 되었습니다");
@@ -106,10 +107,27 @@
 				$.ajax({
 					type : "post",
 					url : "/basket/deleteAllBasket"
-				}).done(function() {
+				}).done(function(resp) {
+					console.log(22222);
+					$(".todo-list").children().remove();
 					alert("장바구니가 모두 삭제되었습니다");
 				});
 			}
+		});
+
+		$(".btnDeleteOne").on("click", function() {
+			let basketCode = $(".checkOne").val();
+			let checkOne = $(this);
+			$.ajax({
+				type : "post",
+				url : "/basket/deleteBasket",
+				data : {
+					"basketCode" : basketCode
+				}
+			}).done(function(resp){
+				console.log(1111);
+				checkOne.parent().remove();
+			});
 		});
 	</script>
 </body>
