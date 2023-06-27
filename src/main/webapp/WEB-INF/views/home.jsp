@@ -71,6 +71,22 @@
 	padding: 2rem;
 	background-color: #fdeeb39a;
 }
+.loadingText_box{
+	font-size:1.5rem;
+	text-align:center;
+}
+.blink{
+	animation:blink 0.5s infinite;
+	font-size:2rem;
+}
+@keyframes blink{
+	to{
+		opacity:0;
+	}
+}
+.waitingSpinner{
+	min-height:500px;
+}
 </style>
 </head>
 
@@ -81,27 +97,38 @@
 	</c:import>
 
 	<!-- 로그인한 회원의 아이디를 담을 공간 -->
-	<input type="text" value="${sessionScope.code}" id="clientCode" hidden>
+	<input type="hidden" value="${sessionScope.code}" id="clientCode">
 
 	<!-- main -->
 	<div class="container" style="margin-top: 100px;">
-		<div class="spinner-border text-dark" style="display: none;"
-			role="status">
-			<span class="visually-hidden">Loading...</span>
-		</div>
+	
 		<div class="main">
 			<div
 				class="row d-flex justify-content-center mb-3 align-items-center">
 				<div class="logoImg d-inline-flex col-12 col-md-4">
 					<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img">
 				</div>
-				<div class="title col-12 col-md-4 text-center  ">
+				<div class="title col-12 col-md-4 text-center">
 					<h1>쉽고 직관적인 식단관리</h1>
 					<h3>AI 식단추천</h3>
 					<h5>COOKCOOK</h5>
 				</div>
 			</div>
 
+			<div>
+				<div class="d-flex align-items-center justify-content-center">
+	<div class="waitingSpinner" style="display: none;">
+		<div class="d-flex justify-content-center">
+		<div class="spinner-border text-success m-5" style="width:3rem; height:3rem;" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+		</div>
+		<div class="loadingText_box">
+			<span class="loadingText"></span><span class="blink">|</span>
+		</div>
+	</div>
+	</div>
+				<div class="calBox">
 			<div class="selectBox">
 				<!-- 당일 ~ 7일 -->
 				<div class="row d-flex justify-content-center">
@@ -531,6 +558,10 @@
 					</div>
 				</div>
 			</div>
+				
+				</div>
+			</div>
+			</div>
 		</div>
 </body>
 <!-- aiCalendar meal js -->
@@ -538,6 +569,27 @@
 <!-- aiCalendar drag js -->
 <script src="${path}/resources/js/aiCalendar_drag.js"></script>
 <script type="text/javascript">
+
+	//로딩 중 문구 출력 ()
+	const textContent = "식단을 생성중입니다. \n 너무 오래걸린다면 새로고침 후 재시도해주세요.";
+	const loadingText = document.querySelector(".loadingText");
+	let i=0;
+	
+	function typing(){
+		//if(i<textContent.length){
+		//	let txt = textContent.charAt(i);
+		//	loadingText.innerHTML += txt == "\n" ? "<br/>" : txt;
+		//	i++;
+		//}
+		let txt = textContent[i++];
+		loadingText.innerHTML += txt === "\n" ? "<br/>" : txt;
+		if(i>textContent.length){
+			loadingText.textContent = "";
+			i=0;
+		}
+	}
+	setInterval(typing,200);
+
 	let timeArr = [];
 	let timeArrLength;
 	let aiMealArr = [];
@@ -582,7 +634,6 @@
 		special = $("input[name=special]:checked").val();
 		dayTime = $("select[name=dayTime]").val();
 
-		let counter= 3;
 		// 아점저 선택안하면 생성 금지
 		if (timeArrLength == 0) {
 			alert("아침, 점심, 저녁중 반드시 하나이상은 선택하셔야 합니다.");
@@ -599,24 +650,19 @@
 				timeStr : timeStr
 			},
 			beforeSend : function() {
-				$(".spinner-border").css({
-					"display" : "block"
-				});
-				$(".main").css({
-					"display" : "none"
+
+				$(".calBox").slideUp(600, 'swing', ()=>{
+					$(".waitingSpinner").slideDown();					
 				});
 			},
 			complete : function() {
-				$(".spinner-border").css({
-					"display" : "none"
-				});
-				$(".main").css({
-					"display" : "block"
+
+				$(".waitingSpinner").slideUp(400, 'swing', ()=>{
+					$(".calBox").slideDown(600);
 				});
 			}
 			}).done(function(resp) {
 				// resp List<MealDTO> 로 저장하는 함수 만들기?
-				console.log(resp);
 
 				aiMealAdd(resp);
 				aiMealPrint(resp);
