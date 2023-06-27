@@ -31,4 +31,12 @@ public class BasketDAO {
 	public int updateBasket(BasketDTO dto) {
 		return mybatis.update("Basket.updateBasket", dto);
 	}
+	
+	public int updateChecked(BasketDTO dto) {
+		return mybatis.update("Basket.updateChecked",dto);
+	}
+	
+	public int updateUnchecked(BasketDTO dto) {
+		return mybatis.update("Basket.updateUnchecked",dto);
+	}
 }

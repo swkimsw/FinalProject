@@ -101,7 +101,7 @@
             	},
             }).done(function(){
             	if(confirm("등록되었습니다! 장바구니로 이동합니까?")){
-            		location.href="/basket/toMybasket";            	
+            		location.href="/basket/toMyBasket";            	
             	}
             })
         });

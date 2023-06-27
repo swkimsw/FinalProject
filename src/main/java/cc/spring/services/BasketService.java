@@ -69,4 +69,12 @@ public class BasketService {
 	public int updateBasket(BasketDTO dto) {
 		return basketDAO.updateBasket(dto);
 	}
+	
+	public int updateChecked(BasketDTO dto) {
+		return basketDAO.updateChecked(dto);
+	}
+	
+	public int updateUnchecked(BasketDTO dto) {
+		return basketDAO.updateUnchecked(dto);
+	}
 }

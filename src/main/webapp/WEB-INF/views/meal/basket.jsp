@@ -44,12 +44,10 @@
 <script src="${path}/resources/js/basket.js"></script>
 </head>
 <body>
-
-	<header>
-		<c:import url="../commons/gnb.jsp">
-		</c:import>
-	</header>
-
+   <header>
+      <c:import url="../commons/gnb.jsp">
+      </c:import>
+   </header>
 	<main>
 		<div class="container">
 			<div class="header title">
