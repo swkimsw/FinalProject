@@ -18,21 +18,27 @@
                 });
             }
         }).done(function(resp){
-            //다음 모달창에 추출한 재료 목록 append하고 띄워주기
-            let ingredientList = JSON.parse(resp);
-            let count=1;
-            Array.prototype.forEach.call(ingredientList, (element) => {
-                $("#ingredientList").append("🍽 "+element.meal).append("<hr class='titleLine'>");
-                let ul = $('<ul class="list-group ingredientUL">');
-                element.ingredients.forEach(i=>{
-                    let li = $(`<li class="list-group-item">`);
-                    let inputs = $(`<input class="form-check-input me-1 selectIngredient" type="checkbox" value="">`).attr('id',"selectIngredient"+count);
-                    let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(i);
-                    li.append(inputs,labels);
-                    ul.append(li);
-                    count++;
-                });
-                $("#ingredientList").append(ul);
+            $.ajax({
+                url:"/basket/successCount",
+                type:"post",
+            }).done(function(resp){
+                //다음 모달창에 추출한 재료 목록 append하고 띄워주기
+                let ingredientList = JSON.parse(resp);
+                let count=1;
+                Array.prototype.forEach.call(ingredientList, (element) => {
+                    $("#ingredientList").append("🍽 "+element.meal).append("<hr class='titleLine'>");
+                    let ul = $('<ul class="list-group ingredientUL">');
+                    element.ingredients.forEach(i=>{
+                        let li = $(`<li class="list-group-item">`);
+                        let inputs = $(`<input class="form-check-input me-1 selectIngredient" type="checkbox" value="">`).attr('id',"selectIngredient"+count);
+                        let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(i);
+                        li.append(inputs,labels);
+                        ul.append(li);
+                        count++;
+                    });
+                    $("#ingredientList").append(ul);
+            });
+
             });
             
             $("#ingredientModal").modal('hide');
@@ -40,9 +46,14 @@
             
         }).error(function(error){
             console.log(error);
-            if(count>0){
-                extractIngredients(targetMeals, limit-1);
-            }
+            $.ajax({
+                url:"/basket/failCount",
+                type:"post",
+            }).done(function(resp){
+                if(count>0){
+                    extractIngredients(targetMeals, limit-1);
+                }
+            })
         });
 
        }
