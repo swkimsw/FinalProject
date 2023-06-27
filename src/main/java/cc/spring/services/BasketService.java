@@ -50,6 +50,10 @@ public class BasketService {
 		}
 	}
 	
+	public int insertOne(BasketDTO dto) {
+		return basketDAO.insertBasket(dto);
+	}
+	
 	public List<BasketDTO> selectBasket(int memberCode){
 		return basketDAO.selectBasket(memberCode);
 	}
@@ -72,5 +76,13 @@ public class BasketService {
 	
 	public int updateUnchecked(BasketDTO dto) {
 		return basketDAO.updateUnchecked(dto);
+	}
+	
+	public int successCount(int memberCode) {
+		return basketDAO.successCount(memberCode);
+	}
+	
+	public int failCount(int memberCode) {
+		return basketDAO.failCount(memberCode);
 	}
 }

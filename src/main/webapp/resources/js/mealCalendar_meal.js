@@ -123,12 +123,6 @@ window.addEventListener('load', function () {
 
     //model에 담아온 mealList를 meal-box에 적절히 append 하기
     let mealInit = JSON.parse($("#mealInit").val());
-    console.log(mealInit);
-    // let mealInit=[
-    //     {code:1,memberCode:0,mealDate:"2023-06-22",timeCode:1001,meal:"밥"},
-    //     {code:2,memberCode:0,mealDate:"2023-06-23",timeCode:1002,meal:"국"},
-    //     {code:3,memberCode:0,mealDate:"2023-06-24",timeCode:1003,meal:"반찬"}
-    // ]
 
 	//두 날짜 사이 일수 차이를 반환하는 함수
     function getDateDiff(date1, date2) {
@@ -276,8 +270,6 @@ $(".meal-box").off("click").on("click", function () {
     //저장하기 버튼 클릭 이벤트
     $("#saveMeal").off("click").on("click", function () {
     
-    console.log(selectBox.parent().get(0).className.split(" ")[1]);
-
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
         postMeals = [];
         $(".meal-name").each((i, e) => {

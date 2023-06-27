@@ -86,7 +86,7 @@ window.addEventListener('load', function () {
         j++;
     }
     today = new Date();
-    //cloneToday = new Date(today);
+
     for (let i = 0; i < 7; i++) {
         cloneToday = new Date(today);
         cloneToday.setDate(today.getDate()+i);
