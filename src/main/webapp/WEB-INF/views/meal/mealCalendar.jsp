@@ -52,7 +52,7 @@
 
 <main>
 	    <div class="container">
-        <div class="titleBox d-flex justify-content-center align-items-center">
+        <div class="titleBox d-flex justify-content-center align-items-center m-5">
             <img class="mx-4" width="60rem" src="/resources/img/cutlery.png">
             <h1 class="text-center m-0" id="title">주간 식단표</h1>
         </div>

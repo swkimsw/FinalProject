@@ -31,7 +31,7 @@
 	
 	<insert id="insertGptCount">
 		
-		insert into gptCount values(${memberCode}, ${mealCount}, ${mealSucess}, ${mealFail}, ${basketCount}, ${basketSucess}, ${basketFail})
+		insert into gptCount values(${memberCode}, ${mealSuccess}, ${mealFail}, ${basketSuccess}, ${basketFail})
 	</insert>
 	
 	<insert id="insertLoginCount">

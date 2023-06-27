@@ -19,7 +19,7 @@ public class BasketDAO {
 	}
 	
 	public int insertBasket(BasketDTO dto) {
-		mybatis.insert("Basket.insertBasket",dto);
+		mybatis.insert("Basket.insertBasket", dto);
 		return dto.getCode();
 	}
 	
@@ -31,10 +31,18 @@ public class BasketDAO {
 	}
 	
 	public int updateChecked(BasketDTO dto) {
-		return mybatis.update("Basket.updateChecked",dto);
+		return mybatis.update("Basket.updateChecked", dto);
 	}
 	
 	public int updateUnchecked(BasketDTO dto) {
-		return mybatis.update("Basket.updateUnchecked",dto);
+		return mybatis.update("Basket.updateUnchecked", dto);
+	}
+	
+	public int successCount(int memberCode) {
+		return mybatis.update("Basket.successCount", memberCode);
+	}
+	
+	public int failCount(int memberCode) {
+		return mybatis.update("Basket.failCount", memberCode);
 	}
 }

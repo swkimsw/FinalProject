@@ -24,4 +24,10 @@
 	<update id="updateMeal">
 		update meal set mealDate=#{modDate}, timeCode=${modTime} where memberCode=${mealDTO.memberCode} and mealDate=#{mealDTO.mealDate} and timeCode=${mealDTO.timeCode} and meal=#{mealDTO.meal}
 	</update>
+	<update id="successCount">
+		update gptCount set mealSuccess = (select mealSuccess from gptCount where memberCode = ${memberCode})+1 where memberCode = ${memberCode}
+	</update>
+	<update id="failCount">
+		update gptCount set mealFail = (select mealFail from gptCount where memberCode = ${memberCode})+1 where memberCode = ${memberCode}
+	</update>
 </mapper>

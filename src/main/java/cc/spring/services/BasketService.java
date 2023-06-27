@@ -77,4 +77,12 @@ public class BasketService {
 	public int updateUnchecked(BasketDTO dto) {
 		return basketDAO.updateUnchecked(dto);
 	}
+	
+	public int successCount(int memberCode) {
+		return basketDAO.successCount(memberCode);
+	}
+	
+	public int failCount(int memberCode) {
+		return basketDAO.failCount(memberCode);
+	}
 }

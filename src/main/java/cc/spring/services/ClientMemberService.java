@@ -39,7 +39,7 @@ public class ClientMemberService {
 	public int insertClient(MemberDTO mdto) {
 		int memberCode = cdao.insertClient(mdto);
 		cdao.insertloginCount(new loginCountDTO(memberCode, 0, null));
-		cdao.insertGptCount(new gptCountDTO(memberCode, 0,0,0,0,0,0));
+		cdao.insertGptCount(new gptCountDTO(memberCode, 0, 0, 0, 0));
 		return memberCode;
 	}
 	
