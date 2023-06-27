@@ -83,7 +83,7 @@ public class MyShopListDTO {
 	
 	//사업자회원 내 공구글별 구매자 정보 리스트용 생성자
 	public MyShopListDTO(int applyCode, int memberCode, int quantity, Timestamp applyDate, 
-			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, String productPrice) {
+			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, int businessCode, String productPrice) {
 		super();
 		this.applyCode = applyCode;
 		this.memberCode = memberCode;
@@ -96,6 +96,7 @@ public class MyShopListDTO {
 		this.zipcode= zipcode;
 		this.address1 = address1;
 		this.address2 = address2;
+		this.businessCode = businessCode;
 		this.productPrice = productPrice;
 	}
 	

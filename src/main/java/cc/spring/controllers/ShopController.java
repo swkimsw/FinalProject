@@ -224,8 +224,11 @@ public class ShopController {
 
 	 	 //사업자회원용 공구 신청인 정보 목록: 사업자회원 공구 등록 목록에서 출력
 	 	 @RequestMapping("buyingMemberInfoList")
-	 	 public String buyingMemberInfoList(int groupbuyingCode, Model model) {
+	 	 public String buyingMemberInfoList(@RequestParam(name="code",required=true,defaultValue="") String code, Model model) {
+	 		int groupbuyingCode = Integer.parseInt(code);
+	 		System.out.println("넘어온 코드는"+groupbuyingCode);
 	 		List<MyShopListDTO> list = shopService.buyingMemberInfoList(groupbuyingCode);
+	 		System.out.println(list);
 	 		model.addAttribute("list",list);
 	 		return "/shop/infoPopup";
 	 	 }
