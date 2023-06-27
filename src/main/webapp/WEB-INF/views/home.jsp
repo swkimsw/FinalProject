@@ -102,7 +102,7 @@
 	<!-- main -->
 	<div class="container" style="margin-top: 100px;">
 	
-		<div class="main">
+		<div class="main mb-4">
 			<div
 				class="row d-flex justify-content-center mb-3 align-items-center">
 				<div class="logoImg d-inline-flex col-12 col-md-4">
