@@ -2,33 +2,45 @@ $( document ).ready(function() {
     
     "use strict";
     
+    $(".checkOne").each((i,e)=>{
+        if(e.getAttribute("status")=="4002"){
+            e.parentElement.parentElement.parentElement.classList.toggle('complete');
+            e.checked = true;
+        }
+    });
+
     var todo = function() { 
         $(".card-body").on("click",'.todo-list .todo-item input', function() {
-        if($(this).is(':checked')) {
+            let target = $(this);
+            if(target.is(':checked')) {
             //DB에 update
             $.ajax({
                 url:"/basket/updateChecked",
                 type:"post",
                 data:{
-
+					code:target.prop("id"),
                 },
             }).done(function(){
-                $(this).parent().parent().parent().toggleClass('complete');
+                target.attr("status","4002");
+                target.parent().parent().parent().toggleClass('complete');
             });
         } else {
             $.ajax({
                 url:"/basket/updateUnchecked",
                 type:"post",
                 data:{
-
+					code:target.prop("id"),
                 },
             }).done(function(){
-                $(this).parent().parent().parent().toggleClass('complete');
+                target.attr("status","4001");
+                target.parent().parent().parent().toggleClass('complete');
             });
         }
        });
     
     $(".card-body").on("click",'.todo-nav .all-task', function() {
+        console.log(222222);
+        console.log(this);
         $('.todo-list').removeClass('only-active');
         $('.todo-list').removeClass('only-complete');
         $('.todo-nav li.active').removeClass('active');
@@ -36,6 +48,8 @@ $( document ).ready(function() {
     });
     
     $(".card-body").on("click",'.todo-nav .active-task', function() {
+        console.log(333333);
+        console.log(this);
         $('.todo-list').removeClass('only-complete');
         $('.todo-list').addClass('only-active');
         $('.todo-nav li.active').removeClass('active');
@@ -43,6 +57,8 @@ $( document ).ready(function() {
     });
     
     $(".card-body").on("click",'.todo-nav .completed-task', function() {
+        console.log(444444);
+        console.log(this);
         $('.todo-list').removeClass('only-active');
         $('.todo-list').addClass('only-complete');
         $('.todo-nav li.active').removeClass('active');
@@ -50,6 +66,8 @@ $( document ).ready(function() {
     });
     
     $(".card-body").on("click",'#uniform-all-complete input', function() {
+        console.log(555555);
+        console.log(this);
         if($(this).is(':checked')) {
             $('.todo-item .checker span:not(.checked) input').click();
         } else {
@@ -58,6 +76,8 @@ $( document ).ready(function() {
     });
     
     $(".card-body").on("click",'.remove-todo-item', function() {
+        console.log(666666);
+        console.log(this);
         $(this).parent().remove();
     });
     };
@@ -73,8 +93,8 @@ $( document ).ready(function() {
                 data:{
                     name:$(this).val(),
                 },
-            }).done(function(){
-                $('<div class="todo-item position-relative"><div class="checker"><span class=""><input type="checkbox" class="checkOne"></span></div> <span>' + $(this).val() + '</span> <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a><button type="button" class="btn btn-success position-absolute btnDeleteOne">X</button></div>').insertAfter('.todo-list .todo-item:last-child');
+            }).done(function(code){
+                $(`<div class="todo-item position-relative"><div class="checker"><span class=""><input type="checkbox" class="checkOne" id=${code} status="4001"></span></div> <span>' + $(this).val() + '</span> <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a><button type="button" class="btn btn-success position-absolute btnDeleteOne">X</button></div>`).insertAfter('.todo-list .todo-item:last-child');
                 $(this).val('');
             });
 

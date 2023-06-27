@@ -77,7 +77,7 @@
                         <c:forEach items="${basketList}" var="i">
                            <div class="todo-item position-relative">
                               <div class="checker">
-                                 <span class=""><input type="checkbox" class="checkOne" id="${i.code}"></span>
+                                 <span class=""><input type="checkbox" class="checkOne" id="${i.code}" status="${i.statusCode}"></span>
                               </div>
                               <span>${i.name}</span> <a href="javascript:void(0);"
                                  class="float-right remove-todo-item"><i class="icon-close"></i></a>

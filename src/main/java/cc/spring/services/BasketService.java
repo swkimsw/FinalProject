@@ -53,4 +53,12 @@ public class BasketService {
 	public List<BasketDTO> selectBasket(int memberCode){
 		return basketDAO.selectBasket(memberCode);
 	}
+	
+	public int updateChecked(BasketDTO dto) {
+		return basketDAO.updateChecked(dto);
+	}
+	
+	public int updateUnchecked(BasketDTO dto) {
+		return basketDAO.updateUnchecked(dto);
+	}
 }
