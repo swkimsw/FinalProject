@@ -85,12 +85,6 @@ public class BasketController {
 		int memberCode = (int)session.getAttribute("code");
 		bService.deleteAllBasket(memberCode);
 	}
-	@RequestMapping("updateBasket")
-	public void updateBasket (BasketDTO dto) {
-		int memberCode = (int)session.getAttribute("code");
-		dto.setCode(memberCode);
-		bService.updateBasket(dto);
-	}
 	
 	@ResponseBody
 	@RequestMapping(value="aiBasket", produces="text/plain; charset=utf8;")
