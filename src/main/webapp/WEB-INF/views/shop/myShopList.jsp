@@ -141,13 +141,6 @@ body {
 				</div>
 				<br>
 				<c:forEach var="c" items="${list}">
-<<<<<<< HEAD
-					<a href="/shop/toShopApply?code=${c.groupbuyingCode}">${c.title}</a>
-					<p>상품명 : ${c.productName}</p>
-					<p>가격 : ${c.productPrice} 원</p>
-					<p>수량 : ${c.quantity}</p>
-					<p>합계액 : ${c.productPrice * c.quantity} 원</p>
-=======
 					<div class="card mb-3" style="max-width: 540px;">
 						<div class="row g-0">
 							<div class="col-md-4">
@@ -173,10 +166,11 @@ body {
 							</div>
 						</div>
 					</div>
->>>>>>> 4668cc9af33f8cc4d533391a94e79612a1f3b52a
 					<hr>
 				</c:forEach>
 			</c:when>
+			
+			
 			<c:when test="${sessionScope.authGradeCode == 1002}">
 				<h3>${info.companyName}님의공구등록목록</h3>
 				<h5>${info.businessId}</h5>
@@ -193,7 +187,6 @@ body {
 				</c:forEach>
 			</c:when>
 		</c:choose>
-<<<<<<< HEAD
 	</div>		
 	
 	
@@ -205,9 +198,6 @@ body {
 		}
 		
 	</script>
-=======
-	</div>
->>>>>>> 4668cc9af33f8cc4d533391a94e79612a1f3b52a
 </body>
 </html>
 
