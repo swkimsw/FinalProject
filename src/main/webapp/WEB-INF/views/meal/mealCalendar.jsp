@@ -417,7 +417,7 @@
 
                             </ul>
                             	<div class="d-flex align-items-center justify-content-center">
-                            	<div id="waitingSpinner" style="display: none;">
+                            	<div class="m-4" id="waitingSpinner" style="display: none;">
                             	<div class="d-flex justify-content-center">
                     				<div class="spinner-border m-3 text-success" role="status">
   										<span class="visually-hidden"></span>
