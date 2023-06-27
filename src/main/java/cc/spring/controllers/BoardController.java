@@ -468,7 +468,13 @@ public class BoardController {
 
 
 
-
+	//===========================================================================================
+		
+	// 자유게시판 댓글 작성
+	@RequestMapping("freeReply")
+	public void freeReply(String context) {
+		System.out.println(context);
+	}
 
 
 
