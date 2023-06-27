@@ -136,3 +136,13 @@ table {
     -ms-user-select: all;
     user-select: all
 } */
+
+.ingredientUL{
+	margin:1rem 0;
+}
+.titleLine{
+	margin-top:0.5rem;
+}
+#waitingSpinner{
+    min-height: 200px;
+}

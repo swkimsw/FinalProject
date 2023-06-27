@@ -178,7 +178,7 @@ public class BusinessMemberController {
 		// 인증번호 입력 후 인증 버튼 클릭 시
 		@ResponseBody
 		@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
-		public String certification(String code) {
+		public String certification(String code) throws Exception {
 			String numStr = (String) session.getAttribute("numStr");
 			System.out.println(numStr);
 					
@@ -197,7 +197,7 @@ public class BusinessMemberController {
 		// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제
 		@ResponseBody
 		@RequestMapping(value="removeSession")
-		public void removeSession() {
+		public void removeSession() throws Exception {
 			session.removeAttribute("numStr");
 		}
 		
@@ -228,8 +228,109 @@ public class BusinessMemberController {
 			
 		}
 		
+		// 내 정보 보기 클릭 시 페이지 이동
+		@RequestMapping("businessMyInfo")
+		public String myInfo() throws Exception {
+			return "/member/businessMyInfo";
+		}
 		
+		// 비밀번호 입력 시 로그인한 회원의 비밀번호와 일치하는지 확인
+		@ResponseBody
+		@RequestMapping("checkPw")
+		public String checkPw(String pw) throws Exception {
+			String enPw = EncryptionUtils.sha512(pw);
+			String id = (String) session.getAttribute("id");
+			boolean result = bms.checkPw(id, enPw);
+			return String.valueOf(result);
+		}
 		
+		// 회원정보 가져오기
+		@ResponseBody
+		@RequestMapping("selectBusinessMemberInfo")
+		public MemberDTO selectClientMemberInfo(String id) throws Exception {
+			MemberDTO dto = bms.selectBusinessMemberInfo(id);
+			return dto;
+		}
+		
+		// 회원정보 수정이 가능한 폼으로 이동
+		@RequestMapping("goUpdateInfo")
+		public String goUpdateInfo(String id, Model m) throws Exception {
+			MemberDTO dto = bms.selectBusinessMemberInfo(id);
+			m.addAttribute("info", dto);
+			return "/member/businessInfoUpdate";
+		}
+		
+		// 회원정보 수정 시 모든 변경은 연락처 인증을 통해서만 가능해....
+		// 이 부분은 로그인된 회원의 연락처와 비회원의 연락처만 넘어옴
+		@ResponseBody
+		@RequestMapping("sendSmsUpdate")
+		public String sendSmsUpdate(String phone) throws Exception {
+					
+				Random rand = new Random(); 
+				String numStr = "";
+				for(int i=0; i<5; i++) {
+					String ran = Integer.toString(rand.nextInt(10));
+					numStr+=ran;
+				}
+				SmsService.certifiedPhoneNumber(phone, numStr);
+				session.setAttribute("numStr", numStr);	
+			System.out.println(String.valueOf(true));	
+			
+			return String.valueOf(true);
+		}
+		
+		// 회원정보(업데이트) 입력한 내용 넘어오는 곳 
+		@RequestMapping("updateMemberInfo")
+		public String updateMemberInfo(MemberDTO dto, String member_birth_year, String member_birth_month, String member_birth_day, Model m) throws Exception {
+			// 받은 생년월일 합치기
+			String birthDate = member_birth_year + member_birth_month + member_birth_day;
+			dto.setBirthDate(birthDate);
+			// 회원 수정 시 where = id에서 id값이 필요함
+			String id = (String) session.getAttribute("id");
+			dto.setBusinessId(id);
+						
+			int result = bms.updateMemberInfo(dto);
+			if(result == 1) {
+				MemberDTO updateDto = bms.selectBusinessMemberInfo(id);
+				// 업데이트된 정보 다시 세션에 담기
+				session.setAttribute("code", updateDto.getCode());
+				session.setAttribute("id", updateDto.getBusinessId());
+				session.setAttribute("companyName", updateDto.getCompanyName());
+				session.setAttribute("authGradeCode", updateDto.getAuthGradeCode());
+
+				m.addAttribute("status", "complete");
+				m.addAttribute("dto", updateDto);
+				return "/member/businessMyInfo";
+			}
+			else {
+				return "error";
+			}
+			
+		}
+		
+		// 회원탈퇴하기
+		@ResponseBody
+		@RequestMapping("deleteMember")
+		public boolean deleteMember() throws Exception {
+			int code = (int) session.getAttribute("code");
+			
+			// 판매자가 등록한 공구가 있으면 계정 삭제를 막을거에요.
+			boolean result1 = bms.checkGroupBuying(code);
+			
+			if(result1) {
+				return true;
+			}
+			else {
+				int result2 = bms.deleteMember(code);
+				if(result2 == 1) {
+					session.invalidate();
+				}
+				System.out.println(String.valueOf(false));
+				return false;
+			}
+			
+			
+		}
 		
 		@ExceptionHandler(Exception.class)
 		public String exceptionHandler(Exception e) {

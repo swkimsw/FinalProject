@@ -110,19 +110,28 @@
 								aria-expanded="true">마이페이지</button>
 							<div class="collapse show" id="home-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li class="login"><a href="/clientMyPage/myPage"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											활동 관리</a></li>
 									<c:if test="${sessionScope.authGradeCode == 1003}">
+									<li class="login"><a href="/clientMyPage/myPageFreeboard"
+										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+										내가 쓴 게시글 보기</a></li>
+									<li class="login"><a href="/clientMyPage/myPageReview"
+										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내 
+										후기글 보기</a></li>
 									<li class="login"><a href="/clientMember/clientMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
+									<li class="login"><a href="/clientMyPage/businessMypageBoard"
+										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+										내가 쓴 게시글 보기</a></li>
 									<li class="login"><a href="/businessMember/businessMyInfo"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
+									<li class="login"><a href="/meal/toMyMeal"
+										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
+											식단 보기</a></li>
 								</ul>
 							</div></li>
 					</c:if>
@@ -134,13 +143,13 @@
 							aria-expanded="false">전체 게시판</button>
 						<div class="collapse" id="dashboard-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="/board/announcement"
+								<li><a href="/board/announcement?cpage=1"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">공지사항</a>
 								</li>
-								<li><a href="/board/free"
+								<li><a href="/board/free?cpage=1"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">자유게시판</a>
 								</li>
-								<li><a href="/board/review"
+								<li><a href="/board/review?cpage=1"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">후기게시판</a>
 								</li>
 							</ul>
@@ -175,7 +184,7 @@
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 식단 리스트</a></li>
-								<li><a href="/meal/toMyBasket"
+								<li><a href="/basket/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
 										내 장바구니</a></li>
 							</ul>

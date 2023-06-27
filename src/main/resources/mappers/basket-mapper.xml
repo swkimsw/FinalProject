@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Basket">
+	<insert id="insertBasket">
+		<selectKey keyProperty="code" resultType="int" order="BEFORE">
+			select basket_seq.nextval from dual
+		</selectKey>
+		insert into basket values(${code}, ${memberCode}, #{name}, 4001)
+	</insert>
+	<select id="selectBasket" resultType="cc.spring.dto.BasketDTO">
+		select * from basket where memberCode = ${memberCode}
+	</select>
+	<delete id="deleteBasket">
+		delete from basket where memberCode = ${memberCode} and code = ${code}
+	</delete>
+	<delete id="deleteAllBasket">
+		delete from basket where memberCode = ${memberCode} 
+	</delete>
+	<update id="updateBasket">
+		update basket set name = #{name} where code = ${code} and memberCode = ${memberCode}
+	</update>
+	<update id="updateChecked">
+		update basket set statusCode=4002 where memberCode=${memberCode} and code=${code}
+	</update>
+	<update id="updateUnchecked">
+		update basket set statusCode=4001 where memberCode=${memberCode} and code=${code}
+	</update>
+	<update id="successCount">
+		update gptCount set basketSuccess=basketSuccess+1 where memberCode=${memberCode}
+	</update>
+	<update id="failCount">
+		update gptCount set basketFail=basketFail+1 where memberCode=${memberCode}
+	</update>
+</mapper>

@@ -18,7 +18,7 @@
 <style>
 	*{font-family: 'NanumSquareNeo';}
 	textarea{resize:none;}
-	.container{width: 70%; margin-top:100px;}
+	.container{width: 70%; margin-top:100px; background-color:white;}
 	.memberInfo{margin-top:2px; border:0;}
 	.solidHr{margin-left:auto;}
 	.dashedHr{width:80%; margin-left:10%; border-top:dashed;}
@@ -32,6 +32,8 @@
 	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
+	
+	
 </style>
 </head>
 <body>
@@ -43,22 +45,18 @@
 	<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 		<form action="/shop/updateShop" method="post" enctype="multipart/form-data">
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
-
-			<div class="images">
-				<div id="carouselExampleIndicators" class="carousel slide mb-3">
-  					<div class="carousel-indicators">
-  						<c:forEach var="i" items="${fileDTO}">
-  							
-  						</c:forEach>
-    					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    					<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  					</div>
+			
+			<div class="images" style="height:40%;">
+				<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
   					<div class="carousel-inner">
-  						<c:forEach var="i" items="${fileDTO}">
-  							<div class="carousel-item active">
+  						<div class="carousel-item active">
+  							<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
+      						<img src="${fileDTO[0].path}${fileDTO[0].sysname}" class="d-block w-100" alt="...">
+    					</div>
+  						<c:forEach var="i" items="${fileDTO}" begin="1">
+  							<div class="carousel-item">
   								<input type="hidden" name="sysname" value="${i.sysname}">
-      							<img src="/resources/shopImg/${i.sysname}" class="d-block w-100" alt="...">
+      							<img src="${i.path}${i.sysname}" class="d-block w-100" alt="...">
     						</div>
   						</c:forEach>
   					</div>
@@ -92,24 +90,20 @@
 					<div class="mm input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" required readonly>
+						<span class="input-group-text">원</span>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">마감 기한</span>
-						<input type="date" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" required readonly>
+						<input type="datetime-local" class="form-control" id="deadLineTemp" name="deadLineTemp" value="${shopDTO.deadLineTemp}" required readonly>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
-						<span class="input-group-text">최소 인원</span>
+						<span class="input-group-text">최소 수량</span>
 						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" required readonly>
-					</div>
-				</div>
-				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-					<div class="input-group mb-3">
-						<span class="input-group-text">최대 인원</span>
-						<input type="text" class="form-control" id="max" name="max" value="${shopDTO.max}" required readonly>
+						<span class="input-group-text">개</span>
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
@@ -164,7 +158,7 @@
 						<tr>
 							<td>교환 및 반품 주소</td>
 							<td style="padding:0px;">
-								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} / ${memberDTO.address2}" readonly>
+								<input type="text" class="memberInfo form-control shadow-none" value="${memberDTO.zipcode} ${memberDTO.address1} ${memberDTO.address2}" readonly>
 							</td>
 						</tr>
 					</table>
@@ -360,7 +354,6 @@
 			$("#productName").removeAttr("readonly");
 			$("#productPrice").removeAttr("readonly");
 			$("#deadLineTemp").removeAttr("readonly");
-			$("#max").removeAttr("readonly");
 			$("#min").removeAttr("readonly");
 			$("#detail").removeAttr("readonly");
 			$("#imageSelect").removeAttr("style");
@@ -390,15 +383,12 @@
 			
 			let regexProductPrice = /^[0-9]+$/;
 			let regexMin = /^[0-9]+$/;
-			let regexMax = /^[0-9]+$/;
 			
 			let productPrice = $("#productPrice").val();
 			let min = $("#min").val();
-			let max = $("#max").val();
 			
 			let resultProductPrice = regexProductPrice.exec(productPrice);
 			let resultMin = regexMin.exec(min);
-			let resultMax = regexMax.exec(max);
 			
 			if(!resultProductPrice){
 				alert("상품가격 은 숫자로 입력해 주세요!");
@@ -410,10 +400,6 @@
 				return false;
 			}
 			
-			if(!resultMax){
-				alert("최대 인원 은 숫자로 입력해 주세요!");
-				return false;
-			}
 		})
 		
 		// 공구 신청 버튼 클릭시
@@ -431,22 +417,6 @@
 			
 			let code = $("#code").val(); // 공구샵 코드
 			let memberCode = 0${sessionScope.code}; // 멤버 코드
-			let max = $("#max").val();
-			
-			// 최대 인원수가 되면 더 이상 신청하지 못하도록			
-			$.ajax({
-				url:"/shop/isCountRequest",
-				type:"post",
-				dataType:"json",
-				data:{
-					code:code
-				}
-			}).done(function(resp) {
-				if(resp == max){
-					alert("신청 인원이 꽉 찼습니다");
-					return false;
-				}
-			})
 			
 			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
 			$.ajax({

@@ -28,36 +28,6 @@ function getDateDiff(date1, date2) {
     return Math.abs((d1.getTime() - d2.getTime()) / (1000 * 60 * 60 * 24));
 };
 
-//특정 날짜로부터 일주일 치 식단을 꺼내 출력하는 함수
-function selectWeekMeal(date) {
-
-    $.ajax({
-        url: "/meal/selectWeekMeal",
-        type: "post",
-        data: {
-            startDate: getFormedDate(date),
-        }
-    }).done(function (resp) {
-        let mealList = JSON.parse(resp);
-
-        $(".meal-box").html("");
-        mealList.forEach((meal)=>{
-            //mealDate, timeCode로 들어갈 meal-box 구하기
-            let days = ["day1","day2","day3","day4","day5","day6","day7"];
-            let times = ["breakfast","lunch","dinner"];
-            let todayForm = getFormedDate(today);
-            let parentBoxClass="."+days[getDateDiff(todayForm,meal.mealDate)]+"."+times[meal.timeCode-1001];
-            let insertBoxs = $(parentBoxClass).children();
-            
-            insertBoxs.each((i,box)=>{
-                $(box).append(meal.meal)
-                $(box).append("<br>");
-            });
-        })
-    });
-}
-
-
 //기본 설정(오늘 날짜)
 let today = new Date();
 let year = today.getFullYear();
@@ -74,9 +44,9 @@ window.addEventListener('load', function () {
     let dayBoxes = document.getElementsByClassName("day-header");
 
     let j = 0;
-    let cloneToday = new Date(today);
     for (let i = 0; i < 7; i++) {
-        cloneToday.setDate(today.getDate() + i);
+        cloneToday = new Date(today);
+        cloneToday.setDate(today.getDate()+i);
         date = cloneToday.getDate();
         day = getDayOfWeek(cloneToday);
         dayBoxes[j].innerHTML = date + " " + day;
@@ -84,12 +54,14 @@ window.addEventListener('load', function () {
         j++;
     }
     today = new Date();
-    cloneToday = new Date(today);
+
     for (let i = 0; i < 7; i++) {
-        cloneToday.setDate(today.getDate() + i)
+        cloneToday = new Date(today);
+        cloneToday.setDate(today.getDate()+i);
         date = cloneToday.getDate();
         day = getDayOfWeek(cloneToday);
         dayBoxes[j].innerHTML = date + " " + day;
+
         j++;
     }
     today = new Date();

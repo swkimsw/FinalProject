@@ -49,7 +49,6 @@
                 td {
                     font-size: 20px;
                 }
-              
             </style>
 
         </head>
@@ -77,7 +76,7 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr >
+                            <tr>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -87,22 +86,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
-                        <c:forEach var="l" items="${list}">
-                       
-                            <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}')">
-                           
-                                <td>${l.code}</td>
-                                <td style="width: 50%;">${l.title}</td>
-                                <td>${l.memberName}</td>
-                                <td>${l.regDate}</td>
-                                <td>${l.viewCount}</td>
-                                <td>${l.likeCount}</td>
-                            
-                            </tr>
-                         
-                        </c:forEach>
-                  
+
+                            <c:forEach var="l" items="${list}">
+
+                                <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}')">
+
+                                    <td>${l.code}</td>
+                                    <td style="width: 50%;">${l.title}</td>
+                                    <td>${l.memberName}</td>
+                                    <td>${l.regDate}</td>
+                                    <td>${l.viewCount}</td>
+                                    <td>${l.likeCount}</td>
+
+                                </tr>
+
+                            </c:forEach>
+
                         </tbody>
                     </table>
 
@@ -110,40 +109,41 @@
 
                     <nav aria-label="...">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link">
-                                    < </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">></a>
-                            </li>
-                        </ul>
-
+					        <c:forEach var="ln" items="${listnavi}">
+						        <c:choose>
+							        <c:when test="${ln == '>' || ln == '<'}">
+							          <li class="page-item" >
+							            <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
+							          </li>
+							        </c:when>
+							        <c:otherwise>
+							          <li class="page-item ${cpage == ln ? 'active' : ''}"  >
+							            <a class="page-link" href="/board/announcement?cpage=${ln}">${ln}</a>
+							          </li>
+							        </c:otherwise>
+						        </c:choose>  
+					        </c:forEach>
+    					</ul>
                     </nav>
 
 
-            <c:choose>
-			
-				<c:when test="${user == '1001'}">
+                    <c:choose>
 
-					<div style="float: right;">
-						<a href="/board/announcementWrite">
-							<button class="btn btn-outline-primary" type="button">작성하기</button>
-						</a>
-					</div>
+                        <c:when test="${user == '1001'}">
 
-				</c:when>
-			
-				<c:otherwise> 
-			
-				</c:otherwise> 
-			
-			</c:choose>
+                            <div style="float: right;">
+                                <a href="/board/announcementWrite">
+                                    <button class="btn btn-outline-primary" type="button">작성하기</button>
+                                </a>
+                            </div>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                        </c:otherwise>
+
+                    </c:choose>
 
 
                 </div>
@@ -151,11 +151,29 @@
             </div>
 
             <script>
-            
-            function goToLink(url) {
-              window.location.href = url;
-            }
-        
+
+                function goToLink(url) {
+                    window.location.href = url;
+                }
+                
+               
+                
+                
+                function goToPage(page , point) {
+                	
+               
+                	
+                    // 페이지 이동 로직 구현
+                    if(point==("<")){
+                    	console.log(page)
+                    	window.location.href = '/board/announcement?cpage=' + (page*5) ;
+                    }else{
+                    	window.location.href = '/board/announcement?cpage=' + (page*5+1) ;
+                    }
+                   
+                  }
+                
+
             </script>
 
         </body>

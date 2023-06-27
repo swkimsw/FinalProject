@@ -106,7 +106,7 @@
                         <tbody>
 
                             <c:forEach var="l" items="${list}">
-                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}')">
+                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}')">
                                     <td>${l.code}</td>
                                     <td style="width: 50%;">${l.title}</td>
                                   <c:choose>
@@ -130,20 +130,21 @@
 
                     <nav aria-label="...">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <a class="page-link">
-                                    < </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">></a>
-                            </li>
-                        </ul>
-
+					        <c:forEach var="ln" items="${listnavi}">
+						        <c:choose>
+							        <c:when test="${ln == '>' || ln == '<'}">
+							          <li class="page-item" >
+							            <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
+							          </li>
+							        </c:when>
+							        <c:otherwise>
+							          <li class="page-item ${cpage == ln ? 'active' : ''}"  >
+							            <a class="page-link" href="/board/free?cpage=${ln}">${ln}</a>
+							          </li>
+							        </c:otherwise>
+						        </c:choose>  
+					        </c:forEach>
+    					</ul>
                     </nav>
 
 
@@ -176,6 +177,20 @@
               window.location.href = url;
             }
         
+            function goToPage(page , point) {
+            	
+                
+            	
+                // 페이지 이동 로직 구현
+                if(point==("<")){
+                	console.log(page)
+                	window.location.href = '/board/free?cpage=' + (page*5) ;
+                }else{
+                	window.location.href = '/board/free?cpage=' + (page*5+1) ;
+                }
+               
+              }
+            
             </script>
 
         </body>

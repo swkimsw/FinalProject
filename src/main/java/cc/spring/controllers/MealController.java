@@ -86,21 +86,6 @@ public class MealController {
 		return g.toJson(mealList);
 	}
 	
-	@RequestMapping("toMyBasket")
-	public String toMyBasket(Model model) {
-		int memberCode = 0;
-		if(session.getAttribute("code")!=null) {
-			memberCode = (int)session.getAttribute("code");
-		}
-		
-		if(memberCode==0) {
-			return "redirect:/clientMember/login_form";
-		}
-		else {
-			return "meal/basket";			
-		}
-	}
-	
 	@RequestMapping("toAiMeal")
 	public String toAiMeal() {
 		return "home";
@@ -136,6 +121,19 @@ public class MealController {
 		e.printStackTrace();
 		return "redirect:?/error";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping(value = "successMeal", produces="text/plain;charset=utf-8")
+	public void successMeal() {
+		int memberCode = (int)session.getAttribute("code");
+		mService.updateMealSuccess(memberCode);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "failMeal", produces = "text/plain;charset=utf-8")
+	public void failMeal() {
+		int memberCode = (int)session.getAttribute("code");
+		mService.updateMealFail(memberCode);
+	}
 
 }

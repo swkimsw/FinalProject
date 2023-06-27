@@ -52,7 +52,7 @@
 
 <main>
 	    <div class="container">
-        <div class="titleBox d-flex justify-content-center align-items-center">
+        <div class="titleBox d-flex justify-content-center align-items-center m-5">
             <img class="mx-4" width="60rem" src="/resources/img/cutlery.png">
             <h1 class="text-center m-0" id="title">주간 식단표</h1>
         </div>
@@ -416,14 +416,42 @@
                             <ul class="list-group" id="myMealList">
 
                             </ul>
+                            	<div class="d-flex align-items-center justify-content-center">
+                            	<div class="m-4" id="waitingSpinner" style="display: none;">
+                            	<div class="d-flex justify-content-center">
+                    				<div class="spinner-border m-3 text-success" role="status">
+  										<span class="visually-hidden"></span>
+									</div>
+                            	</div>
+								<div class="d-flex justify-content-center">
+  									<span class="loadingText">재료를 추출하는 중입니다...</span>
+								</div>
+                            	</div>
+								</div>
                         </div>
                         <div class="modal-footer justify-content-center">
-                          <button type="button" class="btn btn-success">재료 추출</button>
+                          <button type="button" class="btn btn-success" id="btnExtract">재료 추출</button>
                         </div>
                       </div>
                 </div>
             </div>
+            <div class="modal fade" id="ingredientModal2" aria-hidden="true" aria-labelledby="ingredientModalLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="ingredientModalLabel2">재료 목록</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="ingredientList">
 
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-success" id="btnInsertBasket">장바구니에 담기</button>
+                      <button type="button" class="btn btn-success" data-bs-target="#ingredientModal" data-bs-toggle="modal">돌아가기</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
         </div>
     </div>
     
