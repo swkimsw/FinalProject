@@ -136,3 +136,10 @@ table {
     -ms-user-select: all;
     user-select: all
 } */
+
+.ingredientUL{
+	margin:1rem 0;
+}
+.titleLine{
+	mergin-top:0.5rem;
+}

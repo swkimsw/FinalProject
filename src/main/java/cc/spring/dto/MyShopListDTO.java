@@ -1,6 +1,6 @@
 package cc.spring.dto;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class MyShopListDTO {
 	private int applyCode;
@@ -20,6 +20,7 @@ public class MyShopListDTO {
 	private int businessCode;
 	private int statusCode;
 	private Timestamp deadLine;
+	private String deadLineTemp;
 	private String title;
 	private String productName;
 	private String productPrice;
@@ -43,22 +44,23 @@ public class MyShopListDTO {
 	
 	//일반회원 내 구매목록용 생성자
 	public MyShopListDTO(int applyCode,int membercode,int quantity,Timestamp applyDate,String name,String companyName,
-			int groupbuyingCode,int businessCode,int statusCode,Timestamp deadLine,String title, String productName,
+			int groupbuyingCode,int businessCode,int statusCode,Timestamp deadLine,String deadLineTemp,String title, String productName,
 			String productPrice,Timestamp regDate,String path,String sysName ) {
 		super();
 		this.applyCode = applyCode;
 		this.memberCode = membercode;
-		this.quantity = quantity;
-		this.applyDate = applyDate;
+		this.quantity = quantity;//
+		this.applyDate = applyDate;//
 		this.name = name;
-		this.companyName = companyName;
+		this.companyName = companyName;//
 		this.groupbuyingCode = groupbuyingCode;
 		this.businessCode = businessCode;
-		this.statusCode = statusCode;
-		this.deadLine = deadLine;
-		this.title = title;
-		this.productName = productName;
-		this.productPrice = productPrice;
+		this.statusCode = statusCode;//
+		this.deadLine = deadLine;//
+		this.deadLineTemp = deadLineTemp;
+		this.title = title;//
+		this.productName = productName;//
+		this.productPrice = productPrice;//
 		this.regDate = regDate;
 		this.path = path;
 		this.sysName = sysName;
@@ -208,6 +210,14 @@ public class MyShopListDTO {
 	public void setDeadLine(Timestamp deadLine) {
 		this.deadLine = deadLine;
 	}
+	
+	public String getDeadLineTemp() {
+		return deadLineTemp;
+	}
+	public void setDeadLineTemp(String deadLineTemp) {
+		this.deadLineTemp = deadLineTemp;
+	}
+
 	public String getTitle() {
 		return title;
 	}

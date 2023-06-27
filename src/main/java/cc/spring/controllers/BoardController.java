@@ -80,11 +80,14 @@ public class BoardController {
 	public String list_Announcement() throws Exception{
 
 		System.out.println("adffghjgfdsaqwerthy");
-	int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		
+		int cpage = (int) session.getAttribute("cpage");
+		if(cpage == 0) {
+			 cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		}
+
 	System.out.println(cpage);
 		
-	
-	
 		String user =  (String)session.getAttribute("id"); //로그인한 사람의 id가져오기  (관리자만 글 작성할수있는 버튼보여야함)
 		System.out.println(user);
 
@@ -233,6 +236,8 @@ public class BoardController {
 		System.out.println(membercode);
 		boardService.insertAnnouncement(dto,membercode);//공지게시판 작성하기
 
+		session.setAttribute("cpage", 1);
+		
 		return "redirect:/board/announcement"; //공지게시판으로 가기
 	}
 
@@ -273,8 +278,7 @@ public class BoardController {
 //	}
 //
 
-
-	@ResponseBody //ajax로 이미지 주고받는거
+		@ResponseBody //ajax로 이미지 주고받는거
 	@RequestMapping(value="/uploadImage", method=RequestMethod.POST)
 	public List<JsonObject> uploadSummernoteImageFile(@RequestParam("image") MultipartFile[] images) {
 		List<JsonObject> resp = new ArrayList<>();
@@ -315,9 +319,6 @@ public class BoardController {
 
 
 //===========================================================================================
-
-
-
 	//자유게시판 글 수정
 	@ResponseBody
 	@RequestMapping("updateFree")
@@ -369,7 +370,19 @@ public class BoardController {
 			}
 		
 		
+	//공지게시판 글 삭제
+	
+	@RequestMapping("deleteAnnouncement")
+	public String deleteAnnouncement() {
 
+		int code =  Integer.parseInt((String)request.getParameter("code"));
+		System.out.println(code);
+		
+		int result = boardService.deleteAnnouncement(code); 
+
+		return "redirect: /board/announcement" ;
+
+	}
 
 	
 
