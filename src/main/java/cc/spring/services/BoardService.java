@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReportDTO;
 import cc.spring.dto.ReviewImgDTO;
 import cc.spring.repositories.BoardDAO;
 
@@ -196,6 +197,27 @@ public class BoardService {
 
 	public int deleteAnnouncement(int code) {
 		return boarddao.deleteAnnouncement(code);
+	}
+
+
+	public int deleteReview(int code) {
+		return boarddao.deleteReview(code);
+	}
+
+
+	public int deleteFree(int code) {
+		return boarddao.deleteFree(code);
+	}
+
+
+	public String selectReporteeName(int reporteeCode,int authGradeCode) {
+		return boarddao.selectReporteeName(reporteeCode,authGradeCode);
+	}
+
+
+	public int insertReport(ReportDTO dto) {
+		
+		return boarddao.insertReport(dto);
 	}
 
 

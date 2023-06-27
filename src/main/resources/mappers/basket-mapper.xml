@@ -27,4 +27,10 @@
 	<update id="updateUnchecked">
 		update basket set statusCode=4001 where memberCode=${memberCode} and code=${code}
 	</update>
+	<update id="successCount">
+		update gptCount set basketSuccess=basketSuccess+1 where memberCode=${memberCode}
+	</update>
+	<update id="failCount">
+		update gptCount set basketFail=basketFail+1 where memberCode=${memberCode}
+	</update>
 </mapper>

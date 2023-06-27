@@ -65,25 +65,26 @@ public class BasketController {
 		return result+"";
 	}
 	
-	@RequestMapping("insertBasket")
-	public void insertBasket(BasketDTO dto) {
+	@ResponseBody
+	@RequestMapping(value="insertOne", produces="text/plain; charset=utf8;")
+	public String insertOne(String name) {
 		int memberCode = (int)session.getAttribute("code");
-		dto.setCode(memberCode);
-		bService.insertBasket(dto);
+		return bService.insertOne(new BasketDTO(0,memberCode, name, 0))+"";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value="deleteBasket", produces="text/plain; charset=utf8;")
-	public void deleteBasket(int basketCode) {
-		int memberCode = (int)session.getAttribute("code");
-		BasketDTO dto = new BasketDTO(basketCode, memberCode, null, 0);
-		bService.deleteBasket(dto);
+	@RequestMapping("insertBasket")
+	public void insertBasket() {
+		
 	}
-	@ResponseBody
-	@RequestMapping(value="deleteAllBasket", produces="text/plain; charset=utf8;")
-	public void deleteAllBasket() {
-		int memberCode = (int)session.getAttribute("code");
-		bService.deleteAllBasket(memberCode);
+	
+	@RequestMapping("deleteBasket")
+	public void deleteBasket() {
+		
+	}
+	
+	@RequestMapping("updateBasket")
+	public void updateBasket () {
+		
 	}
 	
 	@ResponseBody
@@ -100,5 +101,19 @@ public class BasketController {
 		String[] targetIngredients = g.fromJson(aiBasketArr, String[].class);
 		int memberCode = (int)session.getAttribute("code");
 		bService.insertAiIngredients(memberCode, targetIngredients);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="successCount", produces="text/plain; charset=utf8;")
+	public void successCount() {
+		int memberCode = (int)session.getAttribute("code");
+		bService.successCount(memberCode);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="failCount", produces="text/plain; charset=utf8;")
+	public void failCount() {
+		int memberCode = (int)session.getAttribute("code");
+		bService.failCount(memberCode);
 	}
 }
