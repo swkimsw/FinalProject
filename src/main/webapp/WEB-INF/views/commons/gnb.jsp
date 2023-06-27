@@ -129,7 +129,7 @@
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											정보 보기</a></li>
 									</c:if>
-									<li class="login"><a href="#"
+									<li class="login"><a href="/meal/toMyMeal"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											식단 보기</a></li>
 								</ul>

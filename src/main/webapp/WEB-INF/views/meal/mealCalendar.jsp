@@ -416,6 +416,18 @@
                             <ul class="list-group" id="myMealList">
 
                             </ul>
+                            <div class="d-flex align-items-center justify-content-center">
+                            	<div id="waitingSpinner"  style="display: none;">
+                            	<div class="d-flex justify-content-center">
+                    				<div class="spinner-border m-3 text-success" role="status">
+  										<span class="visually-hidden"></span>
+									</div>
+                            	</div>
+								<div class="d-flex justify-content-center">
+  									<span class="loadingText">재료를 추출하는 중입니다...</span>
+								</div>
+								</div>
+                            </div>
                         </div>
                         <div class="modal-footer justify-content-center">
                           <button type="button" class="btn btn-success" id="btnExtract">재료 추출</button>

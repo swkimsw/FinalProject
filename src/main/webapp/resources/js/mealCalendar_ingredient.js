@@ -7,7 +7,6 @@
             //select 된 메뉴 정보를 가지고 재료추출 페이지로 이동
             let meals = [];
             let targets = document.getElementById("c-body-large").getElementsByClassName("meal-box");
-            console.log(targets);
 
             for(let i=0;i<targets.length;i++){
                 if(targets[i].innerHTML){
@@ -53,6 +52,14 @@
         		data:{
                     targetList:JSON.stringify(targetMeals),
                 },
+                beforeSend : function() {
+                    $("#waitingSpinner").fadeIn();
+                    $("#myMealList").slideUp();
+				},
+				complete : function() {
+					$("#waitingSpinner").fadeOut();
+            		$("#myMealList").slideDown();
+				}
         	}).done(function(resp){
                 //다음 모달창에 추출한 재료 목록 append하고 띄워주기
                 let ingredientList = JSON.parse(resp);
@@ -70,9 +77,13 @@
                     });
                     $("#ingredientList").append(ul);
                 });
+                
         		$("#ingredientModal").modal('hide');
             	$("#ingredientModal2").modal('show');
+            	
         	});
+        	
+        	
         });
 
         //장바구니에 저장할 재료 선택 이벤트 (checkBox에 value 설정)

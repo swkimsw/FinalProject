@@ -50,6 +50,10 @@ public class BasketService {
 		}
 	}
 	
+	public int insertOne(BasketDTO dto) {
+		return basketDAO.insertBasket(dto);
+	}
+	
 	public List<BasketDTO> selectBasket(int memberCode){
 		return basketDAO.selectBasket(memberCode);
 	}

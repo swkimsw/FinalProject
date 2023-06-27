@@ -54,7 +54,7 @@
          <div class="header title">
             <h2 class="text-center p-4">나의 장바구니 목록</h2>
          </div>
-         <div class="row">
+         <div class="row pb-4">
             <div class="col-6 d-none d-md-block col-md-6 extraBox">
                <div class="d-flex justify-content-center">
                   <img src="/resources/img/grocery.png" alt="logo"
@@ -85,43 +85,6 @@
                                  class="btn btn-success position-absolute btnDeleteOne">X</button>
                            </div>
                         </c:forEach>
-                        <div class="todo-item position-relative">
-                           <div class="checker">
-                              <span class=""><input type="checkbox" class="checkOne"></span>
-                           </div>
-                           <span>쌀</span> <a href="javascript:void(0);"
-                              class="float-right remove-todo-item"><i class="icon-close"></i></a>
-                           <button type="button"
-                              class="btn btn-success position-absolute btnDeleteOne">X</button>
-                        </div>
-                        <div class="todo-item position-relative">
-                           <div class="checker">
-                              <span class=""><input type="checkbox" class="checkOne"></span>
-                           </div>
-                           <span>우유</span> <a href="javascript:void(0);"
-                              class="float-right remove-todo-item"><i class="icon-close"></i></a>
-                           <button type="button"
-                              class="btn btn-success position-absolute btnDeleteOne">X</button>
-                        </div>
-
-                        <div class="todo-item position-relative">
-                           <div class="checker">
-                              <span class=""><input type="checkbox" class="checkOne"></span>
-                           </div>
-                           <span>시리얼</span> <a href="javascript:void(0);"
-                              class="float-right remove-todo-item"><i class="icon-close"></i></a>
-                           <button type="button"
-                              class="btn btn-success position-absolute btnDeleteOne">X</button>
-                        </div>
-                        <div class="todo-item position-relative">
-                           <div class="checker">
-                              <span><input type="checkbox" class="checkOne"></span>
-                           </div>
-                           <span>햄스터</span> <a href="javascript:void(0);"
-                              class="float-right remove-todo-item"><i class="icon-close"></i></a>
-                           <button type="button"
-                              class="btn btn-success position-absolute btnDeleteOne">X</button>
-                        </div>
                      </div>
                   </div>
                </div>

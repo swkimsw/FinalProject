@@ -21,7 +21,6 @@ $( document ).ready(function() {
 					code:target.prop("id"),
                 },
             }).done(function(resp){
-                console.log(11111111);
                 target.attr("status","4002");
                 target.parent().parent().parent().toggleClass('complete');
             });
@@ -33,7 +32,6 @@ $( document ).ready(function() {
 					code:target.prop("id"),
                 },
             }).done(function(resp){
-                console.log(222222222);
                 target.attr("status","4001");
                 target.parent().parent().parent().toggleClass('complete');
             });
@@ -89,15 +87,17 @@ $( document ).ready(function() {
     $(".add-task").keypress(function (e) {
         if ((e.which == 13)&&(!$(this).val().length == 0)) {
             // DB에 입력하기
+            let inputBox = $(this);
+            let name = $(this).val();
             $.ajax({
                 url:"/basket/insertOne",
                 type:"post",
                 data:{
-                    name:$(this).val(),
+                    name:name,
                 },
             }).done(function(code){
-                $(`<div class="todo-item position-relative"><div class="checker"><span class=""><input type="checkbox" class="checkOne" id=${code} status="4001"></span></div> <span>' + $(this).val() + '</span> <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a><button type="button" class="btn btn-success position-absolute btnDeleteOne">X</button></div>`).insertAfter('.todo-list .todo-item:last-child');
-                $(this).val('');
+                inputBox.val("");
+                $(`<div class="todo-item position-relative"><div class="checker"><span class=""><input type="checkbox" class="checkOne" id=${code} status="4001"></span></div> <span>${name}</span> <a href="javascript:void(0);" class="float-right remove-todo-item"><i class="icon-close"></i></a><button type="button" class="btn btn-success position-absolute btnDeleteOne">X</button></div>`).insertAfter('.todo-list .todo-item:last-child');
             });
 
         } else if(e.which == 13) {
