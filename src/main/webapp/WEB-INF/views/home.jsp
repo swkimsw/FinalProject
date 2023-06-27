@@ -615,6 +615,24 @@
 		today.setDate(today.getDate() + addDays);
 		return dateFormat(today);
 	}
+	
+	const successMeal = () => {
+		$.ajax({
+			url : "/meal/successMeal",
+			type : "post"
+		}).done(function(){
+			console.log("successMeal+++++");
+		});
+	};
+	
+	const failMeal = () => {
+		$.ajax({
+			url : "/meal/failMeal",
+			type : "post"
+		}).done(function(){
+			console.log("failMeal+++++");
+		});
+	};
 
 	$("#sendBtn").on("click", function() {
 
@@ -639,6 +657,8 @@
 			alert("아침, 점심, 저녁중 반드시 하나이상은 선택하셔야 합니다.");
 			return false;
 		}
+		
+		
 		
 		const makeAiMealAjax = (dayTime, special, timeStr, count) => {
 			$.ajax({
@@ -669,11 +689,13 @@
 			
 				$("#aiMealAddBtn").removeAttr("hidden");
 				$("#sendBtn").attr("hidden", true);
-
+				
+				successMeal();
 				alert("생성 성공~!");
 			}).error(function(error){
 				console.log(error);
 				if(count > 0){
+					failMeal();
 					makeAiMealAjax(dayTime, special, timeStr, count-1);
 				}
 			});

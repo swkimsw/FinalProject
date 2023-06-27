@@ -2,26 +2,21 @@ package cc.spring.dto;
 
 public class gptCountDTO {
 	private int memberCode;
-	private int mealCount;
-	private int mealSucess;
+	private int mealSuccess;
 	private int mealFail;
-	private int basketCount;
-	private int basketSucess;
+	private int basketSuccess;
 	private int basketFail;
 	
 	public gptCountDTO() {
 		super();
 	}
 
-	public gptCountDTO(int memberCode, int mealCount, int mealSucess, int mealFail, int basketCount, int basketSucess,
-			int basketFail) {
+	public gptCountDTO(int memberCode, int mealSuccess, int mealFail, int basketSuccess, int basketFail) {
 		super();
 		this.memberCode = memberCode;
-		this.mealCount = mealCount;
-		this.mealSucess = mealSucess;
+		this.mealSuccess = mealSuccess;
 		this.mealFail = mealFail;
-		this.basketCount = basketCount;
-		this.basketSucess = basketSucess;
+		this.basketSuccess = basketSuccess;
 		this.basketFail = basketFail;
 	}
 
@@ -33,20 +28,12 @@ public class gptCountDTO {
 		this.memberCode = memberCode;
 	}
 
-	public int getMealCount() {
-		return mealCount;
+	public int getMealSuccess() {
+		return mealSuccess;
 	}
 
-	public void setMealCount(int mealCount) {
-		this.mealCount = mealCount;
-	}
-
-	public int getMealSucess() {
-		return mealSucess;
-	}
-
-	public void setMealSucess(int mealSucess) {
-		this.mealSucess = mealSucess;
+	public void setMealSuccess(int mealSuccess) {
+		this.mealSuccess = mealSuccess;
 	}
 
 	public int getMealFail() {
@@ -57,20 +44,12 @@ public class gptCountDTO {
 		this.mealFail = mealFail;
 	}
 
-	public int getBasketCount() {
-		return basketCount;
+	public int getBasketSuccess() {
+		return basketSuccess;
 	}
 
-	public void setBasketCount(int basketCount) {
-		this.basketCount = basketCount;
-	}
-
-	public int getBasketSucess() {
-		return basketSucess;
-	}
-
-	public void setBasketSucess(int basketSucess) {
-		this.basketSucess = basketSucess;
+	public void setBasketSuccess(int basketSuccess) {
+		this.basketSuccess = basketSuccess;
 	}
 
 	public int getBasketFail() {
@@ -80,6 +59,4 @@ public class gptCountDTO {
 	public void setBasketFail(int basketFail) {
 		this.basketFail = basketFail;
 	}
-	
-	
 }
