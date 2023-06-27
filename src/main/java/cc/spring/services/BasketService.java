@@ -54,6 +54,22 @@ public class BasketService {
 		return basketDAO.selectBasket(memberCode);
 	}
 	
+	public int insertBasket(BasketDTO dto) {
+		return basketDAO.insertBasket(dto);
+	}
+	
+	public int deleteBasket(BasketDTO dto) {
+		return basketDAO.deleteBasket(dto);
+	}
+	
+	public int deleteAllBasket(int memberCode) {
+		return basketDAO.deleteAllBasket(memberCode);
+	}
+	
+	public int updateBasket(BasketDTO dto) {
+		return basketDAO.updateBasket(dto);
+	}
+	
 	public int updateChecked(BasketDTO dto) {
 		return basketDAO.updateChecked(dto);
 	}
