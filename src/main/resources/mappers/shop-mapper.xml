@@ -51,6 +51,12 @@
 	<select id="isExistRequest" resultType="int">
 		select count(*) from requestlist where parentcode=${code} and membercode=${memberCode}
 	</select>
+	
+	<select id="countShopRequest" resultType="int">
+		select count(*) from requestlist r
+		join groupbuying g on r.parentcode = g.code
+		where g.membercode = ${code} and g.statuscode = 1001
+	</select>
 
 
 	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">

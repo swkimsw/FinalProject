@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
-import cc.spring.dto.BusinessMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.services.BusinessMemberService;
+import cc.spring.services.ShopService;
 import cc.spring.services.SmsService;
 
 @Controller
@@ -28,6 +28,9 @@ public class BusinessMemberController {
 	
 	@Autowired
 	private BusinessMemberService bms;
+	
+	@Autowired
+	private ShopService ss;
 	
 	//  로그인 창으로 이동
 	@RequestMapping("login_form")
@@ -46,10 +49,14 @@ public class BusinessMemberController {
 				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 				MemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
 				
+				// 판매자 로그인 시 들어온 요청 수
+				int countShopRequest = ss.countShopRequest(bmd.getCode());
+				
 				session.setAttribute("code", bmd.getCode());
 				session.setAttribute("id",bmd.getBusinessId());
 				session.setAttribute("companyName",bmd.getCompanyName());
 				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
+				session.setAttribute("countShopRequest",countShopRequest);
 				System.out.println("로그인 실행!");
 				return "redirect:/";
 			}
