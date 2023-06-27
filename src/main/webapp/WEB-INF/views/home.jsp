@@ -60,15 +60,20 @@
 	width: 256px;
 	height: 256px;
 }
-
+/*
 @keyframes rotate_image{
-	100% {
-        transform: rotate(360deg);
-    }
+	100% {transform: rotate(360deg);}
 }
+*/
+
 .selectBox {
 	padding: 2rem;
-	background-color: #fdeeb39a;
+	background-color: #f9edbd9a;
+}
+@media (max-width: 800px) {
+	.form-check{
+		font-size : small;
+	}
 }
 </style>
 </head>

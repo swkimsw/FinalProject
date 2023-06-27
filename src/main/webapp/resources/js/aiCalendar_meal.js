@@ -202,12 +202,15 @@ function aiMealPrint(resp) {
     today = new Date();
     cloneToday = new Date(today);
     $(resp).each(function (index, item) {
+    	console.log("item --> " + item.meal, "index--> " + index); 
         for (let day = 0; day <= 6; day++) {
             if (dateAdd(cloneToday, day) == item.mealDate) {
                 for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
                     if (item.timeCode == timeCodes[mealIndex]) {
                         var targetClass = ".day" + (day + 1) + "." + meals[mealIndex];
+                        console.log(targetClass);
                         $(targetClass).find(".meal-box").append(item.meal, "<br>");
+                        console.log(1111111);
                     }
                 }
             }
