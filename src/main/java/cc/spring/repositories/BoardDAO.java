@@ -108,6 +108,24 @@ public class BoardDAO {
 
 //=====================================================================
 	
+	public void insertViewCount(int code, int viewCount,int headlinecode) {
+		
+		
+		Map<String ,Object> param = new HashMap<>();
+		param.put("code", code);
+		param.put("viewCount", viewCount);
+		
+		
+		if(headlinecode == 1001) {
+			 mybatis.update("Board.updateAnnouncementView",param);
+		}else if(headlinecode ==1002 ) {
+			 mybatis.update("Board.updateFreeView",param);
+		}else {
+			 mybatis.update("Board.updateReviewView",param);
+		}
+	}
+
+	
 	public BoardFreeDTO selectFreeContent(int code) {
 		return  mybatis.selectOne("Board.selectFreeContent",code);
 	}
@@ -177,6 +195,26 @@ public class BoardDAO {
 	public int insertReport(ReportDTO dto) {
 		return mybatis.insert("Board.insertReport",dto);
 	}
+
+
+	public int updateLikeCount(String code,int likeCount,int boardKindCode) {
+		
+		
+		Map<String ,Object> param = new HashMap<>();
+		param.put("code", code);
+		param.put("likeCount", likeCount);
+		
+		
+		if(boardKindCode == 1001) {
+			return mybatis.insert("Board.updateAnnouncementLike",param);
+		}else if(boardKindCode == 1002) {
+			return mybatis.insert("Board.updateFreeLike",param);
+		}else {
+			return mybatis.insert("Board.updateReviewLike",param);
+		}
+		
+	}
+
 	
 // =======================================================================================
 	

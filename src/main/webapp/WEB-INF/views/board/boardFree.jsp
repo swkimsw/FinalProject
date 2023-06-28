@@ -106,7 +106,7 @@
                         <tbody>
 
                             <c:forEach var="l" items="${list}">
-                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}')">
+                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}&viewCount=${l.viewCount}')">
                                     <td>${l.code}</td>
                                     <td style="width: 50%;">${l.title}</td>
                                   <c:choose>
@@ -174,6 +174,7 @@
              <script>
             
             function goToLink(url) {
+            	console.log(url)
               window.location.href = url;
             }
         

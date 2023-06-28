@@ -68,6 +68,7 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 
 <!-- ========================================================================================== -->
 
+
 	<!-- 자유게시판리스트 조건에 따라 가져오기 -->
 	<select id="selectFreelist" resultType="cc.spring.dto.BoardFreeDTO">
 		select * from ( select boardFree_view.*, row_number() over(order by code desc) as rn from boardFree_view )
@@ -105,14 +106,12 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 <!-- ========================================================================================== -->
 
 	<!-- 자유게시판 해당 글 가져오기 -->
-	<select id="selectFreeContent"
-		resultType="cc.spring.dto.BoardFreeDTO">
+	<select id="selectFreeContent" resultType="cc.spring.dto.BoardFreeDTO">
 		select * from boardfree_view where code = #{code}
 	</select>
-	
+
 	<!-- 공지게시판 해당 글 가져오기 -->
-	<select id="selectAnnouncementContent"
-		resultType="cc.spring.dto.BoardAnnouncementDTO">
+	<select id="selectAnnouncementContent" resultType="cc.spring.dto.BoardAnnouncementDTO">
 		select * from boardAnnouncement_view where code = #{code}
 	</select>
 	
@@ -121,6 +120,27 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		resultType="cc.spring.dto.BoardReviewDTO">
 		select * from boardReview_view where code = #{code}
 	</select>
+	
+<!-- ========================================================================================== -->	
+
+	<!-- 공지게시판 조회수 수 증가 -->
+	<update id="updateAnnouncementView">
+	update boardAnnouncement set viewcount = ${viewCount} where code = #{code}
+	</update>
+	
+	
+	<!-- 자유게시판 조회수 수 증가 -->
+	<update id="updateFreeView">
+	update boardFree set viewcount = ${viewCount} where code = #{code}
+	</update>
+
+
+	<!-- 리뷰게시판 조회수 수 증가 -->
+	<update id="updateReviewView">
+	update boardReview set viewcount = ${viewCount} where code = #{code}
+	</update>
+	
+	
 <!-- ========================================================================================== -->
 
 <!-- 자유게시판 수정 -->
@@ -174,11 +194,30 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 </select>
 	
 	
-	<!-- 게시판 신고 기능 -->
+<!-- 게시판 신고 기능 -->
 	<insert id="insertReport" >
 insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
 	</insert>	
 	
+
+<!-- ========================================================================================== -->	
+
+	<!-- 공지게시판 좋아요 수 증가 -->
+	<update id="updateAnnouncementLike">
+	update boardAnnouncement set likecount = ${likeCount} where code = #{code}
+	</update>
+
+	<!-- 자유게시판 좋아요 수 증가 -->
+	<update id="updateFreeLike">
+	update boardFree set likecount = ${likeCount} where code = #{code}
+	</update>
+
+
+	<!-- 리뷰게시판 좋아요 수 증가 -->
+	<update id="updateReviewLike">
+	update boardReview set likecount = ${likeCount} where code = #{code}
+	</update>
+
 <!-- ========================================================================================== -->
 	
 	<!-- 자유게시판 댓글입력 -->
@@ -195,5 +234,10 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 		ORDER BY rf.code ASC
 	</select>
 	
+
 	
+	
+
+
+
 </mapper>
