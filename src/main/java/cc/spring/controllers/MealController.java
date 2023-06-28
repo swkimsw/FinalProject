@@ -54,6 +54,7 @@ public class MealController {
 	//ajax
 	@RequestMapping("insertMeal")
 	public void insertMeal(MealDTO dto) {
+		System.out.println(dto.getMeal());
 		int memberCode = (int)session.getAttribute("code");
 		dto.setMemberCode(memberCode);
 		mService.insertMeal(dto);
