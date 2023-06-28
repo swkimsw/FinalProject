@@ -115,6 +115,13 @@
                     margin-top: -15px;
                     font-size: small;
                 }
+                .replyMemberNickNameOrCompanyName {
+                	display: inline;
+                }
+                .me {
+                	font-size: 12px; 
+                	display: inline;
+                }
             </style>
 
         </head>
@@ -358,35 +365,70 @@
                                     <!-- Comment form-->
                                     <form action="/board/freeReply" id="replyForm" method="post">
                                     <div contenteditable="true" id="write_reply" class="form-control mt-3" rows="3" placeholder="내용을 입력하세요(200자 미만)"></div>
-                                    <input type="hidden" name="context" id="hidden_write_reply">
+                                    <input type="hidden" name="replyContent" id="hidden_write_reply">
+                                    <input type="hidden" name="boardFreeCode" value="${result.code}">
+                                    <input type="hidden" name="cpage" value="${cpage}">                                    
                                     <button class="btn btn-primary btn-m mt-2" id="replyWriteBtn" style="float:right;">작성</button>
                                     </form>
                                     <!-- Comment with nested comments-->
 
                                     <!-- Parent comment-->
+                                    <c:forEach var="i" items="${replyList}">
                                     <div>
-                                    <hr style="margin-top: 60px;">
-	                                    <div class="d-flex mt-5">
-	                                        <div class="flex-shrink-0"><img class="rounded-circle"
-	                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-	                                        </div>
-	                                        <div class="ms-3">
-	                                            <div class="fw-bold">작성자</div>
-	                                            <div class="reply">ㄴㄴsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>
-	                                        </div>
-	                                    </div>
-	                                    <div class="button-container" style="margin-top: 10px; float:right;">
-		                                   	<button class="btn btn-outline-primary btn-sm"
-		                                               type="button">수정</button>
-		                                    <button class="btn btn-outline-primary btn-sm"
-		                                               type="button">취소</button>
-	                                    </div>
+                                    <c:choose>
+			                            <c:when test="${user == i.memberCode}">
+	                                    <hr style="margin-top: 60px;">
+		                                    <div class="d-flex mt-5">
+		                                        <div class="flex-shrink-0"><img class="rounded-circle"
+		                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+		                                        </div>
+	
+		                                        <div class="ms-3">
+		                                            <div class="fw-bold">
+		                                            	<div class="replyMemberNickNameOrCompanyName">${i.nickName}</div> 
+		                                            	<div class="replyMemberNickNameOrCompanyName">${i.companyName}</div> 
+		                                            	<div class="me">(본인)</div>
+		                                            </div>
+		                                            <div class="reply">${i.content}</div>
+		                                        </div>
+		                                    </div>
+
+			                                    <div class="button-container" style="margin-top: 10px; float:right;">
+			                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
+                                                                class="bi bi-hand-thumbs-up"></i>0</button>
+				                                   	<button class="btn btn-outline-primary btn-sm"
+				                                               type="button">수정</button>
+				                                    <button class="btn btn-outline-primary btn-sm"
+				                                               type="button">취소</button>
+			                                    </div>
+		                                    </c:when>
+		                                    <c:otherwise>
+		                                    	<hr style="margin-top: 60px;">
+			                                    <div class="d-flex mt-5">
+			                                        <div class="flex-shrink-0"><img class="rounded-circle"
+			                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+			                                        </div>
+		
+			                                        <div class="ms-3">
+			                                            <div class="fw-bold" >${i.nickName}</div>
+			                                            <div class="fw-bold" >${i.companyName}</div>
+			                                            <div class="reply">${i.content}</div>
+			                                        </div>
+			                                    </div>
+                                                    <div class="button-container" style="float:right ;">
+                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
+                                                                class="bi bi-hand-thumbs-up"></i>0</button>
+                                                        <button class="btn btn-outline-primary btn-sm"
+                                                            type="button">신고</button>
+                                                    </div>
+		                                    </c:otherwise>
+	                                    </c:choose>
                                     </div>
-                                    
+                                    </c:forEach>
 
 
                                     <!-- child comment-->
-<!--                                     <div class="ms-5">
+<!--                                      <div class="ms-5">
 
                                         <div class="d-flex mt-1">
 
@@ -406,7 +448,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>  -->
 
                                     <!-- child comment-->
 <!--                                     <div class="ms-5">
