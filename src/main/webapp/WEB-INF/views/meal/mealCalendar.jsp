@@ -314,7 +314,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -325,7 +325,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -336,7 +336,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -347,7 +347,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -358,7 +358,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -412,7 +412,7 @@
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p class="m-3 mt-0">재료를 추출하여 장바구니에 등록해 보세요!</p>
+                            <p class="m-3 mt-0" id="iModalInfo">재료를 추출하여 장바구니에 등록해 보세요!</p>
                             <ul class="list-group" id="myMealList">
 
                             </ul>

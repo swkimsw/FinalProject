@@ -199,14 +199,14 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
 	</insert>	
 	
+
 <!-- ========================================================================================== -->	
 
 	<!-- 공지게시판 좋아요 수 증가 -->
 	<update id="updateAnnouncementLike">
 	update boardAnnouncement set likecount = ${likeCount} where code = #{code}
 	</update>
-	
-	
+
 	<!-- 자유게시판 좋아요 수 증가 -->
 	<update id="updateFreeLike">
 	update boardFree set likecount = ${likeCount} where code = #{code}
@@ -217,6 +217,26 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 	<update id="updateReviewLike">
 	update boardReview set likecount = ${likeCount} where code = #{code}
 	</update>
+
+<!-- ========================================================================================== -->
+	
+	<!-- 자유게시판 댓글입력 -->
+	<insert id="insertFreeReply">
+		insert into replyfree values(reply_free_seq.nextval, #{postCode}, #{memberCode}, #{content}, #{likeCount}, sysdate, null, null)
+	</insert>
+	
+	<!-- 자유게시판 댓글출력 -->
+	<select id="selectReplyFreeList" resultType="cc.spring.dto.ReplyFreeDTO">
+		SELECT rf.code, rf.postcode, rf.membercode, m.nickname, m.companyname, rf.content, rf.likecount, rf.regdate, rf.moddate, rf.deldate
+		FROM replyfree rf
+		JOIN member m ON rf.membercode = m.code
+		WHERE rf.postcode = #{postCode}
+		ORDER BY rf.code ASC
+	</select>
+	
+
+	
+	
 
 
 

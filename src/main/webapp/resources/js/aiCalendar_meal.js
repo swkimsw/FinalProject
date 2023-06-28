@@ -213,4 +213,12 @@ function aiMealPrint(resp) {
             }
         }
     });
+    
+	//meal-box안에 내용물이 존재할 경우 draggable하게 설정
+	let mealBoxes = document.getElementsByClassName("meal-box");
+	Array.prototype.forEach.call(mealBoxes, (mealBox) => {
+    	if (mealBox.innerHTML) {
+        	mealBox.setAttribute("draggable", true);
+    	}
+	});
 }
