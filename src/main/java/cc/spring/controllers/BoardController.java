@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +22,7 @@ import com.google.gson.JsonObject;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.services.BoardService;
 import cc.spring.services.FileService;
@@ -212,6 +211,11 @@ public class BoardController {
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
 
 		request.setAttribute("cpage", cpage);
+		
+		// 게시판에 달린 댓글 가져오기
+		List<ReplyFreeDTO> replyList = boardService.selectReplyFreeList(code);
+		request.setAttribute("replyList", replyList);
+		
 		return "/board/FreeContent";
 	}
 
@@ -505,8 +509,10 @@ public class BoardController {
 		
 	// 자유게시판 댓글 작성
 	@RequestMapping("freeReply")
-	public void freeReply(String context) {
-		System.out.println(context);
+	public String freeReply(String replyContent, int boardFreeCode, int cpage) {
+		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
+		int result = boardService.insertFreeReply(dto);
+		return "redirect:/board/FreeContent?code="+boardFreeCode+"&cpage="+cpage;
 	}
 
 
