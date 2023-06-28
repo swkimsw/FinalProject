@@ -125,19 +125,19 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 
 	<!-- 공지게시판 조회수 수 증가 -->
 	<update id="updateAnnouncementView">
-	update boardAnnouncement set viewcount = ${viewCount} where code = #{code}
+	update boardAnnouncement set viewcount = viewcount+1 where code = #{code}
 	</update>
 	
 	
 	<!-- 자유게시판 조회수 수 증가 -->
 	<update id="updateFreeView">
-	update boardFree set viewcount = ${viewCount} where code = #{code}
+	update boardFree set viewcount = viewcount+1 where code = #{code}
 	</update>
 
 
 	<!-- 리뷰게시판 조회수 수 증가 -->
 	<update id="updateReviewView">
-	update boardReview set viewcount = ${viewCount} where code = #{code}
+	update boardReview set viewcount = viewcount+1 where code = #{code}
 	</update>
 	
 	
@@ -231,7 +231,7 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 		FROM replyfree rf
 		JOIN member m ON rf.membercode = m.code
 		WHERE rf.postcode = #{postCode}
-		ORDER BY rf.code ASC
+		ORDER BY rf.code asc
 	</select>
 	
 
