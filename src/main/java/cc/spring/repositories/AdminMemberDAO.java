@@ -1,6 +1,7 @@
 package cc.spring.repositories;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -26,5 +27,25 @@ public class AdminMemberDAO {
 		param.put("id", id);
 		param.put("pw", pw);
 		return mybatis.selectOne("Admin.selectAdminMemberInfo",param);
+	}
+	
+	public int selectSuccessMeal() {
+		return mybatis.selectOne("Admin.selectSuccessMeal");
+	}
+	
+	public int selectFailMeal() {
+		return mybatis.selectOne("Admin.selectFailMeal");
+	}
+	
+	public int selectSuccessBasket() {
+		return mybatis.selectOne("Admin.selectSuccessBasket");
+	}
+	
+	public int selectFailBasket() {
+		return mybatis.selectOne("Admin.selectFailBasket");
+	}
+	
+	public List<MemberDTO> clientUserList() {
+		return mybatis.selectList("Admin.clientUserList");
 	}
 }

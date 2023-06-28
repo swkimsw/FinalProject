@@ -89,7 +89,7 @@
 
                             <c:forEach var="l" items="${list}">
 
-                                <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}&viewCount=${l.viewCount}')">
+                                <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
 
                                     <td>${l.code}</td>
                                     <td style="width: 50%;">${l.title}</td>

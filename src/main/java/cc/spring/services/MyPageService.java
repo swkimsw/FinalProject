@@ -8,16 +8,16 @@ import org.springframework.stereotype.Service;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
 import cc.spring.dto.MemberDTO;
-import cc.spring.repositories.ClientMyPageDAO;
+import cc.spring.repositories.MyPageDAO;
 
 @Service
-public class ClientMyPageService {
+public class MyPageService {
 
 	@Autowired
-	private ClientMyPageDAO cmdao;
+	private MyPageDAO cmdao;
 	//클라이언트 마이페이지 자유게시판 서비스
 	public List<BoardFreeDTO> myPageList(int code) {
-		System.out.println("죽고잡냐");
+		System.out.println("마이페이지 자유게시판");
 		return cmdao.selectCode(code);
 }
 	//클라이언트 마이페이지 후기게시판 서비스 

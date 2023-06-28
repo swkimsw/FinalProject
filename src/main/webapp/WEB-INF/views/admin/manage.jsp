@@ -65,6 +65,8 @@ table.dataTable tfoot td {
 		</c:import>
 	</header>
 	<main>
+	
+	
 		<div class="container fluid shadow p-3 mb-5 bg-body-tertiary rounded">
 			<div class="navi col-12 col-md-12 col-xl-12">
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -219,7 +221,7 @@ table.dataTable tfoot td {
 				alert("삭제완료!");
 			}
 		}
-	
+		
 	</script>
 </body>
 </html>

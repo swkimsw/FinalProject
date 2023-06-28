@@ -382,25 +382,25 @@
                                 <div class="card-body" class="mt-5 ">
 
                                     <!-- Comment form-->
-                                    <form action="/board/freeReply" id="replyForm" method="post">
+                                  
                                     <div contenteditable="true" id="write_reply" class="form-control mt-3" rows="3" placeholder="내용을 입력하세요(200자 미만)"></div>
                                     <input type="hidden" name="replyContent" id="hidden_write_reply">
                                     <input type="hidden" name="boardFreeCode" value="${result.code}">
                                     <input type="hidden" name="cpage" value="${cpage}">   
-                                    <input type="hidden" name="viewCount" value="${result.viewCount}">                                 
+                                                               
                                     <button class="btn btn-primary btn-m mt-2" id="replyWriteBtn" style="float:right;">작성</button>
-                                    </form>
+                                   
                                     <!-- Comment with nested comments-->
 
                                     <!-- Parent comment-->
                                     <c:forEach var="i" items="${replyList}">
-                                    <div>
+                                    <div id="rep">
                                     <c:choose>
 			                            <c:when test="${user == i.memberCode}">
 	                                    <hr style="margin-top: 60px;">
 		                                    <div class="d-flex mt-5">
-		                                        <div class="flex-shrink-0"><img class="rounded-circle"
-		                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+		                                        <div class="flex-shrink-0"><img class="rounded-circle" style="height:50px; width:50px; border:1px solid black;"
+		                                                src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="...">
 		                                        </div>
 	
 		                                        <div class="ms-3">
@@ -414,14 +414,16 @@
 		                                    </div>
 
 			                                    <div class="button-container" style="margin-top: 10px; float:right;">
-			                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>0</button>
-				                                   	<button class="btn btn-outline-primary btn-sm modiReplyBtn"
-				                                               type="button">수정</button>
-				                                   	<button class="btn btn-outline-primary btn-sm modiSuccessBtn"
-				                                               type="button">수정완료</button>
-				                                    <button class="btn btn-outline-primary btn-sm"
-				                                               type="button">취소</button>
+
+			                                    
+                                                      
+				                                   	<button class="btn btn-outline-primary btn-sm"
+				                                     id="cmodify" >수정</button>
+				                                     
+				                                     	<button class="btn btn-outline-primary btn-sm"
+				                                     id="cdelete" >삭제</button>
+				                                     
+				                                     
 			                                    </div>
 		                                    </c:when>
 		                                    <c:otherwise>
@@ -438,10 +440,13 @@
 			                                        </div>
 			                                    </div>
                                                     <div class="button-container" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>0</button>
+                                                    
+                                                        <button class="btn btn-outline-primary btn-sm">
+                                                         <i class="bi bi-hand-thumbs-up"></i>0</button>
+                                                         
                                                         <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">신고</button>
+                                                        id="report">신고</button>
+                                                        
                                                     </div>
 		                                    </c:otherwise>
 	                                    </c:choose>
@@ -625,9 +630,11 @@
                                     headLineCode: headlinecode
                                 }
                             }).done(function (resp) {
-                                if (resp == 1) {
+                            	console.log(resp)
+                                if (resp) {
+                                	
                                     alert("수정되었습니다");
-                                    location.reload();
+                                   location.reload();
 
                                 } else {
                                     alert("수정에 실패했습니다");
@@ -760,6 +767,55 @@
                     	}
                     	$("#hidden_write_reply").val($("#write_reply").html());
                     })
+                    
+                    
+                    // 댓글 작성하기 실행
+                    $("#replyWriteBtn").on("click", function() {
+                    	const write_text = $("#write_reply").html().replace(/&nbsp;/gi,' ');
+						const write = write_text.replace(/&lt;/gi,'<');
+						const wri = write.replace(/&gt;/gi, '>');
+						const wr = wri.replace(/&amp;/gi,'&');
+                    	$("#hidden_write_reply").val(wr);
+                    	if($("#hidden_write_reply").val().trim() == "") {
+                    		alert("댓글을 입력해주세요.");
+                    		return false;
+                    	}
+                    	if($("#hidden_write_reply").val().length >= 200) {
+                    		alert("200자 미만으로 입력하세요.");
+                    		return false;
+                    	}
+                    	$("#hidden_write_reply").val($("#write_reply").html());
+                    	
+                    	let replycontent = $("#hidden_write_reply").val();
+                
+                    	
+                    	
+                    	$.ajax({
+                            url: "/board/freeReply",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                            	replyContent: replycontent,
+                            	boardFreeCode: ${result.code},
+                            	cpage: ${cpage}
+                            }
+                        }).done(function (resp) {
+                        	  if (resp == 1) {
+                        	        alert("작성되었습니다");
+                        	        location.href="/board/FreeContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
+                        	   
+                        	    } else {
+                        	        alert("작성에 실패했습니다");
+                        	        return false;
+                        	    }
+                        })
+                    	
+                        
+                        
+                    	
+                    })
+                    
+                    
                     
                     $("#write_reply").on("keydown",function(e){
                     	if(e.key == "Enter" && e.shiftKey) {

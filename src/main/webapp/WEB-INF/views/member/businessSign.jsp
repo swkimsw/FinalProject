@@ -750,6 +750,9 @@ label {
 		// 인증번호 받기 버튼 이벤트
 		$("#phone_auth").on("click", function (evt) {
 			// 전화번호 check 및 인증번호 발송
+			// 인증번호 받기 버튼 비활성화
+			$("#phone_auth").attr("disabled", true);
+			
 			$.ajax({
 				url: "/businessMember/sendSmsSign",
 				type: "post",
@@ -770,8 +773,7 @@ label {
 
 				}
 				
-				// 인증번호 받기 버튼 비활성화
-				$("#phone_auth").attr("disabled", true);
+
 				
 				AuthTimer = new $ComTimer();
 				// 제한 시간
