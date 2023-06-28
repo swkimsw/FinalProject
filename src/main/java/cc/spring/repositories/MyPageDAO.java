@@ -13,7 +13,7 @@ import cc.spring.dto.BoardReviewDTO;
 import cc.spring.dto.MemberDTO;
 
 @Repository
-public class ClientMyPageDAO {
+public class MyPageDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 //	내가 쓴 자유 게시판 목록
