@@ -23,13 +23,16 @@ public class AdminController {
 		return "forward:/admin/index.html";
 	}
 	
-	@RequestMapping("selectSuccessMeal")
-	public void selectSuccessMeal() {
+	@ResponseBody
+	@RequestMapping(value = "selectSuccessMeal")
+	public int selectSuccessMeal() {
 		int successMeal = aService.selectSuccessMeal();
+		return successMeal;
 	}
 	
 	@RequestMapping("selectFailMeal")
 	public void selectFailMeal() {
 		int failMeal = aService.selectFailMeal();
 	}
+	
 }
