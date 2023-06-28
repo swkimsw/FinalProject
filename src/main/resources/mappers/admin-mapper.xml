@@ -7,8 +7,13 @@
   	<select id="login" resultType="boolean">
   		select count(*) from Member where id = #{id} and pw = #{pw}
   	</select>
-  	
   	<select id="selectAdminMemberInfo" resultType="cc.spring.dto.MemberDTO">
   		select * from Member where id = #{id} and pw = #{pw}
   	</select>
+	<select id="selectSuccessMeal" resultType="int">
+		select sum(mealSuccess) as mealSuccess_Total from GPTCOUNT
+	</select>
+	<select id="selectFailMeal" resultType="int">
+		select sum(mealFail) as mealFail_Total from GPTCOUNT
+	</select>
   </mapper>
