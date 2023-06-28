@@ -108,20 +108,19 @@ public class BoardDAO {
 
 //=====================================================================
 	
-	public void insertViewCount(int code, int viewCount,int headlinecode) {
+	public void insertViewCount(int code,int boardKindCode,boolean viewchoose) {
+	
 		
-		
-		Map<String ,Object> param = new HashMap<>();
-		param.put("code", code);
-		param.put("viewCount", viewCount);
-		
-		
-		if(headlinecode == 1001) {
-			 mybatis.update("Board.updateAnnouncementView",param);
-		}else if(headlinecode ==1002 ) {
-			 mybatis.update("Board.updateFreeView",param);
+		if(viewchoose) {
+			
+		if(boardKindCode == 1001) {
+			 mybatis.update("Board.updateAnnouncementView",code);
+		}else if(boardKindCode ==1002 ) {
+			 mybatis.update("Board.updateFreeView",code);
 		}else {
-			 mybatis.update("Board.updateReviewView",param);
+			 mybatis.update("Board.updateReviewView",code);
+		}
+		
 		}
 	}
 
