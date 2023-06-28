@@ -78,20 +78,35 @@ public class BoardService {
 
 //=====================================================================================
 
+	
+	//자유게시판게시글 리스트 조건에 따라 가져오기
+	public List<BoardFreeDTO> selectFreelist(int start , int end) {
+		return boarddao.selectFreelist(start,end);
+	}
 	//자유게시글 리스트 다 가져오기
-	public List<BoardFreeDTO> selectFreelist() {
-		return boarddao.selectFreelist();
+	public List<BoardFreeDTO> selectAllFree() {
+		return boarddao.selectAllFree();
 
 	}
 
+	
+	//공지사항게시글 리스트 조건에 따라 가져오기
+	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start , int end) {
+		return boarddao.selectAnnouncementlist(start,end);
+	}
 	//공지사항게시글 리스트 다 가져오기
-	public List<BoardAnnouncementDTO> selectAnnouncementlist() {
-		return boarddao.selectAnnouncementlist();
-
+	public List<BoardAnnouncementDTO> selectAllAnnouncement() {
+		return boarddao.selectAllAnnouncement();
+	}
+	
+	
+	//리뷰게시글 리스트 조건에 따라 가져오기
+	public List<BoardReviewDTO> selectReviewlist(int start, int end) {
+		return boarddao.selectReviewlist(start,end);
 	}
 	//리뷰게시글 리스트 다 가져오기
-	public List<BoardReviewDTO> selectReviewlist() {
-		return boarddao.selectReviewlist();
+	public List<BoardReviewDTO> selectAllReview() {
+		return boarddao.selectAllReview();
 	}
 
 	
@@ -161,6 +176,8 @@ public class BoardService {
 
 
 	    if (needPrev) {
+	    	
+	    	
 	       // sb.append("<a href='/list.board?cpage=" + (startNavi - 1) + "'> < </a> ");
 	        list.add("<");
 	    }
@@ -221,6 +238,8 @@ public class BoardService {
 	}
 
 
+
+	
 
 
 

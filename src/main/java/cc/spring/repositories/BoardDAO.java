@@ -66,21 +66,43 @@ public class BoardDAO {
 		return  mybatis.insert("Board.insertAnnouncement",param);
 	}
 	
+	
+//자유게시판 글 조건에 따라 가져오기	
+	public List<BoardFreeDTO> selectFreelist(int start, int end) {
+		Map<String ,Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return  mybatis.selectList("Board.selectFreelist",param);
+	}
 
-	public List<BoardFreeDTO> selectFreelist() {
-		return  mybatis.selectList("Board.selectFreelist");
+	public List<BoardFreeDTO> selectAllFree() {
+		return  mybatis.selectList("Board.selectAllFree");
+	}
+
+	
+	//공지게시판 글 조건에 따라 가져오기	
+	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start,int end) {
+		Map<String ,Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return  mybatis.selectList("Board.selectAnnouncementlist",param);
+	}
+	
+	public List<BoardAnnouncementDTO> selectAllAnnouncement() {
+		return  mybatis.selectList("Board.selectAllAnnouncement");
 	}
 
 
-
-	public List<BoardAnnouncementDTO> selectAnnouncementlist() {
-		return  mybatis.selectList("Board.selectAnnouncementlist");
+	public List<BoardReviewDTO> selectReviewlist(int start, int end) {
+		Map<String ,Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		return  mybatis.selectList("Board.selectReviewlist",param);
 	}
 
 
-
-	public List<BoardReviewDTO> selectReviewlist() {
-		return  mybatis.selectList("Board.selectReviewlist");
+	public List<BoardReviewDTO> selectAllReview() {
+		return  mybatis.selectList("Board.selectAllReview");
 	}
 
 
@@ -156,6 +178,14 @@ public class BoardDAO {
 		return mybatis.insert("Board.insertReport",dto);
 	}
 
+
+
+	
+
+
+
+
+	
 	
 
 

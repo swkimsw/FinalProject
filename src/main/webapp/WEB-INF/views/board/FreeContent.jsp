@@ -224,7 +224,7 @@
                                             <button id="del" class="btn btn btn-outline-primary"
                                                 type="button">삭제</button>
 
-                                             <a href="/board/free">
+                                             <a href="/board/free?cpage=${cpage}">
                                             <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
                                             </a>
                                             
@@ -328,7 +328,7 @@
 						
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
-						                    <a href="/board/free"> 
+						                    <a href="/board/free?cpage=${cpage}"> 
 						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
 						                    </a>
 						                    
@@ -627,7 +627,7 @@
                     
                     	if(result){
                     		alert("삭제되었습니다");
-                    		location.href = "/board/deleteFree?code=" + ${result.code};
+                    		location.href = "/board/deleteFree?code=" + ${result.code}+"&cpage="+${cpage};
                     	}else{
                     		return false;
                     	}
