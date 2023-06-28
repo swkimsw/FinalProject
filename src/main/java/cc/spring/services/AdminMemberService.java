@@ -36,6 +36,10 @@ public class AdminMemberService {
 	public List<MemberDTO> selectAllClientMember() {
 		return CDAO.selectAllClientMember();
 	}
-	
-	
+	public int selectSuccessMeal() {
+		return ADAO.selectSuccessMeal();
+	}	
+	public int selectFailMeal() {
+		return ADAO.selectFailMeal();
+	}
 }

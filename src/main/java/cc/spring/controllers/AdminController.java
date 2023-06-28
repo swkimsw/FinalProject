@@ -15,10 +15,24 @@ import cc.spring.services.AdminMemberService;
 @RequestMapping("/adminPage/")
 public class AdminController {
 	
+	@Autowired
+	private AdminMemberService aService;
+	
 	@RequestMapping("/**")
 	public String toAdmin() {
-		System.out.println("하잉");
 		return "forward:/admin/index.html";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "selectSuccessMeal")
+	public int selectSuccessMeal() {
+		int successMeal = aService.selectSuccessMeal();
+		return successMeal;
+	}
+	
+	@RequestMapping("selectFailMeal")
+	public void selectFailMeal() {
+		int failMeal = aService.selectFailMeal();
 	}
 	
 }
