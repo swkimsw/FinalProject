@@ -21,6 +21,6 @@ public class ProcessSpeedChecker implements HandlerInterceptor{
 			ModelAndView modelAndView) throws Exception {
 		long endTime = System.currentTimeMillis();
 		long startTime = (long)request.getAttribute("startTime");
-		System.out.println(request.getRequestURI()+" 요청 처리에 "+(endTime-startTime)+"ms 소요됨");
+		System.out.println("RequestURI : "+request.getRequestURI()+" / Required Time : "+(endTime-startTime)+"ms");
 	}
 }
