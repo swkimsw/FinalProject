@@ -5,13 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
-import cc.spring.dto.ReviewImgDTO;
 import cc.spring.repositories.BoardDAO;
 
 @Service
@@ -237,8 +236,17 @@ public class BoardService {
 		return boarddao.insertReport(dto);
 	}
 
+// =======================================================================================
 
-
+	// 자유게시판 댓글 입력 
+	public int insertFreeReply(ReplyFreeDTO dto) {
+		return boarddao.insertFreeReply(dto);
+	}
+	
+	// 자유게시판 댓글 가져오기
+	public List<ReplyFreeDTO> selectReplyFreeList(int postCode) {
+		return boarddao.selectReplyFreeList(postCode);
+	}
 	
 
 

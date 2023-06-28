@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.dto.ReviewImgDTO;
-import cc.spring.dto.TotalMemberDTO;
 
 @Repository
 public class BoardDAO {
@@ -177,10 +177,19 @@ public class BoardDAO {
 	public int insertReport(ReportDTO dto) {
 		return mybatis.insert("Board.insertReport",dto);
 	}
-
-
-
 	
+// =======================================================================================
+	
+
+	// 자유게시판 댓글입력
+	public int insertFreeReply(ReplyFreeDTO dto) {
+		return mybatis.insert("Board.insertFreeReply", dto);
+	}
+
+	// 자유게시판 댓글 가져오기
+	public List<ReplyFreeDTO> selectReplyFreeList(int postCode) {
+		return mybatis.selectList("Board.selectReplyFreeList",postCode);
+	}
 
 
 
