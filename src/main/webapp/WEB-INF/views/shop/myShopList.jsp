@@ -40,56 +40,52 @@
 	type="text/css">
 
 <style>
-body {
-	background-color: rgba(255, 255, 194, 0.75);
-}
 
 * {
 	font-family: NanumSquareNeo;
 }
 
 .container {
-	margin-top: 100px;
+	margin-top: 80px;
 }
 
-.subNav {
-	/*position: fixed;
-	width: 100%;
-	z-index: 2;*/
+.header{
+	position: fixed;
+	background-color: window;
+	top:80px;
+	padding-top:20px;
+	padding-bottom: 10px;
+	z-index:3;
+	width:100%;
 }
 
-.naviColor{
-	border: 1px solid rgba(0,0,0,0.2);
-	border-radius:10px;
-	background-color:white;
+.applyList{
+	position:relative;
+	top:100px;
+}
+.cardRow{
+
+}
+.listCard{
+	position:relative;
+	margin-right:5%; 
+	margin-left:5%;
+}
+.cardImg{
+	width: 150px;
+	height:150px;
+	overflow:hidden;
+	margin: 30px;
 }
 
-.searchGroup {
-	position: relative;
-	width: 100%;
-	height: 40px;
-	z-index: 3;
+.productImg{
+	height:100%;
+	width:100%;
+}
+.productImg:hover{
+	cursor:pointer;
 }
 
-.searchGroup>.category {
-	height: 100%;
-	max-width: 85px;
-	min-width: 85px;
-}
-
-.searchGroup>.searchInput {
-	max-width: 250px;
-	min-width: 100px;
-	height: 100%;
-	z-index: 4;
-}
-
-.searchGroup>.searchIcon {
-	position: absolute;
-	top: 10px;
-	left: 300px;
-	z-index: 5;
-}
 </style>
 </head>
 <body>
@@ -97,107 +93,130 @@ body {
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 
-	<div class="container">
+	<div class="container w-75 h-100">
 		<c:choose>
+			<%-- 세션 code = 1003일때 일반회원 공구 신청 목록  --%>
 			<c:when test="${sessionScope.authGradeCode == 1003}">
-				<h3>${info.name}님의공구신청목록</h3>
-				<h5>${info.clientId}</h5>
-				<div class="subNav">
-					<nav class="navbar bg-body-tertiary navbar-expand-sm">
-						<div class="container-fluid" style="border-radius:10px;">
-							<div class="naviColor row navbar w-100">
-								<div class="col linkGroup" style="position: relative; width: 100%; border-radius:10px;">
-									<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-										<li class="nav-item">
-											<a class="nav-link fs-5" href="/shop/toShopList">
-												<button class="nav-item btn active">전체</button>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="/shop/toShopList?status=open">진행중</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="/shop/toShopList?status=closed">공구 완료</a>
-										</li>
-										<li class="nav-item">
-											<a class="nav-link" href="/shop/toShopList?status=closed">공구 실패</a>
-										</li>
-									</ul>
-								</div>
-								<div class="col input-group searchGroup">
-									<select class="form-select form-select-sm category"
-										name="category">
-										<option value="productName">상품명</option>
-										<option value="companyName">판매자</option>
-									</select> <i class='bi bi-search searchIcon'></i> <input
-										class="form-control form-control-sm searchInput"
-										onkeypress="if(event.keyCode == 13 ){getSearchList()}"
-										type="search" id="keyword" name="searchByKeyword"
-										placeholder="검색어를 입력해주세요." maxlength="20">
-								</div>
-							</div>
-						</div>
-					</nav>
-				</div>
-				<br>
-				<c:forEach var="c" items="${list}">
-					<div class="card mb-3" style="max-width: 540px;">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="${c.path}${c.sysName}" class="img-fluid rounded-start"
-									alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title">
-										<a href="/shop/toShopApply?code=${c.groupbuyingCode}">${c.title}</a>
-									</h5>
-									<p class="card-text">상품명 : ${c.productName}</p>
-									<p class="card-text">판매자 : ${c.companyName}</p>
-									<p class="card-text">가격 : ${c.productPrice} 원</p>
-									<p class="card-text">수량 : ${c.quantity} 개</p>
-									<p class="card-text">합계액 : ${c.productPrice * c.quantity} 원</p>
-									<p class="card-text">마감 : ${c.deadLineTemp}</p>
-									<p class="card-text">
-										<small class="text-body-secondary">스테코드 :
-											${c.statusCode}</small>
-									</p>
-								</div>
-							</div>
+				<div class="client-wrapper" style="height:auto;">
+					<div class="row header">
+						<div class="co1 col-md-6"><h4>${info.name}님의 신청 목록</h4></div>
+						<div class="col col-md-6">
+							<select class="form-select w-50" name="clientCategory" onchange="clientSelect()">
+								<option value="0" selected>전체</option>
+								<option value="1001">진행중인 공구</option>
+								<option value="1002">종료된 공구</option>
+								<option value="1003">실패한 공구</option>
+							</select>
 						</div>
 					</div>
-					<hr>
-				</c:forEach>
+					<div class="body applyList">
+						<c:forEach var="c" items="${list}">
+							<div class="card mt-3 listCard">
+								<div class="row cardRow"> 
+									<div class="col col-md-5 col-lg-4 col-xl-3 cardImgBox">
+										<div class="cardImg">
+											<img src="${c.path}${c.sysName}" class="img-fluid productImg" onclick="location.href='/shop/toShopApply?code=${c.groupbuyingCode}'">
+										</div>
+									</div>
+									<div class="col col-md-7 col-lg-8 col-xl-9 card-body cardText">
+										<h5 class="card-title">${c.title}</h5>
+										<p class="card-text">
+											<fmt:formatDate value="${c.regDate}" pattern="YYYY-MM-dd"/> ~
+											<fmt:formatDate value="${c.deadLine}" pattern="YYYY-MM-dd"/>
+										</p>
+										<p class="card-text">${c.productName} | ${c.companyName}</p>
+										<p class="card-text">가격 : ${c.productPrice} 원 | 신청수량 : ${c.quantity} 개 </p>
+										<p class="card-text">합계액 : ${c.productPrice * c.quantity} 원 </p>
+									</div>
+								</div>
+							</div>
+						</c:forEach>
+						<hr>
+					</div>
+				</div>
+				
+				<script type="text/javascript">
+					function clientSelect(){
+						let status = $('select[name="clientCategory"]').val();
+						$.ajax({
+							url: "/shop/myShopListByStatus",
+							type: "post",
+							dataType : "json",
+							data : {status : status},
+							error: function(){
+								alert("서버 연결에 실패하였습니다.");
+							}
+						}).done(
+							function(resp){
+								$(".applyList").empty();
+								if(resp.length > 0){
+									resp.forEach(function(i){
+										div = "<div class='card mt-3 listCard'>";
+										div += "<div class='row cardRow'>" ;
+										div += "<div class='col col-md-5 col-lg-4 col-xl-3 cardImgBox'>";
+										div += "<div class='cardImg'>";
+										div += "<img src='" + i.path + i.sysName + "' class='img-fluid productImg' onclick='location.href='/shop/toShopApply?code=" 
+												+ i.groupbuyingCode+ "''>";
+										div += "</div></div>";	
+										div += "<div class='col col-md-7 col-lg-8 col-xl-9 card-body cardText'>";
+										div += "<h5 class='card-title'>" + i.title + "</h5>";
+										div += "<p class='card-text'>"
+												 + i.regDate +  i.deadLine + "</p>";
+										div += "<p class='card-text'>" + i.productName + "|" + i.companyName + "</p>";
+										div += "<p class='card-text'>가격 : " + i.productPrice + "원 | 신청수량 : " + i.quantity + "개 </p>";
+										div += "<p class='card-text'>합계액 : " + (i.productPrice * i.quantity) + "원 </p>";
+										div += "</div></div></div>";
+										$(".applyList").append(div);
+									})
+									$(".applyList").append("<hr>");
+								}else{
+									div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-send-x'/> 신청하신 내역이 없습니다. </p><hr/></div>";
+									$(".applyList").append(div);
+								}
+							}		
+						)
+					}
+				</script>
+				
 			</c:when>
 			
 			
+			
+			
+			
+			<%-- 세션 code = 1002일때 사업자 회원 공구 등록 목록 --%>
 			<c:when test="${sessionScope.authGradeCode == 1002}">
-				<h3>${info.companyName}님의공구등록목록</h3>
-				<h5>${info.businessId}</h5>
-				<c:forEach var="b" items="${list}">
-					<a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a>
-					<p>상품명 : ${b.productName}</p>
-					<p>가격 : ${b.productPrice} 원</p>
-					<p>신청건수 : ${b.applyCount}</p>
-					<p>상품수량 : ${b.applyQuantity}</p>
-					<p>총 매출 : ${b.productPrice * b.applyQuantity}</p>
-					<button onclick="openInfo(${b.groupbuyingCode})">신청자 목록</button>
-					
-					<hr>
-				</c:forEach>
+				<div class="business-wrapper">
+					<h3>${info.companyName}님의공구등록목록</h3>
+					<h5>${info.businessId}</h5>
+					<c:forEach var="b" items="${list}">
+						<a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a>
+						<p>상품명 : ${b.productName}</p>
+						<p>가격 : ${b.productPrice} 원</p>
+						<p>신청건수 : ${b.applyCount}</p>
+						<p>상품수량 : ${b.applyQuantity}</p>
+						<p>총 매출 : ${b.productPrice * b.applyQuantity}</p>
+						<button onclick="openInfo(${b.groupbuyingCode})">신청자 목록</button>
+						
+						<hr>
+					</c:forEach>
+				</div>	
+				<script>
+					function openInfo(a){
+						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1200, height=600,left=200, top=100, scrollbars=yes");
+					}
+				</script>
 			</c:when>
 		</c:choose>
+		
 	</div>		
 	
-	
-	
-	
 	<script>
-		function openInfo(a){
-			window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1200, height=600,left=200, top=100, scrollbars=yes");
-		}
-		
+	
 	</script>
+	
+	
+	
 </body>
 </html>
 

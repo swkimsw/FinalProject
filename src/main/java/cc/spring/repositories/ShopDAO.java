@@ -80,12 +80,18 @@ public class ShopDAO {
 		return db.selectOne("Shop.getInfo",code);
 	}
 	
-	public List<MyShopListDTO> clientBuyingList(int code){
-		return db.selectList("Shop.clientBuyingList",code);
+	public List<MyShopListDTO> clientBuyingList(int code,int statusCode){
+		Map<String, Object> param = new HashMap<>();
+		param.put("statusCode", statusCode);
+		param.put("code", code);
+		return db.selectList("Shop.clientBuyingList",param);
 	}
 
-	public List<MyShopListDTO> businessRegisterList(int code){
-		return db.selectList("Shop.businessRegisterList",code);
+	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
+		Map<String, Object> param = new HashMap<>();
+		param.put("statusCode", statusCode);
+		param.put("code", code);
+		return db.selectList("Shop.businessRegisterList",param);
 	}
 	
 	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){

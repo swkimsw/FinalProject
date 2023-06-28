@@ -176,9 +176,9 @@
 											</c:when>
 										</c:choose>
 										<div class="card-image">
-										<a href="/shop/toShopApply?code=${i.code}"> <img
-											src="${i.path}${i.sysName}" style="width:100%;">
-										</a>
+											<a href="/shop/toShopApply?code=${i.code}"> 
+												<img src="${i.path}${i.sysName}" style="width:100%;">
+											</a>
 										</div>
 										<div class="card-body">
 											<p class="card-title fw-medium" style="font-size: 20px;">${i.title}</p>
