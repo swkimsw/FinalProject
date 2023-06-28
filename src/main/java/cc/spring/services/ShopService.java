@@ -199,9 +199,9 @@ public class ShopService {
 	}
 
 	//일반회원 내 공구 신청 목록
-	public List<MyShopListDTO> clientBuyingList(int code){
+	public List<MyShopListDTO> clientBuyingList(int code,int statusCode){
 
-		List<MyShopListDTO> myShopListDTO = shopDAO.clientBuyingList(code);
+		List<MyShopListDTO> myShopListDTO = shopDAO.clientBuyingList(code,statusCode);
 		
 		for(MyShopListDTO m : myShopListDTO) {
 			// Timestamp -> String
@@ -214,8 +214,8 @@ public class ShopService {
 	}
 
 	//사업자회원 내 공구 등록 목록 
-	public List<MyShopListDTO> businessRegisterList(int code){
-		return shopDAO.businessRegisterList(code);
+	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
+		return shopDAO.businessRegisterList(code,statusCode);
 	}
 
 	//사업자회원용 공구 신청인 정보(이름,배송지,전화번호,수량 등등) 목록

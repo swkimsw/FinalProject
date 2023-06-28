@@ -17,6 +17,7 @@ public class MyShopListDTO {
 	private String businessId;
 	private String companyName;
 	private int groupbuyingCode;
+	private String statusValue;
 	private int businessCode;
 	private int statusCode;
 	private Timestamp deadLine;
@@ -44,23 +45,24 @@ public class MyShopListDTO {
 	
 	//일반회원 내 구매목록용 생성자
 	public MyShopListDTO(int applyCode,int membercode,int quantity,Timestamp applyDate,String name,String companyName,
-			int groupbuyingCode,int businessCode,int statusCode,Timestamp deadLine,String deadLineTemp,String title, String productName,
+			int groupbuyingCode,int businessCode,int statusCode, String statusValue, Timestamp deadLine,String deadLineTemp,String title, String productName,
 			String productPrice,Timestamp regDate,String path,String sysName ) {
 		super();
 		this.applyCode = applyCode;
 		this.memberCode = membercode;
-		this.quantity = quantity;//
-		this.applyDate = applyDate;//
+		this.quantity = quantity;
+		this.applyDate = applyDate;
 		this.name = name;
-		this.companyName = companyName;//
+		this.companyName = companyName;
 		this.groupbuyingCode = groupbuyingCode;
 		this.businessCode = businessCode;
-		this.statusCode = statusCode;//
-		this.deadLine = deadLine;//
+		this.statusCode = statusCode;
+		this.statusValue = statusValue;
+		this.deadLine = deadLine;
 		this.deadLineTemp = deadLineTemp;
-		this.title = title;//
-		this.productName = productName;//
-		this.productPrice = productPrice;//
+		this.title = title;
+		this.productName = productName;
+		this.productPrice = productPrice;
 		this.regDate = regDate;
 		this.path = path;
 		this.sysName = sysName;
@@ -85,7 +87,7 @@ public class MyShopListDTO {
 	
 	//사업자회원 내 공구글별 구매자 정보 리스트용 생성자
 	public MyShopListDTO(int applyCode, int memberCode, int quantity, Timestamp applyDate, 
-			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, String productPrice) {
+			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, int businessCode, String productPrice) {
 		super();
 		this.applyCode = applyCode;
 		this.memberCode = memberCode;
@@ -98,6 +100,7 @@ public class MyShopListDTO {
 		this.zipcode= zipcode;
 		this.address1 = address1;
 		this.address2 = address2;
+		this.businessCode = businessCode;
 		this.productPrice = productPrice;
 	}
 	
