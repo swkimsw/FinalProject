@@ -60,6 +60,10 @@ public class ShopDAO {
 		return db.selectOne("Shop.isExistRequest", param);
 	}
 	
+	public int countShopRequest(int code) {
+		return db.selectOne("Shop.countShopRequest", code);
+	}
+	
 //---최은지 part------------------------------------------------------------------------------------------------
 	public List<ShopListDTO> shopList() {
 		return db.selectList("Shop.shopList");

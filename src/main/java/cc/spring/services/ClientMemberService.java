@@ -2,9 +2,12 @@ package cc.spring.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cc.spring.dto.ClientMemberDTO;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.gptCountDTO;
+import cc.spring.dto.loginCountDTO;
 import cc.spring.repositories.ClientMemberDAO;
 
 @Service
@@ -12,8 +15,10 @@ public class ClientMemberService {
 	@Autowired
 	private ClientMemberDAO cdao;
 	
-	public boolean login(MemberDTO dto){
-		return cdao.login(dto);
+	@Transactional
+	public boolean login(loginCountDTO ldto ,MemberDTO mdto){
+		cdao.updatelogintCount(ldto);
+		return cdao.login(mdto);
 	}
 	public String getIdByPhone(String phone) {
 		return cdao.getIdByPhone(phone);
@@ -30,8 +35,12 @@ public class ClientMemberService {
 		return cdao.phoneCheck(phone);
 	}
 	
-	public int insertClient(MemberDTO dto) {
-	    return cdao.insertClient(dto);
+	@Transactional
+	public int insertClient(MemberDTO mdto) {
+		int memberCode = cdao.insertClient(mdto);
+		cdao.insertloginCount(new loginCountDTO(memberCode, 0, null));
+		cdao.insertGptCount(new gptCountDTO(memberCode, 0, 0, 0, 0));
+		return memberCode;
 	}
 	
 	public int updatePw(MemberDTO dto) {

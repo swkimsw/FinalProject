@@ -80,7 +80,13 @@
                 #write_reply {
                     width: 100%;
                     height: 150px;
+                    overflow: auto;
+                    word-break:break-all;
                 }
+                
+                #write_reply:empty:before {
+   					content: attr(placeholder);
+				}
 
                 .reply {
                     word-break: break-all;
@@ -210,7 +216,7 @@
                                             <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
-                                                type="submit">완료</button>
+                                                type="button">완료</button>
 
                                             <button id="cancel" class=" btn btn-outline-primary" style="display:none"
                                                 type="button">취소</button>
@@ -218,7 +224,7 @@
                                             <button id="del" class="btn btn btn-outline-primary"
                                                 type="button">삭제</button>
 
-                                             <a href="/board/free">
+                                             <a href="/board/free?cpage=${cpage}">
                                             <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
                                             </a>
                                             
@@ -322,7 +328,7 @@
 						
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
 						
-						                    <a href="/board/announcement"> 
+						                    <a href="/board/free?cpage=${cpage}"> 
 						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
 						                    </a>
 						                    
@@ -350,33 +356,37 @@
                                 <div class="card-body" class="mt-5 ">
 
                                     <!-- Comment form-->
-                                    <textarea id="write_reply" class="form-control mt-3" rows="3"
-                                        placeholder="댓글을 작성해주세요!"></textarea>
-                                    <a href="#" class="btn btn-primary btn-m mt-2 " style="float:right;">작성</a>
+                                    <form action="/board/freeReply" id="replyForm" method="post">
+                                    <div contenteditable="true" id="write_reply" class="form-control mt-3" rows="3" placeholder="내용을 입력하세요(200자 미만)"></div>
+                                    <input type="hidden" name="context" id="hidden_write_reply">
+                                    <button class="btn btn-primary btn-m mt-2" id="replyWriteBtn" style="float:right;">작성</button>
+                                    </form>
                                     <!-- Comment with nested comments-->
 
                                     <!-- Parent comment-->
-                                    <div class="d-flex mt-5">
-                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                        </div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">작성자</div>
-                                            <div class="reply">
-                                                ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                <div class="button-container" style="float:right ; margin-top: 10px;">
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        type="button">수정</button>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        type="button">취소</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div>
+                                    <hr style="margin-top: 60px;">
+	                                    <div class="d-flex mt-5">
+	                                        <div class="flex-shrink-0"><img class="rounded-circle"
+	                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+	                                        </div>
+	                                        <div class="ms-3">
+	                                            <div class="fw-bold">작성자</div>
+	                                            <div class="reply">ㄴㄴsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</div>
+	                                        </div>
+	                                    </div>
+	                                    <div class="button-container" style="margin-top: 10px; float:right;">
+		                                   	<button class="btn btn-outline-primary btn-sm"
+		                                               type="button">수정</button>
+		                                    <button class="btn btn-outline-primary btn-sm"
+		                                               type="button">취소</button>
+	                                    </div>
                                     </div>
+                                    
 
 
                                     <!-- child comment-->
-                                    <div class="ms-5">
+<!--                                     <div class="ms-5">
 
                                         <div class="d-flex mt-1">
 
@@ -396,10 +406,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <!-- child comment-->
-                                    <div class="ms-5">
+<!--                                     <div class="ms-5">
                                         <div class="d-flex mt-1">
 
                                             <div class="flex-shrink-0"><img class="rounded-circle"
@@ -417,7 +427,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </div>
 
@@ -611,7 +621,57 @@
                         }
                     } //유효성검사
 
-
+                    
+                    $("#del").on("click",function(){
+                    	let result = confirm("삭제하시겠습니까?")
+                    
+                    	if(result){
+                    		alert("삭제되었습니다");
+                    		location.href = "/board/deleteFree?code=" + ${result.code}+"&cpage="+${cpage};
+                    	}else{
+                    		return false;
+                    	}
+                    })
+                    
+                    
+                    
+                     $("#report").on("click",function(){
+                    	let result = confirm("신고하겠습니까?")
+                    
+                    	if(result){
+                    		 window.open("/board/freeReport?postcode="+ ${result.code}+"&boardKindCode=1002&reporterCode="+${user}+"&reporteeCode="+ ${result.memberCode}+"&authGradeCode="+${result.memberAuthGradeCode},"", "width=500px, height=600px");
+                    	}else{
+                    		return false;
+                    	}
+                    })
+                    
+                    // 댓글 작성하기 실행
+                    $("#replyForm").on("submit", function() {
+                    	const write_text = $("#write_reply").html().replace(/&nbsp;/gi,' ');
+						const write = write_text.replace(/&lt;/gi,'<');
+						const wri = write.replace(/&gt;/gi, '>');
+						const wr = wri.replace(/&amp;/gi,'&');
+                    	$("#hidden_write_reply").val(wr);
+                    	if($("#hidden_write_reply").val().trim() == "") {
+                    		alert("댓글을 입력해주세요.");
+                    		return false;
+                    	}
+                    	if($("#hidden_write_reply").val().length >= 200) {
+                    		alert("200자 미만으로 입력하세요.");
+                    		return false;
+                    	}
+                    	$("#hidden_write_reply").val($("#write_reply").html());
+                    })
+                    
+                    $("#write_reply").on("keydown",function(e){
+                    	if(e.key == "Enter" && e.shiftKey) {
+                    		
+                    	}
+                    	else if(e.key == "Enter") {
+                    		e.preventDefault();
+                    		$("#replyWriteBtn").click();
+                    	}
+                    })
 
                 })
             </script>

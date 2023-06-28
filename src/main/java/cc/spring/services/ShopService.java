@@ -171,6 +171,11 @@ public class ShopService {
 	public int isExistRequest(int code, String memberCode) {
 		return shopDAO.isExistRequest(code, memberCode);
 	}
+	
+	// 판매자 로그인 시 들어온 요청 수
+	public int countShopRequest(int code) {
+		return shopDAO.countShopRequest(code);
+	}
 
 	//--최은지 Part---------------------------------------------------------------------------------------------------------	
 	// 전체 공구 목록

@@ -68,21 +68,37 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 
 <!-- ========================================================================================== -->
 
+	<!-- 자유게시판리스트 조건에 따라 가져오기 -->
+	<select id="selectFreelist" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from ( select boardFree_view.*, row_number() over(order by code desc) as rn from boardFree_view )
+		where rn between #{start} and #{end}
+	</select>
+
+
 	<!-- 자유게시판리스트 가져오기 -->
-	<select id="selectFreelist"
-		resultType="cc.spring.dto.BoardFreeDTO">
+	<select id="selectAllFree" resultType="cc.spring.dto.BoardFreeDTO">
 		select * from boardfree_view order by regdate desc
 	</select>
 
-	<!-- 공지사항게시판리스트 가져오기 -->
-	<select id="selectAnnouncementlist"
-		resultType="cc.spring.dto.BoardAnnouncementDTO">
-		select * from boardAnnouncement_view order by regdate desc
+	<!-- 공지사항게시판리스트 조건에 따라 가져오기 -->
+	<select id="selectAnnouncementlist" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from ( select boardannouncement_view.*, row_number() over(order by code desc) as rn from boardannouncement_view )
+		where rn between #{start} and #{end}
 	</select>
 
+	<!-- 공지게시판리스트 가져오기 -->
+	<select id="selectAllAnnouncement" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardannouncement_view order by regdate desc
+	</select>
+	
+	<!-- 리뷰게시판리스트 조건에 따라 가져오기 -->
+	<select id="selectReviewlist" resultType="cc.spring.dto.BoardReviewDTO">
+		select * from ( select boardReview_view.*, row_number() over(order by code desc) as rn from boardReview_view )
+		where rn between #{start} and #{end}
+	</select>	
+
 	<!-- 리뷰게시판리스트 가져오기 -->
-	<select id="selectReviewlist"
-		resultType="cc.spring.dto.BoardReviewDTO">
+	<select id="selectAllReview" resultType="cc.spring.dto.BoardReviewDTO">
 		select * from boardReview_view order by regdate desc
 	</select>
 
@@ -129,7 +145,39 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 <!-- ========================================================================================== -->	
 
 <!-- 공지게시판 삭제 -->
-	<update id="deleteAnnouncement" >
+	<delete id="deleteAnnouncement" >
 		delete from boardAnnouncement where code = #{code}
-	</update>
+	</delete>
+	
+	<!-- 리뷰게시판 삭제 -->
+	<delete id="deleteReview" >
+		delete from boardReview where code = #{code}
+	</delete>
+	
+	
+	<!-- 자유게시판 삭제 -->
+	<delete id="deleteFree" >
+		delete from boardFree where code = #{code}
+	</delete>
+	
+<!-- ========================================================================================== -->
+
+<!-- 자유게시판 신고대상이름 가져오기 -->
+
+<select id="selectReporteeNickname" resultType="String">
+      select nickname from member where code = #{reporteeCode}
+</select>
+
+
+<select id="selectReporteeCompanyName" resultType="String">
+      select companyname from member where code = #{reporteeCode}
+</select>
+	
+	
+	<!-- 게시판 신고 기능 -->
+	<insert id="insertReport" >
+insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</insert>	
+	
+	
 </mapper>

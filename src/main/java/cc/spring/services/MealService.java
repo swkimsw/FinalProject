@@ -129,4 +129,12 @@ public class MealService {
 			mealDAO.insertMeal(aiMealArr.get(i));
 		}
 	}
+	
+	public void updateMealSuccess(int memberCode) {
+		mealDAO.updateMealSuccess(memberCode);
+	}
+	
+	public void updateMealFail(int memberCode) {
+		mealDAO.updateMealFail(memberCode);
+	}
 }

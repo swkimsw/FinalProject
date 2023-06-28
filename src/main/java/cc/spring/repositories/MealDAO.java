@@ -56,4 +56,12 @@ public class MealDAO {
 	public int deleteAiMeal(MealDTO dto) {
 		return mybatis.delete("Meal.deleteAiMeal", dto);
 	}
+	
+	public int updateMealSuccess(int memberCode) {
+		return mybatis.update("Meal.successCount", memberCode);
+	}
+	
+	public int updateMealFail(int memberCode) {
+		return mybatis.update("Meal.failCount", memberCode);
+	}
 }

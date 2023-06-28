@@ -89,7 +89,7 @@
 
                             <c:forEach var="l" items="${list}">
 
-                                <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}')">
+                                <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}')">
 
                                     <td>${l.code}</td>
                                     <td style="width: 50%;">${l.title}</td>
@@ -109,10 +109,21 @@
 
                     <nav aria-label="...">
                         <ul class="pagination justify-content-center">
-        <c:forEach var="ln" items="${listnavi}">
-            <li class="page-item"><a class="page-link" href="#">${ln}</a></li>
-        </c:forEach>
-    </ul>
+					        <c:forEach var="ln" items="${listnavi}">
+						        <c:choose>
+							        <c:when test="${ln == '>' || ln == '<'}">
+							          <li class="page-item" >
+							            <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
+							          </li>
+							        </c:when>
+							        <c:otherwise>
+							          <li class="page-item ${cpage == ln ? 'active' : ''}"  >
+							            <a class="page-link" href="/board/announcement?cpage=${ln}">${ln}</a>
+							          </li>
+							        </c:otherwise>
+						        </c:choose>  
+					        </c:forEach>
+    					</ul>
                     </nav>
 
 
@@ -144,6 +155,24 @@
                 function goToLink(url) {
                     window.location.href = url;
                 }
+                
+               
+                
+                
+                function goToPage(page , point) {
+                	
+               
+                	
+                    // 페이지 이동 로직 구현
+                    if(point==("<")){
+                    	console.log(page)
+                    	window.location.href = '/board/announcement?cpage=' + (page*5) ;
+                    }else{
+                    	window.location.href = '/board/announcement?cpage=' + (page*5+1) ;
+                    }
+                   
+                  }
+                
 
             </script>
 

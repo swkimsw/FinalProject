@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReportDTO;
 import cc.spring.dto.ReviewImgDTO;
 import cc.spring.repositories.BoardDAO;
 
@@ -77,20 +78,35 @@ public class BoardService {
 
 //=====================================================================================
 
+	
+	//자유게시판게시글 리스트 조건에 따라 가져오기
+	public List<BoardFreeDTO> selectFreelist(int start , int end) {
+		return boarddao.selectFreelist(start,end);
+	}
 	//자유게시글 리스트 다 가져오기
-	public List<BoardFreeDTO> selectFreelist() {
-		return boarddao.selectFreelist();
+	public List<BoardFreeDTO> selectAllFree() {
+		return boarddao.selectAllFree();
 
 	}
 
+	
+	//공지사항게시글 리스트 조건에 따라 가져오기
+	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start , int end) {
+		return boarddao.selectAnnouncementlist(start,end);
+	}
 	//공지사항게시글 리스트 다 가져오기
-	public List<BoardAnnouncementDTO> selectAnnouncementlist() {
-		return boarddao.selectAnnouncementlist();
-
+	public List<BoardAnnouncementDTO> selectAllAnnouncement() {
+		return boarddao.selectAllAnnouncement();
+	}
+	
+	
+	//리뷰게시글 리스트 조건에 따라 가져오기
+	public List<BoardReviewDTO> selectReviewlist(int start, int end) {
+		return boarddao.selectReviewlist(start,end);
 	}
 	//리뷰게시글 리스트 다 가져오기
-	public List<BoardReviewDTO> selectReviewlist() {
-		return boarddao.selectReviewlist();
+	public List<BoardReviewDTO> selectAllReview() {
+		return boarddao.selectAllReview();
 	}
 
 	
@@ -160,6 +176,8 @@ public class BoardService {
 
 
 	    if (needPrev) {
+	    	
+	    	
 	       // sb.append("<a href='/list.board?cpage=" + (startNavi - 1) + "'> < </a> ");
 	        list.add("<");
 	    }
@@ -199,6 +217,29 @@ public class BoardService {
 	}
 
 
+	public int deleteReview(int code) {
+		return boarddao.deleteReview(code);
+	}
+
+
+	public int deleteFree(int code) {
+		return boarddao.deleteFree(code);
+	}
+
+
+	public String selectReporteeName(int reporteeCode,int authGradeCode) {
+		return boarddao.selectReporteeName(reporteeCode,authGradeCode);
+	}
+
+
+	public int insertReport(ReportDTO dto) {
+		
+		return boarddao.insertReport(dto);
+	}
+
+
+
+	
 
 
 
