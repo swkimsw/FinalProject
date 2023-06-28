@@ -11,4 +11,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping("/admin/**")
+	public String toAdmin() {
+		System.out.println("하잉");
+		return "forward:/adminPage/index.html";
+	}
 }
