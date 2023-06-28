@@ -112,29 +112,36 @@ public class BoardService {
 	
 //====================================================================================
 	
-	//자유게시판 리스트중 누른 해당 글 가져오기
-	public BoardFreeDTO selectFreeContent(int code) {
-		return boarddao.selectFreeContent(code);
 		
+	//자유게시판 리스트중 누른 해당 글 가져오기
+	@Transactional
+	public BoardFreeDTO selectFreeContent(int code,int viewCount) {
+		
+		int headlinecode = 1002 ;
+		boarddao.insertViewCount(code,viewCount,headlinecode);
+		
+		return boarddao.selectFreeContent(code);
 	}
 
 	//공지게시판 리스트중 누른 해당 글 가져오기
-	public BoardAnnouncementDTO selectAnnouncementContent(int code) {
+	public BoardAnnouncementDTO selectAnnouncementContent(int code,int viewCount) {
+		
+		int headlinecode = 1001 ;
+		boarddao.insertViewCount(code,viewCount,headlinecode);
+		
 		return boarddao.selectAnnouncementContent(code);
 	}
 
 	//리뷰게시판 리스트중 누른 해당 글 가져오기
-	public BoardReviewDTO selectReviewContent(int code) {
+	public BoardReviewDTO selectReviewContent(int code,int viewCount) {
+		
+		int headlinecode = 1003 ;
+		boarddao.insertViewCount(code,viewCount,headlinecode);
+		
 		return boarddao.selectReviewContent(code);
 	}
 
 	
-	//공지게시판 네비게이션
-	public void selectpage() {
-
-	}
-
-
 	
 	public List<String> selectPageNavi(int recordTotalCount , int cpage) throws Exception {
 	    // 네비게이터를 만들기 위해 필요한 초기정보
@@ -236,6 +243,12 @@ public class BoardService {
 		
 		return boarddao.insertReport(dto);
 	}
+
+//리뷰게시판 좋아요
+	public int updateLikeCount(String code,int likeCount,int boardKindCode) {
+		return boarddao.updateLikeCount(code,likeCount,boardKindCode);
+	}
+	
 
 
 

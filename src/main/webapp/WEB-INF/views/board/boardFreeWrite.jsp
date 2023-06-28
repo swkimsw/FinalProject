@@ -235,12 +235,12 @@
                 $(document).ready(function () {
 
                     $('#content').summernote({
-                        placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
+                        placeholder: '글을 입력해주세요 (최대 1000자까지 가능합니다)',
                         height: 600,
                         focus: true,
                         maxHeight: 800,
                         minHeight: 200,
-                        disableDragAndDrop: true,
+                        disableDragAndDrop: false,
                         lang: 'ko-KR', // default: 'en-US'
                         toolbar: [
                             ['style', ['style']],
@@ -251,8 +251,8 @@
                             ['insert', ['video']],
                             ['view', ['codeview', 'help']]
                         ], callbacks: { //이미지 복 붙 안되게
-                            onImageUpload: function (data) {
-                                data.pop();
+                        	onImageUpload: function (data) {
+                        		 alert("이미지 업로드 불가능합니다")
                             },
                             onKeyup: function () {
                                 checkContentLength();
@@ -268,8 +268,8 @@
                         }
 
                     })
+             
                 });
-
 
                 function checkContentLength() {
                     var maxLength = 1000;
@@ -337,6 +337,7 @@
                     }
                 })
 
+               
 
             </script>
 

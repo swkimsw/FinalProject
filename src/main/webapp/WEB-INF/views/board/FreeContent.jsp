@@ -304,6 +304,11 @@
                                     </c:otherwise>
                                 </c:choose>
 
+								<tr>
+                                    <td>
+                                        <input id="code" type="text" value="${result.code}" style="display:none">
+                                    </td>
+                                </tr>
 
 
                                 <tr>
@@ -311,8 +316,8 @@
                                         ${result.title}
                                     </td>
                                 </tr>
-
-
+                                
+								
                                 <tr>
                                     <td>
                                         <div id="content">${result.content}</div>
@@ -461,7 +466,7 @@
                             focus: true,
                             maxHeight: 800,
                             minHeight: 200,
-                            disableDragAndDrop: true,
+                            disableDragAndDrop: false,
                             lang: 'ko-KR',
                             toolbar: [
                                 ['style', ['style']],
@@ -474,7 +479,7 @@
                             ],
                             callbacks: {
                                 onImageUpload: function (data) {
-                                    data.pop();
+                                	 alert("이미지 업로드 불가능합니다")
                                 },
                                 onKeyup: function () {
                                     checkContentLength();
@@ -621,6 +626,38 @@
                         }
                     } //유효성검사
 
+                    
+                    
+                    
+                    $("#likecount").on("click", function () {
+                    	
+                    	 let postcode = $("#code").val();
+                    	let count = (${result.likeCount}+1) ;
+                    	 console.log(postcode);
+                    	 
+                    	 $.ajax({
+ 						    url: "/board/LikeCount",
+ 						    type: "post",
+ 						    dataType: "json",
+ 						    data: {
+ 						    	code : postcode ,
+ 						     	likeCount: count,
+ 						     	boardKindCode: "1002"
+ 						    },
+ 						  }).done(function (resp) {
+ 						      if (resp == 1) {
+ 						        location.reload();
+ 						      } else {
+ 						        alert("다시 눌러주세요");
+ 						      }
+ 						    })
+ 						    .fail(function () {
+ 						      alert("요청 실패");
+ 						    });
+                    	 
+                    	 
+						});
+                    
                     
                     $("#del").on("click",function(){
                     	let result = confirm("삭제하시겠습니까?")
