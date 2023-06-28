@@ -372,7 +372,8 @@
                                     <div contenteditable="true" id="write_reply" class="form-control mt-3" rows="3" placeholder="내용을 입력하세요(200자 미만)"></div>
                                     <input type="hidden" name="replyContent" id="hidden_write_reply">
                                     <input type="hidden" name="boardFreeCode" value="${result.code}">
-                                    <input type="hidden" name="cpage" value="${cpage}">                                    
+                                    <input type="hidden" name="cpage" value="${cpage}">   
+                                    <input type="hidden" name="viewCount" value="${result.viewCount}">                                 
                                     <button class="btn btn-primary btn-m mt-2" id="replyWriteBtn" style="float:right;">작성</button>
                                     </form>
                                     <!-- Comment with nested comments-->

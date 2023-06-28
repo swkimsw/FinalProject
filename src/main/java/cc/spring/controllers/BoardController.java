@@ -510,10 +510,10 @@ public class BoardController {
 		
 	// 자유게시판 댓글 작성
 	@RequestMapping("freeReply")
-	public String freeReply(String replyContent, int boardFreeCode, int cpage) {
+	public String freeReply(String replyContent, int boardFreeCode, int cpage, int viewCount) {
 		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
 		int result = boardService.insertFreeReply(dto);
-		return "redirect:/board/FreeContent?code="+boardFreeCode+"&cpage="+cpage;
+		return "redirect:/board/FreeContent?code="+boardFreeCode+"&cpage="+cpage+"&viewCount="+(viewCount-1);
 	}
 
 
