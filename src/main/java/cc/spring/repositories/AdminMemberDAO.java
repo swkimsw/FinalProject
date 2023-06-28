@@ -27,4 +27,12 @@ public class AdminMemberDAO {
 		param.put("pw", pw);
 		return mybatis.selectOne("Admin.selectAdminMemberInfo",param);
 	}
+	
+	public int selectSuccessMeal() {
+		return mybatis.selectOne("Admin.selectSuccessMeal");
+	}
+	
+	public int selectFailMeal() {
+		return mybatis.selectOne("Admin.selectFailMeal");
+	}
 }
