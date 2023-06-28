@@ -115,13 +115,27 @@
                     margin-top: -15px;
                     font-size: small;
                 }
+                
                 .replyMemberNickNameOrCompanyName {
                 	display: inline;
                 }
+                
                 .me {
                 	font-size: 12px; 
                 	display: inline;
                 }
+                
+                .modiWriteReply {
+                	border: none;
+                }
+                
+                .modiWriteReply:empty:before {
+   					content: attr(placeholder);
+				}
+				
+				.modiSuccessBtn {
+					display: none;
+				}
             </style>
 
         </head>
@@ -311,6 +325,11 @@
                                     </c:otherwise>
                                 </c:choose>
 
+								<tr>
+                                    <td>
+                                        <input id="code" type="text" value="${result.code}" style="display:none">
+                                    </td>
+                                </tr>
 
 
                                 <tr>
@@ -318,8 +337,8 @@
                                         ${result.title}
                                     </td>
                                 </tr>
-
-
+                                
+								
                                 <tr>
                                     <td>
                                         <div id="content">${result.content}</div>
@@ -367,7 +386,8 @@
                                     <div contenteditable="true" id="write_reply" class="form-control mt-3" rows="3" placeholder="내용을 입력하세요(200자 미만)"></div>
                                     <input type="hidden" name="replyContent" id="hidden_write_reply">
                                     <input type="hidden" name="boardFreeCode" value="${result.code}">
-                                    <input type="hidden" name="cpage" value="${cpage}">                                    
+                                    <input type="hidden" name="cpage" value="${cpage}">   
+                                    <input type="hidden" name="viewCount" value="${result.viewCount}">                                 
                                     <button class="btn btn-primary btn-m mt-2" id="replyWriteBtn" style="float:right;">작성</button>
                                     </form>
                                     <!-- Comment with nested comments-->
@@ -389,15 +409,17 @@
 		                                            	<div class="replyMemberNickNameOrCompanyName">${i.companyName}</div> 
 		                                            	<div class="me">(본인)</div>
 		                                            </div>
-		                                            <div class="reply">${i.content}</div>
+                                   					 <div class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
 		                                        </div>
 		                                    </div>
 
 			                                    <div class="button-container" style="margin-top: 10px; float:right;">
 			                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
                                                                 class="bi bi-hand-thumbs-up"></i>0</button>
-				                                   	<button class="btn btn-outline-primary btn-sm"
+				                                   	<button class="btn btn-outline-primary btn-sm modiReplyBtn"
 				                                               type="button">수정</button>
+				                                   	<button class="btn btn-outline-primary btn-sm modiSuccessBtn"
+				                                               type="button">수정완료</button>
 				                                    <button class="btn btn-outline-primary btn-sm"
 				                                               type="button">취소</button>
 			                                    </div>
@@ -412,7 +434,7 @@
 			                                        <div class="ms-3">
 			                                            <div class="fw-bold" >${i.nickName}</div>
 			                                            <div class="fw-bold" >${i.companyName}</div>
-			                                            <div class="reply">${i.content}</div>
+                                   					 <div contenteditable="true" class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
 			                                        </div>
 			                                    </div>
                                                     <div class="button-container" style="float:right ;">
@@ -503,7 +525,7 @@
                             focus: true,
                             maxHeight: 800,
                             minHeight: 200,
-                            disableDragAndDrop: true,
+                            disableDragAndDrop: false,
                             lang: 'ko-KR',
                             toolbar: [
                                 ['style', ['style']],
@@ -516,7 +538,7 @@
                             ],
                             callbacks: {
                                 onImageUpload: function (data) {
-                                    data.pop();
+                                	 alert("이미지 업로드 불가능합니다")
                                 },
                                 onKeyup: function () {
                                     checkContentLength();
@@ -664,6 +686,38 @@
                     } //유효성검사
 
                     
+                    
+                    
+                    $("#likecount").on("click", function () {
+                    	
+                    	 let postcode = $("#code").val();
+                    	let count = (${result.likeCount}+1) ;
+                    	 console.log(postcode);
+                    	 
+                    	 $.ajax({
+ 						    url: "/board/LikeCount",
+ 						    type: "post",
+ 						    dataType: "json",
+ 						    data: {
+ 						    	code : postcode ,
+ 						     	likeCount: count,
+ 						     	boardKindCode: "1002"
+ 						    },
+ 						  }).done(function (resp) {
+ 						      if (resp == 1) {
+ 						        location.reload();
+ 						      } else {
+ 						        alert("다시 눌러주세요");
+ 						      }
+ 						    })
+ 						    .fail(function () {
+ 						      alert("요청 실패");
+ 						    });
+                    	 
+                    	 
+						});
+                    
+                    
                     $("#del").on("click",function(){
                     	let result = confirm("삭제하시겠습니까?")
                     
@@ -689,17 +743,19 @@
                     
                     // 댓글 작성하기 실행
                     $("#replyForm").on("submit", function() {
-                    	const write_text = $("#write_reply").html().replace(/&nbsp;/gi,' ');
-						const write = write_text.replace(/&lt;/gi,'<');
-						const wri = write.replace(/&gt;/gi, '>');
-						const wr = wri.replace(/&amp;/gi,'&');
-                    	$("#hidden_write_reply").val(wr);
+                    	const regex1 = $("#write_reply").html().replace(/&nbsp;/gi,' ');
+						const regex2 = regex1.replace(/&lt;/gi,'<');
+						const regex3 = regex2.replace(/&gt;/gi, '>');
+						const write_reply = regex3.replace(/&amp;/gi,'&');
+                    	$("#hidden_write_reply").val(write_reply);
                     	if($("#hidden_write_reply").val().trim() == "") {
                     		alert("댓글을 입력해주세요.");
                     		return false;
                     	}
                     	if($("#hidden_write_reply").val().length >= 200) {
                     		alert("200자 미만으로 입력하세요.");
+                    		const cutReply = $("#hidden_write_reply").val().slice(0, 199);
+                    		$("#write_reply").html(cutReply);
                     		return false;
                     	}
                     	$("#hidden_write_reply").val($("#write_reply").html());
@@ -714,7 +770,24 @@
                     		$("#replyWriteBtn").click();
                     	}
                     })
+                    
+                    // 댓글 수정버튼 클릭 시
+                    $(".modiReplyBtn").on("click", function() {
+                    	// 댓글 뽑아오기
+                    	const reply = $(this).parent().prev().children().next().children().next().html();
+                    	// 댓글 감싸고 있는 div 뽑아오기
+                    	const replyDiv = $(this).parent().prev().children().next().children().next();
 
+                    	replyDiv.attr("contenteditable", "true");
+                    	replyDiv.css("border", "1px solid black");
+                    	
+                    	// 수정버튼 없어지면서 수정완료 버튼 나타나게 하기
+                    	$(this).hide();
+                    	$(this).next().fadeIn();
+                    })
+                    
+                    // 댓글 수정완료 시 
+                 
                 })
             </script>
 

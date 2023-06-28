@@ -194,7 +194,7 @@
                     <div class="container">
 
                         <div class="row header">
-                            <h2>공지게시판</h2>
+                            <h2>후기게시판</h2>
                             <br>
                         </div>
 
@@ -203,6 +203,12 @@
 
                                 <tr>
                                     <td>글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>
+                                        <input id="code" type="text" value="${result.code}" style="display:none">
+                                    </td>
                                 </tr>
 
                                 <tr>
@@ -571,6 +577,41 @@
                     		return false;
                     	}
                     })
+                    
+                    
+                    $("#likecount").on("click", function () {
+                    	
+                    	 let postcode = $("#code").val();
+                    	let count = (${result.likeCount}+1) ;
+                    	 console.log(postcode);
+                    	 
+                    	 $.ajax({
+ 						    url: "/board/LikeCount",
+ 						    type: "post",
+ 						    dataType: "json",
+ 						    data: {
+ 						    	code : postcode ,
+ 						     	likeCount: count,
+ 						     	boardKindCode: "1003"
+ 						    },
+ 						  }).done(function (resp) {
+ 						      if (resp == 1) {
+ 						        location.reload();
+ 						      } else {
+ 						        alert("다시 눌러주세요");
+ 						      }
+ 						    })
+ 						    .fail(function () {
+ 						      alert("요청 실패");
+ 						    });
+                    	 
+                    	 
+						});
+						
+						
+						 
+						
+
                     
                     
                      $("#report").on("click",function(){
