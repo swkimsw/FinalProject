@@ -219,7 +219,7 @@ table.dataTable tfoot td {
 				alert("삭제완료!");
 			}
 		}
-	
+		
 	</script>
 </body>
 </html>
