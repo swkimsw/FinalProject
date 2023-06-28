@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +22,7 @@ import com.google.gson.JsonObject;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.services.BoardService;
 import cc.spring.services.FileService;
@@ -204,41 +203,47 @@ public class BoardController {
 
 	//자유게시판 글 자세히 보기
 	@RequestMapping("FreeContent")
-	public String FreeContent(int code,int cpage) {
+	public String FreeContent(int code,int cpage,int viewCount) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user );
 
-		BoardFreeDTO result = boardService.selectFreeContent(code);
-		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+		BoardFreeDTO result = boardService.selectFreeContent(code ,viewCount+1);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
+		
+		// 게시판에 달린 댓글 가져오기
+		List<ReplyFreeDTO> replyList = boardService.selectReplyFreeList(code);
+		request.setAttribute("replyList", replyList);
+		
+
 		return "/board/FreeContent";
 	}
 
 	//공지게시판 글 자세히 보기
 	@RequestMapping("AnnouncementContent")
-	public String AnnouncementContent(int code,int cpage) {
+	public String AnnouncementContent(int code,int cpage,int viewCount) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
-		request.setAttribute("cpage", cpage);
+	
 		
-		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code);
-		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code,viewCount+1);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
-		System.out.println(cpage);
+		request.setAttribute("cpage", cpage);
 		
 		return "/board/AnnouncementContent";
 	}
 
 	//리뷰게시판 글 자세히 보기
 	@RequestMapping("ReviewContent")
-	public String ReviewContent(int code,int cpage) {
+	public String ReviewContent(int code,int cpage,int viewCount) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
 
 
-		BoardReviewDTO result = boardService.selectReviewContent(code);
-		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+		BoardReviewDTO result = boardService.selectReviewContent(code,viewCount+1);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
 		
@@ -505,8 +510,10 @@ public class BoardController {
 		
 	// 자유게시판 댓글 작성
 	@RequestMapping("freeReply")
-	public void freeReply(String context) {
-		System.out.println(context);
+	public String freeReply(String replyContent, int boardFreeCode, int cpage, int viewCount) {
+		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
+		int result = boardService.insertFreeReply(dto);
+		return "redirect:/board/FreeContent?code="+boardFreeCode+"&cpage="+cpage+"&viewCount="+(viewCount-1);
 	}
 
 
@@ -528,6 +535,22 @@ public class BoardController {
 		int result = boardService.insertReport(dto); 
 		return result;
 
+	}
+	
+	//좋아요수 
+	@ResponseBody
+	@RequestMapping("LikeCount")
+	public int LikeCount(@RequestParam("code") String code, @RequestParam("likeCount") int likeCount,@RequestParam("boardKindCode") int boardKindCode) {
+
+		System.out.println("likecount");
+		System.out.println(code);
+		System.out.println(likeCount);
+		System.out.println(boardKindCode);
+	
+		
+		int result = boardService.updateLikeCount(code,likeCount,boardKindCode);
+
+		return result;
 	}
 
 }

@@ -139,7 +139,7 @@
                         focus: true,
                         maxHeight: 800,
                         minHeight: 200,
-                        disableDragAndDrop: true,
+                        disableDragAndDrop: false,
                         lang: 'ko-KR',
                         toolbar: [
                             ['style', ['style']],
@@ -151,8 +151,8 @@
                             ['view', ['codeview', 'help']]
                         ],
                         callbacks: {
-                            onImageUpload: function (data) {
-                                data.pop();
+                        	onImageUpload: function (data) {
+                                alert("이미지 업로드 불가능합니다")
                             },
                             onKeyup: function () {
                                 checkContentLength();

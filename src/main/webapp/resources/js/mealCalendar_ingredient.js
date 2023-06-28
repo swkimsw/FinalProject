@@ -71,10 +71,23 @@
                     //<br>로 나눠서 리스트로 만들기
                     let oneBox = targets[i].innerHTML.split('<br>').filter((meal)=>meal.trim()!="");
                     //중복되는 메뉴는 없애기
-                    $.each(oneBox, (i, value)=>{if(meals.indexOf(value)==-1)meals.push(value);})
+                    $.each(oneBox, (i, value)=>{
+                    	if(meals.indexOf(value)==-1){
+                    		meals.push(value);
+                    	}
+                    });
                 }
             }
+            //외식, 배달도 제외
+            meals = meals.filter((e)=>e!="외식"&&e!="배달");
 
+			if(meals.length==0){
+				let emptyMsg = "재료를 추출 할 메뉴가 없습니다! 식단을 등록해 주세요.";
+				$("#iModalInfo").text(emptyMsg);
+			}
+			else{
+				$("#iModalInfo").text("재료를 추출하여 장바구니에 등록해 보세요!");
+			}
             for(let i=0;i<meals.length;i++){
                 let input = $(`<input class="form-check-input targetMeal me-1" type="checkbox" value="">`).attr('id',"checkboxStretched"+i);
                 let label = $(`<label class="form-check-label stretched-link">`).attr('for',"checkboxStretched"+i).text(meals[i]);
