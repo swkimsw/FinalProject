@@ -94,9 +94,20 @@ public class BoardService {
 	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start , int end) {
 		return boarddao.selectAnnouncementlist(start,end);
 	}
+
 	//공지사항게시글 리스트 다 가져오기
 	public List<BoardAnnouncementDTO> selectAllAnnouncement() {
 		return boarddao.selectAllAnnouncement();
+	}
+
+	//공지사항게시글 리스트 조건에 따라 가져오기 - 검색
+	public List<BoardAnnouncementDTO> selectSearchAnnouncelist(int start , int end , String search, String searchCate) {
+		return boarddao.selectSearchAnnouncelist(start,end,search,searchCate);
+	}
+
+	//공지사항게시글 리스트 다 가져오기 - 검색
+	public List<BoardAnnouncementDTO> selectAllSearchAnnounc(String search, String searchCate) {
+		return boarddao.selectAllSearchAnnounc(search,searchCate);
 	}
 	
 	
