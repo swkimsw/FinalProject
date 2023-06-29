@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import cc.spring.dto.ClientMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.gptCountDTO;
 import cc.spring.dto.loginCountDTO;

@@ -114,10 +114,10 @@
 							<div class="collapse show" id="home-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 									<c:if test="${sessionScope.authGradeCode == 1003}">
-										<li class="login"><a href="/clientMyPage/myPageFreeboard"
+										<li class="login"><a href="/MyPage/myPageFreeboard"
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 												내가 쓴 게시글 보기</a></li>
-										<li class="login"><a href="/clientMyPage/myPageReview"
+										<li class="login"><a href="/MyPage/myPageReview"
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 												후기글 보기</a></li>
 										<li class="login"><a href="/clientMember/clientMyInfo"
@@ -126,7 +126,7 @@
 									</c:if>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
 										<li class="login"><a
-											href="/clientMyPage/businessMypageBoard"
+											href="/MyPage/businessMypageBoard"
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 												내가 쓴 게시글 보기</a></li>
 										<li class="login"><a

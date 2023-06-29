@@ -13,31 +13,44 @@ import cc.spring.repositories.ClientMemberDAO;
 @Service
 public class AdminMemberService {
 	@Autowired
-	private AdminMemberDAO ADAO;
+	private AdminMemberDAO aDAO;
 	
 	@Autowired
-	private BusinessMemberDAO BDAO;
+	private BusinessMemberDAO bDAO;
 	
 	@Autowired
-	private ClientMemberDAO CDAO;
+	private ClientMemberDAO cDAO;
 	
 	public boolean login(String id, String pw) {
-		return ADAO.login(id, pw);
+		return aDAO.login(id, pw);
 	}
 	
 	public MemberDTO selectAdminMemberInfo(String id, String pw) {
-		return ADAO.selectAdminMemberInfo(id, pw);
+		return aDAO.selectAdminMemberInfo(id, pw);
 	}
 	
 	public List<MemberDTO> selectAllBusinessMember() {
-		return BDAO.selectAllBusinessMember();
+		return bDAO.selectAllBusinessMember();
 	}
 	
 	public List<MemberDTO> selectAllClientMember() {
-		return CDAO.selectAllClientMember();
+		return cDAO.selectAllClientMember();
 	}
+	
 	public int selectSuccessMeal() {
-		ADAO.selectFailMeal();
-		return ADAO.selectSuccessMeal();
+		aDAO.selectFailMeal();
+		return aDAO.selectSuccessMeal();
 	}	
+	
+	public int selectFailMeal() {
+		return aDAO.selectFailMeal();
+	}
+	
+	public int selectSuccessBasket() {
+		return aDAO.selectSuccessBasket();
+	}
+	
+	public int selectFailBasket() {
+		return aDAO.selectFailBasket();
+	}
 }
