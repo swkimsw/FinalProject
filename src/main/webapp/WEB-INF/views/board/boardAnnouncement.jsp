@@ -67,18 +67,18 @@
 
                             <input type="hidden" name="cpage" value="1">
                             <select class="form-select" aria-label="Default select example" id="searchCate"
-                                name="searchCate" style="width: 120px; display: inline;" >
+                                name="searchCate" style="width: 120px; display: inline;">
                                 <option value="선택">선택</option>
                                 <option value="제목">제목</option>
                                 <option value="작성자">작성자</option>
                             </select>
                             <input class="form-control" placeholder="Search" id="search" name="search"
                                 onkeypress="if(event.keyCode == 13) { this.form.submit(e); }"
-                                style="width: 300px; display: initial;" value="${search }" >
-                                
-                              <input type="hidden" name="searchCate" value="${searchCate}">
-                              <input type="hidden" name="search" value="${search}" >  
-                              
+                                style="width: 300px; display: initial;" value="${search }">
+
+                            <input type="hidden" name="searchCate" value="${searchCate}">
+                            <input type="hidden" name="search" value="${search}">
+
                             <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
 
                         </div>
@@ -92,7 +92,7 @@
                         <thead>
                             <tr>
                                 <th>번호</th>
-                                <th>제목</th>
+                                <th style="width: 50%;">제목</th>
                                 <th>글쓴이</th>
                                 <th>작성일</th>
                                 <th>조회수</th>
@@ -111,7 +111,7 @@
                                                 <i class="bi bi-arrow-clockwise" onclick="reload();" type="button"
                                                     style="font-size:50px; color:#007936;"></i>
 
-                                                <p class='fs-6'> 등록된 공구가 아직 없어요</p>
+                                                <p class='fs-6'> 검색결과가 없습니다 다시 검색해주세요 ㅠㅠ</p>
                                             </div>
 
 
@@ -121,7 +121,8 @@
                                 <c:otherwise>
                                     <c:forEach var="l" items="${list}">
 
-                                        <tr onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
+                                        <tr
+                                            onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
                                             <td>${l.code}</td>
                                             <td style="width: 50%;">${l.title}</td>
                                             <td>${l.memberName}</td>
@@ -140,49 +141,53 @@
                     </table>
 
                     <br>
-<c:choose>
-<c:when test="${search == null }">
-<nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                            <c:forEach var="ln" items="${listnavi}">
-                                <c:choose>
-                                    <c:when test="${ln == '>' || ln == '<'}">
-                                        <li class="page-item">
-                                            <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item ${cpage == ln ? 'active' : ''}">
-                                            <a class="page-link" href="/board/announcement?cpage=${ln}">${ln}</a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </ul>
-                    </nav>
-</c:when>
-<c:otherwise>
-<nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                            <c:forEach var="ln" items="${listnavi}">
-                                <c:choose>
-                                    <c:when test="${ln == '>' || ln == '<'}">
-                                        <li class="page-item">
-                                            <a class="page-link" onclick="goToPageSearch(1, '${ln}' ,'${search}' ,'${searchCate}' )"> ${ln}</a>
-                                        </li>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <li class="page-item ${cpage == ln ? 'active' : ''}">
-                                            <a class="page-link" href="/board/announcement?cpage=${ln}&search=${search}&searchCate=${searchCate}">${ln}</a>
-                                        </li>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:forEach>
-                        </ul>
- </nav>
-</c:otherwise>
-</c:choose>
-                    
+                    <c:choose>
+                        <c:when test="${search == null }">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-center">
+                                    <c:forEach var="ln" items="${listnavi}">
+                                        <c:choose>
+                                            <c:when test="${ln == '>' || ln == '<'}">
+                                                <li class="page-item">
+                                                    <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item ${cpage == ln ? 'active' : ''}">
+                                                    <a class="page-link"
+                                                        href="/board/announcement?cpage=${ln}">${ln}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:otherwise>
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-center">
+                                    <c:forEach var="ln" items="${listnavi}">
+                                        <c:choose>
+                                            <c:when test="${ln == '>' || ln == '<'}">
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                        onclick="goToPageSearch(1, '${ln}' ,'${search}' ,'${searchCate}' )">
+                                                        ${ln}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item ${cpage == ln ? 'active' : ''}">
+                                                    <a class="page-link"
+                                                        href="/board/announcement?cpage=${ln}&search=${search}&searchCate=${searchCate}">${ln}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:otherwise>
+                    </c:choose>
+
 
 
                     <c:choose>
@@ -241,15 +246,13 @@
                     location.href = "/board/announcement?cpage=1";
                 }
 
-                
+
                 function goToLink(url) {
                     window.location.href = url;
-                  }
-                
+                }
+
 
                 function goToPage(page, point) {
-
-
 
                     // 페이지 이동 로직 구현
                     if (point == ("<")) {
@@ -258,24 +261,20 @@
                     } else {
                         window.location.href = '/board/announcement?cpage=' + (page * 5 + 1);
                     }
-
                 }
 
-                
-                function goToPageSearch(page, point,search ,searchCate) {
 
-
-
-                    // 페이지 이동 로직 구현
+                function goToPageSearch(page, point, search, searchCate) {
+                    // 페이지 이동 로직 구현 - 검색
                     if (point == ("<")) {
                         console.log(page)
-                        window.location.href = '/board/announcement?cpage=' + (page * 5)+'&search='+ search + '&searchCate=' + searchCate;
+                        window.location.href = '/board/announcement?cpage=' + (page * 5) + '&search=' + search + '&searchCate=' + searchCate;
                     } else {
-                        window.location.href = '/board/announcement?cpage=' + (page * 5 + 1)+'&search='+ search + '&searchCate=' + searchCate;
+                        window.location.href = '/board/announcement?cpage=' + (page * 5 + 1) + '&search=' + search + '&searchCate=' + searchCate;
                     }
 
                 }
-                
+
 
             </script>
 
