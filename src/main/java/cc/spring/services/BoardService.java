@@ -115,28 +115,30 @@ public class BoardService {
 		
 	//자유게시판 리스트중 누른 해당 글 가져오기
 	@Transactional
-	public BoardFreeDTO selectFreeContent(int code,int viewCount) {
+	public BoardFreeDTO selectFreeContent(int code,boolean viewchoose) {
 		
-		int headlinecode = 1002 ;
-		boarddao.insertViewCount(code,viewCount,headlinecode);
+		int boardKindCode = 1002 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
 		
 		return boarddao.selectFreeContent(code);
 	}
 
 	//공지게시판 리스트중 누른 해당 글 가져오기
-	public BoardAnnouncementDTO selectAnnouncementContent(int code,int viewCount) {
+	@Transactional
+	public BoardAnnouncementDTO selectAnnouncementContent(int code,boolean viewchoose) {
 		
-		int headlinecode = 1001 ;
-		boarddao.insertViewCount(code,viewCount,headlinecode);
+		int boardKindCode = 1001 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
 		
 		return boarddao.selectAnnouncementContent(code);
 	}
 
 	//리뷰게시판 리스트중 누른 해당 글 가져오기
-	public BoardReviewDTO selectReviewContent(int code,int viewCount) {
+	@Transactional
+	public BoardReviewDTO selectReviewContent(int code,boolean viewchoose) {
 		
-		int headlinecode = 1003 ;
-		boarddao.insertViewCount(code,viewCount,headlinecode);
+		int boardKindCode = 1003 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
 		
 		return boarddao.selectReviewContent(code);
 	}

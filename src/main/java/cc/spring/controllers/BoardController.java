@@ -203,11 +203,11 @@ public class BoardController {
 
 	//자유게시판 글 자세히 보기
 	@RequestMapping("FreeContent")
-	public String FreeContent(int code,int cpage,int viewCount) {
+	public String FreeContent(int code,int cpage,boolean viewchoose) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user );
 
-		BoardFreeDTO result = boardService.selectFreeContent(code ,viewCount+1);
+		BoardFreeDTO result = boardService.selectFreeContent(code,viewchoose);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
@@ -215,19 +215,18 @@ public class BoardController {
 		// 게시판에 달린 댓글 가져오기
 		List<ReplyFreeDTO> replyList = boardService.selectReplyFreeList(code);
 		request.setAttribute("replyList", replyList);
-		
 
-		return "/board/FreeContent";
+		return  "/board/FreeContent";
 	}
 
 	//공지게시판 글 자세히 보기
 	@RequestMapping("AnnouncementContent")
-	public String AnnouncementContent(int code,int cpage,int viewCount) {
+	public String AnnouncementContent(int code,int cpage,boolean viewchoose) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
 	
 		
-		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code,viewCount+1);
+		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code,viewchoose);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
@@ -237,12 +236,12 @@ public class BoardController {
 
 	//리뷰게시판 글 자세히 보기
 	@RequestMapping("ReviewContent")
-	public String ReviewContent(int code,int cpage,int viewCount) {
+	public String ReviewContent(int code,int cpage,boolean viewchoose) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
 
 
-		BoardReviewDTO result = boardService.selectReviewContent(code,viewCount+1);
+		BoardReviewDTO result = boardService.selectReviewContent(code,viewchoose);
 		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
@@ -502,18 +501,22 @@ public class BoardController {
 			request.setAttribute("list", dto);
 			return "board/report" ;
 
+			
 		}		
 
 
 
 	//===========================================================================================
 		
-	// 자유게시판 댓글 작성
+	// 자유게시판 댓글 작성하면서 모든글들을 다시 가져오기
+	@ResponseBody
 	@RequestMapping("freeReply")
-	public String freeReply(String replyContent, int boardFreeCode, int cpage, int viewCount) {
+	public int freeReply(String replyContent, int boardFreeCode, int cpage) {
+		
 		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
 		int result = boardService.insertFreeReply(dto);
-		return "redirect:/board/FreeContent?code="+boardFreeCode+"&cpage="+cpage+"&viewCount="+(viewCount-1);
+
+		return result;
 	}
 
 
@@ -553,4 +556,8 @@ public class BoardController {
 		return result;
 	}
 
+//=====================================================================================	
+
+
+			
 }

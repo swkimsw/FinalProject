@@ -51,6 +51,9 @@
                     font-size: 20px;
                 }
                 
+                #uu,td>div{
+                text-align:center;
+                }
             </style>
 
         </head>
@@ -95,6 +98,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
+                            	<th id="uu">분류</th>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -106,7 +110,19 @@
                         <tbody>
 
                             <c:forEach var="l" items="${list}">
-                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}&viewCount=${l.viewCount}')">
+                                <tr onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
+                                  <c:choose>
+                                  <c:when  test="${l.headLineCode == 2001 }">
+                                  <td><div style=" background-color:#a9ebb1;">일상<div></td>
+                                  </c:when>
+                                  <c:when  test="${l.headLineCode == 2002 }">
+                                  <td><div style=" background-color:#f9f69b;">정보<div></td>
+                                  </c:when>
+                                  <c:otherwise>
+                                   <td><div style=" background-color:#add1e9;">질문<div></td>
+                                  </c:otherwise>
+                                  </c:choose>
+                                    
                                     <td>${l.code}</td>
                                     <td style="width: 50%;">${l.title}</td>
                                   <c:choose>

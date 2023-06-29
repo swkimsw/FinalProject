@@ -23,8 +23,7 @@ public class AdminController {
 		return "forward:/admin/index.html";
 	}
 	
-	@ResponseBody
-	@RequestMapping(value = "selectSuccessMeal")
+	@RequestMapping("selectSuccessMeal")
 	public int selectSuccessMeal() {
 		int successMeal = aService.selectSuccessMeal();
 		return successMeal;
@@ -40,5 +39,13 @@ public class AdminController {
 		model.addAttribute("list",list);
 		return "";
 	}
-	
+	@RequestMapping("selectSuccessBasket")
+	public int selectSuccessBasket() {
+		return aService.selectSuccessBasket();
+	}
+
+	@RequestMapping("selectFailBasket")
+	public int selectFailBasket() {
+		return aService.selectFailBasket();
+	}
 }

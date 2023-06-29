@@ -36,6 +36,15 @@ public class AdminMemberDAO {
 	public int selectFailMeal() {
 		return mybatis.selectOne("Admin.selectFailMeal");
 	}
+	
+	public int selectSuccessBasket() {
+		return mybatis.selectOne("Admin.selectSuccessBasket");
+	}
+	
+	public int selectFailBasket() {
+		return mybatis.selectOne("Admin.selectFailBasket");
+	}
+	
 	public List<MemberDTO> clientUserList() {
 		return mybatis.selectList("Admin.clientUserList");
 	}
