@@ -1,14 +1,18 @@
 package cc.spring.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
+import cc.spring.dto.MemberDTO;
 import cc.spring.services.AdminMemberService;
 
-@RestController
-@RequestMapping("/data/")
+@Controller
+@RequestMapping("/adminPage/")
 public class AdminController {
 	
 	@Autowired
@@ -30,6 +34,11 @@ public class AdminController {
 	public void selectFailMeal() {
 		int failMeal = aService.selectFailMeal();
 	}
-
+	@RequestMapping("clientUserList")
+	public String clinetUserList(Model model) {
+		List<MemberDTO> list = aService.ClinetUserList();
+		model.addAttribute("list",list);
+		return "";
+	}
 	
 }

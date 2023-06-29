@@ -42,4 +42,7 @@ public class AdminMemberService {
 	public int selectFailMeal() {
 		return ADAO.selectFailMeal();
 	}
+	public List<MemberDTO> ClinetUserList() {
+		return ADAO.clientUserList();
+	}
 }
