@@ -98,6 +98,10 @@ public class ShopDAO {
 		return db.selectList("Shop.businessRegisterList",param);
 	}
 	
+	public List<MyShopListDTO> groupbuyingCountByStatus(int code){
+		return db.selectList("Shop.groupbuyingCountByStatus",code);
+	}
+	
 	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
 		return db.selectList("Shop.buyingMemberInfoList", groupbuyingCode);
 	}
