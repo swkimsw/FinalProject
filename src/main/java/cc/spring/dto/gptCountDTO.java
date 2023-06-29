@@ -6,8 +6,6 @@ public class gptCountDTO {
 	private int mealFail;
 	private int basketSuccess;
 	private int basketFail;
-	private int mealSuccessTotal;
-	private int mealFailTotal;
 	
 	public gptCountDTO() {
 		super();
@@ -20,12 +18,6 @@ public class gptCountDTO {
 		this.mealFail = mealFail;
 		this.basketSuccess = basketSuccess;
 		this.basketFail = basketFail;
-	}
-	
-	public gptCountDTO(int mealSuccessTotal, int mealFailTotal) {
-		super();
-		this.mealSuccessTotal = mealSuccessTotal;
-		this.mealFailTotal = mealFailTotal;
 	}
 
 	public int getMemberCode() {
@@ -66,21 +58,5 @@ public class gptCountDTO {
 
 	public void setBasketFail(int basketFail) {
 		this.basketFail = basketFail;
-	}
-
-	public int getMealSuccessTotal() {
-		return mealSuccessTotal;
-	}
-
-	public void setMealSuccessTotal(int mealSuccessTotal) {
-		this.mealSuccessTotal = mealSuccessTotal;
-	}
-
-	public int getMealFailTotal() {
-		return mealFailTotal;
-	}
-
-	public void setMealFailTotal(int mealFailTotal) {
-		this.mealFailTotal = mealFailTotal;
 	}
 }

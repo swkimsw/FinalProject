@@ -76,6 +76,9 @@ build/
 ### API KEY ###
 src/main/resources/key/CGPK.properties
 
+###React admin
+src/main/webapp/resources/admin/*
+
 # Created by git when using merge tools for conflicts
 *.BACKUP.*
 *.BASE.*
