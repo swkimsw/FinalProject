@@ -53,6 +53,14 @@ public class AdminMemberService {
 	public int selectFailBasket() {
 		return aDAO.selectFailBasket();
 	}
+	
+	public Map<String, Integer> selectTotalCount(){
+		Map<String, Integer> totalCountMap = new HashMap<>();
+		totalCountMap.put("totalSuccess", aDAO.selectTotalSuccess());
+		totalCountMap.put("totalFail", aDAO.selectTotalFail());
+		return totalCountMap;
+	}
+	
 	public List<MemberDTO> ClinetUserList() {
 		return aDAO.clientUserList();
 	}

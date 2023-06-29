@@ -26,7 +26,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping("selectMealCount")
-	public Map<String, Integer> selectSuccessMeal() {
+	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> successMeal = aService.selectMealCount();
 		return successMeal;
 	}
@@ -48,5 +48,10 @@ public class AdminController {
 	@RequestMapping("selectFailBasket")
 	public int selectFailBasket() {
 		return aService.selectFailBasket();
+	}
+	
+	@RequestMapping("selectTotalCount")
+	public Map<String, Integer> selectTotalCount() {
+		return aService.selectTotalCount();
 	}
 }

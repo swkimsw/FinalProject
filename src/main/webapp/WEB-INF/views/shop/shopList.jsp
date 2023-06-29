@@ -43,6 +43,7 @@
 
 * {
 	font-family: NanumSquareNeo;
+	box-sizing : border-box;
 }
 
 .body {
@@ -61,19 +62,23 @@
 }
 
 .searchGroup {
-	position: relative;
-	width: 100%;
 	height: 40px;
 	z-index: 3;
 }
-
+.input-group{
+	width: auto;
+}
+.input-group .searchGroup{
+	justify-content : end;
+}
 .searchGroup>.category {
 	height: 100%;
 	max-width: 85px;
-	min-width: 85px;s
+	min-width: 85px;
 }
 
 .searchGroup>.searchInput {
+	position: relative;
 	max-width: 250px;
 	min-width: 100px;
 	height: 100%;
@@ -83,7 +88,7 @@
 .searchGroup>.searchIcon {
 	position: absolute;
 	top: 10px;
-	left: 300px;
+	right : 1.5rem;
 	z-index: 5;
 }
 .card-image{
@@ -100,11 +105,11 @@
 	</c:import>
 
 	<div class="container w-75">
-		<div class="row subNav w-75">
-				<nav class="navbar col bg-body-tertiary navbar-expand-sm">
-						<div class="row navbar w-100" id="navbarTogglerDemo03">
-							<div class="col linkGroup"
-								style="position: relative; width: 100%;">
+		<div class="subNav w-75">
+				<nav class="navbar bg-body-tertiary navbar-expand-sm">
+						<div class="d-flex justify-content-between navbar w-100" id="navbarTogglerDemo03">
+							<div class="linkGroup"
+								style="position: relative;">
 								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 									<li class="nav-item active">
 										<a class="nav-link" href="/shop/toShopList">
@@ -130,7 +135,7 @@
 									</c:if>
 								</ul>
 							</div>
-							<div class="col input-group searchGroup">
+							<div class="input-group searchGroup">
 								<select class="form-select form-select-sm category" name="category">
 									<option value="productName">상품명</option>
 									<option value="companyName">판매자</option>
