@@ -49,7 +49,7 @@
 	margin-top: 80px;
 }
 
-.header{
+.clientHeader{
 	position: fixed;
 	background-color: window;
 	top:80px;
@@ -58,7 +58,15 @@
 	z-index:3;
 	width:100%;
 }
-
+.businessHeader{
+	position: fixed;
+	background-color: window;
+	top:80px;
+	padding-top:20px;
+	padding-bottom: 5px;
+	z-index:3;
+	width:100%;
+}
 .applyList{
 	position:relative;
 	top:100px;
@@ -66,6 +74,7 @@
 
 .listCard{
 	background-color: rgba(255, 255, 194, 0.5);
+	border:none;
 	position:relative;
 	margin-right:5%; 
 	margin-left:5%;
@@ -84,7 +93,40 @@
 .productImg:hover{
 	cursor:pointer;
 }
-
+.circle{
+	background-color: rgba(255, 255, 194, 0.5);
+	border-radius: 120px;
+	border:none;
+	height:120px;
+	min-height:110px;
+	width:120px;
+	min-width:110px;
+	align-items: center;
+	text-align: center;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+.list-wrapper{
+	border-top: 1px solid grey;
+	border-bottom: 1px solid grey;
+	background-color: #f2f3f5;
+	width:1000px;
+	min-width:600px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom:20px;
+}
+.regist{
+	background-color: white;
+	width:900px; 
+	min-width:500px; 
+	border-radius: 30px;
+}
+.infoBtn{
+	border-radius: 30px;
+}
 </style>
 </head>
 <body>
@@ -97,8 +139,8 @@
 			<%-- 세션 code = 1003일때 일반회원 공구 신청 목록  --%>
 			<c:when test="${sessionScope.authGradeCode == 1003}">
 				<div class="client-wrapper" style="height:auto;">
-					<div class="row header">
-						<div class="co1 col-md-6"><h4>${info.name}님의 신청 목록</h4></div>
+					<div class="row clientHeader">
+						<div class="co1 col-md-6"><h3>${info.name}님의 신청 목록</h3></div>
 						<div class="col col-md-6">
 							<select class="form-select w-50" name="clientCategory" onchange="clientSelect()">
 								<option value="0" selected>전체</option>
@@ -139,13 +181,13 @@
 										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
 										
 										if(i.statusCode == 1001){
-											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-3 p-2'>" 
 													+ i.statusValue + "</span>"
 										}else if(i.statusCode == 1002){
-											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-3 p-2'>" 
 												+ i.statusValue + "</span>"
 										}else if(i.statusCode == 1003){
-											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-3 p-2'>" 
 												+ i.statusValue + "</span>"
 										}
 												
@@ -220,26 +262,54 @@
 				
 			</c:when>
 			
-			
-			
-			
-			
 			<%-- 세션 code = 1002일때 사업자 회원 공구 등록 목록 --%>
 			<c:when test="${sessionScope.authGradeCode == 1002}">
 				<div class="business-wrapper">
-					<h4>${info.companyName}님의 공구 등록 목록</h4>
-					<c:forEach var="b" items="${list}">
-						<a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a>
-						<p>상품명 : ${b.productName}</p>
-						<p>가격 : ${b.productPrice} 원</p>
-						<p>신청건수 : ${b.applyCount}</p>
-						<p>상품수량 : ${b.applyQuantity}</p>
-						<p>총 매출 : ${b.productPrice * b.applyQuantity}</p>
-						<button onclick="openInfo(${b.groupbuyingCode})">신청자 목록</button>
-						
-						<hr>
-					</c:forEach>
+					<div class="businessHeader ms-2 pt-3"><h3>${info.companyName}님의 공구</h3></div>
+					<div class="counter d-flex justify-content-center pt-5">
+						<c:forEach var="t" items="${count}">
+							<button class="circle mx-4 my-3 f-1 d-flex flex-column align-items-center justify-content-center" onclick="statusBtn(${t.statusCode})">
+								<c:choose>
+									<c:when test="${t.statusCode == 1001 }">
+										<div class="statusValue">진행중</div>
+									</c:when>
+									<c:when test="${t.statusCode == 1002 }">
+										<div class="statusValue">공구 종료</div>
+									</c:when>
+									<c:when test="${t.statusCode == 1003 }">
+										<div class="statusValue">공구 실패</div>
+									</c:when>
+								</c:choose>
+								<div class="statusCount" style="font-size: x-large;">${t.statusCount}</div>
+							</button>
+						</c:forEach>
+					</div>
+					
+					<div class="listContainer d-flex justify-content-center flex-column align-items-center">
+						<div class="list-wrapper d-flex justify-content-center flex-column align-items-center">
+							<c:forEach var="b" items="${list}">
+								<div class="regist position-relative px-4 py-3 my-2">
+									<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+													 b.statusValue</span>
+									<h4><a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a></h4>
+									<p>상품명  ${b.productName} | 가격  ${b.productPrice} 원 </p>
+									<button class="infoBtn position-absolute top-0 end-0 p-2" onclick="openInfo(${b.groupbuyingCode})">신청자 목록</button>
+									<p>
+									신청 건수  ${b.applyCount} |
+									신청 수량  ${b.applyQuantity} |
+									판매액  ${b.productPrice * b.applyQuantity} 원</p>
+									<div class="progress" style="min-width:300px; max-width:600px;">
+	  									<div class="progress-bar progress-bar-striped bg-success" role="progressbar" aria-label="Success striped example" 
+	  									style="width: ${b.applyQuantity / b.min * 100}%" aria-valuemin="0" aria-valuemax="100">	
+	  										달성률 <fmt:formatNumber type="number" pattern="0" value="${b.applyQuantity / b.min * 100}" />%
+	  									</div>
+									</div>
+								</div>
+							</c:forEach>
+						</div>
+					</div>	
 				</div>	
+
 				<script>
 					<%--$(document).ready(function(){
 						$.ajax({
@@ -256,6 +326,22 @@
 						)
 						
 					})--%>
+					
+					function statusBtn(a){
+						$.ajax({
+							url: "/shop/myShopListByStatus", 
+							type: "post",
+							dataType : "json",
+							data : {status : a},
+							error: function(){
+								alert("서버 연결에 실패하였습니다.");
+							}
+						}).done(
+							function(resp){
+								
+							}
+						)
+					}
 				
 					function openInfo(a){
 						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1200, height=600,left=200, top=100, scrollbars=yes");

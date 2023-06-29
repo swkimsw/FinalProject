@@ -51,6 +51,7 @@
 			 			<tr align="center">
 			 				<th scope='col'></th>
 			 				<th scope='col'>코드</th>
+			 				<th scope='col'>신청일</th>
 			 				<th scope='col'>이름</th>
 			 				<th scope='col'>아이디</th>
 			 				<th scope='col'>전화번호</th>
@@ -69,6 +70,7 @@
 						 			<tr align="center">
 						 				<th scope='row'>${status.count}</th>
 						 				<td>${i.applyCode}</td>
+						 				<td>${i.applyDateTemp}</td>
 						 				<td>${i.name }</td>
 						 				<td>${i.clientId }</td>
 						 				<td>${i.phone }</td>
@@ -83,7 +85,7 @@
 				 			</c:when>
 				 			<c:otherwise>
 				 				<tr align="center">
-				 					<th colspan='11'>신청자가 없습니다.</th>
+				 					<th colspan='12'>신청자가 없습니다.</th>
 				 				</tr>
 				 			</c:otherwise>
 			 			</c:choose>
@@ -91,7 +93,7 @@
 			 		
 			 		<tfoot>
 			 			<tr align="center">
-			 				<td colspan='11'><button onclick="window.close()">닫기</button></td>
+			 				<td colspan='12'><button onclick="window.close()">닫기</button></td>
 			 			</tr>
 			 		</tfoot>
 				</table>

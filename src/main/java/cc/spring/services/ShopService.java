@@ -218,10 +218,21 @@ public class ShopService {
 	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
 		return shopDAO.businessRegisterList(code,statusCode);
 	}
+	
+	public List<MyShopListDTO> groupbuyingCountByStatus (int code){
+		return shopDAO.groupbuyingCountByStatus(code);
+	}
 
 	//사업자회원용 공구 신청인 정보(이름,배송지,전화번호,수량 등등) 목록
 	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
-		return shopDAO.buyingMemberInfoList(groupbuyingCode);
+		List<MyShopListDTO> myShopListDTO = shopDAO.buyingMemberInfoList(groupbuyingCode);
+		for(MyShopListDTO m : myShopListDTO) {
+			// Timestamp -> String
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+			m.setApplyDateTemp(dateFormat.format(m.getApplyDate()));
+		}
+		
+		return myShopListDTO;
 	}
 
 

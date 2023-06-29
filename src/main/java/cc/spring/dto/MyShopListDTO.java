@@ -16,9 +16,10 @@ public class MyShopListDTO {
 	private String businessId;
 	private String companyName;
 	private int groupbuyingCode;
-	private String statusValue;
 	private int businessCode;
 	private int statusCode;
+	private int statusCount;
+	private String statusValue;
 	private String title;
 	private String productName;
 	private String productPrice;
@@ -32,6 +33,7 @@ public class MyShopListDTO {
 	private String sysName;
 	private int applyCount;
 	private int applyQuantity;
+	private int min;
 	
 	//기본 생성자
 	public MyShopListDTO() {}
@@ -74,7 +76,7 @@ public class MyShopListDTO {
 	
 	//사업자회원 내 공구 등록 목록용 생성자
 	public MyShopListDTO(int groupbuyingCode,int businessCode, int statusCode, Timestamp deadLine, String title,
-			String productName, String productPrice, Timestamp regDate, String companyName, int applyCount, int applyQuantity) {
+			String productName, String productPrice, Timestamp regDate, String companyName, int applyCount, int applyQuantity, int min) {
 		super();
 		this.groupbuyingCode = groupbuyingCode;
 		this.businessCode = businessCode;
@@ -87,13 +89,21 @@ public class MyShopListDTO {
 		this.companyName = companyName;
 		this.applyCount = applyCount;
 		this.applyQuantity = applyQuantity;
+		this.min = min;
 	}	
 	
+	//사업자회원 공구 등록 status별 count용 생성자
+		public MyShopListDTO(int statusCode, int statusCount) {
+			this.statusCode = statusCode;
+			this.statusCount = statusCount;
+		}
+	
 	//사업자회원 내 공구글별 구매자 정보 리스트용 생성자
-	public MyShopListDTO(int applyCode, int memberCode, int quantity, Timestamp applyDate, 
+	public MyShopListDTO(int applyCode, String applyDateTemp, int memberCode, int quantity, Timestamp applyDate, 
 			String clientId, String name,String phone, String email, String zipcode, String address1, String address2, int businessCode, String productPrice) {
 		super();
 		this.applyCode = applyCode;
+		this.applyDateTemp = applyDateTemp;
 		this.memberCode = memberCode;
 		this.quantity = quantity;
 		this.applyDate = applyDate;
@@ -280,6 +290,14 @@ public class MyShopListDTO {
 	public void setStatusValue(String statusValue) {
 		this.statusValue = statusValue;
 	}
+	
+	public int getStatusCount() {
+		return statusCount;
+	}
+
+	public void setStatusCount(int statusCount) {
+		this.statusCount = statusCount;
+	}
 
 	public String getRegDateTemp() {
 		return regDateTemp;
@@ -297,18 +315,42 @@ public class MyShopListDTO {
 		this.applyDateTemp = applyDateTemp;
 	}
 
+	public int getMin() {
+		return min;
+	}
+
+	public void setMin(int min) {
+		this.min = min;
+	}
+
 	@Override
 	public String toString() {
 		return "MyShopListDTO [applyCode=" + applyCode + ", memberCode=" + memberCode + ", quantity=" + quantity
 				+ ", clientId=" + clientId + ", name=" + name + ", phone=" + phone + ", email=" + email + ", zipcode="
 				+ zipcode + ", address1=" + address1 + ", address2=" + address2 + ", businessId=" + businessId
-				+ ", companyName=" + companyName + ", groupbuyingCode=" + groupbuyingCode + ", statusValue="
-				+ statusValue + ", businessCode=" + businessCode + ", statusCode=" + statusCode + ", title=" + title
-				+ ", productName=" + productName + ", productPrice=" + productPrice + ", regDate=" + regDate
-				+ ", regDateTemp=" + regDateTemp + ", deadLine=" + deadLine + ", deadLineTemp=" + deadLineTemp
-				+ ", applyDate=" + applyDate + ", applyDateTemp=" + applyDateTemp + ", path=" + path + ", sysName="
-				+ sysName + ", applyCount=" + applyCount + ", applyQuantity=" + applyQuantity + "]";
+				+ ", companyName=" + companyName + ", groupbuyingCode=" + groupbuyingCode + ", businessCode="
+				+ businessCode + ", statusCode=" + statusCode + ", statusCount=" + statusCount + ", statusValue="
+				+ statusValue + ", title=" + title + ", productName=" + productName + ", productPrice=" + productPrice
+				+ ", regDate=" + regDate + ", regDateTemp=" + regDateTemp + ", deadLine=" + deadLine + ", deadLineTemp="
+				+ deadLineTemp + ", applyDate=" + applyDate + ", applyDateTemp=" + applyDateTemp + ", path=" + path
+				+ ", sysName=" + sysName + ", applyCount=" + applyCount + ", applyQuantity=" + applyQuantity + ", min="
+				+ min + ", getApplyCode()=" + getApplyCode() + ", getMemberCode()=" + getMemberCode()
+				+ ", getQuantity()=" + getQuantity() + ", getApplyDate()=" + getApplyDate() + ", getClientId()="
+				+ getClientId() + ", getName()=" + getName() + ", getPhone()=" + getPhone() + ", getEmail()="
+				+ getEmail() + ", getZipcode()=" + getZipcode() + ", getAddress1()=" + getAddress1()
+				+ ", getAddress2()=" + getAddress2() + ", getBusinessId()=" + getBusinessId() + ", getCompanyName()="
+				+ getCompanyName() + ", getGroupbuyingCode()=" + getGroupbuyingCode() + ", getBusinessCode()="
+				+ getBusinessCode() + ", getStatusCode()=" + getStatusCode() + ", getDeadLine()=" + getDeadLine()
+				+ ", getDeadLineTemp()=" + getDeadLineTemp() + ", getTitle()=" + getTitle() + ", getProductName()="
+				+ getProductName() + ", getProductPrice()=" + getProductPrice() + ", getRegDate()=" + getRegDate()
+				+ ", getPath()=" + getPath() + ", getSysName()=" + getSysName() + ", getApplyCount()=" + getApplyCount()
+				+ ", getApplyQuantity()=" + getApplyQuantity() + ", getStatusValue()=" + getStatusValue()
+				+ ", getStatusCount()=" + getStatusCount() + ", getRegDateTemp()=" + getRegDateTemp()
+				+ ", getApplyDateTemp()=" + getApplyDateTemp() + ", getMin()=" + getMin() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+	
 
 	
 
