@@ -1,6 +1,8 @@
 package cc.spring.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,13 +39,12 @@ public class AdminMemberService {
 		return cDAO.selectAllClientMember();
 	}
 	
-	public int selectSuccessMeal() {
-		return aDAO.selectSuccessMeal();
+	public Map<String, Integer> selectMealCount() {
+		Map<String, Integer> mealCountMap = new HashMap<String, Integer>();
+		mealCountMap.put("mealSuccessTotal", aDAO.selectFailMeal());
+		mealCountMap.put("mealFailTotal", aDAO.selectSuccessMeal());
+		return mealCountMap;
 	}	
-	
-	public int selectFailMeal() {
-		return aDAO.selectFailMeal();
-	}
 	
 	public int selectSuccessBasket() {
 		return aDAO.selectSuccessBasket();
