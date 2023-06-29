@@ -503,8 +503,9 @@ label {
 		// 정규식 & 중복 체크 - 아이디 & 닉네임 & 이메일 ...
 		let valid = new Map();
 		let setValid;
+		let id
 		function checksum(evt, type) {
-			let id = $(evt).attr("id");
+			id = $(evt).attr("id");
 			let regex = new RegExp($(evt).attr("pattern"));
 			let value = $(evt).val();
 			// MAP(valid)에 KEY(value)가 없으면 flase 추가
@@ -517,11 +518,11 @@ label {
 					$("#" + id + "_checking").html("");
 				else
 					$("#" + id + "_checking").html($(evt).attr("title")).css("color", "red");
-				valid.set(id, false);
+				setValid = valid.set(id, false);
 				return false;
 			} else {
 				$("#" + id + "_checking").html("사용가능").css("color", "#198754");
-				valid.set(id, true);
+				setValid = valid.set(id, true);
 			}
 			// 중복체크 여부 확인
 			if (type != "A") return false;
@@ -551,21 +552,40 @@ label {
 					}
 				}
 			});
-			
-			$("#join").on("click", function() {
-				if(setValid.get(id) == false) {
-					$("#" + id).focus();
-					return false;
-				}
-			})
 		}
 		
+		$("#join").on("click", function() {
+			if($("#B_businessId").val() == "") {
+				$("#B_businessId").focus();
+				return false;
+			}
+			if(setValid.get(id) == false) {
+				console.log(id);
+				console.log(setValid.get(id))
+
+				$("#" + id).focus();
+				return false;
+			}
+			if(lengBoolean == false || bigLetterBoolean == false || numBoolean == false || specialCharBoolean == false) {
+				$("#member_pw").focus();
+				return false;
+			}
+			if($("#member_pw").val() != $("#password_check").val()){
+				$("#password_check").focus();
+				return false;
+			}
+			if(setValid.get("member_phone") == true && setValid.get("auth") == false) {
+				alert("휴대폰 인증을 해주세요.");
+				return false;
+			}
+		})
+		
 		// PW 유효성 검사
+		let lengBoolean=false, bigLetterBoolean=false, numBoolean=false, specialCharBoolean=false;
 		addEventListener("DOMContentLoaded", (event) => {
 			const password = document.getElementById("member_pw");
 			const passwordAlert = document.getElementById("password-alert");
 			const requirements = document.querySelectorAll(".requirements");
-			let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
 			let leng = document.querySelector(".leng");
 			let bigLetter = document.querySelector(".big-letter");
 			let num = document.querySelector(".num");
@@ -785,6 +805,7 @@ label {
 			});
 		});
 		// 인증 버튼 이벤트
+		setValid = valid.set("auth", false);
 		$("#phone_auth_ok").on("click", function () {
 			//입력 안했을 경우
 			if(!$("#phone_auth_code").val()){
@@ -805,7 +826,7 @@ label {
 					$("#pAuth button").attr("disabled", true);
 					$("#pAuth input").attr("readonly", true);
 					
-					valid.set("auth", true);
+					setValid = valid.set("auth", true);
 				} else {
 					alert("인증번호가 틀렸거나 시간이 초과되었습니다.");
 					$("#phone_auth_code").val("");
@@ -914,22 +935,25 @@ label {
 			
 		}
 		document.addEventListener("DOMContentLoaded", function() {
+			  var b_businessId = document.getElementById("B_businessId");
 			  var password_check = document.getElementById("password_check");
 			  var member_name = document.getElementById("member_name");
-			  var companyname = document.getElementById("companyname");
+			  var b_companyname = document.getElementById("B_companyname");
 			  var member_phone = document.getElementById("member_phone");
 			  var phone_auth_code = document.getElementById("phone_auth_code");
 			  var sample6_postcode = document.getElementById("sample6_postcode");
 			  var sample6_address = document.getElementById("sample6_address");
 			  var sample6_detailAddress = document.getElementById("sample6_detailAddress");
 			  var member_email = document.getElementById("member_email");
-
-			  if (password_check.value === "") {
+				
+			  if(b_businessId.value === "") {
+				 b_businessId.focus();
+			  }else if (password_check.value === "") {
 			    password_check.focus();
 			  } else if (member_name.value === "") {
 			    member_name.focus();
-			  } else if (companyname.value === "") {
-			    companyname.focus();
+			  } else if (b_companyname.value === "") {
+			    b_companyname.focus();
 			  } else if (member_phone.value === "") {
 			    member_phone.focus();
 			  } else if (phone_auth_code.value === "") {

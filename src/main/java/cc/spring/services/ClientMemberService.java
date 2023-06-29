@@ -14,6 +14,10 @@ public class ClientMemberService {
 	@Autowired
 	private ClientMemberDAO cdao;
 	
+	public boolean existingMember(MemberDTO dto) {
+		return cdao.login(dto);
+	}
+	
 	@Transactional
 	public boolean login(loginCountDTO ldto ,MemberDTO mdto){
 		cdao.updatelogintCount(ldto);
