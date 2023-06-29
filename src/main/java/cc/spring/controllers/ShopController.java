@@ -210,18 +210,17 @@ public class ShopController {
 	 		MyShopListDTO info = shopService.getInfo(code);
 	 		model.addAttribute("info",info);
 	 		
-	 		
-	 		List<MyShopListDTO> list = new ArrayList<>();
+	 		//List<MyShopListDTO> list = new ArrayList<>();
 	 		//사업자일 때 공구 등록 목록으로 이동
-	 		if(authGradeCode == 1002) {
-	 				list = shopService.businessRegisterList(code,0);
-	 			
+	 		//if(authGradeCode == 1002) {
+	 		//		list = shopService.businessRegisterList(code,0);
+	 		//}
 	 		//일반회원일 때 공구 신청 목록으로 이동
-	 		}else if(authGradeCode == 1003) {
-	 				list = shopService.clientBuyingList(code,0);
-	 		}
+	 		//}else if(authGradeCode == 1003) {
+	 		//		list = shopService.clientBuyingList(code,0);
+	 		//}
 	 		
-	 	 	model.addAttribute("list",list);
+	 	 	//model.addAttribute("list",list);
 	 	 	return "/shop/myShopList";
 	 	 }
 	 	 
@@ -243,7 +242,7 @@ public class ShopController {
 	 		}else if(authGradeCode == 1003) {
 	 				list = shopService.clientBuyingList(code,statusCode);
 	 		}
-	 		System.out.println(list);
+	 		
 	 		return list;
 	 	 }
 	 	 

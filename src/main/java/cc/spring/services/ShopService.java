@@ -205,9 +205,10 @@ public class ShopService {
 		
 		for(MyShopListDTO m : myShopListDTO) {
 			// Timestamp -> String
-			Timestamp deadLine = m.getDeadLine();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			m.setDeadLineTemp(dateFormat.format(deadLine));
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+			m.setRegDateTemp(dateFormat.format(m.getRegDate()));
+			m.setDeadLineTemp(dateFormat.format(m.getDeadLine()));
+			m.setApplyDateTemp(dateFormat.format(m.getApplyDate()));
 		}
 
 		return myShopListDTO;

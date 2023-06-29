@@ -110,32 +110,52 @@
 						</div>
 					</div>
 					<div class="body applyList">
-						<c:forEach var="c" items="${list}">
-							<div class="card mt-3 listCard">
-								<div class="row cardRow"> 
-									<div class="col col-md-5 col-lg-4 col-xl-3 cardImgBox">
-										<div class="cardImg">
-											<img src="${c.path}${c.sysName}" class="img-fluid productImg" onclick="location.href='/shop/toShopApply?code=${c.groupbuyingCode}'">
-										</div>
-									</div>
-									<div class="col col-md-7 col-lg-8 col-xl-9 card-body cardText">
-										<h5 class="card-title">${c.title}</h5>
-										<p class="card-text">
-											<fmt:formatDate value="${c.regDate}" pattern="YYYY-MM-dd"/> ~
-											<fmt:formatDate value="${c.deadLine}" pattern="YYYY-MM-dd"/>
-										</p>
-										<p class="card-text">${c.productName} | ${c.companyName}</p>
-										<p class="card-text">가격 : ${c.productPrice} 원 | 신청수량 : ${c.quantity} 개 </p>
-										<p class="card-text">합계액 : ${c.productPrice * c.quantity} 원 </p>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-						<hr>
+						
 					</div>
 				</div>
 				
-				<script type="text/javascript">
+				<script type="text/javascript"> 
+					$(document).ready(function() {
+						$.ajax({
+							url: "/shop/myShopListByStatus",
+							type: "post",
+							dataType : "json",
+							data : {status : 0},
+							error: function(){
+								alert("서버 연결에 실패하였습니다.");
+							}
+						}).done(
+							function(resp){
+								$(".applyList").empty();
+								if(resp.length > 0){
+									resp.forEach(function(i){
+										div = "<div class='ms-5 mb-1'><span class='text ms-2'><b>" + i.applyDateTemp + " 신청 </b></span></div>";
+										div += "<div class='card ml-3 listCard'>";
+										div += "<div class='row cardRow'>" ;
+										div += "<div class='col col-md-5 col-lg-4 col-xl-3 cardImgBox'>";
+										div += "<div class='cardImg'>";
+										div += "<img src='" + i.path + i.sysName + "' class='img-fluid productImg' onclick='location.href='/shop/toShopApply?code=" 
+												+ i.groupbuyingCode+ "''>";
+										div += "</div></div>";	
+										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
+										div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+												+ i.statusValue + "</span>"
+										div += "<p class='card-text mt-3'>" + i.productName + " | " + i.companyName + "</p>";
+										div += "<h4 class='card-title'>" + i.title + "</h4>";
+										div += "<p class='card-text'> 진행기간&nbsp;&nbsp;" + i.regDateTemp + " ~ " +  i.deadLineTemp + "</p>";
+										div += "<p class='card-text'> 신청수량&nbsp;&nbsp;&nbsp;" + i.quantity + "&nbsp;&nbsp;|&nbsp;&nbsp;합계액&nbsp;&nbsp;&nbsp;&nbsp;" + (i.productPrice * i.quantity) + "원 </p>";
+										div += "</div></div></div>";
+										$(".applyList").append(div);
+									})
+									$(".applyList").append("<hr>");
+								}else{
+									div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-send-x'/> 신청하신 내역이 없습니다. </p><hr/></div>";
+									$(".applyList").append(div);
+								}
+							}		
+						)
+					})
+				
 					function clientSelect(){
 						let status = $('select[name="clientCategory"]').val();
 						$.ajax({
@@ -151,20 +171,21 @@
 								$(".applyList").empty();
 								if(resp.length > 0){
 									resp.forEach(function(i){
-										div = "<div class='card mt-3 listCard'>";
+										div = "<div class='ms-5 mb-1'><span class='text ms-2'><b>" + i.applyDateTemp + " 신청 </b></span></div>";
+										div += "<div class='card ml-3 listCard'>";
 										div += "<div class='row cardRow'>" ;
 										div += "<div class='col col-md-5 col-lg-4 col-xl-3 cardImgBox'>";
 										div += "<div class='cardImg'>";
 										div += "<img src='" + i.path + i.sysName + "' class='img-fluid productImg' onclick='location.href='/shop/toShopApply?code=" 
 												+ i.groupbuyingCode+ "''>";
 										div += "</div></div>";	
-										div += "<div class='col col-md-7 col-lg-8 col-xl-9 card-body cardText'>";
-										div += "<h5 class='card-title'>" + i.title + "</h5>";
-										div += "<p class='card-text'>"
-												 + i.regDate +  i.deadLine + "</p>";
-										div += "<p class='card-text'>" + i.productName + "|" + i.companyName + "</p>";
-										div += "<p class='card-text'>가격 : " + i.productPrice + "원 | 신청수량 : " + i.quantity + "개 </p>";
-										div += "<p class='card-text'>합계액 : " + (i.productPrice * i.quantity) + "원 </p>";
+										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
+										div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+												+ i.statusValue + "</span>"
+										div += "<p class='card-text mt-3'>" + i.productName + " | " + i.companyName + "</p>";
+										div += "<h4 class='card-title'>" + i.title + "</h4>";
+										div += "<p class='card-text'> 진행기간&nbsp;&nbsp;" + i.regDateTemp + " ~ " +  i.deadLineTemp + "</p>";
+										div += "<p class='card-text'> 신청수량&nbsp;&nbsp;&nbsp;" + i.quantity + "&nbsp;&nbsp;|&nbsp;&nbsp;합계액&nbsp;&nbsp;&nbsp;&nbsp;" + (i.productPrice * i.quantity) + "원 </p>";
 										div += "</div></div></div>";
 										$(".applyList").append(div);
 									})
@@ -202,6 +223,22 @@
 					</c:forEach>
 				</div>	
 				<script>
+					<%--$(document).ready(function(){
+						$.ajax({
+							url: "/shop/myShopListByStatus",
+							type: "post",
+							dataType : "json",
+							data : {status : 0},
+							error: function(){
+								alert("서버 연결에 실패하였습니다.");
+							}
+						}).done(
+							
+							
+						)
+						
+					})--%>
+				
 					function openInfo(a){
 						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1200, height=600,left=200, top=100, scrollbars=yes");
 					}

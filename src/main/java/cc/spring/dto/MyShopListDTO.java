@@ -6,7 +6,6 @@ public class MyShopListDTO {
 	private int applyCode;
 	private int memberCode;
 	private int quantity;
-	private Timestamp applyDate;
 	private String clientId;
 	private String name;
 	private String phone;
@@ -20,12 +19,15 @@ public class MyShopListDTO {
 	private String statusValue;
 	private int businessCode;
 	private int statusCode;
-	private Timestamp deadLine;
-	private String deadLineTemp;
 	private String title;
 	private String productName;
 	private String productPrice;
 	private Timestamp regDate;
+	private String regDateTemp;
+	private Timestamp deadLine;
+	private String deadLineTemp;
+	private Timestamp applyDate;
+	private String applyDateTemp;
 	private String path;
 	private String sysName;
 	private int applyCount;
@@ -44,14 +46,15 @@ public class MyShopListDTO {
 	}
 	
 	//일반회원 내 구매목록용 생성자
-	public MyShopListDTO(int applyCode,int membercode,int quantity,Timestamp applyDate,String name,String companyName,
+	public MyShopListDTO(int applyCode,int membercode,int quantity,Timestamp applyDate,String applyDateTemp,String name,String companyName,
 			int groupbuyingCode,int businessCode,int statusCode, String statusValue, Timestamp deadLine,String deadLineTemp,String title, String productName,
-			String productPrice,Timestamp regDate,String path,String sysName ) {
+			String productPrice,Timestamp regDate,String regDateTemp,String path,String sysName ) {
 		super();
 		this.applyCode = applyCode;
 		this.memberCode = membercode;
 		this.quantity = quantity;
 		this.applyDate = applyDate;
+		this.applyDateTemp = applyDateTemp;
 		this.name = name;
 		this.companyName = companyName;
 		this.groupbuyingCode = groupbuyingCode;
@@ -64,6 +67,7 @@ public class MyShopListDTO {
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.regDate = regDate;
+		this.regDateTemp = regDateTemp;
 		this.path = path;
 		this.sysName = sysName;
 	}
@@ -269,16 +273,41 @@ public class MyShopListDTO {
 		this.applyQuantity = applyQuantity;
 	}
 
+	public String getStatusValue() {
+		return statusValue;
+	}
+
+	public void setStatusValue(String statusValue) {
+		this.statusValue = statusValue;
+	}
+
+	public String getRegDateTemp() {
+		return regDateTemp;
+	}
+
+	public void setRegDateTemp(String regDateTemp) {
+		this.regDateTemp = regDateTemp;
+	}
+
+	public String getApplyDateTemp() {
+		return applyDateTemp;
+	}
+
+	public void setApplyDateTemp(String applyDateTemp) {
+		this.applyDateTemp = applyDateTemp;
+	}
+
 	@Override
 	public String toString() {
 		return "MyShopListDTO [applyCode=" + applyCode + ", memberCode=" + memberCode + ", quantity=" + quantity
-				+ ", applyDate=" + applyDate + ", clientId=" + clientId + ", name=" + name + ", phone=" + phone
-				+ ", email=" + email + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2=" + address2
-				+ ", businessId=" + businessId + ", companyName=" + companyName + ", groupbuyingCode=" + groupbuyingCode
-				+ ", businessCode=" + businessCode + ", statusCode=" + statusCode + ", deadLine=" + deadLine
-				+ ", title=" + title + ", productName=" + productName + ", productPrice=" + productPrice + ", regDate="
-				+ regDate + ", path=" + path + ", sysName=" + sysName + ", applyCount=" + applyCount
-				+ ", applyQuantity=" + applyQuantity + "]";
+				+ ", clientId=" + clientId + ", name=" + name + ", phone=" + phone + ", email=" + email + ", zipcode="
+				+ zipcode + ", address1=" + address1 + ", address2=" + address2 + ", businessId=" + businessId
+				+ ", companyName=" + companyName + ", groupbuyingCode=" + groupbuyingCode + ", statusValue="
+				+ statusValue + ", businessCode=" + businessCode + ", statusCode=" + statusCode + ", title=" + title
+				+ ", productName=" + productName + ", productPrice=" + productPrice + ", regDate=" + regDate
+				+ ", regDateTemp=" + regDateTemp + ", deadLine=" + deadLine + ", deadLineTemp=" + deadLineTemp
+				+ ", applyDate=" + applyDate + ", applyDateTemp=" + applyDateTemp + ", path=" + path + ", sysName="
+				+ sysName + ", applyCount=" + applyCount + ", applyQuantity=" + applyQuantity + "]";
 	}
 
 	
