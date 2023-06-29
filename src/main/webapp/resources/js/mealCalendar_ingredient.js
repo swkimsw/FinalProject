@@ -1,6 +1,7 @@
        //재료 추출하는 함수 따로 생성
        function extractIngredients(targetMeals, limit){
-
+		console.log(targetMeals);
+		console.log(JSON.stringify(targetMeals));
         $.ajax({
             url:"/basket/aiBasket",
             type:"post",
@@ -29,10 +30,11 @@
             Array.prototype.forEach.call(ingredientList, (element) => {
                 $("#ingredientList").append("🍽 "+element.meal).append("<hr class='titleLine'>");
                 let ul = $('<ul class="list-group ingredientUL">');
-                element.ingredients.forEach(i=>{
+                console.log(element);
+                element.ingredients.forEach((e,i)=>{
                     let li = $(`<li class="list-group-item">`);
                     let inputs = $(`<input class="form-check-input me-1 selectIngredient" type="checkbox" value="">`).attr('id',"selectIngredient"+count);
-                    let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(i);
+                    let labels = $(`<label class="form-check-label stretched-link">`).attr('for', "selectIngredient"+count).text(e);
                     li.append(inputs,labels);
                     ul.append(li);
                     count++;
