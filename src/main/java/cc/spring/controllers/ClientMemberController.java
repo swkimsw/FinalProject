@@ -17,10 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.MemberDTO;
-import cc.spring.dto.gptCountDTO;
 import cc.spring.dto.loginCountDTO;
 import cc.spring.services.AdminMemberService;
 import cc.spring.services.ClientMemberService;
+import cc.spring.services.SensUtilsService;
 import cc.spring.services.SmsService;
 
 @Controller
@@ -136,7 +136,7 @@ public class ClientMemberController {
 				String ran = Integer.toString(rand.nextInt(10));
 				numStr+=ran;
 			}
-			SmsService.certifiedPhoneNumber(phone, numStr);
+			SensUtilsService.send_msg(phone, numStr);
 			session.setAttribute("numStr", numStr);	
 		
 		}
