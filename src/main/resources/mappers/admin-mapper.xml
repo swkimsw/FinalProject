@@ -10,6 +10,7 @@
   	<select id="selectAdminMemberInfo" resultType="cc.spring.dto.MemberDTO">
   		select * from Member where id = #{id} and pw = #{pw}
   	</select>
+  	<!-- GPT 이용 통계 -->
 	<select id="selectSuccessMeal" resultType="int">
 		select sum(mealSuccess) as mealSuccess_Total from GPTCOUNT
 	</select>
@@ -21,6 +22,12 @@
 	</select>
 	<select id="selectFailBasket" resultType="int">
 		select sum(basketFail) as basketFail_Total from GPTCOUNT
+	</select>
+	<select id="selectTotalSuccess" resultType="int">
+		select (sum(mealSuccess)+sum(basketSuccess)) from GPTCOUNT
+	</select>
+	<select id="selectTotalFail" resultType="int">
+		select (sum(mealFail)+sum(basketFail)) from GPTCOUNT
 	</select>
 	<!-- 관리자 클라이언트회원목록 리스트 -->
 	<select id="clientUserList" resultType="cc.spring.dto.MemberDTO">

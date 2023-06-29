@@ -47,4 +47,9 @@ public class AdminController {
 	public int selectFailBasket() {
 		return aService.selectFailBasket();
 	}
+	
+	@RequestMapping("selectTotalCount")
+	public Map<String, Integer> selectTotalCount() {
+		return aService.selectTotalCount();
+	}
 }
