@@ -35,7 +35,15 @@ public class AdminController {
 	public Map<String, Object> clinetUserList() {
 		Map<String,Object> result = new HashMap<>();
 		List<MemberDTO> list = aService.ClinetUserList();
-		System.out.println("출력");
+		System.out.println("클라이언트출력");
+		result.put("list",list);
+		return result;
+	}
+	@RequestMapping("businessUserList")
+	public Map<String, Object> businessUserList() {
+		Map<String,Object> result = new HashMap<>();
+		List<MemberDTO> list = aService.BusinessUserList();
+		System.out.println("비지니스출력");
 		result.put("list",list);
 		return result;
 	}
