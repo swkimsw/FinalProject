@@ -62,4 +62,9 @@ public class AdminController {
 	public Map<String, Integer> selectTotalCount() {
 		return aService.selectTotalCount();
 	}
+	
+	@RequestMapping("recentVisitBusiness")
+	public String recentVisitBusiness() {
+		return aService.recentVisitBusiness();
+	}
 }

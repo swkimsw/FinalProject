@@ -91,4 +91,9 @@ public class BusinessMemberDAO {
 	public List<MemberDTO> selectAllBusinessMember() {
 		return mybatis.selectList("Business.selectAllBusinessMember");
 	}
+	
+	public String recentVisitBusiness() {
+		return mybatis.selectOne("Business.recentVisitBusiness");
+	}
+	
 }
