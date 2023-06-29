@@ -64,4 +64,8 @@ public class AdminMemberService {
 	public List<MemberDTO> ClinetUserList() {
 		return aDAO.clientUserList();
 	}
+	
+	public String recentVisitBusiness() {
+		return bDAO.recentVisitBusiness();
+	}
 }
