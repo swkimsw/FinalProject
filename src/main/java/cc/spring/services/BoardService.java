@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
-import cc.spring.dto.ReviewImgDTO;
 import cc.spring.repositories.BoardDAO;
 
 @Service
@@ -112,29 +112,38 @@ public class BoardService {
 	
 //====================================================================================
 	
-	//자유게시판 리스트중 누른 해당 글 가져오기
-	public BoardFreeDTO selectFreeContent(int code) {
-		return boarddao.selectFreeContent(code);
 		
+	//자유게시판 리스트중 누른 해당 글 가져오기
+	@Transactional
+	public BoardFreeDTO selectFreeContent(int code,boolean viewchoose) {
+		
+		int boardKindCode = 1002 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
+		
+		return boarddao.selectFreeContent(code);
 	}
 
 	//공지게시판 리스트중 누른 해당 글 가져오기
-	public BoardAnnouncementDTO selectAnnouncementContent(int code) {
+	@Transactional
+	public BoardAnnouncementDTO selectAnnouncementContent(int code,boolean viewchoose) {
+		
+		int boardKindCode = 1001 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
+		
 		return boarddao.selectAnnouncementContent(code);
 	}
 
 	//리뷰게시판 리스트중 누른 해당 글 가져오기
-	public BoardReviewDTO selectReviewContent(int code) {
+	@Transactional
+	public BoardReviewDTO selectReviewContent(int code,boolean viewchoose) {
+		
+		int boardKindCode = 1003 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
+		
 		return boarddao.selectReviewContent(code);
 	}
 
 	
-	//공지게시판 네비게이션
-	public void selectpage() {
-
-	}
-
-
 	
 	public List<String> selectPageNavi(int recordTotalCount , int cpage) throws Exception {
 	    // 네비게이터를 만들기 위해 필요한 초기정보
@@ -238,7 +247,24 @@ public class BoardService {
 	}
 
 
+	// 좋아요 수 증가
+	public int updateLikeCount(String code,int likeCount,int boardKindCode) {
+		return boarddao.updateLikeCount(code,likeCount,boardKindCode);
+	}
+	
 
+
+// =======================================================================================
+
+	// 자유게시판 댓글 입력 
+	public int insertFreeReply(ReplyFreeDTO dto) {
+		return boarddao.insertFreeReply(dto);
+	}
+	
+	// 자유게시판 댓글 가져오기
+	public List<ReplyFreeDTO> selectReplyFreeList(int postCode) {
+		return boarddao.selectReplyFreeList(postCode);
+	}
 	
 
 

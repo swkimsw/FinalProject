@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.dto.ReviewImgDTO;
-import cc.spring.dto.TotalMemberDTO;
 
 @Repository
 public class BoardDAO {
@@ -108,6 +108,23 @@ public class BoardDAO {
 
 //=====================================================================
 	
+	public void insertViewCount(int code,int boardKindCode,boolean viewchoose) {
+	
+		
+		if(viewchoose) {
+			
+		if(boardKindCode == 1001) {
+			 mybatis.update("Board.updateAnnouncementView",code);
+		}else if(boardKindCode ==1002 ) {
+			 mybatis.update("Board.updateFreeView",code);
+		}else {
+			 mybatis.update("Board.updateReviewView",code);
+		}
+		
+		}
+	}
+
+	
 	public BoardFreeDTO selectFreeContent(int code) {
 		return  mybatis.selectOne("Board.selectFreeContent",code);
 	}
@@ -179,8 +196,37 @@ public class BoardDAO {
 	}
 
 
+	public int updateLikeCount(String code,int likeCount,int boardKindCode) {
+		
+		
+		Map<String ,Object> param = new HashMap<>();
+		param.put("code", code);
+		param.put("likeCount", likeCount);
+		
+		
+		if(boardKindCode == 1001) {
+			return mybatis.insert("Board.updateAnnouncementLike",param);
+		}else if(boardKindCode == 1002) {
+			return mybatis.insert("Board.updateFreeLike",param);
+		}else {
+			return mybatis.insert("Board.updateReviewLike",param);
+		}
+		
+	}
 
 	
+// =======================================================================================
+	
+
+	// 자유게시판 댓글입력
+	public int insertFreeReply(ReplyFreeDTO dto) {
+		return mybatis.insert("Board.insertFreeReply", dto);
+	}
+
+	// 자유게시판 댓글 가져오기
+	public List<ReplyFreeDTO> selectReplyFreeList(int postCode) {
+		return mybatis.selectList("Board.selectReplyFreeList",postCode);
+	}
 
 
 
