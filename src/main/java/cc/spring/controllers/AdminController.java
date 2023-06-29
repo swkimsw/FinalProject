@@ -26,7 +26,7 @@ public class AdminController {
 	
 	@ResponseBody
 	@RequestMapping("selectMealCount")
-	public Map<String, Integer> selectSuccessMeal() {
+	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> successMeal = aService.selectMealCount();
 		return successMeal;
 	}
