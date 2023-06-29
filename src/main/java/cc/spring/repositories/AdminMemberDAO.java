@@ -56,4 +56,7 @@ public class AdminMemberDAO {
 	public List<MemberDTO> clientUserList() {
 		return mybatis.selectList("Admin.clientUserList");
 	}
+	public List<MemberDTO> businessUserList() {
+		return mybatis.selectList("Admin.businessUserList");
+	}
 }
