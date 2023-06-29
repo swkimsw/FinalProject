@@ -46,10 +46,6 @@ public class AdminMemberService {
 		return mealCountMap;
 	}	
 	
-	public int selectFailMeal() {
-		return aDAO.selectFailMeal();
-	}
-	
 	public int selectSuccessBasket() {
 		return aDAO.selectSuccessBasket();
 	}
