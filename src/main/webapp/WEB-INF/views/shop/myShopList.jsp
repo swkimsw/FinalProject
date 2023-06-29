@@ -63,10 +63,9 @@
 	position:relative;
 	top:100px;
 }
-.cardRow{
 
-}
 .listCard{
+	background-color: rgba(255, 255, 194, 0.5);
 	position:relative;
 	margin-right:5%; 
 	margin-left:5%;
@@ -130,7 +129,7 @@
 								if(resp.length > 0){
 									resp.forEach(function(i){
 										div = "<div class='ms-5 mb-1'><span class='text ms-2'><b>" + i.applyDateTemp + " 신청 </b></span></div>";
-										div += "<div class='card ml-3 listCard'>";
+										div += "<div class='card ml-3 mb-3 listCard'>";
 										div += "<div class='row cardRow'>" ;
 										div += "<div class='col col-md-5 col-lg-4 col-xl-3 cardImgBox'>";
 										div += "<div class='cardImg'>";
@@ -138,8 +137,18 @@
 												+ i.groupbuyingCode+ "''>";
 										div += "</div></div>";	
 										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
-										div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+										
+										if(i.statusCode == 1001){
+											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+													+ i.statusValue + "</span>"
+										}else if(i.statusCode == 1002){
+											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>" 
 												+ i.statusValue + "</span>"
+										}else if(i.statusCode == 1003){
+											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2'>" 
+												+ i.statusValue + "</span>"
+										}
+												
 										div += "<p class='card-text mt-3'>" + i.productName + " | " + i.companyName + "</p>";
 										div += "<h4 class='card-title'>" + i.title + "</h4>";
 										div += "<p class='card-text'> 진행기간&nbsp;&nbsp;" + i.regDateTemp + " ~ " +  i.deadLineTemp + "</p>";
@@ -172,7 +181,7 @@
 								if(resp.length > 0){
 									resp.forEach(function(i){
 										div = "<div class='ms-5 mb-1'><span class='text ms-2'><b>" + i.applyDateTemp + " 신청 </b></span></div>";
-										div += "<div class='card ml-3 listCard'>";
+										div += "<div class='card ml-3 mb-3 listCard'>";
 										div += "<div class='row cardRow'>" ;
 										div += "<div class='col col-md-5 col-lg-4 col-xl-3 cardImgBox'>";
 										div += "<div class='cardImg'>";
@@ -180,8 +189,18 @@
 												+ i.groupbuyingCode+ "''>";
 										div += "</div></div>";	
 										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
-										div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+										
+										if(i.statusCode == 1001){
+											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+													+ i.statusValue + "</span>"
+										}else if(i.statusCode == 1002){
+											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>" 
 												+ i.statusValue + "</span>"
+										}else if(i.statusCode == 1003){
+											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2'>" 
+												+ i.statusValue + "</span>"
+										}
+												
 										div += "<p class='card-text mt-3'>" + i.productName + " | " + i.companyName + "</p>";
 										div += "<h4 class='card-title'>" + i.title + "</h4>";
 										div += "<p class='card-text'> 진행기간&nbsp;&nbsp;" + i.regDateTemp + " ~ " +  i.deadLineTemp + "</p>";
@@ -208,8 +227,7 @@
 			<%-- 세션 code = 1002일때 사업자 회원 공구 등록 목록 --%>
 			<c:when test="${sessionScope.authGradeCode == 1002}">
 				<div class="business-wrapper">
-					<h3>${info.companyName}님의공구등록목록</h3>
-					<h5>${info.businessId}</h5>
+					<h4>${info.companyName}님의 공구 등록 목록</h4>
 					<c:forEach var="b" items="${list}">
 						<a href="/shop/toShopApply?code=${b.groupbuyingCode}">${b.title}</a>
 						<p>상품명 : ${b.productName}</p>
