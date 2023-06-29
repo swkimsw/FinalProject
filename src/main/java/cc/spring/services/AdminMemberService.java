@@ -52,4 +52,7 @@ public class AdminMemberService {
 	public int selectFailBasket() {
 		return aDAO.selectFailBasket();
 	}
+	public List<MemberDTO> ClinetUserList() {
+		return aDAO.clientUserList();
+	}
 }

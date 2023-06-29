@@ -23,11 +23,11 @@
 		select sum(basketFail) as basketFail_Total from GPTCOUNT
 	</select>
 	<!-- 관리자 클라이언트회원목록 리스트 -->
-	<select id="clientUserList" resultType="cc.spring.dto.MemberDTO>">
+	<select id="clientUserList" resultType="cc.spring.dto.MemberDTO">
 	SELECT * FROM MEMBER b join authgrade ag on b.authgradecode= ag.code where b.authgradecode=1003;
 	</select>
 	<!-- 관리자 판매자 회원목록 리스트 -->
-	<select id="businessUserList" resultType="cc.spring.dto.MemberDTO>">
+	<select id="businessUserList" resultType="cc.spring.dto.MemberDTO">
 	SELECT * FROM MEMBER b join authgrade ag on b.authgradecode= ag.code where b.authgradecode=1002;
 	</select>
   </mapper>
