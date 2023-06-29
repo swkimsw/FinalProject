@@ -139,7 +139,7 @@
 											식단 보기</a></li>
 									<c:if test="${sessionScope.authGradeCode == 1001}">
 										<li class="login"><a
-											href="http://localhost:3000/adminPage/mainPage"
+											href="httpㅞㅡ
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 												관리자페이지</a></li>
 									</c:if>

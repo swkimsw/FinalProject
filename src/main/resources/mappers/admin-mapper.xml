@@ -14,6 +14,6 @@
 		select sum(mealSuccess) as mealSuccess_Total from GPTCOUNT
 	</select>
 	<select id="selectFailMeal" resultType="int">
-		select sum(mealFail) as mealFail_Total from GPTCOUNT
+		select sum(mealFail) as meal_Total from GPTCOUNT
 	</select>
   </mapper>

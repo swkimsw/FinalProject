@@ -37,9 +37,7 @@ public class AdminMemberService {
 		return CDAO.selectAllClientMember();
 	}
 	public int selectSuccessMeal() {
+		ADAO.selectFailMeal();
 		return ADAO.selectSuccessMeal();
 	}	
-	public int selectFailMeal() {
-		return ADAO.selectFailMeal();
-	}
 }
