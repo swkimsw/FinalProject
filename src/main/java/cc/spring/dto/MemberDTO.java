@@ -22,7 +22,7 @@ public class MemberDTO {
 	private Timestamp regDate;
 	private Timestamp modDate;
 	private Timestamp delDate;
-	
+	private int reportCount;
 	
 	public MemberDTO() {
 
@@ -31,6 +31,18 @@ public class MemberDTO {
 		super();
 		this.code = code;
 		this.shippingCompany = shippingCompany;
+	}
+	public MemberDTO(String id, String businessId, String name, String companyName, String nickName, String eMail,
+			Timestamp regDate, int reportCount) {
+		super();
+		this.id = id;
+		this.businessId = businessId;
+		this.name = name;
+		this.companyName = companyName;
+		this.nickName = nickName;
+		this.eMail = eMail;
+		this.regDate = regDate;
+		this.reportCount = reportCount;
 	}
 	public MemberDTO(int code, String id, String businessId, String pw, String name, String companyName,
 			int authGradeCode, String nickName, String birthDate, String phone, String eMail, String shippingCompany,
@@ -169,6 +181,12 @@ public class MemberDTO {
 	}
 	public void setDelDate(Timestamp delDate) {
 		this.delDate = delDate;
+	}
+	public int getReportCount() {
+		return reportCount;
+	}
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
 	}
 	
 	
