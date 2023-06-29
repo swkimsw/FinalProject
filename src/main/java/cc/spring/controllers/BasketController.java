@@ -90,8 +90,10 @@ public class BasketController {
 	@ResponseBody
 	@RequestMapping(value="aiBasket", produces="text/plain; charset=utf8;")
 	public String aiBasket(String targetList) throws Exception{
+		System.out.println(targetList.toString());
 		String[] targetMeals = g.fromJson(targetList, String[].class);
 		List<ChatBasketDTO> result = bService.extractIngredient(targetMeals);
+		System.out.println(result.toString());
 		return g.toJson(result);
 	}
 	
