@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
   <mapper namespace="Admin">
   	<select id="login" resultType="boolean">
   		select count(*) from Member where id = #{id} and pw = #{pw}
@@ -12,16 +11,20 @@
   	</select>
   	<!-- GPT 이용 통계 -->
 	<select id="selectSuccessMeal" resultType="int">
-		select sum(mealSuccess) as mealSuccess_Total from GPTCOUNT
+		select
+		sum(mealSuccess) as mealSuccess_Total from GPTCOUNT
 	</select>
 	<select id="selectFailMeal" resultType="int">
-		select sum(mealFail) as meal_Total from GPTCOUNT
+		select sum(mealFail) as
+		meal_Total from GPTCOUNT
 	</select>
 	<select id="selectSuccessBasket" resultType="int">
-		select sum(basketSuccess) as basketSuccess_Total from GPTCOUNT
+		select
+		sum(basketSuccess) as basketSuccess_Total from GPTCOUNT
 	</select>
 	<select id="selectFailBasket" resultType="int">
-		select sum(basketFail) as basketFail_Total from GPTCOUNT
+		select sum(basketFail)
+		as basketFail_Total from GPTCOUNT
 	</select>
 	<select id="selectTotalSuccess" resultType="int">
 		select (sum(mealSuccess)+sum(basketSuccess)) from GPTCOUNT
@@ -31,10 +34,18 @@
 	</select>
 	<!-- 관리자 클라이언트회원목록 리스트 -->
 	<select id="clientUserList" resultType="cc.spring.dto.MemberDTO">
-	SELECT * FROM MEMBER b join authgrade ag on b.authgradecode= ag.code where b.authgradecode=1003;
+		SELECT B.ID, COUNT(R.CODE)AS
+		REPORTCOUNT,b.nickname,b.companyName,b.email,b.regDate FROM MEMBER b 
+		left join REPORT R ON B.CODE = R.REPORTEECODE
+		where b.authgradecode=1003
+		GROUP BY B.ID,b.nickname,b.companyName,b.email,b.regDate
 	</select>
 	<!-- 관리자 판매자 회원목록 리스트 -->
 	<select id="businessUserList" resultType="cc.spring.dto.MemberDTO">
-	SELECT * FROM MEMBER b join authgrade ag on b.authgradecode= ag.code where b.authgradecode=1002;
+		SELECT B.businessid, COUNT(R.CODE)AS REPORTCOUNT
+        , b.name, b.companyName, b.email, b.regDate FROM MEMBER b 
+		left join REPORT R ON B.CODE = R.REPORTEECODE
+        where b.authgradecode=1002
+		GROUP BY B.businessid,b.name,b.companyName,b.email,b.regDate
 	</select>
-  </mapper>
+</mapper>
