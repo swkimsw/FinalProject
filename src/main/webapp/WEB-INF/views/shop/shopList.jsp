@@ -161,7 +161,7 @@
 										<c:choose>
 											<c:when test="${i.dDay > 0 && i.statusCode == 1001}">
 												<span
-													class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">${i.dDay}일
+													class="badge deadLine rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2">${i.dDay}일
 													남음</span>
 											</c:when>
 											<c:when test="${i.dDay == 0  && i.statusCode == 1001}">
@@ -172,11 +172,11 @@
 											<c:when test="${i.dDay < 0  && i.statusCode == 1002 }">
 												<span
 													class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">공구
-													완료</span>
+													종료</span>
 											</c:when>
 											<c:when test="${i.dDay < 0  && i.statusCode == 1003 }">
 												<span
-													class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">공구
+													class="badge deadLine rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2">공구
 													실패</span>
 											</c:when>
 										</c:choose>
