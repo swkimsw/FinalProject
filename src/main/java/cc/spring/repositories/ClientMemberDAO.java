@@ -76,7 +76,7 @@ public class ClientMemberDAO {
 		Map<String,Object> param = new HashMap<>();
 		param.put("id", id);
 		param.put("pw", pw);
-		return mybatis.selectOne("Client.checkPw",param);
+		return mybatis.selectOne("Client.clientCheckPw",param);
 	}
 	
 	public int updateMemberInfo(MemberDTO dto) {

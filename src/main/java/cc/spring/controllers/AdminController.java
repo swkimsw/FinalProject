@@ -1,10 +1,10 @@
 package cc.spring.controllers;
 
-import java.util.Map;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,10 +32,20 @@ public class AdminController {
 	}
 	
 	@RequestMapping("clientUserList")
-	public String clinetUserList(Model model) {
+	public Map<String, Object> clinetUserList() {
+		Map<String,Object> result = new HashMap<>();
 		List<MemberDTO> list = aService.ClinetUserList();
-		model.addAttribute("list",list);
-		return "";
+		System.out.println("클라이언트출력");
+		result.put("list",list);
+		return result;
+	}
+	@RequestMapping("businessUserList")
+	public Map<String, Object> businessUserList() {
+		Map<String,Object> result = new HashMap<>();
+		List<MemberDTO> list = aService.BusinessUserList();
+		System.out.println("비지니스출력");
+		result.put("list",list);
+		return result;
 	}
 	
 	@RequestMapping("selectSuccessBasket")
@@ -51,5 +61,10 @@ public class AdminController {
 	@RequestMapping("selectTotalCount")
 	public Map<String, Integer> selectTotalCount() {
 		return aService.selectTotalCount();
+	}
+	
+	@RequestMapping("recentVisitBusiness")
+	public String recentVisitBusiness() {
+		return aService.recentVisitBusiness();
 	}
 }
