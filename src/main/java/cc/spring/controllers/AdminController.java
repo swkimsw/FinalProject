@@ -25,11 +25,6 @@ public class AdminController {
 		return successMeal;
 	}
 	
-	@RequestMapping("selectFailMeal")
-	public void selectFailMeal() {
-		int failMeal = aService.selectFailMeal();
-	}
-	
 	@RequestMapping("selectSuccessBasket")
 	public int selectSuccessBasket() {
 		return aService.selectSuccessBasket();
