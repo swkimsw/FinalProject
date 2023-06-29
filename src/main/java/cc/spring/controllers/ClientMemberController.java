@@ -66,20 +66,25 @@ public class ClientMemberController {
 		String pw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(pw);
 		
-		// 로그인시 count udate
-		loginCountDTO ldto = new loginCountDTO(cms.selectClientMemberInfo(dto.getId()).getCode(), 0, null);
-		boolean result = cms.login(ldto,dto);
-		if(result) {
-			// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
-			MemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
-			session.setAttribute("code", cmd.getCode());
-			session.setAttribute("id",cmd.getId());
-			session.setAttribute("nickname", cmd.getNickName());
-			session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
-			System.out.println("일반인로그인 성공");
-			
-			System.out.println(cmd.getId());
-			return "redirect:/";
+		// 입력한 id와 비밀번호가 일치하는 회원이 있으면 아래 구문 실행
+		boolean memberCount = cms.existingMember(dto);
+		
+		if(memberCount) {
+			// 로그인시 count udate
+			loginCountDTO ldto = new loginCountDTO(cms.selectClientMemberInfo(dto.getId()).getCode(), 0, null);
+			boolean result = cms.login(ldto,dto);
+			if(result) {
+				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+				MemberDTO cmd = cms.selectClientMemberInfo(dto.getId());
+				session.setAttribute("code", cmd.getCode());
+				session.setAttribute("id",cmd.getId());
+				session.setAttribute("nickname", cmd.getNickName());
+				session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
+				System.out.println("일반인로그인 성공");
+				
+				System.out.println(cmd.getId());
+				return "redirect:/";
+			}
 		}
 		System.out.println("로그인 실패!!");
 		redir.addFlashAttribute("status", "false");
