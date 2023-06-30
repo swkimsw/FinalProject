@@ -288,7 +288,12 @@ public class BoardService {
 	}
 	
 
-
+// ===============================================================================================
+	
+	// 자유게시판 댓글 수정
+	public int updateFreeReply(ReplyFreeDTO dto) {
+		return boarddao.updateFreeReply(dto);
+	}
 
 
 

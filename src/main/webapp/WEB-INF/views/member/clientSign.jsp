@@ -149,7 +149,7 @@ label {
 	<div class="container join_form_container d-flex justify-content-center">
 		<div class="wrapper join_form" id="join_form">
 			<div class="header text-center">
-				<h3>⚽CookCook</h3>
+				<h3>CookCook</h3>
 			</div>
 			<form action="/clientMember/signup" method="post">
 				<div class="row justify-content-center">
