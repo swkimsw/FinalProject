@@ -221,7 +221,6 @@ public class ShopController {
 	 	 @ResponseBody
 	 	 @RequestMapping("myShopListByStatus")
 	 	 public List<MyShopListDTO> myShopListByStatus(String status) {
-	 		 System.out.println("컨트롤러에 넘어온 코드는 " + status);
 	 		//json으로 넘어온 값 형변환
 		 	int statusCode = Integer.parseInt(status);
 		 	

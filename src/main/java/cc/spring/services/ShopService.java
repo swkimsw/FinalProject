@@ -216,7 +216,6 @@ public class ShopService {
 
 	//사업자회원 내 공구 등록 목록 
 	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
-		System.out.println("서비스에 넘어온 코드는 " + statusCode);
 		List<MyShopListDTO> myShopListDTO = shopDAO.businessRegisterList(code,statusCode);
 		for(MyShopListDTO m : myShopListDTO) {
 			// Timestamp -> String

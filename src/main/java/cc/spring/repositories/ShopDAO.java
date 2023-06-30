@@ -92,7 +92,6 @@ public class ShopDAO {
 	}
 
 	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
-		System.out.println("DAO에 넘어온 코드는 " + statusCode);
 		Map<String, Object> param = new HashMap<>();
 		param.put("statusCode", statusCode);
 		param.put("code", code);
