@@ -61,7 +61,6 @@ public class AdminDAO {
 	public List<MemberDTO> businessUserList() {
 		return mybatis.selectList("Admin.businessUserList");
 	}
-	
 	public int insertGptCount(gptCountDTO dto) {
 		return mybatis.insert("Admin.insertGptCount", dto);
 	}
@@ -72,5 +71,13 @@ public class AdminDAO {
 	
 	public int updatelogintCount(loginCountDTO dto) {
 		return mybatis.update("Admin.updateLoginCount", dto);
+	}
+	
+	public int recentVisitClient() {
+		return mybatis.selectOne("Admin.recentVisitClient");
+	}
+	
+	public int recentVisitBusiness() {
+		return mybatis.selectOne("Admin.recentVisitBusiness");
 	}
 }

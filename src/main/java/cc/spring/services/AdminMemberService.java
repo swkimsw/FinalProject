@@ -73,8 +73,11 @@ public class AdminMemberService {
 		return adminDAO.businessUserList();
 	}
 	
-	public String recentVisitBusiness() {
-		return bDAO.recentVisitBusiness();
+	public Map<String, Integer> recentVisitCount() {
+		Map<String, Integer> recentVisitMap = new HashMap<>();
+		recentVisitMap.put("recentVisitClient", aDAO.recentVisitClient());
+		recentVisitMap.put("recentVisitBusiness", aDAO.recentVisitBusiness());
+		return recentVisitMap;
   }
 	
 	public List<ShopListDTO> selectShopList() {
