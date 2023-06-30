@@ -48,4 +48,19 @@
         where b.authgradecode=1002
 		GROUP BY B.businessid,b.name,b.companyName,b.email,b.regDate
 	</select>
+	
+	<!-- 공구샵 리스트 -->
+	<select id="selectShopList" resultType="cc.spring.dto.ShopListDTO">
+		select code,statuscode,title,productname,companyname,path,sysname
+		from (
+   			select g.code,g.statuscode,g.title,g.productname,m.companyname,
+   			substr(gi.path, instr(gi.path,'\resources',1,1)) || '\' as path,gi.sysname,
+    		row_number() over(partition by g.code order by sysname) as rn
+    		from groupbuying g join member m on g.membercode = m.code
+    		join groupbuyingimg gi on g.code = gi.postcode
+    		)
+		where rn=1
+		order by 1
+	</select>
+	
 </mapper>

@@ -25,9 +25,6 @@ public class AdminMemberService {
 	@Autowired
 	private ClientMemberDAO cDAO;
 	
-	@Autowired
-	private ShopDAO sDAO;
-	
 	public boolean login(String id, String pw) {
 		return aDAO.login(id, pw);
 	}
@@ -78,7 +75,7 @@ public class AdminMemberService {
   }
 	
 	public List<ShopListDTO> selectShopList() {
-		return sDAO.shopList();
+		return aDAO.selectShopList();
 	}
 	
 }
