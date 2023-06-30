@@ -1,0 +1,14 @@
+{
+	"files": {
+		"main.css": "/adminPage/static/css/main.31d6cfe0.css",
+		"main.js": "/adminPage/static/js/main.89ef8621.js",
+		"static/js/496.f6aaddb9.chunk.js": "/adminPage/static/js/496.f6aaddb9.chunk.js",
+		"index.html": "/adminPage/index.html",
+		"main.89ef8621.js.map": "/adminPage/static/js/main.89ef8621.js.map",
+		"496.f6aaddb9.chunk.js.map": "/adminPage/static/js/496.f6aaddb9.chunk.js.map"
+	},
+	"entrypoints": [
+		"static/css/main.31d6cfe0.css",
+		"static/js/main.89ef8621.js"
+	]
+}

@@ -46,12 +46,12 @@
                     border: 1px solid black;
                 }
 
-                th,
-                td {
-                    font-size: 20px;
+               .table th,
+                td{
+                    font-size: 18px;
                 }
                 
-                #uu,td>div{
+                .uu,td>div{
                 text-align:center;
                 }
             </style>
@@ -98,7 +98,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                            	<th id="uu">분류</th>
+                            	<th class="uu">분류</th>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>

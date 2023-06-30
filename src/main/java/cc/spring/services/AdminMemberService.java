@@ -6,13 +6,15 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import cc.spring.dto.BanMemberDTO;
+import cc.spring.dto.BoardCountDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.repositories.AdminDAO;
 import cc.spring.repositories.BusinessMemberDAO;
 import cc.spring.repositories.ClientMemberDAO;
-import cc.spring.repositories.ShopDAO;
 
 @Service
 public class AdminMemberService {
@@ -62,23 +64,36 @@ public class AdminMemberService {
 		return totalCountMap;
 	}
 	
-	public List<MemberDTO> ClinetUserList() {
-		return adminDAO.clientUserList();
-	}
-
-  public List<MemberDTO> BusinessUserList() {
-		return adminDAO.businessUserList();
-	}
-	
 	public Map<String, Integer> recentVisitCount() {
 		Map<String, Integer> recentVisitMap = new HashMap<>();
 		recentVisitMap.put("recentVisitClient", adminDAO.recentVisitClient());
 		recentVisitMap.put("recentVisitBusiness", adminDAO.recentVisitBusiness());
 		return recentVisitMap;
-  }
+    }
 	
 	public List<ShopListDTO> selectShopList() {
 		return adminDAO.selectShopList();
 	}
 	
+	@Transactional
+	public int BanMember(int memberCode, BanMemberDTO dto) {
+		adminDAO.deleteBanMember(memberCode);
+		return adminDAO.insertBanMember(dto);
+	}
+	
+	public List<MemberDTO> selectUserList(){
+		return adminDAO.selectUserList();
+	}
+	
+	public List<BanMemberDTO> selectBanUserList(){
+		return adminDAO.selectBanUserList();
+	}
+	
+	public Map<String, List<BoardCountDTO>> recentBoardCount(){
+		Map<String, List<BoardCountDTO>> recentBoardMap = new HashMap<>();
+		recentBoardMap.put("Announcement", adminDAO.boardAnnouncementCount());
+		recentBoardMap.put("Free", adminDAO.boardFreeCount());
+		recentBoardMap.put("Review", adminDAO.boardReviewCount());
+		return recentBoardMap;
+	}
 }

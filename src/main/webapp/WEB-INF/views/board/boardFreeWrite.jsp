@@ -50,7 +50,7 @@
                     margin-bottom: 10px;
                 }
 
-                select {
+                .headline {
                     margin-top: 5px;
                     padding-top: 2px;
                     padding-bottom: 2px;
@@ -61,7 +61,7 @@
                     text-align: center;
                 }
 
-                label {
+                .label {
                     word-break: break-all;
                     margin-bottom: 5px;
                     width: 75%;
@@ -72,7 +72,7 @@
                     table-layout: fixed;
                 }
 
-                .btn {
+                .btn-outline-primary {
                     margin-top: -10px;
                     margin-right: 14px;
                     font-size: medium;
@@ -114,7 +114,7 @@
                                 <br>
 
                                 <div class="category">
-                                    카테고리(일반) : <select id="headline" name="headLineCode">
+                                    카테고리(일반) : <select class="headline" id="headline" name="headLineCode">
                                         <option value="0">선택</option>
                                         <option value="2001">일상</option>
                                         <option value="2002">정보</option>
@@ -122,7 +122,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    제목 : <label><input id="title" name="title" class="form-control"
+                                    제목 : <label class="label"><input id="title" name="title" class="form-control"
                                             placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
 
                                 </div>
@@ -175,7 +175,7 @@
                                 <br>
 
                                 <div class="category">
-                                    카테고리(사업자) : <select id="headline" name="headLineCode">
+                                    카테고리(사업자) : <select class="headline" id="headline" name="headLineCode">
                                         <option value="0">선택</option>
                                         <option value="2001">일상</option>
                                         <option value="2002">정보</option>
@@ -183,7 +183,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    제목 : <label><input id="title" name="title" class="form-control"
+                                    제목 : <label class="label"><input id="title" name="title" class="form-control"
                                             placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
 
                                 </div>

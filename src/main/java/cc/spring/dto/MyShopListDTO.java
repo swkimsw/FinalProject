@@ -75,17 +75,19 @@ public class MyShopListDTO {
 	}
 	
 	//사업자회원 내 공구 등록 목록용 생성자
-	public MyShopListDTO(int groupbuyingCode,int businessCode, int statusCode, Timestamp deadLine, String title,
-			String productName, String productPrice, Timestamp regDate, String companyName, int applyCount, int applyQuantity, int min) {
+	public MyShopListDTO(int groupbuyingCode,int businessCode, int statusCode, Timestamp deadLine, String deadLineTemp, String title,
+			String productName, String productPrice, Timestamp regDate, String regDateTemp, String companyName, int applyCount, int applyQuantity, int min) {
 		super();
 		this.groupbuyingCode = groupbuyingCode;
 		this.businessCode = businessCode;
 		this.statusCode = statusCode;
 		this.deadLine = deadLine;
+		this.deadLineTemp = deadLineTemp;
 		this.title = title;
 		this.productName = productName;
 		this.productPrice = productPrice;
 		this.regDate = regDate;
+		this.regDateTemp = regDateTemp;
 		this.companyName = companyName;
 		this.applyCount = applyCount;
 		this.applyQuantity = applyQuantity;
