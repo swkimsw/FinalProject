@@ -196,32 +196,26 @@ public class ShopController {
 	 	 			d.setdDay(dDay);
 	 	 			dDayMap.put(d, dDay);
 	 	 		}
-	 	 		System.out.println("겨얼과는:" + searchList);
 	 			return searchList;
 	 	 	}
 	 	 	
 	 	 //내 공구목록: session에 저장된 authGradeCode(1002,1003)에 따라 다른 목록 출력
 	 	 @RequestMapping("toMyShopList")
 	 	 public String toMyShopList(Model model) {
-	 		//세션값 가져오기
+	 		//[사업자,일반]세션값 가져오기
 	 		int code = (Integer)session.getAttribute("code");
 	 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
-	 		//회원정보
+	 		
+	 		//[사업자,일반] 회원정보만 jsp로 보내기
 	 		MyShopListDTO info = shopService.getInfo(code);
 	 		model.addAttribute("info",info);
 	 		
+	 		//[사업자]공구 등록 목록으로 이동
+	 		List<MyShopListDTO> list = shopService.businessRegisterList(code,0);
+	 		model.addAttribute("list",list);
+	 		List<MyShopListDTO> count = shopService.groupbuyingCountByStatus(code);
+	 		model.addAttribute("count",count);
 	 		
-	 		List<MyShopListDTO> list = new ArrayList<>();
-	 		//사업자일 때 공구 등록 목록으로 이동
-	 		if(authGradeCode == 1002) {
-	 				list = shopService.businessRegisterList(code,0);
-	 			
-	 		//일반회원일 때 공구 신청 목록으로 이동
-	 		}else if(authGradeCode == 1003) {
-	 				list = shopService.clientBuyingList(code,0);
-	 		}
-	 		
-	 	 	model.addAttribute("list",list);
 	 	 	return "/shop/myShopList";
 	 	 }
 	 	 
@@ -243,19 +237,15 @@ public class ShopController {
 	 		}else if(authGradeCode == 1003) {
 	 				list = shopService.clientBuyingList(code,statusCode);
 	 		}
-	 		System.out.println(list);
+	 		
 	 		return list;
 	 	 }
 	 	 
-	 	 
-
 	 	 //사업자회원용 공구 신청인 정보 목록: 사업자회원 공구 등록 목록에서 출력
 	 	 @RequestMapping("buyingMemberInfoList")
 	 	 public String buyingMemberInfoList(@RequestParam(name="code",required=true,defaultValue="") String code, Model model) {
 	 		int groupbuyingCode = Integer.parseInt(code);
-	 		System.out.println("넘어온 코드는"+groupbuyingCode);
 	 		List<MyShopListDTO> list = shopService.buyingMemberInfoList(groupbuyingCode);
-	 		System.out.println(list);
 	 		model.addAttribute("list",list);
 	 		return "/shop/infoPopup";
 	 	 }

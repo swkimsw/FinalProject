@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.repositories.AdminMemberDAO;
 import cc.spring.repositories.BusinessMemberDAO;
 import cc.spring.repositories.ClientMemberDAO;
+import cc.spring.repositories.ShopDAO;
 
 @Service
 public class AdminMemberService {
@@ -22,6 +24,9 @@ public class AdminMemberService {
 	
 	@Autowired
 	private ClientMemberDAO cDAO;
+	
+	@Autowired
+	private ShopDAO sDAO;
 	
 	public boolean login(String id, String pw) {
 		return aDAO.login(id, pw);
@@ -74,5 +79,9 @@ public class AdminMemberService {
 		recentVisitMap.put("recentVisitBusiness", aDAO.recentVisitBusiness());
 		return recentVisitMap;
   }
-
+	
+	public List<ShopListDTO> selectShopList() {
+		return sDAO.shopList();
+	}
+	
 }
