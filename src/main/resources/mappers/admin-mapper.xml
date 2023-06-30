@@ -9,10 +9,10 @@
 	<insert id="insertLoginCount">
 		insert into loginCount values(${memberCode}, ${count}, null)
 	</insert>
-	<delete id="deleteBannedMember">
+	<delete id="deleteBanMember">
 		delete from member where code = ${code}
 	</delete>
-	<insert id="insertBannedMember">
+	<insert id="insertBanMember">
 		insert into BannedMember values(${code}, ${memberCode},#{id}, #{businessID}, #{pw}, #{name}, #{companyName}, #{authGradeCode}, #{nickName},#{birthDate},#{phone},#{eMail},#{shippingCompany},#{zipcode},#{address1},#{address2},#{agree},DEFAULT)
 		<selectKey keyProperty="code" order="BEFORE" resultType="int">
 			select banMember_seq.nextval from dual
