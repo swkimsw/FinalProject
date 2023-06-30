@@ -15,7 +15,7 @@ import cc.spring.dto.BoardReviewDTO;
 import cc.spring.services.MyPageService;
 
 @Controller
-@RequestMapping("/clientMyPage/")
+@RequestMapping("/MyPage/")
 public class MyPageController {
 	@Autowired
 	private HttpSession session;
