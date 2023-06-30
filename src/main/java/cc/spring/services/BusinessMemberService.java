@@ -5,13 +5,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.gptCountDTO;
+import cc.spring.dto.loginCountDTO;
+import cc.spring.repositories.AdminDAO;
 import cc.spring.repositories.BusinessMemberDAO;
 
 @Service
 public class BusinessMemberService {
+	
 	@Autowired
 	private BusinessMemberDAO bdao;
 
+	@Autowired
+	private AdminDAO adminDAO;
+	
 	public boolean login(MemberDTO dto) {
 		System.out.println("123123");
 		return bdao.login(dto);
@@ -33,7 +40,11 @@ public class BusinessMemberService {
 		return bdao.phoneCheck(phone);
 	}
 	
+	@Transactional
 	public int insertBusiness(MemberDTO dto) {
+		int memberCode = bdao.insertBusiness(dto);
+		adminDAO.insertloginCount(new loginCountDTO(memberCode, 0, null));
+		adminDAO.insertGptCount(new gptCountDTO(memberCode, 0, 0, 0, 0));
 		return bdao.insertBusiness(dto);
 	}
 	

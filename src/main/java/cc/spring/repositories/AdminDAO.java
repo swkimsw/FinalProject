@@ -9,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.gptCountDTO;
+import cc.spring.dto.loginCountDTO;
 
 @Repository
-public class AdminMemberDAO {
+public class AdminDAO {
 	@Autowired
 	private SqlSessionTemplate mybatis;
 	
@@ -58,6 +60,17 @@ public class AdminMemberDAO {
 	}
 	public List<MemberDTO> businessUserList() {
 		return mybatis.selectList("Admin.businessUserList");
+	}
+	public int insertGptCount(gptCountDTO dto) {
+		return mybatis.insert("Admin.insertGptCount", dto);
+	}
+	
+	public int insertloginCount(loginCountDTO dto) {
+		return mybatis.insert("Admin.insertLoginCount", dto);
+	}
+	
+	public int updatelogintCount(loginCountDTO dto) {
+		return mybatis.update("Admin.updateLoginCount", dto);
 	}
 	
 	public int recentVisitClient() {

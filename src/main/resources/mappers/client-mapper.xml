@@ -9,62 +9,37 @@
 	<select id="getIdByPhone" resultType="String">
 	select id from Member where phone = #{phone} and authGradeCode = 1003
 	</select>
-	
 	<select id="isMember" resultType="boolean">
 		select count(*) from Member where ${key} = #{value}
 	</select>
-	
 	<select id="phoneAndemailDuplication" resultType="boolean">
 		select count(*) from Member where ${key} = #{value} and authGradeCode = 1003
 	</select>
-		
 	<select id="phoneCheck" resultType="boolean">
 		select count(*) from Member where phone = #{phone} and authGradeCode = 1003
 	</select>
-	
 	<insert id="insert">
 		insert into Member values(${code}, #{id}, null, #{pw}, #{name}, null, #{authGradeCode}, #{nickName},#{birthDate},#{phone},#{eMail},null,#{zipcode},#{address1},#{address2},#{agree},sysdate,null,null)
 		<selectKey keyProperty="code" order="BEFORE" resultType="int">
 			select member_seq.nextval from dual
 		</selectKey>
 	</insert>
-	
-	<insert id="insertGptCount">
-		
-		insert into gptCount values(${memberCode}, ${mealSuccess}, ${mealFail}, ${basketSuccess}, ${basketFail})
-	</insert>
-	
-	<insert id="insertLoginCount">
-		insert into loginCount values(${memberCode}, ${count}, null)
-	</insert>
-	
 	<update id="updatePw">
 		update Member set pw = #{pw} where id = #{id}
 	</update>
-	
-	<update id="updateLoginCount">
-		update loginCount set count = (select count from loginCount where memberCode = ${memberCode})+1 , loginDate = DEFAULT where memberCode = ${memberCode}
-	</update>
-	
 	<select id="selectClientMemberInfo" resultType="cc.spring.dto.MemberDTO">
 		select * from Member where id = #{id}
 	</select>
-	
 	<select id="clientCheckPw" resultType="boolean">
 		select count(*) from Member where id = #{id} and pw = #{pw}
 	</select>
-	
 	<update id="updateMemberInfo">
 		update Member set name = #{name}, nickName = #{nickName}, phone = #{phone}, birthDate = #{birthDate}, eMail = #{eMail}, zipcode = #{zipcode}, address1 = #{address1}, address2 = #{address2} where id = #{id}
 	</update>
-	
-
 	<delete id="deleteMember">
 		delete from Member where code = #{code}
 	</delete>
-
 	<select id="selectAllClientMember" resultType="cc.spring.dto.MemberDTO">
 		select * from member where authgradecode = 1003
 	</select>
-
 </mapper>
