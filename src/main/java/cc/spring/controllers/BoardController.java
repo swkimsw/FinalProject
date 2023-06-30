@@ -531,7 +531,7 @@ public class BoardController {
 
 	//===========================================================================================
 		
-	// 자유게시판 댓글 작성하면서 모든글들을 다시 가져오기
+	// 자유게시판 댓글 작성
 	@ResponseBody
 	@RequestMapping("freeReply")
 	public int freeReply(String replyContent, int boardFreeCode, int cpage) {
@@ -543,6 +543,22 @@ public class BoardController {
 	}
 
 
+	
+	//=============================================================================================
+	
+	// 자유게시판 댓글 수정
+	@ResponseBody
+	@RequestMapping("updateFreeReply")
+	public int updateFreeReply(ReplyFreeDTO dto) {
+		
+		int result = boardService.updateFreeReply(dto);
+		return result;
+	}
+	
+	
+	
+	
+	//=============================================================================================	
 
 	//신고 접수
 	@ResponseBody
