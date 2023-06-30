@@ -657,7 +657,8 @@
  						    },
  						  }).done(function (resp) {
  						      if (resp == 1) {
- 						        location.reload();
+ 						 	        alert("추천되었습니다");
+                        	        location.href="/board/FreeContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
  						      } else {
  						        alert("다시 눌러주세요");
  						      }

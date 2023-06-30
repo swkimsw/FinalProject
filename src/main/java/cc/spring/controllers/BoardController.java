@@ -57,17 +57,42 @@ public class BoardController {
 		int end = cpage * 10;
 		System.out.println("시작" + start);
 		System.out.println("끝"+end);
-		
-		
-		List<BoardFreeDTO> list = boardService.selectFreelist(start,end); //자유게시글 페이징에 맞게 가져오기
-		System.out.println(list);
-		request.setAttribute("list", list);
-		
-		
-		List<BoardFreeDTO> all = boardService.selectAllFree(); //자유게시글 전부 다 가져오기
-		int recordTotalCount = all.size();
-		System.out.println(recordTotalCount);
 
+		
+		int recordTotalCount;
+		
+		if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
+			
+			List<BoardFreeDTO> list = boardService.selectFreelist(start,end); //자유게시글 페이징에 맞게 가져오기
+			request.setAttribute("list", list);
+			List<BoardFreeDTO> all = boardService.selectAllFree(); //자유게시글 전부 다 가져오기
+			recordTotalCount = all.size();
+			System.out.println(recordTotalCount);
+		
+		}else {//검색조건이 있으면
+			
+			String searchCate  = request.getParameter("searchCate"); //검색카테고리
+			String search  = request.getParameter("search"); //검색내용
+			
+			System.out.println(search);
+			System.out.println(searchCate);
+			
+			
+			List<BoardFreeDTO> all= boardService.selectAllSearchFree(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
+			recordTotalCount = all.size();
+			List<BoardFreeDTO> list = boardService.selectSearchFree(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
+			request.setAttribute("list", list);
+			request.setAttribute("search", search);
+			request.setAttribute("searchCate", searchCate);
+			System.out.println(recordTotalCount);
+		
+		}
+
+		
+		
+		
+		
+		
 		List<String> listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
 		request.setAttribute("listnavi", listnavi);
 		request.setAttribute("cpage", cpage);
@@ -103,11 +128,8 @@ public class BoardController {
 		System.out.println("시작" + start);
 		System.out.println("끝"+end);
 		
-
-		
-		
 		int recordTotalCount;
-
+	
 			if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
 				
 				List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(start,end); //공지사항게시글 페이징에 맞게 가져오기 
@@ -127,7 +149,7 @@ public class BoardController {
 				
 				List<BoardAnnouncementDTO> all= boardService.selectAllSearchAnnounc(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
 				recordTotalCount = all.size();
-				List<BoardAnnouncementDTO> list = boardService.selectSearchAnnouncelist(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
+				List<BoardAnnouncementDTO> list = boardService.selectSearchAnnounce(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
 				request.setAttribute("list", list);
 				request.setAttribute("search", search);
 				request.setAttribute("searchCate", searchCate);

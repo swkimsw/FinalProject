@@ -79,6 +79,34 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectAllFree");
 	}
 
+	//자유게시판 글 조건에 따라 가져오기 - 검색
+		public List<BoardFreeDTO> selectSearchFree(int start,int end,String search, String searchCate) {
+			
+			
+			Map<String ,Object> param = new HashMap<>();
+			param.put("start", start);
+			param.put("end", end);
+			param.put("search", search );
+			
+			if(searchCate.equals("제목")) { //검색카테고리가 제목일때
+				return  mybatis.selectList("Board.selectTitleFree",param);
+			}else { // 검색 카테고리가 작성자일때
+				return  mybatis.selectList("Board.selectMemberFree",param);
+			}
+			
+		}
+		
+		public List<BoardFreeDTO> selectAllSearchFree(String search, String searchCate) {
+			
+			
+			if(searchCate.equals("제목")) { //검색카테고리가 제목일때
+				return  mybatis.selectList("Board.selectAllTitleFree",search);
+			}else { // 검색 카테고리가 작성자일때
+				return  mybatis.selectList("Board.selectAllMemberFree",search);
+			}
+			
+		}
+		
 	
 	//공지게시판 글 조건에 따라 가져오기	
 	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start,int end) {
@@ -93,7 +121,7 @@ public class BoardDAO {
 	}
 	
 	//공지게시판 글 조건에 따라 가져오기 - 검색
-	public List<BoardAnnouncementDTO> selectSearchAnnouncelist(int start,int end,String search, String searchCate) {
+	public List<BoardAnnouncementDTO> selectSearchAnnounce(int start,int end,String search, String searchCate) {
 		
 		
 		Map<String ,Object> param = new HashMap<>();
@@ -102,9 +130,9 @@ public class BoardDAO {
 		param.put("search", search );
 		
 		if(searchCate.equals("제목")) { //검색카테고리가 제목일때
-			return  mybatis.selectList("Board.selectTitleAnnouncementlist",param);
+			return  mybatis.selectList("Board.selectTitleAnnouncement",param);
 		}else { // 검색 카테고리가 작성자일때
-			return  mybatis.selectList("Board.selectMemberAnnouncementlist",param);
+			return  mybatis.selectList("Board.selectMemberAnnouncement",param);
 		}
 		
 	}
