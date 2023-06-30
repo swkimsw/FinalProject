@@ -75,8 +75,8 @@ public class AdminMemberService {
 	
 	public Map<String, Integer> recentVisitCount() {
 		Map<String, Integer> recentVisitMap = new HashMap<>();
-		recentVisitMap.put("recentVisitClient", aDAO.recentVisitClient());
-		recentVisitMap.put("recentVisitBusiness", aDAO.recentVisitBusiness());
+		recentVisitMap.put("recentVisitClient", adminDAO.recentVisitClient());
+		recentVisitMap.put("recentVisitBusiness", adminDAO.recentVisitBusiness());
 		return recentVisitMap;
   }
 	
