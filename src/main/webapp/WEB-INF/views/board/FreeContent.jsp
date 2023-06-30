@@ -48,17 +48,13 @@
                     text-align: center;
                 }
 
-                div>table {
+                .row>table {
                     width: 100%;
                     table-layout: fixed;
                 }
 
-                button {
-                    margin-bottom: 10px;
-                    border: 0;
-                }
 
-                #title {
+                .title {
                     width: 75%;
                 }
 
@@ -69,7 +65,7 @@
                 }
 
 
-                #content {
+                .content {
                     width: 100%;
                     height: 600px;
                     overflow: auto;
@@ -96,18 +92,12 @@
                     word-break: break-all;
                 }
 
-                .btn-primary {
-                    margin-top: -15px;
-                    font-size: small;
-                }
-
-                .button-container {
-                    margin-top: 10px;
-                }
-
-                #button {
+              .con{
                     margin-right: 15px;
                     float: right;
+                    border: 0;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
                 }
 
                 .note-modal-footer>input {
@@ -229,20 +219,20 @@
 
                                 <tr>
                                     <td>제목 :
-                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <input class="title" id="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 
                                 <tr>
                                     <td>
-                                        <div id="button" class="button-container">
+                                        <div id="button" class="button-container con">
                                             <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
@@ -350,13 +340,13 @@
 								
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 								<tr>
 						            <td>
-						                <div id="button" class="button-container">
+						                <div id="button" class="button-container con">
 						                
 						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
 						                  
@@ -423,11 +413,25 @@
 			                                        </div>
 			                                    </div>
 
+
 			                                    <div class="button-container" style="margin-top: 10px; float:right;">
 				                                   	<button class="btn btn-outline-primary btn-sm replyModiBtn">수정</button>				                                   				                                   	
 				                                    <button class="btn btn-outline-primary btn-sm replyDeleteBtn">삭제</button> 
 				                                   	<button class="btn btn-outline-primary btn-sm replyModiSuccessBtn">수정완료</button>				                                    				                                   	
 				                                   	<button class="btn btn-outline-primary btn-sm replyModiCancleBtn">수정취소</button>	
+
+			                                    <div class="button-container con" style="margin-top: 10px; float:right;">
+
+			                                    
+                                                      
+				                                   	<button class="btn btn-outline-primary btn-sm cmodify">수정</button>
+				                                 	<button class="btn btn-outline-primary btn-sm modiSuccessBtn">완료</button>
+				                                     
+				                                    <button class="btn btn-outline-primary btn-sm cdelete">삭제</button>
+				                                      
+				                                     
+				                                     
+
 			                                    </div>
 		                                    </c:when>
 		                                    <c:otherwise>
@@ -443,7 +447,7 @@
                                    					 <div contenteditable="true" class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
 			                                        </div>
 			                                    </div>
-                                                    <div class="button-container" style="float:right ;">
+                                                    <div class="button-container con" style="float:right ;">
                                                     
                                                         <button class="btn btn-outline-primary btn-sm likeBtn">
                                                          <i class="bi bi-hand-thumbs-up"></i>0</button>
@@ -456,51 +460,6 @@
 	                                    </c:choose>
                                     </div>
                                     </c:forEach>
-
-
-                                    <!-- child comment-->
-<!--                                      <div class="ms-5">
-
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">신고</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>  -->
-
-                                    <!-- child comment-->
-<!--                                     <div class="ms-5">
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container"
-                                                        style="float:right ; margin-top: 10px;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
 
                                 </div>
 
@@ -856,6 +815,7 @@
                     	}
                     })
                     
+
                     // 댓글수정 완료 (버튼클릭 혹은 엔터) 
                     $(".replyModiSuccessBtn").on("click", function() {
                     	const replyCode = $(this).parent().prev().children().next().children().next().html();
@@ -870,6 +830,18 @@
                     		updateReplyDiv.text(updateReply.slice(0,198));
                     		return false;
                     	}
+
+                    // 댓글 수정버튼 클릭 시
+                    $(".cmodify").on("click", function() {
+                    	// 댓글 뽑아오기
+                    	const reply = $(this).parent().prev().children().next().children().next().text();
+                    	// 댓글 감싸고 있는 div 뽑아오기
+                    	const replyDiv = $(this).parent().prev().children().next().children().next();
+
+                    	console.log(reply)
+                    	replyDiv.attr("contenteditable", "true");
+                    	replyDiv.css("border", "1px solid black");
+
                     	
                     	$.ajax({
                     		url : "/board/updateFreeReply",
@@ -891,6 +863,7 @@
                     	})
                     })
                     
+
                     // 댓글에서 좋아요 버튼 누를 시
                     var like = false;
                     $(".likeBtn").on("click", function() {
@@ -908,6 +881,31 @@
                     })
 
                  })
+
+                    // 댓글 수정시 조건 추가
+                    $(".modiSuccessBtn").on("keydown",function(e){
+                    	if(e.key == "Enter" && e.shiftKey) {
+                    		
+                    	}
+                    	else if(e.key == "Enter") {
+                    		e.preventDefault();
+                    		$(".modiSuccessBtn").click();
+                    	}
+                    })
+                    
+                    
+                     // 댓글 수정버튼 클릭 시
+                    $(".modiSuccessBtn").on("click", function() {
+                    	
+                    	
+                    	
+                    })
+                    
+                    
+                    
+                 
+                })
+
             </script>
 
 

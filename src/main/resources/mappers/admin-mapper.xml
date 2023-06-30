@@ -9,6 +9,15 @@
 	<insert id="insertLoginCount">
 		insert into loginCount values(${memberCode}, ${count}, null)
 	</insert>
+	<delete id="deleteBanMember">
+		delete from member where code = ${code}
+	</delete>
+	<insert id="insertBanMember">
+		insert into BannedMember values(${code}, ${memberCode},#{id}, #{businessID}, #{pw}, #{name}, #{companyName}, #{authGradeCode}, #{nickName},#{birthDate},#{phone},#{eMail},#{shippingCompany},#{zipcode},#{address1},#{address2},#{agree},DEFAULT)
+		<selectKey keyProperty="code" order="BEFORE" resultType="int">
+			select banMember_seq.nextval from dual
+		</selectKey>
+	</insert>
 	<update id="updateLoginCount">
 		update loginCount set count = (select count from loginCount where memberCode = ${memberCode})+1 , loginDate = DEFAULT where memberCode = ${memberCode}
 	</update>
