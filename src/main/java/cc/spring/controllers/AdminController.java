@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cc.spring.dto.BanMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
@@ -71,5 +72,10 @@ public class AdminController {
 		List<ShopListDTO> shopList = aService.selectShopList();
 		result.put("shopList", shopList);
 		return result;
+	}
+	
+	@RequestMapping("banMember")
+	public int banMember(int memberCode, BanMemberDTO dto) {
+		return aService.BanMember(memberCode, dto);
 	}
 }

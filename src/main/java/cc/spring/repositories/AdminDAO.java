@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cc.spring.dto.BanMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.gptCountDTO;
 import cc.spring.dto.loginCountDTO;
@@ -79,5 +80,13 @@ public class AdminDAO {
 	
 	public int recentVisitBusiness() {
 		return mybatis.selectOne("Admin.recentVisitBusiness");
+	}
+	
+	public int deleteBanMember(int memberCode) {
+		return mybatis.delete("Admin.deleteBanMember", memberCode);
+	}
+	
+	public int insertBanMember(BanMemberDTO dto) {
+		return mybatis.insert("Admin.insertBanMember", dto);
 	}
 }
