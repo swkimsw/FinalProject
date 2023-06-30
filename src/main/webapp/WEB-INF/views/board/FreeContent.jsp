@@ -445,7 +445,7 @@
 			                                    </div>
                                                     <div class="button-container" style="float:right ;">
                                                     
-                                                        <button class="btn btn-outline-primary btn-sm">
+                                                        <button class="btn btn-outline-primary btn-sm likeBtn">
                                                          <i class="bi bi-hand-thumbs-up"></i>0</button>
                                                          
                                                         <button class="btn btn-outline-primary btn-sm"
@@ -891,9 +891,23 @@
                     	})
                     })
                     
-                    
-                 
-                })
+                    // 댓글에서 좋아요 버튼 누를 시
+                    var like = false;
+                    $(".likeBtn").on("click", function() {
+                    	if(like) {
+                        	$(this).css({"background-color":"#fff",
+                        		"color" : "#0d6efd"});
+                        	like = false;
+                    	}
+                    	else {
+                        	$(this).css({"background-color":"#0d6efd",
+                        		"color" : "#fff"});
+                        	like = true;
+                    	}
+
+                    })
+
+                 })
             </script>
 
 
