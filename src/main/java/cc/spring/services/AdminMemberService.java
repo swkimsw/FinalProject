@@ -8,14 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cc.spring.dto.MemberDTO;
-import cc.spring.repositories.AdminMemberDAO;
+import cc.spring.dto.ShopListDTO;
+import cc.spring.repositories.AdminDAO;
 import cc.spring.repositories.BusinessMemberDAO;
 import cc.spring.repositories.ClientMemberDAO;
+import cc.spring.repositories.ShopDAO;
 
 @Service
 public class AdminMemberService {
 	@Autowired
-	private AdminMemberDAO aDAO;
+	private AdminDAO adminDAO;
 	
 	@Autowired
 	private BusinessMemberDAO bDAO;
@@ -23,12 +25,15 @@ public class AdminMemberService {
 	@Autowired
 	private ClientMemberDAO cDAO;
 	
+	@Autowired
+	private ShopDAO sDAO;
+	
 	public boolean login(String id, String pw) {
-		return aDAO.login(id, pw);
+		return adminDAO.login(id, pw);
 	}
 	
 	public MemberDTO selectAdminMemberInfo(String id, String pw) {
-		return aDAO.selectAdminMemberInfo(id, pw);
+		return adminDAO.selectAdminMemberInfo(id, pw);
 	}
 	
 	public List<MemberDTO> selectAllBusinessMember() {
@@ -41,35 +46,42 @@ public class AdminMemberService {
 	
 	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> mealCountMap = new HashMap<String, Integer>();
-		mealCountMap.put("mealSuccessTotal", aDAO.selectSuccessMeal());
-		mealCountMap.put("mealFailTotal", aDAO.selectFailMeal());
+		mealCountMap.put("mealSuccessTotal", adminDAO.selectSuccessMeal());
+		mealCountMap.put("mealFailTotal", adminDAO.selectFailMeal());
 		return mealCountMap;
 	}	
 	
 	public Map<String, Integer> selectBasketCount(){
 		Map<String, Integer> basketCountMap = new HashMap<>();
-		basketCountMap.put("basketSuccess", aDAO.selectSuccessBasket());
-		basketCountMap.put("basketFail", aDAO.selectFailBasket());
+		basketCountMap.put("basketSuccess", adminDAO.selectSuccessBasket());
+		basketCountMap.put("basketFail", adminDAO.selectFailBasket());
 		return basketCountMap;
 	}
 	
 	public Map<String, Integer> selectTotalCount(){
 		Map<String, Integer> totalCountMap = new HashMap<>();
-		totalCountMap.put("totalSuccess", aDAO.selectTotalSuccess());
-		totalCountMap.put("totalFail", aDAO.selectTotalFail());
+		totalCountMap.put("totalSuccess", adminDAO.selectTotalSuccess());
+		totalCountMap.put("totalFail", adminDAO.selectTotalFail());
 		return totalCountMap;
 	}
 	
 	public List<MemberDTO> ClinetUserList() {
-		return aDAO.clientUserList();
+		return adminDAO.clientUserList();
 	}
 
   public List<MemberDTO> BusinessUserList() {
-		return aDAO.businessUserList();
+		return adminDAO.businessUserList();
 	}
 	
-	public String recentVisitBusiness() {
-		return bDAO.recentVisitBusiness();
+	public Map<String, Integer> recentVisitCount() {
+		Map<String, Integer> recentVisitMap = new HashMap<>();
+		recentVisitMap.put("recentVisitClient", adminDAO.recentVisitClient());
+		recentVisitMap.put("recentVisitBusiness", adminDAO.recentVisitBusiness());
+		return recentVisitMap;
   }
-
+	
+	public List<ShopListDTO> selectShopList() {
+		return sDAO.shopList();
+	}
+	
 }

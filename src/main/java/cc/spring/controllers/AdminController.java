@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
 
 @RestController
@@ -59,8 +60,16 @@ public class AdminController {
 		return aService.selectTotalCount();
 	}
 	
-	@RequestMapping("recentVisitBusiness")
-	public String recentVisitBusiness() {
-		return aService.recentVisitBusiness();
+	@RequestMapping("recentVisitCount")
+	public Map<String, Integer> recentVisitBusiness() {
+		return aService.recentVisitCount();
+	}
+	
+	@RequestMapping("selectShopList")
+	public Map<String, Object> selectShopList() {
+		Map<String, Object> result = new HashMap<>();
+		List<ShopListDTO> shopList = aService.selectShopList();
+		result.put("shopList", shopList);
+		return result;
 	}
 }

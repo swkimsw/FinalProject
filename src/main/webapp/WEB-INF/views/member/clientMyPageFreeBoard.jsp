@@ -310,6 +310,8 @@ h1.second span:after {
 				info : false,
 				lengthChange: false
 			});
+			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
+			
 		});
 	</script>
 </body>
