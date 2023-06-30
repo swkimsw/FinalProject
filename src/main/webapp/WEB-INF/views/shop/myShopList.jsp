@@ -238,13 +238,13 @@
 										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
 										
 										if(i.statusCode == 1001){
-											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-3 p-2'>" 
 													+ i.statusValue + "</span>"
 										}else if(i.statusCode == 1002){
-											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-3 p-2'>" 
 												+ i.statusValue + "</span>"
 										}else if(i.statusCode == 1003){
-											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-3 p-2'>" 
 												+ i.statusValue + "</span>"
 										}
 												
