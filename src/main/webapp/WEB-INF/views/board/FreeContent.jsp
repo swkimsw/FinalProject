@@ -116,6 +116,10 @@
                     font-size: small;
                 }
                 
+                .replyCode {
+                	display: none;
+                }
+                
                 .replyMemberNickNameOrCompanyName {
                 	display: inline;
                 }
@@ -127,13 +131,18 @@
                 
                 .modiWriteReply {
                 	border: none;
+                	word-break : break-word;
                 }
                 
                 .modiWriteReply:empty:before {
    					content: attr(placeholder);
 				}
 				
-				.modiSuccessBtn {
+				.replyModiCancleBtn {
+					display: none;
+				}
+				
+				.replyModiSuccessBtn {
 					display: none;
 				}
             </style>
@@ -397,33 +406,28 @@
                                     <div id="rep">
                                     <c:choose>
 			                            <c:when test="${user == i.memberCode}">
-	                                    <hr style="margin-top: 60px;">
-		                                    <div class="d-flex mt-5">
-		                                        <div class="flex-shrink-0"><img class="rounded-circle" style="height:50px; width:50px; border:1px solid black;"
-		                                                src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="...">
-		                                        </div>
-	
-		                                        <div class="ms-3">
-		                                            <div class="fw-bold">
-		                                            	<div class="replyMemberNickNameOrCompanyName">${i.nickName}</div> 
-		                                            	<div class="replyMemberNickNameOrCompanyName">${i.companyName}</div> 
-		                                            	<div class="me">(본인)</div>
-		                                            </div>
-                                   					 <div class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
-		                                        </div>
-		                                    </div>
+		                                    <hr style="margin-top: 60px;">
+			                                    <div class="d-flex mt-5">
+			                                        <div class="flex-shrink-0"><img class="rounded-circle" style="height:50px; width:50px; border:1px solid black;"
+			                                                src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="...">
+			                                        </div>
+		
+			                                        <div class="ms-3">
+			                                            <div class="fw-bold">
+			                                            	<div class="replyMemberNickNameOrCompanyName">${i.nickName}</div> 
+			                                            	<div class="replyMemberNickNameOrCompanyName">${i.companyName}</div> 
+			                                            	<div class="me">(본인)</div>
+			                                            </div>
+			                                            <div class="replyCode">${i.code}</div>			                                            
+	                                   					<div class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
+			                                        </div>
+			                                    </div>
 
 			                                    <div class="button-container" style="margin-top: 10px; float:right;">
-
-			                                    
-                                                      
-				                                   	<button class="btn btn-outline-primary btn-sm"
-				                                     id="cmodify" >수정</button>
-				                                     
-				                                     	<button class="btn btn-outline-primary btn-sm"
-				                                     id="cdelete" >삭제</button>
-				                                     
-				                                     
+				                                   	<button class="btn btn-outline-primary btn-sm replyModiBtn">수정</button>				                                   				                                   	
+				                                    <button class="btn btn-outline-primary btn-sm replyDeleteBtn">삭제</button> 
+				                                   	<button class="btn btn-outline-primary btn-sm replyModiSuccessBtn">수정완료</button>				                                    				                                   	
+				                                   	<button class="btn btn-outline-primary btn-sm replyModiCancleBtn">수정취소</button>	
 			                                    </div>
 		                                    </c:when>
 		                                    <c:otherwise>
@@ -749,7 +753,7 @@
                     })
                     
                     // 댓글 작성하기 실행
-                    $("#replyForm").on("submit", function() {
+/*                     $("#replyForm").on("submit", function() {
                     	const regex1 = $("#write_reply").html().replace(/&nbsp;/gi,' ');
 						const regex2 = regex1.replace(/&lt;/gi,'<');
 						const regex3 = regex2.replace(/&gt;/gi, '>');
@@ -766,10 +770,21 @@
                     		return false;
                     	}
                     	$("#hidden_write_reply").val($("#write_reply").html());
+                    }) */
+                    
+                    
+                    // 댓글 작성 엔터키 기능 바꿈
+                    $("#write_reply").on("keydown",function(e){
+                    	if(e.key == "Enter" && e.shiftKey) {
+                    		
+                    	}
+                    	else if(e.key == "Enter") {
+                    		e.preventDefault();
+                    		$("#replyWriteBtn").click();
+                    	}
                     })
                     
-                    
-                    // 댓글 작성하기 실행
+                    // 댓글 작성하기 (클릭 혹은 엔터) 
                     $("#replyWriteBtn").on("click", function() {
                     	const write_text = $("#write_reply").html().replace(/&nbsp;/gi,' ');
 						const write = write_text.replace(/&lt;/gi,'<');
@@ -782,12 +797,11 @@
                     	}
                     	if($("#hidden_write_reply").val().length >= 200) {
                     		alert("200자 미만으로 입력하세요.");
+                    		$("#write_reply").html($("#hidden_write_reply").val().slice(0,198));
                     		return false;
                     	}
-                    	$("#hidden_write_reply").val($("#write_reply").html());
-                    	
+                  	
                     	let replycontent = $("#hidden_write_reply").val();
-                
                     	
                     	
                     	$.ajax({
@@ -801,48 +815,83 @@
                             }
                         }).done(function (resp) {
                         	  if (resp == 1) {
-                        	        alert("작성되었습니다");
+                        	        alert("작성되었습니다.");
                         	        location.href="/board/FreeContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
                         	   
                         	    } else {
-                        	        alert("작성에 실패했습니다");
+                        	        alert("작성에 실패했습니다.");
                         	        return false;
                         	    }
                         })
-                    	
-                        
-                        
-                    	
                     })
                     
                     
+
                     
-                    $("#write_reply").on("keydown",function(e){
+                    // 댓글 수정버튼 클릭 시
+                    $(".replyModiBtn").on("click", function() {
+                    	// 버튼변환
+                    	$(this).hide();
+                    	$(this).next().hide();
+                    	$(this).next().next().fadeIn();
+                    	$(this).next().next().next().fadeIn();
+
+                    	// 댓글 감싸고 있는 div 뽑아오기
+                    	const replyDiv = $(this).parent().prev().children().next().children().next();
+
+                    	replyDiv.attr("contenteditable", "true");
+                    	replyDiv.focus();
+
+                    })
+                    
+                    
+                   	// 댓글 수정 시 엔터키 기능 바꿈
+                    $(".modiWriteReply").on("keydown",function(e){
                     	if(e.key == "Enter" && e.shiftKey) {
                     		
                     	}
                     	else if(e.key == "Enter") {
                     		e.preventDefault();
-                    		$("#replyWriteBtn").click();
+                    		$(this).parent().parent().next().children().next().next().click();
                     	}
                     })
                     
-                    // 댓글 수정버튼 클릭 시
-                    $(".modiReplyBtn").on("click", function() {
-                    	// 댓글 뽑아오기
-                    	const reply = $(this).parent().prev().children().next().children().next().html();
-                    	// 댓글 감싸고 있는 div 뽑아오기
-                    	const replyDiv = $(this).parent().prev().children().next().children().next();
-
-                    	replyDiv.attr("contenteditable", "true");
-                    	replyDiv.css("border", "1px solid black");
+                    // 댓글수정 완료 (버튼클릭 혹은 엔터) 
+                    $(".replyModiSuccessBtn").on("click", function() {
+                    	const replyCode = $(this).parent().prev().children().next().children().next().html();
+                    	const updateReply = $(this).parent().prev().children().next().children().next().next().text();
+                    	const updateReplyDiv = $(this).parent().prev().children().next().children().next().next(); 
+                    	if(updateReply.trim() == "") {
+                    		alert("댓글을 입력해주세요.");
+                    		return false;
+                    	}
+                    	if(updateReply.length >= 200) {
+                    		alert("200자 미만으로 입력하세요.");
+                    		updateReplyDiv.text(updateReply.slice(0,198));
+                    		return false;
+                    	}
                     	
-                    	// 수정버튼 없어지면서 수정완료 버튼 나타나게 하기
-                    	$(this).hide();
-                    	$(this).next().fadeIn();
+                    	$.ajax({
+                    		url : "/board/updateFreeReply",
+                    		type : "post",
+                    		dataType : "json",
+                    		data : {
+                    			code : replyCode,
+                    			content : updateReply
+                    			
+                    		}
+                    	}).done(function(resp) {
+                    		if(resp == 1) {
+                    			alert("수정되었습니다.");
+                    	        location.href="/board/FreeContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
+                    		}
+                    		else {
+                    			alert("수정에 실패했습니다.");
+                    		}
+                    	})
                     })
                     
-                    // 댓글 수정완료 시 
+                    
                  
                 })
             </script>
