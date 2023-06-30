@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cc.spring.dto.BanMemberDTO;
+import cc.spring.dto.BoardCountDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
@@ -23,23 +25,6 @@ public class AdminController {
 	@RequestMapping("/**")
 	public String toAdmin() {
 		return "forward:/admin/index.html";
-	}
-	
-	@RequestMapping("clientUserList")
-	public Map<String, Object> clinetUserList() {
-		Map<String,Object> result = new HashMap<>();
-		List<MemberDTO> list = aService.ClinetUserList();
-		System.out.println("클라이언트출력");
-		result.put("list",list);
-		return result;
-	}
-	@RequestMapping("businessUserList")
-	public Map<String, Object> businessUserList() {
-		Map<String,Object> result = new HashMap<>();
-		List<MemberDTO> list = aService.BusinessUserList();
-		System.out.println("비지니스출력");
-		result.put("list",list);
-		return result;
 	}
 	
 	@ResponseBody
@@ -71,5 +56,27 @@ public class AdminController {
 		List<ShopListDTO> shopList = aService.selectShopList();
 		result.put("shopList", shopList);
 		return result;
+	}
+	
+	@RequestMapping("banMember")
+	public int banMember(int memberCode, BanMemberDTO dto) {
+		return aService.BanMember(memberCode, dto);
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectUserList")
+	public List<MemberDTO> selectUserList(){
+		return aService.selectUserList();
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectBanUserList") 
+	public List<BanMemberDTO> selectBanUserList(){
+		return aService.selectBanUserList();
+	}
+	
+	@RequestMapping("recentBoardCount")
+	public Map<String, List<BoardCountDTO>> recentBoardCount(){
+		return aService.recentBoardCount();
 	}
 }

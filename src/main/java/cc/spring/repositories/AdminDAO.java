@@ -8,9 +8,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import cc.spring.dto.BanMemberDTO;
+import cc.spring.dto.BoardCountDTO;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.dto.gptCountDTO;
 import cc.spring.dto.loginCountDTO;
+
 
 @Repository
 public class AdminDAO {
@@ -54,12 +58,8 @@ public class AdminDAO {
 	public int selectTotalFail() {
 		return mybatis.selectOne("Admin.selectTotalFail");
 	}
-	
-	public List<MemberDTO> clientUserList() {
-		return mybatis.selectList("Admin.clientUserList");
-	}
-	public List<MemberDTO> businessUserList() {
-		return mybatis.selectList("Admin.businessUserList");
+	public List<ShopListDTO> selectShopList() {
+		return mybatis.selectList("Admin.selectShopList");
 	}
 	public int insertGptCount(gptCountDTO dto) {
 		return mybatis.insert("Admin.insertGptCount", dto);
@@ -79,5 +79,32 @@ public class AdminDAO {
 	
 	public int recentVisitBusiness() {
 		return mybatis.selectOne("Admin.recentVisitBusiness");
+	}
+	
+	public int deleteBanMember(int memberCode) {
+		return mybatis.delete("Admin.deleteBanMember", memberCode);
+	}
+	
+	public int insertBanMember(BanMemberDTO dto) {
+		return mybatis.insert("Admin.insertBanMember", dto);
+	}
+	
+	public List<MemberDTO> selectUserList(){
+		return mybatis.selectList("Admin.selectUserList");
+	}
+	
+	public List<BanMemberDTO> selectBanUserList(){
+		return mybatis.selectList("Admin.selectBanUserList");
+	} 
+	public List<BoardCountDTO> boardAnnouncementCount(){
+		return mybatis.selectList("Admin.boardAnnouncementCount");
+	}
+	
+	public List<BoardCountDTO> boardFreeCount(){
+		return mybatis.selectList("Admin.boardFreeCount");
+	}
+	
+	public List<BoardCountDTO> boardReviewCount(){
+		return mybatis.selectList("Admin.boardReviewCount");
 	}
 }

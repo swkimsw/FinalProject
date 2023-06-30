@@ -315,7 +315,12 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 
 	
 	
+<!-- ============================================================================================= -->
 
+	<!-- 자유게시판 댓글 수정 -->
+	<update id="updateFreeReply">
+		update replyfree set content = #{content} where code = #{code}
+	</update>
 
 
 </mapper>
