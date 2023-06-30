@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import cc.spring.dto.BanMemberDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.repositories.AdminDAO;
@@ -84,4 +86,9 @@ public class AdminMemberService {
 		return sDAO.shopList();
 	}
 	
+	@Transactional
+	public int BanMember(int memberCode, BanMemberDTO dto) {
+		adminDAO.deleteBanMember(memberCode);
+		return adminDAO.insertBanMember(dto);
+	}
 }
