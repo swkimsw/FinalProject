@@ -59,4 +59,12 @@ public class AdminMemberDAO {
 	public List<MemberDTO> businessUserList() {
 		return mybatis.selectList("Admin.businessUserList");
 	}
+	
+	public int recentVisitClient() {
+		return mybatis.selectOne("Admin.recentVisitClient");
+	}
+	
+	public int recentVisitBusiness() {
+		return mybatis.selectOne("Admin.recentVisitBusiness");
+	}
 }

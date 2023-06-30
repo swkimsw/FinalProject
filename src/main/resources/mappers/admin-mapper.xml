@@ -48,4 +48,15 @@
         where b.authgradecode=1002
 		GROUP BY B.businessid,b.name,b.companyName,b.email,b.regDate
 	</select>
+	<!-- 최근 방문자 수 -->
+	<select id="recentVisitClient" resultType="int">
+		select count(*) from (select lc.*, m.authGradeCode 
+		from loginCount lc left join member m on lc.memberCode=m.code) 
+		where authGradeCode=1003 and loginDate>=to_date(sysdate-7)
+	</select>
+	<select id="recentVisitBusiness" resultType="int">
+		select count(*) from (select lc.*, m.authGradeCode 
+		from loginCount lc left join member m on lc.memberCode=m.code) 
+		where authGradeCode=1002 and loginDate>=to_date(sysdate-7)
+	</select>
 </mapper>

@@ -91,7 +91,6 @@ public class ClientMemberDAO {
 	// Admin
 	public List<MemberDTO> selectAllClientMember() {
 		return mybatis.selectList("Client.selectAllClientMember");
-
 	}
 
 }
