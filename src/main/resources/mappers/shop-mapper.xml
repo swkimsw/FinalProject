@@ -112,11 +112,13 @@
 		where g.membercode = #{code}
 		<choose>
 			<when test="statusCode != 0">
-				and g.statuscode = ${statuscode}
-				group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode, g.min
+				and g.statuscode = #{statusCode}
+				group by g.code, g.membercode, g.statuscode,g.deadline, g.title, g.productname, g.productprice,g.regdate, m.companyname, r.parentcode, g.min
+				order by g.deadline desc
 			</when>
 			<when test="statusCode == 0">
-				group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode, g.min
+				group by g.code, g.membercode, g.statuscode,g.deadline, g.title, g.productname, g.productprice,g.regdate, m.companyname, r.parentcode, g.min
+				order by g.deadline desc
 			</when>
 		</choose>
 	</select>
