@@ -48,17 +48,12 @@
                     text-align: center;
                 }
 
-                div>table {
+                .row>table {
                     width: 100%;
                     table-layout: fixed;
                 }
 
-                button {
-                    margin-bottom: 10px;
-                    border: 0;
-                }
-
-                #title {
+                .title {
                     width: 75%;
                 }
 
@@ -69,7 +64,17 @@
                 }
 
 
-                #content {
+        		.con{
+                    margin-right: 15px;
+                    float: right;
+                    border: 0;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+
+
+
+                .content {
                     width: 100%;
                     height: 600px;
                     overflow: auto;
@@ -90,19 +95,10 @@
                     word-break: break-all;
                 }
 
-                .btn-primary {
-                    margin-top: -15px;
-                    font-size: small;
+   				.note-group-image-url{
+                     display: none;
                 }
 
-                .button-container {
-                    margin-top: 10px;
-                }
-
-                #button {
-                    margin-right: 15px;
-                    float: right;
-                }
 
                 .note-modal-footer>input {
                     margin-right: 20px;
@@ -146,7 +142,7 @@
 
                                 <tr>
                                     <td>제목 :
-                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <input class="title" id="title" type="text" value="${result.title}" disabled>
                                         <div id="info">
                                             <input type="hidden" name="oriName">
                                             <input type="hidden" name="sysName">
@@ -157,14 +153,14 @@
 
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 
                                 <tr>
                                     <td>
-                                        <div id="button" class="button-container">
+                                        <div id="button" class="button-container con">
                                             <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
@@ -213,20 +209,20 @@
 
                                 <tr>
                                     <td>제목 :
-                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <input class="title" id="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 
 								<tr>
 						            <td>
-						                <div id="button" class="button-container">
+						                <div id="button" class="button-container con">
 						                
 						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
 						                  
@@ -276,7 +272,7 @@
                                             <div class="fw-bold">작성자</div>
                                             <div class="reply">
                                                 ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                <div class="button-container" style="float:right ; margin-top: 10px;">
+                                                <div class="button-container con" style="float:right ; margin-top: 10px;">
                                                     <button class="btn btn-outline-primary btn-sm"
                                                         type="button">수정</button>
                                                     <button class="btn btn-outline-primary btn-sm"
@@ -299,7 +295,7 @@
                                                 <div class="fw-bold">작성자</div>
                                                 <div class="reply">
                                                     sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container" style="float:right ;">
+                                                    <div class="button-container con" style="float:right ;">
                                                         <button class="btn btn-outline-primary btn-sm" type="button"> <i
                                                                 class="bi bi-hand-thumbs-up"></i>13</button>
                                                         <button class="btn btn-outline-primary btn-sm"
@@ -321,7 +317,7 @@
                                                 <div class="fw-bold">작성자</div>
                                                 <div class="reply">
                                                     sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container"
+                                                    <div class="button-container con"
                                                         style="float:right ; margin-top: 10px;">
                                                         <button class="btn btn-outline-primary btn-sm" type="button"> <i
                                                                 class="bi bi-hand-thumbs-up"></i>13</button>
@@ -351,8 +347,11 @@
 
                 $(document).ready(function () {
 
-
-
+                	//const contentDiv = document.getElementById('content');
+                	//console.log(contentDiv.innerTEXT)
+                	//contentDiv.innerHTML = contentDiv.innerText;
+                	
+					$("#content").html($("#content").html());
                     $("#modi").on("click", function () {
 
                         $("#modi").css("display", "none"); // 수정버튼 안보이게

@@ -216,7 +216,14 @@ public class ShopService {
 
 	//사업자회원 내 공구 등록 목록 
 	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
-		return shopDAO.businessRegisterList(code,statusCode);
+		List<MyShopListDTO> myShopListDTO = shopDAO.businessRegisterList(code,statusCode);
+		for(MyShopListDTO m : myShopListDTO) {
+			// Timestamp -> String
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+			m.setRegDateTemp(dateFormat.format(m.getRegDate()));
+			m.setDeadLineTemp(dateFormat.format(m.getDeadLine()));
+		}
+		return myShopListDTO;
 	}
 	
 	public List<MyShopListDTO> groupbuyingCountByStatus (int code){

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cc.spring.dto.BanMemberDTO;
+import cc.spring.dto.BoardCountDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
@@ -72,5 +73,10 @@ public class AdminController {
 	@RequestMapping("selectBanUserList") 
 	public List<BanMemberDTO> selectBanUserList(){
 		return aService.selectBanUserList();
+	}
+	
+	@RequestMapping("recentBoardCount")
+	public Map<String, List<BoardCountDTO>> recentBoardCount(){
+		return aService.recentBoardCount();
 	}
 }

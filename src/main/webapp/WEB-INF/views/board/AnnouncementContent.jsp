@@ -34,7 +34,7 @@
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 
-            <style>
+           <style>
                 * {
                     font-family: NanumSquareNeo;
                     box-sizing: border-box;
@@ -48,17 +48,12 @@
                     text-align: center;
                 }
 
-                div>table {
+               .row>table {
                     width: 100%;
                     table-layout: fixed;
                 }
 
-                button {
-                    margin-bottom: 10px;
-                    border: 0;
-                }
-
-                #title {
+                .title {
                     width: 75%;
                 }
 
@@ -69,7 +64,7 @@
                 }
 
 
-                #content {
+                .content {
                     width: 100%;
                     height: 600px;
                     overflow: auto;
@@ -90,18 +85,12 @@
                     word-break: break-all;
                 }
 
-                .btn-primary {
-                    margin-top: -15px;
-                    font-size: small;
-                }
-
-                .button-container {
-                    margin-top: 10px;
-                }
-
-                #button {
+               .con{
                     margin-right: 15px;
                     float: right;
+                    border: 0;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
                 }
 
                 .note-modal-footer>input {
@@ -110,6 +99,7 @@
                     font-size: small;
                 }
             </style>
+
 
         </head>
 
@@ -146,20 +136,20 @@
 
                                 <tr>
                                     <td>제목 :
-                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <input class="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 
                                 <tr>
                                     <td>
-                                        <div id="button" class="button-container">
+                                        <div  class="button-container con">
                                             <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
@@ -210,7 +200,7 @@
                                 
                                 <tr>
                                     <td>제목 :
-                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <input class="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
@@ -222,7 +212,7 @@
                                 
                                  <tr>
 						            <td>
-						                <div id="button" class="button-container">
+						                <div id="button" class="button-container con">
 						                
 						                	
 						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
@@ -269,7 +259,7 @@
                                             <div class="fw-bold">작성자</div>
                                             <div class="reply">
                                                 sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                <div class="button-container" style="float:right ; margin-top: 10px;">
+                                                <div class="button-container con" style="float:right ; margin-top: 10px;">
                                                     <button class="btn btn-outline-primary btn-sm"
                                                         type="button">수정</button>
                                                     <button class="btn btn-outline-primary btn-sm"
@@ -292,7 +282,7 @@
                                                 <div class="fw-bold">작성자</div>
                                                 <div class="reply">
                                                     sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container" style="float:right ;">
+                                                    <div class="button-container con" style="float:right ;">
                                                         <button class="btn btn-outline-primary btn-sm" type="button"> <i
                                                                 class="bi bi-hand-thumbs-up"></i>13</button>
                                                         <button class="btn btn-outline-primary btn-sm"
@@ -314,7 +304,7 @@
                                                 <div class="fw-bold">작성자</div>
                                                 <div class="reply">
                                                     sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container"
+                                                    <div class="button-container con"
                                                         style="float:right ; margin-top: 10px;">
                                                         <button class="btn btn-outline-primary btn-sm" type="button"> <i
                                                                 class="bi bi-hand-thumbs-up"></i>13</button>
@@ -382,7 +372,7 @@
                         });
 
 
-                        $("#title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
+                        $(".title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
                         $("#save").css("display", "inline"); // 완료버튼보이게
 
 
@@ -402,7 +392,7 @@
                             var text = $('<div>').html(content).text(); //태그없는거
 
 
-                            if ($("#title").val() == "" || $("#title").val().trim() == "") {
+                            if ($(".title").val() == "" || $(".title").val().trim() == "") {
                                 alert("제목을 작성해주세요.");
                                 return false;
                             } else if (content == "") {
@@ -414,7 +404,7 @@
                             }
 
 
-                            let title = $("#title").val();
+                            let title = $(".title").val();
                             let code = $("#code").val();
 
 
@@ -449,7 +439,7 @@
 
 
 
-                    $("#title").on("input", function () {
+                    $(".title").on("input", function () {
                         var maxLength = 50;
                         var title = $(this).val();
 
