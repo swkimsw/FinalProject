@@ -27,23 +27,6 @@ public class AdminController {
 		return "forward:/admin/index.html";
 	}
 	
-	@RequestMapping("clientUserList")
-	public Map<String, Object> clinetUserList() {
-		Map<String,Object> result = new HashMap<>();
-		List<MemberDTO> list = aService.ClinetUserList();
-		System.out.println("클라이언트출력");
-		result.put("list",list);
-		return result;
-	}
-	@RequestMapping("businessUserList")
-	public Map<String, Object> businessUserList() {
-		Map<String,Object> result = new HashMap<>();
-		List<MemberDTO> list = aService.BusinessUserList();
-		System.out.println("비지니스출력");
-		result.put("list",list);
-		return result;
-	}
-	
 	@ResponseBody
 	@RequestMapping("selectMealCount")
 	public Map<String, Integer> selectMealCount() {
@@ -78,6 +61,18 @@ public class AdminController {
 	@RequestMapping("banMember")
 	public int banMember(int memberCode, BanMemberDTO dto) {
 		return aService.BanMember(memberCode, dto);
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectUserList")
+	public List<MemberDTO> selectUserList(){
+		return aService.selectUserList();
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectBanUserList") 
+	public List<BanMemberDTO> selectBanUserList(){
+		return aService.selectBanUserList();
 	}
 	
 	@RequestMapping("recentBoardCount")

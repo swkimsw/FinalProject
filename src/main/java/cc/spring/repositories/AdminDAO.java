@@ -58,18 +58,9 @@ public class AdminDAO {
 	public int selectTotalFail() {
 		return mybatis.selectOne("Admin.selectTotalFail");
 	}
-	
-	public List<MemberDTO> clientUserList() {
-		return mybatis.selectList("Admin.clientUserList");
-	}
-	public List<MemberDTO> businessUserList() {
-		return mybatis.selectList("Admin.businessUserList");
-	}
-	
 	public List<ShopListDTO> selectShopList() {
 		return mybatis.selectList("Admin.selectShopList");
 	}
-	
 	public int insertGptCount(gptCountDTO dto) {
 		return mybatis.insert("Admin.insertGptCount", dto);
 	}
@@ -98,6 +89,13 @@ public class AdminDAO {
 		return mybatis.insert("Admin.insertBanMember", dto);
 	}
 	
+	public List<MemberDTO> selectUserList(){
+		return mybatis.selectList("Admin.selectUserList");
+	}
+	
+	public List<BanMemberDTO> selectBanUserList(){
+		return mybatis.selectList("Admin.selectBanUserList");
+	} 
 	public List<BoardCountDTO> boardAnnouncementCount(){
 		return mybatis.selectList("Admin.boardAnnouncementCount");
 	}
