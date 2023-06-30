@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.BanMemberDTO;
+import cc.spring.dto.BoardCountDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.dto.gptCountDTO;
@@ -95,5 +96,17 @@ public class AdminDAO {
 	
 	public int insertBanMember(BanMemberDTO dto) {
 		return mybatis.insert("Admin.insertBanMember", dto);
+	}
+	
+	public List<BoardCountDTO> boardAnnouncementCount(){
+		return mybatis.selectList("Admin.boardAnnouncementCount");
+	}
+	
+	public List<BoardCountDTO> boardFreeCount(){
+		return mybatis.selectList("Admin.boardFreeCount");
+	}
+	
+	public List<BoardCountDTO> boardReviewCount(){
+		return mybatis.selectList("Admin.boardReviewCount");
 	}
 }

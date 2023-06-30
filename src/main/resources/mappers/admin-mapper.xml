@@ -99,4 +99,38 @@
 		order by 1
 	</select>
 	
+	<!-- 게시글 수 -->
+	<select id="boardAnnouncementCount" resultType="cc.spring.dto.BoardCountDTO">
+		select to_char(b.dt, 'yyyy/mm/dd') regDate, nvl(sum(a.cnt),0) cnt 
+		from (select to_char(regDate,'yyyy/mm/dd') regDate, count(code) cnt 
+		from boardAnnouncement where regDate>=to_date(sysdate-7) 
+		group by to_char(regDate,'yyyy/mm/dd')) a, 
+		(select to_date(sysdate-7)+LEVEL -1 as dt from dual
+		<![CDATA[connect by LEVEL <= (to_date(sysdate)-to_date(sysdate-7)+1)) b]]>
+		where b.dt=a.regDate(+)
+		group by b.dt
+		order by b.dt
+	</select>
+	<select id="boardFreeCount" resultType="cc.spring.dto.BoardCountDTO">
+		select to_char(b.dt, 'yyyy/mm/dd') regDate, nvl(sum(a.cnt),0) cnt 
+		from (select to_char(regDate,'yyyy/mm/dd') regDate, count(code) cnt 
+		from boardFree where regDate>=to_date(sysdate-7) 
+		group by to_char(regDate,'yyyy/mm/dd')) a, 
+		(select to_date(sysdate-7)+LEVEL -1 as dt from dual
+		<![CDATA[connect by LEVEL <= (to_date(sysdate)-to_date(sysdate-7)+1)) b]]>
+		where b.dt=a.regDate(+)
+		group by b.dt
+		order by b.dt
+	</select>
+	<select id="boardReviewCount" resultType="cc.spring.dto.BoardCountDTO">
+		select to_char(b.dt, 'yyyy/mm/dd') regDate, nvl(sum(a.cnt),0) cnt 
+		from (select to_char(regDate,'yyyy/mm/dd') regDate, count(code) cnt 
+		from boardReview where regDate>=to_date(sysdate-7) 
+		group by to_char(regDate,'yyyy/mm/dd')) a, 
+		(select to_date(sysdate-7)+LEVEL -1 as dt from dual
+		<![CDATA[connect by LEVEL <= (to_date(sysdate)-to_date(sysdate-7)+1)) b]]>
+		where b.dt=a.regDate(+)
+		group by b.dt
+		order by b.dt
+	</select>
 </mapper>
