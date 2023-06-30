@@ -20,14 +20,15 @@ public class BanMemberDTO {
 	private String address1;
 	private String address2;
 	private String agree;
+	private int reportCount;
 	private Timestamp delDate;
 	public BanMemberDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public BanMemberDTO(int code, int memberCode, String id, String businessId, String pw, String name,
 			String companyName, int authGradeCode, String nickName, String birthDate, String phone, String eMail,
-			String shippingCompany, String zipcode, String address1, String address2, String agree, Timestamp delDate) {
+			String shippingCompany, String zipcode, String address1, String address2, String agree, int reportCount,
+			Timestamp delDate) {
 		super();
 		this.code = code;
 		this.memberCode = memberCode;
@@ -46,6 +47,7 @@ public class BanMemberDTO {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.agree = agree;
+		this.reportCount = reportCount;
 		this.delDate = delDate;
 	}
 	public int getCode() {
@@ -149,6 +151,12 @@ public class BanMemberDTO {
 	}
 	public void setAgree(String agree) {
 		this.agree = agree;
+	}
+	public int getReportCount() {
+		return reportCount;
+	}
+	public void setReportCount(int reportCount) {
+		this.reportCount = reportCount;
 	}
 	public Timestamp getDelDate() {
 		return delDate;
