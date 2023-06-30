@@ -67,14 +67,6 @@ public class AdminMemberService {
 		return totalCountMap;
 	}
 	
-	public List<MemberDTO> ClinetUserList() {
-		return adminDAO.clientUserList();
-	}
-
-  public List<MemberDTO> BusinessUserList() {
-		return adminDAO.businessUserList();
-	}
-	
 	public Map<String, Integer> recentVisitCount() {
 		Map<String, Integer> recentVisitMap = new HashMap<>();
 		recentVisitMap.put("recentVisitClient", adminDAO.recentVisitClient());
@@ -91,4 +83,13 @@ public class AdminMemberService {
 		adminDAO.deleteBanMember(memberCode);
 		return adminDAO.insertBanMember(dto);
 	}
+	
+	public List<MemberDTO> selectUserList(){
+		return adminDAO.selectUserList();
+	}
+	
+	public List<BanMemberDTO> selectBanUserList(){
+		return adminDAO.selectBanUserList();
+	}
+	
 }

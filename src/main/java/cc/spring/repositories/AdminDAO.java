@@ -87,4 +87,8 @@ public class AdminDAO {
 	public List<MemberDTO> selectUserList(){
 		return mybatis.selectList("Admin.selectUserList");
 	}
+	
+	public List<BanMemberDTO> selectBanUserList(){
+		return mybatis.selectList("Admin.selectBanUserList");
+	} 
 }
