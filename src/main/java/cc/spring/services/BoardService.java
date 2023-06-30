@@ -120,6 +120,16 @@ public class BoardService {
 		return boarddao.selectAllReview();
 	}
 
+	//리뷰게시글 리스트 조건에 따라 가져오기 - 검색
+	public List<BoardReviewDTO> selectSearchReview(int start , int end , String search, String searchCate) {
+		return boarddao.selectSearchReview(start,end,search,searchCate);
+	}
+
+	//리뷰게시글 리스트 다 가져오기 - 검색
+	public List<BoardReviewDTO> selectAllSearchReview(String search, String searchCate) {
+		return boarddao.selectAllSearchReview(search,searchCate);
+	}
+	
 	
 //====================================================================================
 	

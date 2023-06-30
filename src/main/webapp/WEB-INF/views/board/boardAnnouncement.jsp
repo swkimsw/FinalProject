@@ -45,9 +45,9 @@
                     border: 1px solid black;
                 }
 
-                th,
+               .table th,
                 td {
-                    font-size: 20px;
+                    font-size: 18px;
                 }
             </style>
 
@@ -93,7 +93,7 @@
                             <tr>
                                 <th>번호</th>
                                 <th style="width: 50%;">제목</th>
-                                <th>글쓴이</th>
+                                <th>작성자</th>
                                 <th>작성일</th>
                                 <th>조회수</th>
                                 <th>추천수</th>
@@ -197,7 +197,9 @@
                             <div style="float: right;">
                                 <a href="/board/announcementWrite">
                                     <button class="btn btn-outline-primary" type="button">작성하기</button>
+                                   
                                 </a>
+                                
                             </div>
 
                         </c:when>

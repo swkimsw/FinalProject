@@ -48,17 +48,13 @@
                     text-align: center;
                 }
 
-                div>table {
+                .row>table {
                     width: 100%;
                     table-layout: fixed;
                 }
 
-                button {
-                    margin-bottom: 10px;
-                    border: 0;
-                }
 
-                #title {
+                .title {
                     width: 75%;
                 }
 
@@ -69,7 +65,7 @@
                 }
 
 
-                #content {
+                .content {
                     width: 100%;
                     height: 600px;
                     overflow: auto;
@@ -96,18 +92,12 @@
                     word-break: break-all;
                 }
 
-                .btn-primary {
-                    margin-top: -15px;
-                    font-size: small;
-                }
-
-                .button-container {
-                    margin-top: 10px;
-                }
-
-                #button {
+              .con{
                     margin-right: 15px;
                     float: right;
+                    border: 0;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
                 }
 
                 .note-modal-footer>input {
@@ -220,20 +210,20 @@
 
                                 <tr>
                                     <td>제목 :
-                                        <input id="title" type="text" value="${result.title}" disabled>
+                                        <input class="title" id="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 
                                 <tr>
                                     <td>
-                                        <div id="button" class="button-container">
+                                        <div id="button" class="button-container con">
                                             <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
@@ -341,13 +331,13 @@
 								
                                 <tr>
                                     <td>
-                                        <div id="content">${result.content}</div>
+                                        <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
 
 								<tr>
 						            <td>
-						                <div id="button" class="button-container">
+						                <div id="button" class="button-container con">
 						                
 						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
 						                  
@@ -413,7 +403,7 @@
 		                                        </div>
 		                                    </div>
 
-			                                    <div class="button-container" style="margin-top: 10px; float:right;">
+			                                    <div class="button-container con" style="margin-top: 10px; float:right;">
 
 			                                    
                                                       
@@ -439,7 +429,7 @@
                                    					 <div contenteditable="true" class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
 			                                        </div>
 			                                    </div>
-                                                    <div class="button-container" style="float:right ;">
+                                                    <div class="button-container con" style="float:right ;">
                                                     
                                                         <button class="btn btn-outline-primary btn-sm">
                                                          <i class="bi bi-hand-thumbs-up"></i>0</button>
