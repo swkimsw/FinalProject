@@ -41,17 +41,16 @@ public class AdminMemberService {
 	
 	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> mealCountMap = new HashMap<String, Integer>();
-		mealCountMap.put("mealSuccessTotal", aDAO.selectFailMeal());
-		mealCountMap.put("mealFailTotal", aDAO.selectSuccessMeal());
+		mealCountMap.put("mealSuccessTotal", aDAO.selectSuccessMeal());
+		mealCountMap.put("mealFailTotal", aDAO.selectFailMeal());
 		return mealCountMap;
 	}	
 	
-	public int selectSuccessBasket() {
-		return aDAO.selectSuccessBasket();
-	}
-	
-	public int selectFailBasket() {
-		return aDAO.selectFailBasket();
+	public Map<String, Integer> selectBasketCount(){
+		Map<String, Integer> basketCountMap = new HashMap<>();
+		basketCountMap.put("basketSuccess", aDAO.selectSuccessBasket());
+		basketCountMap.put("basketFail", aDAO.selectFailBasket());
+		return basketCountMap;
 	}
 	
 	public Map<String, Integer> selectTotalCount(){

@@ -24,13 +24,6 @@ public class AdminController {
 		return "forward:/admin/index.html";
 	}
 	
-	@ResponseBody
-	@RequestMapping("selectMealCount")
-	public Map<String, Integer> selectMealCount() {
-		Map<String, Integer> successMeal = aService.selectMealCount();
-		return successMeal;
-	}
-	
 	@RequestMapping("clientUserList")
 	public Map<String, Object> clinetUserList() {
 		Map<String,Object> result = new HashMap<>();
@@ -48,15 +41,18 @@ public class AdminController {
 		return result;
 	}
 	
-	@RequestMapping("selectSuccessBasket")
-	public int selectSuccessBasket() {
-		return aService.selectSuccessBasket();
+	@ResponseBody
+	@RequestMapping("selectMealCount")
+	public Map<String, Integer> selectMealCount() {
+		Map<String, Integer> successMeal = aService.selectMealCount();
+		return successMeal;
+	}
+	
+	@RequestMapping("selectBasketCount")
+	public Map<String, Integer> selectBasketCount() {
+		return aService.selectBasketCount();
 	}
 
-	@RequestMapping("selectFailBasket")
-	public int selectFailBasket() {
-		return aService.selectFailBasket();
-	}
 	
 	@RequestMapping("selectTotalCount")
 	public Map<String, Integer> selectTotalCount() {

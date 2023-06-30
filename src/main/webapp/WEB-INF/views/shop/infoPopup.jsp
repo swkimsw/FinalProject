@@ -44,32 +44,33 @@
 </style>
 </head>
 <body>
-			<div class="container">
-				
-				<table class="table table-striped">
+			<div class="container-fluid mt-5" style="width:1300px;">
+				<h3>신청자 목록</h3>
+				<table class="table table-striped table-bordered" >
 			 		<thead>
-			 			<trㄴ><th colspan='11'>신청자 목록</th></tr>
 			 			<tr align="center">
-			 				<th>no</th>
-			 				<th>신청코드</th>
-			 				<th>신청자명</th>
-			 				<th>아이디</th>
-			 				<th>전화번호</th>
-			 				<th>이메일</th>
-			 				<th>우편번호</th>
-			 				<th>도로명주소</th>
-			 				<th>상세주소</th>
-			 				<th>신청수량</th>
-			 				<th>총액</th>
+			 				<th scope='col'></th>
+			 				<th scope='col'>코드</th>
+			 				<th scope='col'>신청일</th>
+			 				<th scope='col'>이름</th>
+			 				<th scope='col'>아이디</th>
+			 				<th scope='col'>전화번호</th>
+			 				<th scope='col'>이메일</th>
+			 				<th scope='col'>우편번호</th>
+			 				<th scope='col'>도로명주소</th>
+			 				<th scope='col'>상세주소</th>
+			 				<th scope='col'>수량</th>
+			 				<th scope='col'>총액</th>
 			 			</tr>
 			 		</thead>
 			 		<tbody>
 			 			<c:choose>
 			 				<c:when test="${fn:length(list) > 0}">
-					 			<c:forEach var="i" items="${list}">
-						 			<tr>
-						 				<th scope='row'>1</th>
+					 			<c:forEach var="i" items="${list}" varStatus="status">
+						 			<tr align="center">
+						 				<th scope='row'>${status.count}</th>
 						 				<td>${i.applyCode}</td>
+						 				<td>${i.applyDateTemp}</td>
 						 				<td>${i.name }</td>
 						 				<td>${i.clientId }</td>
 						 				<td>${i.phone }</td>
@@ -84,7 +85,7 @@
 				 			</c:when>
 				 			<c:otherwise>
 				 				<tr align="center">
-				 					<th colspan='11'>신청자가 없습니다.</th>
+				 					<th colspan='12'>신청자가 없습니다.</th>
 				 				</tr>
 				 			</c:otherwise>
 			 			</c:choose>
@@ -92,7 +93,7 @@
 			 		
 			 		<tfoot>
 			 			<tr align="center">
-			 				<td colspan='11'><button onclick="window.close()">닫기</button></td>
+			 				<td colspan='12'><button onclick="window.close()">닫기</button></td>
 			 			</tr>
 			 		</tfoot>
 				</table>
