@@ -47,10 +47,24 @@ public class ShopListDTO {
 		this.quantity = quantity;
 	}
 	
+	// 관리자 페이지용 공구샵 리스트 생성자
+	public ShopListDTO(int code, int statusCode, String title, String productName, String companyName, String path,
+			String sysName) {
+		super();
+		this.code = code;
+		this.statusCode = statusCode;
+		this.title = title;
+		this.productName = productName;
+		this.companyName = companyName;
+		this.path = path;
+		this.sysName = sysName;
+	}
+	
 	
 	public int getCode() {
 		return code;
 	}
+
 	public void setCode(int code) {
 		this.code = code;
 	}

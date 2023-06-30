@@ -10,8 +10,10 @@ import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.BanMemberDTO;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.dto.gptCountDTO;
 import cc.spring.dto.loginCountDTO;
+
 
 @Repository
 public class AdminDAO {
@@ -62,6 +64,11 @@ public class AdminDAO {
 	public List<MemberDTO> businessUserList() {
 		return mybatis.selectList("Admin.businessUserList");
 	}
+	
+	public List<ShopListDTO> selectShopList() {
+		return mybatis.selectList("Admin.selectShopList");
+	}
+	
 	public int insertGptCount(gptCountDTO dto) {
 		return mybatis.insert("Admin.insertGptCount", dto);
 	}
