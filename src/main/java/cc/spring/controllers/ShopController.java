@@ -204,7 +204,6 @@ public class ShopController {
 	 	 public String toMyShopList(Model model) {
 	 		//[사업자,일반]세션값 가져오기
 	 		int code = (Integer)session.getAttribute("code");
-	 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
 	 		
 	 		//[사업자,일반] 회원정보만 jsp로 보내기
 	 		MyShopListDTO info = shopService.getInfo(code);
@@ -222,6 +221,7 @@ public class ShopController {
 	 	 @ResponseBody
 	 	 @RequestMapping("myShopListByStatus")
 	 	 public List<MyShopListDTO> myShopListByStatus(String status) {
+	 		 System.out.println("컨트롤러에 넘어온 코드는 " + status);
 	 		//json으로 넘어온 값 형변환
 		 	int statusCode = Integer.parseInt(status);
 		 	
