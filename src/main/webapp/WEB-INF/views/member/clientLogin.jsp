@@ -323,10 +323,10 @@ color: #00793690;
 
 						<!-- 11111111 -->
 						<div class="form-group text-center mb-4">
-							<div id="tooltip" role="tooltip" class="mb-3">
+<!-- 							<div id="tooltip" role="tooltip" class="mb-3">
                         메인으로!
                         <div id="arrow" class="data-popper-arrow"></div>
-                     </div>
+                     </div> -->
 							<img src="/resources/img/foodWithPlate.png" class="mx-auto d-block"
 								id="to_main_ball_img" alt="메인으로" onclick="location.href = '/'"
 								style="height: 80%; width: 80%;">
@@ -530,10 +530,10 @@ color: #00793690;
 
 						<!-- 11111111 -->
 						<div class="form-group text-center mb-4">
-							<div id="tooltip" role="tooltip" class="mb-3">
+<!-- 							<div id="tooltip" role="tooltip" class="mb-3">
                         메인으로!
                         <div id="arrow" class="data-popper-arrow"></div>
-                     </div>
+                     </div> -->
 							<img src="/resources/img/foodWithPlate.png" class="mx-auto d-block"
 								id="to_main_ball_img" alt="메인으로" onclick="location.href = '/'"
 								style="height: 80%; width: 80%;">

@@ -12,7 +12,7 @@
 		<div class="offcanvas-header">
 			<a href="/" class="nav_a">
 				<h1 class="offcanvas-title" id="offcanvasNavbarLabel"
-					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color:#007936;">🍽CookCook</h1>
+					style="text-decoration: none; font-family: 'NanumSquareNeoHeavy'; color: #007936;">🍽CookCook</h1>
 			</a>
 		</div>
 		<c:if test="${sessionScope.id == null}">
@@ -35,14 +35,16 @@
 			<!-- div 태그 아래에만 border 1 주기 색은 그레이-->
 			<div class="profile border-bottom text-center pb-2">
 				<div class="d-flex justify-content-center">
-				<a href="/" class="nav_a">
-				<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img-fluid" style="width:10rem;">
-				</a> 
+					<a href="/" class="nav_a"> <img
+						src="/resources/img/foodWithPlate2.png" alt="logo"
+						class="img-fluid" style="width: 10rem;">
+					</a>
 				</div>
-					<h5 class="offcanvas-title p-1" id="offcanvasNavbarLabel"
-						style="text-decoration: none; color:#007936">🍽CookCook</h5>
+				<h5 class="offcanvas-title p-1" id="offcanvasNavbarLabel"
+					style="text-decoration: none; color: #007936">🍽CookCook</h5>
 				<c:choose>
-					<c:when test="${sessionScope.nickname != null || sessionScope.companyName != null}">
+					<c:when
+						test="${sessionScope.nickname != null || sessionScope.companyName != null}">
 						<!-- 유저이름 -->
 						<c:if test="${sessionScope.nickname != null}">
 							<h3 class="nick_name text-center mb-3">${sessionScope.nickname}</h3>
@@ -53,17 +55,17 @@
 						<!-- 알림 -->
 						<div class="counter d-flex justify-content-center">
 							<div class="col d-flex justify-content-center">
-								<button type="button" class="btn position-relative">
+								<a href="/shop/toMyShopList"><button type="button" class="btn position-relative">
 									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
 										fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
 									<path
 											d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                 				</svg>
-									<span
-										class="position-absolute translate-middle p-1 bg-danger border border-light rounded-circle">
+									<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+										${sessionScope.countShopRequest}
 										<span class="visually-hidden">New alerts</span>
 									</span>
-								</button>
+								</button></a>
 							</div>
 							<div class="col d-flex justify-content-center">
 								<button type="button" class="btn position-relative">
@@ -94,15 +96,16 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<a class="btn btn-outline-success m-1" id="loginBtn" role="button" href="/clientMember/login_form">로그인
-							하러 가기</a>
+						<a class="btn btn-outline-success m-1" id="loginBtn" role="button"
+							href="/clientMember/login_form">로그인 하러 가기</a>
 					</c:otherwise>
 				</c:choose>
 			</div>
 			<div class="p-3 nav-scroller">
 				<ul class="list-unstyled ps-0">
 					<!--마이페이지 카테고리-->
-					<c:if test="${sessionScope.nickname != null || sessionScope.companyName != null}">
+					<c:if
+						test="${sessionScope.nickname != null || sessionScope.companyName != null}">
 						<li class="mb-1 nav-menu"><i class="bi bi-house"></i>
 							<button
 								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -111,27 +114,35 @@
 							<div class="collapse show" id="home-collapse">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 									<c:if test="${sessionScope.authGradeCode == 1003}">
-									<li class="login"><a href="/clientMyPage/myPageFreeboard"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
-										내가 쓴 게시글 보기</a></li>
-									<li class="login"><a href="/clientMyPage/myPageReview"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내 
-										후기글 보기</a></li>
-									<li class="login"><a href="/clientMember/clientMyInfo"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											정보 보기</a></li>
+										<li class="login"><a href="/MyPage/myPageFreeboard"
+											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+												내가 쓴 게시글 보기</a></li>
+										<li class="login"><a href="/MyPage/myPageReview"
+											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
+												후기글 보기</a></li>
+										<li class="login"><a href="/clientMember/clientMyInfo"
+											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
+												정보 보기</a></li>
 									</c:if>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
-									<li class="login"><a href="/clientMyPage/businessMypageBoard"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
-										내가 쓴 게시글 보기</a></li>
-									<li class="login"><a href="/businessMember/businessMyInfo"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											정보 보기</a></li>
+										<li class="login"><a
+											href="/MyPage/businessMypageBoard"
+											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+												내가 쓴 게시글 보기</a></li>
+										<li class="login"><a
+											href="/businessMember/businessMyInfo"
+											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
+												정보 보기</a></li>
 									</c:if>
 									<li class="login"><a href="/meal/toMyMeal"
 										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 											식단 보기</a></li>
+									<c:if test="${sessionScope.authGradeCode == 1001}">
+										<li class="login"><a
+											href="http://localhost:3000/adminPage/mainPage"
+											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
+												관리자페이지</a></li>
+									</c:if>
 								</ul>
 							</div></li>
 					</c:if>
@@ -179,14 +190,14 @@
 						<div class="collapse" id="meal-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 								<li class="login"><a href="/meal/toAiMeal"
-									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단 추천
-										받기</a></li>
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">식단
+										추천 받기</a></li>
 								<li><a href="/meal/toMyMeal"
-									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
-										내 식단 리스트</a></li>
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded"
+									onclick="needLogin(${sessionScope.code})"> 내 식단 리스트</a></li>
 								<li><a href="/basket/toMyBasket"
-									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded" onclick="needLogin(${sessionScope.code})">
-										내 장바구니</a></li>
+									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded"
+									onclick="needLogin(${sessionScope.code})"> 내 장바구니</a></li>
 							</ul>
 						</div></li>
 					<!-- 구분선 -->

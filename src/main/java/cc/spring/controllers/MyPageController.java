@@ -12,20 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
-import cc.spring.services.ClientMyPageService;
+import cc.spring.services.MyPageService;
 
 @Controller
-@RequestMapping("/clientMyPage/")
-public class ClientMyPageController {
+@RequestMapping("/MyPage/")
+public class MyPageController {
 	@Autowired
 	private HttpSession session;
 	@Autowired
-	private ClientMyPageService cmp;
+	private MyPageService cmp;
 	//클라이언트 마이페이지 내가쓴 자유게시판 
 	@RequestMapping("myPageFreeboard")
 	public String myPageList(Model model) {
 		int code = (int) session.getAttribute("code");
-		System.out.println("신발");
 		System.out.println("클라이언트 코드 :"+code);
 		List<BoardFreeDTO> list = cmp.myPageList(code);
 		model.addAttribute("list",list);

@@ -6,13 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +22,7 @@ import com.google.gson.JsonObject;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.services.BoardService;
 import cc.spring.services.FileService;
@@ -104,15 +103,38 @@ public class BoardController {
 		System.out.println("시작" + start);
 		System.out.println("끝"+end);
 		
+
 		
-		List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(start,end); //공지사항게시글 페이징에 맞게 가져오기
-		System.out.println(list);
-		request.setAttribute("list", list);
+		
+		int recordTotalCount;
 
+			if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
+				
+				List<BoardAnnouncementDTO> list = boardService.selectAnnouncementlist(start,end); //공지사항게시글 페이징에 맞게 가져오기 
+				request.setAttribute("list", list);
+				List<BoardAnnouncementDTO> all= boardService.selectAllAnnouncement(); //공지사항게시글 전부 다 가져오기
+				recordTotalCount = all.size();
+				System.out.println(recordTotalCount);
+			
+			}else {//검색조건이 있으면
+				
+				String searchCate  = request.getParameter("searchCate"); //검색카테고리
+				String search  = request.getParameter("search"); //검색내용
+				
+				System.out.println(search);
+				System.out.println(searchCate);
+				
+				
+				List<BoardAnnouncementDTO> all= boardService.selectAllSearchAnnounc(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
+				recordTotalCount = all.size();
+				List<BoardAnnouncementDTO> list = boardService.selectSearchAnnouncelist(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
+				request.setAttribute("list", list);
+				request.setAttribute("search", search);
+				request.setAttribute("searchCate", searchCate);
+				System.out.println(recordTotalCount);
+			
+			}
 
-		List<BoardAnnouncementDTO> all= boardService.selectAllAnnouncement(); //공지사항게시글 전부 다 가져오기
-		int recordTotalCount = all.size();
-		System.out.println(recordTotalCount);
 
 		List<String>  listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
 		request.setAttribute("listnavi", listnavi);
@@ -148,16 +170,39 @@ public class BoardController {
 		System.out.println("시작" + start);
 		System.out.println("끝"+end);
 		
-		
-		List<BoardReviewDTO> list = boardService.selectReviewlist(start,end); //공지사항게시글 페이징에 맞게 가져오기
-		System.out.println(list);
-		request.setAttribute("list", list);
-		
-		
-		List<BoardReviewDTO> all = boardService.selectAllReview(); //후기게시글 전부 다 가져오기
-		int recordTotalCount = all.size();
-		System.out.println(recordTotalCount);
 
+
+		int recordTotalCount;
+
+		if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
+			
+			List<BoardReviewDTO> list = boardService.selectReviewlist(start,end); //후기게시글 페이징에 맞게 가져오기 - 전부가져오기
+			request.setAttribute("list", list);
+			List<BoardReviewDTO> all = boardService.selectAllReview();//후기게시글 전부 다 가져오기 
+			recordTotalCount = all.size();
+			System.out.println(recordTotalCount);
+		
+		}else {//검색조건이 있으면
+			
+			String searchCate  = request.getParameter("searchCate"); //검색카테고리
+			String search  = request.getParameter("search"); //검색내용
+			
+			System.out.println(search);
+			System.out.println(searchCate);
+			
+			
+			List<BoardReviewDTO> all= boardService.selectAllSearchReview(search,searchCate); //후기게시글 전부 다 가져오기 - 검색
+			recordTotalCount = all.size();
+			List<BoardReviewDTO> list = boardService.selectSearchReview(start,end,search,searchCate); //후기게시글 페이징에 맞게 가져오기 - 검색
+			request.setAttribute("list", list);
+			request.setAttribute("search", search);
+			request.setAttribute("searchCate", searchCate);
+			System.out.println(recordTotalCount);
+		
+		}
+		
+		
+		
 		List<String>  listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
 		request.setAttribute("listnavi", listnavi);
 		request.setAttribute("cpage", cpage);
@@ -204,41 +249,46 @@ public class BoardController {
 
 	//자유게시판 글 자세히 보기
 	@RequestMapping("FreeContent")
-	public String FreeContent(int code,int cpage) {
+	public String FreeContent(int code,int cpage,boolean viewchoose) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user );
 
-		BoardFreeDTO result = boardService.selectFreeContent(code);
-		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+		BoardFreeDTO result = boardService.selectFreeContent(code,viewchoose);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
-		return "/board/FreeContent";
+		
+		// 게시판에 달린 댓글 가져오기
+		List<ReplyFreeDTO> replyList = boardService.selectReplyFreeList(code);
+		request.setAttribute("replyList", replyList);
+
+		return  "/board/FreeContent";
 	}
 
 	//공지게시판 글 자세히 보기
 	@RequestMapping("AnnouncementContent")
-	public String AnnouncementContent(int code,int cpage) {
+	public String AnnouncementContent(int code,int cpage,boolean viewchoose) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
-		request.setAttribute("cpage", cpage);
+	
 		
-		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code);
-		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+		BoardAnnouncementDTO result = boardService.selectAnnouncementContent(code,viewchoose);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
-		System.out.println(cpage);
+		request.setAttribute("cpage", cpage);
 		
 		return "/board/AnnouncementContent";
 	}
 
 	//리뷰게시판 글 자세히 보기
 	@RequestMapping("ReviewContent")
-	public String ReviewContent(int code,int cpage) {
+	public String ReviewContent(int code,int cpage,boolean viewchoose) {
 		int user = (int) session.getAttribute("code"); //로그인한 사람의 code
 		request.setAttribute("user", user ); 
 
 
-		BoardReviewDTO result = boardService.selectReviewContent(code);
-		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기
+		BoardReviewDTO result = boardService.selectReviewContent(code,viewchoose);
+		request.setAttribute("result",result); //리스트 중 누른 해당 글 가져오기 + viewcount+1
 
 		request.setAttribute("cpage", cpage);
 		
@@ -497,6 +547,7 @@ public class BoardController {
 			request.setAttribute("list", dto);
 			return "board/report" ;
 
+			
 		}		
 
 
@@ -504,12 +555,41 @@ public class BoardController {
 	//===========================================================================================
 		
 	// 자유게시판 댓글 작성
-	@RequestMapping("freeReply")
-	public void freeReply(String context) {
-		System.out.println(context);
+	@ResponseBody
+	@RequestMapping("insertFreeReply")
+	public int freeReply(String replyContent, int boardFreeCode, int cpage) {
+		
+		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
+		int result = boardService.insertFreeReply(dto);
+
+		return result;
 	}
 
 
+	
+	//=============================================================================================
+	
+	// 자유게시판 댓글 수정
+	@ResponseBody
+	@RequestMapping("updateFreeReply")
+	public int updateFreeReply(ReplyFreeDTO dto) {
+		
+		int result = boardService.updateFreeReply(dto);
+		return result;
+	}
+	
+	// ============================================================================================
+	
+	// 자유게시판 댓글 삭제
+	@ResponseBody
+	@RequestMapping("deleteFreeReply")
+	public int deleteFreeReply(ReplyFreeDTO dto) {
+		
+		int result = boardService.deleteFreeReply(dto);
+		return result;
+	}
+	
+	//=============================================================================================	
 
 	//신고 접수
 	@ResponseBody
@@ -529,5 +609,25 @@ public class BoardController {
 		return result;
 
 	}
+	
+	//좋아요수 
+	@ResponseBody
+	@RequestMapping("LikeCount")
+	public int LikeCount(@RequestParam("code") String code, @RequestParam("likeCount") int likeCount,@RequestParam("boardKindCode") int boardKindCode) {
 
+		System.out.println("likecount");
+		System.out.println(code);
+		System.out.println(likeCount);
+		System.out.println(boardKindCode);
+	
+		
+		int result = boardService.updateLikeCount(code,likeCount,boardKindCode);
+
+		return result;
+	}
+
+//=====================================================================================	
+
+
+			
 }

@@ -49,7 +49,7 @@
                     text-align: center;
                 }
 
-                label {
+                .label {
                     word-break: break-all;
                     margin-bottom: 5px;
                     width: 75%;
@@ -60,7 +60,7 @@
                     table-layout: fixed;
                 }
 
-                .btn {
+                .btn-outline-primary {
                     margin-top: -10px;
                     margin-right: 14px;
                     font-size: medium;
@@ -97,7 +97,7 @@
                         <br>
 
                         <div>
-                            제목 : <label><input id="title" name="title" class="form-control"
+                            제목 : <label class="label"><input id="title" name="title" class="form-control"
                                     placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                         focus: true,
                         maxHeight: 800,
                         minHeight: 200,
-                        disableDragAndDrop: true,
+                        disableDragAndDrop: false,
                         lang: 'ko-KR',
                         toolbar: [
                             ['style', ['style']],
@@ -151,8 +151,8 @@
                             ['view', ['codeview', 'help']]
                         ],
                         callbacks: {
-                            onImageUpload: function (data) {
-                                data.pop();
+                        	onImageUpload: function (data) {
+                                alert("이미지 업로드 불가능합니다")
                             },
                             onKeyup: function () {
                                 checkContentLength();

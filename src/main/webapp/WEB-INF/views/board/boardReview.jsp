@@ -45,11 +45,10 @@
                     border: 1px solid black;
                 }
 
-                th,
+                .table th,
                 td {
-                    font-size: 20px;
+                    font-size: 18px;
                 }
-
             </style>
 
         </head>
@@ -61,17 +60,32 @@
 
             <div class="container">
                 <br>
-                <div class="header position-relative">
 
-                    <div class="position-absolute top-0 end-0">
+                <form id="frm" action="/board/review" method="post">
+                    <div class="header position-relative">
+                        <div class="position-absolute top-0 end-0">
 
-                        <input type="text" placeholder="제목이나 작성자로 검색">
-                        <button class="btn btn-outline-primary" type="button"><i class="bi bi-search"></i></button>
+                            <input type="hidden" name="cpage" value="1">
+                            <select class="form-select" aria-label="Default select example" id="searchCate"
+                                name="searchCate" style="width: 120px; display: inline;">
+                                <option value="선택">선택</option>
+                                <option value="제목">제목</option>
+                                <option value="작성자">작성자</option>
+                            </select>
+                            <input class="form-control" placeholder="Search" id="search" name="search"
+                                onkeypress="if(event.keyCode == 13) { this.form.submit(e); }"
+                                style="width: 300px; display: initial;" value="${search }">
 
+                            <input type="hidden" name="searchCate" value="${searchCate}">
+                            <input type="hidden" name="search" value="${search}">
+
+                            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+
+                        </div>
+                        <br>
                     </div>
-                    <br>
+                </form>
 
-                </div>
 
                 <div class="table-responsive mt-5">
 
@@ -80,68 +94,122 @@
                             <tr>
                                 <th>번호</th>
                                 <th>제목</th>
-                                <th>글쓴이</th>
+                                <th>작성자</th>
                                 <th>작성일</th>
                                 <th>조회수</th>
                                 <th>추천수</th>
                             </tr>
                         </thead>
                         <tbody>
-                        
-                          <c:forEach var="l" items="${list}">
-                            <tr onclick="goToLink('/board/ReviewContent?code=${l.code}&cpage=${cpage}')">
-                                <td>${l.code}</td>
-                                <td style="width: 50%;">${l.title}</td>
-                                <td>${l.memberNickName}</td>
-                                <td>${l.regDate}</td>
-                                <td>${l.viewCount}</td>
-                                <td>${l.likeCount}</td>
-                            </tr>
-                            
-                        </c:forEach>
-                         
+
+
+                            <c:choose>
+                                <c:when test="${list.size() == 0}">
+
+                                    <tr>
+                                        <td colspan='6'>
+
+                                            <div class='col-xxl-12 pt-5 text-center'>
+
+                                                <i class="bi bi-arrow-clockwise" onclick="reload();" type="button"
+                                                    style="font-size:50px; color:#007936;"></i>
+
+                                                <p class='fs-6'> 검색결과가 없습니다 다시 검색해주세요 ㅠㅠ</p>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:forEach var="l" items="${list}">
+                                        <tr
+                                            onclick="goToLink('/board/ReviewContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
+                                            <td>${l.code}</td>
+                                            <td style="width: 50%;">${l.title}</td>
+                                            <td>${l.memberNickName}</td>
+                                            <td>${l.regDate}</td>
+                                            <td>${l.viewCount}</td>
+                                            <td>${l.likeCount}</td>
+                                        </tr>
+
+                                    </c:forEach>
+                                </c:otherwise>
+                            </c:choose>
+
+
                         </tbody>
                     </table>
 
                     <br>
 
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-					        <c:forEach var="ln" items="${listnavi}">
-						        <c:choose>
-							        <c:when test="${ln == '>' || ln == '<'}">
-							          <li class="page-item" >
-							            <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
-							          </li>
-							        </c:when>
-							        <c:otherwise>
-							          <li class="page-item ${cpage == ln ? 'active' : ''}"  >
-							            <a class="page-link" href="/board/review?cpage=${ln}">${ln}</a>
-							          </li>
-							        </c:otherwise>
-						        </c:choose>  
-					        </c:forEach>
-    					</ul>
-                    </nav>
+                    <c:choose>
+                        <c:when test="${search == null }">
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-center">
+                                    <c:forEach var="ln" items="${listnavi}">
+                                        <c:choose>
+                                            <c:when test="${ln == '>' || ln == '<'}">
+                                                <li class="page-item">
+                                                    <a class="page-link" onclick="goToPage(1, '${ln}')"> ${ln} </a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item ${cpage == ln ? 'active' : ''}">
+                                                    <a class="page-link"
+                                                        href="/board/announcement?cpage=${ln}">${ln}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:when>
+                        <c:otherwise>
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-center">
+                                    <c:forEach var="ln" items="${listnavi}">
+                                        <c:choose>
+                                            <c:when test="${ln == '>' || ln == '<'}">
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                        onclick="goToPageSearch(1, '${ln}' ,'${search}' ,'${searchCate}' )">
+                                                        ${ln}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item ${cpage == ln ? 'active' : ''}">
+                                                    <a class="page-link"
+                                                        href="/board/review?cpage=${ln}&search=${search}&searchCate=${searchCate}">${ln}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </ul>
+                            </nav>
+                        </c:otherwise>
+                    </c:choose>
 
 
-            <c:choose>
-			
-				<c:when test="${user == '1003'}">
 
-					<div style="float: right;">
-						<a href="/board/reviewWrite">
-							<button class="btn btn-outline-primary" type="button">작성하기</button>
-						</a>
-					</div>
+                    <c:choose>
 
-				</c:when>
-			
-				<c:otherwise> 
-			
-				</c:otherwise> 
-			
-			</c:choose>
+                        <c:when test="${user == '1003'}">
+
+                            <div style="float: right;">
+                                <a href="/board/reviewWrite">
+                                    <button class="btn btn-outline-primary" type="button">작성하기</button>
+                                </a>
+                                <br>
+                            </div>
+
+                        </c:when>
+
+                        <c:otherwise>
+
+                        </c:otherwise>
+
+                    </c:choose>
 
                 </div>
 
@@ -149,24 +217,53 @@
 
             <script>
 
-            
-            function goToLink(url) {
-              window.location.href = url;
-            }
-        
-            function goToPage(page , point) {
-            	
-                
-            	
-                // 페이지 이동 로직 구현
-                if(point==("<")){
-                	console.log(page)
-                	window.location.href = '/board/review?cpage=' + (page*5) ;
-                }else{
-                	window.location.href = '/board/review?cpage=' + (page*5+1) ;
+
+                function goToLink(url) {
+                    window.location.href = url;
                 }
-               
-              }
+
+                function goToPage(page, point) {
+
+
+
+                    // 페이지 이동 로직 구현
+                    if (point == ("<")) {
+                        console.log(page)
+                        window.location.href = '/board/review?cpage=' + (page * 5);
+                    } else {
+                        window.location.href = '/board/review?cpage=' + (page * 5 + 1);
+                    }
+
+                }
+
+                function goToPageSearch(page, point, search, searchCate) {
+                    // 페이지 이동 로직 구현 - 검색
+                    if (point == ("<")) {
+                        console.log(page)
+                        window.location.href = '/board/review?cpage=' + (page * 5) + '&search=' + search + '&searchCate=' + searchCate;
+                    } else {
+                        window.location.href = '/board/review?cpage=' + (page * 5 + 1) + '&search=' + search + '&searchCate=' + searchCate;
+                    }
+
+                }
+
+
+                function reload() {
+                    location.href = "/board/review?cpage=1";
+                }
+                
+                
+                $("#frm").on("submit", function (e) {
+
+                    if ($("select[id=searchCate] option:selected").val() == "선택") {
+                        alert("카테고리를 선택해주세요.");
+                        e.preventDefault(); // 폼 제출을 막음
+                    } else if ($("#search").val().trim() == "") {
+                        alert("검색어를 작성해주세요.");
+                        e.preventDefault(); // 폼 제출을 막음
+                    }
+
+                })
             </script>
 
         </body>

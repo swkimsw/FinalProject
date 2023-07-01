@@ -171,6 +171,11 @@ public class ShopService {
 	public int isExistRequest(int code, String memberCode) {
 		return shopDAO.isExistRequest(code, memberCode);
 	}
+	
+	// 판매자 로그인 시 들어온 요청 수
+	public int countShopRequest(int code) {
+		return shopDAO.countShopRequest(code);
+	}
 
 	//--최은지 Part---------------------------------------------------------------------------------------------------------	
 	// 전체 공구 목록
@@ -194,28 +199,47 @@ public class ShopService {
 	}
 
 	//일반회원 내 공구 신청 목록
-	public List<MyShopListDTO> clientBuyingList(int code){
+	public List<MyShopListDTO> clientBuyingList(int code,int statusCode){
 
-		List<MyShopListDTO> myShopListDTO = shopDAO.clientBuyingList(code);
+		List<MyShopListDTO> myShopListDTO = shopDAO.clientBuyingList(code,statusCode);
 		
 		for(MyShopListDTO m : myShopListDTO) {
 			// Timestamp -> String
-			Timestamp deadLine = m.getDeadLine();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			m.setDeadLineTemp(dateFormat.format(deadLine));
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+			m.setRegDateTemp(dateFormat.format(m.getRegDate()));
+			m.setDeadLineTemp(dateFormat.format(m.getDeadLine()));
+			m.setApplyDateTemp(dateFormat.format(m.getApplyDate()));
 		}
 
 		return myShopListDTO;
 	}
 
 	//사업자회원 내 공구 등록 목록 
-	public List<MyShopListDTO> businessRegisterList(int code){
-		return shopDAO.businessRegisterList(code);
+	public List<MyShopListDTO> businessRegisterList(int code,int statusCode){
+		List<MyShopListDTO> myShopListDTO = shopDAO.businessRegisterList(code,statusCode);
+		for(MyShopListDTO m : myShopListDTO) {
+			// Timestamp -> String
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+			m.setRegDateTemp(dateFormat.format(m.getRegDate()));
+			m.setDeadLineTemp(dateFormat.format(m.getDeadLine()));
+		}
+		return myShopListDTO;
+	}
+	
+	public List<MyShopListDTO> groupbuyingCountByStatus (int code){
+		return shopDAO.groupbuyingCountByStatus(code);
 	}
 
 	//사업자회원용 공구 신청인 정보(이름,배송지,전화번호,수량 등등) 목록
 	public List<MyShopListDTO> buyingMemberInfoList(int groupbuyingCode){
-		return shopDAO.buyingMemberInfoList(groupbuyingCode);
+		List<MyShopListDTO> myShopListDTO = shopDAO.buyingMemberInfoList(groupbuyingCode);
+		for(MyShopListDTO m : myShopListDTO) {
+			// Timestamp -> String
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd  HH:mm");
+			m.setApplyDateTemp(dateFormat.format(m.getApplyDate()));
+		}
+		
+		return myShopListDTO;
 	}
 
 

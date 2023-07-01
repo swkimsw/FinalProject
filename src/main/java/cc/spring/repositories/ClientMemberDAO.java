@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import cc.spring.dto.MemberDTO;
-import cc.spring.dto.gptCountDTO;
-import cc.spring.dto.loginCountDTO;
 @Repository
 public class ClientMemberDAO {
 	@Autowired
@@ -24,13 +22,6 @@ public class ClientMemberDAO {
 		return result;
 	}
 	
-	public int insertloginCount(loginCountDTO dto) {
-		return mybatis.insert("Client.insertLoginCount", dto);
-	}
-	
-	public int updatelogintCount(loginCountDTO dto) {
-		return mybatis.update("Client.updateLoginCount", dto);
-	}
 //	폰 번호 넘겨서 아이디 찾아오는거에요
 	public String getIdByPhone(String phone) {
 		System.out.println("비번바꾸는 DAO");
@@ -60,10 +51,6 @@ public class ClientMemberDAO {
 		return dto.getCode();
 	}
 	
-	public int insertGptCount(gptCountDTO dto) {
-		return mybatis.insert("Client.insertGptCount", dto);
-	}
-	
 	public int updatePw(MemberDTO dto) {
 		return mybatis.update("Client.updatePw", dto);
 	}
@@ -76,7 +63,7 @@ public class ClientMemberDAO {
 		Map<String,Object> param = new HashMap<>();
 		param.put("id", id);
 		param.put("pw", pw);
-		return mybatis.selectOne("Client.checkPw",param);
+		return mybatis.selectOne("Client.clientCheckPw",param);
 	}
 	
 	public int updateMemberInfo(MemberDTO dto) {
@@ -91,7 +78,6 @@ public class ClientMemberDAO {
 	// Admin
 	public List<MemberDTO> selectAllClientMember() {
 		return mybatis.selectList("Client.selectAllClientMember");
-
 	}
 
 }

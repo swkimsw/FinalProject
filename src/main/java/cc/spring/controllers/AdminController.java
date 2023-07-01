@@ -1,24 +1,82 @@
 package cc.spring.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import cc.spring.dto.BanMemberDTO;
+import cc.spring.dto.BoardCountDTO;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
 
-@Controller
-@RequestMapping("/adminPage/")
+@RestController
+@RequestMapping("/data/")
 public class AdminController {
+	
+	@Autowired
+	private AdminMemberService aService;
 	
 	@RequestMapping("/**")
 	public String toAdmin() {
-		System.out.println("하잉");
 		return "forward:/admin/index.html";
 	}
 	
+	@ResponseBody
+	@RequestMapping("selectMealCount")
+	public Map<String, Integer> selectMealCount() {
+		Map<String, Integer> successMeal = aService.selectMealCount();
+		return successMeal;
+	}
+	
+	@RequestMapping("selectBasketCount")
+	public Map<String, Integer> selectBasketCount() {
+		return aService.selectBasketCount();
+	}
+
+	
+	@RequestMapping("selectTotalCount")
+	public Map<String, Integer> selectTotalCount() {
+		return aService.selectTotalCount();
+	}
+	
+	@RequestMapping("recentVisitCount")
+	public Map<String, Integer> recentVisitBusiness() {
+		return aService.recentVisitCount();
+	}
+	
+	@RequestMapping("selectShopList")
+	public Map<String, Object> selectShopList() {
+		Map<String, Object> result = new HashMap<>();
+		List<ShopListDTO> shopList = aService.selectShopList();
+		result.put("shopList", shopList);
+		return result;
+	}
+	
+	@RequestMapping("banMember")
+	public int banMember(int memberCode, BanMemberDTO dto) {
+		return aService.BanMember(memberCode, dto);
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectUserList")
+	public List<MemberDTO> selectUserList(){
+		return aService.selectUserList();
+	}
+	
+	@ResponseBody
+	@RequestMapping("selectBanUserList") 
+	public List<BanMemberDTO> selectBanUserList(){
+		return aService.selectBanUserList();
+	}
+	
+	@RequestMapping("recentBoardCount")
+	public Map<String, List<BoardCountDTO>> recentBoardCount(){
+		return aService.recentBoardCount();
+	}
 }

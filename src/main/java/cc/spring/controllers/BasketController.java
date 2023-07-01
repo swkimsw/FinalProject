@@ -5,9 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,8 +87,10 @@ public class BasketController {
 	@ResponseBody
 	@RequestMapping(value="aiBasket", produces="text/plain; charset=utf8;")
 	public String aiBasket(String targetList) throws Exception{
+		System.out.println(targetList.toString());
 		String[] targetMeals = g.fromJson(targetList, String[].class);
 		List<ChatBasketDTO> result = bService.extractIngredient(targetMeals);
+		System.out.println(result.toString());
 		return g.toJson(result);
 	}
 	

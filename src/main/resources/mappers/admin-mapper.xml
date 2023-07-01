@@ -2,13 +2,125 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="Admin">
-  	<select id="login" resultType="boolean">
-  		select count(*) from Member where id = #{id} and pw = #{pw}
-  	</select>
-  	
-  	<select id="selectAdminMemberInfo" resultType="cc.spring.dto.MemberDTO">
-  		select * from Member where id = #{id} and pw = #{pw}
-  	</select>
-  </mapper>
+<mapper namespace="Admin">
+	<insert id="insertGptCount">
+		insert into gptCount values(${memberCode}, ${mealSuccess}, ${mealFail}, ${basketSuccess}, ${basketFail})
+	</insert>
+	<insert id="insertLoginCount">
+		insert into loginCount values(${memberCode}, ${count}, null)
+	</insert>
+	<delete id="deleteBanMember">
+		delete from member where code = ${code}
+	</delete>
+	<insert id="insertBanMember">
+		insert into BannedMember values(${code}, ${memberCode},#{id}, #{businessID}, #{pw}, #{name}, #{companyName}, #{authGradeCode}, #{nickName},#{birthDate},#{phone},#{eMail},#{shippingCompany},#{zipcode},#{address1},#{address2},#{agree},DEFAULT)
+		<selectKey keyProperty="code" order="BEFORE" resultType="int">
+			select banMember_seq.nextval from dual
+		</selectKey>
+	</insert>
+	<update id="updateLoginCount">
+		update loginCount set count = (select count from loginCount where memberCode = ${memberCode})+1 , loginDate = DEFAULT where memberCode = ${memberCode}
+	</update>
+	<select id="login" resultType="boolean">
+		select count(*) from Member where id = #{id} and pw = #{pw}
+	</select>
+	<select id="selectAdminMemberInfo" resultType="cc.spring.dto.MemberDTO">
+		select * from Member where id = #{id} and pw = #{pw}
+	</select>
+	<!-- GPT 이용 통계 -->
+	<select id="selectSuccessMeal" resultType="int">
+		select
+		sum(mealSuccess) as mealSuccess_Total from GPTCOUNT
+	</select>
+	<select id="selectFailMeal" resultType="int">
+		select sum(mealFail) as
+		meal_Total from GPTCOUNT
+	</select>
+	<select id="selectSuccessBasket" resultType="int">
+		select
+		sum(basketSuccess) as basketSuccess_Total from GPTCOUNT
+	</select>
+	<select id="selectFailBasket" resultType="int">
+		select sum(basketFail)
+		as basketFail_Total from GPTCOUNT
+	</select>
+	<select id="selectTotalSuccess" resultType="int">
+		select
+		(sum(mealSuccess)+sum(basketSuccess)) from GPTCOUNT
+	</select>
+	<select id="selectTotalFail" resultType="int">
+		select
+		(sum(mealFail)+sum(basketFail)) from GPTCOUNT
+	</select>
+	<!-- 최근 방문자 수 -->
+	<select id="recentVisitClient" resultType="int">
+		select count(*) from (select lc.*, m.authGradeCode 
+		from loginCount lc left join member m on lc.memberCode=m.code) 
+		where authGradeCode=1003 and loginDate>=to_date(sysdate-7)
+	</select>
+	<select id="recentVisitBusiness" resultType="int">
+		select count(*) from (select lc.*, m.authGradeCode 
+		from loginCount lc left join member m on lc.memberCode=m.code) 
+		where authGradeCode=1002 and loginDate>=to_date(sysdate-7)
+	</select>
+	<select id="selectUserList">
+		select m.id, m.nickname, m.companyName, a.value as auth, count(r.code) as repotcount, m.delDate
+		from member m
+		left join report r on m.code = r.reporteeCode
+		left join authgrade a on m.authgradeCode = a.code
+		group by m.id, m.nickname, m.companyName, a.value, m.delDate;
+	</select>
+	<select id="selectBanUserList">
+		select b.id, b.nickname, b.companyName, a.value as auth, b.reportcount, b.delDate
+		from bannedmember b
+		left join authgrade a on b.authgradeCode = a.code;
+	</select>	
+	<!-- 공구샵 리스트 -->
+	<select id="selectShopList" resultType="cc.spring.dto.ShopListDTO">
+		select code,statuscode,title,productname,companyname,path,sysname
+		from (
+   			select g.code,g.statuscode,g.title,g.productname,m.companyname,
+   			substr(gi.path, instr(gi.path,'\resources',1,1)) || '\' as path,gi.sysname,
+    		row_number() over(partition by g.code order by sysname) as rn
+    		from groupbuying g join member m on g.membercode = m.code
+    		join groupbuyingimg gi on g.code = gi.postcode
+    		)
+		where rn=1
+		order by 1
+	</select>
+	
+	<!-- 게시글 수 -->
+	<select id="boardAnnouncementCount" resultType="cc.spring.dto.BoardCountDTO">
+		select to_char(b.dt, 'yyyy/mm/dd') regDate, nvl(sum(a.cnt),0) cnt 
+		from (select to_char(regDate,'yyyy/mm/dd') regDate, count(code) cnt 
+		from boardAnnouncement where regDate>=to_date(sysdate-7) 
+		group by to_char(regDate,'yyyy/mm/dd')) a, 
+		(select to_date(sysdate-7)+LEVEL -1 as dt from dual
+		<![CDATA[connect by LEVEL <= (to_date(sysdate)-to_date(sysdate-7)+1)) b]]>
+		where b.dt=a.regDate(+)
+		group by b.dt
+		order by b.dt
+	</select>
+	<select id="boardFreeCount" resultType="cc.spring.dto.BoardCountDTO">
+		select to_char(b.dt, 'yyyy/mm/dd') regDate, nvl(sum(a.cnt),0) cnt 
+		from (select to_char(regDate,'yyyy/mm/dd') regDate, count(code) cnt 
+		from boardFree where regDate>=to_date(sysdate-7) 
+		group by to_char(regDate,'yyyy/mm/dd')) a, 
+		(select to_date(sysdate-7)+LEVEL -1 as dt from dual
+		<![CDATA[connect by LEVEL <= (to_date(sysdate)-to_date(sysdate-7)+1)) b]]>
+		where b.dt=a.regDate(+)
+		group by b.dt
+		order by b.dt
+	</select>
+	<select id="boardReviewCount" resultType="cc.spring.dto.BoardCountDTO">
+		select to_char(b.dt, 'yyyy/mm/dd') regDate, nvl(sum(a.cnt),0) cnt 
+		from (select to_char(regDate,'yyyy/mm/dd') regDate, count(code) cnt 
+		from boardReview where regDate>=to_date(sysdate-7) 
+		group by to_char(regDate,'yyyy/mm/dd')) a, 
+		(select to_date(sysdate-7)+LEVEL -1 as dt from dual
+		<![CDATA[connect by LEVEL <= (to_date(sysdate)-to_date(sysdate-7)+1)) b]]>
+		where b.dt=a.regDate(+)
+		group by b.dt
+		order by b.dt
+	</select>
+</mapper>

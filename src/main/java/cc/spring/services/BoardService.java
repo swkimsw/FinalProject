@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReportDTO;
-import cc.spring.dto.ReviewImgDTO;
 import cc.spring.repositories.BoardDAO;
 
 @Service
@@ -94,9 +94,20 @@ public class BoardService {
 	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start , int end) {
 		return boarddao.selectAnnouncementlist(start,end);
 	}
+
 	//공지사항게시글 리스트 다 가져오기
 	public List<BoardAnnouncementDTO> selectAllAnnouncement() {
 		return boarddao.selectAllAnnouncement();
+	}
+
+	//공지사항게시글 리스트 조건에 따라 가져오기 - 검색
+	public List<BoardAnnouncementDTO> selectSearchAnnouncelist(int start , int end , String search, String searchCate) {
+		return boarddao.selectSearchAnnouncelist(start,end,search,searchCate);
+	}
+
+	//공지사항게시글 리스트 다 가져오기 - 검색
+	public List<BoardAnnouncementDTO> selectAllSearchAnnounc(String search, String searchCate) {
+		return boarddao.selectAllSearchAnnounc(search,searchCate);
 	}
 	
 	
@@ -109,32 +120,51 @@ public class BoardService {
 		return boarddao.selectAllReview();
 	}
 
+	//리뷰게시글 리스트 조건에 따라 가져오기 - 검색
+	public List<BoardReviewDTO> selectSearchReview(int start , int end , String search, String searchCate) {
+		return boarddao.selectSearchReview(start,end,search,searchCate);
+	}
+
+	//리뷰게시글 리스트 다 가져오기 - 검색
+	public List<BoardReviewDTO> selectAllSearchReview(String search, String searchCate) {
+		return boarddao.selectAllSearchReview(search,searchCate);
+	}
+	
 	
 //====================================================================================
 	
-	//자유게시판 리스트중 누른 해당 글 가져오기
-	public BoardFreeDTO selectFreeContent(int code) {
-		return boarddao.selectFreeContent(code);
 		
+	//자유게시판 리스트중 누른 해당 글 가져오기
+	@Transactional
+	public BoardFreeDTO selectFreeContent(int code,boolean viewchoose) {
+		
+		int boardKindCode = 1002 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
+		
+		return boarddao.selectFreeContent(code);
 	}
 
 	//공지게시판 리스트중 누른 해당 글 가져오기
-	public BoardAnnouncementDTO selectAnnouncementContent(int code) {
+	@Transactional
+	public BoardAnnouncementDTO selectAnnouncementContent(int code,boolean viewchoose) {
+		
+		int boardKindCode = 1001 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
+		
 		return boarddao.selectAnnouncementContent(code);
 	}
 
 	//리뷰게시판 리스트중 누른 해당 글 가져오기
-	public BoardReviewDTO selectReviewContent(int code) {
+	@Transactional
+	public BoardReviewDTO selectReviewContent(int code,boolean viewchoose) {
+		
+		int boardKindCode = 1003 ;
+		boarddao.insertViewCount(code,boardKindCode,viewchoose);
+		
 		return boarddao.selectReviewContent(code);
 	}
 
 	
-	//공지게시판 네비게이션
-	public void selectpage() {
-
-	}
-
-
 	
 	public List<String> selectPageNavi(int recordTotalCount , int cpage) throws Exception {
 	    // 네비게이터를 만들기 위해 필요한 초기정보
@@ -238,14 +268,41 @@ public class BoardService {
 	}
 
 
-
+	// 좋아요 수 증가
+	public int updateLikeCount(String code,int likeCount,int boardKindCode) {
+		return boarddao.updateLikeCount(code,likeCount,boardKindCode);
+	}
 	
 
 
+// =======================================================================================
+
+	// 자유게시판 댓글 입력 
+	public int insertFreeReply(ReplyFreeDTO dto) {
+		return boarddao.insertFreeReply(dto);
+	}
+	
+	// 자유게시판 댓글 가져오기
+	public List<ReplyFreeDTO> selectReplyFreeList(int postCode) {
+		return boarddao.selectReplyFreeList(postCode);
+	}
+	
+
+// ===============================================================================================
+	
+	// 자유게시판 댓글 수정
+	public int updateFreeReply(ReplyFreeDTO dto) {
+		return boarddao.updateFreeReply(dto);
+	}
 
 
 
-
+// ================================================================================================
+	
+	// 자유게시판 댓글 삭제
+	public int deleteFreeReply(ReplyFreeDTO dto) {
+		return boarddao.deleteFreeReply(dto);
+	}
 
 
 

@@ -43,6 +43,7 @@
 
 * {
 	font-family: NanumSquareNeo;
+	box-sizing : border-box;
 }
 
 .body {
@@ -51,22 +52,25 @@
 }
 
 .container {
-	margin-top: 90px;
+	margin-top: 80px;
 }
 
 .subNav {
 	position: fixed;
-	width: 100%;
 	z-index:2;
+	max-height: 80px;
 }
 
 .searchGroup {
-	position: relative;
-	width: 100%;
 	height: 40px;
 	z-index: 3;
 }
-
+.input-group{
+	width: auto;
+}
+.input-group .searchGroup{
+	justify-content : end;
+}
 .searchGroup>.category {
 	height: 100%;
 	max-width: 85px;
@@ -74,6 +78,7 @@
 }
 
 .searchGroup>.searchInput {
+	position: relative;
 	max-width: 250px;
 	min-width: 100px;
 	height: 100%;
@@ -83,7 +88,7 @@
 .searchGroup>.searchIcon {
 	position: absolute;
 	top: 10px;
-	left: 300px;
+	right : 1.5rem;
 	z-index: 5;
 }
 .card-image{
@@ -99,30 +104,38 @@
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 
-	<div class="container">
-		<div class="subNav">
+	<div class="container w-75">
+		<div class="subNav w-75">
 				<nav class="navbar bg-body-tertiary navbar-expand-sm">
-					<div class="container-fluid">
-
-						<div class="row navbar w-100" id="navbarTogglerDemo03">
-							<div class="col linkGroup"
-								style="position: relative; width: 100%;">
+						<div class="d-flex justify-content-between navbar w-100" id="navbarTogglerDemo03">
+							<div class="linkGroup"
+								style="position: relative;">
 								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-									<a class="nav-link fs-5" href="/shop/toShopList">
-										<button class="nav-item btn active" onclick="activeChange()">전체</button>
-									</a>
-									<li class="nav-item"><a class="nav-link"
-										onclick="activeChange()" href="/shop/toShopList?status=open">진행중</a></li>
-									<li class="nav-item"><a class="nav-link"
-										onclick="activeChange()" href="/shop/toShopList?status=closed">마감</a></li>
+									<li class="nav-item active">
+										<a class="nav-link" href="/shop/toShopList">
+										전체
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=open">
+										진행중
+										</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=closed">
+										마감
+										</a>
+									</li>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
-										<li class="nav-item"><a class="nav-link"
-											onclick="activeChange()" href="/shop/toShopRegister">공구
-												등록</a></li>
+										<li class="nav-item">
+											<a class="nav-link" onclick="activeChange()" href="/shop/toShopRegister">
+											공구 등록
+											</a>
+										</li>
 									</c:if>
 								</ul>
 							</div>
-							<div class="col input-group searchGroup">
+							<div class="input-group searchGroup">
 								<select class="form-select form-select-sm category" name="category">
 									<option value="productName">상품명</option>
 									<option value="companyName">판매자</option>
@@ -134,7 +147,6 @@
 									placeholder="검색어를 입력해주세요." maxlength="20">
 							</div>
 						</div>
-					</div>
 				</nav>
 		</div>
 		<div class="row body pt-3">
@@ -149,7 +161,7 @@
 										<c:choose>
 											<c:when test="${i.dDay > 0 && i.statusCode == 1001}">
 												<span
-													class="badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2">${i.dDay}일
+													class="badge deadLine rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2">${i.dDay}일
 													남음</span>
 											</c:when>
 											<c:when test="${i.dDay == 0  && i.statusCode == 1001}">
@@ -160,18 +172,18 @@
 											<c:when test="${i.dDay < 0  && i.statusCode == 1002 }">
 												<span
 													class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">공구
-													완료</span>
+													종료</span>
 											</c:when>
 											<c:when test="${i.dDay < 0  && i.statusCode == 1003 }">
 												<span
-													class="badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2">공구
+													class="badge deadLine rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2">공구
 													실패</span>
 											</c:when>
 										</c:choose>
 										<div class="card-image">
-										<a href="/shop/toShopApply?code=${i.code}"> <img
-											src="${i.path}${i.sysName}" style="width:100%;">
-										</a>
+											<a href="/shop/toShopApply?code=${i.code}"> 
+												<img src="${i.path}${i.sysName}" style="width:100%;">
+											</a>
 										</div>
 										<div class="card-body">
 											<p class="card-title fw-medium" style="font-size: 20px;">${i.title}</p>

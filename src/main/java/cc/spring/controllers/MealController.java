@@ -123,16 +123,15 @@ public class MealController {
 	
 	@ResponseBody
 	@RequestMapping(value = "successMeal", produces="text/plain;charset=utf-8")
-	public void successMeal() {
+	public void updateSuccessMeal() {
 		int memberCode = (int)session.getAttribute("code");
 		mService.updateMealSuccess(memberCode);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value = "failMeal", produces = "text/plain;charset=utf-8")
-	public void failMeal() {
+	public void updateFailMeal() {
 		int memberCode = (int)session.getAttribute("code");
 		mService.updateMealFail(memberCode);
 	}
-
 }
