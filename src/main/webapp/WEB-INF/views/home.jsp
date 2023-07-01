@@ -535,24 +535,6 @@ keyframes blink {to { opacity:0;
 											</div>
 											<div class="standard-mealList">
 												<div class="list-group mealListGroup">
-													<button type="button"
-														class="list-group-item list-group-item-action standard-meal">Menu
-														1</button>
-													<button type="button"
-														class="list-group-item list-group-item-action standard-meal">Menu
-														2</button>
-													<button type="button"
-														class="list-group-item list-group-item-action standard-meal">Menu
-														3</button>
-													<button type="button"
-														class="list-group-item list-group-item-action standard-meal">Menu
-														4</button>
-													<button type="button"
-														class="list-group-item list-group-item-action standard-meal">Menu
-														5</button>
-													<button type="button"
-														class="list-group-item list-group-item-action standard-meal">Menu
-														6</button>
 												</div>
 											</div>
 										</div>
