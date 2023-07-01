@@ -29,9 +29,6 @@ public class BusinessMemberController {
 	@Autowired
 	private BusinessMemberService bms;
 	
-	@Autowired
-	private ShopService ss;
-	
 	//  로그인 창으로 이동
 	@RequestMapping("login_form")
 	public String login_form() throws Exception {
@@ -49,14 +46,10 @@ public class BusinessMemberController {
 				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
 				MemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
 				
-				// 판매자 로그인 시 들어온 요청 수
-				int countShopRequest = ss.countShopRequest(bmd.getCode());
-				
 				session.setAttribute("code", bmd.getCode());
 				session.setAttribute("id",bmd.getBusinessId());
 				session.setAttribute("companyName",bmd.getCompanyName());
 				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
-				session.setAttribute("countShopRequest",countShopRequest);
 				System.out.println("로그인 실행!");
 				return "redirect:/";
 			}

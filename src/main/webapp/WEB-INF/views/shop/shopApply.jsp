@@ -165,30 +165,30 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${sessionScope.authGradeCode == 1002 and !sessionScope.id.equals(shopDTO.businessId)}">
-					<!-- 등록하지 않은 판매자일 때 -->
-					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-						<div class="buttons">
-							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-success"></a>
-						</div>
-					</div>
-				</c:when>
-				<c:when test="${sessionScope.authGradeCode == 1003}">
-					<!-- 이용자 -->
-					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-						<div class="buttons">
-							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-success">
-							<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
+				<c:when test="${sessionScope.authGradeCode == 1002 and sessionScope.id.equals(shopDTO.businessId) or sessionScope.authGradeCode == 1001}">
 					<!-- 등록한 판매자 & 관리자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
 							<input type="button" id="updateBtn" value="수정" class="btn btn-success">
-							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-success"></a>
-							<a href="/"><input type="button" id="back" value="취소" class="btn btn-success"></a>
+							<input type="button" id="deleteBtn" value="삭제" class="btn btn-success" onclick="deleteShopConfirm(${shopDTO.code})">
+							<a href="/shop/toShopList"><input type="button" id="back" value="취소" class="btn btn-success"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${sessionScope.authGradeCode == 1003 and nowTime <= shopDTO.deadLine}">
+					<!-- 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-success">
+							<a href="/shop/toShopList"><input type="button" value="취소" class="btn btn-success"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<!-- 등록하지 않은 판매자일 때 & 날짜 지난 공구 신청하려는 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<a href="/shop/toShopList"><input type="button" id="back" value="뒤로 가기" class="btn btn-success"></a>
 						</div>
 					</div>
 				</c:otherwise>
@@ -248,9 +248,8 @@
  									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
  									<div id="replyAskBtns${i.code}" class="replyBtns">
  										<button type="button" id="updateReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAskClick(${i.code})">수정</button>
- 										<a href="/shopReply/deleteReplyAsk?code=${i.code}&postCode=${shopDTO.code}">
- 											<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm">삭제</button>
- 										</a>
+ 										<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm"
+ 											onclick="deleteReplyAskConfirm(${i.code},${shopDTO.code})">삭제</button>
  									</div>
 								</div>
 							</div>
@@ -303,9 +302,8 @@
 											<textarea id="replyAnswerContent${j.code}" class="selectReplyAnswer form-control" name="content" rows="3" readonly>${j.content}</textarea>
 											<div id="replyAnswerBtns${j.code}" class="replyBtns">
 												<button type="button" id="updateReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAnswerClick(${j.code})">답글 수정</button>
-												<a href="/shopReply/deleteReplyAnswer?code=${j.code}&postCode=${shopDTO.code}">
-													<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm">답글 삭제</button>
-												</a>
+												<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" 
+													onclick="deleteReplyAnswerConfirm(${j.code},${shopDTO.code})">답글 삭제</button>
 											</div>
 										</div>
 									</div>
@@ -493,6 +491,30 @@
 			
 			$("#replyAnswerBtns"+code).append(updateReplyComplete);
 			$("#replyAnswerBtns"+code).append(cancel);
+		}
+		
+		// 공구샵 삭제 버튼 눌렀을 때 확인
+		function deleteShopConfirm(code){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="/shop/deleteShop?code="+code;
+			}
+			return false;
+		}
+		
+		// 공구샵 댓글 삭제 버튼 눌렀을 때 확인
+		function deleteReplyAskConfirm(code, postCode){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="/shopReply/deleteReplyAsk?code="+code+"&postCode="+postCode;
+			}
+			return false;
+		}
+		
+		// 공구샵 답글 삭제 버튼 눌렀을 때 확인
+		function deleteReplyAnswerConfirm(code, postCode){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="/shopReply/deleteReplyAnswer?code="+code+"&postCode="+postCode;
+			}
+			return false;
 		}
 		
 	</script>
