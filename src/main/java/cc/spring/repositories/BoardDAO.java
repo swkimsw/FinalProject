@@ -134,6 +134,35 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectAllReview");
 	}
 
+	
+	//리뷰게시판 글 조건에 따라 가져오기 - 검색
+	public List<BoardReviewDTO> selectSearchReview(int start,int end,String search, String searchCate) {
+		
+		
+		Map<String ,Object> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		param.put("search", search );
+		
+		if(searchCate.equals("제목")) { //검색카테고리가 제목일때
+			return  mybatis.selectList("Board.selectTitleReviewlist",param);
+		}else { // 검색 카테고리가 작성자일때
+			return  mybatis.selectList("Board.selectMemberReviewlist",param);
+		}
+		
+	}
+	
+	public List<BoardReviewDTO> selectAllSearchReview(String search, String searchCate) {
+		
+		
+		if(searchCate.equals("제목")) { //검색카테고리가 제목일때
+			return  mybatis.selectList("Board.selectAllTitleReview",search);
+		}else { // 검색 카테고리가 작성자일때
+			return  mybatis.selectList("Board.selectAllMemberReview",search);
+		}
+		
+	}
+	
 
 //=====================================================================
 	
@@ -259,10 +288,18 @@ public class BoardDAO {
 
 
 
-
+// =================================================================================================
+	
+	// 자유게시판 댓글 수정
+	public int updateFreeReply(ReplyFreeDTO dto) {
+		return mybatis.update("Board.updateFreeReply", dto);
+	}
 	
 	
-
+// ==================================================================================================
+	public int deleteFreeReply(ReplyFreeDTO dto) {
+		return mybatis.delete("Board.deleteFreeReply", dto);
+	}
 
 
 

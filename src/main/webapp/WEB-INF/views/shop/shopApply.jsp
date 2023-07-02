@@ -432,9 +432,8 @@
 					alert("이미 신청한 공구입니다!");
 					return false;
 				}
+				location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 			})
-		
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 		})
 		
 		// 답글 달기 버튼 눌렀을 때
