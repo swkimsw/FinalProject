@@ -324,7 +324,10 @@ public class BoardDAO {
 	}
 	
 	
-
+// ==================================================================================================
+	public int deleteFreeReply(ReplyFreeDTO dto) {
+		return mybatis.delete("Board.deleteFreeReply", dto);
+	}
 
 
 

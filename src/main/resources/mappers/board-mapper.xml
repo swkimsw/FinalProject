@@ -319,8 +319,15 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 
 	<!-- 자유게시판 댓글 수정 -->
 	<update id="updateFreeReply">
-		update replyfree set content = #{content} where code = #{code}
+		update replyfree set content = #{content}, moddate = sysdate where code = #{code}
 	</update>
+	
+<!-- ============================================================================================== -->
+	
+	<!-- 자유게시판 댓글 삭제 -->
+	<delete id="deleteFreeReply">
+		delete from replyfree where code = #{code}
+	</delete>
 
 
 </mapper>

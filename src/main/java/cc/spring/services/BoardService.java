@@ -309,7 +309,12 @@ public class BoardService {
 
 
 
-
+// ================================================================================================
+	
+	// 자유게시판 댓글 삭제
+	public int deleteFreeReply(ReplyFreeDTO dto) {
+		return boarddao.deleteFreeReply(dto);
+	}
 
 
 
