@@ -305,6 +305,14 @@ public class BoardService {
 	}
 
 
+// =================================================================================================
+	
+	// 자유게시판 댓글 좋아요 up, 좋아요 누른 후 좋아요 수 가져오기
+	@Transactional
+	public ReplyFreeDTO upReplyLikeCount(ReplyFreeDTO dto) {
+		boarddao.upReplyLikeCount(dto);
+		return boarddao.selectReplyLikeCount(dto); 
+	}
 
 
 }
