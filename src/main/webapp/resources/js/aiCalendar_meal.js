@@ -26,6 +26,7 @@ $(".meal-box").off("click").on("click", function () {
             inputMeals[i].value = meals[i];
         }
     }
+
     //원래 등록되어 있던 식단을 preMeals라는 리스트로 저장
     // preMeals = this.innerHTML.split("<br>");
     $(".meal-name").each((i, e) => {
@@ -33,20 +34,21 @@ $(".meal-box").off("click").on("click", function () {
             preMeals.push(e.value);
         }
     })
-
+	
+	console.log(preMeals);
     //모두 삭제하기 클릭 이벤트
-    $("#delete-meals").on("click", function () {
+    $("#delete-meals").off("click").on("click", function () {
         $(".meal-name").val("");
     });
 
     //외식 버튼 클릭 이벤트
-    $("#eatingOut").on("click", function () {
+    $("#eatingOut").off("click").on("click", function () {
         selectBox.html("외식<br>");
         $("#closeModal").click();
     });
 
     //배달 버튼 클릭 이벤트
-    $("#delivery").on("click", function () {
+    $("#delivery").off("click").on("click", function () {
         selectBox.html("배달<br>");
         $("#closeModal").click();
     });
@@ -54,13 +56,13 @@ $(".meal-box").off("click").on("click", function () {
     //찾아보기 클릭 이벤트
     //표준 음식 넣을 위치 저장
     let takeMeal;
-    $(".toSearch").on("click", function () {
+    $(".toSearch").off("click").on("click", function () {
         takeMeal = $(this).closest(".insertBox").find(".meal-name");
     });
 
     //표준 음식 목록 선택 이벤트
     //선택한 음식 input 칸에 넣기
-    $(".standard-meal").on("click", function () {
+    $(".standard-meal").off("click").on("click", function () {
         let selectMeal = $(this).text();
         $("#toFirstModal").click();
         takeMeal.val(selectMeal);
@@ -76,27 +78,34 @@ $(".meal-box").off("click").on("click", function () {
         //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
         let meals = $(".meal-name");
         postMeals = [];
+        console.log(postMeals);
         meals.each((i, e) => {
             if (e.value) {
                 postMeals.push(e.value);
             }
-
+			console.log(postMeals);
             let exceptDuplMeal = new Set(postMeals);
             if (postMeals.length != exceptDuplMeal.size) {
                 alert("중복된 메뉴는 입력할 수 없습니다.");
+                meals.text("");
                 return;
             }
-
+			console.log(postMeals);
         });
 
         // if 걸어서 빈값이면 delete 
         // 겹치는 부분 제거 
+        console.log("preMeals : " + preMeals);
+        console.log("postMeals : " + postMeals);
 
         preDiff = preMeals.filter(e => !postMeals.includes(e)); 
         postDiff = postMeals.filter(e => !preMeals.includes(e));
+        
+		console.log("pre" + preDiff);
+		console.log("pos" + postDiff);
 		
         preDiff.forEach((e, i) => {
-            aiMealArr = aiMealArr.filter(target => target.meal != e);
+            aiMealArr = aiMealArr.filter(target => target.meal != e );
         });
 
         // postMeals에 있는 값만큼 aiMealArr 에 값저장
@@ -207,6 +216,10 @@ function aiMealPrint(resp) {
                 for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
                     if (item.timeCode == timeCodes[mealIndex]) {
                         var targetClass = ".day" + (mealDay + 1) + "." + meals[mealIndex];
+                        
+                     
+                        $(targetClass).find(".meal-box").attr("mealDate" , item.mealDate);
+                        $(targetClass).find(".meal-box").attr("timeCode" , item.timeCode);
                         $(targetClass).find(".meal-box").append(item.meal, "<br>");
                     }
                 }
