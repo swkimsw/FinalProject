@@ -110,6 +110,10 @@
                 	display: none;
                 }
                 
+                .replyMemberCode {
+                	display: none;
+                }
+                
                 .replyMemberNickNameOrCompanyName {
                 	display: inline;
                 }
@@ -396,6 +400,7 @@
                                     <div id="rep">
                                     <c:choose>
 			                            <c:when test="${user == i.memberCode}">
+			                            <div class="replyMemberCode">${i.memberCode}</div>
 		                                    <hr style="margin-top: 60px;">
 			                                    <div class="d-flex mt-5">
 			                                        <div class="flex-shrink-0"><img class="rounded-circle" style="height:50px; width:50px; border:1px solid black;"
@@ -423,6 +428,7 @@
 
 		                                    </c:when>
 		                                    <c:otherwise>
+		                                    	<div class="replyMemberCode">${i.memberCode}</div>
 		                                    	<hr style="margin-top: 60px;">
 			                                    <div class="d-flex mt-5">
 			                                        <div class="flex-shrink-0"><img class="rounded-circle"
@@ -432,16 +438,17 @@
 			                                        <div class="ms-3">
 			                                            <div class="fw-bold" >${i.nickName}</div>
 			                                            <div class="fw-bold" >${i.companyName}</div>
-                                   					 <div contenteditable="true" class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
+			                                            <div class="replyCode">${i.code}</div>			                                            
+                                   					 	<div contenteditable="false" class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
 			                                        </div>
 			                                    </div>
                                                     <div class="button-container con">
                                                     
                                                         <button class="btn btn-outline-primary btn-sm likeBtn">
-                                                         <i class="bi bi-hand-thumbs-up"></i>0</button>
+	                                                         <i class="bi bi-hand-thumbs-up">${i.likeCount}</i>
+                                                         </button>
                                                          
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                        id="report">신고</button>
+                                                        <button class="btn btn-outline-primary btn-sm replyReport">신고</button>
                                                         
                                                     </div>
 		                                    </c:otherwise>
@@ -886,6 +893,33 @@
                 		alert("삭제에 실패하였습니다.");
                 		 return false;
                 	 }
+                 })
+                 
+                 
+                 // 댓글 좋아요 버튼 클릭 시
+                 $(".likeBtn").on("click", function() {
+                	  var $button = $(this); // $(this)를 변수에 저장
+
+                	  var replyCode = $button.parent().prev().children().next().children().next().next().html();
+
+                	  $.ajax({
+                	    url: "/board/upReplyLikeCount",
+                	    type: "post",
+                	    dataType: "json",
+                	    data: {
+                	      code: replyCode
+                	    }
+                	  }).done(function(resp) {
+                	    $button.children().html(resp.likeCount); // $button 변수를 사용하여 값을 변경
+                	  });
+                	});
+                    
+                    
+                 // 댓글 신고하기 버튼 클릭 시
+                 $(".replyReport").on("click",function() {
+                	 replyCode = $(this).parent().prev().children().next().children().next().next().html();
+                	 replyMemberCode = $(this).parent().prev().prev().prev().html();
+            		 window.open("/board/freeReport?postcode="+ ${result.code}+"&boardKindCode=1002&reporterCode="+${sessionScope.code}+"&reporteeCode="+ replyMemberCode +"&replyCode="+replyCode+"&authGradeCode="+${result.memberAuthGradeCode},"", "width=500px, height=600px");
                  })
                  
                 })
