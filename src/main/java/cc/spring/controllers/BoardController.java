@@ -556,7 +556,7 @@ public class BoardController {
 		
 	// 자유게시판 댓글 작성
 	@ResponseBody
-	@RequestMapping("freeReply")
+	@RequestMapping("insertFreeReply")
 	public int freeReply(String replyContent, int boardFreeCode, int cpage) {
 		
 		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
@@ -578,8 +578,16 @@ public class BoardController {
 		return result;
 	}
 	
+	// ============================================================================================
 	
-	
+	// 자유게시판 댓글 삭제
+	@ResponseBody
+	@RequestMapping("deleteFreeReply")
+	public int deleteFreeReply(ReplyFreeDTO dto) {
+		
+		int result = boardService.deleteFreeReply(dto);
+		return result;
+	}
 	
 	//=============================================================================================	
 

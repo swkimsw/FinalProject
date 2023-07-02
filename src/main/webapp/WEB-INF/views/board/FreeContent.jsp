@@ -414,25 +414,13 @@
 			                                    </div>
 
 
-			                                    <div class="button-container" style="margin-top: 10px; float:right;">
+			                                    <div class="button-container con">
 				                                   	<button class="btn btn-outline-primary btn-sm replyModiBtn">수정</button>				                                   				                                   	
 				                                    <button class="btn btn-outline-primary btn-sm replyDeleteBtn">삭제</button> 
 				                                   	<button class="btn btn-outline-primary btn-sm replyModiSuccessBtn">수정완료</button>				                                    				                                   	
 				                                   	<button class="btn btn-outline-primary btn-sm replyModiCancleBtn">수정취소</button>	
+				                                </div>
 
-			                                    <div class="button-container con" style="margin-top: 10px; float:right;">
-
-			                                    
-                                                      
-				                                   	<button class="btn btn-outline-primary btn-sm cmodify">수정</button>
-				                                 	<button class="btn btn-outline-primary btn-sm modiSuccessBtn">완료</button>
-				                                     
-				                                    <button class="btn btn-outline-primary btn-sm cdelete">삭제</button>
-				                                      
-				                                     
-				                                     
-
-			                                    </div>
 		                                    </c:when>
 		                                    <c:otherwise>
 		                                    	<hr style="margin-top: 60px;">
@@ -447,7 +435,7 @@
                                    					 <div contenteditable="true" class="form-control mt-3 modiWriteReply" rows="3" placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
 			                                        </div>
 			                                    </div>
-                                                    <div class="button-container con" style="float:right ;">
+                                                    <div class="button-container con">
                                                     
                                                         <button class="btn btn-outline-primary btn-sm likeBtn">
                                                          <i class="bi bi-hand-thumbs-up"></i>0</button>
@@ -764,7 +752,7 @@
                     	
                     	
                     	$.ajax({
-                            url: "/board/freeReply",
+                            url: "/board/insertFreeReply",
                             type: "post",
                             dataType: "json",
                             data: {
@@ -788,23 +776,30 @@
 
                     
                     // 댓글 수정버튼 클릭 시
+                    let previousReply;
                     $(".replyModiBtn").on("click", function() {
                     	// 버튼변환
                     	$(this).hide();
                     	$(this).next().hide();
                     	$(this).next().next().fadeIn();
                     	$(this).next().next().next().fadeIn();
+                    	
+                    	// 수정버튼 클릭 하고 취소 했을 때 원래 댓글로 돌아가기 위해 기존 댓글 뽑아놓음.
+                    	// 그리고 수정취소 누를 시 기존댓글 대입.
+                    	previousReply = $(this).parent().prev().children().next().children().next().next().text();
 
+	
                     	// 댓글 감싸고 있는 div 뽑아오기
                     	const replyDiv = $(this).parent().prev().children().next().children().next();
 
                     	replyDiv.attr("contenteditable", "true");
+                    	replyDiv.css("border", "1px solid black");
                     	replyDiv.focus();
 
                     })
                     
                     
-                   	// 댓글 수정 시 엔터키 기능 바꿈
+                   	// 댓글 수정 시  엔터키 기능을 수정완료버튼 click되게 함
                     $(".modiWriteReply").on("keydown",function(e){
                     	if(e.key == "Enter" && e.shiftKey) {
                     		
@@ -830,18 +825,6 @@
                     		updateReplyDiv.text(updateReply.slice(0,198));
                     		return false;
                     	}
-
-                    // 댓글 수정버튼 클릭 시
-                    $(".cmodify").on("click", function() {
-                    	// 댓글 뽑아오기
-                    	const reply = $(this).parent().prev().children().next().children().next().text();
-                    	// 댓글 감싸고 있는 div 뽑아오기
-                    	const replyDiv = $(this).parent().prev().children().next().children().next();
-
-                    	console.log(reply)
-                    	replyDiv.attr("contenteditable", "true");
-                    	replyDiv.css("border", "1px solid black");
-
                     	
                     	$.ajax({
                     		url : "/board/updateFreeReply",
@@ -850,7 +833,6 @@
                     		data : {
                     			code : replyCode,
                     			content : updateReply
-                    			
                     		}
                     	}).done(function(resp) {
                     		if(resp == 1) {
@@ -861,48 +843,50 @@
                     			alert("수정에 실패했습니다.");
                     		}
                     	})
-                    })
                     
-
-                    // 댓글에서 좋아요 버튼 누를 시
-                    var like = false;
-                    $(".likeBtn").on("click", function() {
-                    	if(like) {
-                        	$(this).css({"background-color":"#fff",
-                        		"color" : "#0d6efd"});
-                        	like = false;
-                    	}
-                    	else {
-                        	$(this).css({"background-color":"#0d6efd",
-                        		"color" : "#fff"});
-                        	like = true;
-                    	}
-
-                    })
-
+                 })
+                 
+                 // 수정취소 버튼 클릭 시
+                 $(".replyModiCancleBtn").on("click", function() {
+                 	const replyDiv = $(this).parent().prev().children().next().children().next();
+                	replyDiv.attr("contenteditable", "false");
+                	replyDiv.css("border", "none");
+                	replyDiv.text(previousReply);
+                	
+                 	$(this).hide();
+                 	$(this).prev().hide();
+                 	$(this).prev().prev().fadeIn();
+                 	$(this).prev().prev().prev().fadeIn();
                  })
 
-                    // 댓글 수정시 조건 추가
-                    $(".modiSuccessBtn").on("keydown",function(e){
-                    	if(e.key == "Enter" && e.shiftKey) {
-                    		
-                    	}
-                    	else if(e.key == "Enter") {
-                    		e.preventDefault();
-                    		$(".modiSuccessBtn").click();
-                    	}
-                    })
-                    
-                    
-                     // 댓글 수정버튼 클릭 시
-                    $(".modiSuccessBtn").on("click", function() {
-                    	
-                    	
-                    	
-                    })
-                    
-                    
-                    
+                 
+                 // 댓글에서 삭제버튼 클릭 시
+                 $(".replyDeleteBtn").on("click", function() {
+                	 if(confirm("정말로 삭제하시겠습니까?")) {
+                		 const replyCode =  $(this).parent().prev().children().next().children().next().html();
+                		 $.ajax({
+                			 url : "/board/deleteFreeReply",
+                			 type : "post",
+                     		 dataType : "json",
+                     		 data : {
+                     			code : replyCode
+                     		 }
+                		 }).done(function(resp) {
+                			 if(resp == 1) {
+	                			 alert("삭제되었습니다.");
+	                			 location.href="/board/FreeContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
+                			 }
+                			 else {
+                				 alert("삭제에 실패하였습니다.");
+                				 return false;
+                			 }
+                		})
+                	 }
+                	 else {
+                		alert("삭제에 실패하였습니다.");
+                		 return false;
+                	 }
+                 })
                  
                 })
 
