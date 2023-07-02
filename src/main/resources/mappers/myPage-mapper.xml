@@ -16,7 +16,7 @@
 		FROM BOARDFREE b
 		join headline h on b.headlinecode = h.code
 		join boardkind k on b.boardkindcode= k.code
-		WHERE b.membercode=(select code from member where code=${code})
+		WHERE b.membercode=(select code from member where code=${code})ORDER BY REGDATE DESC
 	</select>
 	<select id="reView" resultType="cc.spring.dto.BoardReviewDTO">
 		SELECT r.code,k.value as boardkindValue,h.value as
@@ -25,7 +25,7 @@
 		join headline h on r.headlinecode = h.code
 		join boardkind k on r.boardkindcode= k.code
 		join member m on r.membercode=m.code
-		WHERE r.membercode=(select code from member where code=${code})
+		WHERE r.membercode=(select code from member where code=${code})ORDER BY REGDATE DESC
 	</select>
 	<!-- 판매자가 쓴 게시판 맵퍼 -->
 	<select id="businessFreeBoard"

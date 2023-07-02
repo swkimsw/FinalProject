@@ -87,4 +87,8 @@ public class BusinessMemberDAO {
 		return mybatis.delete("Business.deleteMember",code);
 	}
 
+	public String recentVisitBusiness() {
+		return mybatis.selectOne("Business.recentVisitBusiness");
+	}
+
 }

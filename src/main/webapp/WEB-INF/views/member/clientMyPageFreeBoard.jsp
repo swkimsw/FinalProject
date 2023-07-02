@@ -41,6 +41,9 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script> 
 <style>
 * {
 	font-family: NanumSquareNeo;
@@ -62,47 +65,12 @@ color:green;
 .mainPage {
 	border: 5px solid #fee1e870;
 	border-radius: 30px;
-	background-color: #ffffc230;
+	/* background-color: #ffffc230; */
 }
 /* 페이징 */
-.dataTables_wrapper .dataTables_paginate .dataTables_paginate {
-	box-sizing: border-box;
-	display: inline-block;
-	min-width: 1.5em;
-	padding: 0.5em 1em;
-	margin-left: 2px;
-	text-align: center;
-	text-decoration: none !important;
-	cursor: pointer;
-	color: inherit !important;
-	border: 1px solid #f6eac2;
-	border-radius: 10px;
-	background-color: #ffffc2;
-}
 
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-	box-sizing: border-box;
-	display: inline-block;
-	min-width: 1.5em;
-	padding: 0.5em 1em;
-	margin-left: 2px;
-	text-align: center;
-	text-decoration: none !important;
-	cursor: pointer;
-	color: white;
-	border-radius: 10px;
-	border: 1px solid #00793630;
-	background-color: #ffffc2;
-}
 
-.dataTables_wrapper .dataTables_paginate .paginate_button.current,
-	.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover
-	{
-	color: inherit !important;
-	border: 1px solid rgba(0, 0, 0, 0.3);
-	background-color: #ffffc2;
-	border-radius: 30px;
-}
+
 /* input */
 .dataTables_wrapper .dataTables_filter input {
 	border: 1px solid #aaa;
@@ -121,6 +89,34 @@ color:green;
 	padding: 4px;
 }
 
+/*  */
+.dataTables_wrapper .dataTables_paginate .paginate_button ,
+.dataTables_wrapper .dataTables_paginate .paginate_button a {
+  background: #007936;
+  color: white;
+    border: 1px solid black;
+  border-radius: 50px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
+  background: #007936;
+  color: white;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.active,
+.dataTables_wrapper .dataTables_paginate .paginate_button.active a {
+  background: blue;
+  color: 007936;
+
+}
+.paginate_button .ton{
+background: green;}
+.paginate_button .active,
+.paginate_button .active a{
+background-color: red;
+color: thite;
+}
+
+/*  */
 table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
 	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
 	table.dataTable thead>tr>th.sorting_desc_disabled:before, table.dataTable thead>tr>td.sorting:before,
@@ -144,7 +140,7 @@ table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_a
 	content: "▼"/"";
 	display: none;
 }
-
+=
 .fontCol {
 	color: #007936;
 }
@@ -244,7 +240,7 @@ h1.second span:after {
                                 <td class="fontCol b2 col-1 col-sm-1 col-xs-3">${i.headLineValue}</td>
                                 <td class="fontCol b1 col-1 d-none d-lg-table-cell">${i.boardKindValue}</td>
                                 <td class="fontCol title col-12 col-md-5 col-lg-5">
-                                    <a href="/board/ReviewContent?code=${i.code}" class="atag">${i.title}</a>
+                                    <a href="/board/FreeContent?code=${i.code}&cpage=1&viewchoose=true" class="atag">${i.title}</a>
                                 </td>
                                 <td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.likeCount}</td>
                                 <td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.viewCount}</td>
@@ -260,6 +256,10 @@ h1.second span:after {
         </div>
 	</main>
 	<script>
+	function goToLink(url) {
+    	console.log(url)
+      window.location.href = url;
+    }
 	window.addEventListener('DOMContentLoaded', (event) => {
 	    const atagElements = document.getElementsByClassName('atag');
 	    Array.from(atagElements).forEach((element) => {
@@ -308,8 +308,10 @@ h1.second span:after {
 			$('#myTables').DataTable({
 				pagingType : "full_numbers",
 				info : false,
-				lengthChange: false
+				lengthChange: false,
+				/* sPaginationType : "bootstrap" */
 			});
+			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
 		});
 	</script>
 </body>

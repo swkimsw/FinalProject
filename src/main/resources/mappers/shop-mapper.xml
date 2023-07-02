@@ -105,7 +105,7 @@
 		g.statuscode, g.deadline, g.title, g.productname, g.productprice, g.regdate,
 		m.companyname,
 		count(r.parentcode) as applycount, 
-		nvl(sum(r.quantity),0) as applyquantity
+		nvl(sum(r.quantity),0) as applyquantity, g.min
 		from groupbuying g
 		left join member m on g.membercode = m.code
 		left join requestlist r on r.parentcode = g.code
@@ -113,13 +113,28 @@
 		<choose>
 			<when test="statusCode != 0">
 				and g.statuscode = ${statuscode}
-				group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode
+				group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode, g.min
 			</when>
 			<when test="statusCode == 0">
-				group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode
+				group by g.code, g.membercode, g.statuscode,g.deadline,g.title, g.productname, g.productprice,g.regdate,m.companyname, r.parentcode, g.min
 			</when>
 		</choose>
+	</select>
 	
+	<select id="groupbuyingCountByStatus" resultType="cc.spring.dto.MyShopListDTO">
+		SELECT s.statuscode, COALESCE(g.statusCount, 0) AS statusCount
+		FROM (
+		SELECT 1001 AS statuscode FROM DUAL
+		UNION ALL SELECT 1002 FROM DUAL
+		UNION ALL SELECT 1003 FROM DUAL
+		) s
+		LEFT JOIN (
+		SELECT statuscode, COUNT(*) AS statusCount
+		FROM groupbuying
+		WHERE membercode = ${code} AND statuscode IN (1001, 1002, 1003)
+		GROUP BY statuscode
+		) g ON g.statuscode = s.statuscode
+		ORDER BY s.statuscode
 	</select>
 	
 	<select id="buyingMemberInfoList" resultType="cc.spring.dto.MyShopListDTO">
