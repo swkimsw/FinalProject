@@ -49,7 +49,7 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
-						<input type="text" class="form-control" id="productPrice" name="productPrice" placeholder="', / 원' 제외 숫자만 입력해 주세요" required>
+						<input type="text" class="form-control" id="productPrice" name="productPrice" placeholder=", / 원 제외 숫자만 입력해 주세요" required>
 						<span class="input-group-text">원</span>
 					</div>
 				</div>
@@ -116,7 +116,7 @@
 			<div class="buttons">
 				<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 					<button id="register" class="btn btn-success">등록</button>
-					<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
+					<a href="/shop/toShopList"><input type="button" value="취소" class="btn btn-success"></a>
 				</div>
 			</div>
 			
