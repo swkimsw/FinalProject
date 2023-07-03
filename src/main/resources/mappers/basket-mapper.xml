@@ -27,6 +27,12 @@
 	<update id="updateUnchecked">
 		update basket set statusCode=4001 where memberCode=${memberCode} and code=${code}
 	</update>
+	<update id="checkAll">
+		update basket set statusCode=4002 where memberCode=${memberCode}
+	</update>
+	<update id="uncheckAll">
+		update basket set statusCode=4001 where memberCode=${memberCode}
+	</update>
 	<update id="successCount">
 		update gptCount set basketSuccess=basketSuccess+1 where memberCode=${memberCode}
 	</update>

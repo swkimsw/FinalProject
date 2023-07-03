@@ -38,6 +38,14 @@ public class BasketDAO {
 		return mybatis.update("Basket.updateUnchecked", dto);
 	}
 	
+	public int checkAll(int memberCode) {
+		return mybatis.update("Basket.checkAll", memberCode);
+	}
+	
+	public int uncheckAll(int memberCode) {
+		return mybatis.update("Basket.uncheckAll", memberCode);
+	}
+	
 	public int successCount(int memberCode) {
 		return mybatis.update("Basket.successCount", memberCode);
 	}
