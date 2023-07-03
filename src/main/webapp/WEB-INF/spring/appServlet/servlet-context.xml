@@ -45,8 +45,30 @@
          <exclude-mapping path="/meal/toAiMeal"/>
          <exclude-mapping path="/meal/toMyMeal"/>
          <exclude-mapping path="/basket/toMyBasket"/>
-         <exclude-mapping path="/clientMember/**"/>
-         <exclude-mapping path="/businessMember/**"/>
+         <exclude-mapping path="/clientMember/login_form"/>
+         <exclude-mapping path="/businessMember/login_form"/>
+         <exclude-mapping path="/clientMember/login"/>
+         <exclude-mapping path="/clientMember/signup"/>
+         <exclude-mapping path="/clientMember/sign_form"/>
+         <exclude-mapping path="/clientMember/sendSmsSign"/>
+         <exclude-mapping path="/clientMember/getIdByPhone"/>
+         <exclude-mapping path="/clientMember/checkSum"/>
+         <exclude-mapping path="/clientMember/certificationSign"/>
+         <exclude-mapping path="/clientMember/certificationLogin"/>
+         <exclude-mapping path="/clientMember/removeSession"/>
+         <exclude-mapping path="/businessMember/login_form"/>
+         <exclude-mapping path="/businessMember/login"/>
+         <exclude-mapping path="/businessMember/getIdByPhone"/>
+         <exclude-mapping path="/businessMember/sendSmsLogin"/>
+         <exclude-mapping path="/businessMember/certificationLogin"/>
+         <exclude-mapping path="/businessMember/sign_form"/>
+         <exclude-mapping path="/businessMember/checkSum"/>
+         <exclude-mapping path="/businessMember/sendSmsSign"/>
+         <exclude-mapping path="/businessMember/certificationSign"/>
+         <exclude-mapping path="/businessMember/removeSession"/>
+          <exclude-mapping path="/businessMember/signup"/>
+         
+
       	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
       </interceptor>
    </interceptors>
