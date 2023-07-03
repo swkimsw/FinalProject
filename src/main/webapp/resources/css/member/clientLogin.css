@@ -1,0 +1,206 @@
+@charset "UTF-8";
+* {
+	font-family: 'NanumSquareNeoBold';
+}
+
+body {
+	background-color: rgba(255, 255, 194, 0.75);
+}
+
+.row {
+	-bs-gutter-x: 2rem;
+	-bs-gutter-y: 0;
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: calc(var(- -bs-gutter-y)* -1);
+	margin-right: calc(var(- -bs-gutter-x)* -.5);
+	margin-left: calc(var(- -bs-gutter-x)* -.5);
+}
+
+.login_container {
+	margin-top: 10%;
+	margin-bottom: 5%;
+}
+
+.login-logo {
+	position: relative;
+	margin-left: -41.5%;
+}
+
+.nav_a {
+	color: #007936;
+}
+
+.nav_a:hover {
+	color: #00793690;
+}
+
+.wrapper {
+	width: 80%;
+	padding: 32px;
+	background: whitesmoke;
+	border-radius: 1rem;
+	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0
+		rgba(0, 0, 0, 0.19);
+	animation-duration: 5s;
+}
+
+.login-form-1 h3 {
+	text-align: center;
+	margin-bottom: 12%;
+}
+
+.login-form-2 h3 {
+	text-align: center;
+	margin-bottom: 8%;
+}
+
+.site_login {
+	font-weight: 600;
+	width: 100%;
+	color: whitesmoke;
+	background-color: #76b852;
+	border: none;
+	padding: 2%;
+}
+
+#pw {
+	margin-bottom: 0;
+}
+
+.login_button>button>img {
+	height: 50px;
+	width: 50px;
+}
+
+.btnSubmit {
+	border: none;
+	cursor: pointer;
+	appearance: none;
+	background-color: rgba(0, 0, 139, 0)
+}
+
+.btn_forget_pwd {
+	font-size: small;
+}
+
+.btn_forget_pwd:hover {
+	cursor: pointer;
+}
+
+.btn_forget_pwd2 {
+	font-size: small;
+}
+
+.btn_forget_pwd2:hover {
+	cursor: pointer;
+}
+
+.join_form {
+	font-size: small;
+}
+
+.col-md-6 {
+	font-size: medium;
+}
+
+.col-6 {
+	font-size: small;
+}
+
+#to_main_ball_img:hover {
+	cursor: pointer;
+}
+
+.wrong .bi-check {
+	display: none;
+}
+
+.good .bi-x {
+	display: none;
+}
+
+.valid-feedback, .invalid-feedback {
+	margin-left: 0.5rem;
+}
+
+#tooltip {
+	display: inline-block;
+	background: #76b852;
+	color: whitesmoke;
+	font-weight: bold;
+	padding: 5px 10px;
+	font-size: 13px;
+	border-radius: 4px;
+}
+
+#arrow, #arrow::before {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	background: inherit;
+}
+
+#arrow {
+	visibility: hidden;
+}
+
+#arrow::before {
+	visibility: visible;
+	content: '';
+	transform: rotate(45deg);
+}
+
+#tooltip[data-popper-placement^='top']>#arrow {
+	bottom: -4px;
+}
+
+#tooltip[data-popper-placement^='bottom']>#arrow {
+	top: -4px;
+}
+
+#tooltip[data-popper-placement^='left']>#arrow {
+	right: -4px;
+}
+
+#tooltip[data-popper-placement^='right']>#arrow {
+	left: -4px;
+}
+
+.button-wrap {
+	text-align: center;
+	width: 230px;
+	margin: 35px auto;
+	position: relative;
+	border-radius: 30px;
+}
+
+.togglebtn {
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	outline: none;
+	position: relative;
+}
+
+#btn {
+	top: 0;
+	left: 0;
+	position: absolute;
+	width: 120px;
+	height: 100%;
+	background-color: #76b852;
+	border-radius: 30px;
+	transition: .5s;
+}
+
+#full1 {
+	
+}
+
+#full2 {
+	display: none;
+}
+/* 추가부분 */
+
+/* 종료 */
