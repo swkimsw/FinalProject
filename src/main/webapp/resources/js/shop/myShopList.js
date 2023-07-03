@@ -1,4 +1,5 @@
 // 일반회원 function
+
 function clientSelect(){
 	let status = $('select[name="clientCategory"]').val();
 	$.ajax({
@@ -60,7 +61,8 @@ function appendClientDiv(resp){
 
 
 
-//사업자회원 function							
+//사업자회원 function					
+		
 function statusBtn(a){
 	$.ajax({
 		url: "/shop/myShopListByStatus", 
@@ -75,6 +77,7 @@ function statusBtn(a){
 			appendBusinessDiv(resp);
 		}
 	)}
+
 
 function appendBusinessDiv(resp){						
 	$(".list-wrapper").empty();
@@ -107,10 +110,6 @@ function appendBusinessDiv(resp){
 	}					
 }					
 											
-
-
-
-
 
 function openInfo(a){
 	window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1300, height=600,left=200, top=100, scrollbars=yes");

@@ -142,7 +142,7 @@
 						</c:when>
 						
 						<c:otherwise>
-							<div class='col-xxl-12 pt-5 text-center' style='color:#007936'>
+							<div class='col-xxl-12 pt-5 text-center' style='color:#007936;margin-bottom:400px;'>
 								<hr/>
 								<p class='fs-6'> 등록된 공구가 아직 없어요</p>
 								<hr/>
