@@ -47,7 +47,7 @@
          <exclude-mapping path="/basket/toMyBasket"/>
          <exclude-mapping path="/shop/toShopList"/>
       	 <exclude-mapping path="/shop/searchByKeyword"/>
-         <exclude-mapping path="/businessMember/login_form"/>
+         <exclude-mapping path="/clientMember/login_form"/>
          <exclude-mapping path="/clientMember/login"/>
          <exclude-mapping path="/clientMember/signup"/>
          <exclude-mapping path="/clientMember/sign_form"/>
@@ -57,7 +57,6 @@
          <exclude-mapping path="/clientMember/certificationSign"/>
          <exclude-mapping path="/clientMember/certificationLogin"/>
          <exclude-mapping path="/clientMember/removeSession"/>
-         <exclude-mapping path="/businessMember/login_form"/>
          <exclude-mapping path="/businessMember/login"/>
          <exclude-mapping path="/businessMember/getIdByPhone"/>
          <exclude-mapping path="/businessMember/sendSmsLogin"/>
