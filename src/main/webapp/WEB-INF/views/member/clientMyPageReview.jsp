@@ -49,7 +49,6 @@
 <style>
 * {
 	font-family: NanumSquareNeo;
-	/* border: 1px solid black; */
 	box-sizing: border-box;
 }
 
@@ -70,7 +69,6 @@ font-weight: bold;
 .mainPage {
 	border: 5px solid #fee1e870;
 	border-radius: 30px;
-	/* background-color: #ffffc230; */
 }
 /* 페이징 */
 .table{
@@ -96,13 +94,6 @@ font-weight: bold;
 	padding: 4px;
 }
 
-/*  */
-/*   .dataTables_wrapper .dataTables_paginate .paginate_button ,
-.dataTables_wrapper .dataTables_paginate .paginate_button a {
-  background: #007936;
-  color: white;
-  border-radius: 20px;
-}  */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
 background: none;
@@ -114,15 +105,7 @@ border: none;
 background: blue;
 opacity: 70%;
 }
-/* .paginate_button .ton{
-background: green;}
-.paginate_button .active,
-.paginate_button .active a{
-background-color: red;
-color: thite;
-} 
- */
-/*  */
+
 table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
 	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
 	table.dataTable thead>tr>th.sorting_desc_disabled:before, table.dataTable thead>tr>td.sorting:before,
@@ -149,11 +132,6 @@ table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_a
 =
 .fontCol {
 	color: #007936;
-}
-
-.a1 {
-	/* text-align: center; */
-	
 }
 
 /* 사이즈 대비 출력되는 부트스트랩반응형 */
