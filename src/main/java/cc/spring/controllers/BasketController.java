@@ -32,12 +32,12 @@ public class BasketController {
 	@RequestMapping("toMyBasket")
 	public String toMyBasket(Model model) {
 		
-		int memberCode = 0;
+		int memberCode = -1;
 		if(session.getAttribute("code") != null) {
 			memberCode = (int)session.getAttribute("code");
 		}
 		
-		if(memberCode == 0) {
+		if(memberCode == -1) {
 			return "redirect:/clientMember/login_form";
 		}else {
 			List<BasketDTO> basketList = bService.selectBasket(memberCode);

@@ -68,7 +68,7 @@
 						<div class="card-body">
 							<form action="/basket/insertBasket">
 								<input type="text" class="form-control add-task"
-									placeholder="새로운 재료 등록...">
+									placeholder="새로운 재료 등록..." maxlength="1000">
 							</form>
 							<div class="selectAllBox d-flex justify-content-between">
 								<label class="checkAllLabel"> <input type="checkbox"
