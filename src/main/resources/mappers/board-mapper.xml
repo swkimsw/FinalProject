@@ -80,6 +80,48 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	<select id="selectAllFree" resultType="cc.spring.dto.BoardFreeDTO">
 		select * from boardfree_view order by regdate desc
 	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기  - 체크 분류(체크값이 단일)-->
+	<select id="selectFreeChecklist" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from ( select boardFree_view.*, row_number() over(order by code desc) as rn from boardFree_view 
+		where headlinecode = #{headLineCode} )
+		where rn between #{start} and #{end}
+	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 체크 분류(체크값이 복수일때) -->
+	<select id="selectFreeCheckslist" resultType="cc.spring.dto.BoardFreeDTO">
+	  SELECT *
+	  FROM (
+	    SELECT boardFree_view.*, ROW_NUMBER() OVER (ORDER BY code DESC) AS rn
+	    FROM boardFree_view
+	    WHERE headlinecode IN 
+	    <foreach collection="headLineCodes" item="item" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	 )
+	  WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+		
+
+	
+	<!-- 자유게시판리스트 전부 가져오기 - 체크분류(단일) -->
+	<select id="selectCheckAllFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where headlinecode = #{headLineCode} order by regdate desc
+	</select>
+	
+	
+	<!-- 자유게시판리스트 전부 가져오기 - 체크분류(복수) -->
+	<select id="selectChecksAllFree"  resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where headlinecode in 
+		<foreach collection="list" index='index' item="item" open="(" separator="," close=")">
+        #{item}
+   		 </foreach>
+		order by regdate desc
+	</select>
+	
+	
 
 
 	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(제목) -->

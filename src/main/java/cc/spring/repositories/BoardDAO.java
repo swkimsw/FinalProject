@@ -1,5 +1,6 @@
 package cc.spring.repositories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,54 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectAllFree");
 	}
 
+
+	
+	//자유게시판 전부 가져오기 가져오기 - check분류	
+	public List<BoardFreeDTO> selectCheckAllFree(int[] check) {
+		
+		
+		if (check.length == 1) {//체크가 한개일때
+			int headLineCode = check[0];
+			return mybatis.selectList("Board.selectCheckAllFree", headLineCode);
+		} else {//체크가 여러개일때
+			List<Integer> headLineCodes = new ArrayList<>();
+	        for (int i = 0; i < check.length; i++) {
+	            headLineCodes.add(check[i]);
+	        }
+	        
+	        return mybatis.selectList("Board.selectChecksAllFree", headLineCodes);
+		}
+		
+		
+	
+		
+	}
+
+	
+	//자유게시판 글 조건에 따라 가져오기 - check분류
+		public List<BoardFreeDTO> selectFreeChecklist(int start, int end,int[] check) {
+			Map<String ,Object> param = new HashMap<>();
+			param.put("start", start);
+			param.put("end", end);
+			
+
+			if (check.length == 1) {//체크가 한개일때
+				int headLineCode = check[0];
+				param.put("headLineCode", headLineCode);
+				return mybatis.selectList("Board.selectFreeChecklist", param);
+			} else {//체크가 여러개일때
+				List<Integer> headLineCodes = new ArrayList<>();
+		        for (int i = 0; i < check.length; i++) {
+		            headLineCodes.add(check[i]);
+		        }
+		        param.put("headLineCodes", headLineCodes);
+		        return mybatis.selectList("Board.selectFreeCheckslist", param);
+			}
+
+			
+	}
+		
+		
 	//자유게시판 글 조건에 따라 가져오기 - 검색
 		public List<BoardFreeDTO> selectSearchFree(int start,int end,String search, String searchCate) {
 			

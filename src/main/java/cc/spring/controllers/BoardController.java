@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import cc.spring.dto.BoardAnnouncementDTO;
@@ -60,38 +61,94 @@ public class BoardController {
 
 		
 		int recordTotalCount;
-		
-		if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
-			
-			List<BoardFreeDTO> list = boardService.selectFreelist(start,end); //자유게시글 페이징에 맞게 가져오기
-			request.setAttribute("list", list);
-			List<BoardFreeDTO> all = boardService.selectAllFree(); //자유게시글 전부 다 가져오기
-			recordTotalCount = all.size();
-			System.out.println(recordTotalCount);
-		
-		}else {//검색조건이 있으면
-			
-			String searchCate  = request.getParameter("searchCate"); //검색카테고리
-			String search  = request.getParameter("search"); //검색내용
-			
-			System.out.println(search);
-			System.out.println(searchCate);
+		Gson gson = new Gson();
+				
+		if(request.getParameter("check") == null) { // check분류가 없으면
+			System.out.println("check 없어요 ");
 			
 			
-			List<BoardFreeDTO> all= boardService.selectAllSearchFree(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
-			recordTotalCount = all.size();
-			List<BoardFreeDTO> list = boardService.selectSearchFree(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
-			request.setAttribute("list", list);
-			request.setAttribute("search", search);
-			request.setAttribute("searchCate", searchCate);
-			System.out.println(recordTotalCount);
-		
-		}
 
-		
-		
-		
-		
+			int[] check = new int[] {1,2,3};
+			request.setAttribute("check", check ); //0들어감
+			
+			if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
+				
+				List<BoardFreeDTO> list = boardService.selectFreelist(start,end); //자유게시글 페이징에 맞게 가져오기
+				request.setAttribute("list", list);
+				List<BoardFreeDTO> all = boardService.selectAllFree(); //자유게시글 전부 다 가져오기
+				recordTotalCount = all.size();
+				
+				System.out.println(recordTotalCount);
+			
+			}else {//검색조건이 있으면
+				
+				String searchCate  = request.getParameter("searchCate"); //검색카테고리
+				String search  = request.getParameter("search"); //검색내용
+			
+				
+				System.out.println(search);
+				System.out.println(searchCate);
+				
+				
+				List<BoardFreeDTO> all= boardService.selectAllSearchFree(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
+				recordTotalCount = all.size();
+				List<BoardFreeDTO> list = boardService.selectSearchFree(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
+				request.setAttribute("list", list);
+				request.setAttribute("search", search);
+				request.setAttribute("searchCate", searchCate);
+				System.out.println(recordTotalCount);
+			
+			}
+			
+			
+		}else { //check 분류가 있으면
+			
+			 System.out.println("check 있어요 ");
+			 
+
+				String checks = request.getParameter("check");
+			    String[] checkArray = checks.split(",");
+			    int[] check = new int[checkArray.length]; // int 배열 생성
+			    for (int i = 0; i < checkArray.length; i++) {
+			        check[i] = Integer.parseInt(checkArray[i]); // 문자열을 int로 변환하여 배열에 저장
+			        System.out.println(check[i]);
+			    }
+
+			  System.out.println(check);
+			    
+			
+			if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
+				
+				List<BoardFreeDTO> list = boardService.selectFreeChecklist(start,end,check); //자유게시글 페이징에 맞게 가져오기 - check분류에 맞게
+				request.setAttribute("list", list);
+				System.out.println("여기까진 했어 !!");
+				List<BoardFreeDTO> all = boardService.selectCheckAllFree(check); //자유게시글 전부 다 가져오기
+				recordTotalCount = all.size();
+				
+			    request.setAttribute("check", check); //int형 배열보내기
+				    
+				System.out.println(recordTotalCount);
+			
+			}else {//검색조건이 있으면
+				
+				String searchCate  = request.getParameter("searchCate"); //검색카테고리
+				String search  = request.getParameter("search"); //검색내용
+				
+				System.out.println(search);
+				System.out.println(searchCate);
+				
+				
+				List<BoardFreeDTO> all= boardService.selectAllSearchFree(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
+				recordTotalCount = all.size();
+				List<BoardFreeDTO> list = boardService.selectSearchFree(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
+				request.setAttribute("list", list);
+				request.setAttribute("search", search);
+				request.setAttribute("searchCate", searchCate);
+				System.out.println(recordTotalCount);
+			
+			}
+			
+		}
 		
 		List<String> listnavi = boardService.selectPageNavi(recordTotalCount,cpage);
 		request.setAttribute("listnavi", listnavi);
