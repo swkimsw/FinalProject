@@ -34,15 +34,7 @@ public class AdminMemberService {
 	public MemberDTO selectAdminMemberInfo(String id, String pw) {
 		return adminDAO.selectAdminMemberInfo(id, pw);
 	}
-	
-	public List<MemberDTO> selectAllBusinessMember() {
-		return bDAO.selectAllBusinessMember();
-	}
-	
-	public List<MemberDTO> selectAllClientMember() {
-		return cDAO.selectAllClientMember();
-	}
-	
+
 	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> mealCountMap = new HashMap<String, Integer>();
 		mealCountMap.put("mealSuccessTotal", adminDAO.selectSuccessMeal());
@@ -76,9 +68,10 @@ public class AdminMemberService {
 	}
 	
 	@Transactional
-	public int BanMember(int memberCode, BanMemberDTO dto) {
+	public int BanMember(int memberCode) {
 		adminDAO.deleteBanMember(memberCode);
-		return adminDAO.insertBanMember(dto);
+		MemberDTO Mdto = adminDAO.selectBanUser(memberCode);
+		return adminDAO.insertBanMember(new BanMemberDTO(Mdto.getCode(), Mdto.getId(), Mdto.getBusinessId(), Mdto.getPw(), Mdto.getName(), Mdto.getCompanyName(), Mdto.getAuthGradeCode(),Mdto.getNickName(), Mdto.getBirthDate(), Mdto.getPhone(), Mdto.geteMail(), Mdto.getShippingCompany(), Mdto.getZipcode(), Mdto.getAddress1(), Mdto.getAddress2(), Mdto.getAgree(), Mdto.getRegDate(), Mdto.getModDate(), Mdto.getDelDate()));
 	}
 	
 	public List<MemberDTO> selectUserList(){

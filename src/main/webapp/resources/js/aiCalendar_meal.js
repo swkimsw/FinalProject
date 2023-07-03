@@ -125,6 +125,71 @@ window.addEventListener('load', function () {
         //우선 modal창에 입력된 input 전부 삭제
         $(".meal-name").val("");
 
+    //외식 버튼 클릭 이벤트
+    $("#eatingOut").off("click").on("click", function () {
+        selectBox.html("외식<br>");
+        $("#closeModal").click();
+    });
+
+    //배달 버튼 클릭 이벤트
+    $("#delivery").off("click").on("click", function () {
+        selectBox.html("배달<br>");
+        $("#closeModal").click();
+    });
+
+    //찾아보기 클릭 이벤트
+    //표준 음식 넣을 위치 저장
+    let takeMeal;
+    $(".toSearch").off("click").on("click", function () {
+        takeMeal = $(this).closest(".insertBox").find(".meal-name");
+    });
+
+    //표준 음식 목록 선택 이벤트
+    //선택한 음식 input 칸에 넣기
+    $(".standard-meal").off("click").on("click", function () {
+        let selectMeal = $(this).text();
+        $("#toFirstModal").click();
+        takeMeal.val(selectMeal);
+    });
+
+
+
+    //저장하기 버튼 클릭 이벤트
+    $("#saveMeal").off("click").on("click", function () {
+        //우선 선택한 meal-box의 내용 모두 지우기
+        selectBox.html("");
+
+        //저장하기 버튼을 누르는 시점의 식단을 postMeals라는 리스트에 저장
+        let meals = $(".meal-name");
+        postMeals = [];
+        console.log(postMeals);
+        meals.each((i, e) => {
+            if (e.value) {
+                postMeals.push(e.value);
+            }
+			console.log(postMeals);
+            let exceptDuplMeal = new Set(postMeals);
+            if (postMeals.length != exceptDuplMeal.size) {
+                alert("중복된 메뉴는 입력할 수 없습니다.");
+                meals.text("");
+                return;
+            }
+			console.log(postMeals);
+        });
+
+        // if 걸어서 빈값이면 delete 
+        // 겹치는 부분 제거 
+        console.log("preMeals : " + preMeals);
+        console.log("postMeals : " + postMeals);
+
+        preDiff = preMeals.filter(e => !postMeals.includes(e)); 
+        postDiff = postMeals.filter(e => !preMeals.includes(e));
+        
+		console.log("pre" + preDiff);
+		console.log("pos" + postDiff);
+		
+        preDiff.forEach((e, i) => {
+            aiMealArr = aiMealArr.filter(target => target.meal != e );
         //입력 위치 지정
         //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
         //그냥 this로 했을때 큰창, 작은창 상관없으면 그대로
@@ -316,6 +381,10 @@ function aiMealPrint(resp) {
                 for (let mealIndex = 0; mealIndex < meals.length; mealIndex++) {
                     if (item.timeCode == timeCodes[mealIndex]) {
                         var targetClass = ".day" + (mealDay + 1) + "." + meals[mealIndex];
+                        
+                     
+                        $(targetClass).find(".meal-box").attr("mealDate" , item.mealDate);
+                        $(targetClass).find(".meal-box").attr("timeCode" , item.timeCode);
                         $(targetClass).find(".meal-box").append(item.meal, "<br>");
                     }
                 }

@@ -39,6 +39,8 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 <style>
 
 * {
@@ -58,7 +60,8 @@
 .subNav {
 	position: fixed;
 	z-index:2;
-	max-height: 80px;
+	max-height: 150px;
+	background-color: inherit;
 }
 
 .searchGroup {
@@ -96,39 +99,40 @@
 	width: 100%; 
 	height:250px;
 }
-
+.navText{
+	font-size:large;
+}
 </style>
 </head>
 <body>
 	<!-- gnb -->
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
-
+	
 	<div class="container w-75">
-		<div class="subNav w-75">
+		<div class="subNav w-75 pt-2">
 				<nav class="navbar bg-body-tertiary navbar-expand-sm">
 						<div class="d-flex justify-content-between navbar w-100" id="navbarTogglerDemo03">
-							<div class="linkGroup"
-								style="position: relative;">
+							<div class="linkGroup" style="position: relative;">
 								<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 									<li class="nav-item active">
-										<a class="nav-link" href="/shop/toShopList">
+										<a class="nav-link navText" href="/shop/toShopList">
 										전체
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=open">
+										<a class="nav-link navText" onclick="activeChange()" href="/shop/toShopList?status=open">
 										진행중
 										</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" onclick="activeChange()" href="/shop/toShopList?status=closed">
+										<a class="nav-link navText" onclick="activeChange()" href="/shop/toShopList?status=closed">
 										마감
 										</a>
 									</li>
 									<c:if test="${sessionScope.authGradeCode == 1002}">
 										<li class="nav-item">
-											<a class="nav-link" onclick="activeChange()" href="/shop/toShopRegister">
+											<a class="nav-link navText" onclick="activeChange()" href="/shop/toShopRegister">
 											공구 등록
 											</a>
 										</li>
@@ -299,6 +303,6 @@
 		}
 	</script>
 
-
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
