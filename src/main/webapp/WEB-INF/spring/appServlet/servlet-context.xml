@@ -57,6 +57,7 @@
          <exclude-mapping path="/clientMember/certificationSign"/>
          <exclude-mapping path="/clientMember/certificationLogin"/>
          <exclude-mapping path="/clientMember/removeSession"/>
+         <exclude-mapping path="/businessMember/login_form"/>
          <exclude-mapping path="/businessMember/login"/>
          <exclude-mapping path="/businessMember/getIdByPhone"/>
          <exclude-mapping path="/businessMember/sendSmsLogin"/>

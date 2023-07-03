@@ -30,6 +30,11 @@ public class BusinessMemberController {
 	@Autowired
 	private BusinessMemberService bms;
 	
+	//  로그인 창으로 이동
+	@RequestMapping("login_form")
+	public String login_form() throws Exception {
+		return "member/clientLogin";
+	}
 	
 	//사업자 로그인
 		@RequestMapping("login")
