@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.JsonObject;
+
 import cc.spring.dto.BanMemberDTO;
 import cc.spring.dto.BoardCountDTO;
-import cc.spring.dto.MealDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
@@ -29,7 +30,6 @@ public class AdminController {
 		return "forward:/admin/index.html";
 	}
 	
-	@ResponseBody
 	@RequestMapping("selectMealCount")
 	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> successMeal = aService.selectMealCount();
@@ -60,20 +60,23 @@ public class AdminController {
 		return result;
 	}
 	
-	@ResponseBody 
 	@RequestMapping(value = "banMember", produces="text/plain;charset=utf-8")
-	public int banMember(@RequestBody List<Integer> memberCodeArr) {
-		
-		return aService.BanMember(memberCode);
+	public int banMember(@RequestBody Map<String, List<Integer>> memberCodeArr) {
+		int result = 0;
+		List<Integer> codeArr =  memberCodeArr.get("memberCodeArr");
+		System.out.println(codeArr);
+		for(int i=0; i<codeArr.size(); i++) {
+			aService.BanMember(codeArr.get(i));
+			result ++;
+		}
+		return result;  
 	}
 	
-	@ResponseBody
 	@RequestMapping("selectUserList")
 	public List<MemberDTO> selectUserList(){
 		return aService.selectUserList();
 	}
 	
-	@ResponseBody
 	@RequestMapping("selectBanUserList") 
 	public List<BanMemberDTO> selectBanUserList(){
 		return aService.selectBanUserList();
