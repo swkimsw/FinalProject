@@ -53,10 +53,12 @@
          <exclude-mapping path="/clientMember/sign_form"/>
          <exclude-mapping path="/clientMember/sendSmsSign"/>
          <exclude-mapping path="/clientMember/getIdByPhone"/>
+         <exclude-mapping path="/clientMember/sendSmsLogin"/>
          <exclude-mapping path="/clientMember/checkSum"/>
          <exclude-mapping path="/clientMember/certificationSign"/>
          <exclude-mapping path="/clientMember/certificationLogin"/>
          <exclude-mapping path="/clientMember/removeSession"/>
+         <exclude-mapping path="/businessMember/login_form"/>
          <exclude-mapping path="/businessMember/login"/>
          <exclude-mapping path="/businessMember/getIdByPhone"/>
          <exclude-mapping path="/businessMember/sendSmsLogin"/>
@@ -67,8 +69,6 @@
          <exclude-mapping path="/businessMember/certificationSign"/>
          <exclude-mapping path="/businessMember/removeSession"/>
          <exclude-mapping path="/businessMember/signup"/>
-         
-
       	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
       </interceptor>
    </interceptors>

@@ -18,6 +18,7 @@ import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.loginCountDTO;
 import cc.spring.services.BusinessMemberService;
+import cc.spring.services.SensUtilsService;
 import cc.spring.services.ShopService;
 import cc.spring.services.SmsService;
 
@@ -30,6 +31,11 @@ public class BusinessMemberController {
 	@Autowired
 	private BusinessMemberService bms;
 	
+	//  로그인 창으로 이동
+	@RequestMapping("login_form")
+	public String login_form() throws Exception {
+		return "member/clientLogin";
+	}
 	
 	//사업자 로그인
 		@RequestMapping("login")
@@ -54,11 +60,9 @@ public class BusinessMemberController {
 					session.setAttribute("id",bmd.getBusinessId());
 					session.setAttribute("companyName",bmd.getCompanyName());
 					session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
-					System.out.println("로그인 실행!");
 					return "redirect:/";
 				}
 			}
-			System.out.println("로그인 실패!!");
 			redir.addFlashAttribute("status","false2");
 			return "redirect:/businessMember/login_form";
 		}
@@ -85,7 +89,7 @@ public class BusinessMemberController {
 					String ran = Integer.toString(rand.nextInt(10));
 					numStr+=ran;
 				}
-				SmsService.certifiedPhoneNumber(phone, numStr);
+				SensUtilsService.send_msg(phone, numStr);
 				session.setAttribute("numStr", numStr);	
 				session.setAttribute("phone", phone);
 				
@@ -171,7 +175,7 @@ public class BusinessMemberController {
 					String ran = Integer.toString(rand.nextInt(10));
 					numStr+=ran;
 				}
-				SmsService.certifiedPhoneNumber(phone, numStr);
+				SensUtilsService.send_msg(phone, numStr);
 				session.setAttribute("numStr", numStr);	
 			
 			}
@@ -277,7 +281,7 @@ public class BusinessMemberController {
 					String ran = Integer.toString(rand.nextInt(10));
 					numStr+=ran;
 				}
-				SmsService.certifiedPhoneNumber(phone, numStr);
+				SensUtilsService.send_msg(phone, numStr);
 				session.setAttribute("numStr", numStr);	
 			System.out.println(String.valueOf(true));	
 			

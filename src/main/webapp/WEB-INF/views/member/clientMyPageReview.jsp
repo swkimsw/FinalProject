@@ -44,10 +44,11 @@
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script> 
+    <link href="${path}/resources/css/pageFooter.css" rel="stylesheet"
+	type="text/css">
 <style>
 * {
 	font-family: NanumSquareNeo;
-	/* border: 1px solid black; */
 	box-sizing: border-box;
 }
 
@@ -62,11 +63,12 @@ color:green;
 	margin-top: 100px;
 }
 .atag{text-decoration-line: none;
-color: #007936;}
+color: #007936;
+font-weight: bold;
+}
 .mainPage {
 	border: 5px solid #fee1e870;
 	border-radius: 30px;
-	/* background-color: #ffffc230; */
 }
 /* 페이징 */
 .table{
@@ -92,13 +94,6 @@ color: #007936;}
 	padding: 4px;
 }
 
-/*  */
-/*   .dataTables_wrapper .dataTables_paginate .paginate_button ,
-.dataTables_wrapper .dataTables_paginate .paginate_button a {
-  background: #007936;
-  color: white;
-  border-radius: 20px;
-}  */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
 background: none;
@@ -110,15 +105,7 @@ border: none;
 background: blue;
 opacity: 70%;
 }
-/* .paginate_button .ton{
-background: green;}
-.paginate_button .active,
-.paginate_button .active a{
-background-color: red;
-color: thite;
-} 
- */
-/*  */
+
 table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
 	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
 	table.dataTable thead>tr>th.sorting_desc_disabled:before, table.dataTable thead>tr>td.sorting:before,
@@ -145,11 +132,6 @@ table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_a
 =
 .fontCol {
 	color: #007936;
-}
-
-.a1 {
-	/* text-align: center; */
-	
 }
 
 /* 사이즈 대비 출력되는 부트스트랩반응형 */
@@ -316,5 +298,6 @@ h1.second span:after {
 			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
 		});
 	</script>
+		<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
