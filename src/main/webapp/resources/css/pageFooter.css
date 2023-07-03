@@ -1,6 +1,9 @@
 @charset "UTF-8";
 
-
+body{
+	min-height: 100%;
+	position: relative;
+}
 .footerContainer{
 	position: relative;
 	width:100%;
@@ -8,9 +11,9 @@
 }
 
 .footer{
-	
-	width:100%;
-	min-height:100%;
+    width: 100%;
+    min-height: 100%;
+    border-top: 1px solid grey;
 }
 
 

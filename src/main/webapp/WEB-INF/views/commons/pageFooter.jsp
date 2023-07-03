@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	<div class="footerContainer">
+	<div class="footerContainer pt-3">
 	  
-		  <footer class="text-center footer" style="background-color:rgba(255, 255, 194, 0.5);">
-		    <div class="container py-2 footerBox footerp-4" style="background-color: rgba(255, 255, 194, 0.5);" >
+		  <footer class="text-center footer" style="background-color:inherit;">
+		    <div class="container py-2 footerBox footerp-4"  >
 		    
 		        <p class="d-flex justify-content-center align-items-center">
 		          <span class="me-3">Register for free</span>
