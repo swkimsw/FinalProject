@@ -15,6 +15,7 @@ public class MyPageService {
 
 	@Autowired
 	private MyPageDAO cmdao;
+	
 	//클라이언트 마이페이지 자유게시판 서비스
 	public List<BoardFreeDTO> myPageList(int code) {
 		System.out.println("마이페이지 자유게시판");

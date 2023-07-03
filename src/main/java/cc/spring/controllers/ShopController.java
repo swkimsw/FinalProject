@@ -79,12 +79,17 @@ public class ShopController {
 
 		// 선택한 공구샵 답글 목록 가져오기
 		List<ShopReplyAnswerDTO> shopReplyAnswerDTO = shopReplyService.selectShopReplyAnswer(code);
-
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date now = new Date();
+		String nowTime = sdf.format(now);
+		
 		model.addAttribute("shopDTO", shopDTO);
 		model.addAttribute("fileDTO", fileDTO);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("shopReplyAskDTO", shopReplyAskDTO);
 		model.addAttribute("shopReplyAnswerDTO", shopReplyAnswerDTO);
+		model.addAttribute("nowTime", nowTime);
 		return "/shop/shopApply";
 	}
 
@@ -96,9 +101,7 @@ public class ShopController {
 		String realPath = session.getServletContext().getRealPath("/resources/shopImg");
 		shopService.insertShop(dto, shippingCompany, files, realPath);
 
-		System.out.println(dto.getDeadLineTemp());
-		
-		return "redirect:/";
+		return "redirect:/shop/toShopList";
 	}
 
 	// 공구샵 수정
@@ -129,6 +132,14 @@ public class ShopController {
 	@RequestMapping("isExistRequest")
 	public int isExistRequest(int code, String memberCode) {
 		int result = shopService.isExistRequest(code, memberCode);
+		return result;
+	}
+	
+	// 판매자 로그인 시 들어온 요청 수
+	@ResponseBody
+	@RequestMapping("countShopRequest")
+	public int countShopRequest(int code) {
+		int result = shopService.countShopRequest(code);
 		return result;
 	}
 

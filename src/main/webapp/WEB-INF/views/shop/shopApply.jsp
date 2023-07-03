@@ -33,6 +33,8 @@
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	
+	/*.col-xl-8 > .carousel > .carousel-inner > .carousel-item > img {width:100%;}*/
+	/*.col-xl-8 > .carousel > .carousel-control-prev { margin-left: 10%;}*/
 	
 </style>
 </head>
@@ -47,27 +49,29 @@
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
 			
 			<div class="images" style="height:40%;">
-				<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
-  					<div class="carousel-inner">
-  						<div class="carousel-item active">
-  							<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
-      						<img src="${fileDTO[0].path}${fileDTO[0].sysname}" class="d-block w-100" alt="...">
-    					</div>
-  						<c:forEach var="i" items="${fileDTO}" begin="1">
-  							<div class="carousel-item">
-  								<input type="hidden" name="sysname" value="${i.sysname}">
-      							<img src="${i.path}${i.sysname}" class="d-block w-100" alt="...">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+					<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
+  						<div class="carousel-inner" style="text-align:center">
+  							<div class="carousel-item active">
+  								<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
+      							<img src="${fileDTO[0].path}${fileDTO[0].sysname}" class="carouselImg img-fluid" alt="...">
     						</div>
-  						</c:forEach>
-  					</div>
-  					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    					<span class="visually-hidden">Previous</span>
-  					</button>
-  					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-    					<span class="visually-hidden">Next</span>
-  					</button>
+  							<c:forEach var="i" items="${fileDTO}" begin="1">
+  								<div class="carousel-item">
+  									<input type="hidden" name="sysname" value="${i.sysname}">
+      								<img src="${i.path}${i.sysname}" class="carouselImg img-fluid" alt="...">
+    							</div>
+  							</c:forEach>
+  						</div>
+  						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    						<span class="visually-hidden">Previous</span>
+  						</button>
+  						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+    						<span class="visually-hidden">Next</span>
+  						</button>
+					</div>
 				</div>
 			</div>
 			
@@ -87,7 +91,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-					<div class="mm input-group mb-3">
+					<div class="input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" required readonly>
 						<span class="input-group-text">원</span>
@@ -165,30 +169,30 @@
 				</div>
 			</div>
 			<c:choose>
-				<c:when test="${sessionScope.authGradeCode == 1002 and !sessionScope.id.equals(shopDTO.businessId)}">
-					<!-- 등록하지 않은 판매자일 때 -->
-					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-						<div class="buttons">
-							<a href="/"><input type="button" id="back" value="뒤로 가기" class="btn btn-success"></a>
-						</div>
-					</div>
-				</c:when>
-				<c:when test="${sessionScope.authGradeCode == 1003}">
-					<!-- 이용자 -->
-					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
-						<div class="buttons">
-							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-success">
-							<a href="/"><input type="button" value="취소" class="btn btn-success"></a>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
+				<c:when test="${sessionScope.authGradeCode == 1002 and sessionScope.id.equals(shopDTO.businessId) or sessionScope.authGradeCode == 1001}">
 					<!-- 등록한 판매자 & 관리자 -->
 					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
 						<div class="buttons">
 							<input type="button" id="updateBtn" value="수정" class="btn btn-success">
-							<a href="/shop/deleteShop?code=${shopDTO.code}"><input type="button" id="deleteBtn" value="삭제" class="btn btn-success"></a>
-							<a href="/"><input type="button" id="back" value="취소" class="btn btn-success"></a>
+							<input type="button" id="deleteBtn" value="삭제" class="btn btn-success" onclick="deleteShopConfirm(${shopDTO.code})">
+							<a href="/shop/toShopList"><input type="button" id="back" value="취소" class="btn btn-success"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:when test="${sessionScope.authGradeCode == 1003 and nowTime <= shopDTO.deadLine}">
+					<!-- 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<input type="button" id="insertRequestBtn" value="신청" class="btn btn-success">
+							<a href="/shop/toShopList"><input type="button" value="취소" class="btn btn-success"></a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<!-- 등록하지 않은 판매자일 때 & 날짜 지난 공구 신청하려는 이용자 -->
+					<div class="col-xl-12 col-md-12 col-xs-12 text-center">
+						<div class="buttons">
+							<a href="/shop/toShopList"><input type="button" id="back" value="뒤로 가기" class="btn btn-success"></a>
 						</div>
 					</div>
 				</c:otherwise>
@@ -248,9 +252,8 @@
  									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
  									<div id="replyAskBtns${i.code}" class="replyBtns">
  										<button type="button" id="updateReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAskClick(${i.code})">수정</button>
- 										<a href="/shopReply/deleteReplyAsk?code=${i.code}&postCode=${shopDTO.code}">
- 											<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm">삭제</button>
- 										</a>
+ 										<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm"
+ 											onclick="deleteReplyAskConfirm(${i.code},${shopDTO.code})">삭제</button>
  									</div>
 								</div>
 							</div>
@@ -303,9 +306,8 @@
 											<textarea id="replyAnswerContent${j.code}" class="selectReplyAnswer form-control" name="content" rows="3" readonly>${j.content}</textarea>
 											<div id="replyAnswerBtns${j.code}" class="replyBtns">
 												<button type="button" id="updateReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAnswerClick(${j.code})">답글 수정</button>
-												<a href="/shopReply/deleteReplyAnswer?code=${j.code}&postCode=${shopDTO.code}">
-													<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm">답글 삭제</button>
-												</a>
+												<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" 
+													onclick="deleteReplyAnswerConfirm(${j.code},${shopDTO.code})">답글 삭제</button>
 											</div>
 										</div>
 									</div>
@@ -443,7 +445,6 @@
 			let row="";
 			row += '<div id="replyAnswerInsert'+code+'">';
 			row += '<div class="mb-3">';
-			// row += '<i class="fa-light fa-turn-down-right"></i>';
 			row += '<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>';
 			row += '&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>';
 			row += '<div class="reply" style="margin-left:5%;">';
@@ -494,6 +495,30 @@
 			
 			$("#replyAnswerBtns"+code).append(updateReplyComplete);
 			$("#replyAnswerBtns"+code).append(cancel);
+		}
+		
+		// 공구샵 삭제 버튼 눌렀을 때 확인
+		function deleteShopConfirm(code){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="/shop/deleteShop?code="+code;
+			}
+			return false;
+		}
+		
+		// 공구샵 댓글 삭제 버튼 눌렀을 때 확인
+		function deleteReplyAskConfirm(code, postCode){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="/shopReply/deleteReplyAsk?code="+code+"&postCode="+postCode;
+			}
+			return false;
+		}
+		
+		// 공구샵 답글 삭제 버튼 눌렀을 때 확인
+		function deleteReplyAnswerConfirm(code, postCode){
+			if(confirm("정말 삭제하시겠습니까?")){
+				location.href="/shopReply/deleteReplyAnswer?code="+code+"&postCode="+postCode;
+			}
+			return false;
 		}
 		
 	</script>

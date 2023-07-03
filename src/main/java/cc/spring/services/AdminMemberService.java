@@ -34,15 +34,7 @@ public class AdminMemberService {
 	public MemberDTO selectAdminMemberInfo(String id, String pw) {
 		return adminDAO.selectAdminMemberInfo(id, pw);
 	}
-	
-	public List<MemberDTO> selectAllBusinessMember() {
-		return bDAO.selectAllBusinessMember();
-	}
-	
-	public List<MemberDTO> selectAllClientMember() {
-		return cDAO.selectAllClientMember();
-	}
-	
+
 	public Map<String, Integer> selectMealCount() {
 		Map<String, Integer> mealCountMap = new HashMap<String, Integer>();
 		mealCountMap.put("mealSuccessTotal", adminDAO.selectSuccessMeal());

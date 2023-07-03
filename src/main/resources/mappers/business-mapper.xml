@@ -58,8 +58,4 @@
 	<delete id="deleteMember">
 		delete from Member where code = #{code}
 	</delete>
-	
-	<select id="selectAllBusinessMember" resultType="cc.spring.dto.MemberDTO">
-		select * from member where authgradecode = 1002
-	</select>
 </mapper>

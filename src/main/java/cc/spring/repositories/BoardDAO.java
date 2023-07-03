@@ -1,5 +1,6 @@
 package cc.spring.repositories;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,82 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectAllFree");
 	}
 
+
+	
+	//자유게시판 전부 가져오기 가져오기 - check분류	
+	public List<BoardFreeDTO> selectCheckAllFree(int[] check) {
+		
+		
+		if (check.length == 1) {//체크가 한개일때
+			int headLineCode = check[0];
+			return mybatis.selectList("Board.selectCheckAllFree", headLineCode);
+		} else {//체크가 여러개일때
+			List<Integer> headLineCodes = new ArrayList<>();
+	        for (int i = 0; i < check.length; i++) {
+	            headLineCodes.add(check[i]);
+	        }
+	        
+	        return mybatis.selectList("Board.selectChecksAllFree", headLineCodes);
+		}
+		
+		
+	
+		
+	}
+
+	
+	//자유게시판 글 조건에 따라 가져오기 - check분류
+		public List<BoardFreeDTO> selectFreeChecklist(int start, int end,int[] check) {
+			Map<String ,Object> param = new HashMap<>();
+			param.put("start", start);
+			param.put("end", end);
+			
+
+			if (check.length == 1) {//체크가 한개일때
+				int headLineCode = check[0];
+				param.put("headLineCode", headLineCode);
+				return mybatis.selectList("Board.selectFreeChecklist", param);
+			} else {//체크가 여러개일때
+				List<Integer> headLineCodes = new ArrayList<>();
+		        for (int i = 0; i < check.length; i++) {
+		            headLineCodes.add(check[i]);
+		        }
+		        param.put("headLineCodes", headLineCodes);
+		        return mybatis.selectList("Board.selectFreeCheckslist", param);
+			}
+
+			
+	}
+		
+		
+	//자유게시판 글 조건에 따라 가져오기 - 검색
+		public List<BoardFreeDTO> selectSearchFree(int start,int end,String search, String searchCate) {
+			
+			
+			Map<String ,Object> param = new HashMap<>();
+			param.put("start", start);
+			param.put("end", end);
+			param.put("search", search );
+			
+			if(searchCate.equals("제목")) { //검색카테고리가 제목일때
+				return  mybatis.selectList("Board.selectTitleFree",param);
+			}else { // 검색 카테고리가 작성자일때
+				return  mybatis.selectList("Board.selectMemberFree",param);
+			}
+			
+		}
+		
+		public List<BoardFreeDTO> selectAllSearchFree(String search, String searchCate) {
+			
+			
+			if(searchCate.equals("제목")) { //검색카테고리가 제목일때
+				return  mybatis.selectList("Board.selectAllTitleFree",search);
+			}else { // 검색 카테고리가 작성자일때
+				return  mybatis.selectList("Board.selectAllMemberFree",search);
+			}
+			
+		}
+		
 	
 	//공지게시판 글 조건에 따라 가져오기	
 	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start,int end) {
@@ -93,7 +170,7 @@ public class BoardDAO {
 	}
 	
 	//공지게시판 글 조건에 따라 가져오기 - 검색
-	public List<BoardAnnouncementDTO> selectSearchAnnouncelist(int start,int end,String search, String searchCate) {
+	public List<BoardAnnouncementDTO> selectSearchAnnounce(int start,int end,String search, String searchCate) {
 		
 		
 		Map<String ,Object> param = new HashMap<>();
@@ -102,9 +179,9 @@ public class BoardDAO {
 		param.put("search", search );
 		
 		if(searchCate.equals("제목")) { //검색카테고리가 제목일때
-			return  mybatis.selectList("Board.selectTitleAnnouncementlist",param);
+			return  mybatis.selectList("Board.selectTitleAnnouncement",param);
 		}else { // 검색 카테고리가 작성자일때
-			return  mybatis.selectList("Board.selectMemberAnnouncementlist",param);
+			return  mybatis.selectList("Board.selectMemberAnnouncement",param);
 		}
 		
 	}
@@ -297,17 +374,24 @@ public class BoardDAO {
 	
 	
 // ==================================================================================================
+	
+	// 자유게시판 댓글 삭제
 	public int deleteFreeReply(ReplyFreeDTO dto) {
 		return mybatis.delete("Board.deleteFreeReply", dto);
 	}
 
 
-
-
+// ==================================================================================================
 	
-
-
+	// 자유게시판 댓글 좋아요 up
+	public int upReplyLikeCount(ReplyFreeDTO dto) {
+		return mybatis.update("Board.upReplyLikeCount", dto);
+	}
 	
+	// 자유게시판 댓글의 좋아요 수 가져오기
+	public ReplyFreeDTO selectReplyLikeCount(ReplyFreeDTO dto) {
+		return mybatis.selectOne("Board.selectReplyLikeCount",dto);
+	}
 
 
 

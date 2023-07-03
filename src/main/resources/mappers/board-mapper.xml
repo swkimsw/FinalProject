@@ -80,8 +80,73 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	<select id="selectAllFree" resultType="cc.spring.dto.BoardFreeDTO">
 		select * from boardfree_view order by regdate desc
 	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기  - 체크 분류(체크값이 단일)-->
+	<select id="selectFreeChecklist" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from ( select boardFree_view.*, row_number() over(order by code desc) as rn from boardFree_view 
+		where headlinecode = #{headLineCode} )
+		where rn between #{start} and #{end}
+	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 체크 분류(체크값이 복수일때) -->
+	<select id="selectFreeCheckslist" resultType="cc.spring.dto.BoardFreeDTO">
+	  SELECT *
+	  FROM (
+	    SELECT boardFree_view.*, ROW_NUMBER() OVER (ORDER BY code DESC) AS rn
+	    FROM boardFree_view
+	    WHERE headlinecode IN 
+	    <foreach collection="headLineCodes" item="item" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	 )
+	  WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+		
+
+	
+	<!-- 자유게시판리스트 전부 가져오기 - 체크분류(단일) -->
+	<select id="selectCheckAllFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where headlinecode = #{headLineCode} order by regdate desc
+	</select>
+	
+	
+	<!-- 자유게시판리스트 전부 가져오기 - 체크분류(복수) -->
+	<select id="selectChecksAllFree"  resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where headlinecode in 
+		<foreach collection="list" index='index' item="item" open="(" separator="," close=")">
+        #{item}
+   		 </foreach>
+		order by regdate desc
+	</select>
+	
+	
 
 
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(제목) -->
+	<select id="selectTitleFree" resultType="cc.spring.dto.BoardFreeDTO">
+	SELECT * FROM ( SELECT boardfree_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardfree_view
+    WHERE title like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 자유게시판리스트 전부 가져오기 - 검색(제목) -->
+	<select id="selectAllTitleFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where title like '%${search}%'  order by regdate desc
+	</select>
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(작성자) -->
+	<select id="selectMemberFree" resultType="cc.spring.dto.BoardFreeDTO">
+	SELECT * FROM ( SELECT boardfree_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardfree_view
+    WHERE membernickname like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 자유게시판리스트 전부 가져오기 - 검색(작성자) -->
+	<select id="selectAllMemberFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where membernickname like '%${search}%'  order by regdate desc
+	</select>
 
 <!-- ============================================================================================================ -->
 
@@ -97,7 +162,7 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	</select>
 	
 	<!-- 공지사항게시판리스트 조건에 따라 가져오기 - 검색(제목) -->
-	<select id="selectTitleAnnouncementlist" resultType="cc.spring.dto.BoardAnnouncementDTO">
+	<select id="selectTitleAnnouncement" resultType="cc.spring.dto.BoardAnnouncementDTO">
 	SELECT * FROM ( SELECT boardannouncement_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardannouncement_view
     WHERE title like '%${search}%')
 	WHERE rn BETWEEN #{start} AND #{end}
@@ -109,7 +174,7 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	</select>
 	
 	<!-- 공지사항게시판리스트 조건에 따라 가져오기 - 검색(작성자) -->
-	<select id="selectMemberAnnouncementlist" resultType="cc.spring.dto.BoardAnnouncementDTO">
+	<select id="selectMemberAnnouncement" resultType="cc.spring.dto.BoardAnnouncementDTO">
 	SELECT * FROM ( SELECT boardannouncement_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardannouncement_view
     WHERE membername like '%${search}%')
 	WHERE rn BETWEEN #{start} AND #{end}
@@ -251,7 +316,12 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	
 <!-- 게시판 신고 기능 -->
 	<insert id="insertReport" >
-insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	<if test="replyCode == 0">
+		insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</if>
+	<if test="replyCode != 0">
+		insert into report values (report_seq.nextval , #{postcode} , #{replyCode} , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</if>
 	</insert>	
 	
 
@@ -306,5 +376,16 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 		delete from replyfree where code = #{code}
 	</delete>
 
+<!-- ============================================================================================== -->
 
+	<!-- 자유게시판 댓글 좋아요 up -->
+	<update id="upReplyLikeCount">
+		update replyfree set likecount = likecount + 1 where code = #{code}
+	</update>
+
+	<!-- 자유게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectReplyLikeCount" resultType="cc.spring.dto.ReplyFreeDTO">
+		select * from replyfree where code = #{code}
+	</select>
+	
 </mapper>
