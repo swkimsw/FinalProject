@@ -45,7 +45,8 @@
          <exclude-mapping path="/meal/toAiMeal"/>
          <exclude-mapping path="/meal/toMyMeal"/>
          <exclude-mapping path="/basket/toMyBasket"/>
-         <exclude-mapping path="/clientMember/login_form"/>
+         <exclude-mapping path="/shop/toShopList"/>
+      	 <exclude-mapping path="/shop/searchByKeyword"/>
          <exclude-mapping path="/businessMember/login_form"/>
          <exclude-mapping path="/clientMember/login"/>
          <exclude-mapping path="/clientMember/signup"/>
@@ -66,7 +67,7 @@
          <exclude-mapping path="/businessMember/sendSmsSign"/>
          <exclude-mapping path="/businessMember/certificationSign"/>
          <exclude-mapping path="/businessMember/removeSession"/>
-          <exclude-mapping path="/businessMember/signup"/>
+         <exclude-mapping path="/businessMember/signup"/>
          
 
       	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
