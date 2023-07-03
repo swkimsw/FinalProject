@@ -12,39 +12,39 @@ import cc.spring.repositories.BusinessMemberDAO;
 
 @Service
 public class BusinessMemberService {
-	
+
 	@Autowired
 	private BusinessMemberDAO bdao;
 
 	@Autowired
 	private AdminDAO adminDAO;
-	
+
 	public boolean existingMember(MemberDTO dto) {
 		return bdao.login(dto);
 	}
-	
+
 	@Transactional
 	public boolean login(loginCountDTO ldto, MemberDTO dto) {
 		adminDAO.updatelogintCount(ldto);
 		return bdao.login(dto);
 	}
+
 	public String getIdByPhone(String phone) {
-		System.out.println("아이디값 받아오기 서비스!");
 		return bdao.getIdByPhone(phone);
 	}
+
 	public boolean isBusinessMember(String key, String value) {
-		return bdao.isBusinessMember(key,value);
+		return bdao.isBusinessMember(key, value);
 	}
-	
+
 	public boolean phoneAndemailDuplication(String key, String value) {
-		return bdao.phoneAndemailDuplication(key,value);
+		return bdao.phoneAndemailDuplication(key, value);
 	}
-	
+
 	public boolean phoneCheck(String phone) {
-		System.out.println("비지니스 폰체크 서비스");
 		return bdao.phoneCheck(phone);
 	}
-	
+
 	@Transactional
 	public int insertBusiness(MemberDTO dto) {
 		int memberCode = bdao.insertBusiness(dto);
@@ -52,31 +52,31 @@ public class BusinessMemberService {
 		adminDAO.insertGptCount(new gptCountDTO(memberCode, 0, 0, 0, 0));
 		return memberCode;
 	}
-	
+
 	public int updatePwBusiness(MemberDTO dto) {
 		return bdao.updatePw(dto);
 	}
-	
+
 	public MemberDTO selectBusinessMemberInfo(String businessId) {
 		return bdao.selectBusinessMemberInfo(businessId);
 	}
-	
+
 	public MemberDTO selectMemberInfoByCode(int code) {
 		return bdao.selectMemberInfoByCode(code);
 	}
-	
+
 	public boolean checkPw(String id, String pw) {
 		return bdao.checkPw(id, pw);
 	}
-	
+
 	public int updateMemberInfo(MemberDTO dto) {
 		return bdao.updateMemberInfo(dto);
 	}
-	
+
 	public boolean checkGroupBuying(int code) {
 		return bdao.checkGroupBuying(code);
 	}
-	
+
 	public int deleteMember(int code) {
 		return bdao.deleteMember(code);
 	}

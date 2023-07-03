@@ -38,7 +38,6 @@
 	crossorigin="anonymous"></script>
 <script>
             Kakao.init('ec820c4eea48288ba6533946b92c5965'); //발급받은 키 중 javascript키를 사용해준다.
-            console.log(Kakao.isInitialized()); // sdk초기화여부판단
          </script>
 <!-- gnb css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
@@ -823,7 +822,6 @@ color: #00793690;
                }).done(function (resp) {
                   // 전화번호 check
                   if (!resp) {
-                	  console.log(resp);
                      $("#phone").val("");
                      alert("전화번호를 확인해주세요.");
                      return false;
@@ -923,7 +921,6 @@ color: #00793690;
              	   
                    if (resp.success) {
                     AuthTimer.fnStop(); 
-                    console.log(resp);
                       $("#login_view_fadeOut2").hide();
                       $("#find_member_fadeIn2").hide();
                       $("#to_phone_authentication_fadeIn2").hide();

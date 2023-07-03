@@ -53,7 +53,6 @@
 <style>
 * {
 	font-family: NanumSquareNeo;
-	/* border: 1px solid black; */
 	box-sizing: border-box;
 }
 
@@ -100,13 +99,6 @@ label {
 	padding: 4px;
 }
 
-/*  */
-/*   .dataTables_wrapper .dataTables_paginate .paginate_button ,
-.dataTables_wrapper .dataTables_paginate .paginate_button a {
-  background: #007936;
-  color: white;
-  border-radius: 20px;
-}  */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 	.dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
 	background: none;
@@ -119,15 +111,6 @@ label {
 	background: blue;
 	opacity: 70%;
 }
-/* .paginate_button .ton{
-background: green;}
-.paginate_button .active,
-.paginate_button .active a{
-background-color: red;
-color: thite;
-} 
- */
-/*  */
 table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
 	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
 	table.dataTable thead>tr>th.sorting_desc_disabled:before, table.dataTable thead>tr>td.sorting:before,
@@ -275,7 +258,6 @@ h1.second span:after {
 	</main>
 	<script>
 	function goToLink(url) {
-    	console.log(url)
       window.location.href = url;
     }
 	window.addEventListener('DOMContentLoaded', (event) => {
@@ -327,7 +309,6 @@ h1.second span:after {
 				pagingType : "full_numbers",
 				info : false,
 				lengthChange: false,
-				/* sPaginationType : "bootstrap" */
 			});
 			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
 		});
