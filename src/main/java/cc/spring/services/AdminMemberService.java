@@ -68,9 +68,10 @@ public class AdminMemberService {
 	}
 	
 	@Transactional
-	public int BanMember(int memberCode, BanMemberDTO dto) {
+	public int BanMember(int memberCode) {
 		adminDAO.deleteBanMember(memberCode);
-		return adminDAO.insertBanMember(dto);
+		MemberDTO Mdto = adminDAO.selectBanUser(memberCode);
+		return adminDAO.insertBanMember(new BanMemberDTO(Mdto.getCode(), Mdto.getId(), Mdto.getBusinessId(), Mdto.getPw(), Mdto.getName(), Mdto.getCompanyName(), Mdto.getAuthGradeCode(),Mdto.getNickName(), Mdto.getBirthDate(), Mdto.getPhone(), Mdto.geteMail(), Mdto.getShippingCompany(), Mdto.getZipcode(), Mdto.getAddress1(), Mdto.getAddress2(), Mdto.getAgree(), Mdto.getRegDate(), Mdto.getModDate(), Mdto.getDelDate()));
 	}
 	
 	public List<MemberDTO> selectUserList(){

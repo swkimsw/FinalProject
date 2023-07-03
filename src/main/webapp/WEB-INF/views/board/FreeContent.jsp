@@ -431,8 +431,8 @@
 		                                    	<div class="replyMemberCode">${i.memberCode}</div>
 		                                    	<hr style="margin-top: 60px;">
 			                                    <div class="d-flex mt-5">
-			                                        <div class="flex-shrink-0"><img class="rounded-circle"
-			                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
+			                                        <div class="flex-shrink-0">
+			                                        	<img class="rounded-circle" style="height:50px; width:50px; border:1px solid black;" src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png" alt="...">			                                        
 			                                        </div>
 		
 			                                        <div class="ms-3">
@@ -891,7 +891,6 @@
                 		})
                 	 }
                 	 else {
-                		alert("삭제에 실패하였습니다.");
                 		 return false;
                 	 }
                  })
@@ -904,7 +903,7 @@
                 	  var replyCode = $button.parent().prev().children().next().children().next().next().html();
 
                 	  $.ajax({
-                	    url: "/board/upReplyLikeCount",
+                	    url: "/board/upFreeReplyLikeCount",
                 	    type: "post",
                 	    dataType: "json",
                 	    data: {

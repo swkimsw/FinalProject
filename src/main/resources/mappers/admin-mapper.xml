@@ -124,4 +124,8 @@
 		group by b.dt
 		order by b.dt
 	</select>
+	
+	<select id="selectBanUser" resultType="cc.spring.dto.MemberDTO">
+		select * from member where code = ${code}
+	</select>
 </mapper>
