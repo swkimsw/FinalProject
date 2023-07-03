@@ -418,7 +418,7 @@
 			}
 			
 			let code = $("#code").val(); // 공구샵 코드
-			let memberCode = 0${sessionScope.code}; // 멤버 코드
+			let memberCode = ${sessionScope.code}; // 멤버 코드
 			
 			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
 			$.ajax({
@@ -434,8 +434,9 @@
 					alert("이미 신청한 공구입니다!");
 					return false;
 				}
-				location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 			})
+		
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 		})
 		
 		// 답글 달기 버튼 눌렀을 때

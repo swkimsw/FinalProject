@@ -217,7 +217,7 @@
 						$.ajax({
 							url: "/shop/myShopListByStatus",
 							type: "post",
-							dataType : "json",
+							dataType : "json", 
 							data : {status : status},
 							error: function(){
 								alert("서버 연결에 실패하였습니다.");
@@ -238,13 +238,13 @@
 										div += "<div class='col col-md-7 col-lg-7 col-xl-7 card-body cardText'>";
 										
 										if(i.statusCode == 1001){
-											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-success position-absolute top-0 end-0 m-3 p-2'>" 
 													+ i.statusValue + "</span>"
 										}else if(i.statusCode == 1002){
-											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-secondary position-absolute top-0 end-0 m-3 p-2'>" 
 												+ i.statusValue + "</span>"
 										}else if(i.statusCode == 1003){
-											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-2 p-2'>" 
+											div += "<span class='badge rounded-pill text-bg-dark position-absolute top-0 end-0 m-3 p-2'>" 
 												+ i.statusValue + "</span>"
 										}
 												
@@ -387,7 +387,7 @@
 				
 					
 					function openInfo(a){
-						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1200, height=600,left=200, top=100, scrollbars=yes");
+						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1300, height=600,left=200, top=100, scrollbars=yes");
 					}
 				</script>
 			</c:when>

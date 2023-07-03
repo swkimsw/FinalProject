@@ -24,16 +24,14 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
 	rel="stylesheet">
-<!-- awesome font -icon -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-	rel="stylesheet"
-	integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- Font 기본 : {font-family: 'NanumSquareNeoBold'}-->
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
+	<!-- SheetJS CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.14.3/xlsx.full.min.js"></script>
+<!-- FileSaver saveAs CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 <title>신청차 정보</title>
 <style>
 
@@ -44,14 +42,17 @@
 </style>
 </head>
 <body>
-			<div class="container-fluid mt-5" style="width:1300px;">
-				<h3>신청자 목록</h3>
-				<table class="table table-striped table-bordered" >
+			<div class="container-fluid px-0 mt-5 position-relative" style="width:1300px;">
+				<span class="fs-2">신청자 목록</span>
+				<button class="btn btn-success position-absolute end-0 top-0" onclick="exportExcel(${code})">
+					<i class="bi bi-box-arrow-in-down"></i>&nbsp;Excel로 내보내기
+				</button>
+				<table class="table table-striped table-bordered" id="applicantList">
 			 		<thead>
 			 			<tr align="center">
-			 				<th scope='col'></th>
-			 				<th scope='col'>코드</th>
-			 				<th scope='col'>신청일</th>
+			 				<th scope='col'>#</th>
+			 				<th scope='col'>신청코드</th>
+			 				<th scope='col'>신청일자</th>
 			 				<th scope='col'>이름</th>
 			 				<th scope='col'>아이디</th>
 			 				<th scope='col'>전화번호</th>
@@ -90,15 +91,70 @@
 				 			</c:otherwise>
 			 			</c:choose>
 			 		</tbody>
-			 		
-			 		<tfoot>
-			 			<tr align="center">
-			 				<td colspan='12'><button onclick="window.close()">닫기</button></td>
-			 			</tr>
-			 		</tfoot>
 				</table>
+				<div class="d-flex justify-content-center">
+					<button class="btn btn-success" onclick="window.close()">닫기</button>	
+				</div>	 			
 			</div>
+			
+			<script>
+			
+			//excel파일의 콘텐츠 유형은 octet-stream이므로 binary를 octet으로 변환해야함 -> ArrayBuffer과 Uint8Array와 같은 비트 연산을 사용
+			function s2ab(s){
+				let buf =  new ArrayBuffer(s.length);
+				let view = new Uint8Array(buf);
+				for(let i=0;i<s.length;i++) view[i] = s.charCodeAt(i) & 0xFF;
+				return buf;
+			}
+			
+			function exportExcel(a){
+				let wb = XLSX.utils.book_new(); //book_new(): 빈 통합 문서 개체를 반환
+				
+															//데이터 가져올 html 테이블 id
+				let newWorksheet =  XLSX.utils.table_to_sheet(document.getElementById("applicantList"));
+															
+															//sheet 제목
+				XLSX.utils.book_append_sheet(wb, newWorksheet, "신청자 정보");
+															
+				let wbout = XLSX.write(wb, {bookType:'xlsx', type:'binary'});
+				
+				saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "공구번호_"+ a +"_신청자.xlsx");
+																				//파일명.xlsx
+			}
+			
+			</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
