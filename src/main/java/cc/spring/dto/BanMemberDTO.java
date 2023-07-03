@@ -29,6 +29,33 @@ public class BanMemberDTO {
 	public BanMemberDTO() {
 		super();
 	}
+	
+	public BanMemberDTO(int code, String id, String businessId, String pw, String name, String companyName,
+			int authGradeCode, String nickName, String birthDate, String phone, String eMail, String shippingCompany,
+			String zipcode, String address1, String address2, String agree, Timestamp regDate, Timestamp modDate,
+			Timestamp delDate) {
+		super();
+		this.code = code;
+		this.id = id;
+		this.businessId = businessId;
+		this.pw = pw;
+		this.name = name;
+		this.companyName = companyName;
+		this.authGradeCode = authGradeCode;
+		this.nickName = nickName;
+		this.birthDate = birthDate;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.shippingCompany = shippingCompany;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.agree = agree;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
+	}
+
 
 	public BanMemberDTO(int code, String id, String businessId, String pw, String name, String companyName,
 			int authGradeCode, String nickName, String birthDate, String phone, String eMail, String shippingCompany,

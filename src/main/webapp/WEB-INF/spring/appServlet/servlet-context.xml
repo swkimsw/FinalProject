@@ -38,18 +38,17 @@
       </interceptor>
       <!-- 로그인 강제하는 인터셉터(memberCode확인). 비회원도 허용되는 기능은 exclude-mapping 추가하세요 -->
       <interceptor>
-         <mapping path="/**" />
-         <exclude-mapping path="/"/>
-         <exclude-mapping path="/error/**"/>
-         <exclude-mapping path="/resources/**"/>
-         <exclude-mapping path="/meal/toAiMeal"/>
-         <exclude-mapping path="/meal/toMyMeal"/>
-         <exclude-mapping path="/basket/toMyBasket"/>
-         <exclude-mapping path="/clientMember/login_form"/>
-         <exclude-mapping path="/clientMember/login"/>
-         <exclude-mapping path="/shop/toShopList"/>
-         <exclude-mapping path="/shop/searchByKeyword"/>
-         <beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
+      	<mapping path="/**" />
+      	<exclude-mapping path="/"/>
+      	<exclude-mapping path="/error/**"/>
+      	<exclude-mapping path="/resources/**"/>
+      	<exclude-mapping path="/meal/toAiMeal"/>
+      	<exclude-mapping path="/meal/toMyMeal"/>
+      	<exclude-mapping path="/basket/toMyBasket"/>
+      	<exclude-mapping path="/clientMember/**"/>
+      	<exclude-mapping path="/shop/toShopList"/>
+      	<exclude-mapping path="/shop/searchByKeyword"/>
+      	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
       </interceptor>
    </interceptors>
 

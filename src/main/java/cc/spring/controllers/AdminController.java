@@ -59,8 +59,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("banMember")
-	public int banMember(int memberCode, BanMemberDTO dto) {
-		return aService.BanMember(memberCode, dto);
+	public int banMember(int memberCode) {
+		return aService.BanMember(memberCode);
 	}
 	
 	@ResponseBody

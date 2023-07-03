@@ -44,6 +44,8 @@
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css">
     <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script> 
+    <!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 <style>
 * {
 	font-family: NanumSquareNeo;
@@ -212,6 +214,7 @@ h1.second span:after {
 	<header>
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
+		<c:import url="../commons/pageFooter.jsp"/>
 	</header>
 	<main>
 		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">

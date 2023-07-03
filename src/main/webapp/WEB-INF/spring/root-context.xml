@@ -13,7 +13,7 @@
 		<property name="username" value="CC" />
 		<property name="password" value="CC" />
 		<property name="jdbcUrl"
-			value="jdbc:oracle:thin:@192.168.50.206:1521:xe" />
+			value="jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="driverClassName"
 			value="oracle.jdbc.OracleDriver" />
 	</bean>
