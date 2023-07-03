@@ -581,8 +581,6 @@ public class BoardController {
 	//자유게시판 신고페이지로 이동
 	@RequestMapping("freeReport")
 	public String freeReport(ReportDTO dto,int authGradeCode) {
-
-
 		String companyname = (String) session.getAttribute("companyName");
 
 		if(companyname == null) {
@@ -624,7 +622,7 @@ public class BoardController {
 			request.setAttribute("reporteeName", reporteeName);
 
 			request.setAttribute("list", dto);
-			return "board/report" ;
+			return "board/report";
 
 			
 		}		
@@ -704,9 +702,17 @@ public class BoardController {
 
 		return result;
 	}
+	
 
 //=====================================================================================	
 
-
+	// 자유게시판 댓글 좋아요 up 
+	@ResponseBody
+	@RequestMapping("upReplyLikeCount")
+	public ReplyFreeDTO replyLikeCount(ReplyFreeDTO dto) {
+		ReplyFreeDTO result = boardService.upReplyLikeCount(dto);
+		return result;
+	}
+	
 			
 }

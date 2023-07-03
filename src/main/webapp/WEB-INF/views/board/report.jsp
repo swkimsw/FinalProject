@@ -147,6 +147,7 @@ div {
                     	reportKindCode: reason_select,
                     	reporterCode: ${list.reporterCode},
                     	reporteeCode: ${list.reporteeCode},
+                    	replyCode : ${list.replyCode},
                     	detail: $("#detail").val(),
                     	statusCode : 3001
 

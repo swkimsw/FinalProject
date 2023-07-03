@@ -4,7 +4,7 @@
 
 <nav class="navbar bg-body-tertiary fixed-top">
 	<div class="container-fluid">
-		<button class="navbar-toggler" type="button"
+		<button id="refresh" class="navbar-toggler" type="button"
 			data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
 			aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -61,10 +61,19 @@
 									<path
 											d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                 				</svg>
-									<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-										${sessionScope.countShopRequest}
-										<span class="visually-hidden">New alerts</span>
-									</span>
+                				<c:choose>
+                					<c:when test="${sessionScope.authGradeCode == 1002}">
+                						<span id="countShopRequest" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+											<span class="visually-hidden">New alerts</span>
+										</span>
+                					</c:when>
+                					<c:otherwise>
+                						<span class="position-absolute translate-middle p-1 bg-danger border border-light rounded-circle">
+											<span class="visually-hidden">New alerts</span>
+										</span>
+                					</c:otherwise>
+                				</c:choose>
+									
 								</button></a>
 							</div>
 							<div class="col d-flex justify-content-center">
@@ -231,4 +240,19 @@
 			alert('로그인이 필요한 서비스입니다.');
 			}
 	}
+	
+	// navi 버튼 누르면 공구샵에 온 총 요청수 구해 업데이트
+	$("#refresh").on("click", function(){
+		$.ajax({
+			url:"/shop/countShopRequest",
+			type : "post",
+			dataType: "json",
+			data:{
+				"code" : ${sessionScope.code}
+			}
+		}).done(function(resp) {
+			$("#countShopRequest").empty();
+			$("#countShopRequest").append(resp);
+		})
+	})
 </script>

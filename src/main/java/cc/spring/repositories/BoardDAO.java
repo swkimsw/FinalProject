@@ -374,17 +374,24 @@ public class BoardDAO {
 	
 	
 // ==================================================================================================
+	
+	// 자유게시판 댓글 삭제
 	public int deleteFreeReply(ReplyFreeDTO dto) {
 		return mybatis.delete("Board.deleteFreeReply", dto);
 	}
 
 
-
-
+// ==================================================================================================
 	
-
-
+	// 자유게시판 댓글 좋아요 up
+	public int upReplyLikeCount(ReplyFreeDTO dto) {
+		return mybatis.update("Board.upReplyLikeCount", dto);
+	}
 	
+	// 자유게시판 댓글의 좋아요 수 가져오기
+	public ReplyFreeDTO selectReplyLikeCount(ReplyFreeDTO dto) {
+		return mybatis.selectOne("Board.selectReplyLikeCount",dto);
+	}
 
 
 

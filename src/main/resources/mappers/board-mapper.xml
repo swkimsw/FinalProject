@@ -316,7 +316,12 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	
 <!-- 게시판 신고 기능 -->
 	<insert id="insertReport" >
-insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	<if test="replyCode == 0">
+		insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</if>
+	<if test="replyCode != 0">
+		insert into report values (report_seq.nextval , #{postcode} , #{replyCode} , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</if>
 	</insert>	
 	
 
@@ -371,5 +376,16 @@ insert into report values (report_seq.nextval , #{postcode} , null , #{boardKind
 		delete from replyfree where code = #{code}
 	</delete>
 
+<!-- ============================================================================================== -->
 
+	<!-- 자유게시판 댓글 좋아요 up -->
+	<update id="upReplyLikeCount">
+		update replyfree set likecount = likecount + 1 where code = #{code}
+	</update>
+
+	<!-- 자유게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectReplyLikeCount" resultType="cc.spring.dto.ReplyFreeDTO">
+		select * from replyfree where code = #{code}
+	</select>
+	
 </mapper>
