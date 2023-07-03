@@ -157,7 +157,6 @@
 		var nowUtc = Date.now();
 		var timeOff = new Date().getTimezoneOffset()*60000;
 		var afterOneDay = new Date(nowUtc+days-timeOff).toISOString().substring(0,16);
-		console.log(afterOneDay);
 		
 		$("#deadLineTemp").attr("min", afterOneDay);
 		
