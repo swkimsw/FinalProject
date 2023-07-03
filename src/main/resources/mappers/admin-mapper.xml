@@ -63,17 +63,18 @@
 		from loginCount lc left join member m on lc.memberCode=m.code) 
 		where authGradeCode=1002 and loginDate>=to_date(sysdate-7)
 	</select>
-	<select id="selectUserList">
-		select m.id, m.nickname, m.companyName, a.value as auth, count(r.code) as repotcount, m.delDate
-		from member m
-		left join report r on m.code = r.reporteeCode
-		left join authgrade a on m.authgradeCode = a.code
-		group by m.id, m.nickname, m.companyName, a.value, m.delDate;
+	<select id="selectUserList" resultType="cc.spring.dto.MemberDTO">
+      select m.code, m.id, NVL(m.nickname, 'no data') as nickname, NVL(m.companyName, 'no data') as companyName, a.value as auth, count(r.code) as repotcount,  NVL(to_char(m.delDate), 'no data') as strDelDate
+      from member m
+      left join report r on m.code = r.reporteeCode
+      left join authgrade a on m.authgradeCode = a.code
+      group by m.code, m.id, m.nickname, m.companyName, a.value,  r.code, m.delDate
 	</select>
-	<select id="selectBanUserList">
-		select b.id, b.nickname, b.companyName, a.value as auth, b.reportcount, b.delDate
+	<select id="selectBanUserList" resultType="cc.spring.dto.BanMemberDTO">
+        select b.code,b.id, NVL(b.nickname, 'no data') as nickName, NVL(b.companyName , 'no data') as companyName, a.value as auth, b.reportcount, NVL(to_char(b.delDate), 'no data') as strDelDate
 		from bannedmember b
-		left join authgrade a on b.authgradeCode = a.code;
+		left join authgrade a on b.authgradeCode = a.code
+        group by b.code, b.id, b.nickname, b.companyName, a.value,  b.reportCount, b.delDate
 	</select>	
 	<!-- 공구샵 리스트 -->
 	<select id="selectShopList" resultType="cc.spring.dto.ShopListDTO">

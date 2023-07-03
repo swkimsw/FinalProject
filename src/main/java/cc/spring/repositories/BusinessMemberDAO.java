@@ -86,14 +86,9 @@ public class BusinessMemberDAO {
 	public int deleteMember(int code) {
 		return mybatis.delete("Business.deleteMember",code);
 	}
-	
-	// Admin
-	public List<MemberDTO> selectAllBusinessMember() {
-		return mybatis.selectList("Business.selectAllBusinessMember");
-	}
-	
+
 	public String recentVisitBusiness() {
 		return mybatis.selectOne("Business.recentVisitBusiness");
 	}
-	
+
 }
