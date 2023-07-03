@@ -17,6 +17,8 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+<!-- shopApply js -->
+<script src="${path}/resources/js/shop/shopApply.js"></script>
 <style>
 	*{font-family: 'NanumSquareNeo';}
 	body{background-color:rgba(255, 255, 194, 0.5);}
@@ -35,9 +37,6 @@
 	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
-	
-	/*.col-xl-8 > .carousel > .carousel-inner > .carousel-item > img {width:100%;}*/
-	/*.col-xl-8 > .carousel > .carousel-control-prev { margin-left: 10%;}*/
 	
 </style>
 </head>
@@ -352,178 +351,94 @@
 	</div>
 	</main>
 	<script>
-	
-		// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
-		$("#updateBtn").on("click", function(){
-			$("#title").removeAttr("readonly");
-			$("#productName").removeAttr("readonly");
-			$("#productPrice").removeAttr("readonly");
-			$("#deadLineTemp").removeAttr("readonly");
-			$("#min").removeAttr("readonly");
-			$("#detail").removeAttr("readonly");
-			$("#imageSelect").removeAttr("style");
-			$("#imageSelect").attr("style", 'float:none; margin: 0 auto;');
-			$("#shippingCompany").removeAttr("readonly");
-			$("#shippingCompany").attr("class", 'memberInfo form-control');
-			$("#quantity").prop("readonly",true);
-			
-			$("#updateBtn, #deleteBtn, #back").css("display", "none");
+	// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
+	$("#updateBtn").on("click", function(){
+		$("#title").removeAttr("readonly");
+		$("#productName").removeAttr("readonly");
+		$("#productPrice").removeAttr("readonly");
+		$("#deadLineTemp").removeAttr("readonly");
+		$("#min").removeAttr("readonly");
+		$("#detail").removeAttr("readonly");
+		$("#imageSelect").removeAttr("style");
+		$("#imageSelect").attr("style", 'float:none; margin: 0 auto;');
+		$("#shippingCompany").removeAttr("readonly");
+		$("#shippingCompany").attr("class", 'memberInfo form-control');
+		$("#quantity").prop("readonly",true);
+		
+		$("#updateBtn, #deleteBtn, #back").css("display", "none");
 
-			let updateComplete = $("<button id='updateCompleteBtn' class='btn btn-success'>");
-			updateComplete.text("수정 완료");
-			
-			let cancel = $("<button type='button' class='btn btn-success'>");
-			cancel.text("취소");
-			cancel.on("click", function(){
-				location.reload();
-			})
-			
-			$(".buttons").append(updateComplete);
-			$(".buttons").append("&nbsp;");
-			$(".buttons").append(cancel);
+		let updateComplete = $("<button id='updateCompleteBtn' class='btn btn-success'>");
+		updateComplete.text("수정 완료");
+		
+		let cancel = $("<button type='button' class='btn btn-success'>");
+		cancel.text("취소");
+		cancel.on("click", function(){
+			location.reload();
 		})
 		
-		// 공구 수정 완료 버튼 클릭시 유효성 검사
-		$(document).on("click", "#updateCompleteBtn", function(){
+		$(".buttons").append(updateComplete);
+		$(".buttons").append("&nbsp;");
+		$(".buttons").append(cancel);
+	})
+	
+	// 공구 수정 완료 버튼 클릭시 유효성 검사
+	$(document).on("click", "#updateCompleteBtn", function(){
 			
-			let regexProductPrice = /^[0-9]+$/;
-			let regexMin = /^[0-9]+$/;
+		let regexProductPrice = /^[0-9]+$/;
+		let regexMin = /^[0-9]+$/;
 			
-			let productPrice = $("#productPrice").val();
-			let min = $("#min").val();
+		let productPrice = $("#productPrice").val();
+		let min = $("#min").val();
 			
-			let resultProductPrice = regexProductPrice.exec(productPrice);
-			let resultMin = regexMin.exec(min);
+		let resultProductPrice = regexProductPrice.exec(productPrice);
+		let resultMin = regexMin.exec(min);
 			
-			if(!resultProductPrice){
-				alert("상품가격 은 숫자로 입력해 주세요!");
-				return false;
-			}
-			
-			if(!resultMin){
-				alert("최소 인원 은 숫자로 입력해 주세요!");
-				return false;
-			}
-			
-		})
-		
-		// 공구 신청 버튼 클릭시
-		$("#insertRequestBtn").on("click", function(){
-			
-			// 유효성 검사
-			let regexQuantity = /^[0-9]+$/;
-			
-			let quantity = $("#quantity").val();
-			let resultQuantity = regexQuantity.exec(quantity);
-			if(!resultQuantity){
-				alert("개수는 한글/영어 제외 숫자만 입력해 주세요!");
-				return false;
-			}
-			
-			let code = $("#code").val(); // 공구샵 코드
-			let memberCode = ${sessionScope.code}; // 멤버 코드
-			
-			// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
-			$.ajax({
-				url:"/shop/isExistRequest",
-				type:"post",
-				dataType:"json",
-				data:{
-					code:code,
-					memberCode:memberCode
-				}
-			}).done(function(resp) {
-				if(resp){
-					alert("이미 신청한 공구입니다!");
-					return false;
-				}
-			})
-		
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
-		})
-		
-		// 답글 달기 버튼 눌렀을 때
-		function viewInsertAnswer(code) {
-		
-			let row="";
-			row += '<div id="replyAnswerInsert'+code+'">';
-			row += '<div class="mb-3">';
-			row += '<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>';
-			row += '&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>';
-			row += '<div class="reply" style="margin-left:5%;">';
-			row += '<textarea class="selectReplyAnswer form-control" name="content" rows="3"></textarea>';
-			row += '<div>';
-			row += '<button id="writeAnswerBtn" class="writeAnswerBtn btn btn-success btn-sm">답글 등록</button>';
-			row += '</div>';
-			row += '</div>';
-			row += '</div>';
-			row += '</div>';
-			
-			$("#businessReplyAsk"+code).append(row);		
+		if(!resultProductPrice){
+			alert("상품가격 은 숫자로 입력해 주세요!");
+			return false;
 		}
-		
-		// 이용자 자신이 쓴 댓글 수정 버튼 눌렀을 때
-		function updateReplyAskClick(code){
-			$("#replyAskContent"+code).removeAttr("readonly");
-			$("#updateReplyAskBtn"+code).css("display", "none");
-			$("#deleteReplyAskBtn"+code).css("display", "none");
 			
-			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-success btn-sm'>");
-			updateReplyComplete.text("수정 완료");
-			
-			let cancel = $("<button type='button' class='selectReplyBtn btn btn-success btn-sm'>");
-			cancel.text("취소");
-			cancel.on("click", function(){
-				location.reload();
-			})
-			
-			$("#replyAskBtns"+code).append(updateReplyComplete);
-			$("#replyAskBtns"+code).append(cancel);
+		if(!resultMin){
+			alert("최소 인원 은 숫자로 입력해 주세요!");
+			return false;
 		}
+			
+	})
+	
+	// 공구 신청 버튼 클릭시
+	$("#insertRequestBtn").on("click", function(){
 		
-		// 판매자 자신이 쓴 답글 수정 버튼 눌렀을 때
-		function updateReplyAnswerClick(code){
-			$("#replyAnswerContent"+code).removeAttr("readonly");
-			$("#updateReplyAnswerBtn"+code).css("display", "none");
-			$("#deleteReplyAnswerBtn"+code).css("display", "none");
-			
-			let updateReplyComplete = $("<button class='selectReplyBtn btn btn-success btn-sm'>");
-			updateReplyComplete.text("수정 완료");
-			
-			let cancel = $("<button type='button' class='selectReplyBtn btn btn-success btn-sm'>");
-			cancel.text("취소");
-			cancel.on("click", function(){
-				location.reload();
-			})
-			
-			$("#replyAnswerBtns"+code).append(updateReplyComplete);
-			$("#replyAnswerBtns"+code).append(cancel);
-		}
+		// 유효성 검사
+		let regexQuantity = /^[0-9]+$/;
 		
-		// 공구샵 삭제 버튼 눌렀을 때 확인
-		function deleteShopConfirm(code){
-			if(confirm("정말 삭제하시겠습니까?")){
-				location.href="/shop/deleteShop?code="+code;
-			}
+		let quantity = $("#quantity").val();
+		let resultQuantity = regexQuantity.exec(quantity);
+		if(!resultQuantity){
+			alert("개수는 한글/영어 제외 숫자만 입력해 주세요!");
 			return false;
 		}
 		
-		// 공구샵 댓글 삭제 버튼 눌렀을 때 확인
-		function deleteReplyAskConfirm(code, postCode){
-			if(confirm("정말 삭제하시겠습니까?")){
-				location.href="/shopReply/deleteReplyAsk?code="+code+"&postCode="+postCode;
-			}
-			return false;
-		}
+		let code = $("#code").val(); // 공구샵 코드
+		let memberCode = ${sessionScope.code}; // 멤버 코드
 		
-		// 공구샵 답글 삭제 버튼 눌렀을 때 확인
-		function deleteReplyAnswerConfirm(code, postCode){
-			if(confirm("정말 삭제하시겠습니까?")){
-				location.href="/shopReply/deleteReplyAnswer?code="+code+"&postCode="+postCode;
+		// 이미 공구 신청한 경우 더 이상 신청하지 못하도록
+		$.ajax({
+			url:"/shop/isExistRequest",
+			type:"post",
+			dataType:"json",
+			data:{
+				code:code,
+				memberCode:memberCode
 			}
-			return false;
-		}
-		
+		}).done(function(resp) {
+			if(resp){
+				alert("이미 신청한 공구입니다!");
+				return false;
+			}
+		})
+	
+		location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
+	})
 	</script>
 	<c:import url="../commons/pageFooter.jsp"/>
 </body>

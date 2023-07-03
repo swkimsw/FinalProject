@@ -224,7 +224,7 @@
 		function getSearchList() {
 			let category = $('select[name="category"]').val();
 			let keyword = $("#keyword").val();
-			console.log(category + keyword)
+
 			if (keyword.trim() != "") {
 				$.ajax({
 							url : "/shop/searchByKeyword",

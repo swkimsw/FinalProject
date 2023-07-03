@@ -53,6 +53,7 @@
          <exclude-mapping path="/clientMember/sign_form"/>
          <exclude-mapping path="/clientMember/sendSmsSign"/>
          <exclude-mapping path="/clientMember/getIdByPhone"/>
+         <exclude-mapping path="/clientMember/sendSmsLogin"/>
          <exclude-mapping path="/clientMember/checkSum"/>
          <exclude-mapping path="/clientMember/certificationSign"/>
          <exclude-mapping path="/clientMember/certificationLogin"/>

@@ -44,7 +44,7 @@ public class SensUtilsService {
         JSONArray  toArr = new JSONArray();
         
         // 난수와 함께 전송
-        toJson.put("content","Going 본인인증 ["+rand+"]");		
+        toJson.put("content","Going Message ["+rand+"]");		
         toJson.put("to",tel);
         toArr.add(toJson);
 	    
