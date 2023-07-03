@@ -36,16 +36,16 @@
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
 <!-- gbn css -->
-<link href="${path}/resources/css/gnb.css" rel="stylesheet"
-	type="text/css">
-
+<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 <style>
 
 * {
 	font-family: NanumSquareNeo;
 }
 
-.container {
+.msContainer {
 	margin-top: 80px;
 }
 
@@ -139,7 +139,7 @@
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 
-	<div class="container w-75 h-100">
+	<div class="container msContainer w-75 h-100">
 		<c:choose>
 			<%-- 세션 code = 1003일때 일반회원 공구 신청 목록  --%>
 			<c:when test="${sessionScope.authGradeCode == 1003}">
@@ -395,6 +395,7 @@
 		
 	</div>		
 	
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
 

@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<section class="footer" style="position: relative;">
-	<div class="container-fluid footerContainer">
+	<div class="footerContainer">
 	  
-		  <footer class="text-center" style="background-color:rgba(255, 255, 194, 0.5);">
-		 	<!-- footer 상단 -->
-		    <div class="container px-0 py-2 footerBox footerp-4" style="background-color: rgba(255, 255, 194, 0.5);" >
+		  <footer class="text-center footer" style="background-color:rgba(255, 255, 194, 0.5);">
+		    <div class="container py-2 footerBox footerp-4" style="background-color: rgba(255, 255, 194, 0.5);" >
 		    
 		        <p class="d-flex justify-content-center align-items-center">
 		          <span class="me-3">Register for free</span>
@@ -22,5 +20,4 @@
 		    </div>
 		  </footer>
 	
-	</div>
-</section>
+	</div> 

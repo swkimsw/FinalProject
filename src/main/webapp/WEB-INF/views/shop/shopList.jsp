@@ -53,7 +53,7 @@
 	top: 40px;
 }
 
-.container {
+.sContainer {
 	margin-top: 80px;
 }
 
@@ -109,7 +109,7 @@
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 	
-	<div class="container w-75">
+	<div class="container sContainer w-75">
 		<div class="subNav w-75 pt-2">
 				<nav class="navbar bg-body-tertiary navbar-expand-sm">
 						<div class="d-flex justify-content-between navbar w-100" id="navbarTogglerDemo03">
@@ -211,7 +211,6 @@
 			</div>
 		</div>
 	</div>
-
 	<script>
 		//infinite scroll
 		//infiniteScroll({
@@ -302,7 +301,7 @@
 
 		}
 	</script>
-
-	<c:import url="../commons/pageFooter.jsp"/>
+<c:import url="../commons/pageFooter.jsp"/>
+	
 </body>
 </html>
