@@ -186,6 +186,7 @@
 					<!-- 구분선 -->
 					<li class="border-top my-3"></li>
 					<!-- 운영진 카테고리 -->
+					<!-- 
 					<li class="mb-1 nav-menu"><i class="fa-solid fa-paper-plane"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -193,7 +194,7 @@
 							aria-expanded="false">운영진에게</button>
 						<div class="collapse" id="account-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="#"
+								<li><a href="#" id="inquire"
 									class="nav_a link-dark d-inline-flex text-decoration-none rounded">문의하기</a>
 								</li>
 								<c:if test="${sessionScope.auth_grade ne null}">
@@ -202,7 +203,7 @@
 									</li>
 								</c:if>
 							</ul>
-						</div></li>
+						</div></li> -->
 				</ul>
 			</div>
 		</div>
@@ -224,4 +225,5 @@
 			$("#countShopRequest").append(resp);
 		})
 	})
+	
 </script>
