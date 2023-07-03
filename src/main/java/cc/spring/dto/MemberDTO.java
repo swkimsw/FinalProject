@@ -23,6 +23,8 @@ public class MemberDTO {
 	private Timestamp modDate;
 	private Timestamp delDate;
 	private int reportCount;
+	private String strDelDate;
+	private String auth;
 	
 	public MemberDTO() {
 
@@ -68,6 +70,37 @@ public class MemberDTO {
 		this.modDate = modDate;
 		this.delDate = delDate;
 	}
+	
+	
+	public MemberDTO(int code, String id, String businessId, String pw, String name, String companyName,
+			int authGradeCode, String nickName, String birthDate, String phone, String eMail, String shippingCompany,
+			String zipcode, String address1, String address2, String agree, Timestamp regDate, Timestamp modDate,
+			Timestamp delDate, int reportCount, String strDelDate, String auth) {
+		super();
+		this.code = code;
+		this.id = id;
+		this.businessId = businessId;
+		this.pw = pw;
+		this.name = name;
+		this.companyName = companyName;
+		this.authGradeCode = authGradeCode;
+		this.nickName = nickName;
+		this.birthDate = birthDate;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.shippingCompany = shippingCompany;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.agree = agree;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
+		this.reportCount = reportCount;
+		this.strDelDate = strDelDate;
+		this.auth = auth;
+	}
+	
 	public int getCode() {
 		return code;
 	}
@@ -188,6 +221,17 @@ public class MemberDTO {
 	public void setReportCount(int reportCount) {
 		this.reportCount = reportCount;
 	}
-	
+	public String getStrDelDate() {
+		return strDelDate;
+	}
+	public void setStrDelDate(String strDelDate) {
+		this.strDelDate = strDelDate;
+	}
+	public String getAuth() {
+		return auth;
+	}
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
 	
 }
