@@ -41,7 +41,7 @@
 	type="text/css">
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
-<!--  myShopList css -->
+<!--  shopList css -->
 <link href="${path}/resources/css/shop/shopList.css" rel="stylesheet" type="text/css">
 <!-- shopList js -->
 <script src="${path}/resources/js/shop/shopList.js"></script>
@@ -154,7 +154,7 @@
 		</div>
 	</div>
 
-<c:import url="../commons/pageFooter.jsp"/>
+	<c:import url="../commons/pageFooter.jsp"/>
 	
 </body>
 </html>

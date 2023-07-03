@@ -112,5 +112,5 @@ function appendBusinessDiv(resp){
 											
 
 function openInfo(a){
-	window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1300, height=600,left=200, top=100, scrollbars=yes");
+	window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1350, height=600,left=200, top=100, scrollbars=yes");
 }

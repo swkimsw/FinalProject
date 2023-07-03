@@ -7,29 +7,40 @@
 		<div class="container">
 			<div class="row" style="background-color: rgb(230, 230, 230);">
 
-				<div class="col-xs-12 col-sm-6 col-md-3">
-					<div class="widget subscribe no-box" style="margin-top:50px;">
-						<h1 class="widget-title">🍽CookCook</h1>
-						<p>Plan your diet simply!</p>
+				<div class="col-12 col-sm-12 col-md-3">
+					<div class="widget subscribe no-box">
+						<img src="/resources/img/healthyFood.png" alt="logo"
+								class="img" style="width: 180px; height: 180px;">
 					</div>
 				</div>
 
-				<div class="col-xs-12 col-sm-6 col-md-3">
+				<div class="col-12 col-sm-12 col-md-3">
 					<div class="widget no-box">
-						<h3 class="widget-title pb-3">
+						<h3 class="widget-title pb-1">
 							Get Started
 						</h3>
+						<p>Plan your diet simply!</p>
 						<a class="btn linkBtn2" href="/meal/toAiMeal" style="width:180px;">Create a plan!</a>
 					</div>
 				</div>
 				
-				<div class="col-xs-12 col-sm-6 col-md-3">
+				<div class="col-12 col-sm-12 col-md-3">
 					<div class="widget no-box">
 						<h3 class="widget-title">Menu</h3>
-						<ul class="thumbnail-widget">
+						<ul class="thumbnail-widget menu">
+							<li>
+								<div class="thumb-content">
+									<a href="/shop/toShopList">Shop</a>
+								</div>
+							</li>
 							<li>
 								<div class="thumb-content">
 									<a href="/board/announcement?cpage=1">Notice</a>
+								</div>
+							</li>
+							<li>
+								<div class="thumb-content">
+									<a href="/meal/toMyMeal">Weekly Plan</a>
 								</div>
 							</li>
 							<li>
@@ -42,43 +53,30 @@
 									<a href="/board/review?cpage=1">Review Board</a>
 								</div>
 							</li>
-							<li>
-								<div class="thumb-content">
-									<a href="/shop/toShopList">Shop</a>
-								</div>
-							</li>
-							<li>
-								<div class="thumb-content">
-									<a href="/meal/toMyMeal">Weekly Plan</a>
-								</div>
-							</li>
 						</ul>
 					</div>
 				</div>
 
 
-				<div class="col-xs-12 col-sm-6 col-md-3">
-					<div class="widget no-box" style="margin-top:20px;">
-						<h3 class="widget-title">
-							<img src="/resources/img/foodWithPlate2.png" alt="logo"
-								class="img" style="width: 150px; height: 150px;">
-						</h3>
+				<div class="col-12 col-sm-12 col-md-3">
+					<div class="widget no-box" style="margin-top:60px;">
+						<a href="/" style="text-decoration:none;"><h2 class="widget-title mb-2 toMain">🍽CookCook</h2></a>
 						<div class="standard_social_links">
-							<ul>
-								<li class="round-btn btn-facebook pe-3"><a href="#"><i
+							<ul class="p-1" style="border:1px solid white; border-radius:15px;">
+								<li class="round-btn btn-facebook px-3"><a href="#"><i
 										class="fab fa-facebook-f"></i></a></li>
-								<li class="round-btn btn-twitter pe-3"><a href="#"><i
+								<li class="round-btn btn-twitter px-3"><a href="#"><i
 										class="fab fa-twitter" aria-hidden="true"></i></a></li>
-								<li class="round-btn btn-instagram pe-3"><a href="#"><i
+								<li class="round-btn btn-instagram px-3"><a href="#"><i
 										class="fab fa-instagram" aria-hidden="true"></i></a></li>
-								<li class="round-btn btn-envelop pe-3"><a href="#"><i
+								<li class="round-btn btn-envelop px-3"><a href="#"><i
 										class="fa fa-envelope" aria-hidden="true"></i></a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 
-				<div class="row" style="background-color: rgb(230, 230, 230);">
+				<div class="row mt-2" style="background-color: rgb(230, 230, 230);">
 					<div class="col-md-12 text-center">
 						<p>Copyright&emsp;🍽CookCook © 2023. All rights reserved.</p>
 					</div>
