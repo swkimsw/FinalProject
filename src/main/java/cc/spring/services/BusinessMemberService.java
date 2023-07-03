@@ -19,8 +19,13 @@ public class BusinessMemberService {
 	@Autowired
 	private AdminDAO adminDAO;
 	
-	public boolean login(MemberDTO dto) {
-		System.out.println("123123");
+	public boolean existingMember(MemberDTO dto) {
+		return bdao.login(dto);
+	}
+	
+	@Transactional
+	public boolean login(loginCountDTO ldto, MemberDTO dto) {
+		adminDAO.updatelogintCount(ldto);
 		return bdao.login(dto);
 	}
 	public String getIdByPhone(String phone) {
@@ -45,16 +50,15 @@ public class BusinessMemberService {
 		int memberCode = bdao.insertBusiness(dto);
 		adminDAO.insertloginCount(new loginCountDTO(memberCode, 0, null));
 		adminDAO.insertGptCount(new gptCountDTO(memberCode, 0, 0, 0, 0));
-		return bdao.insertBusiness(dto);
+		return memberCode;
 	}
 	
 	public int updatePwBusiness(MemberDTO dto) {
 		return bdao.updatePw(dto);
 	}
 	
-	public MemberDTO selectBusinessMemberInfo(String id) {
-		System.out.println(id);
-		return bdao.selectBusinessMemberInfo(id);
+	public MemberDTO selectBusinessMemberInfo(String businessId) {
+		return bdao.selectBusinessMemberInfo(businessId);
 	}
 	
 	public MemberDTO selectMemberInfoByCode(int code) {

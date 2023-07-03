@@ -895,7 +895,7 @@
                  $(".replyReport").on("click",function() {
                 	 replyCode = $(this).parent().prev().children().next().children().next().next().html();
                 	 replyMemberCode = $(this).parent().prev().prev().prev().html();
-            		 window.open("/board/reviewReport?postcode="+ ${result.code}+"&boardKindCode=1002&reporterCode="+${sessionScope.code}+"&reporteeCode="+ replyMemberCode +"&replyCode="+replyCode,"", "width=500px, height=600px");
+            		 window.open("/board/reviewReport?postcode="+ ${result.code}+"&boardKindCode=1003&reporterCode="+${sessionScope.code}+"&reporteeCode="+ replyMemberCode +"&replyCode="+replyCode,"", "width=500px, height=600px");
 
                  })
 
