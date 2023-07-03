@@ -63,6 +63,20 @@ public class BasketController {
 	}
 	
 	@ResponseBody
+	@RequestMapping(value="checkAll", produces="text/plain; charset=utf8;")
+	public String checkAll() {
+		int memberCode = (int)session.getAttribute("code");
+		return bService.checkAll(memberCode)+"";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="uncheckAll", produces="text/plain; charset=utf8;")
+	public String uncheckAll() {
+		int memberCode = (int)session.getAttribute("code");
+		return bService.uncheckAll(memberCode)+"";
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="insertOne", produces="text/plain; charset=utf8;")
 	public String insertOne(String name) {
 		int memberCode = (int)session.getAttribute("code");

@@ -1,13 +1,19 @@
 $(document).ready(function () {
 
     "use strict";
+    let initCheck=0;
 
     $(".checkOne").each((i, e) => {
         if (e.getAttribute("status") == "4002") {
             e.parentElement.parentElement.parentElement.classList.toggle('complete');
             e.checked = true;
+            initCheck++;
         }
     });
+
+    if(initCheck==$(".checkOne").length){
+        document.getElementsByClassName("checkAll")[0].checked = true;
+    }
 
     var todo = function () {
         $(".card-body").on("click", '.todo-list .todo-item input', function () {
@@ -23,6 +29,13 @@ $(document).ready(function () {
                 }).done(function (resp) {
                     target.attr("status", "4002");
                     target.parent().parent().parent().toggleClass('complete');
+                    initCheck++;
+                    if(initCheck==$(".checkOne").length){
+                    	document.getElementsByClassName("checkAll")[0].checked = true;
+                    }
+                    else{
+                    	document.getElementsByClassName("checkAll")[0].checked = false;
+                    }
                 });
             } else {
                 $.ajax({
@@ -34,6 +47,13 @@ $(document).ready(function () {
                 }).done(function (resp) {
                     target.attr("status", "4001");
                     target.parent().parent().parent().toggleClass('complete');
+                    initCheck--;
+                    if(initCheck==$(".checkOne").length){
+                    	document.getElementsByClassName("checkAll")[0].checked = true;
+                    }
+                    else{
+                    	document.getElementsByClassName("checkAll")[0].checked = false;
+                    }
                 });
             }
         });
@@ -102,6 +122,7 @@ $(document).ready(function () {
 
         } else if (e.which == 13) {
             alert('재료의 이름을 입력해주세요.');
+            return false;
         }
         $(document).on('.todo-list .todo-item.added input').click(function () {
             if ($(this).is(':checked')) {
@@ -114,10 +135,47 @@ $(document).ready(function () {
             $(this).parent().remove();
         });
     });
+    
+    //전체 체크 이벤트
+    $(".checkAll").off("click").on("click", function(){
+        let checkAll = $(this);
+        if (checkAll.is(':checked')) {
+            $.ajax({
+                url:"/basket/checkAll",
+                type:"post",
+            }).done(function(resp){
+                $(".checkOne").each((i, e) => {
+                    if(e.getAttribute("status")=="4001"){
+                        e.setAttribute("status","4002");
+                        e.parentElement.parentElement.parentElement.classList.toggle('complete');
+                        e.checked = true;
+                        initCheck++;
+                    }
+                });
+            });
+        }else{
+            $.ajax({
+                url:"/basket/uncheckAll",
+                type:"post",
+            }).done(function(resp){
+                $(".checkOne").each((i, e) => {
+                    if(e.getAttribute("status")=="4002"){
+                        e.setAttribute("status","4001");
+                        e.parentElement.parentElement.parentElement.classList.toggle('complete');
+                        e.checked = false;
+                        initCheck--;
+                    }
+                });
+            }); 
+        }
+    });
 
     //삭제 이벤트
     $(".btnDeleteAll").off("click").on("click", function () {
-        console.log(1111111);
+        if($(".todo-list").html().trim()==""){
+            alert("등록된 재료가 없습니다.");
+            return false;
+        }
         if (confirm("장바구니를 모두 삭제 하시겠습니까?")) {
             $.ajax({
                 type: "post",
@@ -130,7 +188,6 @@ $(document).ready(function () {
     });
 
     $(".todo-list").off("click").on("click", ".btnDeleteOne", function () {
-        console.log(22222222);
         let basketCode = $(".checkOne").val();
         let checkOne = $(this);
         $.ajax({
@@ -144,6 +201,6 @@ $(document).ready(function () {
         });
     });
 
-    
+
 });
 
