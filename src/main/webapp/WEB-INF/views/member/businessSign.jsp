@@ -24,125 +24,16 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <!-- 다음 주소 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- css -->
+<link rel="stylesheet" href="${path}/resources/css/member/businessSign.css">
 
-<style>
-* {
-	font-family:'NanumSquareNeo';
-	box-sizing: border-box;
-}
 
-body {
-	background-color: rgba(255,255,194,0.75);
-}
-
-.container {
-	margin-top: 10%;
-	margin-bottom: 5%;
-}
-
-.wrapper {
-	width: 80%;
-	padding: 32px;
-	background: whitesmoke;
-	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	animation-duration: 5s;
-}
-
-.welcome {
-	height: 100%;
-	width: 50%;
-	padding: 32px;
-	background: whitesmoke;
-	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	animation-duration: 5s;
-	margin: 0 auto;
-}
-
-label {
-	font-size: small;
-	font-family: 'NanumSquareNeoBold';
-}
-
-.essential {
-	font-size: small;
-	font-family: 'NanumSquareNeoBold';
-	color: red;
-}
-
-.condition {
-	font-size: 11px;
-}
-
-.btn {
-	font-size: small;
-}
-
-#password-alert * {
-	font-size: x-small;
-}
-
-.wrong .bi-check {
-	display: none;
-}
-
-.good .bi-x {
-	display: none;
-}
-
-.valid-feedback, .invalid-feedback {
-	font-size: small;
-}
-
-.alert {
-	font-family: 'NanumSquareNeoBold';
-	text-color: black;
-}
-
-.row .insert {
-	justify-content: center;
-}
-
-#member_birth_day {
-	padding: 0.375rem 0 0.375rem 0;
-	font-size: 0.75rem;
-}
-
-.form-select {
-	padding: 0.375rem 0 0.375rem 0;
-	background-size: 8px 8px;
-	font-size: 0.75rem;
-}
-
-.form-select::-webkit-scrollbar {
-	display: none;
-}
-
-@media ( min-width :@screen-sm-min) {
-	.form-select {
-		padding: 0.375rem 0 0.375rem 0;
-		background-size: 8px 8px;
-		font-size: 0.75rem;
-	}
-}
-
-.wrapper .welcome {
-	width: 80%;
-	padding: 32px;
-	background: whitesmoke;
-	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-	animation-duration: 5s;
-}
-#welcome_fadein {
-	position: relative;
-	bottom: 180px;
-}
-</style>
 </head>
 
 <body>
+	<c:import url="../commons/gnb.jsp">
+	</c:import>
+	
 	<div class="container join_form_container d-flex justify-content-center">
 		<div class="wrapper join_form" id="join_form">
 			<div class="header text-center">
