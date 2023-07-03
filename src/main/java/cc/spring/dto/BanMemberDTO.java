@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class BanMemberDTO {
 	private int code;
+	private int memberCode;
 	private String id;
 	private String businessId;
 	private String pw;
@@ -26,6 +27,34 @@ public class BanMemberDTO {
 	private String strDelDate;
 	private String auth;
 	
+	public BanMemberDTO(int code, int memberCode, String id, String businessId, String pw, String name,
+			String companyName, int authGradeCode, String nickName, String birthDate, String phone, String eMail,
+			String shippingCompany, String zipcode, String address1, String address2, String agree, Timestamp regDate,
+			Timestamp modDate, Timestamp delDate, int reportCount) {
+		super();
+		this.code = code;
+		this.memberCode = memberCode;
+		this.id = id;
+		this.businessId = businessId;
+		this.pw = pw;
+		this.name = name;
+		this.companyName = companyName;
+		this.authGradeCode = authGradeCode;
+		this.nickName = nickName;
+		this.birthDate = birthDate;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.shippingCompany = shippingCompany;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.agree = agree;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
+		this.reportCount = reportCount;
+	}
+
 	public BanMemberDTO() {
 		super();
 	}
@@ -55,14 +84,41 @@ public class BanMemberDTO {
 		this.modDate = modDate;
 		this.delDate = delDate;
 	}
-
-
-	public BanMemberDTO(int code, String id, String businessId, String pw, String name, String companyName,
-			int authGradeCode, String nickName, String birthDate, String phone, String eMail, String shippingCompany,
-			String zipcode, String address1, String address2, String agree, Timestamp regDate, Timestamp modDate,
-			Timestamp delDate, int reportCount, String strDelDate, String auth) {
+	
+	public BanMemberDTO(int code, int memberCode, String id, String businessId, String pw, String name,
+			String companyName, int authGradeCode, String nickName, String birthDate, String phone, String eMail,
+			String shippingCompany, String zipcode, String address1, String address2, String agree, Timestamp regDate,
+			Timestamp modDate, Timestamp delDate) {
 		super();
 		this.code = code;
+		this.memberCode = memberCode;
+		this.id = id;
+		this.businessId = businessId;
+		this.pw = pw;
+		this.name = name;
+		this.companyName = companyName;
+		this.authGradeCode = authGradeCode;
+		this.nickName = nickName;
+		this.birthDate = birthDate;
+		this.phone = phone;
+		this.eMail = eMail;
+		this.shippingCompany = shippingCompany;
+		this.zipcode = zipcode;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.agree = agree;
+		this.regDate = regDate;
+		this.modDate = modDate;
+		this.delDate = delDate;
+	}
+
+	public BanMemberDTO(int code, int memberCode, String id, String businessId, String pw, String name,
+			String companyName, int authGradeCode, String nickName, String birthDate, String phone, String eMail,
+			String shippingCompany, String zipcode, String address1, String address2, String agree, Timestamp regDate,
+			Timestamp modDate, Timestamp delDate, int reportCount, String strDelDate, String auth) {
+		super();
+		this.code = code;
+		this.memberCode = memberCode;
 		this.id = id;
 		this.businessId = businessId;
 		this.pw = pw;
@@ -260,6 +316,25 @@ public class BanMemberDTO {
 
 	public void setAuth(String auth) {
 		this.auth = auth;
+	}
+
+	public int getMemberCode() {
+		return memberCode;
+	}
+
+	public void setMemberCode(int memberCode) {
+		this.memberCode = memberCode;
+	}
+
+	@Override
+	public String toString() {
+		return "BanMemberDTO [code=" + code + ", memberCode=" + memberCode + ", id=" + id + ", businessId=" + businessId
+				+ ", pw=" + pw + ", name=" + name + ", companyName=" + companyName + ", authGradeCode=" + authGradeCode
+				+ ", nickName=" + nickName + ", birthDate=" + birthDate + ", phone=" + phone + ", eMail=" + eMail
+				+ ", shippingCompany=" + shippingCompany + ", zipcode=" + zipcode + ", address1=" + address1
+				+ ", address2=" + address2 + ", agree=" + agree + ", regDate=" + regDate + ", modDate=" + modDate
+				+ ", delDate=" + delDate + ", reportCount=" + reportCount + ", strDelDate=" + strDelDate + ", auth="
+				+ auth + "]";
 	}
 	
 }
