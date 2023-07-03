@@ -17,28 +17,8 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
-<!-- shopApply js -->
-<script src="${path}/resources/js/shop/shopApply.js"></script>
-<style>
-	*{font-family: 'NanumSquareNeo';}
-	body{background-color:rgba(255, 255, 194, 0.5);}
-	textarea{resize:none;}
-	.container{width: 70%; margin-top:100px; background-color:white;}
-	.memberInfo{margin-top:2px; border:0;}
-	.solidHr{margin-left:auto;}
-	.dashedHr{width:80%; margin-left:10%; border-top:dashed;}
-	
-	.reply{display:flex;}
-	#insertReply{margin-right:5%;}
-	#insertReplyBtn{width:100px; height:40px; margin-top:20px;}
-	.replyBtns{width:100px; margin-top:1%;}
-	.selectReply{margin-right:5%;}
-	.selectReplyAnswer{margin-left: 3%; margin-right:5%;}
-	.selectReplyBtn{width:100px; height:40px; margin-bottom:5px;}
-	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
-	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
-	
-</style>
+<!-- shopApply css -->
+<link rel="stylesheet" href="${path}/resources/css/shop/shopApply.css">
 </head>
 <body>
 	<header>
@@ -351,60 +331,6 @@
 	</div>
 	</main>
 	<script>
-	// 삭제, 취소 버튼 없애고 수정 완료, 취소 버튼 추가
-	$("#updateBtn").on("click", function(){
-		$("#title").removeAttr("readonly");
-		$("#productName").removeAttr("readonly");
-		$("#productPrice").removeAttr("readonly");
-		$("#deadLineTemp").removeAttr("readonly");
-		$("#min").removeAttr("readonly");
-		$("#detail").removeAttr("readonly");
-		$("#imageSelect").removeAttr("style");
-		$("#imageSelect").attr("style", 'float:none; margin: 0 auto;');
-		$("#shippingCompany").removeAttr("readonly");
-		$("#shippingCompany").attr("class", 'memberInfo form-control');
-		$("#quantity").prop("readonly",true);
-		
-		$("#updateBtn, #deleteBtn, #back").css("display", "none");
-
-		let updateComplete = $("<button id='updateCompleteBtn' class='btn btn-success'>");
-		updateComplete.text("수정 완료");
-		
-		let cancel = $("<button type='button' class='btn btn-success'>");
-		cancel.text("취소");
-		cancel.on("click", function(){
-			location.reload();
-		})
-		
-		$(".buttons").append(updateComplete);
-		$(".buttons").append("&nbsp;");
-		$(".buttons").append(cancel);
-	})
-	
-	// 공구 수정 완료 버튼 클릭시 유효성 검사
-	$(document).on("click", "#updateCompleteBtn", function(){
-			
-		let regexProductPrice = /^[0-9]+$/;
-		let regexMin = /^[0-9]+$/;
-			
-		let productPrice = $("#productPrice").val();
-		let min = $("#min").val();
-			
-		let resultProductPrice = regexProductPrice.exec(productPrice);
-		let resultMin = regexMin.exec(min);
-			
-		if(!resultProductPrice){
-			alert("상품가격 은 숫자로 입력해 주세요!");
-			return false;
-		}
-			
-		if(!resultMin){
-			alert("최소 인원 은 숫자로 입력해 주세요!");
-			return false;
-		}
-			
-	})
-	
 	// 공구 신청 버튼 클릭시
 	$("#insertRequestBtn").on("click", function(){
 		
@@ -435,11 +361,12 @@
 				alert("이미 신청한 공구입니다!");
 				return false;
 			}
+			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 		})
-	
-		location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
 	})
 	</script>
+	<!-- shopApply js -->
+	<script src="${path}/resources/js/shop/shopApply.js"></script>
 	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
