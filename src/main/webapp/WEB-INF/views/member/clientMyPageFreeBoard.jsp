@@ -68,7 +68,9 @@ color:green;
 	/* background-color: #ffffc230; */
 }
 /* 페이징 */
-
+.table{
+  overflow: hidden;
+}
 
 
 /* input */
@@ -90,32 +92,31 @@ color:green;
 }
 
 /*  */
-.dataTables_wrapper .dataTables_paginate .paginate_button ,
+/*   .dataTables_wrapper .dataTables_paginate .paginate_button ,
 .dataTables_wrapper .dataTables_paginate .paginate_button a {
   background: #007936;
   color: white;
-    border: 1px solid black;
-  border-radius: 50px;
-}
+  border-radius: 20px;
+}  */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
-  background: #007936;
-  color: white;
+background: none;
+border: none;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.active,
 .dataTables_wrapper .dataTables_paginate .paginate_button.active a {
-  background: blue;
-  color: 007936;
-
+	  color: white;
+background: blue;
+opacity: 70%;
 }
-.paginate_button .ton{
+/* .paginate_button .ton{
 background: green;}
 .paginate_button .active,
 .paginate_button .active a{
 background-color: red;
 color: thite;
-}
-
+} 
+ */
 /*  */
 table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
 	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
@@ -149,7 +150,8 @@ table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_a
 	/* text-align: center; */
 	
 }
-
+.atag{text-decoration-line: none;
+color: #007936;}
 /* 사이즈 대비 출력되는 부트스트랩반응형 */
   @media (max-width: 494px) {
             .atag {
@@ -220,14 +222,14 @@ h1.second span:after {
 		 <div class="row mainPage">
         <div class="col">
             <!-- 메인시작 -->
-            <div class="table-responsive">
-                <table id="myTables" class="table">
+            <div class="table">
+                <table id="myTables" class="table shadow p-3 mb-5 bg-body rounded">
                     <thead>
                         <tr>
                             <th class="col-1 d-none d-sm-table-cell">no</th>
                             <th class="col-1 col-sm-1 col-xs-3">Type</th>
-                            <th class="col-1 d-none d-lg-table-cell">📋BoardType</th>
-                            <th class="col-5 col-sm-6 col-xs-4">📄Title</th>
+                            <th class="col-1 d-none d-lg-table-cell">BoardType</th>
+                            <th class="col-5 col-sm-6 col-xs-4">Title</th>
                             <th class="col-1 d-none d-lg-table-cell">Like</th>
                             <th class="col-1 d-none d-lg-table-cell">View</th>
                             <th class="col-2 col-sm-4 col-xs-4">PostDate</th>
@@ -288,7 +290,7 @@ h1.second span:after {
 			});
 			$("td.b2").each(function() {
 				if ($(this).text() === "일상") {
-					$(this).html("일상");
+					$(this).html("🍿일상");
 				} else if ($(this).text() === "정보") {
 					$(this).html("🕵️‍♂️정보");
 				} else if ($(this).text() === "질문") {

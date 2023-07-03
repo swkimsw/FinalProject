@@ -35,7 +35,7 @@
 		FROM BOARDFREE b
 		join headline h on b.headlinecode = h.code
 		join boardkind k on b.boardkindcode= k.code
-		WHERE b.membercode=(select code from member where code=${code})
+		WHERE b.membercode=(select code from member where code=${code}) ORDER BY REGDATE DESC
 	</select>
 	<select id="checkPw" resultType="boolean">
 		select count(*) from Member where id = #{id} and pw = #{pw}
