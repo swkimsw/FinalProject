@@ -106,8 +106,8 @@
 							</c:forEach>
 						</div>
 						
-						<div class="listContainer d-flex justify-content-center flex-column align-items-center">
-							<div class="list-wrapper d-flex justify-content-center flex-column align-items-center pt-4">
+						<div class="listContainer d-flex justify-content-center flex-column align-items-center" style="margin-bottom:200px;">
+							<div class="list-wrapper d-flex justify-content-center flex-column align-items-center py-4">
 								
 							</div>
 						</div>	

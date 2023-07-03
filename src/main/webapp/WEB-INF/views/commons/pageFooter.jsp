@@ -2,68 +2,63 @@
 	pageEncoding="UTF-8"%>
 
 
-	<footer class="pageFooter text-center" style="background-color: rgb(230, 230, 230);">
-		<div class="main-footer widgets-dark typo-light">
-			<div class="container">
-				<div class="row">
+<footer class="pageFooter text-center" style="background-color: rgb(230, 230, 230);">
+	<div class="main-footer widgets-dark typo-light">
+		<div class="container">
+			<div class="row" style="background-color: rgb(230, 230, 230);">
 
-					<div class="col-xs-12 col-sm-6 col-md-3">
-						<div class="widget subscribe no-box">
-							<h4 class="widget-title">
-								CookCook
-							</h4>
-							<p>Plan your diet simply!</p>
-						</div>
+				<div class="col-xs-12 col-sm-6 col-md-3">
+					<div class="widget subscribe no-box" style="margin-top:50px;">
+						<h1 class="widget-title">🍽CookCook</h1>
+						<p>Plan your diet simply!</p>
 					</div>
-
-					<div class="col-xs-12 col-sm-6 col-md-3">
-						<div class="widget no-box">
-							<h3 class="widget-title">
-								Quick Links
-							</h3>
-							<ul class="thumbnail-widget">
-								<li>
-									<div class="thumb-content">
-										<a href="#.">Create diet plan</a>
-									</div>
-								</li>
-								<li>
-									<div class="thumb-content">
-										<a href="/announcement?cpage=1">Notice</a>
-									</div>
-								</li>
-								<li>
-									<div class="thumb-content">
-										<a href="#.">Board</a>
-									</div>
-								</li>
-								<li>
-									<div class="thumb-content">
-										<a href="#.">Shop</a>
-									</div>
-								</li>
-								<li>
-									<div class="thumb-content">
-										<a href="#.">My Page</a>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<div class="col-xs-12 col-sm-6 col-md-3">
-						<div class="widget no-box">
-							<h3 class="widget-title">
-								Get Started<span></span>
-							</h3>
-							<p>Get access to your full Training and Marketing Suite.</p>
-							<a class="btn linkBtn2" href="https://bit.ly/3m9avif" target="_blank">Subscribe
-								Now</a>
-						</div>
-					</div>
+				</div>
 
 				<div class="col-xs-12 col-sm-6 col-md-3">
 					<div class="widget no-box">
+						<h3 class="widget-title pb-3">
+							Get Started
+						</h3>
+						<a class="btn linkBtn2" href="/meal/toAiMeal" style="width:180px;">Create a plan!</a>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-6 col-md-3">
+					<div class="widget no-box">
+						<h3 class="widget-title">Menu</h3>
+						<ul class="thumbnail-widget">
+							<li>
+								<div class="thumb-content">
+									<a href="/board/announcement?cpage=1">Notice</a>
+								</div>
+							</li>
+							<li>
+								<div class="thumb-content">
+									<a href="/board/free?cpage=1">Free Board</a>
+								</div>
+							</li>
+							<li>
+								<div class="thumb-content">
+									<a href="/board/review?cpage=1">Review Board</a>
+								</div>
+							</li>
+							<li>
+								<div class="thumb-content">
+									<a href="/shop/toShopList">Shop</a>
+								</div>
+							</li>
+							<li>
+								<div class="thumb-content">
+									<a href="/meal/toMyMeal">Weekly Plan</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+
+				<div class="col-xs-12 col-sm-6 col-md-3">
+					<div class="widget no-box" style="margin-top:20px;">
 						<h3 class="widget-title">
 							<img src="/resources/img/foodWithPlate2.png" alt="logo"
 								class="img" style="width: 150px; height: 150px;">
@@ -83,13 +78,14 @@
 					</div>
 				</div>
 
-				<div class="row">
+				<div class="row" style="background-color: rgb(230, 230, 230);">
 					<div class="col-md-12 text-center">
 						<p>Copyright&emsp;🍽CookCook © 2023. All rights reserved.</p>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		
-	</footer>
+</footer>
+
