@@ -310,18 +310,24 @@ public class BoardController {
 	public String free_write() {
 		int result = (int)session.getAttribute("authGradeCode"); //작성하는 사람이 일반회원인지 , 사업자회원인지 구분하기위한단계
 		request.setAttribute("user", result ); 
+		int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		request.setAttribute("cpage", cpage);
 		return "/board/boardFreeWrite";
 	}
 
 	//공지게시판 글 작성 으로 가기
 	@RequestMapping("announcementWrite")
 	public String announcement_write() {
+		int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		request.setAttribute("cpage", cpage);
 		return "/board/boardAnnouncementWrite";
 	}
 
 	//후기게시판 글 작성 으로 가기
 	@RequestMapping("reviewWrite")
 	public String review_write() {
+		int cpage = Integer.parseInt((String)request.getParameter("cpage"));
+		request.setAttribute("cpage", cpage);
 		return "/board/boardReviewWrite";
 	}
 

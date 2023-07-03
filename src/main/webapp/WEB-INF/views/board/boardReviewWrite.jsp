@@ -36,51 +36,62 @@
 
 
             <style>
-                * {
-                    font-family: NanumSquareNeo-;
-                    box-sizing: border-box;
-                }
+* {
+	font-family: NanumSquareNeo-;
+	box-sizing: border-box;
+}
 
-                .container {
-                    margin-top: 100px;
-                }
+.container {
+	margin-top: 100px;
+}
 
-                h2 {
-                    text-align: center;
-                }
+h2 {
+	text-align: center;
+}
 
-                .label {
-                    word-break: break-all;
-                    margin-bottom: 5px;
-                    width: 75%;
-                }
+.label {
+	word-break: break-all;
+	margin-bottom: 5px;
+	width: 75%;
+}
 
-                div>table {
-                    width: 100%;
-                    table-layout: fixed;
-                }
+div>table {
+	width: 100%;
+	table-layout: fixed;
+}
 
-                .btn-outline-primary {
-                    margin-top: -10px;
-                    margin-right: 14px;
-                    font-size: medium;
-                }
+.btn-outline-primary {
+	margin-top: -10px;
+	margin-right: 14px;
+	font-size: medium;
+}
 
+.button-container {
+	text-align: center;
+}
 
-                .button-container {
-                    text-align: center;
-                }
-                
-                .note-group-image-url{
-                     display: none;
-                }
+.note-group-image-url {
+	display: none;
+}
 
-                .note-modal-footer>input {
-                    margin-right: 20px;
-                    margin-top: -15px;
-                    font-size: small;
-                }
-            </style>
+.note-modal-footer>input {
+	margin-right: 20px;
+	margin-top: -15px;
+	font-size: small;
+}
+
+.note-editor .note-toolbar .note-color-all .note-dropdown-menu,
+	.note-popover .popover-content .note-color-all .note-dropdown-menu {
+	min-width: 0px;
+}
+.note-dimension-picker-mousecatcher,
+.note-dimension-picker-highlighted,
+.note-dimension-picker-unhighlighted { 
+  max-width: 3em;
+  max-height: 3em;
+}
+
+</style>
 
         </head>
 
@@ -89,7 +100,7 @@
             <c:import url="../commons/gnb.jsp">
             </c:import>
 
-            <form id="frm" action="/board/inputReview" method="get" enctype="multipart/form-data">
+            <form id="frm" action="/board/inputReview" method="post" enctype="multipart/form-data">
 
                 <div class="container">
 
@@ -128,7 +139,9 @@
                                 <td colspan="2" class="button-container">
                                     <br>
                                     <button id="write" class="btn btn-outline-primary" type="submit">작성</button>
+                                     
                                     <button class="btn btn-outline-primary" type="button">취소</button>
+                                   
                                 </td>
                             </tr>
                         </table>
@@ -139,9 +152,11 @@
             </form>
 
             <script>
+            
+      
                 $(document).ready(function () {
                     $('#content').summernote({
-                        placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
+                        placeholder: '글을 입력해주세요 (최대 1000자까지 가능합니다)',
                         height: 600,
                         focus: true,
                         maxHeight: 800,
@@ -162,53 +177,47 @@
                                 checkContentLength();
 
                             },
-                  	      onKeyup: function() {
-                  	    	console.log("2번째")
-                    	        checkContentLength();
-                    	      },
-                    	      onPaste: function() {
-                    	    	  console.log("3번째")
-                    	        checkContentLength();
-                    	        
-                    	      },
-                    	      onChange: function(contents, $editable ) {
-                    	    	  console.log("4번째")
-                    				checkContentLength();
-                    	      }
+                    	    onChange: function(contents, $editable ) {
+                    	    	console.log("4번째")
+                    			checkContentLength();
+                    	    
+                    	    }
                         }
                     })
                     
                 });
 
                 function checkContentLength() {
-              	  var maxLength = 1000;
-              	  var content = $('#content').summernote('code');
-              	  var text = $('<div>').html(content).text();
+                    var maxLength = 1000;
+                    var content = $('#content').summernote('code');
+                    var text = $('<div>').html(content).text();
 
-              	console.log(content)
-        			console.log(text)
-        			console.log(text.length)
-        			
-        			 var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
+
+                    var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
                     var iframeCount = iframeTags.length; // 영상 개수
-                    
+
                     var imageTags = (content.match(/<img[^>]+>/g) || []);
                     var imageCount = imageTags.length; // 이미지 개수
 
-                    var contentLength = text.length + (iframeCount * 100)+ (imageCount * 100);
+                    var contentLength = text.length + (iframeCount * 100) + (imageCount * 100);
+                    var DBcontentLength = content.length;
 
                     console.log("contentLength: " + contentLength);
+                    console.log("DBcontentLength: " + DBcontentLength);
                     console.log("Iframe Count: " + iframeCount);
                     console.log("Image Count: " + imageCount);
-                    
 
-              	  if (contentLength > maxLength) {
-              	    alert("내용은 최대 1000자까지 입력할 수 있습니다.");
-              	      	    $('#content').summernote('undo');
-              	  }else{
-              		  return;
-              	  }
-              	}
+
+                    if (contentLength > maxLength ) {
+                        alert("내용은 최대 1000자까지 입력할 수 있습니다.");
+                        $('#content').summernote('undo');
+                    }else if(DBcontentLength>maxLength){
+                    	alert("저장할수 있는 용량을 초과하였습니다.");
+                        $('#content').summernote('undo');
+                    }else {
+                        return;
+                    }
+                }
                 
                 $("#title").on("input", function() {
                     var maxLength = 50;
