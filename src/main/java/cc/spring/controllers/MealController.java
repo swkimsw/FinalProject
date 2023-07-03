@@ -35,12 +35,12 @@ public class MealController {
 	
 	@RequestMapping("toMyMeal")
 	public String toMyMeal(Model model) {
-		int memberCode = 0;
+		int memberCode = -1;
 		if(session.getAttribute("code")!=null) {
 			memberCode = (int)session.getAttribute("code");
 		}
 		
-		if(memberCode==0) {
+		if(memberCode==-1) {
 			return "redirect:/clientMember/login_form";
 		}
 		else {
