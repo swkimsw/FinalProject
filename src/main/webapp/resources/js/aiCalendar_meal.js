@@ -9,37 +9,6 @@ let aiStartTime;
 let aiEndDate;
 let aiEndTime;
 
-<<<<<<< HEAD
-$(".meal-box").off("click").on("click", function () {
-    //우선 modal창에 입력된 input 전부 삭제
-    $(".meal-name").val("");
-    
-    //입력 위치 지정
-    //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
-    //그냥 this로 했을때 큰창, 작은창 상관없으면 그대로
-    selectBox = $(this);
-
-    //이미 값이 존재할 경우 input 태그에 넣어주기
-    if (selectBox.html()) {
-        let meals = this.innerHTML.split("<br>");
-        let inputMeals = document.getElementsByClassName("meal-name");
-        for (let i = 0; i < meals.length; i++) {
-            inputMeals[i].value = meals[i];
-        }
-    }
-
-    //원래 등록되어 있던 식단을 preMeals라는 리스트로 저장
-    // preMeals = this.innerHTML.split("<br>");
-    $(".meal-name").each((i, e) => {
-        if (e.value) {
-            preMeals.push(e.value);
-        }
-    })
-	
-	console.log(preMeals);
-    //모두 삭제하기 클릭 이벤트
-    $("#delete-meals").off("click").on("click", function () {
-=======
 window.addEventListener('load', function () {
     //표준 음식 리스트 modal창에 추가하기
     const standardExamples = [
@@ -154,10 +123,8 @@ window.addEventListener('load', function () {
     });
     $(".meal-box").off("click").on("click", function () {
         //우선 modal창에 입력된 input 전부 삭제
->>>>>>> 32bfa95e3d3ead9fa63735edacce4b730dd231c9
         $(".meal-name").val("");
 
-<<<<<<< HEAD
     //외식 버튼 클릭 이벤트
     $("#eatingOut").off("click").on("click", function () {
         selectBox.html("외식<br>");
@@ -223,7 +190,6 @@ window.addEventListener('load', function () {
 		
         preDiff.forEach((e, i) => {
             aiMealArr = aiMealArr.filter(target => target.meal != e );
-=======
         //입력 위치 지정
         //작은 창, 큰 창 모두 입력되도록 하기 위해 부모 클래스 이름의 자식요소를 입력위치로 설정
         //그냥 this로 했을때 큰창, 작은창 상관없으면 그대로
@@ -255,7 +221,6 @@ window.addEventListener('load', function () {
         $("#eatingOut").off("click").on("click", function () {
             selectBox.html("외식<br>");
             $("#closeModal").click();
->>>>>>> 32bfa95e3d3ead9fa63735edacce4b730dd231c9
         });
 
         //배달 버튼 클릭 이벤트
