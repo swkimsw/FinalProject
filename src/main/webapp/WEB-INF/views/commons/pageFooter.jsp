@@ -16,7 +16,7 @@
 		        </p>
 			    <div class="text-center text-white p-3">
 			      © 2023 Copyright:
-			      <a class="text-white linkText" href="">CookCook.com</a>
+			      <a class="text-white linkText" href="/">CookCook.com</a>
 			    </div>
 		      
 		    </div>
