@@ -49,6 +49,16 @@
                 td {
                     font-size: 18px;
                 }
+                
+                	.page-item .page-link {
+    			color: green;
+  				}
+  
+				.page-item.active .page-link {
+					background-color:green;
+					border-color:green;
+					color:white;
+				}
             </style>
 
         </head>
@@ -175,7 +185,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item ${cpage == ln ? 'active' : ''}">
-                                                    <a class="page-link"
+                                                    <a class="page-link "
                                                         href="/board/review?cpage=${ln}&search=${search}&searchCate=${searchCate}">${ln}</a>
                                                 </li>
                                             </c:otherwise>
@@ -194,7 +204,7 @@
 
                             <div style="float: right;">
                                 <a href="/board/reviewWrite?cpage=${cpage}">
-                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="button">작성하기</button>
+                                    <button class="btn btn-outline-success" style="margin-bottom:10px;" type="button">작성하기</button>
                                 </a>
                                 <br>
                             </div>

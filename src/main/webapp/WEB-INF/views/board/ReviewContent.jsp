@@ -215,10 +215,10 @@
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
                                                 type="submit">완료</button>
 
-                                            <button id="cancel" class=" btn btn-outline-primary" style="display:none"
+                                            <button id="cancel" class=" btn btn-outline-dark" style="display:none"
                                                 type="button">취소</button>
 
-                                            <button id="del" class="btn btn btn-outline-primary"
+                                            <button id="del" class="btn btn btn-outline-danger"
                                                 type="button">삭제</button>
 
                                              <a href="/board/review?cpage=${cpage}">
@@ -376,52 +376,6 @@
                                     </div>
                                     </c:forEach>
 
-
-
-                                    <!-- child comment-->
-<!--                                   <div class="ms-5">
-
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container con" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">신고</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    child comment
-                                    <div class="ms-5">
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container con"
-                                                        style="float:right ; margin-top: 10px;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                 </div>
 
                             </div>
@@ -483,10 +437,15 @@
 
                         $("#title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
                         $("#save").css("display", "inline"); // 완료버튼보이게
+                        $("#cancel").css("display", "inline"); // 취소버튼보이게
 
 
                     });
 
+                    
+                    $("#cancel").on("click", function () {
+                    	location.reload();
+                    });
 
 
                     // 완료

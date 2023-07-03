@@ -60,7 +60,7 @@
                     table-layout: fixed;
                 }
 
-                .btn-outline-primary {
+                .btn-outline-success {
                     margin-top: -10px;
                     margin-right: 14px;
                     font-size: medium;
@@ -124,9 +124,9 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="button-container"><br>
-                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="submit">작성</button>
+                                    <button class="btn btn-outline-success" style="margin-bottom:10px;" type="submit">작성</button>
                                     <a href="javascript:window.history.go(-1);">
-                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="button">취소</button>
+                                    <button class="btn btn-outline-success" style="margin-bottom:10px;" type="button">취소</button>
                                    </a>
                                 </td>
                             </tr>

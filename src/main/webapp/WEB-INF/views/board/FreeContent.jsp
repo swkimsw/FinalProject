@@ -253,10 +253,10 @@
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
                                                 type="button">완료</button>
 
-                                            <button id="cancel" class=" btn btn-outline-primary" style="display:none"
+                                            <button id="cancel" class=" btn btn-outline-dark" style="display:none"
                                                 type="button">취소</button>
 
-                                            <button id="del" class="btn btn btn-outline-primary"
+                                            <button id="del" class="btn btn btn-outline-danger"
                                                 type="button">삭제</button>
 
                                              <a href="/board/free?cpage=${cpage}">
@@ -546,10 +546,15 @@
 
                         $("#title").removeAttr("disabled"); // 제목버튼-활성화/ 고칠수있게
                         $("#save").css("display", "inline"); // 완료버튼보이게
+                        $("#cancel").css("display", "inline"); // 취소버튼보이게
 
 
                     });
 
+                    
+                    $("#cancel").on("click", function () {
+                    	location.reload();
+                    });
 
 
                     // 완료

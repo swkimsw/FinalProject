@@ -55,6 +55,21 @@
                 td>div {
                     text-align: center;
                 }
+                
+	.page-item .page-link {
+    			color: green;
+  				}
+  
+				.page-item.active .page-link {
+					background-color:green;
+					border-color:green;
+					color:white;
+				}
+				
+.form-check-input:checked {
+  background-color: green;
+  border-color: green;
+}
             </style>
 
         </head>
@@ -317,7 +332,7 @@
 
                             <div style="float: right;">
                                 <a href="/board/freeWrite?cpage=${cpage}">
-                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;"
+                                    <button class="btn btn-outline-success" style="margin-bottom:10px;"
                                         type="button">작성하기</button>
                                 </a>
                             </div>
