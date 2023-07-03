@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
-import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.RequestListDTO;
 import cc.spring.dto.ShopDTO;
 import cc.spring.dto.ShopListDTO;
@@ -48,7 +48,6 @@ public class ShopService {
 			Date parsedDate = dateFormat.parse(deadLineTemp);
 			Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 			dto.setDeadLine(timestamp);
-			System.out.println(dto.getDeadLine());
 			parentSeq = shopDAO.insertShop(dto);
 		}
 
