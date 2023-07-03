@@ -15,8 +15,11 @@
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 <style>
 	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
+	body{background-color:rgba(255, 255, 194, 0.5);}
 	textarea{resize:none;}
 	.container{width: 70%; margin-top:100px; background-color:white;}
 	.memberInfo{margin-top:2px; border:0;}
@@ -159,5 +162,6 @@
 		$("#deadLineTemp").attr("min", afterOneDay);
 		
 	</script>
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>

@@ -25,7 +25,6 @@ public class MyPageController {
 	@RequestMapping("myPageFreeboard")
 	public String myPageList(Model model) {
 		int code = (int) session.getAttribute("code");
-		System.out.println("클라이언트 코드 :"+code);
 		List<BoardFreeDTO> list = cmp.myPageList(code);
 		model.addAttribute("list",list);
 		return "/member/clientMyPageFreeBoard";
@@ -35,8 +34,6 @@ public class MyPageController {
 	public String myPageReview(Model model) {
 		int code = (int) session.getAttribute("code");
 		List<BoardReviewDTO> list = cmp.myPageReview(code);
-		System.out.println("클라이언트 코드 :"+code);
-		System.out.println("리뷰 컨트롤러");
 		model.addAttribute("list",list);
 		return "/member/clientMyPageReview";
 	}
@@ -45,23 +42,14 @@ public class MyPageController {
 	public String businessMypageBoard(Model model) {
 		int code = (int) session.getAttribute("code");
 		List<BoardFreeDTO> list = cmp.myPageList(code);
-		System.out.println("비지니스 :"+code);
 		model.addAttribute("list",list);
 		return "/member/businessMyPageFreeBoard";
 	}
-	
 	// 내 정보 보기 클릭 시 페이지 이동
 	@RequestMapping("myInfo")
 	public String myInfo() {
 		return "/member/myInfo";
 	}
-	
-	// 비밀번호 입력 시 로그인한 회원의 비밀번호와 일치하는지 확인
-//	@ResponseBody
-//	@RequestMapping("checkPw")
-//	public String checkPw() {
-//		
-//	}
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

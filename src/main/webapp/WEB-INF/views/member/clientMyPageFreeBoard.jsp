@@ -41,9 +41,15 @@
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-<script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script> 
+<script
+	src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0-alpha3/css/bootstrap.min.css">
+<script type="text/javascript"
+	src="https://cdn.datatables.net/r/bs-3.3.5/jqc-1.11.3,dt-1.10.8/datatables.min.js"></script>
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet"
+	type="text/css">
 <style>
 * {
 	font-family: NanumSquareNeo;
@@ -54,10 +60,12 @@
 .font {
 	font-size: 10px;
 }
-label{
-font-size: 12px;
-color:green;
+
+label {
+	font-size: 12px;
+	color: green;
 }
+
 .container {
 	margin-top: 100px;
 }
@@ -68,10 +76,9 @@ color:green;
 	/* background-color: #ffffc230; */
 }
 /* 페이징 */
-.table{
-  overflow: hidden;
+.table {
+	overflow: hidden;
 }
-
 
 /* input */
 .dataTables_wrapper .dataTables_filter input {
@@ -91,33 +98,19 @@ color:green;
 	padding: 4px;
 }
 
-/*  */
-/*   .dataTables_wrapper .dataTables_paginate .paginate_button ,
-.dataTables_wrapper .dataTables_paginate .paginate_button a {
-  background: #007936;
-  color: white;
-  border-radius: 20px;
-}  */
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover,
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
-background: none;
-border: none;
+	.dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
+	background: none;
+	border: none;
 }
+
 .dataTables_wrapper .dataTables_paginate .paginate_button.active,
-.dataTables_wrapper .dataTables_paginate .paginate_button.active a {
-	  color: white;
-background: blue;
-opacity: 70%;
+	.dataTables_wrapper .dataTables_paginate .paginate_button.active a {
+	color: white;
+	background: blue;
+	opacity: 70%;
 }
-/* .paginate_button .ton{
-background: green;}
-.paginate_button .active,
-.paginate_button .active a{
-background-color: red;
-color: thite;
-} 
- */
-/*  */
+
 table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
 	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
 	table.dataTable thead>tr>th.sorting_desc_disabled:before, table.dataTable thead>tr>td.sorting:before,
@@ -141,45 +134,43 @@ table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_a
 	content: "▼"/"";
 	display: none;
 }
-=
+
 .fontCol {
 	color: #007936;
 }
 
-.a1 {
-	/* text-align: center; */
-	
+.atag {
+	text-decoration-line: none;
+	color: #007936;
 }
-.atag{text-decoration-line: none;
-color: #007936;}
 /* 사이즈 대비 출력되는 부트스트랩반응형 */
-  @media (max-width: 494px) {
-            .atag {
-                display: inline-block;
-                width: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-            .table-responsive {
-                max-height: none !important;
-                overflow: hidden !important;
-            }
-            .table {
-                margin-bottom: 0 !important;
-                text-align: left;
-            }
-            .d-none.d-sm-table-cell {
-                display: none !important;
-            }
-        }
-        @media (max-width: 768px) {
-            .title {
-                width: 100% !important;
-                text-align: left;
-            }
-        }
+@media ( max-width : 494px) {
+	.atag {
+		display: inline-block;
+		width: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.table-responsive {
+		max-height: none !important;
+		overflow: hidden !important;
+	}
+	.table {
+		margin-bottom: 0 !important;
+		text-align: left;
+	}
+	.d-none.d-sm-table-cell {
+		display: none !important;
+	}
+}
 
+@media ( max-width : 768px) {
+	.title {
+		width: 100% !important;
+		text-align: left;
+	}
+}
 
 /* h1태그 */
 h1.second {
@@ -212,6 +203,7 @@ h1.second span:after {
 	<header>
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
+
 	</header>
 	<main>
 		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
@@ -219,43 +211,43 @@ h1.second span:after {
 				<span>내가 쓴 게시물</span>
 			</h1>
 			<br>
-		 <div class="row mainPage">
-        <div class="col">
-            <!-- 메인시작 -->
-            <div class="table">
-                <table id="myTables" class="table shadow p-3 mb-5 bg-body rounded">
-                    <thead>
-                        <tr>
-                            <th class="col-1 d-none d-sm-table-cell">no</th>
-                            <th class="col-1 col-sm-1 col-xs-3">Type</th>
-                            <th class="col-1 d-none d-lg-table-cell">BoardType</th>
-                            <th class="col-5 col-sm-6 col-xs-4">Title</th>
-                            <th class="col-1 d-none d-lg-table-cell">Like</th>
-                            <th class="col-1 d-none d-lg-table-cell">View</th>
-                            <th class="col-2 col-sm-4 col-xs-4">PostDate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="i" items="${list}" varStatus="status">
-                            <tr>
-                                <td class="fontCol col-1 d-none d-sm-table-cell">${status.count}</td>
-                                <td class="fontCol b2 col-1 col-sm-1 col-xs-3">${i.headLineValue}</td>
-                                <td class="fontCol b1 col-1 d-none d-lg-table-cell">${i.boardKindValue}</td>
-                                <td class="fontCol title col-12 col-md-5 col-lg-5">
-                                    <a href="/board/FreeContent?code=${i.code}&cpage=1&viewchoose=true" class="atag">${i.title}</a>
-                                </td>
-                                <td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.likeCount}</td>
-                                <td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.viewCount}</td>
-                                <td class="fontCol a1 col-2 col-sm-4 col-xs-4">${i.regDate}</td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-                <br>
-            </div>
-        </div>
-        </div>
-        </div>
+			<div class="row mainPage">
+				<div class="col">
+					<!-- 메인시작 -->
+					<div class="table">
+						<table id="myTables" class="table shadow p-3 mb-5 bg-body rounded">
+							<thead>
+								<tr>
+									<th class="col-1 d-none d-sm-table-cell">no</th>
+									<th class="col-1 col-sm-1 col-xs-3">Type</th>
+									<th class="col-1 d-none d-lg-table-cell">BoardType</th>
+									<th class="col-5 col-sm-6 col-xs-4">Title</th>
+									<th class="col-1 d-none d-lg-table-cell">Like</th>
+									<th class="col-1 d-none d-lg-table-cell">View</th>
+									<th class="col-2 col-sm-4 col-xs-4">PostDate</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="i" items="${list}" varStatus="status">
+									<tr>
+										<td class="fontCol col-1 d-none d-sm-table-cell">${status.count}</td>
+										<td class="fontCol b2 col-1 col-sm-1 col-xs-3">${i.headLineValue}</td>
+										<td class="fontCol b1 col-1 d-none d-lg-table-cell">${i.boardKindValue}</td>
+										<td class="fontCol title col-12 col-md-5 col-lg-5"><a
+											href="/board/FreeContent?code=${i.code}&cpage=1&viewchoose=true"
+											class="atag">${i.title}</a></td>
+										<td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.likeCount}</td>
+										<td class="fontCol a1 col-1 d-none d-lg-table-cell">${i.viewCount}</td>
+										<td class="fontCol a1 col-2 col-sm-4 col-xs-4">${i.regDate}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+						<br>
+					</div>
+				</div>
+			</div>
+		</div>
 	</main>
 	<script>
 	function goToLink(url) {
@@ -311,10 +303,10 @@ h1.second span:after {
 				pagingType : "full_numbers",
 				info : false,
 				lengthChange: false,
-				/* sPaginationType : "bootstrap" */
 			});
 			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
 		});
 	</script>
+	<c:import url="../commons/pageFooter.jsp" />
 </body>
 </html>

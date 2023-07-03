@@ -566,12 +566,10 @@ label {
 								
 							}).done(function(resp) {
 								if (resp) {
-									console.log("1 : " + resp)
 									alert("현재 공구 진행중인 상품이 있습니다.");
 									return false;
 								} 
 								else {
-									console.log("2 : " + resp)
 									alert("계정이 삭제되었습니다.");
 									window.location.href = "/";
 								}
