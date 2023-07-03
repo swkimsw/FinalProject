@@ -32,12 +32,12 @@ public class BasketController {
 	@RequestMapping("toMyBasket")
 	public String toMyBasket(Model model) {
 		
-		int memberCode = 0;
+		int memberCode = -1;
 		if(session.getAttribute("code") != null) {
 			memberCode = (int)session.getAttribute("code");
 		}
 		
-		if(memberCode == 0) {
+		if(memberCode == -1) {
 			return "redirect:/clientMember/login_form";
 		}else {
 			List<BasketDTO> basketList = bService.selectBasket(memberCode);
@@ -69,14 +69,18 @@ public class BasketController {
 		return bService.insertOne(new BasketDTO(0,memberCode, name, 0))+"";
 	}
 	
-	@RequestMapping("insertBasket")
-	public void insertBasket() {
-		
+	@ResponseBody
+	@RequestMapping("deleteBasket")
+	public String deleteBasket(int basketCode) {
+		int memberCode = (int)session.getAttribute("code");
+		return bService.deleteBasket(new BasketDTO(basketCode, memberCode, null, 0))+"";
 	}
 	
-	@RequestMapping("deleteBasket")
-	public void deleteBasket() {
-		
+	@ResponseBody
+	@RequestMapping("deleteAllBasket")
+	public String deleteAllBasket () {
+		int memberCode = (int)session.getAttribute("code");
+		return bService.deleteAllBasket(memberCode)+"";
 	}
 	
 	@ResponseBody

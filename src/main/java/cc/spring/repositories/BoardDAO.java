@@ -13,6 +13,7 @@ import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
 import cc.spring.dto.ReplyFreeDTO;
+import cc.spring.dto.ReplyReviewDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.dto.ReviewImgDTO;
 
@@ -362,6 +363,16 @@ public class BoardDAO {
 	public List<ReplyFreeDTO> selectReplyFreeList(int postCode) {
 		return mybatis.selectList("Board.selectReplyFreeList",postCode);
 	}
+	
+	// 후기게시판 댓글입력
+	public int insertReviewReply(ReplyReviewDTO dto) {
+		return mybatis.insert("Board.insertReviewReply", dto);
+	}
+	
+	// 후기게시판 댓글 가져오기
+	public List<ReplyReviewDTO> selectReplyReviewList(int postCode) {
+		return mybatis.selectList("Board.selectReplyReviewList", postCode);
+	}
 
 
 
@@ -372,6 +383,11 @@ public class BoardDAO {
 		return mybatis.update("Board.updateFreeReply", dto);
 	}
 	
+	// 후기게시판 댓글 수정
+	public int updateReviewReply(ReplyReviewDTO dto) {
+		return mybatis.update("Board.updateReviewReply", dto);
+	}
+	
 	
 // ==================================================================================================
 	
@@ -379,18 +395,33 @@ public class BoardDAO {
 	public int deleteFreeReply(ReplyFreeDTO dto) {
 		return mybatis.delete("Board.deleteFreeReply", dto);
 	}
+	
+	// 후기게시판 댓글 삭제
+	public int deleteReviewReply(ReplyReviewDTO dto) {
+		return mybatis.delete("Board.deleteReviewReply", dto);
+	}
 
 
 // ==================================================================================================
 	
 	// 자유게시판 댓글 좋아요 up
-	public int upReplyLikeCount(ReplyFreeDTO dto) {
-		return mybatis.update("Board.upReplyLikeCount", dto);
+	public int upFreeReplyLikeCount(ReplyFreeDTO dto) {
+		return mybatis.update("Board.upFreeReplyLikeCount", dto);
 	}
 	
 	// 자유게시판 댓글의 좋아요 수 가져오기
-	public ReplyFreeDTO selectReplyLikeCount(ReplyFreeDTO dto) {
+	public ReplyFreeDTO selectFreeReplyLikeCount(ReplyFreeDTO dto) {
 		return mybatis.selectOne("Board.selectReplyLikeCount",dto);
+	}
+	
+	// 후기게시판 댓글 좋아요 up
+	public int upReviewReplyLikeCount(ReplyReviewDTO dto) {
+		return mybatis.update("Board.upReviewReplyLikeCount", dto);
+	}
+	
+	// 후기게시판 댓글의 좋아요 수 가져오기
+	public ReplyReviewDTO selectReviewReplyLikeCount(ReplyReviewDTO dto) {
+		return mybatis.selectOne("Board.selectReviewReplyLikeCount", dto);
 	}
 
 

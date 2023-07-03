@@ -43,6 +43,9 @@
 
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 <header>
@@ -314,7 +317,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)" maxlength="50">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -325,7 +328,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)" maxlength="50">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -336,7 +339,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)" maxlength="50">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -347,7 +350,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)" maxlength="50">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -358,7 +361,7 @@
                             <div class="insertBox m-2">
                                 <div class="row">
                                     <div class="col-9" style="padding-right: 0;">
-                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)">
+                                        <input type="text" class="form-control meal-name m-0" placeholder="요리명 입력" onkeyup="mealChange(this)" maxlength="50">
                                     </div>
                                     <div class="col-3">
                                         <button class="btn btn-success w-100 toSearch"
@@ -383,11 +386,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="searchBox-mealList">
-                                <form class="d-flex" role="search">
-                                    <input class="form-control me-2" type="search" placeholder="요리명으로 검색"
-                                        aria-label="Search">
-                                    <button class="btn btn-outline-success" type="submit">search</button>
-                                </form>
+
                             </div>
                             <div class="standard-mealList">
                                 <div class="list-group mealListGroup">
@@ -463,6 +462,7 @@
 <script src="${path}/resources/js/mealCalendar_drag.js"></script>
 <!-- mealCalendar ingredient js -->
 <script src="${path}/resources/js/mealCalendar_ingredient.js"></script>
-
+	<!-- footer -->
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
