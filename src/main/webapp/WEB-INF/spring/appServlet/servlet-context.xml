@@ -45,7 +45,15 @@
       	<exclude-mapping path="/meal/toAiMeal"/>
       	<exclude-mapping path="/meal/toMyMeal"/>
       	<exclude-mapping path="/basket/toMyBasket"/>
-      	<exclude-mapping path="/clientMember/**"/>
+      	<exclude-mapping path="/clientMember/login_form"/>
+      	<exclude-mapping path="/clientMember/login"/>
+      	<exclude-mapping path="/clientMember/checkSum"/>
+      	<exclude-mapping path="/clientMember/sendSmsSign"/>
+      	<exclude-mapping path="/clientMember/sendSmsLogin"/>
+      	<exclude-mapping path="/clientMember/certificationSign"/>
+      	<exclude-mapping path="/clientMember/certificationLogin"/>
+      	<exclude-mapping path="/clientMember/changePw"/>
+      	<exclude-mapping path="/clientMember/signup"/>
       	<exclude-mapping path="/businessMember/**"/>
       	<exclude-mapping path="/shop/toShopList"/>
       	<exclude-mapping path="/shop/searchByKeyword"/>
