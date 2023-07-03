@@ -62,6 +62,7 @@
 											d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
                 				</svg>
                 				<c:choose>
+                				
                 					<c:when test="${sessionScope.authGradeCode == 1002}">
                 						<span id="countShopRequest" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
 											<span class="visually-hidden">New alerts</span>
@@ -185,6 +186,7 @@
 					<!-- 구분선 -->
 					<li class="border-top my-3"></li>
 					<!-- 운영진 카테고리 -->
+					<!-- 
 					<li class="mb-1 nav-menu"><i class="fa-solid fa-paper-plane"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -192,7 +194,7 @@
 							aria-expanded="false">운영진에게</button>
 						<div class="collapse" id="account-collapse">
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-								<li><a href="#"
+								<li><a href="#" id="inquire"
 									class="nav_a link-dark d-inline-flex text-decoration-none rounded">문의하기</a>
 								</li>
 								<c:if test="${sessionScope.auth_grade ne null}">
@@ -201,7 +203,7 @@
 									</li>
 								</c:if>
 							</ul>
-						</div></li>
+						</div></li> -->
 				</ul>
 			</div>
 		</div>
@@ -223,4 +225,5 @@
 			$("#countShopRequest").append(resp);
 		})
 	})
+	
 </script>
