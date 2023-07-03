@@ -143,7 +143,7 @@ table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_a
 	content: "▼"/"";
 	display: none;
 }
-=
+
 .fontCol {
 	color: #007936;
 }
@@ -214,7 +214,7 @@ h1.second span:after {
 	<header>
 		<c:import url="../commons/gnb.jsp">
 		</c:import>
-		<c:import url="../commons/pageFooter.jsp"/>
+		
 	</header>
 	<main>
 		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
@@ -319,5 +319,6 @@ h1.second span:after {
 			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
 		});
 	</script>
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
