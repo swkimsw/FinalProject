@@ -1,16 +1,10 @@
 @charset "UTF-8";
 
-body{
-	min-height: 100%;
-	position: relative;
-}
 
 .pageFooter{
     width: 100%;
     min-height: 100%;
 }
-
-
 
 ------------
 /* Main Footer */
