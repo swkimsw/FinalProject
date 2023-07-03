@@ -11,6 +11,7 @@ import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
 import cc.spring.dto.ReplyFreeDTO;
+import cc.spring.dto.ReplyReviewDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.repositories.BoardDAO;
 
@@ -313,12 +314,27 @@ public class BoardService {
 		return boarddao.selectReplyFreeList(postCode);
 	}
 	
+	// 후기게시판 댓글 입력
+	public int insertReviewReply(ReplyReviewDTO dto) {
+		return boarddao.insertReviewReply(dto);
+	}
+	
+	// 후기게시판 댓글 가져오기
+	public List<ReplyReviewDTO> selectReplyReviewList(int postCode) {
+		return boarddao.selectReplyReviewList(postCode);
+	}
+	
 
 // ===============================================================================================
 	
 	// 자유게시판 댓글 수정
 	public int updateFreeReply(ReplyFreeDTO dto) {
 		return boarddao.updateFreeReply(dto);
+	}
+	
+	// 후기게시판 댓글 수정
+	public int updateReviewReply(ReplyReviewDTO dto) {
+		return boarddao.updateReviewReply(dto);
 	}
 
 
@@ -329,15 +345,27 @@ public class BoardService {
 	public int deleteFreeReply(ReplyFreeDTO dto) {
 		return boarddao.deleteFreeReply(dto);
 	}
+	
+	// 후기게시판 댓글 삭제
+	public int deleteReviewReply(ReplyReviewDTO dto) {
+		return boarddao.deleteReviewReply(dto);
+	}
 
 
 // =================================================================================================
 	
 	// 자유게시판 댓글 좋아요 up, 좋아요 누른 후 좋아요 수 가져오기
 	@Transactional
-	public ReplyFreeDTO upReplyLikeCount(ReplyFreeDTO dto) {
-		boarddao.upReplyLikeCount(dto);
-		return boarddao.selectReplyLikeCount(dto); 
+	public ReplyFreeDTO upFreeReplyLikeCount(ReplyFreeDTO dto) {
+		boarddao.upFreeReplyLikeCount(dto);
+		return boarddao.selectFreeReplyLikeCount(dto); 
+	}
+	
+	// 후기게시판 댓글 좋아요 up, 좋아요 누른 후 좋아요 수 가져오기
+	@Transactional
+	public ReplyReviewDTO upReviewReplyLikeCount(ReplyReviewDTO dto) {
+		boarddao.upReviewReplyLikeCount(dto);
+		return boarddao.selectReviewReplyLikeCount(dto);
 	}
 
 

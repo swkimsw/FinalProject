@@ -24,6 +24,7 @@ import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
 import cc.spring.dto.ReplyFreeDTO;
+import cc.spring.dto.ReplyReviewDTO;
 import cc.spring.dto.ReportDTO;
 import cc.spring.services.BoardService;
 import cc.spring.services.FileService;
@@ -371,6 +372,10 @@ public class BoardController {
 
 		request.setAttribute("cpage", cpage);
 		
+		// 게시판에 달린 댓글 가져오기
+		List<ReplyReviewDTO> replyList = boardService.selectReplyReviewList(code);
+		request.setAttribute("replyList", replyList);
+		
 		return "/board/ReviewContent";
 	}
 
@@ -634,11 +639,22 @@ public class BoardController {
 	// 자유게시판 댓글 작성
 	@ResponseBody
 	@RequestMapping("insertFreeReply")
-	public int freeReply(String replyContent, int boardFreeCode, int cpage) {
+	public int insertFreeReply(String replyContent, int boardFreeCode, int cpage) {
 		
 		ReplyFreeDTO dto = new ReplyFreeDTO(0, boardFreeCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
 		int result = boardService.insertFreeReply(dto);
 
+		return result;
+	}
+	
+	// 후기게시판 댓글 작성
+	@ResponseBody
+	@RequestMapping("insertReviewReply")
+	public int insertReviewReply(String replyContent, int boardReviewCode, int cpage) {
+		
+		ReplyReviewDTO dto = new ReplyReviewDTO(0, boardReviewCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
+		int result = boardService.insertReviewReply(dto);
+		
 		return result;
 	}
 
@@ -655,6 +671,15 @@ public class BoardController {
 		return result;
 	}
 	
+	// 후기게시판 댓글 수정
+	@ResponseBody
+	@RequestMapping("updateReviewReply")
+	public int updateReviewReply(ReplyReviewDTO dto) {
+		
+		int result = boardService.updateReviewReply(dto);
+		return result;
+	}
+	
 	// ============================================================================================
 	
 	// 자유게시판 댓글 삭제
@@ -666,6 +691,14 @@ public class BoardController {
 		return result;
 	}
 	
+	// 후기게시판 댓글 삭제
+	@ResponseBody
+	@RequestMapping("deleteReviewReply")
+	public int deleteReviewReply(ReplyReviewDTO dto) {
+		
+		int result = boardService.deleteReviewReply(dto);
+		return result;
+	}
 	//=============================================================================================	
 
 	//신고 접수
@@ -708,9 +741,17 @@ public class BoardController {
 
 	// 자유게시판 댓글 좋아요 up 
 	@ResponseBody
-	@RequestMapping("upReplyLikeCount")
-	public ReplyFreeDTO replyLikeCount(ReplyFreeDTO dto) {
-		ReplyFreeDTO result = boardService.upReplyLikeCount(dto);
+	@RequestMapping("upFreeReplyLikeCount")
+	public ReplyFreeDTO upFreeReplyLikeCount(ReplyFreeDTO dto) {
+		ReplyFreeDTO result = boardService.upFreeReplyLikeCount(dto);
+		return result;
+	}
+	
+	// 후기게시판 댓글 좋아요 up
+	@ResponseBody
+	@RequestMapping("upReviewReplyLikeCount")
+	public ReplyReviewDTO upReviewReplyLikeCount(ReplyReviewDTO dto) {
+		ReplyReviewDTO result = boardService.upReviewReplyLikeCount(dto);
 		return result;
 	}
 	
