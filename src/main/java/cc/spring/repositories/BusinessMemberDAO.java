@@ -16,9 +16,7 @@ public class BusinessMemberDAO {
 	private SqlSessionTemplate mybatis;
 
 	public boolean login(MemberDTO dto) {
-		System.out.println(dto.getBusinessId() + " : " + dto.getPw());
 		boolean result = mybatis.selectOne("Business.login", dto);
-		System.out.println("DAO 리턴결과:" + result);
 		return result;
 	}
 //	폰 번호 넘겨서 아이디 찾아오는거에요
@@ -47,7 +45,8 @@ public class BusinessMemberDAO {
 	}
 	
 	public int insertBusiness(MemberDTO dto) {
-		return mybatis.insert("Business.insert",dto);
+		mybatis.insert("Business.insert",dto);
+		return dto.getCode();
 
 	}
 	
@@ -55,9 +54,8 @@ public class BusinessMemberDAO {
 		return mybatis.update("Business.updatePw", dto);
 	}
 	
-	public MemberDTO selectBusinessMemberInfo(String id) {
-		System.out.println(id);
-		return mybatis.selectOne("Business.selectBusinessMemberInfo",id);
+	public MemberDTO selectBusinessMemberInfo(String businessId) {
+		return mybatis.selectOne("Business.selectBusinessMemberInfo",businessId);
 	}
 	
 	public MemberDTO selectMemberInfoByCode(int code) {

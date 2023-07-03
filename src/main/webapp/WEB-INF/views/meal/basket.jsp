@@ -37,10 +37,10 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
-<!-- mealCalendar css -->
+<!-- basket css -->
 <link href="${path}/resources/css/basket.css" rel="stylesheet"
 	type="text/css">
-<!-- mealCalendar calendar js -->
+<!-- basket js -->
 <script src="${path}/resources/js/basket.js"></script>
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
@@ -69,10 +69,8 @@
 				<div class="col-12 col-md-6">
 					<div class="card card-white m-0">
 						<div class="card-body">
-							<form action="/basket/insertBasket">
 								<input type="text" class="form-control add-task"
 									placeholder="새로운 재료 등록..." maxlength="50">
-							</form>
 							<div class="selectAllBox d-flex justify-content-between">
 								<label class="checkAllLabel"> <input type="checkbox"
 									class="checkAll"> 전체 클릭
@@ -85,7 +83,7 @@
 									<div class="todo-item position-relative">
 										<div class="checker">
 											<span class=""><input type="checkbox" class="checkOne"
-												id="${i.code}" value="${i.code}"></span>
+												id="${i.code}" value="${i.code}" status="${i.statusCode}"></span>
 										</div>
 										<span>${i.name}</span> <a href="javascript:void(0);"
 											class="float-right remove-todo-item"><i

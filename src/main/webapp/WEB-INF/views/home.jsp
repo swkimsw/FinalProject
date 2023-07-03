@@ -47,54 +47,9 @@
 <script src="${path}/resources/js/aiCalendar_calendar.js"></script>
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
-<style>
-* {
-	font-family: NanumSquareNeoBold;
-	box-sizing: border-box;
-}
+<!-- home css -->
+<link href="${path}/resources/css/home.css" rel="stylesheet" type="text/css">
 
-.container {
-	margin-top: 100px;
-}
-
-.logoImg {
-	animation: rotate_image 20s ease-in-out infinite;
-	transform-origin: 50% 50%;
-	width: 256px;
-	height: 256px;
-}
-
-/* 
- @keyframes rotate_image{
-    100% {
-        transform: rotate(360deg);
-    }
-}  */
-.selectBox {
-	padding: 2rem;
-	background-color: #fdeeb39a;
-}
-
-.loadingText_box {
-	font-size: 1.5rem;
-	text-align: center;
-}
-
-.blink {
-	animation: blink 0.5s infinite;
-	font-size: 2rem;
-}
-
-@
-keyframes blink {to { opacity:0;
-	
-}
-
-}
-.waitingSpinner {
-	min-height: 500px;
-}
-</style>
 </head>
 
 <body>

@@ -70,7 +70,7 @@ public class ClientMemberController {
 		boolean memberCount = cms.existingMember(dto);
 		
 		if(memberCount) {
-			// 로그인시 count udate
+			// 로그인시 count update
 			loginCountDTO ldto = new loginCountDTO(cms.selectClientMemberInfo(dto.getId()).getCode(), 0, null);
 			boolean result = cms.login(ldto,dto);
 			if(result) {
