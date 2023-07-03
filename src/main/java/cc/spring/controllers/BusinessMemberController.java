@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cc.spring.commons.EncryptionUtils;
 import cc.spring.dto.MemberDTO;
+import cc.spring.dto.loginCountDTO;
 import cc.spring.services.BusinessMemberService;
 import cc.spring.services.ShopService;
 import cc.spring.services.SmsService;
@@ -41,17 +42,26 @@ public class BusinessMemberController {
 			
 			String loginPw = EncryptionUtils.sha512(dto.getPw());
 			dto.setPw(loginPw);
-			boolean result = bms.login(dto);
-			if(result) {
-				// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
-				MemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
-				
-				session.setAttribute("code", bmd.getCode());
-				session.setAttribute("id",bmd.getBusinessId());
-				session.setAttribute("companyName",bmd.getCompanyName());
-				session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
-				System.out.println("로그인 실행!");
-				return "redirect:/";
+			
+			// 입력한 id와 비밀번호가 일치하는 회원이 있으면 아래 구문 실행
+			boolean memberCount = bms.existingMember(dto);
+			
+			
+			if(memberCount) {
+				// 로그인 시 count update
+				loginCountDTO ldto = new loginCountDTO(bms.selectBusinessMemberInfo(dto.getBusinessId()).getCode(), 0, null);
+				boolean result = bms.login(ldto,dto);
+				if(result) {
+					// 입력한 id와 일치하는 회원의 정보 dto로 가져오기
+					MemberDTO bmd = bms.selectBusinessMemberInfo(dto.getBusinessId());
+					
+					session.setAttribute("code", bmd.getCode());
+					session.setAttribute("id",bmd.getBusinessId());
+					session.setAttribute("companyName",bmd.getCompanyName());
+					session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
+					System.out.println("로그인 실행!");
+					return "redirect:/";
+				}
 			}
 			System.out.println("로그인 실패!!");
 			redir.addFlashAttribute("status","false2");
@@ -214,9 +224,9 @@ public class BusinessMemberController {
 			dto.setAuthGradeCode(1002);
 
 			
-			
-			int result = bms.insertBusiness(dto);
-			if(result == 1) {
+			int result = 0;
+			result = bms.insertBusiness(dto);
+			if(result != 0) {
 				System.out.println(dto.getName());
 				m.addAttribute("businessName", dto.getName());
 				m.addAttribute("status", "complete");

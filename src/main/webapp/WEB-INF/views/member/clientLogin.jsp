@@ -603,7 +603,7 @@ color: #00793690;
 					<div class="row g-3 m-0 p-0  justify-content-center">
 						<div class="col-12 col-md-4">
 							<div class="timer">
-								<div id="timeLimit"></div>
+								<div id="timeLimit2"></div>
 							</div>
 						</div>
 					</div>
@@ -805,6 +805,7 @@ color: #00793690;
 					 })
                      $("#phone_auth").attr("disabled", false);
                      $("#timeLimit").text("");
+                     $("#timeLimit2").text("");
                   }
                },
                fnStop: function () { clearInterval(this.timer); }
@@ -870,7 +871,7 @@ color: #00793690;
                   // 제한 시간 만료 메세지
                   AuthTimer.fnCallback = function () { alert("다시인증을 시도해주세요.") };
                   AuthTimer.timer = setInterval(function () { AuthTimer.fnTimer() }, 1000);
-                  AuthTimer.domId = document.getElementById("timeLimit");
+                  AuthTimer.domId = document.getElementById("timeLimit2");
                   }
 
                });
