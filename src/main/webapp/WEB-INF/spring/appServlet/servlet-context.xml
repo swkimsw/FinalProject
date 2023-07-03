@@ -68,8 +68,6 @@
          <exclude-mapping path="/businessMember/certificationSign"/>
          <exclude-mapping path="/businessMember/removeSession"/>
          <exclude-mapping path="/businessMember/signup"/>
-         
-
       	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
       </interceptor>
    </interceptors>
