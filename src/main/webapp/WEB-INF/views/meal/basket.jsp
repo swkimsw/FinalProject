@@ -37,10 +37,10 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
-<!-- mealCalendar css -->
+<!-- basket css -->
 <link href="${path}/resources/css/basket.css" rel="stylesheet"
 	type="text/css">
-<!-- mealCalendar calendar js -->
+<!-- basket js -->
 <script src="${path}/resources/js/basket.js"></script>
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">

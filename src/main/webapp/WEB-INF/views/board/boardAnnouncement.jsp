@@ -195,8 +195,8 @@
                         <c:when test="${user == '1001'}">
 
                             <div style="float: right;">
-                                <a href="/board/announcementWrite">
-                                    <button class="btn btn-outline-primary" type="button">작성하기</button>
+                                <a href="/board/announcementWrite?cpage=${cpage}">
+                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="button">작성하기</button>
                                    
                                 </a>
                                 
@@ -210,7 +210,7 @@
 
                     </c:choose>
 
-
+<br>
                 </div>
 
             </div>
@@ -277,7 +277,48 @@
 
                 }
 
-
+                // 브라우저 크기 별 style 값 다르게 주기
+          		 $(window).on("load", function() {
+          			 const bodySize = parseInt($(".container").css("width"));
+          			 if(bodySize<768) { 
+          				 
+          				 $("th").css("font-size" ,"10px");
+          				 $("td").css("font-size" ,"10px");
+          				$('.btn').addClass('btn-sm');
+          				$('.pagination').addClass('pagination-sm');
+          				$('.form-select').addClass('form-select-sm');
+           				$('.form-control').addClass('form-control-sm');
+          				 
+          			}else if(bodySize>=768){
+          			 $("th").css("font-size" ,"18px");
+      				 $("td").css("font-size" ,"18px");
+      				 $('.btn').removeClass('btn-sm');
+      				$('.pagination').removeClass('pagination-sm');
+      				$('.form-select').removeClass('form-select-sm');
+       				$('.form-control').removeClass('form-control-sm');
+          			}
+          		})
+          		addEventListener("resize", function (event) {
+          			 const bodySize = parseInt($(".container").css("width"));
+          			 if(bodySize<768) {
+          				 
+          				 $("th").css("font-size" ,"10px");
+          				 $("td").css("font-size" ,"10px");
+          				$('.btn').addClass('btn-sm');
+          				$('.pagination').addClass('pagination-sm');
+          				$('.form-select').addClass('form-select-sm');
+           				$('.form-control').addClass('form-control-sm');
+          				 
+          			}else if(bodySize>=768){
+          			 $("th").css("font-size" ,"18px");
+      				 $("td").css("font-size" ,"18px");
+      				 $('.btn').removeClass('btn-sm');
+      				$('.pagination').removeClass('pagination-sm');
+      				$('.form-select').removeClass('form-select-sm');
+       				$('.form-control').removeClass('form-control-sm');
+          			}
+          		}) 
+          		
             </script>
 
         </body>
