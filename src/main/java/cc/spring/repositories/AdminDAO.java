@@ -107,4 +107,8 @@ public class AdminDAO {
 	public List<BoardCountDTO> boardReviewCount(){
 		return mybatis.selectList("Admin.boardReviewCount");
 	}
+	
+	public MemberDTO selectBanUser(int memberCode) {
+		return mybatis.selectOne("Admin.selectBanUser", memberCode);
+	}
 }
