@@ -42,12 +42,15 @@
 	type="text/css">
 <!-- mealCalendar calendar js -->
 <script src="${path}/resources/js/basket.js"></script>
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 </head>
 <body>
    <header>
       <c:import url="../commons/gnb.jsp">
       </c:import>
    </header>
+   
 	<main>
 		<div class="container">
 			<div class="header title">
@@ -68,7 +71,7 @@
 						<div class="card-body">
 							<form action="/basket/insertBasket">
 								<input type="text" class="form-control add-task"
-									placeholder="새로운 재료 등록..." maxlength="1000">
+									placeholder="새로운 재료 등록..." maxlength="50">
 							</form>
 							<div class="selectAllBox d-flex justify-content-between">
 								<label class="checkAllLabel"> <input type="checkbox"
@@ -98,5 +101,7 @@
 			</div>
 		</div>
 	</main>
+	<!-- footer -->
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
