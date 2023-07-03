@@ -64,12 +64,15 @@ color:green;
 
 .mainPage {
 	border: 5px solid #fee1e870;
-	border-radius: 30px;
+	border-radius: 70px;
 	/* background-color: #ffffc230; */
 }
 /* 페이징 */
 .table{
   overflow: hidden;
+  width: 95%;
+  margin: auto;
+  border-radius: 30px;
 }
 
 
@@ -216,8 +219,8 @@ color: #007936;}
 	</header>
 	<main>
 		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
-			<h1 class="second">
-				<span>내가 쓴 게시물</span>
+			<h1 class="second">ddddd
+				<span>내가 쓴 게시물sss</span>
 			</h1>
 			<br>
 		 <div class="row mainPage">
