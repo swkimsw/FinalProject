@@ -121,9 +121,34 @@ window.addEventListener('load', function () {
         var menu = $("<button type='button' class='list-group-item list-group-item-action standard-meal'>").html(e);
         $(".mealListGroup").append(menu);
     });
+
+
     $(".meal-box").off("click").on("click", function () {
         //우선 modal창에 입력된 input 전부 삭제
         $(".meal-name").val("");
+
+        selectBox = $(this);
+        //이미 값이 존재할 경우 input 태그에 넣어주기
+        if (selectBox.html()) {
+            let meals = this.innerHTML.split("<br>").filter(e => e != "");
+            let inputMeals = document.getElementsByClassName("meal-name");
+            for (let i = 0; i < meals.length; i++) {
+                inputMeals[i].value = meals[i];
+            }
+        }
+        //원래 등록되어 있던 식단을 preMeals라는 리스트로 저장
+        // preMeals = this.innerHTML.split("<br>");
+        preMeals = [];
+        $(".meal-name").each((i, e) => {
+            if (e.value) {
+                preMeals.push(e.value);
+            }
+        })
+        //모두 삭제하기 클릭 이벤트
+        $("#delete-meals").on("click", function () {
+            $(".meal-name").val("");
+        });
+
         //외식 버튼 클릭 이벤트
         $("#eatingOut").off("click").on("click", function () {
             selectBox.html("외식<br>");

@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import cc.spring.dto.BanMemberDTO;
 import cc.spring.dto.BoardCountDTO;
+import cc.spring.dto.MealDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.ShopListDTO;
 import cc.spring.services.AdminMemberService;
@@ -58,8 +60,10 @@ public class AdminController {
 		return result;
 	}
 	
-	@RequestMapping("banMember")
-	public int banMember(int memberCode) {
+	@ResponseBody 
+	@RequestMapping(value = "banMember", produces="text/plain;charset=utf-8")
+	public int banMember(@RequestBody List<Integer> memberCodeArr) {
+		
 		return aService.BanMember(memberCode);
 	}
 	
