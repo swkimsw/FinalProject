@@ -40,7 +40,8 @@
       <interceptor>
       	<mapping path="/**" />
       	<exclude-mapping path="/"/>
-      	<exclude-mapping path="/error"/>
+      	<exclude-mapping path="/error/**"/>
+      	<exclude-mapping path="/resources/**"/>
       	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
       </interceptor>
    </interceptors>

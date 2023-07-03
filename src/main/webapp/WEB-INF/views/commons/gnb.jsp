@@ -143,9 +143,6 @@
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 												정보 보기</a></li>
 									</c:if>
-									<li class="login"><a href="/meal/toMyMeal"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											식단 보기</a></li>
 									<c:if test="${sessionScope.authGradeCode == 1001}">
 										<li class="login"><a
 											href="http://localhost:3000/adminPage/mainPage"
@@ -203,10 +200,10 @@
 										추천 받기</a></li>
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded"
-									onclick="needLogin(${sessionScope.code})"> 내 식단 리스트</a></li>
+									onclick="needLogin(${sessionScope.authGradeCode})"> 내 식단 리스트</a></li>
 								<li><a href="/basket/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded"
-									onclick="needLogin(${sessionScope.code})"> 내 장바구니</a></li>
+									onclick="needLogin(${sessionScope.authGradeCode})"> 내 장바구니</a></li>
 							</ul>
 						</div></li>
 					<!-- 구분선 -->
@@ -235,10 +232,14 @@
 	</div>
 </nav>
 <script>
-	function needLogin(code){
-		if(code==null){
+	function needLogin(authGradeCode){
+		if(authGradeCode==null){
 			alert('로그인이 필요한 서비스입니다.');
-			}
+		}
+		else if(authGradeCode!=null && authGradeCode==1002){
+			alert('일반회원만 이용 가능한 서비스입니다.');
+			return false;
+		}
 	}
 	
 	// navi 버튼 누르면 공구샵에 온 총 요청수 구해 업데이트
