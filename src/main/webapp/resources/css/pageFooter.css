@@ -16,7 +16,7 @@ body{
 /* Main Footer */
 footer .main-footer{  padding: 20px 0; }
 footer ul{  padding-left: 0;  list-style: none;}
-
+.standard_social_links ul li{ font-size:xx-large; padding-left: 0;  list-style: none;}
 
 /* Footer Top */
 .footer-top{  background: #252525;  padding-bottom: 30px; margin-bottom: 30px;  border-bottom: 3px solid #222;}
@@ -35,11 +35,12 @@ footer.light .footer-copyright{ background: none repeat scroll 0 0 rgba(255, 255
 /*==================== 
   Widgets 
 ====================== */
-.widget{  padding: 20px;  margin-bottom: 40px;}
+.widget{  padding: 20px;}
 .widget.widget-last{  margin-bottom: 0px;}
-.widget.no-box{ padding: 0; background-color: transparent;  margin-bottom: 40px;
+.widget.no-box{ padding: 0; background-color: transparent;  margin-top: 40px;
   box-shadow: none; -webkit-box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; -o-box-shadow: none;}
 .widget.subscribe p{  margin-bottom: 18px;}
+.widget li{display: inline-block;padding: 0;}
 .widget li a{ text-decoration: none; color:white;}
 .widget li a:hover{ color: #007936;}
 .widget .badge{ float: right; background: #7f7f7f;}
@@ -55,10 +56,6 @@ footer.light .footer-copyright{ background: none repeat scroll 0 0 rgba(255, 255
 .typo-light span,
 .typo-light small{  color: #fff;}
 
-ul.social-footer2 { margin: 0;padding: 0; width: auto;}
-ul.social-footer2 li {display: inline-block;padding: 1;}
-ul.social-footer2 li a:hover {background-color:#007936;}
-ul.social-footer2 li a {display: block; height:40px;width: 40px;text-align: center;}
 .linkBtn2{background-color: #007936; color:#fff;}
 .linkBtn2:hover, .linkBtn2:focus, .linkBtn2.active {background: white;color: #007936;
 -webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
