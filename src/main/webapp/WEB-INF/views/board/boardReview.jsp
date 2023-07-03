@@ -76,9 +76,6 @@
                                 onkeypress="if(event.keyCode == 13) { this.form.submit(e); }"
                                 style="width: 300px; display: initial;" value="${search }">
 
-                            <input type="hidden" name="searchCate" value="${searchCate}">
-                            <input type="hidden" name="search" value="${search}">
-
                             <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
 
                         </div>

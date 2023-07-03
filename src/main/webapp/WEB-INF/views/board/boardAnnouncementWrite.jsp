@@ -124,10 +124,10 @@
                             </tr>
                             <tr>
                                 <td colspan="2" class="button-container"><br>
-                                    <button class="btn btn-outline-primary" type="submit">작성</button>
-                                    
-                                    <button class="btn btn-outline-primary" type="button">취소</button>
-                                   
+                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="submit">작성</button>
+                                    <a href="javascript:window.history.go(-1);">
+                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="button">취소</button>
+                                   </a>
                                 </td>
                             </tr>
                         </table>
@@ -204,7 +204,7 @@
                     if (contentLength > maxLength ) {
                         alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                         $('#content').summernote('undo');
-                    }else if(DBcontentLength>maxLength){
+                    }else if(DBcontentLength>1300){
                     	alert("저장할수 있는 용량을 초과하였습니다.");
                         $('#content').summernote('undo');
                     }else {

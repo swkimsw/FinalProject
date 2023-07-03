@@ -69,7 +69,7 @@ public class BoardController {
 			
 			
 
-			int[] check = new int[] {1,2,3};
+			int[] check = new int[] {0};
 			request.setAttribute("check", check ); //0들어감
 			
 			if(request.getParameter("searchCate")== null || request.getParameter("search")== null) { //검색조건이 아예 없으면
@@ -135,16 +135,19 @@ public class BoardController {
 				String searchCate  = request.getParameter("searchCate"); //검색카테고리
 				String search  = request.getParameter("search"); //검색내용
 				
+
+			
 				System.out.println(search);
 				System.out.println(searchCate);
+				System.out.println(check);
 				
-				
-				List<BoardFreeDTO> all= boardService.selectAllSearchFree(search,searchCate); //공지사항게시글 전부 다 가져오기 - 검색
+				List<BoardFreeDTO> all= boardService.selectAllSearchCheckFree(search,searchCate,check); //공지사항게시글 전부 다 가져오기 - 검색(카테고리있을때)
 				recordTotalCount = all.size();
-				List<BoardFreeDTO> list = boardService.selectSearchFree(start,end,search,searchCate); //공지사항게시글 페이징에 맞게 가져오기 - 검색
+				List<BoardFreeDTO> list = boardService.selectSearchCheckFree(start,end,search,searchCate,check); //공지사항게시글 페이징에 맞게 가져오기 - 검색(카테고리 있을때)
 				request.setAttribute("list", list);
 				request.setAttribute("search", search);
 				request.setAttribute("searchCate", searchCate);
+				request.setAttribute("check", check); //int형 배열보내기
 				System.out.println(recordTotalCount);
 			
 			}
