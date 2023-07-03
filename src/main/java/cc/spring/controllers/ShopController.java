@@ -246,6 +246,7 @@ public class ShopController {
 	 		int groupbuyingCode = Integer.parseInt(code);
 	 		List<MyShopListDTO> list = shopService.buyingMemberInfoList(groupbuyingCode);
 	 		model.addAttribute("list",list);
+	 		model.addAttribute("code",groupbuyingCode);
 	 		return "/shop/infoPopup";
 	 	 }
 	

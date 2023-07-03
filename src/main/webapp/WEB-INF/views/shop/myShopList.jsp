@@ -217,7 +217,7 @@
 						$.ajax({
 							url: "/shop/myShopListByStatus",
 							type: "post",
-							dataType : "json",
+							dataType : "json", 
 							data : {status : status},
 							error: function(){
 								alert("서버 연결에 실패하였습니다.");
@@ -387,7 +387,7 @@
 				
 					
 					function openInfo(a){
-						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1200, height=600,left=200, top=100, scrollbars=yes");
+						window.open("/shop/buyingMemberInfoList?code="+a ,"list","width=1300, height=600,left=200, top=100, scrollbars=yes");
 					}
 				</script>
 			</c:when>
