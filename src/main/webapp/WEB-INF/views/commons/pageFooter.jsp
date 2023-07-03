@@ -9,11 +9,11 @@
 
 					<div class="col-xs-12 col-sm-6 col-md-3">
 						<div class="widget subscribe no-box">
-							<h5 class="widget-title">
+							<h4 class="widget-title">
 								CookCook
 								<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img" style="width:200px;height:200px;">
-							</h5>
-							<h4>Plan your diet simply!</h4>
+							</h4>
+							<p>Plan your diet simply!</p>
 						</div>
 					</div>
 
@@ -74,15 +74,10 @@
 					</div>
 
 					<div class="col-xs-12 col-sm-6 col-md-3">
-
 						<div class="widget no-box">
 							<h5 class="widget-title">
 								Contact Us<span></span>
 							</h5>
-
-							<p>
-								<a href="mailto:info@domain.com" title="glorythemes">info@domain.com</a>
-							</p>
 							<ul class="social-footer2">
 								<li class=""><a title="youtube" target="_blank"
 									href="https://bit.ly/3m9avif"><img alt="youtube" width="30"
@@ -104,11 +99,6 @@
 					</div>
 
 				</div>
-			</div>
-		</div>
-
-		<div class="footer-copyright">
-			<div class="container" style="margin-top:0px;">
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<p>Copyright&emsp;🍽CookCook © 2023. All rights reserved.</p>
@@ -116,5 +106,7 @@
 				</div>
 			</div>
 		</div>
+
+		
 	</footer>
 

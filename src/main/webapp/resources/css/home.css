@@ -1,0 +1,43 @@
+@charset "UTF-8";
+* {
+	font-family: NanumSquareNeoBold;
+	box-sizing: border-box;
+}
+
+.logoImg {
+	animation: rotate_image 20s ease-in-out infinite;
+	transform-origin: 50% 50%;
+	width: 256px;
+	height: 256px;
+}
+
+/* 
+ @keyframes rotate_image{
+    100% {
+        transform: rotate(360deg);
+    }
+}  */
+.selectBox {
+	padding: 2rem;
+	background-color: #fdeeb39a;
+}
+
+.loadingText_box {
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+.blink {
+	animation: blink 0.5s infinite;
+	font-size: 2rem;
+}
+
+@
+keyframes blink {to { opacity:0;
+	
+}
+
+}
+.waitingSpinner {
+	min-height: 500px;
+}

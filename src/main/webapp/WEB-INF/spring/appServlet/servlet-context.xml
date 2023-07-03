@@ -47,7 +47,7 @@
          <exclude-mapping path="/basket/toMyBasket"/>
          <exclude-mapping path="/shop/toShopList"/>
       	 <exclude-mapping path="/shop/searchByKeyword"/>
-         <exclude-mapping path="/businessMember/login_form"/>
+         <exclude-mapping path="/clientMember/login_form"/>
          <exclude-mapping path="/clientMember/login"/>
          <exclude-mapping path="/clientMember/signup"/>
          <exclude-mapping path="/clientMember/sign_form"/>
