@@ -38,10 +38,10 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
 <!-- basket css -->
-<link href="${path}/resources/css/basket.css" rel="stylesheet"
+<link href="${path}/resources/css/meal/basket.css" rel="stylesheet"
 	type="text/css">
 <!-- basket js -->
-<script src="${path}/resources/js/basket.js"></script>
+<script src="${path}/resources/js/meal/basket.js"></script>
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 </head>

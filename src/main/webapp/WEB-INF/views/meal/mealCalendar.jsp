@@ -37,9 +37,9 @@
 
 
 <!-- mealCalendar css -->
-<link href="${path}/resources/css/mealCalendar.css" rel="stylesheet" type="text/css">
+<link href="${path}/resources/css/meal/mealCalendar.css" rel="stylesheet" type="text/css">
 <!-- mealCalendar calendar js -->
-<script src="${path}/resources/js/mealCalendar_calendar.js"></script>
+<script src="${path}/resources/js/meal/mealCalendar_calendar.js"></script>
 
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
@@ -457,11 +457,11 @@
     <input type="hidden" id="mealInit" value="<c:out value="${mealList}"/>">
 </main>
 <!-- mealCalendar meal js -->
-<script src="${path}/resources/js/mealCalendar_meal.js" th:inline="javascript"></script>
+<script src="${path}/resources/js/meal/mealCalendar_meal.js" th:inline="javascript"></script>
 <!-- mealCalendar drag js -->
-<script src="${path}/resources/js/mealCalendar_drag.js"></script>
+<script src="${path}/resources/js/meal/mealCalendar_drag.js"></script>
 <!-- mealCalendar ingredient js -->
-<script src="${path}/resources/js/mealCalendar_ingredient.js"></script>
+<script src="${path}/resources/js/meal/mealCalendar_ingredient.js"></script>
 	<!-- footer -->
 	<c:import url="../commons/pageFooter.jsp"/>
 </body>
