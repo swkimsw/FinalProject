@@ -86,9 +86,11 @@
 			if(meals.length==0){
 				let emptyMsg = "재료를 추출 할 메뉴가 없습니다! 식단을 등록해 주세요.";
 				$("#iModalInfo").text(emptyMsg);
+				$("#btnExtract").css({"display":"none"});
 			}
 			else{
 				$("#iModalInfo").text("재료를 추출하여 장바구니에 등록해 보세요!");
+				$("#btnExtract").css({"display":"block"});
 			}
             for(let i=0;i<meals.length;i++){
                 let input = $(`<input class="form-check-input targetMeal me-1" type="checkbox" value="">`).attr('id',"checkboxStretched"+i);

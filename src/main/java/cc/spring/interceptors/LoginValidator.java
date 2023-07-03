@@ -20,7 +20,7 @@ public class LoginValidator implements HandlerInterceptor{
 		if(code!=null) {
 			return true;
 		}else {
-			response.sendRedirect("/error");
+			response.sendRedirect("/clientMember/login_form");
 			return false;
 		}
 		
