@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <section class="footer" style="position: relative;">
@@ -16,7 +16,7 @@
 		        </p>
 			    <div class="text-center text-white p-3">
 			      © 2023 Copyright:
-			      <a class="text-white linkText" href="/">CookCook.com</a>
+			      <a class="text-white linkText" href="">CookCook.com</a>
 			    </div>
 		      
 		    </div>
