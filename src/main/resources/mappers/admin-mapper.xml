@@ -13,7 +13,7 @@
 		delete from member where code = ${code}
 	</delete>
 	<insert id="insertBanMember">
-		insert into BannedMember values(${code}, ${memberCode},#{id}, #{businessID}, #{pw}, #{name}, #{companyName}, #{authGradeCode}, #{nickName},#{birthDate},#{phone},#{eMail},#{shippingCompany},#{zipcode},#{address1},#{address2},#{agree},DEFAULT)
+		insert into BannedMember values(${code}, ${memberCode},#{id, jdbcType=VARCHAR}, #{businessId, jdbcType=VARCHAR}, #{pw}, #{name, jdbcType=VARCHAR}, #{companyName, jdbcType=VARCHAR}, ${authGradeCode}, #{nickName, jdbcType=VARCHAR},#{birthDate, jdbcType=VARCHAR},#{phone, jdbcType=VARCHAR},#{eMail, jdbcType=VARCHAR},#{shippingCompany, jdbcType=VARCHAR},#{zipcode, jdbcType=VARCHAR},#{address1, jdbcType=VARCHAR},#{address2, jdbcType=VARCHAR},#{agree}, #{regDate}, #{modDate, jdbcType=TIMESTAMP}, DEFAULT, ${reportCount})
 		<selectKey keyProperty="code" order="BEFORE" resultType="int">
 			select banMember_seq.nextval from dual
 		</selectKey>
