@@ -21,7 +21,6 @@ public class BusinessMemberDAO {
 	}
 //	폰 번호 넘겨서 아이디 찾아오는거에요
 	public String getIdByPhone(String phone) {
-		System.out.println("비번바꾸는 DAO");
 		return mybatis.selectOne("Business.getIdByPhone",phone);
 	}
 	
@@ -40,7 +39,6 @@ public class BusinessMemberDAO {
 	}
 	
 	public boolean phoneCheck(String phone) {
-		System.out.println("비지니스 폰체크 DAO");
 		return mybatis.selectOne("Business.phoneCheck",phone);
 	}
 	
