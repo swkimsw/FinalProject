@@ -33,6 +33,8 @@
 	.toWriteAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	.writeAnswerBtn{width:100px; height:40px; margin-top:20px;}
 	
+	/*.col-xl-8 > .carousel > .carousel-inner > .carousel-item > img {width:100%;}*/
+	/*.col-xl-8 > .carousel > .carousel-control-prev { margin-left: 10%;}*/
 	
 </style>
 </head>
@@ -47,27 +49,29 @@
 			<h2 class="mb-5" style="text-align:center;">공구 신청</h2>
 			
 			<div class="images" style="height:40%;">
-				<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
-  					<div class="carousel-inner">
-  						<div class="carousel-item active">
-  							<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
-      						<img src="${fileDTO[0].path}${fileDTO[0].sysname}" class="d-block w-100" alt="...">
-    					</div>
-  						<c:forEach var="i" items="${fileDTO}" begin="1">
-  							<div class="carousel-item">
-  								<input type="hidden" name="sysname" value="${i.sysname}">
-      							<img src="${i.path}${i.sysname}" class="d-block w-100" alt="...">
+				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+					<div id="carouselExampleIndicators" class="carousel slide mb-3" data-bs-ride="carousel">
+  						<div class="carousel-inner" style="text-align:center">
+  							<div class="carousel-item active">
+  								<input type="hidden" name="sysname" value="${fileDTO[0].sysname}">
+      							<img src="${fileDTO[0].path}${fileDTO[0].sysname}" class="carouselImg img-fluid" alt="...">
     						</div>
-  						</c:forEach>
-  					</div>
-  					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    					<span class="visually-hidden">Previous</span>
-  					</button>
-  					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-    					<span class="visually-hidden">Next</span>
-  					</button>
+  							<c:forEach var="i" items="${fileDTO}" begin="1">
+  								<div class="carousel-item">
+  									<input type="hidden" name="sysname" value="${i.sysname}">
+      								<img src="${i.path}${i.sysname}" class="carouselImg img-fluid" alt="...">
+    							</div>
+  							</c:forEach>
+  						</div>
+  						<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    						<span class="visually-hidden">Previous</span>
+  						</button>
+  						<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+    						<span class="visually-hidden">Next</span>
+  						</button>
+					</div>
 				</div>
 			</div>
 			
@@ -87,7 +91,7 @@
 					</div>
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
-					<div class="mm input-group mb-3">
+					<div class="input-group mb-3">
 						<span class="input-group-text">판매 가격</span>
 						<input type="text" class="form-control" id="productPrice" name="productPrice" value="${shopDTO.productPrice}" required readonly>
 						<span class="input-group-text">원</span>
@@ -440,7 +444,6 @@
 			let row="";
 			row += '<div id="replyAnswerInsert'+code+'">';
 			row += '<div class="mb-3">';
-			// row += '<i class="fa-light fa-turn-down-right"></i>';
 			row += '<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>';
 			row += '&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>';
 			row += '<div class="reply" style="margin-left:5%;">';
