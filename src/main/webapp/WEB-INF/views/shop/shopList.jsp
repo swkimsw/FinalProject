@@ -113,7 +113,7 @@
 	</c:import>
 	
 	<div class="container sContainer w-75">
-		<div class="subNav w-75 pt-2">
+		<div class="subNav w-75">
 				<nav class="navbar bg-body-tertiary navbar-expand-sm">
 						<div class="d-flex justify-content-between navbar w-100" id="navbarTogglerDemo03">
 							<div class="linkGroup" style="position: relative;">

@@ -44,6 +44,7 @@
 
 .msContainer {
 	margin-top: 80px;
+	position: relative;
 }
 
 .clientHeader{
@@ -206,13 +207,15 @@
 										})
 										$(".applyList").append("<hr>");
 									}else{
-										div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-send-x'/> 신청하신 내역이 없습니다. </p><hr/></div>";
+										
+										div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936;margin-bottom: 700px;margin-top:100px;'><hr/><p class='fs-6'> <i class='bi bi-send-x'/> 신청하신 내역이 없습니다. </p><hr/></div>";
 										$(".applyList").append(div);
 									}
 								}		
 							)
 						})
 					
+						
 
 					</script>
 				</c:when>
