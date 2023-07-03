@@ -80,15 +80,41 @@ public class BoardService {
 
 	
 	//자유게시판게시글 리스트 조건에 따라 가져오기
-	public List<BoardFreeDTO> selectFreelist(int start , int end) {
+	public List<BoardFreeDTO> selectFreelist(int start , int end ) {
 		return boarddao.selectFreelist(start,end);
 	}
+	
+	
+	//자유게시판게시글 리스트 조건에 따라 가져오기 - 체크분류
+	public List<BoardFreeDTO> selectFreeChecklist(int start , int end ,int[] check ) {
+		return boarddao.selectFreeChecklist(start,end,check);
+	}
+		
+		
 	//자유게시글 리스트 다 가져오기
 	public List<BoardFreeDTO> selectAllFree() {
 		return boarddao.selectAllFree();
 
 	}
+	
+	//자유게시글 리스트 다 가져오기 - 체크분류
+	public List<BoardFreeDTO> selectCheckAllFree(int[] check) {
+		return boarddao.selectCheckAllFree(check);
 
+	}
+
+	//자유게시글 리스트 조건에 따라 가져오기 - 검색
+		public List<BoardFreeDTO> selectSearchFree(int start , int end , String search, String searchCate) {
+			return boarddao.selectSearchFree(start,end,search,searchCate);
+	}
+
+		//자유게시글 리스트 다 가져오기 - 검색
+		public List<BoardFreeDTO> selectAllSearchFree(String search, String searchCate) {
+			return boarddao.selectAllSearchFree(search,searchCate);
+	}
+		
+		
+		
 	
 	//공지사항게시글 리스트 조건에 따라 가져오기
 	public List<BoardAnnouncementDTO> selectAnnouncementlist(int start , int end) {
@@ -101,8 +127,8 @@ public class BoardService {
 	}
 
 	//공지사항게시글 리스트 조건에 따라 가져오기 - 검색
-	public List<BoardAnnouncementDTO> selectSearchAnnouncelist(int start , int end , String search, String searchCate) {
-		return boarddao.selectSearchAnnouncelist(start,end,search,searchCate);
+	public List<BoardAnnouncementDTO> selectSearchAnnounce(int start , int end , String search, String searchCate) {
+		return boarddao.selectSearchAnnounce(start,end,search,searchCate);
 	}
 
 	//공지사항게시글 리스트 다 가져오기 - 검색

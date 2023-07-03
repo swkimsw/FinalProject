@@ -156,8 +156,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item ${cpage == ln ? 'active' : ''}">
-                                                    <a class="page-link"
-                                                        href="/board/announcement?cpage=${ln}">${ln}</a>
+                                                    <a class="page-link" href="/board/review?cpage=${ln}">${ln}</a>
                                                 </li>
                                             </c:otherwise>
                                         </c:choose>
@@ -218,6 +217,37 @@
             <script>
 
 
+
+                $("#frm").on("submit", function (e) {
+
+                    if ($("select[id=searchCate] option:selected").val() == "선택") {
+                        alert("카테고리를 선택해주세요.");
+                        e.preventDefault(); // 폼 제출을 막음
+                    } else if ($("#search").val().trim() == "") {
+                        alert("검색어를 작성해주세요.");
+                        e.preventDefault(); // 폼 제출을 막음
+                    }
+
+                })
+
+                function reload() {
+                    location.href = "/board/review?cpage=1";
+                }
+
+
+                $("#search").on("input", function () {
+                    var maxLength = 20;
+                    var search = $(this).val();
+
+                    if (search.length > maxLength) {
+                        alert("검색어는 최대 20자까지 입력할 수 있습니다.");
+                        search = search.slice(0, maxLength - 1);
+                        $(this).val(search);
+
+                    }
+                });
+
+
                 function goToLink(url) {
                     window.location.href = url;
                 }
@@ -248,22 +278,8 @@
                 }
 
 
-                function reload() {
-                    location.href = "/board/review?cpage=1";
-                }
-                
-                
-                $("#frm").on("submit", function (e) {
 
-                    if ($("select[id=searchCate] option:selected").val() == "선택") {
-                        alert("카테고리를 선택해주세요.");
-                        e.preventDefault(); // 폼 제출을 막음
-                    } else if ($("#search").val().trim() == "") {
-                        alert("검색어를 작성해주세요.");
-                        e.preventDefault(); // 폼 제출을 막음
-                    }
 
-                })
             </script>
 
         </body>
