@@ -265,26 +265,26 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 
 <!-- 자유게시판 수정 -->
 	<update id="updateFree" >
-		update boardFree set headlinecode = #{headLineCode}, title =  #{title}, content = #{content} where code = #{code}
+		update boardFree set headlinecode = #{headLineCode}, title =  #{title}, content = #{content}, moddate = sysdate where code = #{code} 
 	</update>
 
 
 <!-- 공지게시판 수정 -->
 	<update id="updateAnnouncement" >
-		update boardAnnouncement set title =  #{title}, content = #{content} where code = #{code}
+		update boardAnnouncement set title =  #{title}, content = #{content}, moddate = sysdate  where code = #{code}
 	</update>
 	
 	
 
 <!-- 리뷰게시판 수정 -->
 	<update id="updateReview" >
-		update boardReview set title =  #{title}, content = #{content} where code = #{code}
+		update boardReview set title =  #{title}, content = #{content} , moddate = sysdate where code = #{code}
 	</update>
 	
 	
 <!-- ========================================================================================== -->	
 
-<!-- 공지게시판 삭제 -->
+	<!-- 공지게시판 삭제 -->
 	<delete id="deleteAnnouncement" >
 		delete from boardAnnouncement where code = #{code}
 	</delete>
@@ -359,6 +359,19 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		ORDER BY rf.code asc
 	</select>
 	
+	<!-- 후기게시판 댓글입력 -->
+	<insert id="insertReviewReply">
+		insert into replyreview values(reply_review_seq.nextval, #{postCode}, #{memberCode}, #{content}, #{likeCount}, sysdate, null, null)
+	</insert>
+	
+	<!-- 후기게시판 댓글출력 -->
+	<select id="selectReplyReviewList" resultType="cc.spring.dto.ReplyReviewDTO">
+		SELECT rr.code, rr.postcode, rr.membercode, m.nickname, m.companyname, rr.content, rr.likecount, rr.regdate, rr.moddate, rr.deldate
+		FROM replyreview rr
+		JOIN member m ON rr.membercode = m.code
+		WHERE rr.postcode = #{postCode}
+		ORDER BY rr.code asc
+	</select>
 
 	
 	
@@ -369,23 +382,43 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		update replyfree set content = #{content}, moddate = sysdate where code = #{code}
 	</update>
 	
+	<!-- 후기게시판 댓글 수정 -->
+	<update id="updateReviewReply">
+		update replyreview set content = #{content}, moddate = sysdate where code = #{code}
+	</update>
+	
 <!-- ============================================================================================== -->
 	
 	<!-- 자유게시판 댓글 삭제 -->
 	<delete id="deleteFreeReply">
 		delete from replyfree where code = #{code}
 	</delete>
+	
+	<!-- 후기게시판 댓글 삭제 -->
+	<delete id="deleteReviewReply">
+		delete from replyreview where code = #{code}
+	</delete>
 
 <!-- ============================================================================================== -->
 
 	<!-- 자유게시판 댓글 좋아요 up -->
-	<update id="upReplyLikeCount">
+	<update id="upFreeReplyLikeCount">
 		update replyfree set likecount = likecount + 1 where code = #{code}
 	</update>
 
 	<!-- 자유게시판 댓글의 좋아요 수 가져오기 -->
-	<select id="selectReplyLikeCount" resultType="cc.spring.dto.ReplyFreeDTO">
+	<select id="selectFreeReplyLikeCount" resultType="cc.spring.dto.ReplyFreeDTO">
 		select * from replyfree where code = #{code}
+	</select>
+	
+	<!-- 후기게시판 댓글 좋아요 up -->
+	<update id="upReviewReplyLikeCount">
+		update replyreview set likecount = likecount + 1 where code = #{code}
+	</update>
+	
+	<!-- 후기게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectReviewReplyLikeCount" resultType="cc.spring.dto.ReplyReviewDTO">
+		select * from replyreview where code = #{code}
 	</select>
 	
 </mapper>

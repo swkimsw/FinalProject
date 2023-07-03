@@ -45,6 +45,8 @@
 	type="text/css">
 <!-- mealCalendar calendar js -->
 <script src="${path}/resources/js/aiCalendar_calendar.js"></script>
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 <style>
 * {
 	font-family: NanumSquareNeoBold;
@@ -448,7 +450,7 @@ keyframes blink {to { opacity:0;
 													<div class="col-9" style="padding-right: 0;">
 														<input type="text" class="form-control meal-name m-0"
 															onkeyup="aiMealChange(this)"
-															onkeydown="aiMealChange(this)" placeholder="요리명 입력">
+															onkeydown="aiMealChange(this)" placeholder="요리명 입력" maxlength="50">
 													</div>
 													<div class="col-3">
 														<button class="btn btn-success w-100 toSearch"
@@ -461,7 +463,7 @@ keyframes blink {to { opacity:0;
 													<div class="col-9" style="padding-right: 0;">
 														<input type="text" class="form-control meal-name m-0"
 															onkeyup="aiMealChange(this)"
-															onkeydown="aiMealChange(this)" placeholder="요리명 입력">
+															onkeydown="aiMealChange(this)" placeholder="요리명 입력" maxlength="50">
 													</div>
 													<div class="col-3">
 														<button class="btn btn-success w-100 toSearch"
@@ -474,7 +476,7 @@ keyframes blink {to { opacity:0;
 													<div class="col-9" style="padding-right: 0;">
 														<input type="text" class="form-control meal-name m-0"
 															onkeyup="aiMealChange(this)"
-															onkeydown="aiMealChange(this)" placeholder="요리명 입력">
+															onkeydown="aiMealChange(this)" placeholder="요리명 입력" maxlength="50">
 													</div>
 													<div class="col-3">
 														<button class="btn btn-success w-100 toSearch"
@@ -487,7 +489,7 @@ keyframes blink {to { opacity:0;
 													<div class="col-9" style="padding-right: 0;">
 														<input type="text" class="form-control meal-name m-0"
 															onkeyup="aiMealChange(this)"
-															onkeydown="aiMealChange(this)" placeholder="요리명 입력">
+															onkeydown="aiMealChange(this)" placeholder="요리명 입력" maxlength="50">
 													</div>
 													<div class="col-3">
 														<button class="btn btn-success w-100 toSearch"
@@ -500,7 +502,7 @@ keyframes blink {to { opacity:0;
 													<div class="col-9" style="padding-right: 0;">
 														<input type="text" class="form-control meal-name m-0"
 															onkeyup="aiMealChange(this)"
-															onkeydown="aiMealChange(this)" placeholder="요리명 입력">
+															onkeydown="aiMealChange(this)" placeholder="요리명 입력" maxlength="50">
 													</div>
 													<div class="col-3">
 														<button class="btn btn-success w-100 toSearch"
@@ -527,11 +529,7 @@ keyframes blink {to { opacity:0;
 										</div>
 										<div class="modal-body">
 											<div class="searchBox-mealList">
-												<form class="d-flex" role="search">
-													<input class="form-control me-2" type="search"
-														placeholder="요리명으로 검색" aria-label="Search">
-													<button class="btn btn-outline-success" type="submit">search</button>
-												</form>
+
 											</div>
 											<div class="standard-mealList">
 												<div class="list-group mealListGroup">
@@ -552,6 +550,8 @@ keyframes blink {to { opacity:0;
 			</div>
 		</div>
 	</div>
+	<!-- footer -->
+	<c:import url="commons/pageFooter.jsp"/>	
 </body>
 <!-- aiCalendar meal js -->
 <script src="${path}/resources/js/aiCalendar_meal.js"></script>

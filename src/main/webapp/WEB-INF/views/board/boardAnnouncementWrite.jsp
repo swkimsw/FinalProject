@@ -75,6 +75,17 @@
                     margin-top: -15px;
                     font-size: small;
                 }
+                 .note-editor .note-toolbar .note-color-all .note-dropdown-menu,
+	.note-popover .popover-content .note-color-all .note-dropdown-menu {
+	min-width: 0px;
+}
+
+.note-dimension-picker-mousecatcher,
+.note-dimension-picker-highlighted,
+.note-dimension-picker-unhighlighted { 
+  max-width: 3em;
+  max-height: 3em;
+}
             </style>
 
         </head>
@@ -114,7 +125,9 @@
                             <tr>
                                 <td colspan="2" class="button-container"><br>
                                     <button class="btn btn-outline-primary" type="submit">작성</button>
+                                    
                                     <button class="btn btn-outline-primary" type="button">취소</button>
+                                   
                                 </td>
                             </tr>
                         </table>
@@ -134,7 +147,7 @@
                 $(document).ready(function () {
 
                     $('#content').summernote({
-                        placeholder: '글을 입력해주세요 (최대 2000자까지 가능합니다)',
+                        placeholder: '글을 입력해주세요 (최대 1000자까지 가능합니다)',
                         height: 600,
                         focus: true,
                         maxHeight: 800,
@@ -154,13 +167,6 @@
                         	onImageUpload: function (data) {
                                 alert("이미지 업로드 불가능합니다")
                             },
-                            onKeyup: function () {
-                                checkContentLength();
-                            },
-                            onPaste: function () {
-                                checkContentLength();
-
-                            },
                             onChange: function (contents, $editable) {
                                 console.log("asdf")
                                 checkContentLength();
@@ -174,14 +180,11 @@
 
 
 
-                function checkContentLength() {
+              function checkContentLength() {
                     var maxLength = 1000;
                     var content = $('#content').summernote('code');
                     var text = $('<div>').html(content).text();
 
-                    console.log(content)
-                    console.log(text)
-                    console.log(text.length)
 
                     var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
                     var iframeCount = iframeTags.length; // 영상 개수
@@ -189,23 +192,25 @@
                     var imageTags = (content.match(/<img[^>]+>/g) || []);
                     var imageCount = imageTags.length; // 이미지 개수
 
-
                     var contentLength = text.length + (iframeCount * 100) + (imageCount * 100);
+                    var DBcontentLength = content.length;
 
                     console.log("contentLength: " + contentLength);
+                    console.log("DBcontentLength: " + DBcontentLength);
                     console.log("Iframe Count: " + iframeCount);
                     console.log("Image Count: " + imageCount);
 
 
-
-                    if (contentLength > maxLength) {
+                    if (contentLength > maxLength ) {
                         alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                         $('#content').summernote('undo');
-                    } else {
+                    }else if(DBcontentLength>maxLength){
+                    	alert("저장할수 있는 용량을 초과하였습니다.");
+                        $('#content').summernote('undo');
+                    }else {
                         return;
                     }
                 }
-
 
                 $("#title").on("input", function () {
                     var maxLength = 50;
