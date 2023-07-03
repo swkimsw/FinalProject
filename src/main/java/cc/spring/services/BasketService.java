@@ -45,7 +45,6 @@ public class BasketService {
 	@Transactional
 	public void insertAiIngredients(int memberCode, String[] targetIngredients) {
 		for(String target:targetIngredients) {
-			System.out.println(target);
 			basketDAO.insertBasket(new BasketDTO(0,memberCode,target,0));
 		}
 	}
@@ -76,6 +75,14 @@ public class BasketService {
 	
 	public int updateUnchecked(BasketDTO dto) {
 		return basketDAO.updateUnchecked(dto);
+	}
+	
+	public int checkAll(int memberCode) {
+		return basketDAO.checkAll(memberCode);
+	}
+	
+	public int uncheckAll(int memberCode) {
+		return basketDAO.uncheckAll(memberCode);
 	}
 	
 	public int successCount(int memberCode) {
