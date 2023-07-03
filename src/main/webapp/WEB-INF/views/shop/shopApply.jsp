@@ -381,6 +381,30 @@
 		$(".buttons").append(cancel);
 	})
 	
+	// 공구 수정 완료 버튼 클릭시 유효성 검사
+	$(document).on("click", "#updateCompleteBtn", function(){
+			
+		let regexProductPrice = /^[0-9]+$/;
+		let regexMin = /^[0-9]+$/;
+			
+		let productPrice = $("#productPrice").val();
+		let min = $("#min").val();
+			
+		let resultProductPrice = regexProductPrice.exec(productPrice);
+		let resultMin = regexMin.exec(min);
+			
+		if(!resultProductPrice){
+			alert("상품가격 은 숫자로 입력해 주세요!");
+			return false;
+		}
+			
+		if(!resultMin){
+			alert("최소 인원 은 숫자로 입력해 주세요!");
+			return false;
+		}
+			
+	})
+	
 	// 공구 신청 버튼 클릭시
 	$("#insertRequestBtn").on("click", function(){
 		
