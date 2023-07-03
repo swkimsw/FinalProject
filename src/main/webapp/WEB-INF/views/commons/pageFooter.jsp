@@ -4,11 +4,11 @@
 <section class="footer" style="position: relative;">
 	<div class="container-fluid footerContainer">
 	  
-		  <footer class="text-center" style="background-color: silver;">
+		  <footer class="text-center" style="background-color: #478C5C;">
 		 	<!-- footer 상단 -->
-		    <div class="container px-0 footerBox footerp-4 pb-0" style="background-color: silver;" >
+		    <div class="container px-0 footerBox footerp-4 pb-0">
 		    
-		        <p class="d-flex justify-content-center align-items-center">
+		        <p class="d-flex justify-content-center align-items-center pt-3">
 		          <span class="me-3">Register for free</span>
 		          <button type="button" class="btn btn-outline-light btn-rounded">
 		            Sign up!

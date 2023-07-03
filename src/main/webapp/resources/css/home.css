@@ -4,10 +4,6 @@
 	box-sizing: border-box;
 }
 
-.container {
-	margin-top: 100px;
-}
-
 .logoImg {
 	animation: rotate_image 20s ease-in-out infinite;
 	transform-origin: 50% 50%;
