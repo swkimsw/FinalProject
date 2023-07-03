@@ -39,6 +39,8 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 <style>
 
 * {
@@ -106,7 +108,7 @@
 	<!-- gnb -->
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
-
+	
 	<div class="container w-75">
 		<div class="subNav w-75 pt-2">
 				<nav class="navbar bg-body-tertiary navbar-expand-sm">
@@ -301,6 +303,6 @@
 		}
 	</script>
 
-
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
