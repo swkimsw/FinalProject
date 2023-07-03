@@ -46,6 +46,7 @@
       	<exclude-mapping path="/meal/toMyMeal"/>
       	<exclude-mapping path="/basket/toMyBasket"/>
       	<exclude-mapping path="/clientMember/**"/>
+      	<exclude-mapping path="/businessMember/**"/>
       	<exclude-mapping path="/shop/toShopList"/>
       	<exclude-mapping path="/shop/searchByKeyword"/>
       	<beans:bean class="cc.spring.interceptors.LoginValidator"></beans:bean>
