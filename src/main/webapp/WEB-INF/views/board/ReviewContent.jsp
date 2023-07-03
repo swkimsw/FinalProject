@@ -105,6 +105,18 @@
                     margin-top: -15px;
                     font-size: small;
                 }
+                .note-editor .note-toolbar .note-color-all .note-dropdown-menu,
+	.note-popover .popover-content .note-color-all .note-dropdown-menu {
+	min-width: 0px;
+}
+
+.note-dimension-picker-mousecatcher,
+.note-dimension-picker-highlighted,
+.note-dimension-picker-unhighlighted { 
+  max-width: 3em;
+  max-height: 3em;
+}
+
             </style>
 
         </head>
@@ -227,7 +239,7 @@
 						                	<button id="report" type="button" class="btn btn-outline-danger">신고</button>
 						                  
 						
-						                  	<button id="likecount" class=" btn btn-outline-primary" type="button">추천</button> 
+						                  	<button id="likecount" class=" btn btn-outline-primary" type="button"><i class="bi bi-hand-thumbs-up"></i>${result.likeCount }</button> 
 						
 						                    <a href="/board/review?cpage=${cpage}"> 
 						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
@@ -350,8 +362,7 @@
                 	//const contentDiv = document.getElementById('content');
                 	//console.log(contentDiv.innerTEXT)
                 	//contentDiv.innerHTML = contentDiv.innerText;
-                	
-					$("#content").html($("#content").html());
+					//$("#content").html($("#content").html());
                     $("#modi").on("click", function () {
 
                         $("#modi").css("display", "none"); // 수정버튼 안보이게
@@ -378,14 +389,6 @@
                                     uploadImages(files);
                                     checkContentLength();
 
-                                },
-                                onKeyup: function () {
-                                    console.log("2번째")
-                                    checkContentLength();
-                                },
-                                onPaste: function () {
-                                    console.log("3번째")
-                                    checkContentLength();
                                 },
                                 onChange: function (contents, $editable) {
                                     console.log("4번째")
@@ -538,13 +541,11 @@
                         }
                     }); // 제목 글자수 제한
 
-
                     function checkContentLength() {
                         var maxLength = 1000;
                         var content = $('#content').summernote('code');
-
-
                         var text = $('<div>').html(content).text();
+
 
                         var iframeTags = (content.match(/<iframe[^>]+>/g) || []);
                         var iframeCount = iframeTags.length; // 영상 개수
@@ -553,18 +554,26 @@
                         var imageCount = imageTags.length; // 이미지 개수
 
                         var contentLength = text.length + (iframeCount * 100) + (imageCount * 100);
+                        var DBcontentLength = content.length;
 
-                        console.log("contentLength: " + contentLength);
+                        console.log("contentLength: " + contenstLength);
+                        console.log("DBcontentLength: " + DBcontentLength);
                         console.log("Iframe Count: " + iframeCount);
                         console.log("Image Count: " + imageCount);
 
-                        if (contentLength > maxLength) {
+
+                        if (contentLength > maxLength ) {
                             alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                             $('#content').summernote('undo');
-                        } else {
+                        }else if(DBcontentLength>maxLength){
+                        	alert("저장할수 있는 용량을 초과하였습니다.");
+                            $('#content').summernote('undo');
+                        }else {
                             return;
                         }
-                    } //유효성검사
+                    }
+                    
+                    
 
                     $("#del").on("click",function(){
                     	let result = confirm("삭제하시겠습니까?")
@@ -580,31 +589,38 @@
                     
                     $("#likecount").on("click", function () {
                     	
-                    	 let postcode = $("#code").val();
-                    	let count = (${result.likeCount}+1) ;
-                    	 console.log(postcode);
-                    	 
-                    	 $.ajax({
- 						    url: "/board/LikeCount",
- 						    type: "post",
- 						    dataType: "json",
- 						    data: {
- 						    	code : postcode ,
- 						     	likeCount: count,
- 						     	boardKindCode: "1003"
- 						    },
- 						  }).done(function (resp) {
- 						      if (resp == 1) {
- 						    	 alert("추천되었습니다");
-                     	        location.href="/board/ReviewContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
- 						      } else {
- 						        alert("다시 눌러주세요");
- 						      }
- 						    })
- 						    .fail(function () {
- 						      alert("요청 실패");
- 						    });
-                    	 
+                    	let result = confirm("추천하시겠습니까?");
+                    	
+                    	if(result){
+                    		 let postcode = $("#code").val();
+                         	let count = (${result.likeCount}+1) ;
+                         	 console.log(postcode);
+                         	 
+                         	 $.ajax({
+      						    url: "/board/LikeCount",
+      						    type: "post",
+      						    dataType: "json",
+      						    data: {
+      						    	code : postcode ,
+      						     	likeCount: count,
+      						     	boardKindCode: "1003"
+      						    },
+      						  }).done(function (resp) {
+      						      if (resp == 1) {
+      						    	 alert("추천되었습니다");
+                          	        location.href="/board/ReviewContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
+      						      } else {
+      						        alert("다시 눌러주세요");
+      						      }
+      						    })
+      						    .fail(function () {
+      						      alert("요청 실패");
+      						    });
+                    	}else{
+                    		alert("취소하였습니다")
+                    		
+                    	}
+
                     	 
 						});
 						

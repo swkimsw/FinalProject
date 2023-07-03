@@ -107,7 +107,7 @@
                                     <option value="제목">제목</option>
                                     <option value="작성자">작성자</option>
                                 </select>
-                                <input class="form-control" placeholder="Search" id="search" name="search"
+                                <input class="form-control" placeholder="전체글에서 Search" id="search" name="search"
                                     onkeypress="if(event.keyCode == 13) { this.form.submit(e); }"
                                     style="width: 300px; display: initial;" value="${search }">
 
@@ -316,10 +316,11 @@
                         <c:when test="${user != '1001' }">
 
                             <div style="float: right;">
-                                <a href="/board/freeWrite">
-                                    <button class="btn btn-outline-primary" type="button">작성하기</button>
+                                <a href="/board/freeWrite?cpage=${cpage}">
+                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;"type="button">작성하기</button>
                                 </a>
                             </div>
+
 
                         </c:when>
 
@@ -329,9 +330,10 @@
 
                     </c:choose>
 
+<div><br></div>
 
 					<c:forEach var="ch" items="${check}" varStatus="status">
-					 <div class="checking">${check[status.index]}</div>
+					 <div style="display:none;" class="checking">${check[status.index]}</div>
 					</c:forEach>
 
                 </div>
@@ -471,7 +473,48 @@
                     })
                     
            
-
+   // 브라우저 크기 별 style 값 다르게 주기
+       		 $(window).on("load", function() {
+       			 const bodySize = parseInt($(".container").css("width"));
+       			 if(bodySize<768) { 
+       				 
+       				 $("th").css("font-size" ,"10px");
+       				 $("td").css("font-size" ,"10px");
+       				$('.btn').addClass('btn-sm');
+       				$('.pagination').addClass('pagination-sm');
+       				$('.form-select').addClass('form-select-sm');
+       				$('.form-control').addClass('form-control-sm');
+       				 
+       			}else if(bodySize>=768){
+       			 $("th").css("font-size" ,"18px");
+   				 $("td").css("font-size" ,"18px");
+   				$('.btn').removeClass('btn-sm');
+   				$('.pagination').removeClass('pagination-sm');
+   				$('.form-select').removeClass('form-select-sm');
+   				$('.form-control').removeClass('form-control-sm');
+       			}
+       		})
+       		addEventListener("resize", function (event) {
+       			 const bodySize = parseInt($(".container").css("width"));
+       			 if(bodySize<768) {
+       				 
+       				 $("th").css("font-size" ,"10px");
+       				 $("td").css("font-size" ,"10px");
+       				$('.btn').addClass('btn-sm');
+       				$('.pagination').addClass('pagination-sm');
+       				$('.form-select').addClass('form-select-sm');
+       				$('.form-control').addClass('form-control-sm');
+       				 
+       			}else if(bodySize>=768){
+       			 $("th").css("font-size" ,"18px");
+   				 $("td").css("font-size" ,"18px");
+   				$('.btn').removeClass('btn-sm');
+   				$('.pagination').removeClass('pagination-sm');
+   				$('.form-select').removeClass('form-select-sm');
+   				$('.form-control').removeClass('form-control-sm');
+       			}
+       		}) 
+       		
             </script>
 
         </body>
