@@ -143,9 +143,6 @@
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
 												정보 보기</a></li>
 									</c:if>
-									<li class="login"><a href="/meal/toMyMeal"
-										class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">내
-											식단 보기</a></li>
 									<c:if test="${sessionScope.authGradeCode == 1001}">
 										<li class="login"><a
 											href="http://localhost:3000/adminPage/mainPage"
@@ -191,6 +188,7 @@
 							</ul>
 						</div></li>
 					<!-- 식단 카테고리 -->
+					<c:if test="${sessionScope.authGradeCode ne 1002}">
 					<li class="mb-1 nav-menu"><i class="fa-solid fa-utensils"></i>
 						<button
 							class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -203,12 +201,13 @@
 										추천 받기</a></li>
 								<li><a href="/meal/toMyMeal"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded"
-									onclick="needLogin(${sessionScope.code})"> 내 식단 리스트</a></li>
+									onclick="needLogin(${sessionScope.authGradeCode}, '/meal/toMyMeal')"> 내 식단 리스트</a></li>
 								<li><a href="/basket/toMyBasket"
 									class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded"
-									onclick="needLogin(${sessionScope.code})"> 내 장바구니</a></li>
+									onclick="needLogin(${sessionScope.authGradeCode}, '/basket/toMyBasket')"> 내 장바구니</a></li>
 							</ul>
 						</div></li>
+						</c:if>
 					<!-- 구분선 -->
 					<li class="border-top my-3"></li>
 					<!-- 운영진 카테고리 -->
@@ -235,11 +234,6 @@
 	</div>
 </nav>
 <script>
-	function needLogin(code){
-		if(code==null){
-			alert('로그인이 필요한 서비스입니다.');
-			}
-	}
 	
 	// navi 버튼 누르면 공구샵에 온 총 요청수 구해 업데이트
 	$("#refresh").on("click", function(){
