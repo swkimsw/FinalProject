@@ -200,13 +200,6 @@ label {
 									</div>
 								</div>
 								<!-- 비밀번호 보기 & 숨기기 버튼 -->
-								<!-- 
-								<div class="row label">
-									<div class="col-10">
-										<button class="btn btn-sm p-0" id="view_pw" type="button">보기</button>
-									</div>
-								</div>
-								 -->
 								<!-- 비밀번호 입력창 -->
 								<div class="row input">
 									<div class="col-12">

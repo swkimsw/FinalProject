@@ -59,11 +59,9 @@ public class BusinessMemberController {
 					session.setAttribute("id",bmd.getBusinessId());
 					session.setAttribute("companyName",bmd.getCompanyName());
 					session.setAttribute("authGradeCode",bmd.getAuthGradeCode());
-					System.out.println("로그인 실행!");
 					return "redirect:/";
 				}
 			}
-			System.out.println("로그인 실패!!");
 			redir.addFlashAttribute("status","false2");
 			return "redirect:/businessMember/login_form";
 		}

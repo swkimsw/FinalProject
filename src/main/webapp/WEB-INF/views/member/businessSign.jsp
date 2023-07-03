@@ -560,9 +560,6 @@ label {
 				return false;
 			}
 			if(setValid.get(id) == false) {
-				console.log(id);
-				console.log(setValid.get(id))
-
 				$("#" + id).focus();
 				return false;
 			}
@@ -729,7 +726,6 @@ label {
 					});
 					passwordAlert.classList.add("alert-warning");
 					passwordAlert.classList.remove("alert-success");
-					console.log("틀렷음");
 				}
 			});
 			

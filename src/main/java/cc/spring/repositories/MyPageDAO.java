@@ -18,17 +18,14 @@ public class MyPageDAO {
 	private SqlSessionTemplate mybatis;
 //	내가 쓴 자유 게시판 목록
 	public List<BoardFreeDTO> selectCode(int code) {
-		System.out.println("아니 왜안되는데?");
 		return mybatis.selectList("MyPage.freeBoard",code);
 	}
 // 내가 쓴 후기 게시판 목록	
 	public List<BoardReviewDTO> selectReview(int code){
-		System.out.println("내가쓴 후기게시판 DAO 실행");
 		return mybatis.selectList("MyPage.reView",code);
 	}
 // 비지니스가 쓴 자유게시판 목록 
 	public List<BoardFreeDTO> businessSelectReview(int code){
-		System.out.println("비지니스 내가 쓴 후기게시판");
 		return mybatis.selectList("MyPage.businessFreeBoard",code);
 	}
 	
