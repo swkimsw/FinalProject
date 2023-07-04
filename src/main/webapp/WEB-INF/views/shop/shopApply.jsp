@@ -298,6 +298,49 @@
 						</c:if>
 					</c:forEach>
 				</c:when>
+				<c:when test="${sessionScope.authGradeCode == 1001}">
+					<form action="/shopReply/updateReplyAsk" method="post">
+						<!-- 관리자인 경우 -->
+						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+							<div class="mb-3">
+								<input type="hidden" name="code" value="${i.code}">
+								<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
+  								<label for="exampleFormControlTextarea1" class="form-label">작성자 : ${i.nickName}</label>
+								<div class="reply">
+ 									<textarea id="replyAskContent${i.code}" class="selectReply form-control" name="content" rows="3" readonly>${i.content}</textarea>
+ 									<div id="replyAskBtns${i.code}" class="replyBtns">
+ 										<button type="button" id="updateReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAskClick(${i.code})">수정</button>
+ 										<button type="button" id="deleteReplyAskBtn${i.code}" class="selectReplyBtn btn btn-success btn-sm"
+ 											onclick="deleteReplyAskConfirm(${i.code},${shopDTO.code})">삭제</button>
+ 									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<!-- 답글 -->
+					<c:forEach var="j" items="${shopReplyAnswerDTO}">
+						<c:if test="${j.askCode == i.code}">
+							<form action="/shopReply/updateReplyAnswer" method="post">
+								<div id="businessReplyAnswer${j.code}" class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
+									<div class="mb-3">
+										<input type="hidden" name="code" value="${j.code}">
+										<input type="hidden" id="postCode" name="postCode" value="${shopDTO.code}">
+										<i class="bi bi-arrow-return-right" style="margin-left:3%;"></i>
+										&nbsp;&nbsp;&nbsp;<label for="exampleFormControlTextarea1" class="form-label">판매자</label>
+										<div class="reply" style="margin-left:5%;">
+											<textarea id="replyAnswerContent${j.code}" class="selectReplyAnswer form-control" name="content" rows="3" readonly>${j.content}</textarea>
+											<div id="replyAnswerBtns${j.code}" class="replyBtns">
+												<button type="button" id="updateReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" onclick="updateReplyAnswerClick(${j.code})">답글 수정</button>
+												<button type="button" id="deleteReplyAnswerBtn${j.code}" class="selectReplyBtn btn btn-success btn-sm" 
+													onclick="deleteReplyAnswerConfirm(${j.code},${shopDTO.code})">답글 삭제</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</c:if>
+					</c:forEach>
+				</c:when>
 				<c:otherwise>
 					<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 						<div class="mb-3">
