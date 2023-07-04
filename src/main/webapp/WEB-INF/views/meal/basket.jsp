@@ -73,7 +73,7 @@
 									placeholder="새로운 재료 등록..." maxlength="50">
 							<div class="selectAllBox d-flex justify-content-between">
 								<label class="checkAllLabel"> <input type="checkbox"
-									class="checkAll"> 전체 클릭
+									class="checkAll"> 전체 체크
 								</label> <label class="deleteAllLabel">전체 삭제
 									<button type="button" class="btn btn-success btnDeleteAll">X</button>
 								</label>
