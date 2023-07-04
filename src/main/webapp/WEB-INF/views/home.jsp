@@ -60,6 +60,7 @@
 
 	<!-- 로그인한 회원의 아이디를 담을 공간 -->
 	<input type="hidden" value="${sessionScope.code}" id="clientCode">
+	<input type="hidden" value="${sessionScope.authGradeCode}" id="authCode">	
 
 	<!-- main -->
 	<div class="container" style="margin-top: 100px;">
