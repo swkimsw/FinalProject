@@ -684,9 +684,11 @@
 
                 // 댓글 신고하기 버튼 클릭 시
                 $(".replyReport").on("click", function () {
-                    replyCode = $(this).parent().prev().children().next().children().next().next().html();
-                    replyMemberCode = $(this).parent().prev().prev().prev().html();
-                    window.open("/board/AnnouncementReport?postcode=" + ${ result.code } + "&boardKindCode=1001&reporterCode=" + ${ sessionScope.code } + "&reporteeCode=" + replyMemberCode + "&replyCode=" + replyCode, "", "width=500px, height=600px");
+               		var replyMemberName = $(this).parent().prev().children().next().children().html();
+            	 	var replyCompanyName = $(this).parent().prev().children().next().children().next().html();
+                    var replyCode = $(this).parent().prev().children().next().children().next().next().html();
+                    var replyMemberCode = $(this).parent().prev().prev().prev().html();
+                    window.open("/board/AnnouncementReplyReport?postcode=" + ${ result.code } + "&boardKindCode=1001&reporterCode=" + ${ sessionScope.code } + "&reporteeCode=" + replyMemberCode + "&replyCode=" + replyCode + "&replyMemberName=" + replyMemberName + "&replyCompanyName=" + replyCompanyName, "", "width=500px, height=600px");
 
                 })
                     
