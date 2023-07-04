@@ -95,7 +95,7 @@
 						</div>
 				</nav>
 		</div>
-		<div class="row body pt-3">
+		<div class="row body pt-3" style='margin-bottom:520px;'>
 			<div class="col">
 				<div class="row d-flex position-relative list">
 
