@@ -478,8 +478,10 @@ $("#join").on("click", function() {
         return false;
     }
     if($("#sample6_postcode").val() == "" || ("#sample6_address").val() == "") {
-    	alert("주소를 입력하세요");
-    	return false;
+    	if($("#member_name").val() != "" && $("#member_nickname").val() != "" && $("#member_phone").val() != "" && $("#phone_auth_code").val() != "" && $("#member_email").val() != "") {
+        	alert("주소를 입력하세요");
+        	return false;
+    	}
     }
 })
 

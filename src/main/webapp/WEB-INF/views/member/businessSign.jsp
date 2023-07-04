@@ -304,7 +304,7 @@
 								</div>
 								<div class="row input">
 									<div class="col-9">
-										<input type="text" id="sample6_postcode" placeholder="우편번호" class="col-35 form-control" name="zipcode" required>
+										<input type="text" id="sample6_postcode" placeholder="우편번호" class="col-35 form-control" name="zipcode" readonly required>
 									</div>
 									<div class="col-3">
 										<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-outline-success text-wrap" style="margin-left: 3px;">
@@ -324,7 +324,7 @@
 								</div>
 								<div class="row input">
 									<div class="col-12">
-										<input type="text" id="sample6_address" placeholder="주소" class="col-10 form-control" name="address1" required>
+										<input type="text" id="sample6_address" placeholder="주소" class="col-10 form-control" name="address1" readonly required>
 									</div>
 								</div>
 							</div>
@@ -466,6 +466,12 @@
 				alert("휴대폰 인증을 해주세요.");
 				return false;
 			}
+		    if($("#sample6_postcode").val() == "" || ("#sample6_address").val() == "") {
+		    	if($("#member_name").val() != "" && $("#member_nickname").val() != "" && $("#member_phone").val() != "" && $("#phone_auth_code").val() != "" && $("#member_email").val() != "") {
+		        	alert("주소를 입력하세요");
+		        	return false;
+		    	}
+		    }			
 		})
 		
 		// PW 유효성 검사
