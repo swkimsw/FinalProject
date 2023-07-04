@@ -72,7 +72,6 @@ public class AdminMemberService {
 		MemberDTO Mdto = adminDAO.selectBanUser(memberCode);
 		System.out.println(Mdto);
 		adminDAO.deleteBanMember(memberCode);
-		
 		return adminDAO.insertBanMember(new BanMemberDTO(0, memberCode, Mdto.getId(), Mdto.getBusinessId(), Mdto.getPw(), Mdto.getName(), Mdto.getCompanyName(), Mdto.getAuthGradeCode(),Mdto.getNickName(), Mdto.getBirthDate(), Mdto.getPhone(), Mdto.geteMail(), Mdto.getShippingCompany(), Mdto.getZipcode(), Mdto.getAddress1(), Mdto.getAddress2(), Mdto.getAgree(), Mdto.getRegDate(), Mdto.getModDate(), null, Mdto.getReportCount()));
 	}
 	
