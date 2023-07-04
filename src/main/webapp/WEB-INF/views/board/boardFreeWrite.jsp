@@ -35,14 +35,14 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+  <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
             <style>
                 * {
                     font-family: NanumSquareNeo-;
                     box-sizing: border-box;
                 }
 
-                .container {
+                .ct {
                     margin-top: 100px;
                 }
 
@@ -72,7 +72,7 @@
                     table-layout: fixed;
                 }
 
-                .btn-outline-primary {
+                .btn-outline-success {
                     margin-top: -10px;
                     margin-right: 14px;
                     font-size: medium;
@@ -115,7 +115,7 @@
                 <c:when test="${user == '1003'}">
 
                     <form id="frm" action="/board/inputFree" method="post">
-                        <div class="container">
+                        <div class="container ct">
 
                             <div class="header">
                             </div>
@@ -155,10 +155,10 @@
                                     <tr>
                                         <td colspan="2" class="button-container">
                                             <br>
-                                            <button class="btn btn-outline-primary" type="submit">작성</button>
-                                           
-                                            <button class="btn btn-outline-primary" type="button">취소</button>
-                                          
+                                            <button class="btn btn-outline-success" style="margin-bottom:13px;" type="submit">작성</button>
+                                           <a href="javascript:window.history.go(-1);">
+                                            <button class="btn btn-outline-success"  style="margin-bottom:13px;"type="button">취소</button>
+                                          </a>
                                         </td>
                                     </tr>
                                 </table>
@@ -167,10 +167,7 @@
 
                         </div>
 
-                        <div class="footer">
-                        </div>
 
-                        </div>
                     </form>
 
                 </c:when>
@@ -178,7 +175,7 @@
                 <c:otherwise>
 
                     <form id="frm" action="/board/inputFree" method="post">
-                        <div class="container">
+                        <div class="container ct">
 
                             <div class="header">
                             </div>
@@ -217,8 +214,10 @@
                                     <tr>
                                         <td colspan="2" class="button-container">
                                             <br>
-                                            <button class="btn btn-outline-primary" type="submit">작성</button>
-                                            <button class="btn btn-outline-primary" type="button">취소</button>
+                                            <button class="btn btn-outline-success" style="margin-bottom:13px;" type="submit">작성</button>
+                                            <a href="javascript:window.history.go(-1);">
+                                            <button class="btn btn-outline-success"  style="margin-bottom:13px;" type="button">취소</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </table>
@@ -227,21 +226,17 @@
 
                         </div>
 
-                        <div class="footer">
-                        </div>
+                     
 
-                        </div>
                     </form>
-
-
-
                 </c:otherwise>
 
             </c:choose>
 
 
 
-
+			<!-- footer -->
+			<c:import url="../commons/pageFooter.jsp"/>	
 
 
             <script>
@@ -302,7 +297,7 @@
                     if (contentLength > maxLength ) {
                         alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                         $('#content').summernote('undo');
-                    }else if(DBcontentLength>maxLength){
+                    }else if(DBcontentLength>1300){
                     	alert("저장할수 있는 용량을 초과하였습니다.");
                         $('#content').summernote('undo');
                     }else {

@@ -33,128 +33,10 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
-            <style>
-                * {
-                    font-family: NanumSquareNeo;
-                    box-sizing: border-box;
-                }
-
-                .container {
-                    margin-top: 100px;
-                }
-
-                h2 {
-                    text-align: center;
-                }
-
-                .row>table {
-                    width: 100%;
-                    table-layout: fixed;
-                }
-
-
-                .title {
-                    width: 75%;
-                }
-
-                .body tr,
-                td {
-                    border: 1px solid black;
-                    font-size: 20px;
-                }
-
-
-                .content {
-                    width: 100%;
-                    height: 600px;
-                    overflow: auto;
-                    word-break: break-all;
-
-                }
-
-                #write_reply {
-                    width: 100%;
-                    height: 150px;
-                    overflow: auto;
-                    word-break:break-all;
-                }
-                
-                #write_reply:empty:before {
-   					content: attr(placeholder);
-				}
-
-                .reply {
-                    word-break: break-all;
-                }
-
-                .re_reply {
-                    word-break: break-all;
-                }
-
-              .con{
-                    margin-right: 15px;
-                    float: right;
-                    border: 0;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
-
-                .note-modal-footer>input {
-                    margin-right: 20px;
-                    margin-top: -15px;
-                    font-size: small;
-                }
-
-                .note-editor .note-toolbar .note-color-all .note-dropdown-menu,
-	.note-popover .popover-content .note-color-all .note-dropdown-menu {
-	min-width: 0px;
-}
-
-.note-dimension-picker-mousecatcher,
-.note-dimension-picker-highlighted,
-.note-dimension-picker-unhighlighted { 
-  max-width: 3em;
-  max-height: 3em;
-}
-
-
-                
-                .replyCode {
-                	display: none;
-                }
-                
-                .replyMemberCode {
-                	display: none;
-                }
-                
-                .replyMemberNickNameOrCompanyName {
-                	display: inline;
-                }
-                
-                .me {
-                	font-size: 12px; 
-                	display: inline;
-                }
-                
-                .modiWriteReply {
-                	border: none;
-                	word-break : break-word;
-                }
-                
-                .modiWriteReply:empty:before {
-   					content: attr(placeholder);
-				}
-				
-				.replyModiCancleBtn {
-					display: none;
-				}
-				
-				.replyModiSuccessBtn {
-					display: none;
-				}
-
-            </style>
+  			<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+   			<!-- FreeContent css -->
+			<link rel="stylesheet" href="${path}/resources/css/board/ReviewContent.css">
+ 
 
         </head>
 
@@ -165,7 +47,7 @@
 
             <c:choose>
                 <c:when test="${user == result.memberCode}">
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>후기게시판</h2>
@@ -215,10 +97,10 @@
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
                                                 type="submit">완료</button>
 
-                                            <button id="cancel" class=" btn btn-outline-primary" style="display:none"
+                                            <button id="cancel" class=" btn btn-outline-dark" style="display:none"
                                                 type="button">취소</button>
 
-                                            <button id="del" class="btn btn btn-outline-primary"
+                                            <button id="del" class="btn btn btn-outline-danger"
                                                 type="button">삭제</button>
 
                                              <a href="/board/review?cpage=${cpage}">
@@ -236,7 +118,7 @@
 
                 </c:when>
                 <c:otherwise>
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>후기게시판</h2>
@@ -376,52 +258,6 @@
                                     </div>
                                     </c:forEach>
 
-
-
-                                    <!-- child comment-->
-<!--                                   <div class="ms-5">
-
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container con" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">신고</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    child comment
-                                    <div class="ms-5">
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container con"
-                                                        style="float:right ; margin-top: 10px;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
                                 </div>
 
                             </div>
@@ -432,14 +268,14 @@
 
             </div>
 
-            </div>
+           </div>
+	<!-- footer -->
+	<c:import url="../commons/pageFooter.jsp"/>	
 
             <script>
 
 
                 // 수정버튼
-
-
                 $(document).ready(function () {
 
                 	//const contentDiv = document.getElementById('content');
@@ -483,10 +319,15 @@
 
                         $("#title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
                         $("#save").css("display", "inline"); // 완료버튼보이게
+                        $("#cancel").css("display", "inline"); // 취소버튼보이게
 
 
                     });
 
+                    
+                    $("#cancel").on("click", function () {
+                    	location.reload();
+                    });
 
 
                     // 완료
@@ -648,7 +489,7 @@
                         if (contentLength > maxLength ) {
                             alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                             $('#content').summernote('undo');
-                        }else if(DBcontentLength>maxLength){
+                        }else if(DBcontentLength>1300){
                         	alert("저장할수 있는 용량을 초과하였습니다.");
                             $('#content').summernote('undo');
                         }else {

@@ -29,7 +29,7 @@
 
             <!-- gbn css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+  <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
             <style>
                 * {
                     font-family: NanumSquareNeo;
@@ -40,15 +40,40 @@
                     padding: 5px;
                 }
 
-                .container {
-                    margin-top: 100px;
-                    border: 1px solid black;
+                .ct {
+                   margin-top: 100px;
+                    border: 1px solid #e6e6e6;
                 }
-
                 .table th,
                 td {
                     font-size: 18px;
+                    text-align:center;
                 }
+                
+                .title{
+                text-align:left;
+                }
+                
+                .page-item .page-link {
+    			color: green;
+  				}
+  
+				.page-item.active .page-link {
+					background-color:green;
+					border-color:green;
+					color:white;
+				}
+				
+				  .page-item .page-link:hover {
+				    background-color:green;
+					border-color:green;
+					color:white;
+				  }
+				
+				
+				.main-footer{
+				margin-top:100px;
+				}
             </style>
 
         </head>
@@ -58,7 +83,7 @@
             </c:import>
 
 
-            <div class="container">
+            <div class="container ct">
                 <br>
 
                 <form id="frm" action="/board/review" method="post">
@@ -75,9 +100,6 @@
                             <input class="form-control" placeholder="Search" id="search" name="search"
                                 onkeypress="if(event.keyCode == 13) { this.form.submit(e); }"
                                 style="width: 300px; display: initial;" value="${search }">
-
-                            <input type="hidden" name="searchCate" value="${searchCate}">
-                            <input type="hidden" name="search" value="${search}">
 
                             <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
 
@@ -126,7 +148,7 @@
                                         <tr
                                             onclick="goToLink('/board/ReviewContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
                                             <td>${l.code}</td>
-                                            <td style="width: 50%;">${l.title}</td>
+                                            <td style="width: 50%;" class="title">${l.title}</td>
                                             <td>${l.memberNickName}</td>
                                             <td>${l.regDate}</td>
                                             <td>${l.viewCount}</td>
@@ -178,7 +200,7 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <li class="page-item ${cpage == ln ? 'active' : ''}">
-                                                    <a class="page-link"
+                                                    <a class="page-link "
                                                         href="/board/review?cpage=${ln}&search=${search}&searchCate=${searchCate}">${ln}</a>
                                                 </li>
                                             </c:otherwise>
@@ -197,7 +219,7 @@
 
                             <div style="float: right;">
                                 <a href="/board/reviewWrite?cpage=${cpage}">
-                                    <button class="btn btn-outline-primary" style="margin-bottom:10px;" type="button">작성하기</button>
+                                    <button class="btn btn-outline-success" style="margin-bottom:10px;" type="button">작성하기</button>
                                 </a>
                                 <br>
                             </div>
@@ -209,14 +231,25 @@
                         </c:otherwise>
 
                     </c:choose>
-<br>
                 </div>
 
             </div>
 
+			<!-- footer -->
+			<c:import url="../commons/pageFooter.jsp"/>	
             <script>
 
+            $("td.title").each(function() {
+                var title = $(this).text().trim();  // 현재 요소의 텍스트 가져오기
+                console.log(title);  // 텍스트 출력 
 
+                if (title.length > 20) {  // 텍스트 길이가 30을 초과하는 경우
+                    var longtitle = title.substring(0, 20) + " . . . ";  // 25자까지 자르고 "..." 추가
+                    $(this).text(longtitle);  // 수정된 텍스트로 변경
+                } else {
+                    $(this).text(title);  // 그대로 텍스트를 유지
+                }
+            });
 
                 $("#frm").on("submit", function (e) {
 
