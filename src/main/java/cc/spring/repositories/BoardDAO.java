@@ -31,13 +31,9 @@ public class BoardDAO {
 	//===========================================================================================
 
 
-
-
 	public int selectReviewSeq() {
 		return mybatis.selectOne("Board.selectReviewSeq");
 	}
-
-
 
 	public int insertReview(BoardReviewDTO dto) {
 
@@ -49,17 +45,14 @@ public class BoardDAO {
 		return mybatis.insert("Board.insertReviewImage", rdto);
 	}
 
-
+	
+	
 	public int insertFree(BoardFreeDTO dto, int membercode) {
 		Map<String ,Object> param = new HashMap<>();
 		param.put("dto", dto);
 		param.put("membercode", membercode);
 		return mybatis.insert("Board.insertFree",param);
 	}
-
-
-
-
 
 	public int insertAnnouncement(BoardAnnouncementDTO dto,int membercode) {
 		Map<String ,Object> param = new HashMap<>();
@@ -77,31 +70,9 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectFreelist",param);
 	}
 
+	//자유게시판 전부 가져오기
 	public List<BoardFreeDTO> selectAllFree() {
 		return  mybatis.selectList("Board.selectAllFree");
-	}
-
-
-
-	//자유게시판 전부 가져오기 가져오기 - check분류	
-	public List<BoardFreeDTO> selectCheckAllFree(int[] check) {
-
-
-		if (check.length == 1) {//체크가 한개일때
-			int headLineCode = check[0];
-			return mybatis.selectList("Board.selectCheckAllFree", headLineCode);
-		} else {//체크가 여러개일때
-			List<Integer> headLineCodes = new ArrayList<>();
-			for (int i = 0; i < check.length; i++) {
-				headLineCodes.add(check[i]);
-			}
-
-			return mybatis.selectList("Board.selectChecksAllFree", headLineCodes);
-		}
-
-
-
-
 	}
 
 
@@ -124,9 +95,26 @@ public class BoardDAO {
 			param.put("headLineCodes", headLineCodes);
 			return mybatis.selectList("Board.selectFreeCheckslist", param);
 		}
-
-
 	}
+
+	//자유게시판 전부 가져오기 - check분류	
+	public List<BoardFreeDTO> selectCheckAllFree(int[] check) {
+
+
+		if (check.length == 1) {//체크가 한개일때
+			int headLineCode = check[0];
+			return mybatis.selectList("Board.selectCheckAllFree", headLineCode);
+		} else {//체크가 여러개일때
+			List<Integer> headLineCodes = new ArrayList<>();
+			for (int i = 0; i < check.length; i++) {
+				headLineCodes.add(check[i]);
+			}
+
+			return mybatis.selectList("Board.selectChecksAllFree", headLineCodes);
+		}
+	}
+
+
 
 
 	//자유게시판 글 조건에 따라 가져오기 - 검색
@@ -145,7 +133,7 @@ public class BoardDAO {
 		}
 
 	}
-
+	//자유게시판 글 전부 가져오기 - 검색
 	public List<BoardFreeDTO> selectAllSearchFree(String search, String searchCate) {
 
 
@@ -157,9 +145,8 @@ public class BoardDAO {
 
 	}
 
-	//자유게시판 글 조건에 따라 가져오기 - 검색(카테고리o)
+	//자유게시판 글 조건에 따라 가져오기 - 검색(체크분류o)
 	public List<BoardFreeDTO> selectSearchCheckFree(int start,int end,String search, String searchCate,int[] check) {
-
 
 		Map<String ,Object> param = new HashMap<>();
 		param.put("start", start);
@@ -171,19 +158,15 @@ public class BoardDAO {
 			headLineCodes.add(check[i]);
 		}
 		param.put("headLineCodes", headLineCodes);
-
-		
 		
 		if(searchCate.equals("제목")) { //검색카테고리가 제목일때
 			return  mybatis.selectList("Board.selectTitleCheckFree",param);
 		}else { // 검색 카테고리가 작성자일때
 			return  mybatis.selectList("Board.selectMemberCheckFree",param);
 		}
-
-
 	}
 
-
+	//자유게시판 글 조전부가져오기 - 검색(체크분류o)
 	public List<BoardFreeDTO> selectAllSearchCheckFree(String search, String searchCate,int[] check) {
 		Map<String ,Object> param = new HashMap<>();
 		param.put("search", search);
@@ -205,7 +188,7 @@ public class BoardDAO {
 		param.put("end", end);
 		return  mybatis.selectList("Board.selectAnnouncementlist",param);
 	}
-
+	//공지게시판 전부 가져오기
 	public List<BoardAnnouncementDTO> selectAllAnnouncement() {
 		return  mybatis.selectList("Board.selectAllAnnouncement");
 	}
@@ -226,7 +209,8 @@ public class BoardDAO {
 		}
 
 	}
-
+	
+	//공지게시판 전부 가져오기 - 검색
 	public List<BoardAnnouncementDTO> selectAllSearchAnnounc(String search, String searchCate) {
 
 
@@ -247,7 +231,7 @@ public class BoardDAO {
 		return  mybatis.selectList("Board.selectReviewlist",param);
 	}
 
-
+	//리뷰게시판 전부 가져오기
 	public List<BoardReviewDTO> selectAllReview() {
 		return  mybatis.selectList("Board.selectAllReview");
 	}
@@ -267,11 +251,10 @@ public class BoardDAO {
 		}else { // 검색 카테고리가 작성자일때
 			return  mybatis.selectList("Board.selectMemberReviewlist",param);
 		}
-
 	}
-
+	
+	//리뷰게시판 전부 가져오기- 검색
 	public List<BoardReviewDTO> selectAllSearchReview(String search, String searchCate) {
-
 
 		if(searchCate.equals("제목")) { //검색카테고리가 제목일때
 			return  mybatis.selectList("Board.selectAllTitleReview",search);
@@ -285,8 +268,6 @@ public class BoardDAO {
 	//=====================================================================
 
 	public void insertViewCount(int code,int boardKindCode,boolean viewchoose) {
-
-
 		if(viewchoose) {
 
 			if(boardKindCode == 1001) {
@@ -463,11 +444,6 @@ public class BoardDAO {
 	public ReplyReviewDTO selectReviewReplyLikeCount(ReplyReviewDTO dto) {
 		return mybatis.selectOne("Board.selectReviewReplyLikeCount", dto);
 	}
-
-
-
-
-
 
 
 }

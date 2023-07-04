@@ -43,12 +43,17 @@
 
                 .ct {
                     margin-top: 100px;
-                    border: 1px solid #478C5C;
+                    border: 1px solid #e6e6e6;
                 }
 
                .table th,
                 td {
                     font-size: 18px;
+                    text-align:center;
+                }
+                
+                .title{
+                text-align:left;
                 }
 			
 			
@@ -68,9 +73,8 @@
 					color:white;
 				  }
 
-				.footer{
+				.main-footer{
 				margin-top:100px;
-			
 				}
             </style>
 
@@ -143,7 +147,7 @@
                                         <tr
                                             onclick="goToLink('/board/AnnouncementContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
                                             <td>${l.code}</td>
-                                            <td style="width: 50%;">${l.title}</td>
+                                            <td style="width: 50%;" class="title">${l.title}</td>
                                             <td>${l.memberName}</td>
                                             <td>${l.regDate}</td>
                                             <td>${l.viewCount}</td>
@@ -236,6 +240,17 @@
 			<c:import url="../commons/pageFooter.jsp"/>	
             <script>
 
+            $("td.title").each(function() {
+                var title = $(this).text().trim();  // 현재 요소의 텍스트 가져오기
+                console.log(title);  // 텍스트 출력 
+
+                if (title.length > 20) {  // 텍스트 길이가 30을 초과하는 경우
+                    var longtitle = title.substring(0, 20) + " . . . ";  // 25자까지 자르고 "..." 추가
+                    $(this).text(longtitle);  // 수정된 텍스트로 변경
+                } else {
+                    $(this).text(title);  // 그대로 텍스트를 유지
+                }
+            });
 
                 $("#frm").on("submit", function (e) {
 

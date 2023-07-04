@@ -7,6 +7,7 @@ box-sizing: border-box;
 
 .ct {
 margin-top: 100px;
+border-radius: 2px;
 }
 
 h2 {
@@ -25,7 +26,7 @@ width: 75%;
 
 .body tr,
 td {
-border: 1px solid #478C5C;
+border: 1px solid #c8c8c8;
 font-size: 20px;
 }
 

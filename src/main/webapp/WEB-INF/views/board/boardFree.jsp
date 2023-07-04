@@ -43,19 +43,20 @@
 
                 .ct {
                    margin-top: 100px;
-                    border: 1px solid #478C5C;
+                    border: 1px solid #e6e6e6;
                 }
 
                 .table th,
                 td {
                     font-size: 18px;
-                }
-
-                .uu,
-                td>div {
-                    text-align: center;
+                    text-align:center;
                 }
                 
+                .title{
+                text-align:left;
+                }
+
+               
 				.page-item .page-link {
     			color: green;
   				}
@@ -77,7 +78,7 @@
 				  border-color: green;
 				}
 
-				.footer{
+				.main-footer{
 				margin-top:100px;
 				}
             </style>
@@ -155,7 +156,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th class="uu">분류</th>
+                                <th>분류</th>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>글쓴이</th>
@@ -192,23 +193,23 @@
                                             <c:choose>
                                                 <c:when test="${l.headLineCode == 2001 }">
                                                     <td>
-                                                        <div style=" background-color:#a9ebb1;">일상</div>
+                                                        <div style=" background-color:#fdeeb39a; ">일상</div>
                                                     </td>
                                                 </c:when>
                                                 <c:when test="${l.headLineCode == 2002 }">
                                                     <td>
-                                                        <div style=" background-color:#f9f69b;">정보</div>
+                                                        <div style=" background-color:#f7bc45; ">정보</div>
                                                     </td>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <td>
-                                                        <div style=" background-color:#add1e9;">질문</div>
+                                                        <div style=" background-color:#fff68c; ">질문</div>
                                                     </td>
                                                 </c:otherwise>
                                             </c:choose>
 
                                             <td>${l.code}</td>
-                                            <td style="width: 50%;">${l.title}</td>
+                                            <td style="width: 50%;" class="title">${l.title}</td>
                                             <c:choose>
                                                 <c:when test="${l.memberNickName == null }">
                                                     <td>${l.memberCompanyName}</td>
@@ -359,7 +360,7 @@
                     <div><br></div>
 
                     <c:forEach var="ch" items="${check}" varStatus="status">
-                        <div class="checking">${check[status.index]}</div>
+                        <div class="checking" style="display:none;">${check[status.index]}</div>
                     </c:forEach>
 
                 </div>
@@ -370,7 +371,17 @@
 			<c:import url="../commons/pageFooter.jsp"/>	
             <script>
             
-          
+            $("td.title").each(function() {
+                var title = $(this).text().trim();  // 현재 요소의 텍스트 가져오기
+                console.log(title);  // 텍스트 출력 
+
+                if (title.length > 30) {  // 텍스트 길이가 30을 초과하는 경우
+                    var longtitle = title.substring(0, 25) + "...";  // 25자까지 자르고 "..." 추가
+                    $(this).text(longtitle);  // 수정된 텍스트로 변경
+                } else {
+                    $(this).text(title);  // 그대로 텍스트를 유지
+                }
+            });
 
                 var checking = $(".checking").map(function () {
                     return $(this).text();

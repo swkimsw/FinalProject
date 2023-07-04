@@ -203,11 +203,8 @@ public class BoardService {
 	}
 
 
-
+	// 네비게이터를 만들기 위해 필요한 초기정보
 	public List<String> selectPageNavi(int recordTotalCount , int cpage) throws Exception {
-		// 네비게이터를 만들기 위해 필요한 초기정보
-
-
 
 		int pageTotalCount = 0; // 총 페이지의 개수
 
@@ -259,7 +256,6 @@ public class BoardService {
 			// sb.append("<a href='/list.board?cpage=" + (endNavi + 1) + "'> > </a> ");
 			list.add(">");
 		}
-		System.out.println(list);
 		return list;
 	}
 
@@ -279,27 +275,27 @@ public class BoardService {
 		return boarddao.updateReview(dto);
 	}
 
-
+	//공지게시판 게시물 삭제
 	public int deleteAnnouncement(int code) {
 		return boarddao.deleteAnnouncement(code);
 	}
 
-
+	//리뷰게시판 게시물 삭제
 	public int deleteReview(int code) {
 		return boarddao.deleteReview(code);
 	}
 
-
+	//자유게시판 게시물 삭제
 	public int deleteFree(int code) {
 		return boarddao.deleteFree(code);
 	}
 
-
+	//신고당한사람 이름찾기
 	public String selectReporteeName(int reporteeCode,int authGradeCode) {
 		return boarddao.selectReporteeName(reporteeCode,authGradeCode);
 	}
 
-
+	//신고하기
 	public int insertReport(ReportDTO dto) {
 
 		return boarddao.insertReport(dto);
