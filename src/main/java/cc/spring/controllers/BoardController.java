@@ -606,6 +606,71 @@ public class BoardController {
 
 			
 		}		
+		
+		//리뷰게시판 댓글 신고페이지로 이동
+		@RequestMapping("reviewReplyReport")
+		public String reviewReplyReport(ReportDTO dto, String replyMemberName, String replyCompanyName) {
+			
+
+			String companyname = (String) session.getAttribute("companyName");
+
+			if(companyname == null) {
+				String nickname = (String)	session.getAttribute("nickname");
+				request.setAttribute("nickname", nickname);
+			}else {
+				request.setAttribute("companyname", companyname);
+			}//신고자
+
+			String reporteeName = "";
+			
+			if(replyMemberName == "") {
+				reporteeName = replyCompanyName;
+			}
+			else if(replyCompanyName == "") {
+				reporteeName = replyMemberName;
+			}
+			
+			
+			request.setAttribute("reporteeName", reporteeName);
+
+			request.setAttribute("list", dto);
+			return "board/report";
+
+			
+		}	
+		
+		
+		//공지게시판 댓글 신고페이지로 이동
+		@RequestMapping("AnnouncementReplyReport")
+		public String AnnouncementReplyReport(ReportDTO dto, String replyMemberName, String replyCompanyName) {
+			
+
+			String companyname = (String) session.getAttribute("companyName");
+
+			if(companyname == null) {
+				String nickname = (String)	session.getAttribute("nickname");
+				request.setAttribute("nickname", nickname);
+			}else {
+				request.setAttribute("companyname", companyname);
+			}//신고자
+
+			String reporteeName = "";
+			
+			if(replyMemberName == "") {
+				reporteeName = replyCompanyName;
+			}
+			else if(replyCompanyName == "") {
+				reporteeName = replyMemberName;
+			}
+			
+			
+			request.setAttribute("reporteeName", reporteeName);
+
+			request.setAttribute("list", dto);
+			return "board/report";
+
+			
+		}	
 
 
 
