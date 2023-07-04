@@ -322,6 +322,14 @@ div>table {
                        alert("내용을 입력해주세요.");
                        return false;
                      }
+                   
+                  
+                   var titleValue = $("#title").val();
+                   var escapedValue = $("<div>").text(titleValue).html();
+                   $("#title").val(escapedValue);
+
+
+                 
                  })
 
             </script>

@@ -292,7 +292,6 @@
                             focus: true,
                             maxHeight: 800,
                             minHeight: 200,
-                            disableDragAndDrop: true,
                             lang: 'ko-KR',
                             toolbar: [
                                 ['style', ['style']],
@@ -317,9 +316,11 @@
                         });
 
 
-                        $("#title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
+                        $(".title").removeAttr("disabled"); // 제목버튼 - 활성화/ 고칠수있게
                         $("#save").css("display", "inline"); // 완료버튼보이게
                         $("#cancel").css("display", "inline"); // 취소버튼보이게
+                        
+                        $(".note-group-image-url").css("display", "none");
 
 
                     });
@@ -341,7 +342,7 @@
                             let content = $('#content').summernote('code'); //태그있는거
                             var text = $('<div>').html(content).text(); //태그없는거
 
-                            if ($("#title").val() == "" || $("#title").val().trim() == "") {
+                            if ($(".title").val() == "" || $(".title").val().trim() == "") {
                                 alert("제목을 작성해주세요.");
                                 return false;
                             } else if (content == "") {
@@ -352,8 +353,10 @@
                                 return false;
                             }
 
-
-                            let title = $("#title").val();
+                            var titleValue = $(".title").val();
+                            var escapedValue = $("<div>").text(titleValue).html();
+                            $(".title").val(escapedValue);
+                            let title = $(".title").val();
                             let code = $("#code").val();
 
 

@@ -87,7 +87,7 @@
                                     <option value="작성자">작성자</option>
                                 </select>
                                 <input class="form-control" placeholder="전체글에서 Search" id="search" name="search"
-                                    onkeypress="if(event.keyCode == 13) { this.form.submit(); }"
+                                    onkeypress="if(event.keyCode == 13) { this.form.submit(e); }"
                                     style="width: 300px; display: initial;" value="${search}">
 
 
@@ -140,8 +140,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach var="l" items="${list}">
-                                        <tr
-                                            onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
+                                        <tr onclick="goToLink('/board/FreeContent?code=${l.code}&cpage=${cpage}&viewchoose=true')">
                                             <c:choose>
                                                 <c:when test="${l.headLineCode == 2001 }">
                                                     <td>
@@ -328,7 +327,7 @@
                 var title = $(this).text().trim();  // 현재 요소의 텍스트 가져오기
                 console.log(title);  // 텍스트 출력 
 
-                if (title.length > 30) {  // 텍스트 길이가 30을 초과하는 경우
+                if (title.length > 25) {  // 텍스트 길이가 30을 초과하는 경우
                     var longtitle = title.substring(0, 25) + "...";  // 25자까지 자르고 "..." 추가
                     $(this).text(longtitle);  // 수정된 텍스트로 변경
                 } else {
@@ -381,7 +380,7 @@
                 })
 
 
-                $("#frm").on("submit", function () {
+                $("#frm").on("submit", function (e) {
 
                     let checked = $('.form-check-input:checked');
 

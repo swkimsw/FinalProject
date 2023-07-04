@@ -135,7 +135,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    제목 : <label class="label"><input id="title" name="title" class="form-control"
+                                    제목 : <label class="label"><input id="title" name="title" class="form-control title"
                                             placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
 
                                 </div>
@@ -195,7 +195,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    제목 : <label class="label"><input id="title" name="title" class="form-control"
+                                    제목 : <label class="label"><input id="title" name="title" class="form-control title"
                                             placeholder="제목을 입력하세요 (최대 50자까지 가능합니다)"></label>
 
                                 </div>
@@ -339,6 +339,13 @@
                         alert("내용을 입력해주세요.");
                         return false;
                     }
+                    
+                    
+                    var titleValue = $(".title").val();
+                    var escapedValue = $("<div>").text(titleValue).html();
+                    $(".title").val(escapedValue);
+                    
+                    
                 })
 
                

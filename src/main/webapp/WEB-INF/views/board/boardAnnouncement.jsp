@@ -200,8 +200,8 @@
                 var title = $(this).text().trim();  // 현재 요소의 텍스트 가져오기
                 console.log(title);  // 텍스트 출력 
 
-                if (title.length > 20) {  // 텍스트 길이가 30을 초과하는 경우
-                    var longtitle = title.substring(0, 20) + " . . . ";  // 25자까지 자르고 "..." 추가
+                if (title.length > 25) {  // 텍스트 길이가 30을 초과하는 경우
+                    var longtitle = title.substring(0, 25) + " . . . ";  // 25자까지 자르고 "..." 추가
                     $(this).text(longtitle);  // 수정된 텍스트로 변경
                 } else {
                     $(this).text(title);  // 그대로 텍스트를 유지

@@ -118,3 +118,7 @@ display: none;
 .main-footer{
 margin-top:100px;
 }
+
+.note-group-image-url {
+	display: none;
+}
