@@ -41,76 +41,18 @@
 	type="text/css">
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
-<style>
-
-* {
-	font-family: NanumSquareNeo;
-	box-sizing : border-box;
-}
-
-.body {
-	position: relative;
-	top: 40px;
-}
-
-.container {
-	margin-top: 80px;
-}
-
-.subNav {
-	position: fixed;
-	z-index:2;
-	max-height: 150px;
-	background-color: inherit;
-}
-
-.searchGroup {
-	height: 40px;
-	z-index: 3;
-}
-.input-group{
-	width: auto;
-}
-.input-group .searchGroup{
-	justify-content : end;
-}
-.searchGroup>.category {
-	height: 100%;
-	max-width: 85px;
-	min-width: 85px;
-}
-
-.searchGroup>.searchInput {
-	position: relative;
-	max-width: 250px;
-	min-width: 100px;
-	height: 100%;
-	z-index: 4;
-}
-
-.searchGroup>.searchIcon {
-	position: absolute;
-	top: 10px;
-	right : 1.5rem;
-	z-index: 5;
-}
-.card-image{
-	overflow: hidden;
-	width: 100%; 
-	height:250px;
-}
-.navText{
-	font-size:large;
-}
-</style>
+<!--  shopList css -->
+<link href="${path}/resources/css/shop/shopList.css" rel="stylesheet" type="text/css">
+<!-- shopList js -->
+<script src="${path}/resources/js/shop/shopList.js"></script>
 </head>
 <body>
 	<!-- gnb -->
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
 	
-	<div class="container w-75">
-		<div class="subNav w-75 pt-2">
+	<div class="container sContainer w-75">
+		<div class="subNav w-75">
 				<nav class="navbar bg-body-tertiary navbar-expand-sm">
 						<div class="d-flex justify-content-between navbar w-100" id="navbarTogglerDemo03">
 							<div class="linkGroup" style="position: relative;">
@@ -200,7 +142,7 @@
 						</c:when>
 						
 						<c:otherwise>
-							<div class='col-xxl-12 pt-5 text-center' style='color:#007936'>
+							<div class='col-xxl-12 pt-5 text-center' style='color:#007936;margin-bottom:400px;'>
 								<hr/>
 								<p class='fs-6'> 등록된 공구가 아직 없어요</p>
 								<hr/>
@@ -212,97 +154,7 @@
 		</div>
 	</div>
 
-	<script>
-		//infinite scroll
-		//infiniteScroll({
-			//container : ".list",
-			//item : ".contents",
-			//next : ".next"
-	//	})
-
-		//검색 결과 리스트 ajax
-		function getSearchList() {
-			let category = $('select[name="category"]').val();
-			let keyword = $("#keyword").val();
-
-			if (keyword.trim() != "") {
-				$.ajax({
-							url : "/shop/searchByKeyword",
-							type : "post",
-							dataType : "json",
-							data : {
-								category : category,
-								keyword : keyword
-							},
-							error : function() {
-								alert("검색에 실패하였습니다");
-							}
-						})
-						.done(
-								function(resp) {
-									$(".body> .col> .list").empty();
-									//$(".subNav").empty();
-									if (resp.length > 0) {
-										div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-search'/>"
-												+ "   '"
-												+ keyword
-												+ "'의 검색결과는 "
-												+ resp.length
-												+ "개 입니다.</p><hr/></div>";
-										$(".list").append(div);
-											resp.forEach(function(i) {
-													card = "<div class='col-xl-4 col-sm-12 col-md-6 p-3 mb-2 contents'><div class='card border-0'>";
-													if (i.dDay > 0 && i.statusCode == 1001) {
-														card += "<span class='badge deadLine rounded-pill text-bg-primary position-absolute top-0 end-0 m-2 p-2'>"
-																+ i.dDay
-																+ "일 남음</span>";
-													}
-													if (i.dDay == 0 && i.statusCode == 1001) {
-														card += "<span class='badge deadLine rounded-pill text-bg-danger position-absolute top-0 end-0 m-2 p-2'>오늘 종료</span>";
-													}
-													if (i.dDay < 0 && i.statusCode == 1002) {
-														card += "<span class='badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>공구 완료</span>";
-													}
-													if (i.dDay < 0 && i.statusCode == 1003) {
-														card += "<span class='badge deadLine rounded-pill text-bg-secondary position-absolute top-0 end-0 m-2 p-2'>공구 실패</span>";
-													}
-													card += "<div class='card-image'><a href='/shop/SelectShop?code = "
-															+ i.code + "'>";
-													card += "<img src='"
-															+ i.path
-															+ i.sysName
-															+ "' style='width: 100%;'> </a> </div> <div class='card-body'>";
-													card += "<p class='card-title' style='font-size: 20px;'>"
-															+ i.title + "</p> ";
-													card += "<p class='card-text fw-lighter' style='font-size: 12px;'>"
-															+ i.productName
-															+ " | "
-															+ i.companyName
-															+ "</p> </div> </div> </div>";
-													$(".list").append(card);
-												})
-
-										keyword = "";
-
-									} else {
-										div = "<div class='col-xxl-12 pt-2 pb-1 text-center' style='color:#007936'><hr/><p class='fs-6'> <i class='bi bi-search'/>"
-												+ "   '"
-												+ keyword
-												+ "'의 검색결과가 없습니다.</p><hr/></div>";
-										$(".list").append(div);
-									}
-									$("#keyword").val("");
-								}).fail(function() {
-							alert("검색에 실패하였습니다.");
-						})
-
-			} else {
-				alert("검색어를 입력해주세요.");
-			}
-
-		}
-	</script>
-
 	<c:import url="../commons/pageFooter.jsp"/>
+	
 </body>
 </html>

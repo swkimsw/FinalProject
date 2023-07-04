@@ -77,7 +77,7 @@
 				</div>
 			</div>
 
-			<div>
+			<div style="min-height: 500px;">
 				<div class="d-flex align-items-center justify-content-center">
 					<div class="waitingSpinner m-4" style="display: none;">
 						<div class="d-flex justify-content-center">
