@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,7 +64,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "banMember", produces="text/plain;charset=utf-8")
-	public int banMember(@RequestBody Map<String, List<Integer>> memberCodeArr) {
+	public ResponseEntity<Integer> banMember(@RequestBody Map<String, List<Integer>> memberCodeArr) {
 		int result = 0;
 		List<Integer> codeArr =  memberCodeArr.get("memberCodeArr");
 		System.out.println(codeArr);
@@ -69,7 +72,9 @@ public class AdminController {
 			aService.BanMember(codeArr.get(i));
 			result ++;
 		}
-		return result;  
+		return ResponseEntity.status(HttpStatus.OK)
+	            .contentType(MediaType.APPLICATION_JSON)
+	            .body(result);  
 	}
 	
 	@RequestMapping("selectUserList")
