@@ -298,7 +298,7 @@
 						</c:if>
 					</c:forEach>
 				</c:when>
-				<c:when test="${sessionScope.code == 1001}">
+				<c:when test="${sessionScope.authGradeCode == 1001}">
 					<form action="/shopReply/updateReplyAsk" method="post">
 						<!-- 관리자인 경우 -->
 						<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
