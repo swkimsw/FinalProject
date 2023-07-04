@@ -188,8 +188,8 @@ $(document).ready(function () {
     });
 
     $(".todo-list").off("click").on("click", ".btnDeleteOne", function () {
-        let basketCode = $(".checkOne").val();
-        let checkOne = $(this);
+        let delBtn = $(this);
+        let basketCode = delBtn.parent().find(".checkOne").val();
         $.ajax({
             type: "post",
             url: "/basket/deleteBasket",
@@ -197,7 +197,7 @@ $(document).ready(function () {
                 "basketCode": basketCode
             }
         }).done(function (resp) {
-            checkOne.parent().remove();
+            delBtn.parent().remove();
         });
     });
 
