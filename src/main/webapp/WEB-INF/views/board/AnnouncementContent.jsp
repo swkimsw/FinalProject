@@ -120,7 +120,7 @@
                 <c:otherwise>
                     <div class="container ct">
 
-                        <div class="row header">
+                        <div class="row header m-4">
                             <h2>공지게시판</h2>
                             <br>
                         </div>
@@ -129,7 +129,7 @@
                             <table>
 
                                 <tr>
-                                    <td>글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
+                                    <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
                                 </tr>
 
                                 <tr>
@@ -139,13 +139,13 @@
                                 </tr>
 
                                 <tr>
-                                    <td>제목 :
+                                    <td class="postTitle">제목 :
                                         <input class="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>
+                                    <td class="postContent">
                                         <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
