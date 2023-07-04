@@ -30,7 +30,7 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-  <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+  			<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
           
           <!-- FreeContent css -->
 			<link rel="stylesheet" href="${path}/resources/css/board/boardFree.css">
@@ -321,6 +321,7 @@
 
 			<!-- footer -->
 			<c:import url="../commons/pageFooter.jsp"/>	
+			
             <script>
             
             $("td.title").each(function() {
@@ -527,7 +528,7 @@
 
 
                 //체크분류 페이징 - 검색
-                function goToCheckPageSearchLink(cpage) {
+                function goToCheckPageSearchLink(cpage,search,searchcate) {
 
                     window.location.href = '/board/free?cpage=' + cpage + "&check=" + checking + "&search=" + search + "&searchCate=" + searchcate;
                 }
