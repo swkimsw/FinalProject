@@ -137,6 +137,7 @@ $("#sendBtn").on("click", function () {
 // 식단 저장 
 $("#aiMealAddBtn").on("click", function () {
 
+if(confirm("기존 식단표에 입력내용이 있을 경우 아래 내용으로 덮어씌워집니다. 저장하시겠습니까?")){
     $.ajax({
         type: 'POST',
         url: '/meal/addAiMeal',
@@ -153,4 +154,6 @@ $("#aiMealAddBtn").on("click", function () {
             location.href="/meal/toMyMeal";
         }
     });
+}
+
 });
