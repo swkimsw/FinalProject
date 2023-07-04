@@ -95,7 +95,7 @@
 						</div>
 				</nav>
 		</div>
-		<div class="row body pt-3">
+		<div class="row body pt-3" style='margin-bottom:520px;'>
 			<div class="col">
 				<div class="row d-flex position-relative list">
 
@@ -142,7 +142,7 @@
 						</c:when>
 						
 						<c:otherwise>
-							<div class='col-xxl-12 pt-5 text-center' style='color:#007936;margin-bottom:400px;'>
+							<div class='col-xxl-12 pt-5 text-center' style='color:#007936;margin-bottom:600px;'>
 								<hr/>
 								<p class='fs-6'> 등록된 공구가 아직 없어요</p>
 								<hr/>

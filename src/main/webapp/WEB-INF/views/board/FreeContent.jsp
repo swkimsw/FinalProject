@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>CookCook - 자유게시판</title>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <!-- 부트스트랩모드가 아닌 lite모드로-->
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -33,125 +33,10 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
-            <style>
-                * {
-                    font-family: NanumSquareNeo;
-                    box-sizing: border-box;
-                }
-
-                .container {
-                    margin-top: 100px;
-                }
-
-                h2 {
-                    text-align: center;
-                }
-
-                .row>table {
-                    width: 100%;
-                    table-layout: fixed;
-                }
-
-
-                .title {
-                    width: 75%;
-                }
-
-                .body tr,
-                td {
-                    border: 1px solid black;
-                    font-size: 20px;
-                }
-
-
-                .content {
-                    width: 100%;
-                    height: 600px;
-                    overflow: auto;
-                    word-break: break-all;
-
-                }
-
-                #write_reply {
-                    width: 100%;
-                    height: 150px;
-                    overflow: auto;
-                    word-break:break-all;
-                }
-                
-                #write_reply:empty:before {
-   					content: attr(placeholder);
-				}
-
-                .reply {
-                    word-break: break-all;
-                }
-
-                .re_reply {
-                    word-break: break-all;
-                }
-
-              .con{
-                    margin-right: 15px;
-                    float: right;
-                    border: 0;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
-
-                .note-modal-footer>input {
-                    margin-right: 20px;
-                    margin-top: -15px;
-                    font-size: small;
-                }
-                
-                .replyCode {
-                	display: none;
-                }
-                
-                .replyMemberCode {
-                	display: none;
-                }
-                
-                .replyMemberNickNameOrCompanyName {
-                	display: inline;
-                }
-                
-                .me {
-                	font-size: 12px; 
-                	display: inline;
-                }
-                
-                .modiWriteReply {
-                	border: none;
-                	word-break : break-word;
-                }
-                
-                .modiWriteReply:empty:before {
-   					content: attr(placeholder);
-				}
-				
-				.replyModiCancleBtn {
-					display: none;
-				}
-				
-				.replyModiSuccessBtn {
-					display: none;
-				}
-				.note-editor .note-toolbar .note-color-all .note-dropdown-menu,
-	.note-popover .popover-content .note-color-all .note-dropdown-menu {
-	min-width: 0px;
-}
-.note-dimension-picker-mousecatcher,
-.note-dimension-picker-highlighted,
-.note-dimension-picker-unhighlighted { 
-  max-width: 3em;
-  max-height: 3em;
-}
-
-            </style>
-
+  			<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+	
+	        <!-- FreeContent css -->
+			<link rel="stylesheet" href="${path}/resources/css/board/FreeContent.css">
         </head>
 
         <body>
@@ -161,9 +46,9 @@
 
             <c:choose>
                 <c:when test="${user == result.memberCode}">
-                    <div class="container">
+                    <div class="container ct">
 
-                        <div class="row header">
+                        <div class="row header m-4">
                             <h2>자유게시판</h2>
                             <br>
                         </div>
@@ -175,23 +60,23 @@
                                 <c:choose>
                                     <c:when test="${result.memberAuthGradeCode == 1002 }">
                                         <tr>
-                                            <td>
+                                            <td class="postMemberSort">
                                                 사업자회원
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>글번호 : ${result.code} | 작성자 : ${result.memberCompanyName} </td>
+                                            <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberCompanyName} </td>
                                         </tr>
                                     </c:when>
 
                                     <c:otherwise>
                                         <tr>
-                                            <td>
+                                            <td class="postMemberSort">
                                                 일반회원
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
+                                            <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
@@ -200,7 +85,7 @@
                                 <c:choose>
                                     <c:when test="${result.headLineCode == 2001 }">
                                         <tr>
-                                            <td>
+                                            <td class="postHeadline">
                                                 카테고리 : <input id="headlinecode" type="text" value="일상" disabled>
                                             </td>
                                         </tr>
@@ -209,7 +94,7 @@
 
                                     <c:when test="${result.headLineCode == 2002 }">
                                         <tr>
-                                            <td>
+                                            <td class="postHeadline">
                                                 카테고리 : <input id="headlinecode" type="text" value="정보" disabled>
                                             </td>
                                         </tr>
@@ -218,7 +103,7 @@
 
                                     <c:otherwise>
                                         <tr>
-                                            <td>
+                                            <td class="postHeadline">
                                                 카테고리 : <input id="headlinecode" type="text" value="질문" disabled>
                                             </td>
                                         </tr>
@@ -233,13 +118,13 @@
 
 
                                 <tr>
-                                    <td>제목 :
+                                    <td class="postTitle">제목 :
                                         <input class="title" id="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>
+                                    <td class="postContent">
                                         <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
@@ -253,10 +138,10 @@
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
                                                 type="button">완료</button>
 
-                                            <button id="cancel" class=" btn btn-outline-primary" style="display:none"
+                                            <button id="cancel" class=" btn btn-outline-dark" style="display:none"
                                                 type="button">취소</button>
 
-                                            <button id="del" class="btn btn btn-outline-primary"
+                                            <button id="del" class="btn btn btn-outline-danger"
                                                 type="button">삭제</button>
 
                                              <a href="/board/free?cpage=${cpage}">
@@ -274,7 +159,7 @@
 
                 </c:when>
                 <c:otherwise>
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>자유게시판</h2>
@@ -391,7 +276,7 @@
                     <tr>
                         <td>
 
-                            <div class="card">
+                            <div class="card" style="border:none;">
 
                                 <div class="card-body" class="mt-5 ">
 
@@ -477,7 +362,9 @@
 
             </div>
 
-            </div>
+    </div>
+	<!-- footer -->
+	<c:import url="../commons/pageFooter.jsp"/>	
 
             <script>
 
@@ -546,10 +433,15 @@
 
                         $("#title").removeAttr("disabled"); // 제목버튼-활성화/ 고칠수있게
                         $("#save").css("display", "inline"); // 완료버튼보이게
+                        $("#cancel").css("display", "inline"); // 취소버튼보이게
 
 
                     });
 
+                    
+                    $("#cancel").on("click", function () {
+                    	location.reload();
+                    });
 
 
                     // 완료
@@ -652,7 +544,7 @@
                         if (contentLength > maxLength ) {
                             alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                             $('#content').summernote('undo');
-                        }else if(DBcontentLength>maxLength){
+                        }else if(DBcontentLength>1300){
                         	alert("저장할수 있는 용량을 초과하였습니다.");
                             $('#content').summernote('undo');
                         }else {

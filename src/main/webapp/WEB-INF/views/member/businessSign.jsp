@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>CookCook - 회원가입</title>
 <!-- JQuery-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->

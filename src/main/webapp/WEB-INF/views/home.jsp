@@ -8,7 +8,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>메인페이지</title>
+<title>CookCook</title>
 <!-- JQuery-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->
