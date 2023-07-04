@@ -29,6 +29,7 @@
 
             <!-- gbn css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+            <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 
             <style>
                 * {
@@ -40,9 +41,9 @@
                     padding: 5px;
                 }
 
-                .container {
+                .ct {
                     margin-top: 100px;
-                    border: 1px solid black;
+                    border: 1px solid #478C5C;
                 }
 
                .table th,
@@ -51,7 +52,7 @@
                 }
 			
 			
-			.page-item .page-link {
+				.page-item .page-link {
     			color: green;
   				}
   
@@ -60,7 +61,17 @@
 					border-color:green;
 					color:white;
 				}
+				
+				  .page-item .page-link:hover {
+				    background-color:green;
+					border-color:green;
+					color:white;
+				  }
 
+				.footer{
+				margin-top:100px;
+			
+				}
             </style>
 
         </head>
@@ -70,7 +81,7 @@
             </c:import>
 
 
-            <div class="container">
+            <div class="container ct">
                 <br>
 
                 <form id="frm" action="/board/announcement" method="post">
@@ -96,7 +107,7 @@
 
                 <div class="table-responsive mt-5">
 
-                    <table class="table table-hover">
+                    <table class="table table-hover asdf">
                         <thead>
                             <tr>
                                 <th>번호</th>
@@ -217,12 +228,12 @@
                         </c:otherwise>
 
                     </c:choose>
-
-<br>
                 </div>
 
             </div>
 
+			<!-- footer -->
+			<c:import url="../commons/pageFooter.jsp"/>	
             <script>
 
 

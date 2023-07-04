@@ -31,16 +31,17 @@
                 integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-            <!-- gnb css -->
-            <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+          <!-- gbn css -->
+		<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+ 		<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+           
            <style>
                 * {
                     font-family: NanumSquareNeo;
                     box-sizing: border-box;
                 }
 
-                .container {
+                .ct {
                     margin-top: 100px;
                 }
 
@@ -48,7 +49,7 @@
                     text-align: center;
                 }
 
-               .row>table {
+               .body>table {
                     width: 100%;
                     table-layout: fixed;
                 }
@@ -111,6 +112,10 @@
   max-height: 3em;
 }
 
+.footer{
+				margin-top:100px;
+				}
+				
             </style>
 
 
@@ -123,7 +128,7 @@
 
             <c:choose>
                 <c:when test="${user == result.memberCode}">
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>공지게시판</h2>
@@ -133,7 +138,7 @@
 
                         <div class="row body">
 
-                            <table>
+                            <table class="contenttable">
 
 
                                 <tr>
@@ -191,7 +196,7 @@
 
                 </c:when>
                 <c:otherwise>
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>공지게시판</h2>
@@ -334,9 +339,13 @@
                     </tr>
                 </table>
 
-
+ 
             </div>
+            
             </div>
+  
+	<!-- footer -->
+	<c:import url="../commons/pageFooter.jsp"/>	
             <script>
 
 

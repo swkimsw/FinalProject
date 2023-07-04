@@ -33,14 +33,15 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+  <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
+  
             <style>
                 * {
                     font-family: NanumSquareNeo;
                     box-sizing: border-box;
                 }
 
-                .container {
+                .ct {
                     margin-top: 100px;
                 }
 
@@ -150,6 +151,10 @@
   max-height: 3em;
 }
 
+.footer{
+				margin-top:100px;
+				}
+
             </style>
 
         </head>
@@ -161,7 +166,7 @@
 
             <c:choose>
                 <c:when test="${user == result.memberCode}">
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>자유게시판</h2>
@@ -274,7 +279,7 @@
 
                 </c:when>
                 <c:otherwise>
-                    <div class="container">
+                    <div class="container ct">
 
                         <div class="row header">
                             <h2>자유게시판</h2>
@@ -477,7 +482,9 @@
 
             </div>
 
-            </div>
+    </div>
+	<!-- footer -->
+	<c:import url="../commons/pageFooter.jsp"/>	
 
             <script>
 

@@ -33,7 +33,7 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+  <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 
             <style>
 * {
@@ -41,7 +41,7 @@
 	box-sizing: border-box;
 }
 
-.container {
+.ct{
 	margin-top: 100px;
 }
 
@@ -102,7 +102,7 @@ div>table {
 
             <form id="frm" action="/board/inputReview" method="post" enctype="multipart/form-data">
 
-                <div class="container">
+                <div class="container ct">
 
                     <div class="header">
                     </div>
@@ -138,9 +138,9 @@ div>table {
                             <tr>
                                 <td colspan="2" class="button-container">
                                     <br>
-                                    <button id="write" class="btn btn-outline-success" style="margin-bottom:10px;" type="submit">작성</button>
+                                    <button id="write" class="btn btn-outline-success" style="margin-bottom:13px;" type="submit">작성</button>
                                      <a href="javascript:window.history.go(-1);">
-                                    <button class="btn btn-outline-success" style="margin-bottom:10px;" type="button">취소</button>
+                                    <button class="btn btn-outline-success" style="margin-bottom:13px;" type="button">취소</button>
                                     </a>
                                    
                                 </td>
@@ -154,6 +154,8 @@ div>table {
              
             </form>
 
+			<!-- footer -->
+			<c:import url="../commons/pageFooter.jsp"/>	
             <script>
             
       

@@ -30,7 +30,7 @@
 
             <!-- gnb css -->
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
-
+  <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
             <style>
                 * {
                     font-family: NanumSquareNeo;
@@ -41,9 +41,9 @@
                     padding: 5px;
                 }
 
-                .container {
-                    margin-top: 100px;
-                    border: 1px solid black;
+                .ct {
+                   margin-top: 100px;
+                    border: 1px solid #478C5C;
                 }
 
                 .table th,
@@ -56,7 +56,7 @@
                     text-align: center;
                 }
                 
-	.page-item .page-link {
+				.page-item .page-link {
     			color: green;
   				}
   
@@ -65,11 +65,21 @@
 					border-color:green;
 					color:white;
 				}
+				  .page-item .page-link:hover {
+				    background-color:green;
+					border-color:green;
+					color:white;
+				  }
 				
-.form-check-input:checked {
-  background-color: green;
-  border-color: green;
-}
+				
+				.form-check-input:checked {
+				  background-color: green;
+				  border-color: green;
+				}
+
+				.footer{
+				margin-top:100px;
+				}
             </style>
 
         </head>
@@ -80,7 +90,7 @@
 
 
 
-            <div class="container">
+            <div class="container ct">
 
 
                 <br>
@@ -356,7 +366,11 @@
 
             </div>
 
+			<!-- footer -->
+			<c:import url="../commons/pageFooter.jsp"/>	
             <script>
+            
+          
 
                 var checking = $(".checking").map(function () {
                     return $(this).text();
