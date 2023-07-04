@@ -51,6 +51,8 @@
 	type="text/css">
 	<!-- js파일 -->
 <script src="${path}/resources/js/myPage/clientMyPageReview.js"></script>
+<!-- footer css -->
+<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<header>
@@ -58,9 +60,9 @@
 		</c:import>
 	</header>
 	<main>
-		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+		<div class="container-fluid shadow p-3 bg-body-tertiary rounded" style="margin-top:100px;margin-bottom:200px;">
 			<h1 class="second">
-				<span>내가 쓴 게시물</span>
+				<span>내가 쓴 리뷰</span>
 			</h1>
 			<br>
 		 <div class="row mainPage">
@@ -101,5 +103,6 @@
         </div>
         </div>
 	</main>
+	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
