@@ -60,7 +60,7 @@
 
                 .body tr,
                 td {
-                    border: 1px solid black;
+                    border: 1px solid #478C5C;
                     font-size: 20px;
                 }
 
@@ -112,9 +112,7 @@
   max-height: 3em;
 }
 
-.footer{
-				margin-top:100px;
-				}
+
 				
             </style>
 
