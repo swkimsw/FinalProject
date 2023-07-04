@@ -37,67 +37,12 @@
 <!-- gbn css -->
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
 	type="text/css">
-
-<style>
-* {
-	font-family: NanumSquareNeo;
-	box-sizing: border-box;
-}
-
-body {
-	background-color: rgba(255, 255, 194, 0.75);
-}
-
-.container {
-	margin-top: 18%;
-}
-
-.wrapper {
-	width: 80%;
-	padding: 32px;
-	background: whitesmoke;
-	border-radius: 1rem;
-	box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0
-		rgba(0, 0, 0, 0.19);
-	animation-duration: 5s;
-}
-
-label {
-	font-size: small;
-	font-family: 'NanumSquareNeoBold';
-}
-
-.btn {
-	font-size: small;
-}
-
-.good .bi-x {
-	display: none;
-}
-
-.valid-feedback, .invalid-feedback {
-	font-size: small;
-}
-
-.alert {
-	font-family: 'NanumSquareNeoBold';
-	text-color: black;
-}
-
-.row .insert {
-	justify-content: center;
-}
-
-#find_member {
-	display: none;
-}
-</style>
+<link href="${path}/resources/css/member/clientMyInfo.css" rel="stylesheet"
+	type="text/css">
 </head>
 <body>
 	<c:import url="../commons/gnb.jsp">
 	</c:import>
-
-
 	<div class="container login_container align-self-center">
 		<div class="wrapper mx-auto position-relative">
 

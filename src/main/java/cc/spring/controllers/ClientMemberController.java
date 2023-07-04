@@ -56,7 +56,6 @@ public class ClientMemberController {
 			session.setAttribute("id", amd.getId());
 			session.setAttribute("nickname", amd.getName());
 			session.setAttribute("authGradeCode", amd.getAuthGradeCode());
-			System.out.println("관리자로그인 성공");
 			return "redirect:/";
 		}
 		
@@ -80,13 +79,9 @@ public class ClientMemberController {
 				session.setAttribute("id",cmd.getId());
 				session.setAttribute("nickname", cmd.getNickName());
 				session.setAttribute("authGradeCode", cmd.getAuthGradeCode());
-				System.out.println("일반인로그인 성공");
-				
-				System.out.println(cmd.getId());
 				return "redirect:/";
 			}
 		}
-		System.out.println("로그인 실패!!");
 		redir.addFlashAttribute("status", "false");
 		return "redirect:/clientMember/login_form";
 	}
@@ -101,7 +96,6 @@ public class ClientMemberController {
 	@RequestMapping("logout")
 	public String logout() {
 		session.invalidate();
-		System.out.println("로그아웃");
 		return "redirect:/";
 	}
 	// 클라이언트 회원가입 창으로 이동
@@ -116,7 +110,6 @@ public class ClientMemberController {
 	public String checkId(String key, String value) throws Exception {
 		if(key.equals("PHONE") || key.equals("EMAIL")) {
 			boolean result = cms.phoneAndemailDuplication(key, value);
-			System.out.println(key + " : " + value);
 			return String.valueOf(result);
 		}
 		else {
@@ -131,7 +124,6 @@ public class ClientMemberController {
 	public String sendSms(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
-				System.out.println(phone + ":" + result);
 		
 		// 같은 연락처가 DB에 없으면 실행
 		if(!result) {
@@ -154,7 +146,6 @@ public class ClientMemberController {
 	public String sendSms2(String phone) throws Exception {
 		// 이미 가입한 연락처가 있는지 확인
 		boolean result = cms.phoneCheck(phone);
-				System.out.println(phone + ":" + result);
 		
 		// 같은 연락처가 DB에 없으면 실행
 		if(result) {
@@ -178,15 +169,12 @@ public class ClientMemberController {
 	@RequestMapping(value="certificationSign", produces="text/html;charset=utf8")
 	public String certification(String code) {
 		String numStr = (String) session.getAttribute("numStr");
-		System.out.println(numStr);
 				
 		if(numStr.equals(code)) {
-			System.out.println("인중 성공");
 			return String.valueOf(true);
 		}
 
 		else {
-			System.out.println("인중 실패");
 			return String.valueOf(false);
 		}	
 	}
@@ -202,7 +190,6 @@ public class ClientMemberController {
 		if(code.equals(numStr)) {
 			String phone = (String) session.getAttribute("phone");
 			String searchId = cms.getIdByPhone(phone);
-			System.out.println(searchId);
 			result.put("searchId", searchId);
 			result.put("success", true);
 			
@@ -283,7 +270,6 @@ public class ClientMemberController {
 		m.addAttribute("info", dto);
 		return "/member/clientInfoUpdate";
 	}
-	
 	// 회원정보 수정 시 모든 변경은 연락처 인증을 통해서만 가능해....
 	// 이 부분은 로그인된 회원의 연락처와 비회원의 연락처만 넘어옴
 	@ResponseBody
@@ -298,8 +284,6 @@ public class ClientMemberController {
 			}
 			SmsService.certifiedPhoneNumber(phone, numStr);
 			session.setAttribute("numStr", numStr);	
-		System.out.println(String.valueOf(true));	
-		
 		return String.valueOf(true);
 	}
 	
@@ -312,7 +296,6 @@ public class ClientMemberController {
 		// 회원 수정 시 where = id에서 id값이 필요함
 		String id = (String) session.getAttribute("id");
 		dto.setId(id);
-		
 		
 		int result = cms.updateMemberInfo(dto);
 		if(result == 1) {
@@ -330,7 +313,6 @@ public class ClientMemberController {
 		else {
 			return "error";
 		}
-		
 	}
 	
 	// 회원탈퇴하기
@@ -348,7 +330,6 @@ public class ClientMemberController {
 		return String.valueOf(result);
 	}
 
-	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();

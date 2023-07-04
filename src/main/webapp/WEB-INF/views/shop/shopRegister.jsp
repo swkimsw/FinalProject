@@ -17,14 +17,8 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
-<style>
-	*{font-family: 'NanumSquareNeo'; box-sizing: border-box;}
-	body{background-color:rgba(255, 255, 194, 0.5);}
-	textarea{resize:none;}
-	.container{width: 70%; margin-top:100px; background-color:white;}
-	.memberInfo{margin-top:2px; border:0;}
-	#message{margin-top: 6px; margin-left: 92px;}
-</style>
+<!-- shopApply css -->
+<link rel="stylesheet" href="${path}/resources/css/shop/shopRegister.css">
 </head>
 <body>
 	<header>
@@ -81,7 +75,7 @@
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="mb-3">
   						<label for="exampleFormControlTextarea1" class="form-label">추가 정보 입력</label>
- 						 <textarea class="form-control" id="detail" name="detail" rows="5"></textarea>
+ 						 <textarea class="form-control" id="detail" name="detail" rows="5" required></textarea>
 					</div>
 				</div>
 			</div>
@@ -126,42 +120,8 @@
 		</div>
 	</main>
 	</form>
-	<script>
-	
-		let regexProductPrice = /^[0-9]+$/;
-		let regexMin = /^[0-9]+$/;
-		
-		$("#register").on("click", function(){
-			
-			let productPrice = $("#productPrice").val();
-			let min = $("#min").val();
-			
-			let resultProductPrice = regexProductPrice.exec(productPrice);
-			let resultMin = regexMin.exec(min);
-			
-			if(!resultProductPrice){
-				alert("상품가격 은 숫자로 입력해 주세요!");
-				return false;
-			}
-			
-			if(!resultMin){
-				alert("최소 인원 은 숫자로 입력해 주세요!");
-				return false;
-			}
-			
-		})
-	
-		// 오늘 이전은 선택하지 못하도록 - 하루 뒤부터 선택 가능
-		let days = 1 * 24 * 60 * 60 * 1000;
-		
-		var nowUtc = Date.now();
-		var timeOff = new Date().getTimezoneOffset()*60000;
-		var afterOneDay = new Date(nowUtc+days-timeOff).toISOString().substring(0,16);
-		console.log(afterOneDay);
-		
-		$("#deadLineTemp").attr("min", afterOneDay);
-		
-	</script>
+	<!-- shopRegister js -->
+	<script src="${path}/resources/js/shop/shopRegister.js"></script>
 	<c:import url="../commons/pageFooter.jsp"/>
 </body>
 </html>
