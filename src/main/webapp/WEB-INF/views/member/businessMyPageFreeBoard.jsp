@@ -50,162 +50,10 @@
 <!-- footer css -->
 <link href="${path}/resources/css/pageFooter.css" rel="stylesheet"
 	type="text/css">
-<style>
-* {
-	font-family: NanumSquareNeo;
-	box-sizing: border-box;
-}
-
-.font {
-	font-size: 10px;
-}
-
-label {
-	font-size: 12px;
-	color: green;
-}
-
-.container {
-	margin-top: 100px;
-}
-
-.mainPage {
-
-	/* background-color: #ffffc230; */
-}
-/* 페이징 */
-.table {
-	overflow: hidden;
-	width: 95%;
-	margin: auto;
-	border-radius: 30px;
-}
-
-/* input */
-.dataTables_wrapper .dataTables_filter input {
-	border: 1px solid #aaa;
-	border-radius: 3px;
-	padding: 5px;
-	background-color: transparent;
-	margin-left: 3px;
-	border-radius: 10px;
-}
-/* select */
-.dataTables_wrapper .dataTables_length select {
-	border: 1px solid doderblue;
-	border-radius: 10px;
-	padding: 5px;
-	background-color: transparent;
-	padding: 4px;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
-	.dataTables_wrapper .dataTables_paginate .paginate_button:hover a {
-	background: none;
-	border: none;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.active,
-	.dataTables_wrapper .dataTables_paginate .paginate_button.active a {
-	color: white;
-	background: blue;
-	opacity: 70%;
-}
-table.dataTable thead>tr>th.sorting:before, table.dataTable thead>tr>th.sorting_asc:before,
-	table.dataTable thead>tr>th.sorting_desc:before, table.dataTable thead>tr>th.sorting_asc_disabled:before,
-	table.dataTable thead>tr>th.sorting_desc_disabled:before, table.dataTable thead>tr>td.sorting:before,
-	table.dataTable thead>tr>td.sorting_asc:before, table.dataTable thead>tr>td.sorting_desc:before,
-	table.dataTable thead>tr>td.sorting_asc_disabled:before, table.dataTable thead>tr>td.sorting_desc_disabled:before
-	{
-	bottom: 50%;
-	content: "▲";
-	content: "▲"/"";
-	display: none;
-}
-
-table.dataTable thead>tr>th.sorting:after, table.dataTable thead>tr>th.sorting_asc:after,
-	table.dataTable thead>tr>th.sorting_desc:after, table.dataTable thead>tr>th.sorting_asc_disabled:after,
-	table.dataTable thead>tr>th.sorting_desc_disabled:after, table.dataTable thead>tr>td.sorting:after,
-	table.dataTable thead>tr>td.sorting_asc:after, table.dataTable thead>tr>td.sorting_desc:after,
-	table.dataTable thead>tr>td.sorting_asc_disabled:after, table.dataTable thead>tr>td.sorting_desc_disabled:after
-	{
-	top: 50%;
-	content: "▼";
-	content: "▼"/"";
-	display: none;
-}
-
-=
-.fontCol {
-	color: #007936;
-}
-
-.a1 {
-	/* text-align: center; */
-	
-}
-
-/* 사이즈 대비 출력되는 부트스트랩반응형 */
-@media ( max-width : 494px) {
-	.atag {
-		display: inline-block;
-		width: 100%;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.table-responsive {
-		max-height: none !important;
-		overflow: hidden !important;
-	}
-	.table {
-		margin-bottom: 0 !important;
-		text-align: left;
-	}
-	.d-none.d-sm-table-cell {
-		display: none !important;
-	}
-}
-
-@media ( max-width : 768px) {
-	.title {
-		width: 100% !important;
-		text-align: left;
-	}
-}
-
-/* h1태그 */
-h1.second {
-	font-weight: 200;
-}
-
-h1.second span {
-	position: relative;
-	display: inline-block;
-	padding: 5px 10px;
-	border-radius: 10px;
-	border-bottom: 1px solid mediumseagreen;
-	top: 50px;
-}
-
-h1.second span:after {
-	content: '';
-	position: absolute;
-	bottom: calc(-100% - 1px);
-	margin-left: -10px;
-	display: block;
-	width: 100%;
-	height: 100%;
-	border-radius: 10px;
-	border-top: 1px solid mediumseagreen;
-}
-
-.atag {
-	text-decoration-line: none;
-	color: #007936;
-}
-/* h1태그 종료 */
-</style>
+<!-- css -->
+<link rel="stylesheet" href="${path}/resources/css/member/businessMyPageFreeBoard.css">	
+<!-- js파일 -->
+<script src="${path}/resources/js/myPage/businessMyPageFreeBoard.js"></script>
 </head>
 <body>
 	<header>
@@ -213,7 +61,7 @@ h1.second span:after {
 		</c:import>
 	</header>
 	<main>
-		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded" style="margin-top:100px;margin-bottom:200px;">
 			<br>
 			<div class="row mainPage">
 				<div class="col">
@@ -256,63 +104,6 @@ h1.second span:after {
 			</div>
 		</div>
 	</main>
-	<script>
-	function goToLink(url) {
-      window.location.href = url;
-    }
-	window.addEventListener('DOMContentLoaded', (event) => {
-	    const atagElements = document.getElementsByClassName('atag');
-	    Array.from(atagElements).forEach((element) => {
-	        const maxWidth = element.offsetWidth;
-	        const text = element.textContent;
-	        const fontSize = getComputedStyle(element).fontSize;
-
-	        let shortenedText = text;
-	        while (element.scrollWidth > maxWidth) {
-	            shortenedText = shortenedText.slice(0, -1);
-	            element.textContent = shortenedText + '...';
-	        }
-
-	        element.style.fontSize = fontSize;
-	    });
-	});
-		$(document).ready(function() {
-			$("td.b1").each(function() {
-				if ($(this).text() === "자유 게시판") {
-					$(this).html("&#127803;자유 게시판");
-				} else if ($(this).text() === "후기 게시판") {
-					$(this).html("&#127804;후기 게시판");
-				} else if ($(this).text() === "문의 게시판") {
-					$(this).html("&#127801;문의 게시판");
-				}
-			});
-			$("td.b2").each(function() {
-				if ($(this).text() === "일상") {
-					$(this).html("🍿일상");
-				} else if ($(this).text() === "정보") {
-					$(this).html("🕵️‍♂️정보");
-				} else if ($(this).text() === "질문") {
-					$(this).html("🙋‍♀️질문");
-				} else if ($(this).text() === "후기") {
-					$(this).html("🤷후기");
-				}
-			});
-			$("#text").each(function() {
-				if ($(this).text() === "Search:") {
-					$(this).html("검색");
-				}
-			})
-		});
-		$(document).ready(function() {
-
-			$('#myTables').DataTable({
-				pagingType : "full_numbers",
-				info : false,
-				lengthChange: false,
-			});
-			$('.dataTables_empty').text('내가 쓴 게시물이 없어요');
-		});
-	</script>
 	<c:import url="../commons/pageFooter.jsp" />
 </body>
 </html>
