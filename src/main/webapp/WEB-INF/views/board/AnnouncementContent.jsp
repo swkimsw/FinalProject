@@ -31,94 +31,151 @@
                 integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-         <!-- gbn css -->
-		<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
- 		<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
- 		
-        <!-- AnnouncementContent css -->
-		<link rel="stylesheet" href="${path}/resources/css/board/AnnouncementContent.css">
-   
-   
-   <style>
-   
-   * {
-	   font-family: NanumSquareNeo;
-	   box-sizing: border-box;
-	   }
+            <!-- gbn css -->
+            <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
+            <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 
-	   .ct {
-	   margin-top: 100px;
-	   }
-
-	   h2 {
-	   text-align: center;
-	   }
-
-	   .body>table {
-	   width: 100%;
-	   table-layout: fixed;
-	   }
-
-	   .title {
-	   width: 75%;
-	   }
-
-	   .body tr,
-	   td {
-	   border: 1px solid black;
-	   font-size: 20px;
-	   }
+            <!-- AnnouncementContent css -->
+            <link rel="stylesheet" href="${path}/resources/css/board/AnnouncementContent.css">
 
 
-	   .content {
-	   width: 100%;
-	   height: 600px;
-	   overflow: auto;
-	   word-break: break-all;
+            <style>
+                * {
+                    font-family: NanumSquareNeo;
+                    box-sizing: border-box;
+                }
 
-	   }
+                .ct {
+                    margin-top: 100px;
+                }
 
-	   #write_reply {
-	   width: 100%;
-	   height: 150px;
-	   }
+                h2 {
+                    text-align: center;
+                }
 
-	   .reply {
-	   word-break: break-all;
-	   }
+                .body>table {
+                    width: 100%;
+                    table-layout: fixed;
+                }
 
-	   .re_reply {
-	   word-break: break-all;
-	   }
+                .title {
+                    width: 75%;
+                }
 
-	   .con{
-	   margin-right: 15px;
-	   float: right;
-	   border: 0;
-	   margin-top: 10px;
-	   margin-bottom: 10px;
-	   }
+                .body tr,
+                td {
+                    border: 1px solid black;
+                    font-size: 20px;
+                }
 
-	   .note-modal-footer>input {
-	   margin-right: 20px;
-	   margin-top: -15px;
-	   font-size: small;
-	   }
+                .row>table {
+                    width: 100%;
+                    table-layout: fixed;
+                }
 
-	   .note-editor .note-toolbar .note-color-all .note-dropdown-menu,
-	   .note-popover .popover-content .note-color-all .note-dropdown-menu {
-	   min-width: 0px;
-	   }
 
-	   .note-dimension-picker-mousecatcher,
-	   .note-dimension-picker-highlighted,
-	   .note-dimension-picker-unhighlighted {
-	   max-width: 3em;
-	   max-height: 3em;
-	   }
+                .title {
+                    width: 75%;
+                }
 
-   
-   </style>
+                .body tr,
+                td {
+                    border: 1px solid black;
+                    font-size: 20px;
+                }
+
+
+
+                .content {
+                    width: 100%;
+                    height: 600px;
+                    overflow: auto;
+                    word-break: break-all;
+
+                }
+
+
+                #write_reply {
+                    width: 100%;
+                    height: 150px;
+                    overflow: auto;
+                    word-break: break-all;
+                }
+
+                #write_reply:empty:before {
+                    content: attr(placeholder);
+                }
+
+
+                .reply {
+                    word-break: break-all;
+                }
+
+                .re_reply {
+                    word-break: break-all;
+                }
+
+
+                .con {
+                    margin-right: 15px;
+                    float: right;
+                    border: 0;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                }
+
+                .note-modal-footer>input {
+                    margin-right: 20px;
+                    margin-top: -15px;
+                    font-size: small;
+                }
+
+                .replyCode {
+                    display: none;
+                }
+
+                .replyMemberCode {
+                    display: none;
+                }
+
+                .replyMemberNickNameOrCompanyName {
+                    display: inline;
+                }
+
+                .me {
+                    font-size: 12px;
+                    display: inline;
+                }
+
+                .modiWriteReply {
+                    border: none;
+                    word-break: break-word;
+                }
+
+                .modiWriteReply:empty:before {
+                    content: attr(placeholder);
+                }
+
+                .replyModiCancleBtn {
+                    display: none;
+                }
+
+                .replyModiSuccessBtn {
+                    display: none;
+                }
+
+                .note-editor .note-toolbar .note-color-all .note-dropdown-menu,
+                .note-popover .popover-content .note-color-all .note-dropdown-menu {
+                    min-width: 0px;
+                }
+
+                .note-dimension-picker-mousecatcher,
+                .note-dimension-picker-highlighted,
+                .note-dimension-picker-unhighlighted {
+                    max-width: 3em;
+                    max-height: 3em;
+                }
+            </style>
 
         </head>
 
@@ -168,7 +225,7 @@
 
                                 <tr>
                                     <td>
-                                        <div  class="button-container con">
+                                        <div class="button-container con">
                                             <button id="modi" class=" btn btn-outline-primary" type="button">수정</button>
 
                                             <button id="save" class=" btn btn-outline-primary" style="display:none"
@@ -181,7 +238,8 @@
                                                 type="button">삭제</button>
 
                                             <a href="/board/announcement?cpage=${cpage}">
-                                            <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
+                                                <button id="list" type="button"
+                                                    class="btn btn-outline-secondary">목록</button>
                                             </a>
                                         </div>
                                     </td>
@@ -211,12 +269,12 @@
                                     <td>글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
                                 </tr>
 
-								<tr>
+                                <tr>
                                     <td>
                                         <input id="code" type="text" value="${result.code}" style="display:none">
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td>제목 :
                                         <input class="title" type="text" value="${result.title}" disabled>
@@ -228,22 +286,24 @@
                                         <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
-                                
-                                 <tr>
-						            <td>
-						                <div id="button" class="button-container con">
-						                
-						                	
-						                  	<button id="likecount" class=" btn btn-outline-primary" type="button"><i class="bi bi-hand-thumbs-up"></i>${result.likeCount }</button> 
-						
-						                    <a href="/board/announcement?cpage=${cpage}"> 
-						                    <button id="list" type="button" class="btn btn-outline-secondary">목록</button>
-						                    </a>
-						                    
-						                </div>
-						            </td>
-        						</tr>
-								
+
+                                <tr>
+                                    <td>
+                                        <div id="button" class="button-container con">
+
+
+                                            <button id="likecount" class=" btn btn-outline-primary" type="button"><i
+                                                    class="bi bi-hand-thumbs-up"></i>${result.likeCount }</button>
+
+                                            <a href="/board/announcement?cpage=${cpage}">
+                                                <button id="list" type="button"
+                                                    class="btn btn-outline-secondary">목록</button>
+                                            </a>
+
+                                        </div>
+                                    </td>
+                                </tr>
+
                             </table>
                         </div>
 
@@ -264,74 +324,94 @@
                                 <div class="card-body" class="mt-5 ">
 
                                     <!-- Comment form-->
-                                    <textarea id="write_reply" class="form-control mt-3" rows="3"
-                                        placeholder="댓글을 작성해주세요!"></textarea>
-                                    <a href="#" class="btn btn-primary btn-m mt-2 " style="float:right;">작성</a>
+
+                                    <div contenteditable="true" id="write_reply" class="form-control mt-3" rows="3"
+                                        placeholder="내용을 입력하세요(200자 미만)"></div>
+                                    <input type="hidden" name="replyContent" id="hidden_write_reply">
+                                    <input type="hidden" name="boardFreeCode" value="${result.code}">
+                                    <input type="hidden" name="cpage" value="${cpage}">
+
+                                    <button class="btn btn-primary btn-m mt-2" id="replyWriteBtn"
+                                        style="float:right;">작성</button>
+
                                     <!-- Comment with nested comments-->
 
                                     <!-- Parent comment-->
-                                    <div class="d-flex mt-5">
-                                        <div class="flex-shrink-0"><img class="rounded-circle"
-                                                src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                        </div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">작성자</div>
-                                            <div class="reply">
-                                                sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                <div class="button-container con" style="float:right ; margin-top: 10px;">
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        type="button">수정</button>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                        type="button">삭제</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <c:forEach var="i" items="${replyList}">
+                                        <div id="rep">
+                                            <c:choose>
+                                                <c:when test="${user == i.memberCode}">
+                                                    <div class="replyMemberCode">${i.memberCode}</div>
+                                                    <hr style="margin-top: 60px;">
+                                                    <div class="d-flex mt-5">
+                                                        <div class="flex-shrink-0"><img class="rounded-circle"
+                                                                style="height:50px; width:50px; border:1px solid black;"
+                                                                src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"
+                                                                alt="...">
+                                                        </div>
 
-
-                                    <!-- child comment-->
-                                    <div class="ms-5">
-
-                                        <div class="d-flex mt-1">
-
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container con" style="float:right ;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
-                                                        <button class="btn btn-outline-primary btn-sm"
-                                                            type="button">신고</button>
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">
+                                                                <div class="replyMemberNickNameOrCompanyName">
+                                                                    ${i.nickName}</div>
+                                                                <div class="replyMemberNickNameOrCompanyName">
+                                                                    ${i.companyName}</div>
+                                                                <div class="me">(본인)</div>
+                                                            </div>
+                                                            <div class="replyCode">${i.code}</div>
+                                                            <div class="form-control mt-3 modiWriteReply" rows="3"
+                                                                placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                    <!-- child comment-->
-                                    <div class="ms-5">
-                                        <div class="d-flex mt-1">
 
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="...">
-                                            </div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">작성자</div>
-                                                <div class="reply">
-                                                    sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                                                    <div class="button-container con"
-                                                        style="float:right ; margin-top: 10px;">
-                                                        <button class="btn btn-outline-primary btn-sm" type="button"> <i
-                                                                class="bi bi-hand-thumbs-up"></i>13</button>
+                                                    <div class="button-container con">
+                                                        <button
+                                                            class="btn btn-outline-primary btn-sm replyModiBtn">수정</button>
+                                                        <button
+                                                            class="btn btn-outline-primary btn-sm replyDeleteBtn">삭제</button>
+                                                        <button
+                                                            class="btn btn-outline-primary btn-sm replyModiSuccessBtn">수정완료</button>
+                                                        <button
+                                                            class="btn btn-outline-primary btn-sm replyModiCancleBtn">수정취소</button>
                                                     </div>
-                                                </div>
-                                            </div>
+
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <div class="replyMemberCode">${i.memberCode}</div>
+                                                    <hr style="margin-top: 60px;">
+                                                    <div class="d-flex mt-5">
+                                                        <div class="flex-shrink-0">
+                                                            <img class="rounded-circle"
+                                                                style="height:50px; width:50px; border:1px solid black;"
+                                                                src="https://icons.veryicon.com/png/o/internet--web/prejudice/user-128.png"
+                                                                alt="...">
+                                                        </div>
+
+                                                        <div class="ms-3">
+                                                            <div class="fw-bold">${i.nickName}</div>
+                                                            <div class="fw-bold">${i.companyName}</div>
+                                                            <div class="replyCode">${i.code}</div>
+                                                            <div contenteditable="false"
+                                                                class="form-control mt-3 modiWriteReply" rows="3"
+                                                                placeholder="내용을 입력하세요(200자 미만)">${i.content}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="button-container con">
+
+                                                        <button class="btn btn-outline-primary btn-sm likeBtn">
+                                                            <i class="bi bi-hand-thumbs-up">${i.likeCount}</i>
+                                                        </button>
+
+                                                        <button
+                                                            class="btn btn-outline-primary btn-sm replyReport">신고</button>
+
+                                                    </div>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
-                                    </div>
+                                    </c:forEach>
+
 
                                 </div>
 
@@ -340,13 +420,13 @@
                     </tr>
                 </table>
 
- 
+
             </div>
-            
+
             </div>
-  
-	<!-- footer -->
-	<c:import url="../commons/pageFooter.jsp"/>	
+
+            <!-- footer -->
+            <c:import url="../commons/pageFooter.jsp" />
             <script>
 
 
@@ -380,7 +460,7 @@
                             ],
                             callbacks: {
                                 onImageUpload: function (data) {
-                                	 alert("이미지 업로드 불가능합니다")
+                                    alert("이미지 업로드 불가능합니다")
                                 },
                                 onChange: function (contents, $editable) {
                                     checkContentLength();
@@ -396,9 +476,9 @@
                     });
 
 
-                    
+
                     $("#cancel").on("click", function () {
-                    	location.reload();
+                        location.reload();
                     });
 
                     // 완료
@@ -492,68 +572,262 @@
                         console.log("Image Count: " + imageCount);
 
 
-                        if (contentLength > maxLength ) {
+                        if (contentLength > maxLength) {
                             alert("내용은 최대 1000자까지 입력할 수 있습니다.");
                             $('#content').summernote('undo');
-                        }else if(DBcontentLength>1300){
-                        	alert("저장할수 있는 용량을 초과하였습니다.");
+                        } else if (DBcontentLength > 1300) {
+                            alert("저장할수 있는 용량을 초과하였습니다.");
                             $('#content').summernote('undo');
-                        }else {
+                        } else {
                             return;
                         }
                     }
 
                     $("#likecount").on("click", function () {
-                    	
-                    	let result = confirm("추천하시겠습니까?");
-                    	
-                    	
-                    	if(result){
-                    		 let postcode = $("#code").val();
-                            	let count = (${result.likeCount}+1) ;
-                            	 console.log(postcode);
-                            	 
-                            	 $.ajax({
-         						    url: "/board/LikeCount",
-         						    type: "post",
-         						    dataType: "json",
-         						    data: {
-         						    	code : postcode ,
-         						     	likeCount: count,
-         						     	boardKindCode: "1001"
-         						    },
-         						  }).done(function (resp) {
-         						      if (resp == 1) {
-         						    	  alert("추천되었습니다");
-                               	        location.href="/board/AnnouncementContent?code="+${result.code}+"&cpage="+${cpage}+"&viewchoose=false";
-         						      } else {
-         						        alert("다시 눌러주세요");
-         						      }
-         						    })
-         						    .fail(function () {
-         						      alert("요청 실패");
-         						    });
-                            	 
-                            	 
-         					
-                             
-                    		
-                    	}else{
-                    		alert("취소되었습니다");
-                    	}
+
+                        let result = confirm("추천하시겠습니까?");
+
+
+                        if (result) {
+                            let postcode = $("#code").val();
+                            let count = (${ result.likeCount }+1);
+                    console.log(postcode);
+
+                    $.ajax({
+                        url: "/board/LikeCount",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            code: postcode,
+                            likeCount: count,
+                            boardKindCode: "1001"
+                        },
+                    }).done(function (resp) {
+                        if (resp == 1) {
+                            alert("추천되었습니다");
+                            location.href = "/board/AnnouncementContent?code=" + ${ result.code } +"&cpage=" + ${ cpage } +"&viewchoose=false";
+                        } else {
+                            alert("다시 눌러주세요");
+                        }
+                    })
+                        .fail(function () {
+                            alert("요청 실패");
+                        });
+
+                }else {
+                    alert("취소되었습니다");
+                }
                     	
                 	});
-                    
-                    $("#del").on("click",function(){
-                    	let result = confirm("삭제하시겠습니까?")
-                    
-                    	if(result){
-            				alert("삭제되었습니다");
-                    		location.href = "/board/deleteAnnouncement?code=" + ${result.code} + "&cpage=" + ${cpage};
-                    	}else{
-                    		return false;
-                    	}
+
+                $("#del").on("click", function () {
+                    let result = confirm("삭제하시겠습니까?")
+
+                    if (result) {
+                        alert("삭제되었습니다");
+                        location.href = "/board/deleteAnnouncement?code=" + ${ result.code } + "&cpage=" + ${ cpage };
+                    } else {
+                        return false;
+                    }
+                })
+
+
+                // 댓글 작성 엔터키 기능 바꿈
+                $("#write_reply").on("keydown", function (e) {
+                    if (e.key == "Enter" && e.shiftKey) {
+
+                    }
+                    else if (e.key == "Enter") {
+                        e.preventDefault();
+                        $("#replyWriteBtn").click();
+                    }
+                })
+
+                // 댓글 작성하기 (클릭 혹은 엔터) 
+                $("#replyWriteBtn").on("click", function () {
+                    const write_text = $("#write_reply").text();
+                    $("#hidden_write_reply").val(write_text);
+                    if ($("#hidden_write_reply").val().trim() == "") {
+                        alert("댓글을 입력해주세요.");
+                        return false;
+                    }
+                    if ($("#hidden_write_reply").val().length >= 200) {
+                        alert("200자 미만으로 입력하세요.");
+                        $("#write_reply").html($("#hidden_write_reply").val().slice(0, 198));
+                        return false;
+                    }
+
+                    let replycontent = $("#hidden_write_reply").val();
+
+
+                    $.ajax({
+                        url: "/board/insertAnnouncementReply",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            replyContent: replycontent,
+                            boardAnnouncementCode: ${ result.code },
+                        cpage: ${ cpage }
+                            }
+                        }).done(function (resp) {
+                            if (resp == 1) {
+                                alert("작성되었습니다.");
+                                location.href = "/board/AnnouncementContent?code=" + ${ result.code } +"&cpage=" + ${ cpage } +"&viewchoose=false";
+
+                            } else {
+                                alert("작성에 실패했습니다.");
+                                return false;
+                            }
+                        })
                     })
+
+
+
+
+                // 댓글 수정버튼 클릭 시
+                let previousReply;
+                $(".replyModiBtn").on("click", function () {
+                    // 버튼변환
+                    $(this).hide();
+                    $(this).next().hide();
+                    $(this).next().next().fadeIn();
+                    $(this).next().next().next().fadeIn();
+
+                    // 수정버튼 클릭 하고 취소 했을 때 원래 댓글로 돌아가기 위해 기존 댓글 뽑아놓음.
+                    // 그리고 수정취소 누를 시 기존댓글 대입.
+                    previousReply = $(this).parent().prev().children().next().children().next().next().text();
+
+
+                    // 댓글 감싸고 있는 div 뽑아오기
+                    const replyDiv = $(this).parent().prev().children().next().children().next();
+
+                    replyDiv.attr("contenteditable", "true");
+                    replyDiv.css("border", "1px solid black");
+                    replyDiv.focus();
+
+                })
+
+
+                // 댓글 수정 시  엔터키 기능을 수정완료버튼 click되게 함
+                $(".modiWriteReply").on("keydown", function (e) {
+                    if (e.key == "Enter" && e.shiftKey) {
+
+                    }
+                    else if (e.key == "Enter") {
+                        e.preventDefault();
+                        $(this).parent().parent().next().children().next().next().click();
+                    }
+                })
+
+
+                // 댓글수정 완료 (버튼클릭 혹은 엔터) 
+                $(".replyModiSuccessBtn").on("click", function () {
+                    const replyCode = $(this).parent().prev().children().next().children().next().html();
+                    const updateReply = $(this).parent().prev().children().next().children().next().next().text();
+                    const updateReplyDiv = $(this).parent().prev().children().next().children().next().next();
+
+
+
+                    if (updateReply.trim() == "") {
+                        alert("댓글을 입력해주세요.");
+                        return false;
+                    }
+                    if (updateReply.length >= 200) {
+                        alert("200자 미만으로 입력하세요.");
+                        updateReplyDiv.text(updateReply.slice(0, 198));
+                        return false;
+                    }
+
+                    $.ajax({
+                        url: "/board/updateAnnouncementReply",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            code: replyCode,
+                            content: updateReply
+                        }
+                    }).done(function (resp) {
+                        if (resp == 1) {
+                            alert("수정되었습니다.");
+                            location.href = "/board/AnnouncementContent?code=" + ${ result.code } +"&cpage=" + ${ cpage } +"&viewchoose=false";
+                        }
+                        else {
+                            alert("수정에 실패했습니다.");
+                        }
+                    })
+
+                })
+
+                // 수정취소 버튼 클릭 시
+                $(".replyModiCancleBtn").on("click", function () {
+                    const replyDiv = $(this).parent().prev().children().next().children().next();
+                    replyDiv.attr("contenteditable", "false");
+                    replyDiv.css("border", "none");
+                    replyDiv.text(previousReply);
+
+                    $(this).hide();
+                    $(this).prev().hide();
+                    $(this).prev().prev().fadeIn();
+                    $(this).prev().prev().prev().fadeIn();
+                })
+
+
+                // 댓글에서 삭제버튼 클릭 시
+                $(".replyDeleteBtn").on("click", function () {
+                    if (confirm("정말로 삭제하시겠습니까?")) {
+                        const replyCode = $(this).parent().prev().children().next().children().next().html();
+                        console.log(replyCode);
+                        $.ajax({
+                            url: "/board/deleteAnnouncementReply",
+                            type: "post",
+                            dataType: "json",
+                            data: {
+                                code: replyCode
+                            }
+                        }).done(function (resp) {
+                            if (resp == 1) {
+                                alert("삭제되었습니다.");
+                                location.href = "/board/AnnouncementContent?code=" + ${ result.code } +"&cpage=" + ${ cpage } +"&viewchoose=false";
+                            }
+                            else {
+                                alert("삭제에 실패하였습니다.");
+                                return false;
+                            }
+                        })
+                    }
+                    else {
+                        return false;
+                    }
+                })
+
+
+                // 댓글 좋아요 버튼 클릭 시
+                $(".likeBtn").on("click", function () {
+                    var $button = $(this); // $(this)를 변수에 저장
+
+                    var replyCode = $button.parent().prev().children().next().children().next().next().html();
+
+                    $.ajax({
+                        url: "/board/upAnnouncementReplyLikeCount",
+                        type: "post",
+                        dataType: "json",
+                        data: {
+                            code: replyCode
+                        }
+                    }).done(function (resp) {
+                        $button.children().html(resp.likeCount); // $button 변수를 사용하여 값을 변경
+                    });
+                });
+
+
+                // 댓글 신고하기 버튼 클릭 시
+                $(".replyReport").on("click", function () {
+                    replyCode = $(this).parent().prev().children().next().children().next().next().html();
+                    replyMemberCode = $(this).parent().prev().prev().prev().html();
+                    window.open("/board/AnnouncementReport?postcode=" + ${ result.code } + "&boardKindCode=1001&reporterCode=" + ${ sessionScope.code } + "&reporteeCode=" + replyMemberCode + "&replyCode=" + replyCode, "", "width=500px, height=600px");
+
+                })
+                    
 
                 })
             </script>

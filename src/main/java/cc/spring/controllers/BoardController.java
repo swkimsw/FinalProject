@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyAnnouncementDTO;
 import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReplyReviewDTO;
 import cc.spring.dto.ReportDTO;
@@ -330,6 +331,10 @@ public class BoardController {
 
 		request.setAttribute("cpage", cpage);
 		
+		// 게시판에 달린 댓글 가져오기
+		List<ReplyAnnouncementDTO> replyList = boardService.selectReplyAnnouncementList(code);
+		request.setAttribute("replyList", replyList);
+		
 		return "/board/AnnouncementContent";
 	}
 
@@ -576,9 +581,34 @@ public class BoardController {
 			return "board/report";
 
 			
+		}	
+		// 공지사항 게시판 신고페이지로 이동
+		@RequestMapping("AnnouncementReport")
+		public String AnnouncementReport(ReportDTO dto) {
+
+
+			String companyname = (String) session.getAttribute("companyName");
+
+			if(companyname == null) {
+				String nickname = (String)	session.getAttribute("nickname");
+				request.setAttribute("nickname", nickname);
+			}else {
+				request.setAttribute("companyname", companyname);
+			}//신고자
+
+			int authGradeCode = 1003;
+			
+			String reporteeName = boardService.selectReporteeName(dto.getReporteeCode(),authGradeCode);
+			request.setAttribute("reporteeName", reporteeName);
+
+			request.setAttribute("list", dto);
+			return "board/report";
+
+			
 		}		
 
-	
+
+
 
 	//===========================================================================================
 		
@@ -600,6 +630,17 @@ public class BoardController {
 		
 		ReplyReviewDTO dto = new ReplyReviewDTO(0, boardReviewCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
 		int result = boardService.insertReviewReply(dto);
+		
+		return result;
+	}
+	
+	// 공지사항 게시판 댓글 작성
+	@ResponseBody
+	@RequestMapping("insertAnnouncementReply")
+	public int insertAnnouncementReply(String replyContent, int boardAnnouncementCode, int cpage) {
+		
+		ReplyAnnouncementDTO dto = new ReplyAnnouncementDTO(0, boardAnnouncementCode, (int) session.getAttribute("code"), replyContent, 0, null, null, null);
+		int result = boardService.insertAnnouncementReply(dto);
 		
 		return result;
 	}
@@ -626,6 +667,14 @@ public class BoardController {
 		return result;
 	}
 	
+	// 공지사항 게시판 댓글 수정
+	@ResponseBody
+	@RequestMapping("updateAnnouncementReply")
+	public int updateAnnouncementReply(ReplyAnnouncementDTO dto) {
+		int result = boardService.updateAnnouncementReply(dto);
+		return result;
+	}
+	
 	// ============================================================================================
 	
 	// 자유게시판 댓글 삭제
@@ -643,6 +692,15 @@ public class BoardController {
 	public int deleteReviewReply(ReplyReviewDTO dto) {
 		
 		int result = boardService.deleteReviewReply(dto);
+		return result;
+	}
+	
+	// 공지사항 게시판 댓글 삭제
+	@ResponseBody
+	@RequestMapping("deleteAnnouncementReply")
+	public int deleteAnnouncementReply(ReplyAnnouncementDTO dto) {
+		
+		int result = boardService.deleteAnnouncementReply(dto);
 		return result;
 	}
 	//=============================================================================================	
@@ -684,6 +742,14 @@ public class BoardController {
 	public ReplyReviewDTO upReviewReplyLikeCount(ReplyReviewDTO dto) {
 		
 		ReplyReviewDTO result = boardService.upReviewReplyLikeCount(dto);
+		return result;
+	}
+	
+	// 공지사항 게시판 댓글 좋아요 up
+	@ResponseBody
+	@RequestMapping("upAnnouncementReplyLikeCount")
+	public ReplyAnnouncementDTO upAnnouncementReplyLikeCount(ReplyAnnouncementDTO dto) {
+		ReplyAnnouncementDTO result = boardService.upAnnouncementReplyLikeCount(dto);
 		return result;
 	}
 	

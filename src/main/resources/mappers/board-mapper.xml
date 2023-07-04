@@ -419,7 +419,23 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		WHERE rr.postcode = #{postCode}
 		ORDER BY rr.code asc
 	</select>
+	
+	<!-- 공지사항 게시판 댓글입력 -->
+	<insert id="insertAnnouncementReply">
+		insert into replyAnnouncement values(reply_announcement_seq.nextval, #{postCode}, #{memberCode}, #{content}, #{likeCount}, sysdate, null, null)
+	</insert>
+	
+	<!-- 공지사항 게시판 댓글출력 -->
+	<select id="selectReplyAnnouncementList" resultType="cc.spring.dto.ReplyAnnouncementDTO">
+		SELECT ra.code, ra.postcode, ra.membercode, m.nickname, m.companyname, ra.content, ra.likecount, ra.regdate, ra.moddate, ra.deldate
+		FROM replyannouncement ra
+		JOIN member m ON ra.membercode = m.code
+		WHERE ra.postcode = #{postCode}
+		ORDER BY ra.code asc	
+	</select>
+	
 
+	
 	
 	
 <!-- ============================================================================================= -->
@@ -434,6 +450,11 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 		update replyreview set content = #{content}, moddate = sysdate where code = #{code}
 	</update>
 	
+	<!-- 공지사항 게시판 댓글 수정 -->
+	<update id="updateAnnouncementReply">
+		update replyAnnouncement set content = #{content}, moddate = sysdate where code = #{code}		
+	</update>
+	
 <!-- ============================================================================================== -->
 	
 	<!-- 자유게시판 댓글 삭제 -->
@@ -444,6 +465,11 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	<!-- 후기게시판 댓글 삭제 -->
 	<delete id="deleteReviewReply">
 		delete from replyreview where code = #{code}
+	</delete>
+	
+	<!-- 공지사항 게시판 댓글 삭제 -->
+	<delete id="deleteAnnouncementReply">
+		delete from replyannouncement where code = #{code}	
 	</delete>
 
 <!-- ============================================================================================== -->
@@ -467,5 +493,17 @@ insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} 
 	<select id="selectReviewReplyLikeCount" resultType="cc.spring.dto.ReplyReviewDTO">
 		select * from replyreview where code = #{code}
 	</select>
+	
+	<!-- 공지사항 게시판 댓글 좋아요 up -->
+	<update id="upAnnouncementReplyLikeCount">
+		update replyannouncement set likecount = likecount + 1 where code = #{code}
+	</update>
+	
+	<!-- 공지사항 게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectAnnouncementReplyLikeCount" resultType="cc.spring.dto.ReplyAnnouncementDTO">
+		select * from replyannouncement where code = #{code}
+	</select>
+	
+	
 	
 </mapper>

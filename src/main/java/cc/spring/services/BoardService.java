@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyAnnouncementDTO;
 import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReplyReviewDTO;
 import cc.spring.dto.ReportDTO;
@@ -331,6 +332,18 @@ public class BoardService {
 		return boarddao.selectReplyReviewList(postCode);
 	}
 
+	
+	// 공지사항 게시판 댓글 입력
+	public int insertAnnouncementReply(ReplyAnnouncementDTO dto) {
+		return boarddao.insertAnnouncementReply(dto);
+	}
+	
+	// 공지사항 게시판 댓글 가져오기
+	public List<ReplyAnnouncementDTO> selectReplyAnnouncementList(int postCode) {
+		return boarddao.selectReplyAnnouncementList(postCode);
+	}
+
+
 
 	// ===============================================================================================
 
@@ -342,6 +355,11 @@ public class BoardService {
 	// 후기게시판 댓글 수정
 	public int updateReviewReply(ReplyReviewDTO dto) {
 		return boarddao.updateReviewReply(dto);
+	}
+	
+	// 공지사항 게시판 댓글 수정
+	public int updateAnnouncementReply(ReplyAnnouncementDTO dto) {
+		return boarddao.updateAnnouncementReply(dto);
 	}
 
 
@@ -356,6 +374,11 @@ public class BoardService {
 	// 후기게시판 댓글 삭제
 	public int deleteReviewReply(ReplyReviewDTO dto) {
 		return boarddao.deleteReviewReply(dto);
+	}
+	
+	// 공지사항 게시판 댓글 삭제
+	public int deleteAnnouncementReply(ReplyAnnouncementDTO dto) {
+		return boarddao.deleteAnnouncementReply(dto);
 	}
 
 
@@ -373,6 +396,13 @@ public class BoardService {
 	public ReplyReviewDTO upReviewReplyLikeCount(ReplyReviewDTO dto) {
 		boarddao.upReviewReplyLikeCount(dto);
 		return boarddao.selectReviewReplyLikeCount(dto);
+	}
+	
+	// 공지사항 게시판 댓글 좋아요 up, 좋아요 누른 후 좋아요 수 가져오기
+	@Transactional
+	public ReplyAnnouncementDTO upAnnouncementReplyLikeCount(ReplyAnnouncementDTO dto) {
+		boarddao.upAnnouncementReplyLikeCount(dto);
+		return boarddao.selectAnnouncementReplyLikeCount(dto);
 	}
 
 
