@@ -95,7 +95,6 @@ public class MealController {
 	@RequestMapping(value="aiMeal",  produces="text/plain;charset=utf-8")
 	public ResponseEntity<List<MealDTO>> aiMeal( int dayTime, int special ,String timeStr) throws Exception {
 		List<MealDTO> result = mService.makeMeal(dayTime, special, timeStr);
-		
 		System.out.println("Controller: ");
 		System.out.println(result.toString());
 	    // ResponseEntity를 사용하여 결과 반환

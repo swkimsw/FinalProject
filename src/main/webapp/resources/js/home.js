@@ -58,13 +58,18 @@ const failMeal = () => {
 };
 
 $("#sendBtn").on("click", function () {
-
     // 로그인시 실행 추가 
     let clientCode = $("#clientCode").val();
+    let authCode = $("#authCode").val();
     if (!clientCode) {
         alert("일반회원만 사용할 수 있는 기능입니다. 일반회원으로 로그인해주세요");
         return false;
     }
+    if (authCode == 1002) {
+        alert("일반회원만 사용할 수 있는 기능입니다. 일반회원으로 로그인해주세요");
+        return false;
+    }
+    
     timeArr = [];
     $("input[type=checkbox][name=time]:checked").each(function (i) {
         timeArr.push($(this).val());
