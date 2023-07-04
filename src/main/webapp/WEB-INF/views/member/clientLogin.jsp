@@ -724,11 +724,11 @@ function validateInput(event) {
          });
       });
      //pw 유효성 검사
+        let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;    
      addEventListener("DOMContentLoaded", (event) => {
         const password = document.getElementById("password");
         const passwordAlert = document.getElementById("password-alert");
         const requirements = document.querySelectorAll(".requirements");
-        let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
         let leng = document.querySelector(".leng");
         let bigLetter = document.querySelector(".big-letter");
         let num = document.querySelector(".num");
@@ -877,7 +877,6 @@ function validateInput(event) {
         const password = document.getElementById("businessPw");
         const passwordAlert = document.getElementById("businessPw-alert");
         const requirements = document.querySelectorAll(".requirements");
-        let lengBoolean, bigLetterBoolean, numBoolean, specialCharBoolean;
         let leng = document.querySelector(".leng");
         let bigLetter = document.querySelector(".big-letter");
         let num = document.querySelector(".num");
@@ -1025,19 +1024,12 @@ function validateInput(event) {
      $("#btn_change_pw").on("click", function () {
         let password = $("#password").val();
         let password_check = $("#password_check").val();
-        if (password == password_check && password != "") {
-           $.ajax({
-              url: "/clientMember/changePw",
-              type: "post",
-              data: { id: $("#search_id").text().split(" ")[0], pw: $("#password").val() }
-           }).done(function () {
-              alert("비밀번호가 변경되었습니다.")
-              location.reload();
-           });
+        if (password == password_check && password != "" && lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean) {
+			alert("미구현(정규식과 비밀번호는 일치하게 입력했습니다)");
         } else {
            $("#password").val("");
            $("#password_check").val("");
-           alert("다시 입력해주세요");
+           alert("다시 입력해주세요.");
         }
      });
      
@@ -1045,19 +1037,12 @@ function validateInput(event) {
      $("#businessBtnChangePw").on("click", function () {
          let password = $("#businessPw").val();
          let password_check = $("#businessPw_check").val();
-         if (password == password_check && password != "") {
-            $.ajax({
-               url: "/businessMember/changePw",
-               type: "post",
-               data: { businessId: $("#businessScId").text().split(" ")[0], pw: $("#businessPw").val() }
-            }).done(function () {
-               alert("비밀번호가 변경되었습니다.")
-               location.reload();
-            });
+         if (password == password_check && password != "" && lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean) {
+        	 alert("미구현(정규식과 비밀번호는 일치하게 입력했습니다)");
          } else {
             $("#businessPw").val("");
             $("#businessPw_check").val("");
-            alert("다시 입력해주세요");
+            alert("다시 입력해주세요.");
          }
       });
      const image = document.querySelector("#to_main_ball_img");
