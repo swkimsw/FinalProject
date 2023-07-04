@@ -44,57 +44,25 @@
 <link href="${path}/resources/css/gnb.css" rel="stylesheet"
    type="text/css">
 <!-- css -->
-<<<<<<< HEAD
-=======
-<link rel="stylesheet" href="${path}/resources/css/member/clientLogin.css">
-<!-- js -->
-<script src="${path}/resources/js/clientMember/clientLogin.js" />
->>>>>>> test
-
 <link rel="stylesheet"
-	href="${path}/resources/css/member/clientLogin.css">
+   href="${path}/resources/css/member/clientLogin.css">
 <script>
 // 일반인 로그인 실패 시 alert창 출력
-<<<<<<< HEAD
-=======
-   
->>>>>>> test
 if(${status=="false"}) {
    alert("아이디와 비밀번호를 확인해주세요.");
 }
 // 사업자 로그인 실패 시 alert창 출력
 else if(${status=="false2"}){
-<<<<<<< HEAD
-
-	alert("아이디와 비밀번호를 확인해주세요.");
-	register(); // 사업자 로그인 폼으로 바로 이동
-=======
    alert("아이디와 비밀번호를 확인해주세요.");
    register(); // 사업자 로그인 폼으로 바로 이동
-   
->>>>>>> test
 }
 </script>
-
 </head>
 
 <body>
 
    <div class="container login_container align-self-center">
 
-<<<<<<< HEAD
-	<div class="container login_container align-self-center">
-
-		<div class="row button-wrap">
-			<div id="btn"></div>
-			<div class="col-6">
-				<button class="togglebtn" onclick="login()">일반 로그인</button>
-			</div>
-			<div class="col-6">
-				<button class="togglebtn" onclick="register()">판매자 로그인</button>
-			</div>
-		</div>
-=======
       <div class="row button-wrap">
          <div id="btn"></div>
          <div class="col-6">
@@ -104,7 +72,6 @@ else if(${status=="false2"}){
             <button class="togglebtn" onclick="register()">판매자 로그인</button>
          </div>
       </div>
->>>>>>> test
 
 
 
@@ -429,101 +396,99 @@ else if(${status=="false2"}){
                      id="businessPhoneOk2">인증번호 받기</button>
                </div>
             </div>
-<<<<<<< HEAD
 
             <br>
 
+            <div class="row g-3">
+               <div class="col-12 col-md-4 text-end">
+                  <label class="col-form-label">인증번호</label>
+               </div>
+               <div class="col-12 col-md-4">
+                  <input type="text" id="businessPhoneCode" class="form-control">
+               </div>
+               <div class="col-12 col-md-4">
+                  <button type="button" class="btn btn-outline-success"
+                     id="businessPhoneOk">인증</button>
+               </div>
+               <div class="row g-3 m-0 p-0  justify-content-center">
+                  <div class="col-12 col-md-4">
+                     <div class="timer">
+                        <div id="timeLimit2"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- 인증하기 누르면 fadeIn -->
+         <div class="wrapper_change_pw justify-content-center"
+            id="to_change_pw_fadeIn2" style="display: none">
+            <div class="KickKick_logo text-center d-md-block mb-5">
+               <h1 class="mb-4">🍽CookCook</h1>
+               <h3 id="businessScId"></h3>
+               <h3>이제 진짜 진짜 얼마 안남았어요!</h3>
+            </div>
+            <div class="text-center">
+               <p id="bSearch_id2"></p>
+            </div>
+            <div class="row d-flex justify-content-center">
+               <div class="col-12 col-md-6 mb-1">
+                  <div class="input-group d-flex">
+                     <input type="password" class="form-control rounded mt-1"
+                        placeholder="새 비밀번호" aria-label="password"
+                        aria-describedby="password" id="businessPw" class="password" />
+                     <div class="valid-feedback" style="font-size: x-small;">Good</div>
+                     <div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
+                  </div>
+               </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+               <div class="col-12 col-md-6 mt-1">
+                  <div class="input-group d-flex">
+                     <input type="password" class="form-control rounded mt-1"
+                        placeholder="새 비밀번호" aria-label="password"
+                        aria-describedby="password_check" id="businessPw_check"
+                        class="password_check" />
+                     <div class="valid-feedback" style="font-size: x-small;">Good</div>
+                     <div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
+                  </div>
+               </div>
+               <br>
+               <div class="row d-flex justify-content-center">
+                  <div class="col-6 mt-4 mt-xxl-0 w-auto h-auto">
+                     <div class="alert px-4 py-3 mb-0 alert-warning d-none"
+                        role="alert" data-mdb-color="warning" id="businessPw-alert">
+                        <ul class="list-unstyled mb-0">
+                           <li class="requirements leng"><i
+                              class="bi bi-check text-success me-2"></i> <i
+                              class="bi bi-x text-danger me-3"></i> 암호는 8자 이상이어야 합니다</li>
+                           <li class="requirements big-letter"><i
+                              class="bi bi-check text-success me-2"></i> <i
+                              class="bi bi-x text-danger me-3"></i> 암호에 하나 이상의 알파벳 대문자를 포함해야
+                              합니다.</li>
+                           <li class="requirements num"><i
+                              class="bi bi-check text-success me-2"></i> <i
+                              class="bi bi-x text-danger me-3"></i> 암호에 숫자가 하나 이상 포함되어야 합니다.
+                           </li>
+                           <li class="requirements special-char"><i
+                              class="bi bi-check text-success me-2"></i> <i
+                              class="bi bi-x text-danger me-3"></i> 암호에 특수문자가 하나 이상 포함되어야
+                              합니다.</li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <br>
+            <div class="row d-flex justify-content-center">
+               <div class="col-12 col-md-6 d-flex justify-content-center">
+                  <button type="button" class="btn btn-outline-success"
+                     id="businessBtnChangePw">비밀번호 변경하기</button>
+               </div>
+            </div>
+         </div>
+      </div>
 
-				<div class="row g-3">
-					<div class="col-12 col-md-4 text-end">
-						<label class="col-form-label">인증번호</label>
-					</div>
-					<div class="col-12 col-md-4">
-						<input type="text" id="businessPhoneCode" class="form-control">
-					</div>
-					<div class="col-12 col-md-4">
-						<button type="button" class="btn btn-outline-success"
-							id="businessPhoneOk">인증</button>
-					</div>
-					<div class="row g-3 m-0 p-0  justify-content-center">
-						<div class="col-12 col-md-4">
-							<div class="timer">
-								<div id="timeLimit2"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 인증하기 누르면 fadeIn -->
-			<div class="wrapper_change_pw justify-content-center"
-				id="to_change_pw_fadeIn2" style="display: none">
-				<div class="KickKick_logo text-center d-md-block mb-5">
-					<h1 class="mb-4">🍽CookCook</h1>
-					<h3 id="businessScId"></h3>
-					<h3>이제 진짜 진짜 얼마 안남았어요!</h3>
-				</div>
-				<div class="text-center">
-					<p id="bSearch_id2"></p>
-				</div>
-				<div class="row d-flex justify-content-center">
-					<div class="col-12 col-md-6 mb-1">
-						<div class="input-group d-flex">
-							<input type="password" class="form-control rounded mt-1"
-								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password" id="businessPw" class="password" />
-							<div class="valid-feedback" style="font-size: x-small;">Good</div>
-							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
-						</div>
-					</div>
-				</div>
-				<div class="row d-flex justify-content-center">
-					<div class="col-12 col-md-6 mt-1">
-						<div class="input-group d-flex">
-							<input type="password" class="form-control rounded mt-1"
-								placeholder="새 비밀번호" aria-label="password"
-								aria-describedby="password_check" id="businessPw_check"
-								class="password_check" />
-							<div class="valid-feedback" style="font-size: x-small;">Good</div>
-							<div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
-						</div>
-					</div>
-					<br>
-					<div class="row d-flex justify-content-center">
-						<div class="col-6 mt-4 mt-xxl-0 w-auto h-auto">
-							<div class="alert px-4 py-3 mb-0 alert-warning d-none"
-								role="alert" data-mdb-color="warning" id="businessPw-alert">
-								<ul class="list-unstyled mb-0">
-									<li class="requirements leng"><i
-										class="bi bi-check text-success me-2"></i> <i
-										class="bi bi-x text-danger me-3"></i> 암호는 8자 이상이어야 합니다</li>
-									<li class="requirements big-letter"><i
-										class="bi bi-check text-success me-2"></i> <i
-										class="bi bi-x text-danger me-3"></i> 암호에 하나 이상의 알파벳 대문자를 포함해야
-										합니다.</li>
-									<li class="requirements num"><i
-										class="bi bi-check text-success me-2"></i> <i
-										class="bi bi-x text-danger me-3"></i> 암호에 숫자가 하나 이상 포함되어야 합니다.
-									</li>
-									<li class="requirements special-char"><i
-										class="bi bi-check text-success me-2"></i> <i
-										class="bi bi-x text-danger me-3"></i> 암호에 특수문자가 하나 이상 포함되어야
-										합니다.</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<br>
-				<div class="row d-flex justify-content-center">
-					<div class="col-12 col-md-6 d-flex justify-content-center">
-						<button type="button" class="btn btn-outline-success"
-							id="businessBtnChangePw">비밀번호 변경하기</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<script>
+      <script>
 
 //사업자 아이디 입력칸 숫자만 입력되게 해주는 정규식이벤트입니다.
 function validateInput(event) {
@@ -1136,116 +1101,6 @@ function validateInput(event) {
          full1.style.display="none";
          full2.style.display="block";
      }
-=======
-
-            <br>
-
-            <div class="row g-3">
-               <div class="col-12 col-md-4 text-end">
-                  <label class="col-form-label">인증번호</label>
-               </div>
-               <div class="col-12 col-md-4">
-                  <input type="text" id="businessPhoneCode" class="form-control">
-               </div>
-               <div class="col-12 col-md-4">
-                  <button type="button" class="btn btn-outline-success"
-                     id="businessPhoneOk">인증</button>
-               </div>
-               <div class="row g-3 m-0 p-0  justify-content-center">
-                  <div class="col-12 col-md-4">
-                     <div class="timer">
-                        <div id="timeLimit2"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <!-- 인증하기 누르면 fadeIn -->
-         <div class="wrapper_change_pw justify-content-center"
-            id="to_change_pw_fadeIn2" style="display: none">
-            <div class="KickKick_logo text-center d-md-block mb-5">
-               <h1 class="mb-4">🍽CookCook</h1>
-               <h3 id="businessScId"></h3>
-               <h3>이제 진짜 진짜 얼마 안남았어요!</h3>
-            </div>
-            <div class="text-center">
-               <p id="bSearch_id2"></p>
-            </div>
-            <div class="row d-flex justify-content-center">
-               <div class="col-12 col-md-6 mb-1">
-                  <div class="input-group d-flex">
-                     <input type="password" class="form-control rounded mt-1"
-                        placeholder="새 비밀번호" aria-label="password"
-                        aria-describedby="password" id="businessPw" class="password" />
-                     <div class="valid-feedback" style="font-size: x-small;">Good</div>
-                     <div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
-                  </div>
-               </div>
-            </div>
-            <div class="row d-flex justify-content-center">
-               <div class="col-12 col-md-6 mt-1">
-                  <div class="input-group d-flex">
-                     <input type="password" class="form-control rounded mt-1"
-                        placeholder="새 비밀번호" aria-label="password"
-                        aria-describedby="password_check" id="businessPw_check"
-                        class="password_check" />
-                     <div class="valid-feedback" style="font-size: x-small;">Good</div>
-                     <div class="invalid-feedback" style="font-size: x-small;">Wrong</div>
-                  </div>
-               </div>
-               <br>
-               <div class="row d-flex justify-content-center">
-                  <div class="col-6 mt-4 mt-xxl-0 w-auto h-auto">
-                     <div class="alert px-4 py-3 mb-0 alert-warning d-none"
-                        role="alert" data-mdb-color="warning" id="businessPw-alert">
-                        <ul class="list-unstyled mb-0">
-                           <li class="requirements leng"><i
-                              class="bi bi-check text-success me-2"></i> <i
-                              class="bi bi-x text-danger me-3"></i> 암호는 8자 이상이어야 합니다</li>
-                           <li class="requirements big-letter"><i
-                              class="bi bi-check text-success me-2"></i> <i
-                              class="bi bi-x text-danger me-3"></i> 암호에 하나 이상의 알파벳 대문자를 포함해야
-                              합니다.</li>
-                           <li class="requirements num"><i
-                              class="bi bi-check text-success me-2"></i> <i
-                              class="bi bi-x text-danger me-3"></i> 암호에 숫자가 하나 이상 포함되어야 합니다.
-                           </li>
-                           <li class="requirements special-char"><i
-                              class="bi bi-check text-success me-2"></i> <i
-                              class="bi bi-x text-danger me-3"></i> 암호에 특수문자가 하나 이상 포함되어야
-                              합니다.</li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <br>
-            <div class="row d-flex justify-content-center">
-               <div class="col-12 col-md-6 d-flex justify-content-center">
-                  <button type="button" class="btn btn-outline-success"
-                     id="businessBtnChangePw">비밀번호 변경하기</button>
-               </div>
-            </div>
-         </div>
-      </div>
-
-<script>
-var full1 = document.getElementById("full1");
-var full2 = document.getElementById("full2");
-var z = document.getElementById("btn");
-function login(){
-    z.style.left = "0";
-    full1.style.display="block";
-    full2.style.display="none";
-}
-function register(){
-    z.style.left = "110px";
-    full1.style.display="none";
-    full2.style.display="block";
-}
-
-
->>>>>>> test
 </script>
 </body>
 
