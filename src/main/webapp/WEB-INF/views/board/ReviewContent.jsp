@@ -184,7 +184,7 @@
                     <tr>
                         <td>
 
-                            <div class="card">
+                            <div class="card" style="border:none;">
 
                                 <div class="card-body" class="mt-5 ">
 
