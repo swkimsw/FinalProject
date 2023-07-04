@@ -31,52 +31,8 @@
             <link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
             <link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
 
-            <style>
-                * {
-                    font-family: NanumSquareNeo;
-                }
-
-                input {
-                    border-radius: 5px;
-                    padding: 5px;
-                }
-
-                .ct {
-                    margin-top: 100px;
-                    border: 1px solid #e6e6e6;
-                }
-
-               .table th,
-                td {
-                    font-size: 18px;
-                    text-align:center;
-                }
-                
-                .title{
-                text-align:left;
-                }
-			
-			
-				.page-item .page-link {
-    			color: green;
-  				}
-  
-				.page-item.active .page-link {
-					background-color:green;
-					border-color:green;
-					color:white;
-				}
-				
-				  .page-item .page-link:hover {
-				    background-color:green;
-					border-color:green;
-					color:white;
-				  }
-
-				.main-footer{
-				margin-top:100px;
-				}
-            </style>
+			<!-- FreeContent css -->
+			<link rel="stylesheet" href="${path}/resources/css/board/boardAnnouncement.css">
 
         </head>
 
@@ -132,9 +88,9 @@
                                             <div class='col-xxl-12 pt-5 text-center'>
 
                                                 <i class="bi bi-arrow-clockwise" onclick="reload();" type="button"
-                                                    style="font-size:50px; color:#007936;"></i>
+                                                    style="font-size:100px; color:#007936;"></i>
 
-                                                <p class='fs-6'> 검색결과가 없습니다 다시 검색해주세요 ㅠㅠ</p>
+                                                <p class='fs-6'> <h4>결과가 없습니다 ㅠㅠ</h4></p>
                                             </div>
 
 
