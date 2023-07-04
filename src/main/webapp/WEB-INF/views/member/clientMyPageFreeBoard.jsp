@@ -63,7 +63,7 @@
 
 	</header>
 	<main>
-		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+		<div class="container-fluid shadow p-3s bg-body-tertiary rounded" style="margin-top:100px;margin-bottom:200px;">
 			<h1 class="second">
 				<span>내가 쓴 게시물</span>
 			</h1>

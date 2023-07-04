@@ -213,7 +213,7 @@ h1.second span:after {
 		</c:import>
 	</header>
 	<main>
-		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded">
+		<div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded" style="margin-top:100px;margin-bottom:200px;">
 			<br>
 			<div class="row mainPage">
 				<div class="col">
