@@ -27,10 +27,7 @@
 <!-- css -->
 <link rel="stylesheet" href="${path}/resources/css/member/businessSign.css">
 
-<<<<<<< HEAD
-=======
 
->>>>>>> test
 </head>
 
 <body>
