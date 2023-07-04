@@ -128,4 +128,9 @@
 	<select id="selectBanUser" resultType="cc.spring.dto.MemberDTO">
 		select * from member where code = ${code}
 	</select>
+	
+	<!-- 밴 되었는지 확인(멤버테이블에 존재하는지) -->
+	<select id="banCheck" resultType="boolean">
+		select count(*) from member where code=${code}
+	</select>
 </mapper>

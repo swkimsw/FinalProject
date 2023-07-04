@@ -111,4 +111,8 @@ public class AdminDAO {
 	public MemberDTO selectBanUser(int memberCode) {
 		return mybatis.selectOne("Admin.selectBanUser", memberCode);
 	}
+	
+	public boolean banCheck(int code) {
+		return mybatis.selectOne("Admin.banCheck", code);
+	}
 }
