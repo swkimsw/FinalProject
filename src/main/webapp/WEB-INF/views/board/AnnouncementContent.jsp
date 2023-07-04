@@ -31,91 +31,13 @@
                 integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
                 crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-          <!-- gbn css -->
+         <!-- gbn css -->
 		<link href="${path}/resources/css/gnb.css" rel="stylesheet" type="text/css">
  		<link href="${path}/resources/css/pageFooter.css" rel="stylesheet" type="text/css">
-           
-           <style>
-                * {
-                    font-family: NanumSquareNeo;
-                    box-sizing: border-box;
-                }
-
-                .ct {
-                    margin-top: 100px;
-                }
-
-                h2 {
-                    text-align: center;
-                }
-
-               .body>table {
-                    width: 100%;
-                    table-layout: fixed;
-                }
-
-                .title {
-                    width: 75%;
-                }
-
-                .body tr,
-                td {
-                    border: 1px solid #478C5C;
-                    font-size: 20px;
-                }
-
-
-                .content {
-                    width: 100%;
-                    height: 600px;
-                    overflow: auto;
-                    word-break: break-all;
-
-                }
-
-                #write_reply {
-                    width: 100%;
-                    height: 150px;
-                }
-
-                .reply {
-                    word-break: break-all;
-                }
-
-                .re_reply {
-                    word-break: break-all;
-                }
-
-               .con{
-                    margin-right: 15px;
-                    float: right;
-                    border: 0;
-                    margin-top: 10px;
-                    margin-bottom: 10px;
-                }
-
-                .note-modal-footer>input {
-                    margin-right: 20px;
-                    margin-top: -15px;
-                    font-size: small;
-                }
-                
-                .note-editor .note-toolbar .note-color-all .note-dropdown-menu,
-	.note-popover .popover-content .note-color-all .note-dropdown-menu {
-	min-width: 0px;
-}
-
-.note-dimension-picker-mousecatcher,
-.note-dimension-picker-highlighted,
-.note-dimension-picker-unhighlighted { 
-  max-width: 3em;
-  max-height: 3em;
-}
-
-
-				
-            </style>
-
+ 		
+        <!-- AnnouncementContent css -->
+		<link rel="stylesheet" href="${path}/resources/css/board/AnnouncementContent.css">
+   
 
         </head>
 
