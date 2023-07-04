@@ -367,10 +367,14 @@
                                 return false;
                             }
 
+                            var titleValue = $(".title").val();
+                            var escapedValue = $("<div>").text(titleValue).html();
+                            $(".title").val(escapedValue);
 
                             let title = $(".title").val();
                             let code = $("#code").val();
-
+                            
+ 
 
                             $.ajax({
                                 url: "/board/updateAnnouncement",

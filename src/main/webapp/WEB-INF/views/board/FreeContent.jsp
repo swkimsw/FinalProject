@@ -468,7 +468,9 @@
                                 return false;
                             }
 
-
+                            var titleValue = $("#title").val();
+                            var escapedValue = $("<div>").text(titleValue).html();
+                            $("#title").val(escapedValue);
                             let title = $("#title").val();
                             let headlinecode = $("select[id=headlinecode] option:selected").val();
                             let code = $("#code").val();

@@ -118,6 +118,10 @@ display: none;
 .main-footer{
 margin-top:100px;
 }
+
+.note-group-image-url {
+	display: none;
+
 .postHeader{
 	padding:0.2rem 0.5rem;
 }
