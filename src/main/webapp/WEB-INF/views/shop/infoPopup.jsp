@@ -42,7 +42,7 @@
 </style>
 </head>
 <body>
-			<div class="container-fluid px-0 mt-5 position-relative" style="width:1300px;">
+			<div class="container-fluid px-0 mt-5 position-relative" style="width:1200px;">
 				<span class="fs-2">신청자 목록</span>
 				<button class="btn btn-success position-absolute end-0 top-0" onclick="exportExcel(${code})">
 					<i class="bi bi-box-arrow-in-down"></i>&nbsp;Excel로 내보내기
@@ -51,7 +51,7 @@
 			 		<thead>
 			 			<tr align="center">
 			 				<th scope='col'>#</th>
-			 				<th scope='col'>신청코드</th>
+			 				<th scope='col'>코드</th>
 			 				<th scope='col'>신청일자</th>
 			 				<th scope='col'>이름</th>
 			 				<th scope='col'>아이디</th>
@@ -98,7 +98,6 @@
 			</div>
 			
 			<script>
-			
 			//excel파일의 콘텐츠 유형은 octet-stream이므로 binary를 octet으로 변환해야함 -> ArrayBuffer과 Uint8Array와 같은 비트 연산을 사용
 			function s2ab(s){
 				let buf =  new ArrayBuffer(s.length);
@@ -121,7 +120,6 @@
 				saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), "공구번호_"+ a +"_신청자.xlsx");
 																				//파일명.xlsx
 			}
-			
 			</script>
 
 </body>

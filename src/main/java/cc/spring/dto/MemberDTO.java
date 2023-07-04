@@ -233,5 +233,14 @@ public class MemberDTO {
 	public void setAuth(String auth) {
 		this.auth = auth;
 	}
+	@Override
+	public String toString() {
+		return "MemberDTO [code=" + code + ", id=" + id + ", businessId=" + businessId + ", pw=" + pw + ", name=" + name
+				+ ", companyName=" + companyName + ", authGradeCode=" + authGradeCode + ", nickName=" + nickName
+				+ ", birthDate=" + birthDate + ", phone=" + phone + ", eMail=" + eMail + ", shippingCompany="
+				+ shippingCompany + ", zipcode=" + zipcode + ", address1=" + address1 + ", address2=" + address2
+				+ ", agree=" + agree + ", regDate=" + regDate + ", modDate=" + modDate + ", delDate=" + delDate
+				+ ", reportCount=" + reportCount + ", strDelDate=" + strDelDate + ", auth=" + auth + "]";
+	}
 	
 }
