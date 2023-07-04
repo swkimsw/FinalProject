@@ -123,7 +123,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="button-container"><br>
+                                <td colspan="2" class="button-container pb-5"><br>
                                     <button class="btn btn-outline-success" style="margin-bottom:13px;" type="submit">작성</button>
                                     <a href="javascript:window.history.go(-1);">
                                     <button class="btn btn-outline-success" style="margin-bottom:13px;" type="button">취소</button>

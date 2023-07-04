@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +29,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminMemberService aService;
+	
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("/**")
 	public String toAdmin() {
@@ -72,6 +77,7 @@ public class AdminController {
 			aService.BanMember(codeArr.get(i));
 			result ++;
 		}
+		session.invalidate();
 		return ResponseEntity.status(HttpStatus.OK)
 	            .contentType(MediaType.APPLICATION_JSON)
 	            .body(result);  
