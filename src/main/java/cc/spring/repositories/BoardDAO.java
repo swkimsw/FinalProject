@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import cc.spring.dto.BoardAnnouncementDTO;
 import cc.spring.dto.BoardFreeDTO;
 import cc.spring.dto.BoardReviewDTO;
+import cc.spring.dto.ReplyAnnouncementDTO;
 import cc.spring.dto.ReplyFreeDTO;
 import cc.spring.dto.ReplyReviewDTO;
 import cc.spring.dto.ReportDTO;
@@ -373,6 +374,16 @@ public class BoardDAO {
 	public List<ReplyReviewDTO> selectReplyReviewList(int postCode) {
 		return mybatis.selectList("Board.selectReplyReviewList", postCode);
 	}
+	
+	// 공지사항 게시판 댓글입력
+	public int insertAnnouncementReply(ReplyAnnouncementDTO dto) {
+		return mybatis.insert("Board.insertAnnouncementReply", dto);
+	}
+	
+	// 공지사항 게시판 댓글 가져오기
+	public List<ReplyAnnouncementDTO> selectReplyAnnouncementList(int postCode) {
+		return mybatis.selectList("Board.selectReplyAnnouncementList", postCode);
+	}
 
 
 
@@ -388,6 +399,11 @@ public class BoardDAO {
 		return mybatis.update("Board.updateReviewReply", dto);
 	}
 	
+	// 공지사항 게시판 댓글 수정
+	public int updateAnnouncementReply(ReplyAnnouncementDTO dto) {
+		return mybatis.update("Board.updateAnnouncementReply", dto);
+	}
+	
 	
 // ==================================================================================================
 	
@@ -399,6 +415,11 @@ public class BoardDAO {
 	// 후기게시판 댓글 삭제
 	public int deleteReviewReply(ReplyReviewDTO dto) {
 		return mybatis.delete("Board.deleteReviewReply", dto);
+	}
+	
+	// 공지사항 게시판 댓글 삭제
+	public int deleteAnnouncementReply(ReplyAnnouncementDTO dto) {
+		return mybatis.delete("Board.deleteAnnouncementReply", dto);
 	}
 
 
@@ -422,6 +443,16 @@ public class BoardDAO {
 	// 후기게시판 댓글의 좋아요 수 가져오기
 	public ReplyReviewDTO selectReviewReplyLikeCount(ReplyReviewDTO dto) {
 		return mybatis.selectOne("Board.selectReviewReplyLikeCount", dto);
+	}
+	
+	// 공지사항 게시판 댓글 좋아요 up
+	public int upAnnouncementReplyLikeCount(ReplyAnnouncementDTO dto) {
+		return mybatis.update("Board.upAnnouncementReplyLikeCount", dto);
+	}
+	
+	// 공지사항 게시판 댓글의 좋아요 수 가져오기
+	public ReplyAnnouncementDTO selectAnnouncementReplyLikeCount(ReplyAnnouncementDTO dto) {
+		return mybatis.selectOne("Board.selectAnnouncementReplyLikeCount", dto);
 	}
 
 
