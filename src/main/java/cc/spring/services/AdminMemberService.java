@@ -90,4 +90,8 @@ public class AdminMemberService {
 		recentBoardMap.put("Review", adminDAO.boardReviewCount());
 		return recentBoardMap;
 	}
+	
+	public boolean banCheck(int code) {
+		return adminDAO.banCheck(code);
+	}
 }
