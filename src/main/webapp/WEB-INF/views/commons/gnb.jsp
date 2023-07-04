@@ -50,11 +50,10 @@
 							<h3 class="nick_name text-center mb-3">${sessionScope.nickname}</h3>
 						</c:if>
 						<c:if test="${sessionScope.companyName != null}">
+						<div class="position-relative">
 							<h3 class="company_name text-center mb-3 position-relative">${sessionScope.companyName}</h3>
-						</c:if>
-						<!-- 알림 -->
-						<c:if test="${sessionScope.authGradeCode eq 1002}">
-							<div class="col position-absolute" style="bottom:38rem; left:12rem;">
+							<!-- 알림 -->
+							<div class="col position-absolute" style="left:10.5rem;top:-0.3rem;">
 								<a href="/shop/toMyShopList"><button type="button" class="btn position-relative">
 									<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
 										fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
@@ -77,6 +76,7 @@
 									
 								</button></a>
 							</div>
+						</div>
 						</c:if>
 					</c:when>
 					<c:otherwise>
