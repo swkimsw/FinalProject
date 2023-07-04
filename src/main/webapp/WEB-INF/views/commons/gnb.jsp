@@ -120,7 +120,7 @@
 									</c:if>
 									<c:if test="${sessionScope.authGradeCode == 1001}">
 										<li class="login"><a
-											href="http://localhost/dashboard/app"
+											href="http://localhost/admin/index.html"
 											class="nav_a link-dark link-body-emphasis d-inline-flex text-decoration-none rounded">
 												관리자페이지</a></li>
 									</c:if>
