@@ -48,7 +48,7 @@
 			
 				<%-- 세션 code = 1003일때 일반회원 공구 신청 목록  --%>
 				<c:when test="${sessionScope.authGradeCode == 1003}">
-					<div class="client-wrapper" style="height:auto;margin-bottom: 200px;">
+					<div class="client-wrapper" style="height:auto;margin-bottom: 600px;">
 						<div class="row clientHeader">
 							<div class="co1 col-md-6"><h3><i class="bi bi-send-check-fill"></i>&ensp;${info.name}님의 신청 목록</h3></div>
 							<div class="col col-md-6">
@@ -106,7 +106,7 @@
 							</c:forEach>
 						</div>
 						
-						<div class="listContainer d-flex justify-content-center flex-column align-items-center" style="margin-bottom:200px;">
+						<div class="listContainer d-flex justify-content-center flex-column align-items-center" style="margin-bottom:400px;">
 							<div class="list-wrapper d-flex justify-content-center flex-column align-items-center py-4">
 								
 							</div>
