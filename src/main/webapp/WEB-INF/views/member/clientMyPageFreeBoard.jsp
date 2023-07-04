@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>CookCook - 내가 쓴 게시글 보기</title>
 <!-- JQuery-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->

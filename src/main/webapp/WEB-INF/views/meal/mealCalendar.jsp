@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 식단 리스트</title>
+<title>CookCook - 내 식단 리스트</title>
 <!-- JQuery-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->

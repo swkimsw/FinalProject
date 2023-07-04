@@ -7,7 +7,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>CookCook - 후기게시판</title>
             <!-- JQuery-->
             <script src="http://code.jquery.com/jquery-latest.min.js"></script>
             <!-- Bootstrap - CSS only -->

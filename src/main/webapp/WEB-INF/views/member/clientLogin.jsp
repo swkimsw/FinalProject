@@ -7,7 +7,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>로그인</title>
+<title>CookCook - 로그인</title>
 <!-- JQuery-->
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Bootstrap - CSS only -->

@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>CookCook - 공지사항</title>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <!-- 부트스트랩모드가 아닌 lite모드로-->
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">

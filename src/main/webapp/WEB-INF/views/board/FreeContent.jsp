@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>CookCook - 자유게시판</title>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <!-- 부트스트랩모드가 아닌 lite모드로-->
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -48,7 +48,7 @@
                 <c:when test="${user == result.memberCode}">
                     <div class="container ct">
 
-                        <div class="row header">
+                        <div class="row header m-4">
                             <h2>자유게시판</h2>
                             <br>
                         </div>
@@ -60,23 +60,23 @@
                                 <c:choose>
                                     <c:when test="${result.memberAuthGradeCode == 1002 }">
                                         <tr>
-                                            <td>
+                                            <td class="postMemberSort">
                                                 사업자회원
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>글번호 : ${result.code} | 작성자 : ${result.memberCompanyName} </td>
+                                            <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberCompanyName} </td>
                                         </tr>
                                     </c:when>
 
                                     <c:otherwise>
                                         <tr>
-                                            <td>
+                                            <td class="postMemberSort">
                                                 일반회원
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
+                                            <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberNickName} </td>
                                         </tr>
                                     </c:otherwise>
                                 </c:choose>
@@ -85,7 +85,7 @@
                                 <c:choose>
                                     <c:when test="${result.headLineCode == 2001 }">
                                         <tr>
-                                            <td>
+                                            <td class="postHeadline">
                                                 카테고리 : <input id="headlinecode" type="text" value="일상" disabled>
                                             </td>
                                         </tr>
@@ -94,7 +94,7 @@
 
                                     <c:when test="${result.headLineCode == 2002 }">
                                         <tr>
-                                            <td>
+                                            <td class="postHeadline">
                                                 카테고리 : <input id="headlinecode" type="text" value="정보" disabled>
                                             </td>
                                         </tr>
@@ -103,7 +103,7 @@
 
                                     <c:otherwise>
                                         <tr>
-                                            <td>
+                                            <td class="postHeadline">
                                                 카테고리 : <input id="headlinecode" type="text" value="질문" disabled>
                                             </td>
                                         </tr>
@@ -118,13 +118,13 @@
 
 
                                 <tr>
-                                    <td>제목 :
+                                    <td class="postTitle">제목 :
                                         <input class="title" id="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>
+                                    <td class="postContent">
                                         <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>

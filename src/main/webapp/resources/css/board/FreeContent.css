@@ -119,3 +119,18 @@ max-height: 3em;
 .main-footer{
 margin-top:100px;
 }
+.postMemberSort{
+	padding:0.2rem 0.5rem;
+}
+.postHeader{
+	padding:0.2rem 0.5rem;	
+}
+.postHeadline{
+	padding:0.2rem 0.5rem;	
+}
+.postTitle{
+	padding:0.2rem 0.5rem;	
+}
+.postContent{
+	padding:0.5rem;	
+}

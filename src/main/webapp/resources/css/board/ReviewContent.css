@@ -118,3 +118,12 @@ display: none;
 .main-footer{
 margin-top:100px;
 }
+.postHeader{
+	padding:0.2rem 0.5rem;
+}
+.postTitle{
+	padding:0.2rem 0.5rem;
+}
+.postContent{
+	padding:0.5rem;
+}
