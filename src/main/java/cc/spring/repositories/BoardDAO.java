@@ -460,7 +460,7 @@ public class BoardDAO {
 
 	// 자유게시판 댓글의 좋아요 수 가져오기
 	public ReplyFreeDTO selectFreeReplyLikeCount(ReplyFreeDTO dto) {
-		return mybatis.selectOne("Board.selectReplyLikeCount",dto);
+		return mybatis.selectOne("Board.selectFreeReplyLikeCount",dto);
 	}
 
 	// 후기게시판 댓글 좋아요 up

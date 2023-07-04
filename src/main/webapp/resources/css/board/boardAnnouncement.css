@@ -42,3 +42,6 @@ input {
 .main-footer {
 	margin-top: 100px;
 }
+.table-responsive{
+	min-height:500px;
+}

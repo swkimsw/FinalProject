@@ -155,7 +155,7 @@ public class ClientMemberController {
 				String ran = Integer.toString(rand.nextInt(10));
 				numStr+=ran;
 			}
-			SmsService.certifiedPhoneNumber(phone, numStr);
+			SensUtilsService.send_msg(phone, numStr);
 			session.setAttribute("numStr", numStr);	
 			session.setAttribute("phone", phone);
 			
@@ -282,7 +282,7 @@ public class ClientMemberController {
 				String ran = Integer.toString(rand.nextInt(10));
 				numStr+=ran;
 			}
-			SmsService.certifiedPhoneNumber(phone, numStr);
+			SensUtilsService.send_msg(phone, numStr);
 			session.setAttribute("numStr", numStr);	
 		return String.valueOf(true);
 	}

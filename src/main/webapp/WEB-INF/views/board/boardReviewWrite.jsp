@@ -5,7 +5,7 @@
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>CookCook - 후기게시판</title>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <!-- 부트스트랩모드가 아닌 lite모드로-->
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -136,7 +136,7 @@ div>table {
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="button-container">
+                                <td colspan="2" class="button-container pb-5">
                                     <br>
                                     <button id="write" class="btn btn-outline-success" style="margin-bottom:13px;" type="submit">작성</button>
                                      <a href="javascript:window.history.go(-1);">

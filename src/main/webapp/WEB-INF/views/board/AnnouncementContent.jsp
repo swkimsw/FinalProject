@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <c:set var="path" value="${pageContext.request.contextPath}" />
         <!DOCTYPE html>
         <html>
 
         <head>
             <meta charset="UTF-8">
-            <title>Insert title here</title>
+            <title>CookCook - 공지사항</title>
             <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
             <!-- 부트스트랩모드가 아닌 lite모드로-->
             <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -50,7 +51,7 @@
                 <c:when test="${user == result.memberCode}">
                     <div class="container ct">
 
-                        <div class="row header">
+                        <div class="row header m-4">
                             <h2>공지게시판</h2>
                             <br>
                         </div>
@@ -62,7 +63,7 @@
 
 
                                 <tr>
-                                    <td>글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
+                                    <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
                                 </tr>
 
                                 <tr>
@@ -73,13 +74,13 @@
 
 
                                 <tr>
-                                    <td>제목 :
+                                    <td class="postTitle">제목 :
                                         <input class="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>
+                                    <td class="postContent">
                                         <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
@@ -119,7 +120,7 @@
                 <c:otherwise>
                     <div class="container ct">
 
-                        <div class="row header">
+                        <div class="row header m-4">
                             <h2>공지게시판</h2>
                             <br>
                         </div>
@@ -128,7 +129,7 @@
                             <table>
 
                                 <tr>
-                                    <td>글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
+                                    <td class="postHeader">글번호 : ${result.code} | 작성자 : ${result.memberName} </td>
                                 </tr>
 
                                 <tr>
@@ -138,13 +139,13 @@
                                 </tr>
 
                                 <tr>
-                                    <td>제목 :
+                                    <td class="postTitle">제목 :
                                         <input class="title" type="text" value="${result.title}" disabled>
                                     </td>
                                 </tr>
 
                                 <tr>
-                                    <td>
+                                    <td class="postContent">
                                         <div class="content" id="content">${result.content}</div>
                                     </td>
                                 </tr>
@@ -688,9 +689,11 @@
 
                 // 댓글 신고하기 버튼 클릭 시
                 $(".replyReport").on("click", function () {
-                    replyCode = $(this).parent().prev().children().next().children().next().next().html();
-                    replyMemberCode = $(this).parent().prev().prev().prev().html();
-                    window.open("/board/AnnouncementReport?postcode=" + ${ result.code } + "&boardKindCode=1001&reporterCode=" + ${ sessionScope.code } + "&reporteeCode=" + replyMemberCode + "&replyCode=" + replyCode, "", "width=500px, height=600px");
+               		var replyMemberName = $(this).parent().prev().children().next().children().html();
+            	 	var replyCompanyName = $(this).parent().prev().children().next().children().next().html();
+                    var replyCode = $(this).parent().prev().children().next().children().next().next().html();
+                    var replyMemberCode = $(this).parent().prev().prev().prev().html();
+                    window.open("/board/AnnouncementReplyReport?postcode=" + ${ result.code } + "&boardKindCode=1001&reporterCode=" + ${ sessionScope.code } + "&reporteeCode=" + replyMemberCode + "&replyCode=" + replyCode + "&replyMemberName=" + replyMemberName + "&replyCompanyName=" + replyCompanyName, "", "width=500px, height=600px");
 
                 })
                     
