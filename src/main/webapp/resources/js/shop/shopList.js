@@ -63,7 +63,7 @@
 										keyword = "";
 
 									} else {
-										div = "<div class='col-xxl-12 pt-5 pb-1 text-center' style='color:#007936;margin-bottom:400px;'><hr/><p class='fs-6'> <i class='bi bi-search'/>"
+										div = "<div class='col-xxl-12 pt-5 pb-1 text-center' style='color:#007936;margin-bottom:600px;'><hr/><p class='fs-6'> <i class='bi bi-search'/>"
 												+ "   '"
 												+ keyword
 												+ "'의 검색결과가 없습니다.</p><hr/></div>";
