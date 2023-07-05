@@ -58,7 +58,7 @@
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
-						<span class="input-group-text">최소 수량</span>
+						<span class="input-group-text">목표 달성 수량</span>
 						<input type="text" class="form-control" id="min" name="min" placeholder="'개' 제외 숫자만 입력해 주세요" required>
 						<span class="input-group-text">개</span>
 					</div>

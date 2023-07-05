@@ -87,7 +87,7 @@
 				</div>
 				<div class="col-12 col-md-8 col-xl-8" style="float:none; margin: 0 auto;">
 					<div class="input-group mb-3">
-						<span class="input-group-text">최소 수량</span>
+						<span class="input-group-text">목표 달성 수량</span>
 						<input type="text" class="form-control" id="min" name="min" value="${shopDTO.min}" required readonly>
 						<span class="input-group-text">개</span>
 					</div>
@@ -404,7 +404,10 @@
 				alert("이미 신청한 공구입니다!");
 				return false;
 			}
-			location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
+			if(confirm("한 번 신청한 공구는 취소할 수 없습니다\n신청 하시겠습니까?")){
+				location.href="/shop/insertShopRequest?quantity="+quantity+"&parentCode="+code+"&memberCode="+memberCode;
+			}
+			return false;			
 		})
 	})
 	</script>
