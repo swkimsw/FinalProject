@@ -76,25 +76,48 @@
 	</select>
 	
 	<select id="clientBuyingList" resultType="cc.spring.dto.MyShopListDTO">
-		select r.code as applyCode, r.membercode, r.quantity, r.regdate as applyDate,
-			m.name,
-			(select companyname from member where code in
-				(select g.membercode from requestlist r
-				left join member m on r.membercode = m.code
-				left join groupbuying g on r.parentcode = g.code
-				left join groupbuyingimg i on g.code = i.postcode
-				where r.membercode = #{code})) as companyname,
-			g.code as groupbuyingcode , g.membercode as businesscode, g.statuscode, s.value as statusvalue,
-			g.deadline, g.title, g.productname, g.productprice, g.regdate,
-			substr(i.path, instr(i.path,'\resources',1,1)) || '\' as path, i.sysname
-		from requestlist r
-		left join member m on r.membercode = m.code
-		left join groupbuying g on r.parentcode = g.code
-		left join groupbuyingimg i on g.code = i.postcode
-		left join status s on g.statuscode = s.code
-		where r.membercode = #{code}
-		and i.code in ( select min(i.code) from groupbuyingimg i group by
-		i.postcode )
+		        SELECT
+    r.code AS applyCode,
+    r.membercode,
+    r.quantity,
+    r.regdate AS applyDate,
+    m.name,
+    (
+        SELECT companyname
+        FROM member
+        WHERE code IN (
+            SELECT g.membercode
+            FROM requestlist r
+            LEFT JOIN member m ON r.membercode = m.code
+            LEFT JOIN groupbuying g ON r.parentcode = g.code
+            LEFT JOIN groupbuyingimg i ON g.code = i.postcode
+            WHERE r.membercode = ${code} AND g.code = outer_g.code
+        )
+    ) AS companyname,
+    outer_g.code AS groupbuyingcode,
+    outer_g.membercode AS businesscode,
+    outer_g.statuscode,
+    s.value AS statusvalue,
+    outer_g.deadline,
+    outer_g.title,
+    outer_g.productname,
+    outer_g.productprice,
+    outer_g.regdate,
+    substr(i.path, instr(i.path, '\resources', 1, 1)) || '\' AS path,
+    i.sysname
+FROM
+    requestlist r
+    LEFT JOIN member m ON r.membercode = m.code
+    LEFT JOIN groupbuying outer_g ON r.parentcode = outer_g.code
+    LEFT JOIN groupbuyingimg i ON outer_g.code = i.postcode
+    LEFT JOIN status s ON outer_g.statuscode = s.code
+WHERE
+    r.membercode = #{code}
+    AND i.code IN (
+        SELECT MIN(i.code)
+        FROM groupbuyingimg i
+        GROUP BY i.postcode
+    )
 		<if test="statusCode != 0">
 			and g.statuscode = ${statusCode}
 		</if>
