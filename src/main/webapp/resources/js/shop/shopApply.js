@@ -46,7 +46,7 @@ $(document).on("click", "#updateCompleteBtn", function(){
 	}
 			
 	if(!resultMin){
-		alert("최소 수량 은 숫자로 입력해 주세요!");
+		alert("목표 달성 수량 은 숫자로 입력해 주세요!");
 		return false;
 	}
 			

@@ -10,6 +10,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cc.spring.dto.FileDTO;
+import cc.spring.dto.MealDTO;
 import cc.spring.dto.MemberDTO;
 import cc.spring.dto.MyShopListDTO;
 import cc.spring.dto.RequestListDTO;
@@ -229,9 +233,30 @@ public class ShopController {
 	 	 	return "/shop/myShopList";
 	 	 }
 	 	 
-	 	 @ResponseBody
-	 	 @RequestMapping("myShopListByStatus")
-	 	 public List<MyShopListDTO> myShopListByStatus(String status) {
+//	 	 @ResponseBody
+//	 	 @RequestMapping("myShopListByStatus")
+//	 	 public List<MyShopListDTO> myShopListByStatus(String status) {
+//	 		//json으로 넘어온 값 형변환
+//		 	int statusCode = Integer.parseInt(status);
+//		 	
+//		 	//세션값 가져오기
+//	 		int code = (Integer)session.getAttribute("code");
+//	 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
+//	 		List<MyShopListDTO> list = new ArrayList<>();
+//	 		//사업자일 때 공구 등록 목록으로 이동
+//	 		if(authGradeCode == 1002) {
+//	 				list = shopService.businessRegisterList(code,statusCode);
+//	 		//일반회원일 때 공구 신청 목록으로 이동
+//	 		}else if(authGradeCode == 1003) {
+//	 				list = shopService.clientBuyingList(code,statusCode);
+//	 		}
+//	 		
+//	 		return list;
+//	 	 }
+	 	 
+	 	@ResponseBody
+ 		@RequestMapping(value="myShopListByStatus",  produces="text/plain;charset=utf-8")
+ 		public ResponseEntity<List<MyShopListDTO>> myShopListByStatus(String status) throws Exception {
 	 		//json으로 넘어온 값 형변환
 		 	int statusCode = Integer.parseInt(status);
 		 	
@@ -239,7 +264,7 @@ public class ShopController {
 	 		int code = (Integer)session.getAttribute("code");
 	 		int authGradeCode = (Integer)session.getAttribute("authGradeCode");
 	 		
-	 		List<MyShopListDTO> list = new ArrayList<>();
+ 			List<MyShopListDTO> list = new ArrayList<>();
 	 		//사업자일 때 공구 등록 목록으로 이동
 	 		if(authGradeCode == 1002) {
 	 				list = shopService.businessRegisterList(code,statusCode);
@@ -247,9 +272,16 @@ public class ShopController {
 	 		}else if(authGradeCode == 1003) {
 	 				list = shopService.clientBuyingList(code,statusCode);
 	 		}
-	 		
-	 		return list;
-	 	 }
+ 			
+ 			System.out.println("Controller: ");
+ 			System.out.println(list.toString());
+ 			
+ 		    // ResponseEntity를 사용하여 결과 반환
+ 		    return ResponseEntity.status(HttpStatus.OK)
+ 		            .contentType(MediaType.APPLICATION_JSON)
+ 		            .body(list);
+ 		}
+	 	 
 	 	 
 	 	 //사업자회원용 공구 신청인 정보 목록: 사업자회원 공구 등록 목록에서 출력
 	 	 @RequestMapping("buyingMemberInfoList")
