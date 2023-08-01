@@ -75,6 +75,7 @@ build/
 
 ### API KEY ###
 src/main/resources/key/CGPK.properties
+src/main/java/cc.spring.provider/SmsKey.java
 
 ###React admin
 src/main/webapp/resources/admin/*
