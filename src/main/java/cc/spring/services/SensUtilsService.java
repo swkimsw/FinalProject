@@ -16,7 +16,9 @@ import javax.crypto.spec.SecretKeySpec;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import cc.spring.provider.SmsKey;
+import cc.spring.commons.SmsKey;
+
+
 
 public class SensUtilsService {
 	@SuppressWarnings("unchecked")
