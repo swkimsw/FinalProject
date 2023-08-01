@@ -16,6 +16,8 @@ import javax.crypto.spec.SecretKeySpec;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import cc.spring.provider.SmsKey;
+
 public class SensUtilsService {
 	@SuppressWarnings("unchecked")
 	public static void send_msg(String tel, String rand) {
@@ -26,9 +28,9 @@ public class SensUtilsService {
         // 요청 URL Type
         String requestUrlType = "/messages";
         // 개인 인증키
-        String accessKey = "GukQFzol2qxv7gnpLXTk";
+        String accessKey = SmsKey.ACCESS_KEY;
         // 2차 인증을 위해 서비스마다 할당되는 service secret
-        String secretKey = "UZB4YR5lteRj9XevCmJULKbL5rlU7AOtIyf1ZS5E";
+        String secretKey = SmsKey.SECRET_KEY;
         // 프로젝트에 할당된 SMS 서비스 ID
         String serviceId = "ncp:sms:kr:310795174047:cookcook";
         // 요청 method
