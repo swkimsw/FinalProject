@@ -202,10 +202,12 @@ public class ClientMemberController {
 	// 비밀번호 재설정
 	@ResponseBody
 	@RequestMapping("changePw")
-	public void changePw(MemberDTO dto) throws Exception {
+	public int changePw(MemberDTO dto) throws Exception {
+		System.out.println(dto.getId());
 		String updatePw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(updatePw);
-		cms.updatePw(dto);
+		int result = cms.updatePw(dto);
+		return result;
 	}
 	
 	// 인증번호 시간초과 시 세션에 저장된 인증번호 삭제

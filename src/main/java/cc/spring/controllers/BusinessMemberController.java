@@ -110,7 +110,8 @@ public class BusinessMemberController {
 		if (code.equals(numStr)) {
 			String phone = (String) session.getAttribute("phone");
 			String businessId = bms.getIdByPhone(phone);
-			result.put("businessId", businessId);
+			MemberDTO bdto = bms.selectBusinessMemberInfo(businessId);
+			result.put("bdto", bdto);
 			result.put("success", true);
 
 			session.removeAttribute("phone");
@@ -122,10 +123,12 @@ public class BusinessMemberController {
 	// 비밀번호 재설정
 	@ResponseBody
 	@RequestMapping("changePw")
-	public void changePw(MemberDTO dto) throws Exception {
+	public int changePw(MemberDTO dto) throws Exception {
 		String updatePw = EncryptionUtils.sha512(dto.getPw());
 		dto.setPw(updatePw);
 		bms.updatePwBusiness(dto);
+		int result = bms.updatePwBusiness(dto);
+		return result;
 	}
 
 	// 로그아웃

@@ -666,6 +666,7 @@ function validateInput(event) {
         });
      });
      // 인증 버튼 이벤트
+     let cId;
      $("#phone_auth_ok").on("click", function () {
         //입력 안했을 경우
         if (!$("#phone_auth_code").val()) {
@@ -687,6 +688,7 @@ function validateInput(event) {
               $("#to_change_pw_fadeIn").fadeIn();
               $("#search_id").text(resp.searchId + " 님!");
               $("#search_id2").text("아이디는 "+resp.searchId + " 입니다");
+           		cId = resp.searchId;
            } else {
               alert("인증번호를 다시 입력해주세요");
               $("#phone_auth_code").val("");
@@ -695,6 +697,7 @@ function validateInput(event) {
      }); 
      
      // 사업자 인증 버튼 이벤트
+     let bId;
      $("#businessPhoneOk").on("click", function () {
          //입력 안했을 경우
          if (!$("#businessPhoneCode").val()) {
@@ -715,8 +718,9 @@ function validateInput(event) {
                $("#find_member_fadeIn2").hide();
                $("#to_phone_authentication_fadeIn2").hide();
                $("#to_change_pw_fadeIn2").fadeIn();
-               $("#businessScId").text(resp.businessId + " 님!");
-               $("#businessScId2").text("아이디는 "+resp.businessId + " 입니다");
+               $("#businessScId").text(resp.bdto.companyName + " 님!");
+               $("#bSearch_id2").text("아이디는 "+resp.bdto.companyName + " 입니다");
+            	bId = resp.bdto.businessId;
             } else {
                alert("인증번호를 다시 입력해주세요");
                $("#businessPhoneCode").val("");
@@ -1025,7 +1029,18 @@ function validateInput(event) {
         let password = $("#password").val();
         let password_check = $("#password_check").val();
         if (password == password_check && password != "" && lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean) {
-			alert("미구현(정규식과 비밀번호는 일치하게 입력했습니다)");
+            $.ajax({
+                url: "/clientMember/changePw",
+                type: "post",
+                dataType: "json",
+                data: { id: cId,
+                		pw: password}
+             }).done(function (resp) {
+				if(resp == 1) {
+					alert("비밀번호가 변경되었습니다.");
+					location.reload();
+				}
+             });
         } else {
            $("#password").val("");
            $("#password_check").val("");
@@ -1038,7 +1053,18 @@ function validateInput(event) {
          let password = $("#businessPw").val();
          let password_check = $("#businessPw_check").val();
          if (password == password_check && password != "" && lengBoolean == true && bigLetterBoolean == true && numBoolean == true && specialCharBoolean) {
-        	 alert("미구현(정규식과 비밀번호는 일치하게 입력했습니다)");
+             $.ajax({
+                 url: "/businessMember/changePw",
+                 type: "post",
+                 dataType: "json",
+                 data: { businessId: bId,
+                 		pw: password}
+              }).done(function (resp) {
+ 				if(resp == 1) {
+ 					alert("비밀번호가 변경되었습니다.");
+ 					location.reload();
+ 				}
+              });
          } else {
             $("#businessPw").val("");
             $("#businessPw_check").val("");

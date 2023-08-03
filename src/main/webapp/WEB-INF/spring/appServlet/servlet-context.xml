@@ -49,6 +49,7 @@
       	 <exclude-mapping path="/shop/searchByKeyword"/>
          <exclude-mapping path="/clientMember/login_form"/>
          <exclude-mapping path="/clientMember/login"/>
+         <exclude-mapping path="/clientMember/changePw"/>
          <exclude-mapping path="/clientMember/signup"/>
          <exclude-mapping path="/clientMember/sign_form"/>
          <exclude-mapping path="/clientMember/sendSmsSign"/>
@@ -60,6 +61,7 @@
          <exclude-mapping path="/clientMember/removeSession"/>
          <exclude-mapping path="/businessMember/login_form"/>
          <exclude-mapping path="/businessMember/login"/>
+         <exclude-mapping path="/businessMember/changePw"/>
          <exclude-mapping path="/businessMember/getIdByPhone"/>
          <exclude-mapping path="/businessMember/sendSmsLogin"/>
          <exclude-mapping path="/businessMember/certificationLogin"/>
