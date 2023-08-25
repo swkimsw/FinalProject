@@ -871,7 +871,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });	
 
-// 와우
+// What???
 
 </script>
 </html>
