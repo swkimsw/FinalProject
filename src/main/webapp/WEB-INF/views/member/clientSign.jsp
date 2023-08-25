@@ -871,7 +871,6 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     });	
 
-// What
 
 </script>
 </html>
