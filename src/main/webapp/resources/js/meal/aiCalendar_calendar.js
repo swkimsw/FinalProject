@@ -16,7 +16,7 @@ function getDayOfWeek(strOfDate) {
 //Date 값을 넣으면 YYYY-MM-DD 형식의 문자열로 반환해주는 함수
 function getFormedDate(date) {
     let formedYear = date.getUTCFullYear();
-    let formedMonth = date.getUTCMonth() + 1 >= 10 ? date.getUTCMonth + 1 : '0' + (date.getUTCMonth() + 1);
+    let formedMonth = date.getUTCMonth() + 1 >= 10 ? date.getUTCMonth() + 1 : '0' + (date.getUTCMonth() + 1);
     let formedDate = date.getDate() >= 10 ? date.getDate() : '0' + date.getDate();
     return formedYear + "-" + formedMonth + "-" + formedDate;
 }
