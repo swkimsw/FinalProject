@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+* {
+	font-family: 'NanumSquareNeo';
+}
+
+body {
+	background-color: rgba(255, 255, 194, 0.5);
+}
+
+textarea {
+	resize: none;
+}
+
+.container {
+	width: 70%;
+	margin-top: 100px;
+	background-color: white;
+}
+
+.memberInfo {
+	margin-top: 2px;
+	border: 0;
+}
+
+.solidHr {
+	margin-left: auto;
+}
+
+.dashedHr {
+	width: 80%;
+	margin-left: 10%;
+	border-top: dashed;
+}
+
+.reply {
+	display: flex;
+}
+
+#insertReply {
+	margin-right: 5%;
+}
+
+#insertReplyBtn {
+	width: 100px;
+	height: 40px;
+	margin-top: 20px;
+}
+
+.replyBtns {
+	width: 100px;
+	margin-top: 1%;
+}
+
+.selectReply {
+	margin-right: 5%;
+}
+
+.selectReplyAnswer {
+	margin-left: 3%;
+	margin-right: 5%;
+}
+
+.selectReplyBtn {
+	width: 100px;
+	height: 40px;
+	margin-bottom: 5px;
+}
+
+.toWriteAnswerBtn {
+	width: 100px;
+	height: 40px;
+	margin-top: 20px;
+}
+
+.writeAnswerBtn {
+	width: 100px;
+	height: 40px;
+	margin-top: 20px;
+}

@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+
+
+
+
+
+<insert id="insertReview">
+
+insert into BoardReview values ( #{code}, 1003 , 3001, #{memberCode} , #{title} , #{content} , 0 , 0, sysdate, null, null)
+
+<selectKey keyProperty="code" resultType="int" order="BEFORE">
+   select board_review_seq.nextval from dual 
+</selectKey>
+
+</insert>
+
+	<!-- 후기게시판 작성 - 이미지 -->
+	<insert id="insertReviewImage">
+		insert into reviewimg values(review_img_seq.nextval,#{postcode}, #{path}, #{oriname}, #{sysname})
+	</insert>
+
+
+
+
+<!-- 
+
+	후기게시판의 고유번호
+	<select id="selectReviewSeq" resultType="int">
+		select
+		board_review_seq.nextval from dual
+	</select>
+
+	후기게시판 작성 
+	<insert id="insertReview">
+		insert into BoardReview values ( #{seq}, 1003 , 3001
+		, #{membercode} , #{dto.title} , #{dto.content} , 0 , 0, sysdate,
+		null,null)
+	</insert>
+
+	 후기게시판 작성 - 이미지 
+	<insert id="insertReviewImage">
+		insert into reviewimg values(review_img_seq.nextval,
+		#{postcode}, #{path}, #{oriname}, #{sysname})
+	</insert>
+	
+ -->
+ 
+ 
+	<!-- 자유게시판 작성 -->
+	<insert id="insertFree">
+		insert into BoardFree values (board_free_seq.nextval,
+		1002 , #{dto.headLineCode} , #{membercode} , #{dto.title} ,
+		#{dto.content} , 0 , 0, sysdate, null,null)
+	</insert>
+
+	<!-- 공지게시판 작성 -->
+	<insert id="insertAnnouncement">
+		insert into BoardAnnouncement values
+		(board_announcement_seq.nextval, 1001 ,1001, #{membercode} , #{dto.title} ,
+		#{dto.content} , 0 , 0, sysdate, null,null)
+	</insert>
+
+
+<!-- ========================================================================================== -->
+
+
+	<!-- 자유게시판리스트 조건에 따라 가져오기 -->
+	<select id="selectFreelist" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from ( select boardFree_view.*, row_number() over(order by code desc) as rn from boardFree_view )
+		where rn between #{start} and #{end}
+	</select>
+
+
+	<!-- 자유게시판리스트 전부 가져오기 -->
+	<select id="selectAllFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view order by regdate desc
+	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기  - 체크 분류(체크값이 단일)-->
+	<select id="selectFreeChecklist" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from ( select boardFree_view.*, row_number() over(order by code desc) as rn from boardFree_view 
+		where headlinecode = #{headLineCode} )
+		where rn between #{start} and #{end}
+	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 체크 분류(체크값이 복수일때) -->
+	<select id="selectFreeCheckslist" resultType="cc.spring.dto.BoardFreeDTO">
+	  SELECT *
+	  FROM (
+	    SELECT boardFree_view.*, ROW_NUMBER() OVER (ORDER BY code DESC) AS rn
+	    FROM boardFree_view
+	    WHERE headlinecode IN 
+	    <foreach collection="headLineCodes" item="item" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	 )
+	  WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+		
+
+	
+	<!-- 자유게시판리스트 전부 가져오기 - 체크분류(단일) -->
+	<select id="selectCheckAllFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where headlinecode = #{headLineCode} order by regdate desc
+	</select>
+	
+	
+	<!-- 자유게시판리스트 전부 가져오기 - 체크분류(복수) -->
+	<select id="selectChecksAllFree"  resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where headlinecode in 
+		<foreach collection="list" index='index' item="item" open="(" separator="," close=")">
+        #{item}
+   		 </foreach>
+		order by regdate desc
+	</select>
+	
+	
+
+
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(제목) -->
+	<select id="selectTitleFree" resultType="cc.spring.dto.BoardFreeDTO">
+	SELECT * FROM ( SELECT boardfree_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardfree_view
+    WHERE title like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+		
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(작성자) -->
+	<select id="selectMemberFree" resultType="cc.spring.dto.BoardFreeDTO">
+	SELECT * FROM ( SELECT boardfree_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardfree_view
+    WHERE membernickname like '%${search}%' or  membercompanyname like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+
+	<!-- 자유게시판리스트 전부 가져오기 - 검색(제목) -->
+	<select id="selectAllTitleFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where title like '%${search}%'  order by regdate desc
+	</select>
+
+
+	<!-- 자유게시판리스트 전부 가져오기 - 검색(작성자) -->
+	<select id="selectAllMemberFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where membernickname like '%${search}%' or membercompanyname like '%${search}%' order by regdate desc
+	</select>
+
+
+	<!-- 자유게시판리스트 전부 가져오기 - 검색(작성자)- 체킹  -->
+	<select id="selectAllMemberCheckFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where (membernickname like '%${search}%' or membercompanyname like '%${search}%') and headlinecode in
+		 <foreach collection="headLineCode" item="item" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+		order by regdate desc
+	</select>
+
+	<!-- 자유게시판리스트 전부 가져오기 - 검색(제목)- 체킹 -->
+	<select id="selectAllTitleCheckFree" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where title like '%${search}%' and headlinecode in
+		 <foreach collection="headLineCode" item="item" open="(" separator="," close=")">
+	      #{item}
+	    </foreach>
+	     order by regdate desc
+	</select>
+	
+	
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(제목) - 체킹 -->
+	<select id="selectTitleCheckFree" resultType="cc.spring.dto.BoardFreeDTO">
+	SELECT * FROM ( SELECT boardfree_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardfree_view
+    WHERE title like '%${search}%' and headlinecode in
+    <foreach collection="headLineCodes" item="item" open="(" separator="," close=")">
+	 #{item}
+	</foreach>
+    )
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+		
+	<!-- 자유게시판리스트 조건에 따라 가져오기 - 검색(작성자) - 체킹  -->
+	<select id="selectMemberCheckFree" resultType="cc.spring.dto.BoardFreeDTO">
+	SELECT * FROM ( SELECT boardfree_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardfree_view
+    WHERE (membernickname like '%${search}%' or  membercompanyname like '%${search}%') and headlinecode in
+    <foreach collection="headLineCodes" item="item" open="(" separator="," close=")">
+	  #{item}
+	</foreach>
+    )
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+	
+
+<!-- ============================================================================================================ -->
+
+	<!-- 공지사항게시판리스트 조건에 따라 가져오기 -->
+	<select id="selectAnnouncementlist" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from ( select boardannouncement_view.*, row_number() over(order by code desc) as rn from boardannouncement_view )
+		where rn between #{start} and #{end}
+	</select>
+
+	<!-- 공지게시판리스트 전부 가져오기 -->
+	<select id="selectAllAnnouncement" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardannouncement_view order by regdate desc
+	</select>
+	
+	<!-- 공지사항게시판리스트 조건에 따라 가져오기 - 검색(제목) -->
+	<select id="selectTitleAnnouncement" resultType="cc.spring.dto.BoardAnnouncementDTO">
+	SELECT * FROM ( SELECT boardannouncement_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardannouncement_view
+    WHERE title like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 공지게시판리스트 전부 가져오기 - 검색(제목) -->
+	<select id="selectAllTitleAnnounc" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardannouncement_view where title like '%${search}%'  order by regdate desc
+	</select>
+	
+	<!-- 공지사항게시판리스트 조건에 따라 가져오기 - 검색(작성자) -->
+	<select id="selectMemberAnnouncement" resultType="cc.spring.dto.BoardAnnouncementDTO">
+	SELECT * FROM ( SELECT boardannouncement_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardannouncement_view
+    WHERE membername like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 공지게시판리스트 전부 가져오기 - 검색(작성자) -->
+	<select id="selectAllMemberAnnounce" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardannouncement_view where membername like '%${search}%'  order by regdate desc
+	</select>
+	
+	
+<!-- ============================================================================================================ -->
+	
+	
+	<!-- 리뷰게시판리스트 조건에 따라 가져오기 -->
+	<select id="selectReviewlist" resultType="cc.spring.dto.BoardReviewDTO">
+		select * from ( select boardReview_view.*, row_number() over(order by code desc) as rn from boardReview_view )
+		where rn between #{start} and #{end}
+	</select>	
+
+	<!-- 리뷰게시판리스트 전부 가져오기 -->
+	<select id="selectAllReview" resultType="cc.spring.dto.BoardReviewDTO">
+		select * from boardReview_view order by regdate desc
+	</select>
+
+	<!-- 리뷰게시판리스트 조건에 따라 가져오기 - 검색(제목) -->
+	<select id="selectTitleReviewlist" resultType="cc.spring.dto.BoardReviewDTO">
+	SELECT * FROM ( SELECT boardReview_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardReview_view
+    WHERE title like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 리뷰게시판리스트 전부 가져오기 - 검색(제목) -->
+	<select id="selectAllTitleReview" resultType="cc.spring.dto.BoardReviewDTO">
+		select * from boardReview_view where title like '%${search}%'  order by regdate desc
+	</select>
+	
+	<!-- 리뷰게시판리스트 조건에 따라 가져오기 - 검색(작성자) -->
+	<select id="selectMemberReviewlist" resultType="cc.spring.dto.BoardReviewDTO">
+	SELECT * FROM ( SELECT boardReview_view.* , ROW_NUMBER() OVER(ORDER BY code DESC) AS rn FROM boardReview_view
+    WHERE membernickname like '%${search}%')
+	WHERE rn BETWEEN #{start} AND #{end}
+	</select>
+
+	<!-- 리뷰게시판리스트 전부 가져오기 - 검색(작성자) -->
+	<select id="selectAllMemberReview" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardReview_view where membernickname like '%${search}%'  order by regdate desc
+	</select>
+<!-- ========================================================================================== -->
+
+	<!-- 자유게시판 해당 글 가져오기 -->
+	<select id="selectFreeContent" resultType="cc.spring.dto.BoardFreeDTO">
+		select * from boardfree_view where code = #{code}
+	</select>
+
+	<!-- 공지게시판 해당 글 가져오기 -->
+	<select id="selectAnnouncementContent" resultType="cc.spring.dto.BoardAnnouncementDTO">
+		select * from boardAnnouncement_view where code = #{code}
+	</select>
+	
+	<!-- 리뷰게시판 해당 글 가져오기 -->
+	<select id="selectReviewContent"
+		resultType="cc.spring.dto.BoardReviewDTO">
+		select * from boardReview_view where code = #{code}
+	</select>
+	
+<!-- ========================================================================================== -->	
+
+	<!-- 공지게시판 조회수 수 증가 -->
+	<update id="updateAnnouncementView">
+	update boardAnnouncement set viewcount = viewcount+1 where code = #{code}
+	</update>
+	
+	
+	<!-- 자유게시판 조회수 수 증가 -->
+	<update id="updateFreeView">
+	update boardFree set viewcount = viewcount+1 where code = #{code}
+	</update>
+
+
+	<!-- 리뷰게시판 조회수 수 증가 -->
+	<update id="updateReviewView">
+	update boardReview set viewcount = viewcount+1 where code = #{code}
+	</update>
+	
+	
+<!-- ========================================================================================== -->
+
+<!-- 자유게시판 수정 -->
+	<update id="updateFree" >
+		update boardFree set headlinecode = #{headLineCode}, title =  #{title}, content = #{content}, moddate = sysdate where code = #{code} 
+	</update>
+
+
+<!-- 공지게시판 수정 -->
+	<update id="updateAnnouncement" >
+		update boardAnnouncement set title =  #{title}, content = #{content}, moddate = sysdate  where code = #{code}
+	</update>
+	
+	
+
+<!-- 리뷰게시판 수정 -->
+	<update id="updateReview" >
+		update boardReview set title =  #{title}, content = #{content} , moddate = sysdate where code = #{code}
+	</update>
+	
+	
+<!-- ========================================================================================== -->	
+
+	<!-- 공지게시판 삭제 -->
+	<delete id="deleteAnnouncement" >
+		delete from boardAnnouncement where code = #{code}
+	</delete>
+	
+	<!-- 리뷰게시판 삭제 -->
+	<delete id="deleteReview" >
+		delete from boardReview where code = #{code}
+	</delete>
+	
+	
+	<!-- 자유게시판 삭제 -->
+	<delete id="deleteFree" >
+		delete from boardFree where code = #{code}
+	</delete>
+	
+<!-- ========================================================================================== -->
+
+<!-- 자유게시판 신고대상이름 가져오기 -->
+
+<select id="selectReporteeNickname" resultType="String">
+      select nickname from member where code = #{reporteeCode}
+</select>
+
+
+<select id="selectReporteeCompanyName" resultType="String">
+      select companyname from member where code = #{reporteeCode}
+</select>
+	
+	
+<!-- 게시판 신고 기능 -->
+	<insert id="insertReport" >
+	<if test="replyCode == 0">
+		insert into report values (report_seq.nextval , #{postcode} , null , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</if>
+	<if test="replyCode != 0">
+		insert into report values (report_seq.nextval , #{postcode} , #{replyCode} , #{boardKindCode} , #{reportKindCode} , #{reporterCode} , #{reporteeCode} , #{detail} , #{statusCode} , sysdate , null, null)
+	</if>
+	</insert>	
+	
+
+<!-- ========================================================================================== -->	
+
+	<!-- 공지게시판 좋아요 수 증가 -->
+	<update id="updateAnnouncementLike">
+	update boardAnnouncement set likecount = ${likeCount} where code = #{code}
+	</update>
+
+	<!-- 자유게시판 좋아요 수 증가 -->
+	<update id="updateFreeLike">
+	update boardFree set likecount = ${likeCount} where code = #{code}
+	</update>
+
+
+	<!-- 리뷰게시판 좋아요 수 증가 -->
+	<update id="updateReviewLike">
+	update boardReview set likecount = ${likeCount} where code = #{code}
+	</update>
+
+<!-- ========================================================================================== -->
+	
+	<!-- 자유게시판 댓글입력 -->
+	<insert id="insertFreeReply">
+		insert into replyfree values(reply_free_seq.nextval, #{postCode}, #{memberCode}, #{content}, #{likeCount}, sysdate, null, null)
+	</insert>
+	
+	<!-- 자유게시판 댓글출력 -->
+	<select id="selectReplyFreeList" resultType="cc.spring.dto.ReplyFreeDTO">
+		SELECT rf.code, rf.postcode, rf.membercode, m.nickname, m.companyname, rf.content, rf.likecount, rf.regdate, rf.moddate, rf.deldate
+		FROM replyfree rf
+		JOIN member m ON rf.membercode = m.code
+		WHERE rf.postcode = #{postCode}
+		ORDER BY rf.code asc
+	</select>
+	
+	<!-- 후기게시판 댓글입력 -->
+	<insert id="insertReviewReply">
+		insert into replyreview values(reply_review_seq.nextval, #{postCode}, #{memberCode}, #{content}, #{likeCount}, sysdate, null, null)
+	</insert>
+	
+	<!-- 후기게시판 댓글출력 -->
+	<select id="selectReplyReviewList" resultType="cc.spring.dto.ReplyReviewDTO">
+		SELECT rr.code, rr.postcode, rr.membercode, m.nickname, m.companyname, rr.content, rr.likecount, rr.regdate, rr.moddate, rr.deldate
+		FROM replyreview rr
+		JOIN member m ON rr.membercode = m.code
+		WHERE rr.postcode = #{postCode}
+		ORDER BY rr.code asc
+	</select>
+	
+	<!-- 공지사항 게시판 댓글입력 -->
+	<insert id="insertAnnouncementReply">
+		insert into replyAnnouncement values(reply_announcement_seq.nextval, #{postCode}, #{memberCode}, #{content}, #{likeCount}, sysdate, null, null)
+	</insert>
+	
+	<!-- 공지사항 게시판 댓글출력 -->
+	<select id="selectReplyAnnouncementList" resultType="cc.spring.dto.ReplyAnnouncementDTO">
+		SELECT ra.code, ra.postcode, ra.membercode, m.nickname, m.companyname, ra.content, ra.likecount, ra.regdate, ra.moddate, ra.deldate
+		FROM replyannouncement ra
+		JOIN member m ON ra.membercode = m.code
+		WHERE ra.postcode = #{postCode}
+		ORDER BY ra.code asc	
+	</select>
+	
+
+	
+	
+	
+<!-- ============================================================================================= -->
+
+	<!-- 자유게시판 댓글 수정 -->
+	<update id="updateFreeReply">
+		update replyfree set content = #{content}, moddate = sysdate where code = #{code}
+	</update>
+	
+	<!-- 후기게시판 댓글 수정 -->
+	<update id="updateReviewReply">
+		update replyreview set content = #{content}, moddate = sysdate where code = #{code}
+	</update>
+	
+	<!-- 공지사항 게시판 댓글 수정 -->
+	<update id="updateAnnouncementReply">
+		update replyAnnouncement set content = #{content}, moddate = sysdate where code = #{code}		
+	</update>
+	
+<!-- ============================================================================================== -->
+	
+	<!-- 자유게시판 댓글 삭제 -->
+	<delete id="deleteFreeReply">
+		delete from replyfree where code = #{code}
+	</delete>
+	
+	<!-- 후기게시판 댓글 삭제 -->
+	<delete id="deleteReviewReply">
+		delete from replyreview where code = #{code}
+	</delete>
+	
+	<!-- 공지사항 게시판 댓글 삭제 -->
+	<delete id="deleteAnnouncementReply">
+		delete from replyannouncement where code = #{code}	
+	</delete>
+
+<!-- ============================================================================================== -->
+
+	<!-- 자유게시판 댓글 좋아요 up -->
+	<update id="upFreeReplyLikeCount">
+		update replyfree set likecount = likecount + 1 where code = #{code}
+	</update>
+
+	<!-- 자유게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectFreeReplyLikeCount" resultType="cc.spring.dto.ReplyFreeDTO">
+		select * from replyfree where code = #{code}
+	</select>
+	
+	<!-- 후기게시판 댓글 좋아요 up -->
+	<update id="upReviewReplyLikeCount">
+		update replyreview set likecount = likecount + 1 where code = #{code}
+	</update>
+	
+	<!-- 후기게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectReviewReplyLikeCount" resultType="cc.spring.dto.ReplyReviewDTO">
+		select * from replyreview where code = #{code}
+	</select>
+	
+	<!-- 공지사항 게시판 댓글 좋아요 up -->
+	<update id="upAnnouncementReplyLikeCount">
+		update replyannouncement set likecount = likecount + 1 where code = #{code}
+	</update>
+	
+	<!-- 공지사항 게시판 댓글의 좋아요 수 가져오기 -->
+	<select id="selectAnnouncementReplyLikeCount" resultType="cc.spring.dto.ReplyAnnouncementDTO">
+		select * from replyannouncement where code = #{code}
+	</select>
+	
+	
+	
+</mapper>

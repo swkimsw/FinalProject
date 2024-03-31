@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+* {
+    font-family: 'NanumSquareNeo';
+    box-sizing: border-box;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+#title {
+    font-family: 'NanumSquareNeoBold';
+}
+
+.c-header {
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+#change_week>button {
+    font-family: 'NanumSquareNeoExtraBold';
+}
+
+#month-year {
+    padding: 5px;
+    color: white;
+    background-color: #007936;
+    border: 1px solid #007936;
+    border-radius: 10px;
+    font-family: 'NanumSquareNeoBold';
+}
+
+.c-body-large,
+.c-body-small {
+    table-layout: fixed;
+}
+
+.c-body-large>tbody>tr>td,
+.c-body-small>tbody>tr>td {
+    height: 0;
+    max-width: 30%;
+}
+
+.c-body-small>tbody>tr>td {
+    width: 30%;
+}
+
+.meal-box {
+    border: 1px solid #CCCCCC;
+    min-height: 120px;
+    height: 100%;
+    padding:10px;
+
+    /*글이 너무 길면 말줄임표로 표시*/
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.meal-box:hover {
+    background-color: #CCCCCC50;
+}
+
+.meal-box:active {
+    background-color: #CCCCCC70;
+}
+
+#change_week>button {
+    color: #007936;
+    background-color: white;
+    border: 2px solid #007936;
+}
+
+#change_week>button:hover {
+    background-color: #00793630;
+}
+
+#change_week>button:active {
+    color: white;
+    background-color: #007936;
+}
+
+.day-header,
+.day-header-blank,
+.time-header,
+.time-header-blank {
+    background-color: #ffffc2;
+    border: 1px solid white;
+    border-color: white;
+}
+
+.meal-name {
+    margin: 10px 0;
+}
+
+.standard-mealList {
+    margin-top: 10px;
+}
+
+.mealListGroup {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.c-footer {
+    margin: 30px 0;
+}
+
+#aiMeal,
+#aiIngredient {
+    font-family: 'NanumSquareNeoBold';
+    border: 2px solid;
+}
+
+.drag-over {
+    border: 3px dashed #00793650;
+}
+
+/* body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.meal-box {
+    -webkit-user-select: all;
+    -moz-user-select: all;
+    -ms-user-select: all;
+    user-select: all
+} */
+
+.ingredientUL{
+	margin:1rem 0;
+}
+.titleLine{
+	margin-top:0.5rem;
+}
+#waitingSpinner{
+    min-height: 200px;
+}

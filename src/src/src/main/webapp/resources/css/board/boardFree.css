@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+* {
+	font-family: NanumSquareNeo;
+}
+
+input {
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.ct {
+	margin-top: 100px;
+	border: 1px solid #e6e6e6;
+}
+
+.table th, td {
+	font-size: 18px;
+	text-align: center;
+}
+
+.title {
+	text-align: left;
+}
+
+.page-item .page-link {
+	color: green;
+}
+
+.page-item.active .page-link {
+	background-color: green;
+	border-color: green;
+	color: white;
+}
+
+.page-item .page-link:hover {
+	background-color: green;
+	border-color: green;
+	color: white;
+}
+
+.form-check-input:checked {
+	background-color: green;
+	border-color: green;
+}
+
+.main-footer {
+	margin-top: 100px;
+}
+.table-responsive{
+	min-height:500px;
+}
