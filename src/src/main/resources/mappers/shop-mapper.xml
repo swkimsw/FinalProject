@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Shop">
+
+	<insert id="insertShop">
+		insert into groupbuying
+		values(groupbuying_seq.currval,${memberCode},1001,#{deadLine},0,${min},#{title},#{detail},#{productName},#{productPrice},2001,sysdate,null,null)
+		<selectKey keyProperty="code" resultType="int"
+			order="BEFORE">
+			select groupbuying_seq.nextval from dual
+		</selectKey>
+	</insert>
+
+	<select id="isClientMemberCode" resultType="int">
+		select code from
+		clientmember where id=#{loginId}
+	</select>
+
+	<select id="isBusinessMemberCode" resultType="int">
+		select code from
+		businessmember where businessid=#{loginId}
+	</select>
+
+	<select id="selectShopInfo" resultType="cc.spring.dto.ShopDTO">
+		select g.code,g.membercode,g.statuscode,g.deadline,g.total,g.min,g.title,g.detail,
+		g.productname,g.productprice,g.boardkindcode,g.regdate,g.moddate,g.deldate,m.businessid 
+		from groupbuying g join member m on g.membercode = m.code where g.code = #{code}
+	</select>
+
+	<update id="updateShop">
+		update groupbuying set
+		deadLine=#{deadLine},min=${min},title=#{title},detail=#{detail},productName=#{productName},productPrice=#{productPrice}, moddate=sysdate
+		where code=${code}
+	</update>
+
+	<delete id="deleteShop">
+		delete from groupbuying where code=#{code}
+	</delete>
+
+	<insert id="insertShopRequest">
+		insert into requestlist
+		values(request_list_seq.nextval,#{memberCode},#{quantity},#{parentCode},1001,sysdate,null,null)
+	</insert>
+	
+	<update id="updateShopTotal">
+		update groupbuying set total = total + ${quantity} where code=${parentCode}
+	</update>
+	
+	<select id="isExistRequest" resultType="int">
+		select count(*) from requestlist where parentcode=${code} and membercode=${memberCode}
+	</select>
+	
+	<select id="countShopRequest" resultType="int">
+		select count(*) from requestlist r
+		join groupbuying g on r.parentcode = g.code
+		where g.membercode = ${code} and g.statuscode = 1001
+	</select>
+
+
+	<select id="shopList" resultType="cc.spring.dto.ShopListDTO">
+		select g.code, g.deadLine, g.statusCode, g.title, g.productName, g.productPrice,
+		m.companyName, m.authGradeCode,
+		i.code as imgcode, substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname
+		from groupbuying g
+		left join member m on g.memberCode = m.code
+		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in ( select min(i.code) from groupbuyingimg i group by i.postcode )
+		order by g.deadline desc
+	</select>
+	
+	<select id="getInfo" resultType="cc.spring.dto.MyShopListDTO">
+		select name, id as clientid, companyname, businessid
+		from member where code = #{code}
+	</select>
+	
+	<select id="clientBuyingList" resultType="cc.spring.dto.MyShopListDTO">
+		        SELECT
+    r.code AS applyCode,
+    r.membercode,
+    r.quantity,
+    r.regdate AS applyDate,
+    m.name,
+    (
+        SELECT companyname
+        FROM member
+        WHERE code IN (
+            SELECT g.membercode
+            FROM requestlist r
+            LEFT JOIN member m ON r.membercode = m.code
+            LEFT JOIN groupbuying g ON r.parentcode = g.code
+            LEFT JOIN groupbuyingimg i ON g.code = i.postcode
+            WHERE r.membercode = ${code} AND g.code = outer_g.code
+        )
+    ) AS companyname,
+    outer_g.code AS groupbuyingcode,
+    outer_g.membercode AS businesscode,
+    outer_g.statuscode,
+    s.value AS statusvalue,
+    outer_g.deadline,
+    outer_g.title,
+    outer_g.productname,
+    outer_g.productprice,
+    outer_g.regdate,
+    substr(i.path, instr(i.path, '\resources', 1, 1)) || '\' AS path,
+    i.sysname
+FROM
+    requestlist r
+    LEFT JOIN member m ON r.membercode = m.code
+    LEFT JOIN groupbuying outer_g ON r.parentcode = outer_g.code
+    LEFT JOIN groupbuyingimg i ON outer_g.code = i.postcode
+    LEFT JOIN status s ON outer_g.statuscode = s.code
+WHERE
+    r.membercode = #{code}
+    AND i.code IN (
+        SELECT MIN(i.code)
+        FROM groupbuyingimg i
+        GROUP BY i.postcode
+    )
+		<if test="statusCode != 0">
+			and g.statuscode = ${statusCode}
+		</if>
+	</select>
+	
+	<select id="businessRegisterList" resultType="cc.spring.dto.MyShopListDTO">
+		select g.code as groupbuyingcode , g.membercode as businesscode ,
+		g.statuscode, g.deadline, g.title, g.productname, g.productprice, g.regdate,
+		m.companyname,
+		count(r.parentcode) as applycount, 
+		nvl(sum(r.quantity),0) as applyquantity, g.min
+		from groupbuying g
+		left join member m on g.membercode = m.code
+		left join requestlist r on r.parentcode = g.code
+		where g.membercode = #{code}
+		<choose>
+			<when test="statusCode != 0">
+				and g.statuscode = #{statusCode}
+				group by g.code, g.membercode, g.statuscode,g.deadline, g.title, g.productname, g.productprice,g.regdate, m.companyname, r.parentcode, g.min
+				order by g.deadline desc
+			</when>
+			<when test="statusCode == 0">
+				group by g.code, g.membercode, g.statuscode,g.deadline, g.title, g.productname, g.productprice,g.regdate, m.companyname, r.parentcode, g.min
+				order by g.deadline desc
+			</when>
+		</choose>
+	</select>
+	
+	<select id="groupbuyingCountByStatus" resultType="cc.spring.dto.MyShopListDTO">
+		SELECT s.statuscode, COALESCE(g.statusCount, 0) AS statusCount
+		FROM (
+		SELECT 1001 AS statuscode FROM DUAL
+		UNION ALL SELECT 1002 FROM DUAL
+		UNION ALL SELECT 1003 FROM DUAL
+		) s
+		LEFT JOIN (
+		SELECT statuscode, COUNT(*) AS statusCount
+		FROM groupbuying
+		WHERE membercode = ${code} AND statuscode IN (1001, 1002, 1003)
+		GROUP BY statuscode
+		) g ON g.statuscode = s.statuscode
+		ORDER BY s.statuscode
+	</select>
+	
+	<select id="buyingMemberInfoList" resultType="cc.spring.dto.MyShopListDTO">
+		select r.code as applycode, r.membercode, r.quantity, r.regdate as applydate,
+		m.id as clientid , m.name, m.phone, m.email, m.zipcode, m.address1, m.address2,
+		g.membercode as businessCode, g.productprice
+		from requestlist r
+		left join member m on r.membercode = m.code
+		left join groupbuying g on r.parentcode = g.code
+		where r.parentcode = #{groupbuyingCode}
+	</select>
+	
+	<select id="getStatusList" resultType="cc.spring.dto.ShopListDTO">
+		select g.code, g.deadline, g.statuscode, g.title, g.productname, g.productprice, 
+		m.companyname, m.authGradeCode, 
+		i.code as imgcode, substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname
+		from groupbuying g
+		left join member m on g.membercode = m.code
+		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in (select min(i.code) from groupbuyingimg i group by i.postcode)
+        <choose>
+			<when test="status == 'closed'">
+				and g.statuscode in (1002,1003) order by g.deadline desc
+			</when>
+			<when test="status == 'open'">
+				and g.statuscode = 1001 order by g.deadline desc
+			</when>
+		</choose>
+	</select>
+
+	<select id="searchByKeyword" resultType="cc.spring.dto.ShopListDTO">
+		select g.code, g.deadline, g.statuscode, g.title, g.productname, g.productprice, 
+		m.companyname, m.authGradeCode, 
+		i.code as imgcode, substr(i.path, instr(i.path,'\resources',1,1))||'\' as path, i.sysname
+		from groupbuying g
+		left join member m on g.membercode = m.code
+		left join groupbuyingimg i on g.code = i.postcode
+		where i.code in (select min(i.code) from groupbuyingimg i group by i.postcode)
+        <choose>
+			<when test="category == 'productName'">
+				and g.productName like '%${keyword}%' order by g.deadline desc
+			</when>
+			<when test="category == 'companyName'">
+				and m.companyName like '%${keyword}%' order by g.deadline desc
+			</when>
+		</choose>
+	</select>
+</mapper>
