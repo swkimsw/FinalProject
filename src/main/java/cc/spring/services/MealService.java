@@ -4,11 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,8 +70,14 @@ public class MealService {
 		return mealDAO.selectWeekMeal(memberCode, startDate, endDate);
 	}
 
-	@Value("#{${SPECIAL-VALUES}}")
-	private Map<Integer, String> specialValues;
+	private Map<Integer, String> specialValues = new HashMap<>(){
+		{
+			put(1000, "");
+			put(1001, " 비건");
+			put(1002, " 다이어트");
+			put(1003, " 비건 다이어트");
+		}
+	};
 	
 	// content 까지는 provider에서 가공해서 가져오고 그뒤는 service에서 각자 가공하기
 	// 식단 추출 기능
