@@ -72,7 +72,7 @@
 					<img src="/resources/img/foodWithPlate2.png" alt="logo" class="img">
 				</div>
 				<div class="title col-12 col-md-4 text-center">
-					<h1>쉽고 직관적인 식단관리</h1>
+					<h1>쉽고 메롱 직관적인 식단관리</h1>
 					<h3>AI 식단추천</h3>
 					<h5>COOKCOOK</h5>
 				</div>
