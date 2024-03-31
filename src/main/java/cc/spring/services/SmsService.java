@@ -4,14 +4,15 @@ import java.util.HashMap;
 
 import org.json.simple.JSONObject;
 
+import cc.spring.commons.SmsKey;
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 public class SmsService {
 	
 	public static void certifiedPhoneNumber(String phone, String numStr) {
-		String api_key = "NCSPVN7IX5NELCXZ";
-	    String api_secret = "RBWSJNW3YKIW2KJBVWA2EDCQ75LU98KZ";
+		String api_key = SmsKey.ACCESS_KEY;
+	    String api_secret = SmsKey.SECRET_KEY;
 	    Message coolsms = new Message(api_key, api_secret);
 
 	    // 4 params(to, from, type, text) are mandatory. must be filled
